@@ -1,0 +1,17 @@
+.navBarContainer {
+  display: flex;
+  box-sizing: border-box;
+  max-width: 1170px;
+  height: 85px;
+  margin: 0px auto;
+  align-items: center;
+  padding: 20px 5px;
+}
+
+.pageLink {
+  width: 60px;
+  height: 45px;
+  margin: 0px 10px;
+  text-align: center;
+  line-height: 45px;
+}
