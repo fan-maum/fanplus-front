@@ -1,7 +1,7 @@
 import React from 'react';
 
-const loading = () => {
+const communityLoading = () => {
   return <div>Loading..</div>;
 };
 
-export default loading;
+export default communityLoading;

@@ -1,3 +1,76 @@
-export default function Home() {
-  return <div style={{ margin: '100px' }}>HomePage!</div>;
-}
+import React from 'react';
+
+const Homepage = () => {
+  return (
+    <>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+      <div>This is Korean Homepage</div>
+    </>
+  );
+};
+
+export default Homepage;

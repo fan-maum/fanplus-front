@@ -1,18 +1,25 @@
-import React, { MouseEventHandler } from 'react';
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
 import styles from './styles/navBar.module.css';
+import { useRouter } from 'next/navigation';
 
 type PageLinkPropType = {
   title: string;
-  onClick: MouseEventHandler<HTMLElement>;
+  link: string;
+  // onClick: MouseEventHandler<HTMLElement>;
 };
 
-const PageLink = ({ title, onClick }: PageLinkPropType) => {
-  const link = title === '투표' ? 'votes' : 'community';
+const PageLink = ({ title, link }: PageLinkPropType) => {
+  const router = useRouter();
+
   return (
-    <Link href={'/' + link} className={styles.pageLink}>
-      {title}
-    </Link>
+    <li className={styles.list}>
+      <Link href={link} className={styles.pageLink}>
+        {title}
+      </Link>
+    </li>
   );
 };
 
