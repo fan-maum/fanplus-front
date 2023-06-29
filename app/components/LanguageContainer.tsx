@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import styles from './styles/navBar.module.css';
-import LanguageList from './LanguageList';
+import React, { useState } from "react";
+import styles from "./styles/navBar.module.css";
+import LanguageList from "./LanguageList";
 
 const LanguageContainer = ({ currLang }: { currLang?: string }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -14,16 +14,11 @@ const LanguageContainer = ({ currLang }: { currLang?: string }) => {
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       className={styles.list}
-      style={{ position: 'relative' }}
+      style={{ position: "relative" }}
     >
       <div className={styles.pageLink}>lang-btt</div>
       {isHovered && <LanguageList />}
     </li>
-
-    // <>
-    //   <LanguageButton />
-    //   <LanguageList />
-    // </>
   );
 };
 
