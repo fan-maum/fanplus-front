@@ -1,0 +1,13 @@
+{
+  "NavBar": {
+    "vote": "vote",
+    "community": "community",
+    "aboutUs": "About Us",
+    "recruit": "",
+    "business": "Business Inquiry",
+    "FAQ": "FAQ",
+    "language": "English"
+  },
+  "MainPage": {
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "NavBar": {
+    "vote": "투표",
+    "community": "커뮤니티",
+    "aboutUs": "서비스 소개",
+    "recruit": "채용",
+    "business": "비즈니스 문의",
+    "FAQ": "FAQ",
+    "language": "한국어"
+  },
+  "MainPage": {
+  }
+}
