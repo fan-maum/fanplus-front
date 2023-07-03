@@ -1,16 +1,18 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 const MainLogo = () => {
   return (
-    <Link href={'/'}>
+    <Link href={"/"}>
       <Image
         src="/images/fanplus_logo_hor.png"
         alt="Fanplus 로고"
         width={130}
         height={28}
-        style={{ margin: '0px 15px' }}
+        style={{ margin: "0px 15px" }}
+        quality={100}
+        priority={true}
       ></Image>
     </Link>
   );

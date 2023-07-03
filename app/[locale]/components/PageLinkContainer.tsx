@@ -17,7 +17,7 @@ const PageLinkContainer = () => {
       </ul>
       <ul className={styles.ul}>
         <PageLink title={title("aboutUs")} link="/" />
-        {title("recruit") !== "" && (
+        {title("recruit") && (
           <PageLink
             title={title("recruit")}
             link="https://www.wanted.co.kr/search?query=%ED%8C%AC%EB%A7%88%EC%9D%8C"

@@ -48,16 +48,26 @@
 }
 
 .languageList {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 32px;
   padding-top: 10px;
-  z-index: 3;
+  z-index: 1;
 }
 
-.language {
+.languageBox {
+  display: flex;
   width: 210px;
   height: 40px;
   line-height: 40px;
   padding-left: 16px;
   border-bottom: 1px solid grey;
+  align-items: center;
+}
+
+.languageLink {
+  text-decoration: none;
+  color: black;
+  margin: 3px;
 }

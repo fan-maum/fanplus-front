@@ -5,9 +5,9 @@ import Language from "./Language";
 const LanguageList = () => {
   return (
     <div className={styles.languageList}>
-      <Language language="한국어" />
-      <Language language="English" />
-      <Language language="Español" />
+      <Language language="한국어" href="/ko" />
+      <Language language="English" href="/en" />
+      {/* <Language language="Español" /> */}
       {/* <Language language="한국어" />
       <Language language="한국어" /> */}
     </div>
