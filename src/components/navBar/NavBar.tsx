@@ -3,6 +3,7 @@ import MainLogo from './MainLogo';
 import PageLinkContainer from './PageLinkContainer';
 import { css } from '@emotion/react';
 import { useState } from 'react';
+import SideBar from './SideBar';
 
 const NavBar = () => {
   const [sideBar, setSideBar] = useState(false);
@@ -39,6 +40,7 @@ const NavBar = () => {
         </div>
       </div>
       <div css={backGroundStyle} />
+      {sideBar && <SideBar />}
     </>
   );
 };
