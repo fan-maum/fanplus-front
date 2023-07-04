@@ -18,6 +18,14 @@ export interface FirstRankStarData {
   VOTE_CNT: number; // string?
 }
 
+export interface VoteDataTemp {
+  PAGE: number;
+  PER_PAGE: number;
+  RETURN_CNT: number;
+  TYPE: string;
+  voteData: VoteData[];
+}
+
 export interface VoteResponse {
   RESULTS: {
     ERROR: number;

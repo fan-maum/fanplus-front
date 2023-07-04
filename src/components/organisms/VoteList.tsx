@@ -1,12 +1,13 @@
-import { VoteData } from '@/types/vote';
-import { Stack } from '../atoms/Stack';
+import { VoteDataTemp } from '@/types/vote';
 import VoteListItem from './VoteListItem';
 
 export interface VoteListProps {
   status: 'A' | 'B' | 'R';
+  list: VoteDataTemp;
 }
 
-function VoteList({ status, ...props }: VoteListProps) {
+function VoteList({ status, list, ...props }: VoteListProps) {
+  console.log(list);
   return (
     <div
       css={[

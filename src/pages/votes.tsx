@@ -20,8 +20,9 @@ const Votes = ({ initialData }: EventProps) => {
     state: [tabState, setTabState as Dispatch<SetStateAction<string>>],
   };
 
-  const VoteListProps = {
+  const VoteListProps: VoteListProps = {
     status: tabState,
+    list: data,
   };
 
   return (
