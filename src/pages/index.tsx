@@ -2,10 +2,15 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
+import { useState } from 'react';
+import SideBar from '@/components/navBar/SideBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const [sideBarOpened, setSideBarOpened] = useState(false);
+  const openSideBar = () => setSideBarOpened(true);
+  const closeSideBar = () => setSideBarOpened(false);
   return (
     <>
       <Head>
@@ -35,6 +40,10 @@ export default function Home() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div>main page</div>
+        <button style={{ width: '100px', height: '100px' }} onClick={openSideBar}>
+          버튼
+        </button>
+        {sideBarOpened && <SideBar />}
       </main>
     </>
   );
