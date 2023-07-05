@@ -2,15 +2,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
-import { useState } from 'react';
-import SideBar from '@/components/navBar/SideBar';
+import { useContext } from 'react';
+import { LangContext } from './_app';
+import { LangContextType } from '@/types/contextTypes';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const [sideBarOpened, setSideBarOpened] = useState(false);
-  const openSideBar = () => setSideBarOpened(true);
-  const closeSideBar = () => setSideBarOpened(false);
+  const { currLang } = useContext(LangContext) as LangContextType;
   return (
     <>
       <Head>
@@ -39,11 +38,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div>main page</div>
-        <button style={{ width: '100px', height: '100px' }} onClick={openSideBar}>
-          버튼
-        </button>
-        {sideBarOpened && <SideBar />}
+        {currLang === 'KOR' && <div>main page</div>}
+        {currLang === 'ENG' && <div>Select English</div>}
       </main>
     </>
   );

@@ -1,0 +1,28 @@
+.list {
+  list-style-type: none;
+  float: left;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-stretch: 100%;
+  font-weight: 500;
+  color: rgb(102, 102, 102);
+  letter-spacing: normal;
+  position: relative;
+}
+
+.pageLink {
+  display: flex;
+  margin: 0px 8px;
+  padding: 0px 8px;
+  text-align: center;
+  line-height: 32px;
+  color: rgb(102, 102, 102);
+  text-decoration: none;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 7px;
+  width: 14px;
+  height: 14px;
+}

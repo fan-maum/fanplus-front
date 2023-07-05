@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.ul {
+  padding: 10px;
+}
+
+.ul_service {
+  display: flex;
+}
+
+@media screen and (max-width: 991px) {
+  .ul_service {
+    display: none;
+  }
+}
