@@ -6,13 +6,14 @@ import { Stack } from '../atoms/Stack';
 import { Center } from '../atoms/Center';
 
 export interface PromotionTitleProps {
-  endDate: Date;
-  STAR_NAME: string;
+  remainTime: number;
+  endDate: string;
+  starName: string;
 }
 
 const today = new Date();
 
-export default function VoteTitle({ endDate, STAR_NAME }: PromotionTitleProps) {
+export default function VoteTitle({ remainTime, endDate, starName }: PromotionTitleProps) {
   //   const [seconds, setSeconds] = useState<number>();
   //   const interval = useInterval(() => setSeconds((s) => s && s - 1), 1000);
   //   useEffect(() => {
@@ -21,7 +22,7 @@ export default function VoteTitle({ endDate, STAR_NAME }: PromotionTitleProps) {
   //     return interval.stop;
   //   }, []);
   //   const remainTime = formatTime(seconds);
-  const remainTime = 1;
+
   const activeBackgroundColor = remainTime ? '#FFD950' : '#666';
   const activeColor = remainTime ? '#000' : '#fff';
   return (
@@ -71,7 +72,7 @@ export default function VoteTitle({ endDate, STAR_NAME }: PromotionTitleProps) {
               ]}
             />
           </span>
-          {STAR_NAME}
+          {starName}
         </>
       )}
     </Stack>

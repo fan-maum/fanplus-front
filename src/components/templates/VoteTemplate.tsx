@@ -6,7 +6,7 @@ export interface VoteTemplateProps {
 function VoteTemplate({ ...props }: VoteTemplateProps) {
   const { voteListTab, voteList } = props;
   return (
-    <div>
+    <div css={{ marginTop: 25 }}>
       {voteListTab}
       {voteList}
     </div>

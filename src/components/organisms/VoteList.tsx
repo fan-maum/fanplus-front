@@ -3,11 +3,11 @@ import VoteListItem from './VoteListItem';
 
 export interface VoteListProps {
   status: 'A' | 'B' | 'R';
-  list: VoteResponse;
+  voteList: VoteResponse;
 }
 
-function VoteList({ status, list, ...props }: VoteListProps) {
-  console.log(list);
+function VoteList({ status, voteList, ...props }: VoteListProps) {
+  const voteDatas = voteList.RESULTS.DATAS.DATA;
   return (
     <div
       css={[
@@ -25,10 +25,9 @@ function VoteList({ status, list, ...props }: VoteListProps) {
         },
       ]}
     >
-      <VoteListItem />
-      <VoteListItem />
-      <VoteListItem />
-      <VoteListItem />
+      {voteDatas.map((item) => (
+        <VoteListItem key={item.VOTE_IDX} voteData={item} />
+      ))}
     </div>
   );
 }

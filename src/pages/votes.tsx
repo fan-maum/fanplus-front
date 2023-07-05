@@ -11,8 +11,6 @@ const Votes = ({ initialData }: EventProps) => {
   const [data, setData] = useState(initialData);
   const [tabState, setTabState] = useState<'A' | 'B' | 'R'>('A');
 
-  console.log(data);
-
   const VoteListTabProps: VoteListTabProps = {
     tabs: [
       { label: '전체', value: 'A' },
@@ -24,7 +22,7 @@ const Votes = ({ initialData }: EventProps) => {
 
   const VoteListProps: VoteListProps = {
     status: tabState,
-    list: data,
+    voteList: data,
   };
 
   return (
