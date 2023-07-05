@@ -1,10 +1,10 @@
-import styles from './styles/navBar.module.css';
+import styles from './styles/LanguageContainer.module.css';
 import Language from './Language';
 import { css } from '@emotion/react';
 
-const LanguageList = () => {
+const LanguageContainer = () => {
   return (
-    <div className={styles.languageList}>
+    <div className={styles.container}>
       <Language language="한국어" href="/" />
       <Language language="English" href="https://fanplus.co.kr/en/about_fanplus_en/" />
       {/* <Language language="Español" href="/" /> */}
@@ -14,4 +14,4 @@ const LanguageList = () => {
   );
 };
 
-export default LanguageList;
+export default LanguageContainer;
