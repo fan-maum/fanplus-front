@@ -11,6 +11,8 @@ const Votes = ({ initialData }: EventProps) => {
   const [data, setData] = useState(initialData);
   const [tabState, setTabState] = useState<'A' | 'B' | 'R'>('A');
 
+  console.log(data);
+
   const VoteListTabProps: VoteListTabProps = {
     tabs: [
       { label: '전체', value: 'A' },
@@ -40,7 +42,6 @@ export const getServerSideProps = async () => {
   if (!initialData) {
     return false;
   }
-
   return {
     props: { initialData },
   };

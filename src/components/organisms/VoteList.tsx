@@ -1,9 +1,9 @@
-import { VoteDataTemp } from '@/types/vote';
+import { VoteResponse } from '@/types/vote';
 import VoteListItem from './VoteListItem';
 
 export interface VoteListProps {
   status: 'A' | 'B' | 'R';
-  list: VoteDataTemp;
+  list: VoteResponse;
 }
 
 function VoteList({ status, list, ...props }: VoteListProps) {
