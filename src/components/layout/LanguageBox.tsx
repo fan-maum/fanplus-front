@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './styles/LanguageBox.module.css';
 import LanguageList from './LanguageContainer';
 import { css } from '@emotion/react';

@@ -7,7 +7,7 @@ import { LangContext } from '@/pages/_app';
 import { LangContextType } from '@/types/contextTypes';
 import { useContext } from 'react';
 
-const PageLinkContainer = () => {
+const NavContainer = () => {
   const { currLang } = useContext(LangContext) as LangContextType;
 
   return (
@@ -30,4 +30,4 @@ const PageLinkContainer = () => {
   );
 };
 
-export default PageLinkContainer;
+export default NavContainer;
