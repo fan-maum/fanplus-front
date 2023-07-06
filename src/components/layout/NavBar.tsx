@@ -8,6 +8,7 @@ import { LangContextType, SideBarContextType } from '@/types/contextTypes';
 
 const NavBar = () => {
   const { currLang, setCurrLang } = useContext(LangContext) as LangContextType;
+  const { setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
 
   return (
     <>
@@ -15,6 +16,13 @@ const NavBar = () => {
         <div className={styles.navBarContainer}>
           <MainLogo />
           <PageLinkContainer />
+          <a href="#">
+            <img
+              src="/사이드바.svg"
+              className={styles.iconStyle}
+              onClick={() => setIsSideBar(true)}
+            />
+          </a>
         </div>
       </div>
       <div className={styles.backgroundStyle} />

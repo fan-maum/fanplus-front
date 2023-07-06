@@ -20,12 +20,22 @@
   height: 85px;
 }
 
+.iconStyle {
+  display: none;
+  margin-right: 15px;
+  width: 24px;
+  height: 21px;
+}
+
 @media screen and (max-width: 991px) {
   .navBarContainer {
     height: 70px;
   }
   .backgroundStyle {
     height: 70px;
+  }
+  .iconStyle {
+    display: block;
   }
 }
 
