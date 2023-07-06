@@ -9,7 +9,7 @@ export const LangContext = createContext<LangContextType | null>(null);
 export const SideBarContext = createContext<SideBarContextType | null>(null);
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [currLang, setCurrLang] = useState<LangType>('한국어');
+  const [currLang, setCurrLang] = useState<LangType>('English');
   const [isSideBar, setIsSideBar] = useState<boolean>(false);
   return (
     <>

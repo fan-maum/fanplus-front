@@ -1,0 +1,109 @@
+.fontSize {
+  --p-font-size-22: 22px;
+  --p-font-size-20: 20px;
+  --p-font-size-18: 18px;
+  --p-font-size-16: 16px;
+  --p-font-size-14: 14px;
+}
+.container {
+  white-space: nowrap;
+}
+.container h1 {
+  font-size: 56px;
+}
+.container h2 {
+  font-size: 44px;
+}
+.container h3 {
+  font-size: 40px;
+}
+.container p {
+  font-size: 20px;
+}
+
+.area {
+  padding: 100px 0px;
+}
+.center {
+  display: flex;
+  margin: 0px auto;
+  justify-content: center;
+  max-width: 1170px;
+}
+.flex_col {
+  flex-direction: column;
+}
+.grey {
+  background-color: #fafbfd;
+}
+.pink {
+  background-color: #fff5f5;
+}
+
+.imgContainer1 {
+  width: 45%;
+  align-self: center;
+}
+.img1 {
+  width: 100%;
+}
+.textBox {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-self: center;
+  width: 55%;
+}
+.text1 {
+  align-self: center;
+  justify-self: center;
+  margin: 0px 10px 40px 10px;
+}
+.imgContainer2 {
+  align-self: center;
+  width: 75%;
+  max-width: 585px;
+}
+.img2 {
+  width: 100%;
+}
+.text2 {
+  text-align: center;
+}
+
+@media screen and (max-width: 991px) {
+  .area {
+    padding: 80px 10px;
+  }
+  .container h1 {
+    font-size: 44px;
+  }
+  .container h2 {
+    font-size: 36px;
+  }
+  .container h3 {
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container h1 {
+    font-size: 34px;
+  }
+  .container h2 {
+    font-size: 30px;
+  }
+  .container h3 {
+    font-size: 30px;
+  }
+  .center.change {
+    flex-direction: column-reverse;
+  }
+  .imgContainer1 {
+    width: 70%;
+  }
+  .textBox {
+    margin-top: 30px;
+    text-align: center;
+  }
+}
