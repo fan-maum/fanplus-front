@@ -12,7 +12,7 @@ const remainTime = 1;
 
 const VoteListItem = ({ voteData, ...props }: VoteListItemProps) => {
   return (
-    <Stack align="center" spacing={12} miw={332} css={{ cursor: 'pointer' }}>
+    <Stack align="center" spacing={12} /* miw={332} */ css={{ cursor: 'pointer' }}>
       <VoteTitle
         remainTime={remainTime}
         endDate={voteData.END_DATE}
