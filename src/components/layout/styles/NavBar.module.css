@@ -20,19 +20,12 @@
   height: 85px;
 }
 
-.iconStyle {
-  display: none;
-}
-
 @media screen and (max-width: 991px) {
   .navBarContainer {
     height: 70px;
   }
   .backgroundStyle {
     height: 70px;
-  }
-  .iconStyle {
-    display: block;
   }
 }
 

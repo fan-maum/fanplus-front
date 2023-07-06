@@ -1,23 +1,34 @@
-.ul {
-  width: 440px;
-  height: 100vh;
-  background-color: white;
-  z-index: 10;
-}
-
-.modalBackground {
+.modal {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 10;
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+.modal.open {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.ul {
+  width: 80%;
+  max-width: 440px;
+  min-width: 240px;
+  height: 100vh;
+  background-color: white;
+  z-index: 10;
+  animation: slideLeft 0.3s ease-in-out;
+}
+
+.ul.open {
+  animation: slideRight 0.3s ease-in-out;
 }
 
 .list {
   flex-direction: column;
   list-style-type: none;
   float: left;
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-stretch: 100%;
   font-weight: 500;
@@ -32,5 +43,44 @@
     padding: 10px 20px;
     border-bottom: 1px solid rgb(102, 102, 102);
     font-size: 13px;
+  }
+  .menu {
+    padding: 12px 50px 12px 20px;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-240px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-240px);
   }
 }

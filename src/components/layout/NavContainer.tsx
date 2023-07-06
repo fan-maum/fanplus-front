@@ -3,8 +3,14 @@ import ServiceBox from './ServiceBox';
 import LanguageBox from './LanguageBox';
 import styles from './styles/NavContainer.module.css';
 import { css } from '@emotion/react';
+import { SideBarContext, LangContext } from '@/pages/_app';
+import { SideBarContextType, LangContextType } from '@/types/contextTypes';
+import { useContext } from 'react';
 
 const PageLinkContainer = () => {
+  const { setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
+  const { currLang } = useContext(LangContext) as LangContextType;
+
   return (
     <div className={styles.container}>
       <ul className={styles.ul}>
@@ -19,8 +25,11 @@ const PageLinkContainer = () => {
         />
         <ServiceBox title="제휴 문의" link="https://fanplus.co.kr/partnership/" />
         <ServiceBox title="FAQ" link="https://fanplus.co.kr/faq_new/" />
-        <LanguageBox currLang="한국어" />
+        <LanguageBox currLang={currLang} />
       </ul>
+      <a href="#">
+        <img src="/사이드바.svg" className={styles.iconStyle} onClick={() => setIsSideBar(true)} />
+      </a>
     </div>
   );
 };

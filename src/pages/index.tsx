@@ -38,8 +38,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        {currLang === 'KOR' && <div>main page</div>}
-        {currLang === 'ENG' && <div>Select English</div>}
+        {currLang === '한국어' && <div>main page</div>}
+        {currLang === 'English' && <div>Select English</div>}
       </main>
     </>
   );
