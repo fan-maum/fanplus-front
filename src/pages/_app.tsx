@@ -9,8 +9,8 @@ export const LangContext = createContext<LangContextType | null>(null);
 export const SideBarContext = createContext<SideBarContextType | null>(null);
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [currLang, setCurrLang] = useState<LangType>('KOR');
-  const [isSideBar, setIsSideBar] = useState<boolean>(true);
+  const [currLang, setCurrLang] = useState<LangType>('한국어');
+  const [isSideBar, setIsSideBar] = useState<boolean>(false);
   return (
     <>
       <LangContext.Provider value={{ currLang, setCurrLang }}>

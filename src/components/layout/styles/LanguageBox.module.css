@@ -26,3 +26,17 @@
   width: 14px;
   height: 14px;
 }
+
+@media screen and (max-width: 991px) {
+  .list {
+    width: 100%;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgb(102, 102, 102);
+    font-size: 15px;
+  }
+  .pageLink {
+    height: 24px;
+    margin: 0px;
+    padding: 0px;
+  }
+}

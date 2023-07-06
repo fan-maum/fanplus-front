@@ -3,8 +3,13 @@ import ServiceBox from './ServiceBox';
 import LanguageBox from './LanguageBox';
 import styles from './styles/NavContainer.module.css';
 import { css } from '@emotion/react';
+import { LangContext } from '@/pages/_app';
+import { LangContextType } from '@/types/contextTypes';
+import { useContext } from 'react';
 
 const PageLinkContainer = () => {
+  const { currLang } = useContext(LangContext) as LangContextType;
+
   return (
     <div className={styles.container}>
       <ul className={styles.ul}>
@@ -19,7 +24,7 @@ const PageLinkContainer = () => {
         />
         <ServiceBox title="제휴 문의" link="https://fanplus.co.kr/partnership/" />
         <ServiceBox title="FAQ" link="https://fanplus.co.kr/faq_new/" />
-        <LanguageBox currLang="한국어" />
+        <LanguageBox currLang={currLang} />
       </ul>
     </div>
   );

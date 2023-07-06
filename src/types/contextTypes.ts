@@ -1,6 +1,6 @@
 import { SetStateAction, Dispatch } from 'react';
 
-export type LangType = 'ENG' | 'KOR' | 'CHN' | 'CHN-TW';
+export type LangType = 'English' | '한국어' | '中文 (简体)' | '中文 (繁體)';
 export type LangContextType = {
   currLang: LangType;
   setCurrLang: Dispatch<SetStateAction<LangType>>;
