@@ -1,15 +1,38 @@
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
-
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 export interface VoteListTabProps extends DefaultProps {
   tabs: string[] | { value: string; label: string }[];
+  currentPage: number;
   state: [string, React.Dispatch<React.SetStateAction<any>>];
 }
 
 const VoteTab = ({
   tabs,
+  currentPage,
   state: [tabValueState, setTabValueState],
   ...props
 }: VoteListTabProps) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  // const voteType = searchParams.get('vote_type');
+  // const pageNumber = searchParams.get('page');
+  // const perPage = searchParams.get('per_page');
+  // setSearchParams(searchParams);
+
+  const handleClickTab = (tabValue: string) => {
+    const paramsObj = { vote_Type: tabValue, page: currentPage.toString(), perPage: '6' };
+    const searchParams = new URLSearchParams(paramsObj);
+    console.log(searchParams);
+    console.log(searchParams.toString());
+    router.push(pathname + '?' + searchParams.toString());
+
+    if (tabValueState !== tabValue) {
+      setTabValueState(tabValue);
+    }
+  };
+
   return (
     <>
       <div
@@ -63,11 +86,7 @@ const VoteTab = ({
                   fontWeight: 600,
                   borderRadius: 75,
                 }}
-                onClick={() => {
-                  if (tabValueState !== tabValue) {
-                    setTabValueState(tabValue);
-                  }
-                }}
+                onClick={() => handleClickTab(tabValue)}
               >
                 {tabContent}
               </label>

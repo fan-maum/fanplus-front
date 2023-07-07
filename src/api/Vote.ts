@@ -370,6 +370,10 @@ export const getVotes = async (): Promise<VoteResponse> => {
       TIMESTAMP: 1688365523,
     },
   };
+  // const response: VoteResponse = await voteInstance.get('/votes', {
+  //   params: {},
+  // });
+  // console.log(response);
 
   return response;
 };

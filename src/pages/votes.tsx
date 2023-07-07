@@ -1,11 +1,10 @@
-import { useState, Dispatch, SetStateAction, useMemo } from 'react';
+import { useState, Dispatch, SetStateAction, useMemo, useCallback } from 'react';
 import { InferGetServerSidePropsType } from 'next';
 import VoteListTab, { VoteListTabProps } from '@/components/molecules/VoteListTab';
 import VoteList, { VoteListProps } from '@/components/organisms/VoteList';
 import VotePagination, { VotePaginationProps } from '@/components/organisms/VotePagination';
 import VoteTemplate from '@/components/templates/VoteTemplate';
 import { getCurrentVotes, getVotes } from '@/api/Vote';
-
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
 const Votes = ({ initialData, initialCurrentData }: EventProps) => {
@@ -13,11 +12,11 @@ const Votes = ({ initialData, initialCurrentData }: EventProps) => {
   const [currentData, setCurrentData] = useState(initialCurrentData);
   const [tabState, setTabState] = useState<'A' | 'B' | 'R'>('A');
   const totalCount = data.RESULTS.DATAS.PER_PAGE;
-  const pageSize = currentData.RESULTS.DATAS.PER_PAGE;
+  const itemsPerPage = currentData.RESULTS.DATAS.PER_PAGE;
   const [currentPage, setCurrentPage] = useState(1);
   const currentVoteData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * pageSize;
-    const lastPageIndex = firstPageIndex + pageSize;
+    const firstPageIndex = (currentPage - 1) * itemsPerPage;
+    const lastPageIndex = firstPageIndex + itemsPerPage;
     return data.RESULTS.DATAS.DATA.slice(firstPageIndex, lastPageIndex);
   }, [currentPage]);
 
@@ -28,10 +27,11 @@ const Votes = ({ initialData, initialCurrentData }: EventProps) => {
 
   const VoteListTabProps: VoteListTabProps = {
     tabs: [
-      { label: '전체', value: 'A' },
+      { label: '전체', value: '' },
       { label: '생일 투표', value: 'B' },
       { label: '리그전', value: 'R' },
     ],
+    currentPage: currentPage,
     state: [tabState, setTabState as Dispatch<SetStateAction<string>>],
   };
 
@@ -43,7 +43,9 @@ const Votes = ({ initialData, initialCurrentData }: EventProps) => {
   const VotePaginationProps: VotePaginationProps = {
     currentPage: currentPage,
     totalCount: totalCount,
-    pageSize: pageSize,
+    itemsPerPage: itemsPerPage,
+    voteList: data.RESULTS.DATAS.DATA,
+    currentData: currentData.RESULTS.DATAS.DATA,
     onPageChange: (page) => setCurrentPage(page),
   };
 
@@ -53,6 +55,11 @@ const Votes = ({ initialData, initialCurrentData }: EventProps) => {
         voteListTab={<VoteListTab {...VoteListTabProps} />}
         voteList={<VoteList {...VoteListProps} />}
         votePagination={<VotePagination {...VotePaginationProps} />}
+
+        // 총 array 개수 (Votes)
+        // 총 page 개수 (Votes)
+        // 페이지마다 보여줄 items 개수 ()
+        // 페이지마다 보여줄 items
       />
     </div>
   );
