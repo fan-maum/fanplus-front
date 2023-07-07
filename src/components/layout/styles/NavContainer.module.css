@@ -10,11 +10,10 @@
   padding: 10px;
 }
 
-.ul_service {
-  display: flex;
-}
-
 @media screen and (max-width: 991px) {
+  .ul {
+    padding: 7px;
+  }
   .ul_service {
     display: none;
   }

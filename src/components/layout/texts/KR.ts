@@ -8,6 +8,13 @@ const NavBarText_KR: NavBarTextType = {
   FAQ: 'FAQ',
   business: '제휴 문의',
   language: '한국어',
+  link: {
+    vote: '/vote',
+    community: '/community',
+    aboutUs: '/',
+    business: '/business',
+    FAQ: '/FAQ',
+  },
 };
 
 export default NavBarText_KR;

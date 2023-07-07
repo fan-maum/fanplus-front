@@ -3,9 +3,16 @@ export type NavBarTextType = {
   community: string;
   aboutUs: string;
   recruit: string;
-  FAQ: string;
   business: string;
+  FAQ: string;
   language: string;
+  link: {
+    vote: string;
+    community: string;
+    aboutUs: string;
+    business: string;
+    FAQ: string;
+  };
 };
 
 export type MainPageTextType = {

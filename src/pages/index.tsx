@@ -1,17 +1,15 @@
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
-import { useContext } from 'react';
-import { LangContext } from './_app';
-import { LangContextType } from '@/types/contextTypes';
 import MainPage from '@/components/mainPage/MainPage';
 import MainPageText_KR from '@/components/mainPage/texts/KR';
+import Layout from '@/components/layout/Layout';
+import NavBarText_KR from '@/components/layout/texts/KR';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const { setCurrLang } = useContext(LangContext) as LangContextType;
-  setCurrLang('한국어');
-  const texts = MainPageText_KR;
+  const navBarTexts = NavBarText_KR;
+  const mainPageTexts = MainPageText_KR;
   return (
     <>
       <Head>
@@ -39,11 +37,9 @@ export default function Home() {
         ></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainPage texts={texts} />
-      {/* <main className={`${styles.main} ${inter.className}`}>
-        {currLang === '한국어' && <div>main page</div>}
-        {currLang === 'English' && <div>Select English</div>}
-      </main> */}
+      <Layout navBarTexts={navBarTexts}>
+        <MainPage texts={mainPageTexts} />
+      </Layout>
     </>
   );
 }

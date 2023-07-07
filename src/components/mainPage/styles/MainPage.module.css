@@ -1,14 +1,19 @@
 .container h1 {
   font-size: 56px;
+  word-break: keep-all;
 }
 .container h2 {
   font-size: 44px;
+  word-break: keep-all;
 }
 .container h3 {
   font-size: 40px;
+  word-break: keep-all;
 }
-.container p {
+.container p:not(.appLinkContainer p) {
   font-size: 20px;
+  color: rgb(51, 51, 51);
+  word-break: keep-all;
 }
 
 .area {
@@ -31,18 +36,22 @@
 }
 
 .imgContainer1 {
-  width: 45%;
+  width: 40%;
   align-self: center;
 }
 .img1 {
   width: 100%;
+}
+.appLinkContainer {
+  display: flex;
+  margin: 0px auto;
 }
 .textBox {
   display: flex;
   flex-direction: column;
   padding: 10px;
   align-self: center;
-  width: 55%;
+  width: 60%;
 }
 .text1 {
   align-self: center;
@@ -66,7 +75,7 @@
   margin-bottom: 40px;
 }
 .text2 > p {
-  height: 44px;
+  min-height: 44px;
   line-height: 44px;
   font-size: 22px;
 }
@@ -80,7 +89,7 @@
   margin: 0px 20px 40px 10px;
 }
 .text3 > p {
-  height: 36px;
+  min-height: 36px;
   line-height: 36px;
   font-size: 20px;
   margin: 0px 20px 0px 10px;
@@ -88,6 +97,21 @@
 .imgContainer3 {
   max-width: 585px;
   width: 50%;
+}
+.flex {
+  display: flex;
+}
+.imgSet {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+}
+.img4 {
+  margin: 15px 10px;
+}
+.blank {
+  width: 100%;
+  aspect-ratio: 6 / 1;
 }
 .imgContainer6 {
   width: 50%;
@@ -114,6 +138,19 @@
   margin: 10px;
   text-align: center;
 }
+.plus {
+  margin: 40px 10px 0px;
+  display: flex;
+  align-items: center;
+}
+.plus > img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.plus p {
+  font-size: 16px;
+}
 
 @media screen and (max-width: 991px) {
   .area {
@@ -132,12 +169,9 @@
     font-size: 18px;
   }
   .text2 > p {
-    height: 36px;
+    min-height: 36px;
     line-height: 36px;
     font-size: 20px;
-  }
-  .textBox {
-    width: 100%;
   }
 }
 
@@ -155,9 +189,24 @@
     font-size: 16px;
   }
   .text2 > p {
-    height: 30px;
+    min-height: 30px;
     line-height: 30px;
     font-size: 16px;
+  }
+  .text3 {
+    width: 90%;
+    margin-bottom: 40px;
+  }
+  .text3 > .h3 {
+    margin: 0px 0px 40px;
+  }
+  .text3 > p {
+    margin: 0px;
+    min-height: 30px;
+    line-height: 30px;
+  }
+  .center {
+    flex-direction: column;
   }
   .center.change {
     flex-direction: column-reverse;
@@ -165,8 +214,19 @@
   .imgContainer1 {
     width: 70%;
   }
+  .imgContainer3 {
+    width: 90%;
+    align-self: center;
+  }
   .textBox {
+    width: 100%;
     margin-top: 30px;
     text-align: center;
+  }
+  .adBox {
+    flex-direction: column;
+  }
+  .plus p {
+    font-size: 14px;
   }
 }

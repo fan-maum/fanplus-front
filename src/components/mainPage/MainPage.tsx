@@ -1,6 +1,7 @@
 import { MainPageTextType } from '@/types/textTypes';
 import { FC } from 'react';
 import styles from './styles/MainPage.module.css';
+import AppLink from './AppLink';
 
 const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
   const area1 = texts.Area1;
@@ -18,6 +19,22 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
               <h1>{area1.line1}</h1>
               <h1>{area1.line2}</h1>
               {area1.line3 && <h1>{area1.line3}</h1>}
+            </div>
+            <div className={styles.appLinkContainer}>
+              <AppLink
+                icon="/icons/play_store_logo.svg"
+                storeName="Google Play"
+                storeLink="https://play.google.com/store/apps/details?id=com.photocard.allstar"
+                bgColor="#ff5656"
+                fontColor="white"
+              />
+              <AppLink
+                icon="/icons/app_store_logo.svg"
+                storeName="App Store"
+                storeLink="https://apps.apple.com/kr/app/%ED%8C%AC%ED%94%8C%EB%9F%AC%EC%8A%A4/id1448805815"
+                bgColor="white"
+                fontColor="#ff5656"
+              />
             </div>
           </div>
           <div className={styles.imgContainer1}>
@@ -111,11 +128,23 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             <p>{area4.line1}</p>
             <p>{area4.line2}</p>
             <p>{area4.line3}</p>
-            <p>{area4.plus}</p>
+            <div className={styles.plus}>
+              <img src="/icons/icon_plus.svg" alt="" className={styles.plus_icon} />
+              <p>{area4.plus}</p>
+            </div>
           </div>
-          <div className={styles.imgContainer3}>
+          <div className={`${styles.imgContainer3} ${styles.flex}`}>
+            <div className={styles.imgSet}>
+              <img src={'/images/서비스소개_02_게시판.png'} alt="" className={styles.img4} />
+              <img src={'/images/서비스소개_02_사진.png'} alt="" className={styles.img4} />
+              <div className={styles.blank}></div>
+            </div>
+            <div className={styles.imgSet}>
+              <div className={styles.blank}></div>
+              <img src={'/images/서비스소개_02_팬픽.png'} alt="" className={styles.img4} />
+              <img src={'/images/서비스소개_02_왕중왕전랭킹.png'} alt="" className={styles.img4} />
+            </div>
             {/* 여기 사진 수정해야함.. */}
-            <img src={'/images/서비스소개_01_투표썸네일.png'} alt="" className={styles.img2} />
           </div>
         </div>
       </div>
@@ -130,8 +159,13 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             <p>{area5.line2}</p>
             <p>{area5.line3}</p>
             {area5.line4 && <p>{area5.line4}</p>}
-            <p>{area5.plus1}</p>
-            {area5.plus2 && <p>{area5.plus2}</p>}
+            <div className={styles.plus}>
+              <img src="/icons/icon_plus.svg" alt="" className={styles.plus_icon} />
+              <div>
+                <p>{area5.plus1}</p>
+                {area5.plus2 && <p>{area5.plus2}</p>}
+              </div>
+            </div>
           </div>
           <div className={styles.imgContainer3}>
             {/* 여기도 수정해야함.. */}

@@ -8,6 +8,13 @@ const NavBarText_ENG: NavBarTextType = {
   business: 'Business Inquiry',
   FAQ: 'FAQ',
   language: 'English',
+  link: {
+    vote: '/en/vote',
+    community: '/en/community',
+    aboutUs: '/en',
+    business: '/en/business',
+    FAQ: '/en/FAQ',
+  },
 };
 
 export default NavBarText_ENG;
