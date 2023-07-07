@@ -8,7 +8,6 @@
   border-radius: 4px;
   font-size: 16px;
   line-height: 16px;
-  padding: 10px 20px;
   transition: 0.3s ease-in-out;
 }
 
@@ -29,7 +28,7 @@
 
 @media screen and (max-width: 768px) {
   .container {
-    width: 160px;
+    width: 155px;
   }
   .a {
     margin: 10px 7px;

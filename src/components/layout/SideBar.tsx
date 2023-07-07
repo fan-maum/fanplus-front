@@ -3,13 +3,13 @@ import LanguageContainer from './LanguageBox';
 import styles from './styles/SideBar.module.css';
 import { css } from '@emotion/react';
 import { useContext, useState, useEffect } from 'react';
-import { SideBarContext } from '@/pages/_app';
+import { SideBarContext } from './Layout';
 import { SideBarContextType } from '@/types/contextTypes';
 import { NavBarTextType } from '@/types/textTypes';
 
 const SideBar = ({ texts }: { texts: NavBarTextType }) => {
   const { isSideBar, setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
-  const [animation, setAnimation] = useState(true);
+  const [animation, setAnimation] = useState<boolean>(true);
   useEffect(() => {
     let timeout;
     if (!animation) {

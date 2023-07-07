@@ -3,7 +3,7 @@ import MainLogo from './MainLogo';
 import NavContainer from './NavContainer';
 import { css } from '@emotion/react';
 import { useContext } from 'react';
-import { SideBarContext } from '@/pages/_app';
+import { SideBarContext } from './Layout';
 import { SideBarContextType } from '@/types/contextTypes';
 import { NavBarTextType } from '@/types/textTypes';
 
