@@ -9,7 +9,7 @@ const NavBarText_KR: NavBarTextType = {
   business: '제휴 문의',
   language: '한국어',
   link: {
-    vote: '/vote',
+    vote: '/votes',
     community: '/community',
     aboutUs: '/',
     business: '/business',

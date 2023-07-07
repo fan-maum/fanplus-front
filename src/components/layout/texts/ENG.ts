@@ -9,7 +9,7 @@ const NavBarText_ENG: NavBarTextType = {
   FAQ: 'FAQ',
   language: 'English',
   link: {
-    vote: '/en/vote',
+    vote: '/en/votes',
     community: '/en/community',
     aboutUs: '/en',
     business: '/en/business',
