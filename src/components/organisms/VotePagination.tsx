@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import Image from 'next/image';
 import { Stack } from '../atoms/Stack';
@@ -7,6 +7,8 @@ import { VoteData } from '@/types/vote';
 import css from 'styled-jsx/css';
 import { usePagination, DOTS } from '../../hooks/usePagination';
 import VotePaginationItems from '../organisms/VotePaginationItems';
+import { getVotes } from '@/api/Vote';
+import VoteList from './VoteList';
 
 export interface VotePaginationProps {
   currentPage: number;
@@ -28,86 +30,38 @@ const VotePagination = ({ ...props }: VotePaginationProps) => {
     currentData,
     onPageChange,
   } = props;
-  //   const paginationRange =
-  //     usePagination({
-  //       currentPage,
-  //       totalCount,
-  //       siblingCount,
-  //       itemsPerPage,
-  //     }) || [];
-  //   console.log(paginationRange);
 
-  console.log(voteList);
+  let [users, setUsers] = useState([]);
+  let [pageCount, setPageCount] = useState(0);
+  // let fetchUsers = async (page = 1) => {
+  //   const datas = await getVotes("",0);
+  //   let totalPages = Math.ceil(10/3);
 
-  // following the API or data you're working with.
+  //   setPageCount(totalPages);
+  //   setUsers(datas);
+  // }
+
+  // useEffect(() => {
+  //   fetchUsers()
+  // }, [])
+  
   const [itemOffset, setItemOffset] = useState(0);
 
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
-  const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = voteList.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(voteList.length / itemsPerPage);
-  console.log('pageCount', pageCount);
-  console.log('currentItems', currentItems);
-
-  // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % voteList.length;
-    console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
-    setItemOffset(newOffset);
-  };
-
-  //   if (currentPage === 0 || paginationRange.length < 2) {
-  //     return null;
-  //   }
-  //   const onNext = () => {
-  //     onPageChange(currentPage + 1);
-  //   };
-  //   const onPrevious = () => {
-  //     onPageChange(currentPage - 1);
-  //   };
-  //   let lastPage = paginationRange[paginationRange.length - 1];
   return (
-    // <ul className="pagination-container">
-    //   <li
-    //     className="pagination-item"
-    //     // disabled: currentPage === 1
-    //     onClick={onPrevious}
-    //   >
-    //     <div className="arrow left">&lt;</div>
-    //   </li>
-    //   {paginationRange.map((pageNumber) => {
-    //     if (pageNumber === DOTS) {
-    //       return (
-    //         <li key={pageNumber} className="pagination-item dots">
-    //           &#8230;
-    //         </li>
-    //       );
-    //     }
-    //     return (
-    //       <li
-    //         className="pagination-item"
-    //         key={pageNumber}
-    //         // selected: pageNumber === currentPage
-    //         onClick={(pageNumber) => onPageChange(pageNumber)}
-    //       >
-    //         {pageNumber}
-    //       </li>
-    //     );
-    //   })}
-    //   <li
-    //     className="pagination-item"
-    //     // disabled: currentPage === lastPage
-    //     onClick={onNext}
-    //   >
-    //     <div className="arrow right">&gt;</div>
-    //   </li>
-    // </ul>
-
+    <>
+    <div>
+      {users.map((user, index) => 
+        <div key={index} css={{
+          background: '#FFF',
+          zIndex: 100,
+        }}>
+          <div>test</div>
+          {/* <div>{user.name}</div>
+          <div>{user.email}</div> */}
+        </div>
+      )}
+    </div>
     <div css={{ background: '#FFF', width: '100%', display: 'flex', justifyContent: 'center' }}>
-      {/* <VotePaginationItems currentItems={currentItems} /> */}
       <ReactPaginate
         css={{
           width: '100%',
@@ -115,9 +69,13 @@ const VotePagination = ({ ...props }: VotePaginationProps) => {
           display: 'flex',
           justifyContent: 'center',
           gap: '20px',
+          zIndex: 100,
         }}
         breakLabel="..."
-        onPageChange={handlePageClick}
+        onPageChange={(page) => {
+          console.log(page.selected);
+          fetchUsers(page.selected + 1);
+        }}
         // pageRangeDisplayed={3}
         pageCount={pageCount}
         previousLabel={
@@ -133,7 +91,6 @@ const VotePagination = ({ ...props }: VotePaginationProps) => {
           />
         }
         renderOnZeroPageCount={null}
-        // marginPagesDisplayed={2}
         pageClassName="page-item"
         pageLinkClassName="page-link"
         previousClassName="page-item"
@@ -146,6 +103,7 @@ const VotePagination = ({ ...props }: VotePaginationProps) => {
         activeClassName="active"
       />
     </div>
+    </>
   );
 };
 

@@ -22,7 +22,7 @@ const VoteTab = ({
   // setSearchParams(searchParams);
 
   const handleClickTab = (tabValue: string) => {
-    const paramsObj = { vote_Type: tabValue, page: currentPage.toString(), perPage: '6' };
+    const paramsObj = { vote_Type: tabValue, page: (currentPage-1).toString(), perPage: '3' };
     const searchParams = new URLSearchParams(paramsObj);
     console.log(searchParams);
     console.log(searchParams.toString());
