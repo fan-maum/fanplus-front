@@ -73,8 +73,21 @@ export type MainPageTextType = {
     line4: string;
   };
 };
+export type BusinessPageTextType = {
+  title: string;
+  content: string;
+  address: string;
+  form: {
+    company: string;
+    officer: string;
+    email: string;
+    message: string;
+    button: string;
+  };
+};
 
 export type TextType = {
   NavBar: NavBarTextType;
   MainPage: MainPageTextType;
+  BuisnessPage: BusinessPageTextType;
 };
