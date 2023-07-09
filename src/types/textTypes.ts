@@ -4,17 +4,15 @@ export type NavBarTextType = {
   aboutUs: string;
   recruit: string;
   business: string;
-  FAQ: string;
   language: string;
   link: {
     vote: string;
     community: string;
     aboutUs: string;
     business: string;
-    FAQ: string;
+    faq: string;
   };
 };
-
 export type MainPageTextType = {
   Area1: {
     line1: string;
@@ -85,9 +83,39 @@ export type BusinessPageTextType = {
     button: string;
   };
 };
+export type FAQPageTextType = {
+  header: string;
+  navBar: {
+    all: string;
+    vote: string;
+    photos: string;
+    fanfic: string;
+    accounts: string;
+  };
+  q1: string;
+  a1: string;
+  q2: string;
+  a2: string;
+  q3: string;
+  a3: string;
+  q4: string;
+  a4: string;
+  twitter: string;
+  q5: string;
+  a5: string;
+  q6: string;
+  a6: string;
+  q7: string;
+  a7: string;
+  q8: string;
+  a8: string;
+  q9: string;
+  a9: string;
+};
 
 export type TextType = {
   NavBar: NavBarTextType;
   MainPage: MainPageTextType;
   BuisnessPage: BusinessPageTextType;
+  FAQPage: FAQPageTextType;
 };

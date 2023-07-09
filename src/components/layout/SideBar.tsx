@@ -47,7 +47,7 @@ const SideBar = ({ texts }: { texts: NavBarTextType }) => {
           />
         )}
         <ServiceBox title={texts.business} link={texts.link.business} />
-        <ServiceBox title={texts.FAQ} link={texts.link.FAQ} />
+        <ServiceBox title="FAQ" link={texts.link.faq} />
         <LanguageContainer language={texts.language} />
       </ul>
     </div>

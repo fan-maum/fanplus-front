@@ -16,7 +16,7 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
       </div>
       <div className={styles.box}>
         <form>
-          <input placeholder={texts.form.company} required autoFocus></input>
+          <input placeholder={texts.form.company} required></input>
           <input placeholder={texts.form.officer} required></input>
           <input type="email" placeholder={texts.form.email} required></input>
           <textarea placeholder={texts.form.message} required></textarea>

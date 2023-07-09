@@ -6,3 +6,11 @@
   padding-top: 10px;
   z-index: 1;
 }
+
+@media screen and (max-width: 991px) {
+  .container {
+    top: 35px;
+    left: 0px;
+    width: 100%;
+  }
+}

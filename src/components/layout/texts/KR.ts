@@ -5,7 +5,6 @@ const NavBarText_KR: NavBarTextType = {
   community: '커뮤니티',
   aboutUs: '서비스 소개',
   recruit: '채용',
-  FAQ: 'FAQ',
   business: '제휴 문의',
   language: '한국어',
   link: {
@@ -13,7 +12,7 @@ const NavBarText_KR: NavBarTextType = {
     community: '/community',
     aboutUs: '/',
     business: '/business',
-    FAQ: '/FAQ',
+    faq: '/faq',
   },
 };
 
