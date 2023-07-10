@@ -2,6 +2,7 @@ import { MainPageTextType } from '@/types/textTypes';
 import { FC } from 'react';
 import styles from './styles/MainPage.module.css';
 import AppLink from './AppLink';
+import Carousel from './Carousel';
 
 const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
   const area1 = texts.Area1;
@@ -144,7 +145,6 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
               <img src={'/images/서비스소개_02_팬픽.png'} alt="" className={styles.img4} />
               <img src={'/images/서비스소개_02_왕중왕전랭킹.png'} alt="" className={styles.img4} />
             </div>
-            {/* 여기 사진 수정해야함.. */}
           </div>
         </div>
       </div>
@@ -168,8 +168,7 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             </div>
           </div>
           <div className={styles.imgContainer3}>
-            {/* 여기도 수정해야함.. */}
-            <img src={'/images/서비스소개_01_투표썸네일.png'} alt="" className={styles.img2} />
+            <Carousel />
           </div>
         </div>
       </div>
