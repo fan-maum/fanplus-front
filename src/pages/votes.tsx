@@ -15,7 +15,8 @@ const Votes = ({ initialData }: EventProps) => {
   const voteInitailDatas = initialData.RESULTS.DATAS.DATA;
 
   const [totalCount, setTotalCount] = useState(initialData.RESULTS.DATAS.TOTAL_CNT);
-  const [tabState, setTabState] = useState<'' | 'B' | 'R'>('');
+  const [tabState, setTabState] = useState('');
+  // const [tabState, setTabState] = useState<'' | 'B' | 'R'>('');
   const [voteData, setVoteData] = useState(voteInitailDatas);
   const itemsPerPage = initialData.RESULTS.DATAS.PER_PAGE;
   const [currentPage, setCurrentPage] = useState(1);
@@ -83,11 +84,12 @@ const Votes = ({ initialData }: EventProps) => {
     itemsPerPage: itemsPerPage,
     voteList: voteData?.RESULTS?.DATAS?.DATA,
     onPageChange: (page: { selected: number }) => {
-      const paramsObj = {
-        vote_Type: tabState,
-        page: page.selected,
-        perPage: '2',
-      };
+      // const paramsObj = {
+      //   vote_Type: tabState,
+      //   page: page.selected,
+      //   perPage: '2',
+      // };
+      const paramsObj = { vote_Type: tabState, page: page.selected.toString(), perPage: '2' };
       const searchParams = new URLSearchParams(paramsObj);
       // setCurrentPage(page.selected)
       router.push(pathname + '?' + searchParams.toString());
