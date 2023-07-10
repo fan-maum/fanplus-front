@@ -5,11 +5,11 @@ export interface VoteTemplateProps {
 }
 
 function VoteTemplate({ ...props }: VoteTemplateProps) {
-  const { /* voteListTab, voteList, */ votePagination } = props;
+  const { voteListTab, voteList, votePagination } = props;
   return (
-    <div css={{ padding: '25px 0 110px 0' }}>
-      {/* {voteListTab} */}
-      {/* {voteList} */}
+    <div>
+      {voteListTab}
+      {voteList}
       {votePagination}
     </div>
   );

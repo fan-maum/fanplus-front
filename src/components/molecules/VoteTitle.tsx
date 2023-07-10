@@ -30,11 +30,13 @@ export default function VoteTitle({ remainTime, endDate, starName }: PromotionTi
       direct="row"
       justify="center"
       w={'100%'}
+      h={38}
+      align="center"
       bg={activeBackgroundColor}
       css={[
         {
           color: activeColor,
-          fontSize: '14px',
+          fontSize: '16px',
           fontWeight: '400',
           borderRadius: '17px',
           lineHeight: '200%',
