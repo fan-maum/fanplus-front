@@ -1,4 +1,4 @@
-import styles from './styles/FAQ.module.css';
+import styles from './styles/FAQPage.module.css';
 import QuestionBox from './QuestionBox';
 import { useState } from 'react';
 import { FAQPageTextType } from '@/types/textTypes';
@@ -17,6 +17,7 @@ const FAQ = ({ texts }: { texts: FAQPageTextType }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
+        <img src="/icons/icon_question_mark.svg" />
         <h1>{texts.header}</h1>
       </div>
       <div className={styles.questionContainer}>

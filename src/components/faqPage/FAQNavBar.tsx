@@ -1,6 +1,6 @@
 import { FAQPageTextType } from '@/types/textTypes';
 import styles from './styles/FAQNavBar.module.css';
-import { QuestionType } from './FAQ';
+import { QuestionType } from './FAQPage';
 import { Dispatch, SetStateAction } from 'react';
 
 const FAQNavBar = ({

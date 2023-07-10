@@ -13,6 +13,15 @@ export type NavBarTextType = {
     faq: string;
   };
 };
+export type FooterTextType = {
+  customerService: string;
+  emailButton: string;
+  content: string;
+  termsOfService: string;
+  privacyPolicy: string;
+  introduction: string;
+  copyright: string;
+};
 export type MainPageTextType = {
   Area1: {
     line1: string;

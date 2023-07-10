@@ -1,11 +1,11 @@
 import BusinessPage from '@/components/businessPage/BusinessPage';
 import Layout from '@/components/layout/Layout';
-import NavBarText_KR from '@/components/layout/texts/KR';
+import NavBarText_KR, { FooterText_KR } from '@/components/layout/texts/KR';
 import BusinessText_KR from '@/components/businessPage/texts/KR';
 
 const business = () => {
   return (
-    <Layout navBarTexts={NavBarText_KR}>
+    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
       <BusinessPage texts={BusinessText_KR} />
     </Layout>
   );

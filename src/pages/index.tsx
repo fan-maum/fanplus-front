@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import MainPage from '@/components/mainPage/MainPage';
 import MainPageText_KR from '@/components/mainPage/texts/KR';
 import Layout from '@/components/layout/Layout';
-import NavBarText_KR from '@/components/layout/texts/KR';
+import NavBarText_KR, { FooterText_KR } from '@/components/layout/texts/KR';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,7 +37,7 @@ export default function Home() {
         ></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout navBarTexts={navBarTexts}>
+      <Layout navBarTexts={navBarTexts} footerTexts={FooterText_KR}>
         <MainPage texts={mainPageTexts} />
       </Layout>
     </>
