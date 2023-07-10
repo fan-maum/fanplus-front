@@ -2,11 +2,10 @@ import { VoteData } from '@/types/vote';
 import VoteListItem from './VoteListItem';
 
 export interface VoteListProps {
-  status: string | number | null;
   voteList: VoteData[];
 }
 
-function VoteList({ status, voteList, ...props }: VoteListProps) {
+function VoteList({ voteList, ...props }: VoteListProps) {
   return (
     <div
       css={[

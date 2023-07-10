@@ -29,7 +29,7 @@ const Votes = ({ initialData }: EventProps) => {
     ],
     currentPage: currentPage,
     state: [tabState, setTabState as Dispatch<SetStateAction<string>>],
-    handleClickTab: (tabValue: string) => {
+    handleClickTab: (tabValue) => {
       const initPageCount = 0;
       const paramsObj = { vote_Type: tabValue, page: (currentPage - 1).toString(), perPage: '2' };
       const searchParams = new URLSearchParams(paramsObj);
@@ -74,7 +74,6 @@ const Votes = ({ initialData }: EventProps) => {
   }, []);
 
   const VoteListProps: VoteListProps = {
-    status: vote_Type,
     voteList: voteData,
   };
 
