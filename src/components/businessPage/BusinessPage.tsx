@@ -1,74 +1,8 @@
 import { BusinessPageTextType } from '@/types/textTypes';
 import styles from './styles/BusinessPage.module.css';
-import { ChangeEvent, Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { ChangeHandle, ResetState, SubmitHandle } from './FormHandle';
 
-const SubmitHandle = async ({
-  company,
-  officer,
-  email,
-  message,
-  setIsSuccess,
-  ResetState,
-}: {
-  company: string;
-  officer: string;
-  email: string;
-  message: string;
-  setIsSuccess: Dispatch<SetStateAction<boolean>>;
-  ResetState: () => void;
-}) => {
-  const formdata: FormData = new FormData();
-
-  formdata.append('company', company);
-  formdata.append('officer', officer);
-  formdata.append('email', email);
-  formdata.append('message', message);
-
-  const result = new Request(
-    'https://fanplus.co.kr/wp-admin/admin-ajax.php?action=brizy_submit_form',
-    {
-      method: 'POST',
-      body: formdata,
-    }
-  );
-  fetch(result)
-    .then((res) => {
-      if (res.status === 200) {
-        setIsSuccess(true);
-        ResetState();
-        return;
-      } else if (res.status == 403) {
-        console.log(res);
-        return res.json();
-      }
-    })
-    .then((res) => {});
-};
-const ResetState = ({
-  setCompany,
-  setOfficer,
-  setEmail,
-  setMessage,
-}: {
-  setCompany: Dispatch<SetStateAction<string>>;
-  setOfficer: Dispatch<SetStateAction<string>>;
-  setEmail: Dispatch<SetStateAction<string>>;
-  setMessage: Dispatch<SetStateAction<string>>;
-}) => {
-  setCompany('');
-  setOfficer('');
-  setEmail('');
-  setMessage('');
-};
-const ChangeHandle = ({
-  event,
-  setState,
-}: {
-  event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>;
-  setState: Dispatch<SetStateAction<string>>;
-}) => {
-  setState(event?.target.value);
-};
 const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [company, setCompany] = useState<string>('');
