@@ -1,31 +1,32 @@
-import { VoteResponse } from '@/types/vote';
+import { VoteData } from '@/types/vote';
 import VoteListItem from './VoteListItem';
 
 export interface VoteListProps {
-  status: 'A' | 'B' | 'R';
-  voteList: VoteResponse;
+  voteList: VoteData[];
 }
 
-function VoteList({ status, voteList, ...props }: VoteListProps) {
-  const voteDatas = voteList.RESULTS.DATAS.DATA;
+function VoteList({ voteList, ...props }: VoteListProps) {
   return (
     <div
       css={[
         {
           display: 'grid',
           width: '90%',
-          maxWidth: '1240px',
+          maxWidth: '1570px',
           margin: '0 auto',
           gridTemplateColumns: '1fr',
           gridTemplateRows: 'auto',
-          gridGap: '8%',
+          gridGap: '4vh',
           '@media(min-width: 768px)': {
+            gridTemplateColumns: 'repeat(2, 1fr)',
+          },
+          '@media(min-width: 1080px)': {
             gridTemplateColumns: 'repeat(3, 1fr)',
           },
         },
       ]}
     >
-      {voteDatas.map((item) => (
+      {voteList.map((item) => (
         <VoteListItem key={item.VOTE_IDX} voteData={item} />
       ))}
     </div>

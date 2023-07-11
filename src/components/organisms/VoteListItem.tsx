@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { Stack } from '../atoms/Stack';
 import VoteTitle from '../molecules/VoteTitle';
 import { VoteData } from '@/types/vote';
-import css from 'styled-jsx/css';
 
 export interface VoteListItemProps {
   voteData: VoteData;
@@ -12,7 +11,7 @@ const remainTime = 1;
 
 const VoteListItem = ({ voteData, ...props }: VoteListItemProps) => {
   return (
-    <Stack align="center" spacing={12} miw={332} css={{ cursor: 'pointer' }}>
+    <Stack align="center" spacing={12} /* miw={332} */ css={{ cursor: 'pointer' }}>
       <VoteTitle
         remainTime={remainTime}
         endDate={voteData.END_DATE}
@@ -39,13 +38,25 @@ const VoteListItem = ({ voteData, ...props }: VoteListItemProps) => {
           },
         ]}
       >
-        <Image fill src={voteData.TITLE_IMG} alt="vote_thumbnail" />
+        <img
+          src={voteData.TITLE_IMG}
+          alt="vote_thumbnail"
+          css={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        />
       </div>
       <div
         css={[
           {
-            color: '#666',
-            fontSize: '16px',
+            color: '#5C6B70',
+            fontSize: '18px',
             fontWeight: '600',
           },
         ]}

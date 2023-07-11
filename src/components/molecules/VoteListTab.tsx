@@ -1,13 +1,16 @@
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
-
 export interface VoteListTabProps extends DefaultProps {
   tabs: string[] | { value: string; label: string }[];
+  currentPage: number;
   state: [string, React.Dispatch<React.SetStateAction<any>>];
+  handleClickTab: (tabValue: string) => void;
 }
 
 const VoteTab = ({
   tabs,
-  state: [tabValueState, setTabValueState],
+  currentPage,
+  state: [tabState, setTabState],
+  handleClickTab,
   ...props
 }: VoteListTabProps) => {
   return (
@@ -16,7 +19,7 @@ const VoteTab = ({
         css={[
           {
             position: 'relative',
-            margin: '0 auto 45px',
+            margin: '40px auto',
             display: 'flex',
             maxWidth: 662,
             height: 68,
@@ -33,7 +36,7 @@ const VoteTab = ({
           const isObj = typeof item === 'object';
           const tabContent = isObj ? item.label : item;
           const tabValue = isObj ? item.value : item;
-          const active = tabValue === tabValueState;
+          const active = tabValue === tabState;
           return (
             <div
               key={`custom-tabs-${index}-${tabValue}`}
@@ -63,11 +66,7 @@ const VoteTab = ({
                   fontWeight: 600,
                   borderRadius: 75,
                 }}
-                onClick={() => {
-                  if (tabValueState !== tabValue) {
-                    setTabValueState(tabValue);
-                  }
-                }}
+                onClick={() => handleClickTab(tabValue)}
               >
                 {tabContent}
               </label>
