@@ -22,7 +22,7 @@ const Carousel = () => {
     const distanceX = Math.abs(touchPosition.x - e.changedTouches[0].pageX);
     const distanceY = Math.abs(touchPosition.y - e.changedTouches[0].pageY);
 
-    if (distanceY + distanceX > 30 && distanceX > distanceY) {
+    if (distanceY + distanceX > 30 && distanceX > distanceY + 5) {
       if (touchPosition.x - e.changedTouches[0].pageX < 0 && currIndex > 0) {
         handleClick(currIndex - 1);
       } else if (touchPosition.x - e.changedTouches[0].pageX > 0 && currIndex < 3) {

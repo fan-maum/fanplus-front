@@ -124,6 +124,7 @@ export type FAQPageTextType = {
 
 export type TextType = {
   NavBar: NavBarTextType;
+  Footer: FooterTextType;
   MainPage: MainPageTextType;
   BuisnessPage: BusinessPageTextType;
   FAQPage: FAQPageTextType;

@@ -1,7 +1,6 @@
 import BusinessPage from '@/components/businessPage/BusinessPage';
 import Layout from '@/components/layout/Layout';
-import NavBarText_KR, { FooterText_KR } from '@/components/layout/texts/KR';
-import BusinessText_KR from '@/components/businessPage/texts/KR';
+import { NavBarText_KR, FooterText_KR, BusinessText_KR } from '@/texts/KOR';
 
 const business = () => {
   return (

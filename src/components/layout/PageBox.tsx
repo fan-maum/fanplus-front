@@ -9,11 +9,11 @@ type PageLinkPropType = {
 };
 
 const PageBox = ({ title, link }: PageLinkPropType) => {
-  const router = useRouter();
-  const pathName = router.pathname;
+  const path = useRouter().pathname;
+  const picked = path === link ? css('color: rgb(0, 0, 0);') : css('');
   return (
     <li className={styles.list}>
-      <Link href={link} className={styles.pageLink}>
+      <Link href={link} className={styles.pageLink} css={picked}>
         {title}
       </Link>
     </li>

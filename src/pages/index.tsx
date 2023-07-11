@@ -1,15 +1,12 @@
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import MainPage from '@/components/mainPage/MainPage';
-import MainPageText_KR from '@/components/mainPage/texts/KR';
 import Layout from '@/components/layout/Layout';
-import NavBarText_KR, { FooterText_KR } from '@/components/layout/texts/KR';
+import { NavBarText_KR, MainPageText_KR, FooterText_KR } from '@/texts/KOR';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const navBarTexts = NavBarText_KR;
-  const mainPageTexts = MainPageText_KR;
   return (
     <>
       <Head>
@@ -37,8 +34,8 @@ export default function Home() {
         ></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout navBarTexts={navBarTexts} footerTexts={FooterText_KR}>
-        <MainPage texts={mainPageTexts} />
+      <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+        <MainPage texts={MainPageText_KR} />
       </Layout>
     </>
   );

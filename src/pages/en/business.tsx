@@ -1,12 +1,10 @@
 import BusinessPage from '@/components/businessPage/BusinessPage';
 import Layout from '@/components/layout/Layout';
-import NavBarText_ENG from '@/components/layout/texts/ENG';
-import BusinessText_ENG from '@/components/businessPage/texts/ENG';
-import { FooterText_KR } from '@/components/layout/texts/KR';
+import { NavBarText_ENG, FooterText_ENG, BusinessText_ENG } from '@/texts/ENG';
 
 const business = () => {
   return (
-    <Layout navBarTexts={NavBarText_ENG} footerTexts={FooterText_KR}>
+    <Layout navBarTexts={NavBarText_ENG} footerTexts={FooterText_ENG}>
       <BusinessPage texts={BusinessText_ENG} />
     </Layout>
   );
