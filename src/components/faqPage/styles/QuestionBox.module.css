@@ -43,11 +43,11 @@
   color: rgb(102, 102, 102);
 }
 .original {
-  transition: 1s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 .reverse {
   transform: scaleY(-1);
-  transition: 1s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 
 .opened {

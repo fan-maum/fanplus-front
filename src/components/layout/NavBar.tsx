@@ -6,7 +6,6 @@ import { useContext } from 'react';
 import { SideBarContext } from './Layout';
 import { SideBarContextType } from '@/types/contextTypes';
 import { NavBarTextType } from '@/types/textTypes';
-import { useRouter } from 'next/router';
 
 const NavBar = ({ texts }: { texts: NavBarTextType }) => {
   const { setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
