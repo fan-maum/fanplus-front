@@ -4,9 +4,10 @@
   height: 48px;
   line-height: 40px;
   padding-left: 16px;
-  background-color: #fafbfd;
+  background-color: rgb(254, 254, 254);
   border-bottom: 1px solid rgb(198, 198, 198);
   align-items: center;
+  box-shadow: 0px 4px 8px rgba(128, 128, 128, 0.453);
 }
 .languageBox:hover .link {
   color: #ff5656;

@@ -17,7 +17,9 @@ export type FooterTextType = {
   customerService: string;
   emailButton: string;
   termsOfService: string;
+  termsOfServiceLink: string;
   privacyPolicy: string;
+  privacyPolicyLink: string;
   introduction: string;
   copyright: string;
 };

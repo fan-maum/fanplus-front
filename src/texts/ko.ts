@@ -25,7 +25,9 @@ export const FooterText_KR: FooterTextType = {
   customerService: '고객센터',
   emailButton: '이메일 문의',
   termsOfService: '이용약관',
+  termsOfServiceLink: 'https://privacy.fanplus.co.kr/terms_of_service_ko.html',
   privacyPolicy: '개인정보처리방침',
+  privacyPolicyLink: 'https://privacy.fanplus.co.kr/privacy_ko.html',
   introduction: '서울시 강남구 역삼로3길 17-6, 10층',
   copyright: 'Copyright © 팬플러스. All Rights Reserved.',
 };

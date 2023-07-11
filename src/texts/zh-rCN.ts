@@ -25,7 +25,9 @@ export const FooterText_zh_rCN: FooterTextType = {
   customerService: '客户服务中心',
   emailButton: '咨询',
   termsOfService: 'Terms of service',
+  termsOfServiceLink: 'https://privacy.fanplus.co.kr/terms_of_service.html',
   privacyPolicy: 'Privacy Policy',
+  privacyPolicyLink: 'https://privacy.fanplus.co.kr/privacy.html',
   introduction: '10F 17-6, Yeoksam-ro 3-gil, Gangnam-gu, Seoul, Korea',
   copyright: 'Copyright © FanPlus. All Rights Reserved.',
 };

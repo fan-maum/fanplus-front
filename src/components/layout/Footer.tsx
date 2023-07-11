@@ -15,11 +15,11 @@ const Footer = ({ texts }: { texts: FooterTextType }) => {
             </a>
           </div>
           <div className={styles.policies}>
-            <a href="https://terms.fanmaum.com/" target="_blank">
+            <a href={texts.termsOfServiceLink} target="_blank">
               {texts.termsOfService}
             </a>
             <p>|</p>
-            <a href="https://privacy.fanmaum-dev.com/" target="_blank">
+            <a href={texts.privacyPolicyLink} target="_blank">
               {texts.privacyPolicy}
             </a>
           </div>
