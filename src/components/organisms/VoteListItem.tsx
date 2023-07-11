@@ -1,20 +1,37 @@
+import { useState, useEffect } from 'react';
+import { useInterval } from '@/hooks/useInterval';
 import Image from 'next/image';
 import { Stack } from '../atoms/Stack';
 import VoteTitle from '../molecules/VoteTitle';
 import { VoteData } from '@/types/vote';
+import { formatTime } from '@/utils/util';
 
 export interface VoteListItemProps {
+  endDay: string;
   voteData: VoteData;
 }
 
-const remainTime = 1;
+const today = new Date();
 
-const VoteListItem = ({ voteData, ...props }: VoteListItemProps) => {
+const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
+  const endDate = new Date(endDay);
+  const [seconds, setSeconds] = useState<number>();
+  const interval = useInterval(() => setSeconds((second) => second && second - 1), 1000);
+
+  useEffect(() => {
+    interval.start();
+    setSeconds(Math.floor((endDate.getTime() - today.getTime()) / 1000));
+    return interval.stop;
+  }, []);
+
+  const remainTime = formatTime(seconds);
+  const remainTimeState = formatTime(seconds) !== '종료' ? true : false;
+
   return (
-    <Stack align="center" spacing={12} /* miw={332} */ css={{ cursor: 'pointer' }}>
+    <Stack align="center" spacing={12} css={{ cursor: 'pointer' }}>
       <VoteTitle
         remainTime={remainTime}
-        endDate={voteData.END_DATE}
+        remainTimeState={remainTimeState}
         starName={voteData?.FIRST_RANK_STAR_INFO?.STAR_NAME}
       />
       <div
@@ -24,7 +41,7 @@ const VoteListItem = ({ voteData, ...props }: VoteListItemProps) => {
             width: '100%',
             aspectRatio: '421/253',
           },
-          !remainTime && {
+          !remainTimeState && {
             '&::before': {
               content: '""',
               position: 'absolute',
