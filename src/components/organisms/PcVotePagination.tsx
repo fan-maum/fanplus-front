@@ -1,12 +1,7 @@
-import ReactPaginate from 'react-paginate';
+import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
 import Image from 'next/image';
 
-export interface PcVotePaginationProps {
-  pageCount: number;
-  onPageChange: (page: { selected: number }) => void;
-}
-
-const PcVotePagination = ({ pageCount, onPageChange }: PcVotePaginationProps) => {
+const PcVotePagination = ({ pageCount, forcePage, onPageChange }: ReactPaginateProps) => {
   return (
     <div css={{ background: '#FFF', width: '100%', display: 'flex', justifyContent: 'center' }}>
       <ReactPaginate
@@ -19,9 +14,6 @@ const PcVotePagination = ({ pageCount, onPageChange }: PcVotePaginationProps) =>
           zIndex: 100,
           margin: '40px 0',
         }}
-        breakLabel="..."
-        onPageChange={onPageChange}
-        pageCount={pageCount ? pageCount : 0}
         previousLabel={
           <Image width={10} height={10} src="/icons/icon_paginationArrow.png" alt="arrow" />
         }
@@ -35,15 +27,12 @@ const PcVotePagination = ({ pageCount, onPageChange }: PcVotePaginationProps) =>
           />
         }
         pageRangeDisplayed={5}
+        marginPagesDisplayed={0}
+        forcePage={forcePage && (forcePage - 1)}
+        pageCount={pageCount}
+        onPageChange={onPageChange}
+        // renderOnZeroPageCount={null}
         pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
         activeClassName="active"
       />
     </div>

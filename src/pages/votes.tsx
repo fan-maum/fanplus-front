@@ -4,7 +4,7 @@ import VoteListTab, { VoteListTabProps } from '@/components/molecules/VoteListTa
 import VoteList, { VoteListProps } from '@/components/organisms/VoteList';
 import VotePagination, { VotePaginationProps } from '@/components/organisms/VotePagination';
 import VoteTemplate from '@/components/templates/VoteTemplate';
-import { getVotes } from '@/api/Vote';
+import { getTestVotes, getVotes } from '@/api/Vote';
 import { useRouter } from 'next/router';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useMediaQuery } from 'react-responsive';
@@ -14,23 +14,47 @@ export interface EventProps extends InferGetServerSidePropsType<typeof getServer
 const Votes = ({ initialData, initialMobileData }: EventProps) => {
   const pathname = usePathname();
   const router = useRouter();
-  const voteInitailDatas = initialData.RESULTS.DATAS.DATA;
-  const voteInitailMobileDatas = initialMobileData.RESULTS.DATAS.DATA;
-  console.log(voteInitailDatas);
-
+  const vote_type = router.query.vote_type === undefined ? '' : router.query.vote_type;
+  const page = router.query.page === undefined ? 1 : router.query.page;
+  const per_page = router.query.per_page === undefined ? 9 : router.query.per_page;
+  // const { vote_type, page, per_page }: any = router?.query;
+  // const [voteData, setVoteData] = useState(voteInitailDatas);
+  // const [loading, setLoading] = useState(false);
+  console.log('router.query :',router?.query);
+  
   /* mediaQuery 설정 */
   const [isMobile, setIsMobile] = useState(false);
   const mobile = useMediaQuery({ query: '(max-width:768px)' });
-
+  const voteInitialData = !isMobile ? initialData.RESULTS.DATAS.DATA : initialMobileData.RESULTS.DATAS.DATA;
+  
   /* 공통 설정 */
-  const [totalCount, setTotalCount] = useState(initialData.RESULTS.DATAS.TOTAL_CNT);
-  const [tabState, setTabState] = useState<'' | 'B' | 'R'>('');
+  // const [data, setData] = useState([]);
+  const [totalCount, setTotalCount] = useState('');
+  // const [totalCount, setTotalCount] = useState(initialData.RESULTS.DATAS.TOTAL_CNT);
+  const [tabState, setTabState] = useState<'' | 'B' | 'R'>(vote_type);
   const itemsPerPage = !isMobile ? 9 : 4;
+  // const { loading, voteLists, error } = getTestVotes("R", page, per_page);
+  // console.log(voteLists);
+  // console.log(itemsPerPage);
 
-  const [voteData, setVoteData] = useState(voteInitailDatas);
-  console.log(voteData);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { vote_Type, page, perPage } = router?.query;
+  const [loading, setLoading] = useState(true);
+  const [voteLists, setVoteLists] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(`https://cors-anywhere.herokuapp.com/https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page - 1}&per_page=${per_page}`)
+      .then((res) => res.json())
+      .then((lists) => {
+        setVoteLists(lists.RESULTS.DATAS.DATA);
+        setTotalCount(lists.RESULTS.DATAS.TOTAL_CNT);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+
+  }, [vote_type, page, per_page]);
 
   const VoteListTabProps: VoteListTabProps = {
     tabs: [
@@ -38,99 +62,28 @@ const Votes = ({ initialData, initialMobileData }: EventProps) => {
       { label: '생일 투표', value: 'B' },
       { label: '리그전', value: 'R' },
     ],
-    currentPage: currentPage,
     state: [tabState, setTabState as Dispatch<SetStateAction<string>>],
-    handleClickTab: (tabValue: any) => {
-      const initPageCount = 0;
-      const paramsObj = { vote_Type: tabValue, page: (currentPage - 1).toString(), perPage: '9' };
-      const searchParams = new URLSearchParams(paramsObj);
-      console.log('searchParams.toString()', searchParams.toString());
-      router.push(pathname + '?' + searchParams.toString());
-
-      if (tabState !== tabValue) {
-        setTabState(tabValue);
-      }
-
-      console.log(tabValue);
-      fetch(
-        `https://cors-anywhere.herokuapp.com/https://napi.appphotocard.com/v2/votes/votes?vote_type=${tabValue}&page=${initPageCount}&per_page=${itemsPerPage}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxMyIsImp0aSI6ImY5NjVjZDg3N2MyMTNkZjYwZWU2NDViMjYxZWJhYjcxMWRkYjIxZTE3OGExOTdjMmQ5NzY1ZTNkYTUyNDI2MDU1Y2QzYWFmMGE5ZTQxODljIiwiaWF0IjoxNjg4MDI0NTEzLjMzMzY4OCwibmJmIjoxNjg4MDI0NTEzLjMzMzY5MSwiZXhwIjoxNzE5NjQ2OTEzLjMxNTE3LCJzdWIiOiIxNzUiLCJzY29wZXMiOltdfQ.bKebFWEEu2ruQS0aj0wbjU3MWldP7lcJdesoiLxVZcf1cMFiOCGjKW2SNmCDCGUMckVu-SWZTpIRs-7YBsa6Ag3BjYMdxjlpzd7iyx3wBnkV4nJDSV46o9DFwGP2_4T9wyiVms1X3kgmW6W0o_domAtFAk5l_ny4s5cdO5faZOSj7weSdgSmLz69PxwrsJZgM-Z24flOB40TiIMgcvA_nzA7sIBe8P_PljpEUZYYXMlcn4V1yGoj_eyJOsFvV88Ep8HRF3hya6DPAs2Q1cwQcaTkchShzO3xYgkqtGhQ6NxBB7nmjpBMQyUhf1HYfLFDH7eWCwWJkUNc8YduvzatvP7wDWWc_h4dpMutMjtwQbjJLFj5bsl5VSpVkW8ev3_ASS97NxNtY6OcUxTrsm0oFCiScy_yDMqXWR3Ym3KJz_Sj4yWujtQ-2Yo4AKih2IlteGX0rTInNQtuk0eKaGF_jQaeIbEx9OWoWM9Akquy1EULcO3Vtzjzqf54fj5H3MkjdkrH5prRh_cBJvB_viNnCLswy3aKnf5QEFRr7I2--8SEw5Y21bHf6B10ol7AvegoYFMS3o3Cy9SrP6YpvAmRzLYnco-8TaRw0a1QgyGGywSxiL2wiVQXbCoK95qwK9FhBProc5xJd0NYgb_7NYDQJ4Ii3ZX3u7TMYZSi56vlkMM`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setTotalCount(data.RESULTS.DATAS.TOTAL_CNT);
-          setVoteData(data.RESULTS?.DATAS?.DATA);
-        });
-    },
+    itemsPerPage: itemsPerPage,
   };
 
   useEffect(() => {
-    console.log(router.query);
-    if (router.query.vote_Type === '') {
-      console.log(router.query.vote_Type);
-      setTabState('');
-    }
-    if (router.query.vote_Type === 'R') {
-      console.log(router.query.vote_Type);
-      setTabState('R');
-    }
-    if (router.query.vote_Type === 'B') {
-      setTabState('B');
-    }
     if (mobile) setIsMobile(true);
     if (!mobile) setIsMobile(false);
   }, [mobile]);
 
+  console.log(voteLists);
   const VoteListProps: VoteListProps = {
     isMobile: isMobile,
-    voteList: voteData,
+    // voteList: voteInitialData,
+    loading: loading,
+    error: error,
+    voteList: voteLists,
   };
 
   const VotePaginationProps: VotePaginationProps = {
-    // currentPage: currentPage,
     totalCount: totalCount,
     itemsPerPage: itemsPerPage,
     isMobile: isMobile,
-    // onPageChange: (page: { selected: number }) => {
-    //   const paramsObj = { vote_Type: tabState, page: page.selected.toString(), perPage: '9' };
-    //   const searchParams = new URLSearchParams(paramsObj);
-    //   router.push(pathname + '?' + searchParams.toString());
-
-    //   fetch(
-    //     `https://cors-anywhere.herokuapp.com/https://napi.appphotocard.com/v2/votes/votes?vote_type=${tabState}&page=${page.selected}&per_page=${itemsPerPage}`,
-    //     {
-    //       method: 'GET',
-    //       headers: {
-    //         Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxMyIsImp0aSI6ImY5NjVjZDg3N2MyMTNkZjYwZWU2NDViMjYxZWJhYjcxMWRkYjIxZTE3OGExOTdjMmQ5NzY1ZTNkYTUyNDI2MDU1Y2QzYWFmMGE5ZTQxODljIiwiaWF0IjoxNjg4MDI0NTEzLjMzMzY4OCwibmJmIjoxNjg4MDI0NTEzLjMzMzY5MSwiZXhwIjoxNzE5NjQ2OTEzLjMxNTE3LCJzdWIiOiIxNzUiLCJzY29wZXMiOltdfQ.bKebFWEEu2ruQS0aj0wbjU3MWldP7lcJdesoiLxVZcf1cMFiOCGjKW2SNmCDCGUMckVu-SWZTpIRs-7YBsa6Ag3BjYMdxjlpzd7iyx3wBnkV4nJDSV46o9DFwGP2_4T9wyiVms1X3kgmW6W0o_domAtFAk5l_ny4s5cdO5faZOSj7weSdgSmLz69PxwrsJZgM-Z24flOB40TiIMgcvA_nzA7sIBe8P_PljpEUZYYXMlcn4V1yGoj_eyJOsFvV88Ep8HRF3hya6DPAs2Q1cwQcaTkchShzO3xYgkqtGhQ6NxBB7nmjpBMQyUhf1HYfLFDH7eWCwWJkUNc8YduvzatvP7wDWWc_h4dpMutMjtwQbjJLFj5bsl5VSpVkW8ev3_ASS97NxNtY6OcUxTrsm0oFCiScy_yDMqXWR3Ym3KJz_Sj4yWujtQ-2Yo4AKih2IlteGX0rTInNQtuk0eKaGF_jQaeIbEx9OWoWM9Akquy1EULcO3Vtzjzqf54fj5H3MkjdkrH5prRh_cBJvB_viNnCLswy3aKnf5QEFRr7I2--8SEw5Y21bHf6B10ol7AvegoYFMS3o3Cy9SrP6YpvAmRzLYnco-8TaRw0a1QgyGGywSxiL2wiVQXbCoK95qwK9FhBProc5xJd0NYgb_7NYDQJ4Ii3ZX3u7TMYZSi56vlkMM`,
-    //       },
-    //     }
-    //   )
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       setTotalCount(data.RESULTS.DATAS.TOTAL_CNT);
-    //       if (!isMobile) setVoteData(data.RESULTS?.DATAS?.DATA);
-    //       if (isMobile) {
-    //         // setVoteData(...voteData, ...data.RESULTS?.DATAS?.DATA)
-    //         setVoteData([...voteData, ...data.RESULTS.DATAS?.DATA]);
-    //         console.log([...voteData, ...data.RESULTS.DATAS?.DATA]);
-    //       }
-    //       // isMobile ? setVoteData((datas) => (...datas, ...data.RESULTS?.DATAS?.DATA)
-    //       //          : setVoteData(data.RESULTS?.DATAS?.DATA);
-    //       // if (isMobile) {
-
-    //       //   });
-    //       //   console.log(voteData);
-    //       // } else {
-    //       //   setVoteData(data.RESULTS?.DATAS?.DATA);
-    //       // }
-    //     });
-    // },
   };
 
   return (

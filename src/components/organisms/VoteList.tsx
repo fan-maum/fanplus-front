@@ -4,9 +4,13 @@ import VoteListItem from './VoteListItem';
 export interface VoteListProps {
   isMobile: boolean;
   voteList: VoteData[];
+  loading: boolean,
+  error: string | null,
 }
 
-function VoteList({ isMobile, voteList, ...props }: VoteListProps) {
+function VoteList({ isMobile, voteList, loading, error, ...props }: VoteListProps) {
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
   return (
     <div
       css={[
@@ -27,7 +31,7 @@ function VoteList({ isMobile, voteList, ...props }: VoteListProps) {
         },
       ]}
     >
-      {voteList.map((item) => (
+      {voteList?.map((item) => (
         <VoteListItem endDay={item.END_DATE} key={item.VOTE_IDX} voteData={item} />
       ))}
     </div>

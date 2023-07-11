@@ -1,18 +1,58 @@
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 export interface VoteListTabProps extends DefaultProps {
   tabs: string[] | { value: string; label: string }[];
-  currentPage: number;
+  itemsPerPage: number;
   state: [string, React.Dispatch<React.SetStateAction<any>>];
-  handleClickTab: (tabValue: string) => void;
 }
 
 const VoteTab = ({
   tabs,
-  currentPage,
-  state: [tabState, setTabState],
-  handleClickTab,
+  itemsPerPage,
+  state: [tabState = '', setTabState],
   ...props
 }: VoteListTabProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const onClickVoteTab = (tabValue: string) => {
+    setTabState(tabValue);
+    router.push({
+      pathname: pathname,
+      query: {
+        vote_type: tabValue, 
+        page: 1,
+        per_page: itemsPerPage,
+      }
+    })
+
+    // if (tabState !== tabValue || router.query.vote_type === tabValue) {
+    //   setTabState(tabValue);
+    // }
+    // // const initPageCount = 0;
+    // //   const paramsObj = { vote_Type: tabValue, page: (currentPage - 1).toString(), perPage: '9' };
+    // //   const searchParams = new URLSearchParams(paramsObj);
+    // //   console.log('searchParams.toString()', searchParams.toString());
+    // //   router.push(pathname + '?' + searchParams.toString());
+    // console.log('tabState',tabState)
+    // console.log('tabValue',tabValue)
+  }
+
+  // useEffect(() => {
+  //   // if (router.query.vote_Type === '') {
+  //   //   console.log(router.query.vote_Type);
+  //   //   setTabState('');
+  //   // }
+  //   // if (router.query.vote_Type === 'R') {
+  //   //   console.log(router.query.vote_Type);
+  //   //   setTabState('R');
+  //   // }
+  //   // if (router.query.vote_Type === 'B') {
+  //   //   setTabState('B');
+  //   // }
+  // }, []);
+
   return (
     <>
       <div
@@ -66,7 +106,7 @@ const VoteTab = ({
                   fontWeight: 600,
                   borderRadius: 75,
                 }}
-                onClick={() => handleClickTab(tabValue)}
+                onClick={() => onClickVoteTab(tabValue)}
               >
                 {tabContent}
               </label>

@@ -1,23 +1,29 @@
+import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import PcVotePagination from './PcVotePagination';
-import MobileVotePagination from './MobileVotePagination';
 
 export interface VotePaginationProps {
-  // currentPage: number;
   totalCount: number;
   itemsPerPage: number;
   isMobile: boolean;
-  // onPageChange: (page: { selected: number }) => void;
 }
 
 const VotePagination = ({ totalCount, itemsPerPage, isMobile }: VotePaginationProps) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { vote_type, page, per_page } = router.query;
   const forcePage = Number(page) || 1;
   let pageCount = Math.ceil(totalCount / itemsPerPage);
-  console.log(router.query);
 
-  const onPageChange = (page: { selected: number }) => {
+  const onPageChange = (event: {selected: number}) => {
+    router.push({
+      pathname: pathname,
+      query: {
+        vote_type: vote_type, 
+        page: event.selected + 1,
+        per_page: itemsPerPage
+      }
+    })
     //   const paramsObj = { vote_Type: tabState, page: page.selected.toString(), perPage: '9' };
     //   const searchParams = new URLSearchParams(paramsObj);
     //   router.push(pathname + '?' + searchParams.toString());
@@ -51,11 +57,18 @@ const VotePagination = ({ totalCount, itemsPerPage, isMobile }: VotePaginationPr
     // },
   };
 
-  return !isMobile ? (
-    <PcVotePagination pageCount={pageCount} onPageChange={onPageChange} />
-  ) : (
-    <MobileVotePagination pageCount={pageCount} onPageChange={onPageChange} />
-  );
+  return (
+    <PcVotePagination
+        pageCount={pageCount}
+        forcePage={forcePage}
+        onPageChange={onPageChange}
+    />
+  )
+  // return !isMobile ? (
+  //   <PcVotePagination pageCount={pageCount} onPageChange={onPageChange} />
+  // ) : (
+  //   <MobileVotePagination pageCount={pageCount} onPageChange={onPageChange} />
+  // );
 };
 
 export default VotePagination;
