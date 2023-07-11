@@ -16,7 +16,6 @@ export type NavBarTextType = {
 export type FooterTextType = {
   customerService: string;
   emailButton: string;
-  content: string;
   termsOfService: string;
   privacyPolicy: string;
   introduction: string;
@@ -52,6 +51,7 @@ export type MainPageTextType = {
     Ad1: string;
     Ad2: string;
     Ad3: string;
+    img: string;
   };
   Area4: {
     title1: string;
@@ -60,6 +60,10 @@ export type MainPageTextType = {
     line2: string;
     line3: string;
     plus: string;
+    img1: string;
+    img2: string;
+    img3: string;
+    img4: string;
   };
   Area5: {
     title1: string;
@@ -70,6 +74,10 @@ export type MainPageTextType = {
     line4: string;
     plus1: string;
     plus2: string;
+    img1: string;
+    img2: string;
+    img3: string;
+    img4: string;
   };
   Area6: {
     title1: string;
@@ -78,12 +86,13 @@ export type MainPageTextType = {
     line2: string;
     line3: string;
     line4: string;
+    img1: string;
+    img2: string;
   };
 };
 export type BusinessPageTextType = {
   title: string;
   content: string;
-  address: string;
   form: {
     company: string;
     officer: string;

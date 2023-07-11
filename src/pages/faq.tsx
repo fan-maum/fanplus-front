@@ -1,6 +1,6 @@
 import FAQ from '@/components/faqPage/FAQPage';
 import Layout from '@/components/layout/Layout';
-import { NavBarText_KR, FooterText_KR, FAQText_KR } from '@/texts/KOR';
+import { NavBarText_KR, FooterText_KR, FAQText_KR } from '@/texts/ko';
 
 const faq = () => {
   return (

@@ -14,7 +14,6 @@ const Footer = ({ texts }: { texts: FooterTextType }) => {
               <button>{texts.emailButton}</button>
             </a>
           </div>
-          <p>{texts.content}</p>
           <div className={styles.policies}>
             <a href="https://terms.fanmaum.com/" target="_blank">
               {texts.termsOfService}

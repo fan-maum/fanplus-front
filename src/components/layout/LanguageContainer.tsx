@@ -13,9 +13,12 @@ const LanguageContainer = () => {
     <div className={styles.container}>
       <Language language="한국어" href={`/${link}`} />
       <Language language="English" href={`/en/${link}`} />
-      {/* <Language language="Español" href="/" /> */}
-      <Language language="中文 (简体)" href="https://fanplus.co.kr/cn/about_fanplus_cn/" />
-      <Language language="中文 (繁體)" href="https://fanplus.co.kr/tw/about_fanplus_tw/" />
+      <Language language="Español" href={`/es/${link}`} />
+      <Language language="日本語" href={`/ja/${link}`} />
+      <Language language="中文 (简体)" href={`/zh-rCN/${link}`} />
+      <Language language="中文 (繁體)" href={`/zh-rTW/${link}`} />
+      <Language language="Bahasa Indonesia" href={`/in/${link}`} />
+      <Language language="Tiếng việt" href={`/vi/${link}`} />
     </div>
   );
 };

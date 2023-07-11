@@ -10,7 +10,7 @@ const NavContainer = ({ texts }: { texts: NavBarTextType }) => {
     <div className={styles.container}>
       <ul className={styles.ul}>
         <PageBox title={texts.vote} link={texts.link.vote} />
-        <PageBox title={texts.community} link={texts.link.community} />
+        {/* <PageBox title={texts.community} link={texts.link.community} /> */}
       </ul>
       <ul className={`${styles.ul} ${styles.ul_service}`}>
         <ServiceBox title={texts.aboutUs} link={texts.link.aboutUs} />

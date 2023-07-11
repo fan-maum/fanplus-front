@@ -31,6 +31,9 @@
   width: 150px;
 }
 
+.emailBox {
+  margin-bottom: 26px;
+}
 .emailBox a {
   display: flex;
   width: fit-content;
@@ -56,13 +59,6 @@
   background-color: #ff5656;
   color: white;
   transition: 0.4s;
-}
-.emailBox + p {
-  color: rgb(153, 153, 153);
-  font-size: 14px;
-  font-weight: 400;
-  word-break: keep-all;
-  padding: 10px 0px 16px;
 }
 
 .policies {

@@ -84,7 +84,7 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             <p>{area3.line4}</p>
           </div>
           <div className={styles.imgContainer3}>
-            <img src={'/images/서비스소개_01_투표썸네일.png'} alt="" className={styles.img2} />
+            <img src={area3.img} alt="" className={styles.img2} />
           </div>
         </div>
         <div className={styles.center}>
@@ -128,7 +128,7 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             </div>
             <p>{area4.line1}</p>
             <p>{area4.line2}</p>
-            <p>{area4.line3}</p>
+            {area4.line3 && <p>{area4.line3}</p>}
             <div className={styles.plus}>
               <img src="/icons/icon_plus.svg" alt="" className={styles.plus_icon} />
               <p>{area4.plus}</p>
@@ -136,14 +136,14 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
           <div className={`${styles.imgContainer3} ${styles.flex}`}>
             <div className={styles.imgSet}>
-              <img src={'/images/서비스소개_02_게시판.png'} alt="" className={styles.img4} />
-              <img src={'/images/서비스소개_02_사진.png'} alt="" className={styles.img4} />
+              <img src={area4.img1} alt="" className={styles.img4} />
+              <img src={area4.img2} alt="" className={styles.img4} />
               <div className={styles.blank}></div>
             </div>
             <div className={styles.imgSet}>
               <div className={styles.blank}></div>
-              <img src={'/images/서비스소개_02_팬픽.png'} alt="" className={styles.img4} />
-              <img src={'/images/서비스소개_02_왕중왕전랭킹.png'} alt="" className={styles.img4} />
+              <img src={area4.img3} alt="" className={styles.img4} />
+              <img src={area4.img4} alt="" className={styles.img4} />
             </div>
           </div>
         </div>
@@ -168,7 +168,9 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             </div>
           </div>
           <div className={styles.imgContainer3}>
-            <Carousel />
+            <Carousel
+              imgLinks={{ img1: area5.img1, img2: area5.img2, img3: area5.img3, img4: area5.img4 }}
+            />
           </div>
         </div>
       </div>
@@ -187,10 +189,10 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
           <div className={styles.imgContainer3} style={{ display: 'flex' }}>
             <div className={styles.imgContainer6}>
-              <img src={'/images/서비스소개_04_친구.png'} alt="" className={styles.img2} />
+              <img src={area6.img1} alt="" className={styles.img2} />
             </div>
             <div className={styles.imgContainer6}>
-              <img src={'/images/서비스소개_04_채팅.png'} alt="" className={styles.img2} />
+              <img src={area6.img2} alt="" className={styles.img2} />
             </div>
           </div>
         </div>

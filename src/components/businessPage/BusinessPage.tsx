@@ -12,8 +12,6 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
         <div className={styles.info}>
           <h4>Email</h4>
           <p className={styles.strong}>appfanplus@gmail.com</p>
-          <h4>Address</h4>
-          <p>{texts.address}</p>
         </div>
       </div>
       <div className={styles.box}>

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import MainPage from '@/components/mainPage/MainPage';
 import Layout from '@/components/layout/Layout';
-import { NavBarText_KR, MainPageText_KR, FooterText_KR } from '@/texts/KOR';
+import { NavBarText_KR, MainPageText_KR, FooterText_KR } from '@/texts/ko';
 
 const inter = Inter({ subsets: ['latin'] });
 

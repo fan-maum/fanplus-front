@@ -6,32 +6,30 @@ import {
   FAQPageTextType,
 } from '@/types/textTypes';
 
-export const NavBarText_IND: NavBarTextType = {
-  vote: 'Pemungutan suara',
+export const NavBarText_VIE: NavBarTextType = {
+  vote: 'Bỏ phiếu',
   community: 'Community',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
-  language: 'Bahasa Indonesia',
+  language: 'Tiếng việt',
   link: {
-    vote: '/in/votes',
-    community: '/in/community',
-    aboutUs: '/in',
-    business: '/in/business',
-    faq: '/in/faq',
+    vote: '/vi/votes',
+    community: '/vi/community',
+    aboutUs: '/vi',
+    business: '/vi/business',
+    faq: '/vi/faq',
   },
 };
-export const FooterText_IND: FooterTextType = {
+export const FooterText_VIE: FooterTextType = {
   customerService: 'CS center',
   emailButton: 'Contact',
-  content:
-    '팬마음 커뮤니티는 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 팬마음 커뮤니티는 상품 거래정보 및 거래에 대하여 책임을 지지 않습니다.',
   termsOfService: 'Terms of service',
   privacyPolicy: 'Privacy Policy',
   introduction: '10F 17-6, Yeoksam-ro 3-gil, Gangnam-gu, Seoul, Korea',
   copyright: 'Copyright © FanPlus. All Rights Reserved.',
 };
-export const MainPageText_IND: MainPageTextType = {
+export const MainPageText_VIE: MainPageTextType = {
   Area1: {
     line1: 'Must-Have App for',
     line2: 'Worldwide Kpop Fans',
@@ -61,6 +59,7 @@ export const MainPageText_IND: MainPageTextType = {
     Ad1: 'NYC Times Square in the US',
     Ad2: 'Ningbo in China',
     Ad3: 'Incheon Airport in Korea',
+    img: '/images/서비스소개_01_투표썸네일_en.png',
   },
   Area4: {
     title1: '02 Enjoy entertaining',
@@ -69,6 +68,10 @@ export const MainPageText_IND: MainPageTextType = {
     line2: 'Enjoy varied contents',
     line3: 'that users create and share together.',
     plus: "Don't miss the board too!",
+    img1: '/images/서비스소개_02_게시판_en.png',
+    img2: '/images/서비스소개_02_사진_en.png',
+    img3: '/images/서비스소개_02_팬픽_en.png',
+    img4: '/images/서비스소개_02_왕중왕전랭킹_en.png',
   },
   Area5: {
     title1: '03 How enthusiastic fan',
@@ -79,6 +82,10 @@ export const MainPageText_IND: MainPageTextType = {
     line4: 'so everyone knows how much you support your star.',
     plus1: "Check your friend's stan propensity with badges on FanPlus.",
     plus2: '',
+    img1: '/images/서비스소개_03_보유배지_en.png',
+    img2: '/images/서비스소개_03_프로필_en.png',
+    img3: '/images/서비스소개_03_미션배지상세_en.png',
+    img4: '/images/서비스소개_03_업적배지상세_en.png',
   },
   Area6: {
     title1: '04 It is more fun',
@@ -87,13 +94,14 @@ export const MainPageText_IND: MainPageTextType = {
     line2: 'chat and share your fan life with them.',
     line3: 'Who knows?',
     line4: 'You will find the BFF on FanPlus!',
+    img1: '/images/서비스소개_04_친구_en.png',
+    img2: '/images/서비스소개_04_채팅_en.png',
   },
 };
-export const BusinessText_IND: BusinessPageTextType = {
+export const BusinessText_VIE: BusinessPageTextType = {
   title: 'We are looking for great corporations to offer a better service for users.',
   content:
     "We welcome and look forward to your proposals. Fill out the form and we'll get back to you as soon as possible.",
-  address: 'Fanmaum, 916, 27, Teheran-ro-2-gil, Gangnam-gu, Seoul, Korea',
   form: {
     company: 'Company (required)',
     officer: 'Full name (required)',
@@ -102,7 +110,7 @@ export const BusinessText_IND: BusinessPageTextType = {
     button: 'SEND REQUEST',
   },
 };
-export const FAQText_IND: FAQPageTextType = {
+export const FAQText_VIE: FAQPageTextType = {
   header: 'We are here to help.',
   navBar: {
     all: 'All',

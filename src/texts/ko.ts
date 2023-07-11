@@ -24,8 +24,6 @@ export const NavBarText_KR: NavBarTextType = {
 export const FooterText_KR: FooterTextType = {
   customerService: '고객센터',
   emailButton: '이메일 문의',
-  content:
-    '팬마음 커뮤니티는 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 팬마음 커뮤니티는 상품 거래정보 및 거래에 대하여 책임을 지지 않습니다.',
   termsOfService: '이용약관',
   privacyPolicy: '개인정보처리방침',
   introduction: '서울시 강남구 역삼로3길 17-6, 10층',
@@ -61,6 +59,7 @@ export const MainPageText_KR: MainPageTextType = {
     Ad1: '미국 타임스퀘어',
     Ad2: '중국 닝보',
     Ad3: '인천공항',
+    img: '/images/서비스소개_01_투표썸네일.png',
   },
   Area4: {
     title1: '02 시간 순삭 덕질 콘텐츠',
@@ -69,6 +68,10 @@ export const MainPageText_KR: MainPageTextType = {
     line2: '나와 최애가 같은 팬들이 공유하는',
     line3: '다양한 콘텐츠를 즐겨보세요.',
     plus: '북적이는 게시판도 방문해보세요.',
+    img1: '/images/서비스소개_02_게시판.png',
+    img2: '/images/서비스소개_02_사진.png',
+    img3: '/images/서비스소개_02_팬픽.png',
+    img4: '/images/서비스소개_02_왕중왕전랭킹.png',
   },
   Area5: {
     title1: '03 덕질, 어디까지 해봤나요?',
@@ -79,6 +82,10 @@ export const MainPageText_KR: MainPageTextType = {
     line4: '',
     plus1: '다른 사람의 활동 배지를 보면 그 사람의 덕질 성향도 알 수 있어요.',
     plus2: '',
+    img1: '/images/서비스소개_03_보유배지-1.png',
+    img2: '/images/서비스소개_03_프로필-1.png',
+    img3: '/images/서비스소개_03_미션배지상세-1.png',
+    img4: '/images/서비스소개_03_업적배지상세-1.png',
   },
   Area6: {
     title1: '04 함께하면 더 즐거운 덕질',
@@ -87,13 +94,14 @@ export const MainPageText_KR: MainPageTextType = {
     line2: '실시간 채팅으로 최애 이야기를 나눠보세요.',
     line3: '혹시 알아요?',
     line4: '팬플러스에서 인생 덕메를 만나게 될지!',
+    img1: '/images/서비스소개_04_친구.png',
+    img2: '/images/서비스소개_04_채팅.png',
   },
 };
 export const BusinessText_KR: BusinessPageTextType = {
   title: '팬플러스는 다양한 제휴를 통해 더 나은 서비스를 제공하고자 합니다.',
   content:
     '팬플러스와 비즈니스 제휴를 희망하는 개인, 기업은 제안 내용을 등록해주시면 검토 후 연락드리겠습니다. 제안 내용은 검토 목적으로만 이용됩니다.',
-  address: '서울시 강남구 테헤란로 2길 27(역삼동), 916호',
   form: {
     company: '회사명 (필수)',
     officer: '담당자명 (필수)',
