@@ -21,37 +21,12 @@ const VoteTab = ({
     router.push({
       pathname: pathname,
       query: {
-        vote_type: tabValue, 
+        vote_type: tabValue,
         page: 1,
         per_page: itemsPerPage,
-      }
-    })
-
-    // if (tabState !== tabValue || router.query.vote_type === tabValue) {
-    //   setTabState(tabValue);
-    // }
-    // // const initPageCount = 0;
-    // //   const paramsObj = { vote_Type: tabValue, page: (currentPage - 1).toString(), perPage: '9' };
-    // //   const searchParams = new URLSearchParams(paramsObj);
-    // //   console.log('searchParams.toString()', searchParams.toString());
-    // //   router.push(pathname + '?' + searchParams.toString());
-    // console.log('tabState',tabState)
-    // console.log('tabValue',tabValue)
-  }
-
-  // useEffect(() => {
-  //   // if (router.query.vote_Type === '') {
-  //   //   console.log(router.query.vote_Type);
-  //   //   setTabState('');
-  //   // }
-  //   // if (router.query.vote_Type === 'R') {
-  //   //   console.log(router.query.vote_Type);
-  //   //   setTabState('R');
-  //   // }
-  //   // if (router.query.vote_Type === 'B') {
-  //   //   setTabState('B');
-  //   // }
-  // }, []);
+      },
+    });
+  };
 
   return (
     <>

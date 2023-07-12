@@ -6,43 +6,38 @@ import VotePagination, { VotePaginationProps } from '@/components/organisms/Vote
 import VoteTemplate from '@/components/templates/VoteTemplate';
 import { getTestVotes, getVotes } from '@/api/Vote';
 import { useRouter } from 'next/router';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { useMediaQuery } from 'react-responsive';
-import { VoteData } from '@/types/vote';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
 const Votes = ({ initialData, initialMobileData }: EventProps) => {
-  const pathname = usePathname();
   const router = useRouter();
   const vote_type = router.query.vote_type === undefined ? '' : router.query.vote_type;
   const page = router.query.page === undefined ? 1 : router.query.page;
   const per_page = router.query.per_page === undefined ? 9 : router.query.per_page;
-  // const { vote_type, page, per_page }: any = router?.query;
-  // const [voteData, setVoteData] = useState(voteInitailDatas);
-  // const [loading, setLoading] = useState(false);
-  console.log('router.query :',router?.query);
-  
+  console.log('router.query :', router?.query);
+
   /* mediaQuery 설정 */
   const [isMobile, setIsMobile] = useState(false);
   const mobile = useMediaQuery({ query: '(max-width:768px)' });
-  const voteInitialData = !isMobile ? initialData.RESULTS.DATAS.DATA : initialMobileData.RESULTS.DATAS.DATA;
-  
+  const voteInitialData = !isMobile
+    ? initialData.RESULTS.DATAS.DATA
+    : initialMobileData.RESULTS.DATAS.DATA;
+
   /* 공통 설정 */
-  // const [data, setData] = useState([]);
   const [totalCount, setTotalCount] = useState('');
-  // const [totalCount, setTotalCount] = useState(initialData.RESULTS.DATAS.TOTAL_CNT);
   const [tabState, setTabState] = useState<'' | 'B' | 'R'>(vote_type);
   const itemsPerPage = !isMobile ? 9 : 4;
-  // const { loading, voteLists, error } = getTestVotes("R", page, per_page);
-  // console.log(voteLists);
-  // console.log(itemsPerPage);
 
   const [loading, setLoading] = useState(true);
   const [voteLists, setVoteLists] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`https://cors-anywhere.herokuapp.com/https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page - 1}&per_page=${per_page}`)
+    fetch(
+      `https://cors-anywhere.herokuapp.com/https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${
+        page - 1
+      }&per_page=${per_page}`
+    )
       .then((res) => res.json())
       .then((lists) => {
         setVoteLists(lists.RESULTS.DATAS.DATA);
@@ -53,7 +48,6 @@ const Votes = ({ initialData, initialMobileData }: EventProps) => {
         setError(error);
         setLoading(false);
       });
-
   }, [vote_type, page, per_page]);
 
   const VoteListTabProps: VoteListTabProps = {
