@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from 'react';
-
 export const getVotes = (vote_type: string | undefined | null, page: number, per_page: number) => {
   const response = fetch(
     `https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}`,
@@ -10,36 +8,5 @@ export const getVotes = (vote_type: string | undefined | null, page: number, per
       },
     }
   );
-  console.log(response);
   return response;
-};
-
-export interface getTestVotesProps {
-  vote_type: '' | 'B' | 'R';
-  page: number;
-  per_page: number;
-}
-
-export const getTestVotes = ({ vote_type, page, per_page }: getTestVotesProps) => {
-  const [loading, setLoading] = useState(true);
-  const [voteLists, setVoteLists] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch(
-      `https://cors-anywhere.herokuapp.com/https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}`
-    )
-      .then((res) => res.json())
-      .then((lists) => {
-        console.log(lists);
-        setVoteLists(lists);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, [vote_type, page, per_page]);
-
-  return { loading, voteLists, error };
 };
