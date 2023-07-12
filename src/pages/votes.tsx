@@ -9,9 +9,9 @@ import { useRouter } from 'next/router';
 import { useMediaQuery } from 'react-responsive';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const Votes = ({ initialData, initialMobileData }: EventProps) => {
+const Votes = ({ initialData }: EventProps) => {
   const router = useRouter();
-  const vote_type = router.query.vote_type === undefined ? '' : router.query.vote_type;
+  const vote_type: any = router.query.vote_type === undefined ? '' : router.query.vote_type;
   const page = router.query.page === undefined ? 1 : Number(router.query.page);
   const per_page = router.query.per_page === undefined ? 9 : router.query.per_page;
   console.log('router.query :', router?.query);
@@ -65,7 +65,6 @@ const Votes = ({ initialData, initialMobileData }: EventProps) => {
   console.log(voteLists);
   const VoteListProps: VoteListProps = {
     isMobile: isMobile,
-    // voteList: voteInitialData,
     loading: loading,
     error: error,
     voteList: voteLists,
@@ -88,15 +87,12 @@ const Votes = ({ initialData, initialMobileData }: EventProps) => {
 
 export const getServerSideProps = async () => {
   const initialRowData = await getVotes('', 0, 9);
-  const initialRowMobileData = await getVotes('', 0, 5);
   const initialData = await initialRowData.json();
-  const initialMobileData = await initialRowMobileData.json();
-
-  if (!initialData && !initialMobileData) {
+  if (!initialData) {
     return false;
   }
   return {
-    props: { initialData, initialMobileData },
+    props: { initialData },
   };
 };
 

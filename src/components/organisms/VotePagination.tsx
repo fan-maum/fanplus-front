@@ -1,6 +1,6 @@
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
-import PcVotePagination from './PcVotePagination';
+import VotePaginationDetail from './VotePaginationDetail';
 
 export interface VotePaginationProps {
   totalCount: number;
@@ -27,13 +27,8 @@ const VotePagination = ({ totalCount, itemsPerPage, isMobile }: VotePaginationPr
   };
 
   return (
-    <PcVotePagination pageCount={pageCount} forcePage={forcePage} onPageChange={onPageChange} />
+    <VotePaginationDetail pageCount={pageCount} forcePage={forcePage} onPageChange={onPageChange} />
   );
-  // return !isMobile ? (
-  //   <PcVotePagination pageCount={pageCount} onPageChange={onPageChange} />
-  // ) : (
-  //   <MobileVotePagination pageCount={pageCount} onPageChange={onPageChange} />
-  // );
 };
 
 export default VotePagination;

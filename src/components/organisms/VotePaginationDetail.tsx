@@ -1,7 +1,7 @@
 import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
 import Image from 'next/image';
 
-const PcVotePagination = ({ pageCount, forcePage, onPageChange }: ReactPaginateProps) => {
+const VotePaginationDetail = ({ pageCount, forcePage, onPageChange }: ReactPaginateProps) => {
   return (
     <div css={{ background: '#FFF', width: '100%', display: 'flex', justifyContent: 'center' }}>
       <ReactPaginate
@@ -19,8 +19,8 @@ const PcVotePagination = ({ pageCount, forcePage, onPageChange }: ReactPaginateP
         }
         nextLabel={
           <Image
-            width={10}
-            height={10}
+            width={11}
+            height={11}
             src="/icons/icon_paginationArrow.png"
             alt="arrow"
             css={{ transform: 'scaleX(-1)' }}
@@ -28,10 +28,9 @@ const PcVotePagination = ({ pageCount, forcePage, onPageChange }: ReactPaginateP
         }
         pageRangeDisplayed={5}
         marginPagesDisplayed={0}
-        forcePage={forcePage && (forcePage - 1)}
+        forcePage={forcePage && forcePage - 1}
         pageCount={pageCount}
         onPageChange={onPageChange}
-        // renderOnZeroPageCount={null}
         pageClassName="page-item"
         activeClassName="active"
       />
@@ -39,4 +38,4 @@ const PcVotePagination = ({ pageCount, forcePage, onPageChange }: ReactPaginateP
   );
 };
 
-export default PcVotePagination;
+export default VotePaginationDetail;

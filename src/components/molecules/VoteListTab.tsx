@@ -33,7 +33,9 @@ const VoteTab = ({
       <div
         css={[
           {
-            position: 'relative',
+            position: 'sticky',
+            top: 0,
+            zIndex: 10000,
             margin: '40px auto',
             display: 'flex',
             maxWidth: 662,
