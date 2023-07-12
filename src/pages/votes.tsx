@@ -12,21 +12,18 @@ export interface EventProps extends InferGetServerSidePropsType<typeof getServer
 const Votes = ({ initialData, initialMobileData }: EventProps) => {
   const router = useRouter();
   const vote_type = router.query.vote_type === undefined ? '' : router.query.vote_type;
-  const page = router.query.page === undefined ? 1 : router.query.page;
+  const page = router.query.page === undefined ? 1 : Number(router.query.page);
   const per_page = router.query.per_page === undefined ? 9 : router.query.per_page;
   console.log('router.query :', router?.query);
 
   /* mediaQuery 설정 */
   const [isMobile, setIsMobile] = useState(false);
   const mobile = useMediaQuery({ query: '(max-width:768px)' });
-  const voteInitialData = !isMobile
-    ? initialData.RESULTS.DATAS.DATA
-    : initialMobileData.RESULTS.DATAS.DATA;
 
   /* 공통 설정 */
-  const [totalCount, setTotalCount] = useState('');
+  const [totalCount, setTotalCount] = useState<number>(0);
   const [tabState, setTabState] = useState<'' | 'B' | 'R'>(vote_type);
-  const itemsPerPage = !isMobile ? 9 : 4;
+  const itemsPerPage = !isMobile ? 9 : 5;
 
   const [loading, setLoading] = useState(true);
   const [voteLists, setVoteLists] = useState([]);
@@ -56,7 +53,7 @@ const Votes = ({ initialData, initialMobileData }: EventProps) => {
       { label: '생일 투표', value: 'B' },
       { label: '리그전', value: 'R' },
     ],
-    state: [tabState, setTabState as Dispatch<SetStateAction<string>>],
+    state: [tabState, setTabState],
     itemsPerPage: itemsPerPage,
   };
 
@@ -91,7 +88,7 @@ const Votes = ({ initialData, initialMobileData }: EventProps) => {
 
 export const getServerSideProps = async () => {
   const initialRowData = await getVotes('', 0, 9);
-  const initialRowMobileData = await getVotes('', 0, 4);
+  const initialRowMobileData = await getVotes('', 0, 5);
   const initialData = await initialRowData.json();
   const initialMobileData = await initialRowMobileData.json();
 

@@ -28,7 +28,7 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
   const remainTimeState = formatTime(seconds) !== '종료' ? true : false;
 
   return (
-    <Stack align="center" spacing={12} css={{ cursor: 'pointer' }}>
+    <Stack align="center" spacing={12} css={{ cursor: 'pointer', overflow: 'hidden' }}>
       <VoteTitle
         remainTime={remainTime}
         remainTimeState={remainTimeState}
@@ -75,6 +75,11 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
             color: '#5C6B70',
             fontSize: '18px',
             fontWeight: '600',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+            width: '100%',
           },
         ]}
       >
