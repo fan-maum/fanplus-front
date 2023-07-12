@@ -1,7 +1,7 @@
 import { BusinessPageTextType } from '@/types/textTypes';
 import styles from './styles/BusinessPage.module.css';
 import { useCallback, useState } from 'react';
-import { handleBusinessFormSubmit, handleChangeState, resetBusinessState } from './FormHandle';
+import { handleBusinessFormSubmit, handleChangeState } from './FormHandle';
 
 const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -10,16 +10,12 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
   const [email, setEmail] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
-  const resetBusinessStateMemo: () => void = useCallback(
-    () =>
-      resetBusinessState({
-        setCompany: setCompany,
-        setOfficer: setOfficer,
-        setEmail: setEmail,
-        setMessage: setMessage,
-      }),
-    []
-  );
+  const resetBusinessState: () => void = useCallback(() => {
+    setCompany('');
+    setOfficer('');
+    setEmail('');
+    setMessage('');
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -41,7 +37,7 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
               email: email,
               message: message,
               setIsSuccess: setIsSuccess,
-              ResetState: resetBusinessStateMemo,
+              resetBusinessState: resetBusinessState,
             });
           }}
         >

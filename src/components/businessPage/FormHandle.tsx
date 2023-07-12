@@ -6,14 +6,14 @@ export const handleBusinessFormSubmit = async ({
   email,
   message,
   setIsSuccess,
-  ResetState,
+  resetBusinessState,
 }: {
   company: string;
   officer: string;
   email: string;
   message: string;
   setIsSuccess: Dispatch<SetStateAction<boolean>>;
-  ResetState: () => void;
+  resetBusinessState: () => void;
 }) => {
   const formdata: FormData = new FormData();
 
@@ -30,30 +30,13 @@ export const handleBusinessFormSubmit = async ({
   fetch(result).then((res) => {
     if (res.status === 200) {
       setIsSuccess(true);
-      ResetState();
+      resetBusinessState();
       return;
     } else {
       console.log(res);
       return res.json();
     }
   });
-};
-
-export const resetBusinessState = ({
-  setCompany,
-  setOfficer,
-  setEmail,
-  setMessage,
-}: {
-  setCompany: Dispatch<SetStateAction<string>>;
-  setOfficer: Dispatch<SetStateAction<string>>;
-  setEmail: Dispatch<SetStateAction<string>>;
-  setMessage: Dispatch<SetStateAction<string>>;
-}) => {
-  setCompany('');
-  setOfficer('');
-  setEmail('');
-  setMessage('');
 };
 
 export const handleChangeState = ({

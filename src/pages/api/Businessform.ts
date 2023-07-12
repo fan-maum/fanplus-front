@@ -9,7 +9,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         body: req.body,
       }
     );
-    console.log(req.method);
     fetch(request).then((result) => {
       if (result.status === 200) res.status(200).json('Done');
       else res.status(400).json('error');
