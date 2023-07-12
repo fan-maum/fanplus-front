@@ -32,37 +32,9 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
         </div>
       </div>
       <div className={styles.box}>
-        <input
-          placeholder={texts.form.company}
-          required
-          name="kkyqnibvdxfvfyiatukektnrqyuisxwadqxq"
-          onChange={(event) => handleChangeState({ event: event, setState: setCompany })}
-          value={company}
-        ></input>
-        <input
-          placeholder={texts.form.officer}
-          required
-          name="upgzpglpaxnpamrpmdcpzkssehglkpauvpvo"
-          onChange={(event) => handleChangeState({ event: event, setState: setOfficer })}
-          value={officer}
-        ></input>
-        <input
-          type="email"
-          placeholder={texts.form.email}
-          required
-          name="kciseiitjtkzfsjccpnjvkgwdqeecdgdutay"
-          onChange={(event) => handleChangeState({ event: event, setState: setEmail })}
-          value={email}
-        ></input>
-        <textarea
-          placeholder={texts.form.message}
-          required
-          name="ncnnxuhmcikxfpkkjcpdarleyfykweoqkeia"
-          onChange={(event) => handleChangeState({ event: event, setState: setMessage })}
-          value={message}
-        ></textarea>
-        <button
-          onClick={() => {
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
             handleBusinessFormSubmit({
               company: company,
               officer: officer,
@@ -73,10 +45,41 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
             });
           }}
         >
-          {texts.form.button}
-          <img src="/icons/icon_send.svg" />
-        </button>
-        {isSuccess && <div className={styles.greenBox}>YOUR EMAIL WAS SENT SUCCESSFULLY!</div>}
+          <input
+            placeholder={texts.form.company}
+            required
+            name="kkyqnibvdxfvfyiatukektnrqyuisxwadqxq"
+            onChange={(event) => handleChangeState({ event: event, setState: setCompany })}
+            value={company}
+          ></input>
+          <input
+            placeholder={texts.form.officer}
+            required
+            name="upgzpglpaxnpamrpmdcpzkssehglkpauvpvo"
+            onChange={(event) => handleChangeState({ event: event, setState: setOfficer })}
+            value={officer}
+          ></input>
+          <input
+            type="email"
+            placeholder={texts.form.email}
+            required
+            name="kciseiitjtkzfsjccpnjvkgwdqeecdgdutay"
+            onChange={(event) => handleChangeState({ event: event, setState: setEmail })}
+            value={email}
+          ></input>
+          <textarea
+            placeholder={texts.form.message}
+            required
+            name="ncnnxuhmcikxfpkkjcpdarleyfykweoqkeia"
+            onChange={(event) => handleChangeState({ event: event, setState: setMessage })}
+            value={message}
+          ></textarea>
+          <button>
+            {texts.form.button}
+            <img src="/icons/icon_send.svg" />
+          </button>
+          {isSuccess && <div className={styles.greenBox}>YOUR EMAIL WAS SENT SUCCESSFULLY!</div>}
+        </form>
       </div>
     </div>
   );
