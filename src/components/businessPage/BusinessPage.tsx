@@ -1,7 +1,7 @@
 import { BusinessPageTextType } from '@/types/textTypes';
 import styles from './styles/BusinessPage.module.css';
 import { useCallback, useState } from 'react';
-import { ChangeHandle, ResetState, SubmitHandle } from './FormHandle';
+import { handleBusinessFormSubmit, handleChangeState, resetBusinessState } from './FormHandle';
 
 const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -10,9 +10,9 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
   const [email, setEmail] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
-  const ResetStateMemo: () => void = useCallback(
+  const resetBusinessStateMemo: () => void = useCallback(
     () =>
-      ResetState({
+      resetBusinessState({
         setCompany: setCompany,
         setOfficer: setOfficer,
         setEmail: setEmail,
@@ -36,14 +36,14 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
           placeholder={texts.form.company}
           required
           name="kkyqnibvdxfvfyiatukektnrqyuisxwadqxq"
-          onChange={(event) => ChangeHandle({ event: event, setState: setCompany })}
+          onChange={(event) => handleChangeState({ event: event, setState: setCompany })}
           value={company}
         ></input>
         <input
           placeholder={texts.form.officer}
           required
           name="upgzpglpaxnpamrpmdcpzkssehglkpauvpvo"
-          onChange={(event) => ChangeHandle({ event: event, setState: setOfficer })}
+          onChange={(event) => handleChangeState({ event: event, setState: setOfficer })}
           value={officer}
         ></input>
         <input
@@ -51,25 +51,25 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
           placeholder={texts.form.email}
           required
           name="kciseiitjtkzfsjccpnjvkgwdqeecdgdutay"
-          onChange={(event) => ChangeHandle({ event: event, setState: setEmail })}
+          onChange={(event) => handleChangeState({ event: event, setState: setEmail })}
           value={email}
         ></input>
         <textarea
           placeholder={texts.form.message}
           required
           name="ncnnxuhmcikxfpkkjcpdarleyfykweoqkeia"
-          onChange={(event) => ChangeHandle({ event: event, setState: setMessage })}
+          onChange={(event) => handleChangeState({ event: event, setState: setMessage })}
           value={message}
         ></textarea>
         <button
           onClick={() => {
-            SubmitHandle({
+            handleBusinessFormSubmit({
               company: company,
               officer: officer,
               email: email,
               message: message,
               setIsSuccess: setIsSuccess,
-              ResetState: ResetStateMemo,
+              ResetState: resetBusinessStateMemo,
             });
           }}
         >

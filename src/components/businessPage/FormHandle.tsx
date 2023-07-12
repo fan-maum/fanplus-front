@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
-export const SubmitHandle = async ({
+export const handleBusinessFormSubmit = async ({
   company,
   officer,
   email,
@@ -27,21 +27,19 @@ export const SubmitHandle = async ({
     body: formdata,
   });
 
-  fetch(result)
-    .then((res) => {
-      if (res.status === 200) {
-        setIsSuccess(true);
-        ResetState();
-        return;
-      } else if (res.status == 403) {
-        console.log(res);
-        return res.json();
-      }
-    })
-    .then((res) => {});
+  fetch(result).then((res) => {
+    if (res.status === 200) {
+      setIsSuccess(true);
+      ResetState();
+      return;
+    } else {
+      console.log(res);
+      return res.json();
+    }
+  });
 };
 
-export const ResetState = ({
+export const resetBusinessState = ({
   setCompany,
   setOfficer,
   setEmail,
@@ -58,7 +56,7 @@ export const ResetState = ({
   setMessage('');
 };
 
-export const ChangeHandle = ({
+export const handleChangeState = ({
   event,
   setState,
 }: {
