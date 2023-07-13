@@ -14,7 +14,6 @@ const Votes = ({ initialData }: EventProps) => {
   const vote_type: any = router.query.vote_type === undefined ? '' : router.query.vote_type;
   const page = router.query.page === undefined ? 1 : Number(router.query.page);
   const per_page = router.query.per_page === undefined ? 9 : router.query.per_page;
-  console.log('router.query :', router?.query);
 
   /* mediaQuery 설정 */
   const [isMobile, setIsMobile] = useState(false);
@@ -31,17 +30,17 @@ const Votes = ({ initialData }: EventProps) => {
 
   useEffect(() => {
     fetch(`/api/votes?vote_type=${vote_type}&page=${page - 1}&per_page=${per_page}`)
-    .then(res => res.json())
-    .then((lists) => {
-      console.log(lists);
-      setVoteLists(lists.RESULTS.DATAS.DATA);
-      setTotalCount(lists.RESULTS.DATAS.TOTAL_CNT);
-      setLoading(false);
-    })
-    .catch((error) => {
-      setError(error);
-      setLoading(false);
-    });
+      .then((res) => res.json())
+      .then((lists) => {
+        console.log(lists);
+        setVoteLists(lists.RESULTS.DATAS.DATA);
+        setTotalCount(lists.RESULTS.DATAS.TOTAL_CNT);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
   }, [vote_type, page, per_page]);
 
   const VoteListTabProps: VoteListTabProps = {
@@ -59,7 +58,6 @@ const Votes = ({ initialData }: EventProps) => {
     if (!mobile) setIsMobile(false);
   }, [mobile]);
 
-  console.log(voteLists);
   const VoteListProps: VoteListProps = {
     isMobile: isMobile,
     loading: loading,
