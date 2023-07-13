@@ -42,7 +42,7 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.container} css={{ width: '100%' }}>
         <div
           className={styles.imageContainer}
           css={css(translation)}
