@@ -22,7 +22,7 @@ export const handleBusinessFormSubmit = async ({
   formdata.append('email', email);
   formdata.append('message', message);
 
-  const result = new Request('http://localhost:3000/api/Businessform', {
+  const result = new Request('http://localhost:3020/api/Businessform', {
     method: 'POST',
     body: formdata,
   });
