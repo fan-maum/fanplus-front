@@ -13,6 +13,8 @@ export type OwnPropType = {
   };
 };
 
+const mediaQuery = '@media screen and (max-width: 768px)';
+
 const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
   const [currIndex, setCurrIndex] = useState(0);
   const [translation, setTranslation] = useState('');
@@ -42,10 +44,32 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
 
   return (
     <>
-      <div className={styles.container} css={{ width: '100%' }}>
+      <div
+        css={{
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          [mediaQuery]: { width: '75%', margin: '0px auto' },
+          // div: {
+          //   backgroundColor: 'red',
+          // },
+        }}
+      >
         <div
-          className={styles.imageContainer}
-          css={css(translation)}
+          css={[
+            {
+              width: '250%',
+              height: '100%',
+              transition: 'transform 0.4s',
+              [mediaQuery]: { width: '500%' },
+              img: {
+                width: '20%',
+                padding: '10px',
+              },
+            },
+            css(translation),
+          ]}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
@@ -56,7 +80,19 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
           <img src={imgLinks.img1} alt="보유배지"></img>
         </div>
       </div>
-      <div className={styles.buttons}>
+      <div
+        css={{
+          width: '100%',
+          height: 'fit-content',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          svg: {
+            margin: '10px',
+            cursor: 'pointer',
+          },
+        }}
+      >
         <span onClick={() => handleClick(0)}>
           <CircleIcon fill={currIndex === 0 ? 'black' : 'none'} />
         </span>
