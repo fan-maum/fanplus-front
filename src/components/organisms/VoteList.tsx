@@ -1,11 +1,12 @@
+import { memo } from 'react';
 import { VoteData } from '@/types/vote';
 import VoteListItem from './VoteListItem';
 
 export interface VoteListProps {
   isMobile: boolean;
   voteList: VoteData[];
-  loading: boolean,
-  error: string | null,
+  loading: boolean;
+  error: string | null;
 }
 
 function VoteList({ isMobile, voteList, loading, error, ...props }: VoteListProps) {
@@ -38,4 +39,4 @@ function VoteList({ isMobile, voteList, loading, error, ...props }: VoteListProp
   );
 }
 
-export default VoteList;
+export default memo(VoteList);
