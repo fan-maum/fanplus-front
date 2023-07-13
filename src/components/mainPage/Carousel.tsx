@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import styles from './styles/Carousel.module.css';
 import { css } from '@emotion/react';
 import CircleIcon from './CircleIcon';
 import { TouchEvent } from 'react';
@@ -12,8 +11,6 @@ export type OwnPropType = {
     img4: string;
   };
 };
-
-const mediaQuery = '@media screen and (max-width: 768px)';
 
 const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
   const [currIndex, setCurrIndex] = useState(0);
@@ -50,7 +47,7 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
           height: '100%',
           overflow: 'hidden',
           whiteSpace: 'nowrap',
-          [mediaQuery]: { width: '75%', margin: '0px auto' },
+          '@media(max-width:768px)': { width: '75%', margin: '0px auto' },
           // div: {
           //   backgroundColor: 'red',
           // },
@@ -62,7 +59,7 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
               width: '250%',
               height: '100%',
               transition: 'transform 0.4s',
-              [mediaQuery]: { width: '500%' },
+              '@media(max-width:768px)': { width: '500%' },
               img: {
                 width: '20%',
                 padding: '10px',
@@ -87,7 +84,7 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          svg: {
+          span: {
             margin: '10px',
             cursor: 'pointer',
           },

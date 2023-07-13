@@ -23,14 +23,14 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             </div>
             <div className={styles.appLinkContainer}>
               <AppLink
-                icon="/icons/play_store_logo.svg"
+                storeIcon="/icons/play_store_logo.svg"
                 storeName="Google Play"
                 storeLink="https://play.google.com/store/apps/details?id=com.photocard.allstar"
                 bgColor="#ff5656"
                 fontColor="white"
               />
               <AppLink
-                icon="/icons/app_store_logo.svg"
+                storeIcon="/icons/app_store_logo.svg"
                 storeName="App Store"
                 storeLink="https://apps.apple.com/kr/app/%ED%8C%AC%ED%94%8C%EB%9F%AC%EC%8A%A4/id1448805815"
                 bgColor="white"
