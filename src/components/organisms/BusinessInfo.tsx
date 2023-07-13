@@ -1,5 +1,4 @@
 import { BusinessPageTextType } from '@/types/textTypes';
-import { fontSettings } from '../atoms/base/Typography';
 
 const BusinessInfo = ({ texts }: { texts: BusinessPageTextType }) => {
   return (
@@ -15,7 +14,8 @@ const BusinessInfo = ({ texts }: { texts: BusinessPageTextType }) => {
     >
       <h1
         css={{
-          ...fontSettings.headline[3],
+          fontWeight: 700,
+          fontSize: 36,
           letterSpacing: 'normal',
           lineHeight: '50px',
           fontStretch: '100%',

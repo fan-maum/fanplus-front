@@ -1,5 +1,5 @@
 import { BusinessPageTextType } from '@/types/textTypes';
-import { Center } from '../atoms/base/Center';
+import { Center } from '../atoms/Center';
 import BusinessInfo from '../organisms/BusinessInfo';
 import BusinessForm from '../organisms/BusinessForm';
 

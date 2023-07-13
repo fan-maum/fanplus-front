@@ -1,6 +1,6 @@
 import { BusinessPageTextType } from '@/types/textTypes';
 import { ChangeEvent, useCallback, useState } from 'react';
-import { handleBusinessFormSubmit, handleChangeState } from '../organisms/BusinessFormHandle';
+import { handleBusinessFormSubmit, handleChangeState } from './BusinessFormHandle';
 import { RequiredInput } from '../atoms/RequiredInput';
 import { Button } from '../atoms/Button';
 
