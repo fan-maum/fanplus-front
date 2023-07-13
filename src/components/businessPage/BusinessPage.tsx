@@ -1,9 +1,11 @@
 import { BusinessPageTextType } from '@/types/textTypes';
 import styles from './styles/BusinessPage.module.css';
-import { useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { handleBusinessFormSubmit, handleChangeState } from './FormHandle';
-import { Typography } from '../atoms/Typography';
-import { Center } from '../atoms/Center';
+import { Center } from '../atoms/base/Center';
+import { RequiredInput } from '../atoms/RequiredInput';
+import { Button } from '../atoms/Button';
+import { Typography, fontSettings } from '../atoms/base/Typography';
 
 const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -20,18 +22,37 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
   }, []);
 
   return (
-    <Center>
-      <Typography c="black">HI</Typography>
-      <div className={`${styles.box} ${styles.box1}`}>
-        <h1>{texts.title}</h1>
+    <Center
+      css={{
+        maxWidth: 1170,
+        width: '100%',
+        padding: 10,
+        margin: '100px auto',
+        wordBreak: 'keep-all',
+      }}
+    >
+      <div css={{ width: '50%', padding: '0px 40px 0px 10px' }} className={` ${styles.box1}`}>
+        <h1
+          css={{
+            ...fontSettings.headline[3],
+            letterSpacing: 'normal',
+            lineHeight: '50px',
+            fontStretch: '100%',
+            whiteSpace: 'pre-line',
+            marginBottom: 40,
+          }}
+        >
+          {texts.title}
+        </h1>
         <p>{texts.content}</p>
         <div className={styles.info}>
-          <h4>Email</h4>
+          <h4 css={{ height: 28, lineHeight: '28px', color: 'rgb(153, 153, 153)' }}>Email</h4>
           <p className={styles.strong}>appfanplus@gmail.com</p>
         </div>
       </div>
-      <div className={styles.box}>
+      <div css={{ width: '50%' }}>
         <form
+          css={{ width: '100%' }}
           onSubmit={(event) => {
             event.preventDefault();
             handleBusinessFormSubmit({
@@ -44,43 +65,48 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
             });
           }}
         >
-          <input
+          <RequiredInput
             placeholder={texts.form.company}
-            required
             name="kkyqnibvdxfvfyiatukektnrqyuisxwadqxq"
-            onChange={(event) => handleChangeState({ event: event, setState: setCompany })}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleChangeState({ event: event, setState: setCompany })
+            }
             value={company}
-          ></input>
-          <input
+          />
+          <RequiredInput
             placeholder={texts.form.officer}
-            required
             name="upgzpglpaxnpamrpmdcpzkssehglkpauvpvo"
-            onChange={(event) => handleChangeState({ event: event, setState: setOfficer })}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleChangeState({ event: event, setState: setOfficer })
+            }
             value={officer}
-          ></input>
-          <input
+          />
+          <RequiredInput
             type="email"
             placeholder={texts.form.email}
-            required
             name="kciseiitjtkzfsjccpnjvkgwdqeecdgdutay"
-            onChange={(event) => handleChangeState({ event: event, setState: setEmail })}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleChangeState({ event: event, setState: setEmail })
+            }
             value={email}
-          ></input>
-          <textarea
+          />
+          <RequiredInput
+            textarea={true}
             placeholder={texts.form.message}
-            required
             name="ncnnxuhmcikxfpkkjcpdarleyfykweoqkeia"
-            onChange={(event) => handleChangeState({ event: event, setState: setMessage })}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
+              handleChangeState({ event: event, setState: setMessage })
+            }
             value={message}
-          ></textarea>
-          <button>
+          />
+          <Button>
             {texts.form.button}
-            <img src="/icons/icon_send.svg" />
-          </button>
+            <img css={{ marginLeft: 10, width: 16, height: 16 }} src="/icons/icon_send.svg" />
+          </Button>
           {isSuccess && <div className={styles.greenBox}>YOUR EMAIL WAS SENT SUCCESSFULLY!</div>}
         </form>
       </div>
-    </C>
+    </Center>
   );
 };
 
