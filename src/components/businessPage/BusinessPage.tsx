@@ -2,6 +2,8 @@ import { BusinessPageTextType } from '@/types/textTypes';
 import styles from './styles/BusinessPage.module.css';
 import { useCallback, useState } from 'react';
 import { handleBusinessFormSubmit, handleChangeState } from './FormHandle';
+import { Typography } from '../atoms/Typography';
+import { Center } from '../atoms/Center';
 
 const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -18,7 +20,8 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <Center>
+      <Typography c="black">HI</Typography>
       <div className={`${styles.box} ${styles.box1}`}>
         <h1>{texts.title}</h1>
         <p>{texts.content}</p>
@@ -77,7 +80,7 @@ const BusinessPage = ({ texts }: { texts: BusinessPageTextType }) => {
           {isSuccess && <div className={styles.greenBox}>YOUR EMAIL WAS SENT SUCCESSFULLY!</div>}
         </form>
       </div>
-    </div>
+    </C>
   );
 };
 
