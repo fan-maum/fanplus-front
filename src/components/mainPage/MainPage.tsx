@@ -3,6 +3,20 @@ import { FC } from 'react';
 import styles from './styles/MainPage.module.css';
 import AppLink from './AppLink';
 import Carousel from './Carousel';
+import { css } from '@emotion/react';
+
+const area = css({ padding: '100px 0px', '@media(max-width:991px)': { padding: '80px 10px' } });
+const pinkArea = css(area, { backgroundColor: '#fff5f5' });
+const greyArea = css(area, { backgroundColor: '#fafbfd' });
+const center = css({
+  display: 'flex',
+  justifyContent: 'center',
+  margin: '0px auto',
+  maxWidth: '1170px',
+  '@media(max-width:768px)': {
+    flexDirection: 'column',
+  },
+});
 
 const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
   const area1 = texts.Area1;
@@ -12,9 +26,12 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
   const area5 = texts.Area5;
   const area6 = texts.Area6;
   return (
-    <div className={styles.container}>
-      <div className={`${styles.area}`}>
-        <div className={`${styles.center} ${styles.change}`}>
+    <div
+      className={styles.container}
+      css={{ fontSize: '20px', color: 'rgb(51,51,51)', wordBreak: 'keep-all' }}
+    >
+      <div css={area}>
+        <div css={css(center, { '@media(max-width:768px)': { flexDirection: 'column-reverse' } })}>
           <div className={styles.textBox}>
             <div className={styles.text1}>
               <h1>{area1.line1}</h1>
@@ -43,13 +60,13 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
-      <div className={`${styles.area} ${styles.grey}`}>
-        <div className={`${styles.center} ${styles.flex_col}`}>
+      <div css={greyArea}>
+        <div css={css(center, { flexDirection: 'column' })}>
           <div className={styles.imgContainer2}>
             <img src={'/images/서비스소개_00_소개.png'} alt="" className={styles.img2} />
           </div>
           <div className={styles.text2}>
-            <div className={styles.h2}>
+            <div css={{ marginBottom: '40px' }}>
               <h2>{area2.title1}</h2>
               {area2.title2 && <h2>{area2.title2}</h2>}
             </div>
@@ -71,8 +88,8 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
-      <div className={`${styles.area} ${styles.grey}`}>
-        <div className={`${styles.center}`}>
+      <div css={greyArea}>
+        <div css={center}>
           <div className={styles.text3}>
             <div className={styles.h3}>
               <h3>{area3.title}</h3>
@@ -87,12 +104,12 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             <img src={area3.img} alt="" className={styles.img2} />
           </div>
         </div>
-        <div className={styles.center}>
+        <div css={center}>
           <p className={styles.adTitle}>
             <b>{area3.Ad_title}</b>
           </p>
         </div>
-        <div className={styles.center}>
+        <div css={center}>
           <div className={styles.adBox}>
             <div className={styles.ad}>
               <img
@@ -119,8 +136,8 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
-      <div className={`${styles.area} ${styles.pink}`}>
-        <div className={styles.center}>
+      <div css={pinkArea}>
+        <div css={center}>
           <div className={styles.text3}>
             <div className={styles.h3}>
               <h3>{area4.title1}</h3>
@@ -148,8 +165,8 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
-      <div className={`${styles.area} ${styles.grey}`}>
-        <div className={styles.center}>
+      <div css={greyArea}>
+        <div css={center}>
           <div className={styles.text3}>
             <div className={styles.h3}>
               <h3>{area5.title1}</h3>
@@ -174,8 +191,8 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
-      <div className={`${styles.area} ${styles.pink}`}>
-        <div className={styles.center}>
+      <div css={pinkArea}>
+        <div css={center}>
           <div className={styles.text3}>
             <div className={styles.h3}>
               <h3>{area6.title1}</h3>
