@@ -1,0 +1,33 @@
+.navBar {
+  display: flex;
+}
+
+.questionType {
+  padding: 10px 15px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.selectedQuestionType {
+  border-bottom: 2px solid #ff5656;
+}
+
+.navBar h2 {
+  font-size: 20px;
+  height: 32px;
+  line-height: 32px;
+}
+
+@media screen and (max-width: 768px) {
+  .navBar {
+    align-items: center;
+    padding-left: 10px;
+    /* justify-content: center; */
+  }
+  .questionType {
+    padding: 6px 6px;
+    margin-right: 6px;
+  }
+  .navBar h2 {
+    font-size: 18px;
+  }
+}

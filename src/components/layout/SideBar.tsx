@@ -3,13 +3,13 @@ import LanguageContainer from './LanguageBox';
 import styles from './styles/SideBar.module.css';
 import { css } from '@emotion/react';
 import { useContext, useState, useEffect } from 'react';
-import { LangContext, SideBarContext } from '@/pages/_app';
-import { LangContextType, SideBarContextType } from '@/types/contextTypes';
+import { SideBarContext } from './Layout';
+import { SideBarContextType } from '@/types/contextTypes';
+import { NavBarTextType } from '@/types/textTypes';
 
-const SideBar = () => {
+const SideBar = ({ texts }: { texts: NavBarTextType }) => {
   const { isSideBar, setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
-  const { currLang } = useContext(LangContext) as LangContextType;
-  const [animation, setAnimation] = useState(true);
+  const [animation, setAnimation] = useState<boolean>(true);
   useEffect(() => {
     let timeout;
     if (!animation) {
@@ -39,14 +39,16 @@ const SideBar = () => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className={`${styles.list} ${styles.menu}`}>Menu</div>
-        <ServiceBox title="서비스 소개" link="/" />
-        <ServiceBox
-          title="채용"
-          link="https://www.wanted.co.kr/search?query=%ED%8C%AC%EB%A7%88%EC%9D%8C"
-        />
-        <ServiceBox title="제휴 문의" link="https://fanplus.co.kr/partnership/" />
-        <ServiceBox title="FAQ" link="https://fanplus.co.kr/faq_new/" />
-        <LanguageContainer currLang={currLang} />
+        <ServiceBox title={texts.aboutUs} link={texts.link.aboutUs} />
+        {texts.recruit && (
+          <ServiceBox
+            title={texts.recruit}
+            link="https://www.wanted.co.kr/search?query=%ED%8C%AC%EB%A7%88%EC%9D%8C"
+          />
+        )}
+        <ServiceBox title={texts.business} link={texts.link.business} />
+        <ServiceBox title="FAQ" link={texts.link.faq} />
+        <LanguageContainer language={texts.language} />
       </ul>
     </div>
   );

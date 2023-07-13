@@ -1,0 +1,236 @@
+.container {
+  font-size: 20px;
+  color: rgb(51, 51, 51);
+  word-break: keep-all;
+}
+.container h1 {
+  font-size: 56px;
+  word-break: keep-all;
+}
+.container h2 {
+  font-size: 44px;
+  word-break: keep-all;
+}
+.container h3 {
+  font-size: 40px;
+  word-break: keep-all;
+}
+
+.area {
+  padding: 100px 0px;
+}
+.center {
+  display: flex;
+  margin: 0px auto;
+  justify-content: center;
+  max-width: 1170px;
+}
+.flex_col {
+  flex-direction: column;
+}
+.grey {
+  background-color: #fafbfd;
+}
+.pink {
+  background-color: #fff5f5;
+}
+
+.imgContainer1 {
+  width: 40%;
+  align-self: center;
+}
+.img1 {
+  width: 100%;
+}
+.appLinkContainer {
+  display: flex;
+  margin: 0px auto;
+}
+.textBox {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-self: center;
+  width: 60%;
+}
+.text1 {
+  align-self: center;
+  justify-self: center;
+  margin: 0px 10px 40px 10px;
+}
+.imgContainer2 {
+  align-self: center;
+  width: 75%;
+  max-width: 585px;
+  margin-bottom: 40px;
+}
+.img2 {
+  width: 100%;
+}
+.text2 {
+  text-align: center;
+  align-self: center;
+}
+.text2 > .h2 {
+  margin-bottom: 40px;
+}
+.text2 > p {
+  min-height: 44px;
+  line-height: 44px;
+  font-size: 22px;
+}
+.text3 {
+  align-self: center;
+  max-width: 585px;
+  width: 50%;
+  padding: 10px;
+}
+.text3 > .h3 {
+  margin: 0px 20px 40px 10px;
+}
+.text3 > p {
+  min-height: 36px;
+  line-height: 36px;
+  font-size: 20px;
+  margin: 0px 20px 0px 10px;
+}
+.imgContainer3 {
+  max-width: 585px;
+  width: 50%;
+  padding: 10px;
+}
+.flex {
+  display: flex;
+}
+.imgSet {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+}
+.img4 {
+  margin: 15px 10px;
+}
+.blank {
+  width: 100%;
+  aspect-ratio: 6 / 1;
+}
+.imgContainer6 {
+  width: 50%;
+  padding: 0px 10px 10px;
+}
+.adTitle {
+  max-width: 1170px;
+  width: 100%;
+  text-align: center;
+  margin: 80px 10px 40px;
+}
+.adBox {
+  display: flex;
+  max-width: 1170px;
+}
+.ad {
+  flex: 1 1 0;
+  padding: 10px;
+}
+.ad > img {
+  padding: 12px;
+}
+.ad > p {
+  margin: 10px;
+  text-align: center;
+}
+.plus {
+  margin: 40px 10px 0px;
+  display: flex;
+  align-items: center;
+}
+.plus > img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.plus p {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 991px) {
+  .area {
+    padding: 80px 10px;
+  }
+  .container h1 {
+    font-size: 44px;
+  }
+  .container h2 {
+    font-size: 36px;
+  }
+  .container h3 {
+    font-size: 32px;
+  }
+  .container p {
+    font-size: 18px;
+  }
+  .text2 > p {
+    min-height: 36px;
+    line-height: 36px;
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container h1 {
+    font-size: 34px;
+  }
+  .container h2 {
+    font-size: 30px;
+  }
+  .container h3 {
+    font-size: 30px;
+  }
+  .container p {
+    font-size: 16px;
+  }
+  .text2 > p {
+    min-height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+  }
+  .text3 {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  .text3 > .h3 {
+    margin: 0px 0px 40px;
+  }
+  .text3 > p {
+    margin: 0px;
+    min-height: 30px;
+    line-height: 30px;
+  }
+  .center {
+    flex-direction: column;
+  }
+  .center.change {
+    flex-direction: column-reverse;
+  }
+  .imgContainer1 {
+    width: 70%;
+  }
+  .imgContainer3 {
+    width: 100%;
+    align-self: center;
+  }
+  .imgContainer6 {
+    padding: 0px 5px 5px;
+  }
+  .textBox {
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+  }
+  .adBox {
+    flex-direction: column;
+  }
+  .plus p {
+    font-size: 14px;
+  }
+}

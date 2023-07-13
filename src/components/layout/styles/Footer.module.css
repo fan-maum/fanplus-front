@@ -1,0 +1,90 @@
+.container {
+  width: 100%;
+  min-height: 100px;
+  background-color: #fafbfd;
+  padding: 35px 10px;
+}
+
+.area {
+  width: 100%;
+  max-width: 1170px;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.textBox {
+  max-width: 840px;
+  flex-shrink: 1;
+}
+.textBox h5 {
+  font-size: 14px;
+  font-weight: 400;
+  padding-bottom: 4px;
+}
+
+.downloadBox {
+  width: 142px;
+  padding-top: 24px;
+}
+.appLink {
+  width: 150px;
+}
+
+.emailBox {
+  margin-bottom: 26px;
+}
+.emailBox a {
+  display: flex;
+  width: fit-content;
+}
+.emailBox h3 {
+  font-size: 20px;
+  font-weight: 800;
+}
+.emailBox button {
+  cursor: pointer;
+  margin-left: 5px;
+  padding: 0px 8px;
+  height: 24px;
+  font-size: 10px;
+  font-weight: 400;
+  background-color: #fafbfd;
+  border: 1px solid rgb(119, 119, 119);
+  border-radius: 3px;
+  color: rgb(119, 119, 119);
+}
+.emailBox button:hover {
+  border: 1px solid #ff5656;
+  background-color: #ff5656;
+  color: white;
+  transition: 0.4s;
+}
+
+.policies {
+  display: flex;
+  padding-bottom: 9px;
+}
+.policies a,
+.policies p {
+  margin-right: 5px;
+  padding-right: 5px;
+}
+
+.policies a {
+  color: rgb(37, 37, 37);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.textBox > p {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(153, 153, 153);
+}
+
+@media screen and (max-width: 768px) {
+  .downloadBox {
+    display: none;
+  }
+}

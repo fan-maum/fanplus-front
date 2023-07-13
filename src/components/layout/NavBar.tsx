@@ -1,34 +1,29 @@
 import styles from './styles/NavBar.module.css';
 import MainLogo from './MainLogo';
-import PageLinkContainer from './NavContainer';
+import NavContainer from './NavContainer';
 import { css } from '@emotion/react';
 import { useContext } from 'react';
-import { LangContext, SideBarContext } from '@/pages/_app';
-import { LangContextType, SideBarContextType } from '@/types/contextTypes';
+import { SideBarContext } from './Layout';
+import { SideBarContextType } from '@/types/contextTypes';
+import { NavBarTextType } from '@/types/textTypes';
 
-const NavBar = () => {
-  const { currLang, setCurrLang } = useContext(LangContext) as LangContextType;
+const NavBar = ({ texts }: { texts: NavBarTextType }) => {
   const { setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
 
   return (
     <>
       <div className={styles.navArea}>
         <div className={styles.navBarContainer}>
-          <MainLogo />
-          <PageLinkContainer />
-          <a href="#">
-            <img
-              src="/사이드바.svg"
-              className={styles.iconStyle}
-              onClick={() => setIsSideBar(true)}
-            />
-          </a>
+          <MainLogo link={texts.link.aboutUs} />
+          <NavContainer texts={texts} />
+          <img
+            src="/icons/사이드바.svg"
+            className={styles.iconStyle}
+            onClick={() => setIsSideBar(true)}
+          />
         </div>
       </div>
       <div className={styles.backgroundStyle} />
-      <div>{currLang}</div>
-      <button onClick={() => setCurrLang('English')}>영어로</button>
-      <button onClick={() => setCurrLang('한국어')}>다시 한글로</button>
     </>
   );
 };
