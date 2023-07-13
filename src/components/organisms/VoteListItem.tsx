@@ -1,21 +1,37 @@
+import { useState, useEffect } from 'react';
+import { useInterval } from '@/hooks/useInterval';
 import Image from 'next/image';
 import { Stack } from '../atoms/Stack';
 import VoteTitle from '../molecules/VoteTitle';
 import { VoteData } from '@/types/vote';
-import css from 'styled-jsx/css';
+import { formatTime } from '@/utils/util';
 
 export interface VoteListItemProps {
+  endDay: string;
   voteData: VoteData;
 }
 
-const remainTime = 1;
+const today = new Date();
 
-const VoteListItem = ({ voteData, ...props }: VoteListItemProps) => {
+const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
+  const endDate = new Date(endDay);
+  const [seconds, setSeconds] = useState<number>();
+  const interval = useInterval(() => setSeconds((second) => second && second - 1), 1000);
+
+  useEffect(() => {
+    interval.start();
+    setSeconds(Math.floor((endDate.getTime() - today.getTime()) / 1000));
+    return interval.stop;
+  }, []);
+
+  const remainTime = formatTime(seconds);
+  const remainTimeState = formatTime(seconds) !== '종료' ? true : false;
+
   return (
-    <Stack align="center" spacing={12} miw={332} css={{ cursor: 'pointer' }}>
+    <Stack align="center" spacing={12} css={{ cursor: 'pointer', overflow: 'hidden' }}>
       <VoteTitle
         remainTime={remainTime}
-        endDate={voteData.END_DATE}
+        remainTimeState={remainTimeState}
         starName={voteData?.FIRST_RANK_STAR_INFO?.STAR_NAME}
       />
       <div
@@ -25,7 +41,7 @@ const VoteListItem = ({ voteData, ...props }: VoteListItemProps) => {
             width: '100%',
             aspectRatio: '421/253',
           },
-          !remainTime && {
+          !remainTimeState && {
             '&::before': {
               content: '""',
               position: 'absolute',
@@ -39,14 +55,31 @@ const VoteListItem = ({ voteData, ...props }: VoteListItemProps) => {
           },
         ]}
       >
-        <Image fill src={voteData.TITLE_IMG} alt="vote_thumbnail" />
+        <img
+          src={voteData.TITLE_IMG}
+          alt="vote_thumbnail"
+          css={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        />
       </div>
       <div
         css={[
           {
-            color: '#666',
-            fontSize: '16px',
+            color: '#5C6B70',
+            fontSize: '18px',
             fontWeight: '600',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+            width: '100%',
           },
         ]}
       >

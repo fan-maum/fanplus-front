@@ -9,7 +9,7 @@ body {
   min-width: 360px;
   position: relative;
   padding: 0;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   height: 100vh;
   width: 100%;
   -webkit-touch-callout: none;
@@ -21,7 +21,27 @@ body {
   background: #fff;
 }
 
+li {
+  list-style: none;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.page-item {
+  cursor: pointer;
+  color: #d9d9d9;
+  font-size: 20px;
+}
+
+.page-item.active {
+  color: #101010;
+  font-weight: 600;
+}
+
+.page-item.disabled {
+  color: #d9d9d9;
+  font-weight: 400;
 }
