@@ -7,7 +7,7 @@ export interface VoteTemplateProps {
 function VoteTemplate({ ...props }: VoteTemplateProps) {
   const { voteListTab, voteList, votePagination } = props;
   return (
-    <div>
+    <div css={{ position: 'relative' }}>
       {voteListTab}
       {voteList}
       {votePagination}

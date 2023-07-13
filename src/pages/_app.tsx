@@ -4,6 +4,7 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useState, createContext } from 'react';
 import { LangType, LangContextType, SideBarContextType } from '@/types/contextTypes';
+import Head from 'next/head';
 
 export const LangContext = createContext<LangContextType | null>(null);
 export const SideBarContext = createContext<SideBarContextType | null>(null);
@@ -13,6 +14,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const [isSideBar, setIsSideBar] = useState<boolean>(false);
   return (
     <>
+      <Head>
+        <title>Fanplus</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <LangContext.Provider value={{ currLang, setCurrLang }}>
         <SideBarContext.Provider value={{ isSideBar, setIsSideBar }}>
           {isSideBar && <SideBar />}

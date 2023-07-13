@@ -1,24 +1,41 @@
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 export interface VoteListTabProps extends DefaultProps {
   tabs: string[] | { value: string; label: string }[];
-  currentPage: number;
+  itemsPerPage: number;
   state: [string, React.Dispatch<React.SetStateAction<any>>];
-  handleClickTab: (tabValue: string) => void;
 }
 
 const VoteTab = ({
   tabs,
-  currentPage,
-  state: [tabState, setTabState],
-  handleClickTab,
+  itemsPerPage,
+  state: [tabState = '', setTabState],
   ...props
 }: VoteListTabProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const onClickVoteTab = (tabValue: string) => {
+    setTabState(tabValue);
+    router.push({
+      pathname: pathname,
+      query: {
+        vote_type: tabValue,
+        page: 1,
+        per_page: itemsPerPage,
+      },
+    });
+  };
+
   return (
     <>
       <div
         css={[
           {
-            position: 'relative',
+            position: 'sticky',
+            top: 0,
+            zIndex: 10000,
             margin: '40px auto',
             display: 'flex',
             maxWidth: 662,
@@ -66,7 +83,7 @@ const VoteTab = ({
                   fontWeight: 600,
                   borderRadius: 75,
                 }}
-                onClick={() => handleClickTab(tabValue)}
+                onClick={() => onClickVoteTab(tabValue)}
               >
                 {tabContent}
               </label>
