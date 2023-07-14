@@ -3,6 +3,8 @@ import { InferGetServerSidePropsType } from 'next';
 import VoteListTab, { VoteListTabProps } from '@/components/molecules/VoteListTab';
 import VoteList, { VoteListProps } from '@/components/organisms/VoteList';
 import VotePagination, { VotePaginationProps } from '@/components/organisms/VotePagination';
+import Layout from '@/components/layout/Layout';
+import { NavBarText_KR, FooterText_KR, BusinessText_KR } from '@/texts/ko';
 import VoteTemplate from '@/components/templates/VoteTemplate';
 import { useMediaQuery } from 'react-responsive';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
@@ -45,11 +47,13 @@ const Votes = ({ voteLists, error }: EventProps) => {
   };
 
   return (
-    <VoteTemplate
-      voteListTab={<VoteListTab {...VoteListTabProps} />}
-      voteList={<VoteList {...VoteListProps} />}
-      votePagination={<VotePagination {...VotePaginationProps} />}
-    />
+    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+      <VoteTemplate
+        voteListTab={<VoteListTab {...VoteListTabProps} />}
+        voteList={<VoteList {...VoteListProps} />}
+        votePagination={<VotePagination {...VotePaginationProps} />}
+      />
+    </Layout>
   );
 };
 
