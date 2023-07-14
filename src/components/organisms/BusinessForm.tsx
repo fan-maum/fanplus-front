@@ -3,6 +3,7 @@ import { ChangeEvent, useCallback, useState } from 'react';
 import { handleBusinessFormSubmit, handleChangeState } from './BusinessFormHandle';
 import { RequiredInput } from '../atoms/RequiredInput';
 import { Button } from '../atoms/Button';
+import { RequiredTextarea } from '../atoms/RequiredTextarea';
 
 const BusinessForm = ({ texts }: { texts: BusinessPageTextType }) => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -72,8 +73,7 @@ const BusinessForm = ({ texts }: { texts: BusinessPageTextType }) => {
           }
           value={email}
         />
-        <RequiredInput
-          textarea={true}
+        <RequiredTextarea
           placeholder={texts.form.message}
           name="ncnnxuhmcikxfpkkjcpdarleyfykweoqkeia"
           onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>

@@ -1,7 +1,7 @@
 import { DefaultProps } from '@/styles/DefaultProps';
 import { FormEvent, FormEventHandler } from 'react';
 
-export interface RequiredInputProps extends DefaultProps {
+export interface RequiredTextareaProps extends DefaultProps {
   placeholder: string;
   name: string;
   onChange: FormEventHandler<HTMLDivElement | HTMLTextAreaElement>;
@@ -9,19 +9,19 @@ export interface RequiredInputProps extends DefaultProps {
   type?: string;
 }
 
-export const RequiredInput = ({
+export const RequiredTextarea = ({
   placeholder,
   name,
   onChange,
   value,
   type = 'text',
   ...props
-}: RequiredInputProps) => {
+}: RequiredTextareaProps) => {
   return (
-    <input
+    <textarea
       css={{
         width: '100%',
-        height: 50,
+        height: 165,
         color: 'rgba(115, 119, 127, 0.7)',
         borderColor: '#c9c9c9',
         borderStyle: 'solid',
@@ -33,13 +33,13 @@ export const RequiredInput = ({
         paddingBottom: 15,
         fontSize: 16,
         marginBottom: 20,
+        resize: 'none',
       }}
-      type={type}
       placeholder={placeholder}
       required
       name={name}
       onChange={onChange}
       value={value}
-    ></input>
+    ></textarea>
   );
 };
