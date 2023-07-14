@@ -64,7 +64,7 @@ export const getServerSideProps = async (context: any) => {
   const lang = context.query.lang || 'ko';
 
   const res = await fetch(
-    `http://localhost:3020/api/votes?vote_type=${vote_type}&page=${
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/votes?vote_type=${vote_type}&page=${
       page - 1
     }&per_page=${per_page}&lang=${lang}`
   );
