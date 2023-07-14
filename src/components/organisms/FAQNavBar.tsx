@@ -1,8 +1,8 @@
 import { FAQPageTextType } from '@/types/textTypes';
-import { QuestionType } from './FAQPage';
+import { QuestionType } from './FAQContent';
 import { Dispatch, SetStateAction } from 'react';
 import { Stack } from '../atoms/Stack';
-import FAQNavBarTitle from './FAQNavBarTitle';
+import FAQNavBarTitle from '../molecules/FAQNavBarTitle';
 
 const FAQNavBar = ({
   texts,
