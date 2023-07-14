@@ -24,6 +24,7 @@ const VoteTab = ({
         vote_type: tabValue,
         page: 1,
         per_page: itemsPerPage,
+        lang: router.query.lang || 'ko',
       },
     });
   };

@@ -4,44 +4,17 @@ import VoteListTab, { VoteListTabProps } from '@/components/molecules/VoteListTa
 import VoteList, { VoteListProps } from '@/components/organisms/VoteList';
 import VotePagination, { VotePaginationProps } from '@/components/organisms/VotePagination';
 import VoteTemplate from '@/components/templates/VoteTemplate';
-import { getVotes } from '@/api/Vote';
-import { useRouter } from 'next/router';
 import { useMediaQuery } from 'react-responsive';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const Votes = ({ initialData }: EventProps) => {
-  const router = useRouter();
-  const vote_type: any = router.query.vote_type === undefined ? '' : router.query.vote_type;
-  const page = router.query.page === undefined ? 1 : Number(router.query.page);
-  const per_page = router.query.per_page === undefined ? 9 : router.query.per_page;
-
+const Votes = ({ voteLists, error }: EventProps) => {
   /* mediaQuery 설정 */
   const [isMobile, setIsMobile] = useState(false);
   const mobile = useMediaQuery({ query: '(max-width:768px)' });
 
   /* 공통 설정 */
-  const [totalCount, setTotalCount] = useState<number>(0);
-  const [tabState, setTabState] = useState<'' | 'B' | 'R'>(vote_type);
+  const [tabState, setTabState] = useState<'' | 'B' | 'R'>('');
   const itemsPerPage = !isMobile ? 9 : 5;
-
-  const [loading, setLoading] = useState(true);
-  const [voteLists, setVoteLists] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch(`/api/votes?vote_type=${vote_type}&page=${page - 1}&per_page=${per_page}`)
-      .then((res) => res.json())
-      .then((lists) => {
-        console.log(lists);
-        setVoteLists(lists.RESULTS.DATAS.DATA);
-        setTotalCount(lists.RESULTS.DATAS.TOTAL_CNT);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, [vote_type, page, per_page]);
 
   const VoteListTabProps: VoteListTabProps = {
     tabs: [
@@ -60,13 +33,13 @@ const Votes = ({ initialData }: EventProps) => {
 
   const VoteListProps: VoteListProps = {
     isMobile: isMobile,
-    loading: loading,
-    error: error,
-    voteList: voteLists,
+    loading: false,
+    error: null,
+    voteList: voteLists.RESULTS.DATAS.DATA,
   };
 
   const VotePaginationProps: VotePaginationProps = {
-    totalCount: totalCount,
+    totalCount: voteLists.RESULTS.DATAS.TOTAL_CNT,
     itemsPerPage: itemsPerPage,
     isMobile: isMobile,
   };
@@ -80,14 +53,22 @@ const Votes = ({ initialData }: EventProps) => {
   );
 };
 
-export const getServerSideProps = async () => {
-  const initialRowData = await getVotes('', 0, 9);
-  const initialData = await initialRowData.json();
-  if (!initialData) {
-    return false;
-  }
+export const getServerSideProps = async (context: any) => {
+  const vote_type = context.query.vote_type || '';
+  const page = context.query.page || 1;
+  const per_page = Number(context.query.per_page) || 9;
+  const lang = context.query.lang || 'ko';
+
+  const res = await fetch(
+    `http://localhost:3020/api/votes?vote_type=${vote_type}&page=${
+      page - 1
+    }&per_page=${per_page}&lang=${lang}`
+  );
+  const error = res.ok ? false : res.status;
+
+  const voteLists = await res.json();
   return {
-    props: { initialData },
+    props: { voteLists, error },
   };
 };
 
