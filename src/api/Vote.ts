@@ -1,6 +1,11 @@
-export const getVotes = (vote_type: string | undefined | null, page: number, per_page: number) => {
+export const getVotes = (
+  vote_type: string | undefined | null,
+  page: number,
+  per_page: number,
+  lang: string
+) => {
   const response = fetch(
-    `https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}`,
+    `https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${lang}`,
     {
       method: 'GET',
       headers: {
