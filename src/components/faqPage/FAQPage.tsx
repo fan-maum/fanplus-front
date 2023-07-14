@@ -1,8 +1,9 @@
-import styles from './styles/FAQPage.module.css';
 import QuestionBox from './QuestionBox';
 import { useState } from 'react';
 import { FAQPageTextType } from '@/types/textTypes';
 import FAQNavBar from './FAQNavBar';
+import { Stack } from '../atoms/Stack';
+import { Center } from '../atoms/Center';
 
 export type QuestionType = 'All' | 'Vote' | 'Photos' | 'Fanfic' | 'Accounts';
 
@@ -15,14 +16,25 @@ const FAQ = ({ texts }: { texts: FAQPageTextType }) => {
   const showAccounts = questionType === 'Accounts' || questionType === 'All';
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <img src="/icons/icon_question_mark.svg" />
-        <h1>{texts.header}</h1>
-      </div>
-      <div className={styles.questionContainer}>
+    <Stack
+      align="center"
+      css={{
+        padding: '100px 0px',
+        '@media screen and (max-width: 991px)': {
+          padding: '80px 10px 100px',
+        },
+      }}
+    >
+      <Center css={{ flexDirection: 'column', marginBottom: 20 }}>
+        <img
+          css={{ width: '30px', height: '30px', marginBottom: '20px' }}
+          src="/icons/icon_question_mark.svg"
+        />
+        <h1 css={{ margin: '40px 0px', fontSize: '36px' }}>{texts.header}</h1>
+      </Center>
+      <div css={{ maxWidth: '936px', width: '100%' }}>
         <FAQNavBar texts={texts} questionType={questionType} setQuestionType={setQuestionType} />
-        <div className={styles.questions}>
+        <div css={{ padding: '20px 10px' }}>
           {showAll && <QuestionBox question={texts.q1} answer={texts.a1} />}
           {showVote && (
             <>
@@ -46,7 +58,7 @@ const FAQ = ({ texts }: { texts: FAQPageTextType }) => {
           )}
         </div>
       </div>
-    </div>
+    </Stack>
   );
 };
 

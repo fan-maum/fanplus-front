@@ -1,7 +1,8 @@
 import { FAQPageTextType } from '@/types/textTypes';
-import styles from './styles/FAQNavBar.module.css';
 import { QuestionType } from './FAQPage';
 import { Dispatch, SetStateAction } from 'react';
+import { Stack } from '../atoms/Stack';
+import FAQNavBarTitle from './FAQNavBarTitle';
 
 const FAQNavBar = ({
   texts,
@@ -13,58 +14,41 @@ const FAQNavBar = ({
   setQuestionType: Dispatch<SetStateAction<QuestionType>>;
 }) => {
   return (
-    <div className={styles.navBar}>
-      <div
-        className={
-          questionType === 'All'
-            ? `${styles.selectedQuestionType} ${styles.questionType}`
-            : styles.questionType
-        }
+    <Stack
+      direct="row"
+      css={{
+        '@media screen and (max-width: 768px)': {
+          alignItems: 'center',
+          paddingLeft: 10,
+        },
+      }}
+    >
+      <FAQNavBarTitle
+        selected={questionType === 'All'}
+        title={texts.navBar.all}
         onClick={() => setQuestionType('All')}
-      >
-        <h2>{texts.navBar.all}</h2>
-      </div>
-      <div
-        className={
-          questionType === 'Vote'
-            ? `${styles.selectedQuestionType} ${styles.questionType}`
-            : styles.questionType
-        }
+      />
+      <FAQNavBarTitle
+        selected={questionType === 'Vote'}
+        title={texts.navBar.vote}
         onClick={() => setQuestionType('Vote')}
-      >
-        <h2>{texts.navBar.vote}</h2>
-      </div>
-      <div
-        className={
-          questionType === 'Photos'
-            ? `${styles.selectedQuestionType} ${styles.questionType}`
-            : styles.questionType
-        }
+      />
+      <FAQNavBarTitle
+        selected={questionType === 'Photos'}
+        title={texts.navBar.photos}
         onClick={() => setQuestionType('Photos')}
-      >
-        <h2>{texts.navBar.photos}</h2>
-      </div>
-      <div
-        className={
-          questionType === 'Fanfic'
-            ? `${styles.selectedQuestionType} ${styles.questionType}`
-            : styles.questionType
-        }
+      />
+      <FAQNavBarTitle
+        selected={questionType === 'Fanfic'}
+        title={texts.navBar.fanfic}
         onClick={() => setQuestionType('Fanfic')}
-      >
-        <h2>{texts.navBar.fanfic}</h2>
-      </div>
-      <div
-        className={
-          questionType === 'Accounts'
-            ? `${styles.selectedQuestionType} ${styles.questionType}`
-            : styles.questionType
-        }
+      />
+      <FAQNavBarTitle
+        selected={questionType === 'Accounts'}
+        title={texts.navBar.accounts}
         onClick={() => setQuestionType('Accounts')}
-      >
-        <h2>{texts.navBar.accounts}</h2>
-      </div>
-    </div>
+      />
+    </Stack>
   );
 };
 
