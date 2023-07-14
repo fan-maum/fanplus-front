@@ -27,7 +27,10 @@ const Footer = ({ texts }: { texts: FooterTextType }) => {
           <p>{texts.copyright}</p>
         </div>
         <div className={styles.downloadBox}>
-          <a href="https://play.google.com/store/apps/details?id=com.trotfan.trot" target="_blank">
+          <a
+            href="https://play.google.com/store/apps/details?id=com.photocard.allstar"
+            target="_blank"
+          >
             <Image
               src="/images/google_play_badge.png"
               alt="google-play-link"
@@ -36,7 +39,7 @@ const Footer = ({ texts }: { texts: FooterTextType }) => {
             />
           </a>
           <a
-            href="https://apps.apple.com/kr/app/%ED%8C%AC%EB%A7%88%EC%9D%8C/id1640391567"
+            href="https://apps.apple.com/kr/app/%ED%8C%AC%ED%94%8C%EB%9F%AC%EC%8A%A4/id1448805815"
             target="_blank"
           >
             <Image src="/images/app_store_badge.png" alt="app-store-link" width={142} height={48} />
