@@ -1,7 +1,5 @@
-import styles from './styles/LanguageContainer.module.css';
 import Language from './Language';
 import { useRouter } from 'next/router';
-import { css } from '@emotion/react';
 
 const LanguageContainer = () => {
   const router = useRouter();
@@ -10,7 +8,22 @@ const LanguageContainer = () => {
   const page = router.pathname.split('/')[pageLength - 1];
   const link = pageType.includes(page) ? page : '';
   return (
-    <div className={styles.container}>
+    <div
+      css={{
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        top: '32px',
+        right: '0px',
+        padding: '10px 0px',
+        zIndex: '1',
+        '@media(max-width: 991px)': {
+          top: '45px',
+          width: '100%',
+          paddingTop: '0px',
+        },
+      }}
+    >
       <Language language="한국어" href={`/${link}`} />
       <Language language="English" href={`/en/${link}`} />
       <Language language="Español" href={`/es/${link}`} />
