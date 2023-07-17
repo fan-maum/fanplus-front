@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import AppStoreIcon from './AppStoreIcon';
-import PlayStoreIcon from './PlayStoreIcon';
+import IconAppStore from './IconAppStore';
+import IconPlayStore from './IconPlayStore';
 
 export type AppLinkType = {
   storeName: string;
@@ -11,9 +10,6 @@ export type AppLinkType = {
 };
 
 const AppLink = ({ storeName, storeLink, bgColor, bgAfterColor, fontColor }: AppLinkType) => {
-  const [iconColor, setIconColor] = useState(fontColor);
-  const handleMouseOver = () => setIconColor('#ffffff');
-  const handleMouseOut = () => setIconColor(fontColor);
   return (
     <a
       href={storeLink}
@@ -25,8 +21,6 @@ const AppLink = ({ storeName, storeLink, bgColor, bgAfterColor, fontColor }: App
         },
       }}
       id={storeName}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
     >
       <div
         css={{
@@ -46,17 +40,14 @@ const AppLink = ({ storeName, storeLink, bgColor, bgAfterColor, fontColor }: App
             backgroundColor: bgAfterColor,
             borderColor: bgAfterColor,
             color: '#ffffff',
+            'svg path:last-child': { fill: '#ffffff' },
           },
           '@media(max-width:768px)': {
             width: '155px',
           },
         }}
       >
-        {storeName === 'Google Play' ? (
-          <PlayStoreIcon fill={iconColor} />
-        ) : (
-          <AppStoreIcon fill={iconColor} />
-        )}
+        {storeName === 'Google Play' ? <IconPlayStore /> : <IconAppStore />}
         <p css={{ marginTop: '4px', fontWeight: '600' }}>{storeName}</p>
       </div>
     </a>
