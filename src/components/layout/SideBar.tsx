@@ -43,7 +43,7 @@ const SideBar = ({ texts }: { texts: NavBarTextType }) => {
         top: '0',
         left: '0',
         backgroundColor: 'rgba(0,0,0,0.3)',
-        zIndex: '10',
+        zIndex: '10000',
         animation: open ? `${fadeIn} 0.3s ease-in-out` : `${fadeOut} 0.3s ease-in-out`,
       }}
     >
@@ -55,7 +55,7 @@ const SideBar = ({ texts }: { texts: NavBarTextType }) => {
           minWidth: '240px',
           height: '100vh',
           backgroundColor: 'white',
-          zIndex: '10',
+          zIndex: '10000',
           animation: open ? `${slideRight} 0.3s ease-in-out` : `${slideLeft} 0.3s ease-in-out`,
         }}
       >
