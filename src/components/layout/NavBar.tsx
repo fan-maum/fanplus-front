@@ -55,5 +55,4 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
     </>
   );
 };
-
 export default NavBar;

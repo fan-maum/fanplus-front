@@ -101,7 +101,7 @@ export const MainPageText_KR: MainPageTextType = {
   },
 };
 export const BusinessText_KR: BusinessPageTextType = {
-  title: '팬플러스는 다양한 제휴를 통해 더 나은 서비스를 제공하고자 합니다.',
+  title: '팬플러스는 다양한 제휴를 통해\n더 나은 서비스를 제공하고자 합니다.',
   content:
     '팬플러스와 비즈니스 제휴를 희망하는 개인, 기업은 제안 내용을 등록해주시면 검토 후 연락드리겠습니다. 제안 내용은 검토 목적으로만 이용됩니다.',
   form: {
