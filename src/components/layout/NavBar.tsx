@@ -4,9 +4,12 @@ import { useContext } from 'react';
 import { SideBarContext } from './Layout';
 import { SideBarContextType } from '@/types/contextTypes';
 import { NavBarTextType } from '@/types/textTypes';
+import { useRouter } from 'next/router';
 
 const NavBar = ({ texts }: { texts: NavBarTextType }) => {
   const { setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
+  const router = useRouter();
+  const isVotePage = router.pathname.endsWith('votes');
 
   return (
     <>
@@ -14,8 +17,8 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
         css={{
           width: '100%',
           position: 'fixed',
-          backgroundColor: 'rgba(255,255,255,0.8)',
-          zIndex: '1',
+          backgroundColor: isVotePage ? 'rgb(255,255,255)' : 'rgba(255,255,255,0.8)',
+          zIndex: '9999',
         }}
       >
         <div
