@@ -141,3 +141,14 @@ export const FAQText_zh_rTW: FAQPageTextType = {
   q9: '註銷後什麼時候可以重新認證相同的號碼？',
   a9: '被已註銷賬戶驗證過的號碼, 自註銷日起, 90天以後, 可以重新用於號碼驗證。',
 };
+
+export const Votes_Text_zhtw = {
+  voteEnd: '距離投票截止還有',
+  tab: {
+    all: 'ALL',
+    bday: '生日投票',
+    league: '聯賽',
+  },
+  winner: '1位',
+  daysAgo: '日 前',
+};

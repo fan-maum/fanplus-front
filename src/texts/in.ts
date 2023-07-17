@@ -141,3 +141,14 @@ export const FAQText_IND: FAQPageTextType = {
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
 };
+
+export const Votes_Text_in = {
+  voteEnd: 'Sampai akhir',
+  tab: {
+    all: 'ALL',
+    bday: 'B-day Vote',
+    league: 'League Vote',
+  },
+  winner: '1st',
+  daysAgo: 'hari sebelumnya',
+};

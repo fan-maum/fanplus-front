@@ -26,6 +26,7 @@ export interface VoteResponse {
       PAGE: number;
       PER_PAGE: number;
       RETURN_CNT: number;
+      TOTAL_CNT: number;
       TYPE: string;
       DATA: VoteData[];
     };

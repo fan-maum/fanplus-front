@@ -7,7 +7,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const vote_type = String(req.query.vote_type) || '';
     const page = Number(req.query.page) || 0;
     const per_page = Number(req.query.per_page);
-    const lang = String(req.query.lang) || 'ko';
+    const lang = String(req.query.lang);
+    console.log('votes.ts => ', lang);
     const response = await getVotes(vote_type, page, per_page, lang);
     const result = await response.json();
     res.status(200).json(result);
