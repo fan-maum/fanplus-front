@@ -1,18 +1,24 @@
 import PageBox from './PageBox';
 import ServiceBox from './ServiceBox';
 import LanguageBox from './LanguageBox';
-import styles from './styles/NavContainer.module.css';
-import { css } from '@emotion/react';
 import { NavBarTextType } from '@/types/textTypes';
 
 const NavContainer = ({ texts }: { texts: NavBarTextType }) => {
   return (
-    <div className={styles.container}>
-      <ul className={styles.ul}>
+    <div
+      css={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexGrow: '1',
+        flexShrink: '1',
+      }}
+    >
+      <ul css={{ padding: '10px', '@media(max-width:991px)': { padding: '7px' } }}>
         <PageBox title={texts.vote} link={texts.link.vote} />
         {/* <PageBox title={texts.community} link={texts.link.community} /> */}
       </ul>
-      <ul className={`${styles.ul} ${styles.ul_service}`}>
+      <ul css={{ padding: '10px', '@media(max-width:991px)': { padding: '7px', display: 'none' } }}>
         <ServiceBox title={texts.aboutUs} link={texts.link.aboutUs} />
         {texts.recruit && (
           <ServiceBox
