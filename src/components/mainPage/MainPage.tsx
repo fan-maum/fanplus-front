@@ -1,8 +1,10 @@
 import { MainPageTextType } from '@/types/textTypes';
 import { FC } from 'react';
+import { css } from '@emotion/react';
 import AppLink from './AppLink';
 import Carousel from './Carousel';
-import { css } from '@emotion/react';
+import IconPlayStore from './IconPlayStore';
+import IconAppStore from './IconAppStore';
 
 const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
   const area1 = texts.Area1;
@@ -38,6 +40,7 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
               <AppLink
                 storeName="Google Play"
                 storeLink="https://play.google.com/store/apps/details?id=com.photocard.allstar"
+                storeIcon={<IconPlayStore />}
                 bgColor="#ff5656"
                 bgAfterColor="#e64d4d"
                 fontColor="white"
@@ -45,6 +48,7 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
               <AppLink
                 storeName="App Store"
                 storeLink="https://apps.apple.com/kr/app/%ED%8C%AC%ED%94%8C%EB%9F%AC%EC%8A%A4/id1448805815"
+                storeIcon={<IconAppStore />}
                 bgColor="white"
                 bgAfterColor="#ff5656"
                 fontColor="#ff5656"

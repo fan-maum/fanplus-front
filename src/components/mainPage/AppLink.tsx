@@ -1,15 +1,22 @@
-import IconAppStore from './IconAppStore';
-import IconPlayStore from './IconPlayStore';
+import { ReactNode } from 'react';
 
 export type AppLinkType = {
   storeName: string;
   storeLink: string;
+  storeIcon: ReactNode;
   bgColor: string;
   bgAfterColor: string;
   fontColor: string;
 };
 
-const AppLink = ({ storeName, storeLink, bgColor, bgAfterColor, fontColor }: AppLinkType) => {
+const AppLink = ({
+  storeName,
+  storeLink,
+  storeIcon,
+  bgColor,
+  bgAfterColor,
+  fontColor,
+}: AppLinkType) => {
   return (
     <a
       href={storeLink}
@@ -47,7 +54,7 @@ const AppLink = ({ storeName, storeLink, bgColor, bgAfterColor, fontColor }: App
           },
         }}
       >
-        {storeName === 'Google Play' ? <IconPlayStore /> : <IconAppStore />}
+        {storeIcon}
         <p css={{ marginTop: '4px', fontWeight: '600' }}>{storeName}</p>
       </div>
     </a>
