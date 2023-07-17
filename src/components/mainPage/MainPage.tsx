@@ -4,115 +4,6 @@ import AppLink from './AppLink';
 import Carousel from './Carousel';
 import { css } from '@emotion/react';
 
-//** css 속성 */
-const mediaQuery768 = '@media screen and (max-width: 768px)';
-const mediaQuery991 = '@media screen and (max-width: 991px)';
-const container = css({
-  fontSize: '20px',
-  color: 'rgb(51,51,51)',
-  wordBreak: 'keep-all',
-  h1: {
-    fontSize: '56px',
-    wordBreak: 'keep-all',
-  },
-  h2: {
-    fontSize: '44px',
-    wordBreak: 'keep-all',
-  },
-  h3: {
-    fontSize: '40px',
-    wordBreak: 'keep-all',
-  },
-  [mediaQuery991]: {
-    h1: { fontSize: '44px' },
-    h2: { fontSize: '36px' },
-    h3: { fontSize: '32px' },
-    p: { fontSize: '18px' },
-  },
-  [mediaQuery768]: {
-    h1: { fontSize: '34px' },
-    h2: { fontSize: '30px' },
-    h3: { fontSize: '30px' },
-    p: { fontSize: '16px' },
-  },
-});
-const area = css({ padding: '100px 0px', [mediaQuery991]: { padding: '80px 10px' } });
-const pinkArea = css(area, { backgroundColor: '#fff5f5' });
-const greyArea = css(area, { backgroundColor: '#fafbfd' });
-const center = css({
-  display: 'flex',
-  justifyContent: 'center',
-  margin: '0px auto',
-  maxWidth: '1170px',
-  [mediaQuery768]: {
-    flexDirection: 'column',
-  },
-});
-const img = css({ width: '100%' });
-const imgSet = css({
-  display: 'flex',
-  width: '50%',
-  flexDirection: 'column',
-  img: { margin: '15px 10px' },
-  div: { width: '100%', aspectRatio: '6/1' },
-});
-const imgContainer = css({
-  width: '50%',
-  maxWidth: '585px',
-  padding: '10px',
-  [mediaQuery768]: { width: '100%', alignSelf: 'center' },
-});
-const imgContainer2 = css({
-  width: '50%',
-  padding: '0px 10px 10px',
-  [mediaQuery768]: { padding: '0px 5px 5px' },
-});
-const ad = css({
-  flex: '1 1 0',
-  padding: '10px',
-  img: { padding: '12px' },
-  p: { margin: '10px', textAlign: 'center' },
-});
-const plus = css({
-  margin: '40px 10px 0px',
-  display: 'flex',
-  alignItems: 'center',
-  img: {
-    width: '20px',
-    height: '20px',
-    marginRight: '10px',
-  },
-  p: { fontSize: '16px' },
-  [mediaQuery768]: { p: { fontSize: '14px' } },
-});
-const textBox = css({
-  width: '50%',
-  maxWidth: '585px',
-  alignSelf: 'center',
-  padding: '10px',
-  '> .h3Box': {
-    margin: '0px 20px 40px 10px',
-  },
-  '> p': {
-    minHeight: '36px',
-    lineHeight: '36px',
-    fontSize: '20px',
-    margin: '0px 20px 0px 10px',
-  },
-  [mediaQuery768]: {
-    width: '100%',
-    marginBottom: '40px',
-    '> .h3Box': {
-      margin: '0px 0px 40px',
-    },
-    '> p': {
-      margin: '0px',
-      minHeight: '30px',
-      lineHeight: '30px',
-    },
-  },
-});
-
 const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
   const area1 = texts.Area1;
   const area2 = texts.Area2;
@@ -145,17 +36,17 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             </div>
             <div css={{ display: 'flex', margin: '0px auto' }}>
               <AppLink
-                storeIcon="/icons/play_store_logo.svg"
                 storeName="Google Play"
                 storeLink="https://play.google.com/store/apps/details?id=com.photocard.allstar"
                 bgColor="#ff5656"
+                bgAfterColor="#e64d4d"
                 fontColor="white"
               />
               <AppLink
-                storeIcon="/icons/app_store_logo.svg"
                 storeName="App Store"
                 storeLink="https://apps.apple.com/kr/app/%ED%8C%AC%ED%94%8C%EB%9F%AC%EC%8A%A4/id1448805815"
                 bgColor="white"
+                bgAfterColor="#ff5656"
                 fontColor="#ff5656"
               />
             </div>
@@ -341,3 +232,113 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
 };
 
 export default MainPage;
+
+//** css 속성 */
+const mediaQuery768 = '@media screen and (max-width: 768px)';
+const mediaQuery991 = '@media screen and (max-width: 991px)';
+const container = css({
+  fontSize: '20px',
+  color: 'rgb(51,51,51)',
+  wordBreak: 'keep-all',
+  h1: {
+    fontSize: '56px',
+    wordBreak: 'keep-all',
+  },
+  h2: {
+    fontSize: '44px',
+    wordBreak: 'keep-all',
+  },
+  h3: {
+    fontSize: '40px',
+    wordBreak: 'keep-all',
+  },
+  [mediaQuery991]: {
+    h1: { fontSize: '44px' },
+    h2: { fontSize: '36px' },
+    h3: { fontSize: '32px' },
+    p: { fontSize: '18px' },
+  },
+  [mediaQuery768]: {
+    h1: { fontSize: '34px' },
+    h2: { fontSize: '30px' },
+    h3: { fontSize: '30px' },
+    p: { fontSize: '16px' },
+  },
+});
+const area = css({ padding: '100px 0px', [mediaQuery991]: { padding: '80px 10px' } });
+const pinkArea = css(area, { backgroundColor: '#fff5f5' });
+const greyArea = css(area, { backgroundColor: '#fafbfd' });
+const center = css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  margin: '0px auto',
+  maxWidth: '1170px',
+  [mediaQuery768]: {
+    flexDirection: 'column',
+  },
+});
+const img = css({ width: '100%' });
+const imgSet = css({
+  display: 'flex',
+  width: '50%',
+  flexDirection: 'column',
+  img: { margin: '15px 10px' },
+  div: { width: '100%', aspectRatio: '6/1' },
+});
+const imgContainer = css({
+  width: '50%',
+  maxWidth: '585px',
+  padding: '10px',
+  [mediaQuery768]: { width: '100%', alignSelf: 'center' },
+});
+const imgContainer2 = css({
+  width: '50%',
+  padding: '0px 10px 10px',
+  [mediaQuery768]: { padding: '0px 5px 5px' },
+});
+const ad = css({
+  flex: '1 1 0',
+  padding: '10px',
+  img: { padding: '12px' },
+  p: { margin: '10px', textAlign: 'center' },
+});
+const plus = css({
+  margin: '40px 10px 0px',
+  display: 'flex',
+  alignItems: 'center',
+  img: {
+    width: '20px',
+    height: '20px',
+    marginRight: '10px',
+  },
+  p: { fontSize: '16px' },
+  [mediaQuery768]: { p: { fontSize: '14px' } },
+});
+const textBox = css({
+  width: '50%',
+  maxWidth: '585px',
+  alignSelf: 'center',
+  padding: '10px',
+  '> .h3Box': {
+    margin: '0px 20px 40px 10px',
+  },
+  '> p': {
+    minHeight: '36px',
+    lineHeight: '36px',
+    fontSize: '20px',
+    margin: '0px 20px 0px 10px',
+  },
+  [mediaQuery768]: {
+    width: '100%',
+    marginBottom: '40px',
+    '> .h3Box': {
+      margin: '0px 0px 40px',
+    },
+    '> p': {
+      margin: '0px',
+      minHeight: '30px',
+      lineHeight: '30px',
+    },
+  },
+});

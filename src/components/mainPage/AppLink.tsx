@@ -1,12 +1,19 @@
+import { useState } from 'react';
+import AppStoreIcon from './AppStoreIcon';
+import PlayStoreIcon from './PlayStoreIcon';
+
 export type AppLinkType = {
-  storeIcon: string;
   storeName: string;
   storeLink: string;
   bgColor: string;
+  bgAfterColor: string;
   fontColor: string;
 };
 
-const AppLink = ({ storeIcon, storeName, storeLink, bgColor, fontColor }: AppLinkType) => {
+const AppLink = ({ storeName, storeLink, bgColor, bgAfterColor, fontColor }: AppLinkType) => {
+  const [iconColor, setIconColor] = useState(fontColor);
+  const handleMouseOver = () => setIconColor('#ffffff');
+  const handleMouseOut = () => setIconColor(fontColor);
   return (
     <a
       href={storeLink}
@@ -18,6 +25,8 @@ const AppLink = ({ storeIcon, storeName, storeLink, bgColor, fontColor }: AppLin
         },
       }}
       id={storeName}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
     >
       <div
         css={{
@@ -34,16 +43,21 @@ const AppLink = ({ storeIcon, storeName, storeLink, bgColor, fontColor }: AppLin
           backgroundColor: bgColor,
           color: fontColor,
           ':hover': {
-            backgroundColor: fontColor,
-            color: bgColor,
+            backgroundColor: bgAfterColor,
+            borderColor: bgAfterColor,
+            color: '#ffffff',
           },
           '@media(max-width:768px)': {
             width: '155px',
           },
         }}
       >
-        <img src={storeIcon} alt="" css={{ width: '22px', height: '22px', marginRight: '10px' }} />
-        <p css={{ marginTop: '4px', fontWeight: '500' }}>{storeName}</p>
+        {storeName === 'Google Play' ? (
+          <PlayStoreIcon fill={iconColor} />
+        ) : (
+          <AppStoreIcon fill={iconColor} />
+        )}
+        <p css={{ marginTop: '4px', fontWeight: '600' }}>{storeName}</p>
       </div>
     </a>
   );

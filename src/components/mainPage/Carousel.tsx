@@ -48,9 +48,6 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
           overflow: 'hidden',
           whiteSpace: 'nowrap',
           '@media(max-width:768px)': { width: '75%', margin: '0px auto' },
-          // div: {
-          //   backgroundColor: 'red',
-          // },
         }}
       >
         <div
