@@ -1,30 +1,63 @@
-import styles from './styles/AppLink.module.css';
-import { css } from '@emotion/react';
+import { useState } from 'react';
+import AppStoreIcon from './AppStoreIcon';
+import PlayStoreIcon from './PlayStoreIcon';
 
 export type AppLinkType = {
-  icon: string;
   storeName: string;
   storeLink: string;
   bgColor: string;
+  bgAfterColor: string;
   fontColor: string;
 };
 
-const AppLink = ({ icon, storeName, storeLink, bgColor, fontColor }: AppLinkType) => {
+const AppLink = ({ storeName, storeLink, bgColor, bgAfterColor, fontColor }: AppLinkType) => {
+  const [iconColor, setIconColor] = useState(fontColor);
+  const handleMouseOver = () => setIconColor('#ffffff');
+  const handleMouseOut = () => setIconColor(fontColor);
   return (
-    <a href={storeLink} target="_blank" className={styles.a} id={storeName}>
+    <a
+      href={storeLink}
+      target="_blank"
+      css={{
+        margin: '10px 20px',
+        '@media(max-width:768px)': {
+          margin: '10px 7px',
+        },
+      }}
+      id={storeName}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
       <div
-        className={styles.container}
         css={{
+          width: '180px',
+          height: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          border: '2px solid #ff5656',
+          borderRadius: '4px',
+          fontSize: '16px',
+          lineHeight: '16px',
+          transition: '0.3s ease-in-out',
           backgroundColor: bgColor,
           color: fontColor,
           ':hover': {
-            backgroundColor: fontColor,
-            color: bgColor,
+            backgroundColor: bgAfterColor,
+            borderColor: bgAfterColor,
+            color: '#ffffff',
+          },
+          '@media(max-width:768px)': {
+            width: '155px',
           },
         }}
       >
-        <img src={icon} alt="" className={styles.icon} />
-        <p>{storeName}</p>
+        {storeName === 'Google Play' ? (
+          <PlayStoreIcon fill={iconColor} />
+        ) : (
+          <AppStoreIcon fill={iconColor} />
+        )}
+        <p css={{ marginTop: '4px', fontWeight: '600' }}>{storeName}</p>
       </div>
     </a>
   );
