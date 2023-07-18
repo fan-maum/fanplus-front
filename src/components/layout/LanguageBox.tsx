@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import LanguageContainer from './LanguageContainer';
+import IconArrowDown from '../atoms/IconArrowDown';
 
 const LanguageBox = ({ language }: { language: string }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -54,15 +55,7 @@ const LanguageBox = ({ language }: { language: string }) => {
           />
           <p>{language}</p>
         </div>
-        <img
-          src="/icons/icon_down.svg"
-          css={{
-            margin: '0px 5px 1px',
-            width: '11px',
-            height: '6px',
-            '@media(max-width: 991px)': { margin: '0px 5px' },
-          }}
-        />
+        <IconArrowDown stroke="3" />
       </div>
       {isHovered && <LanguageContainer />}
     </li>
