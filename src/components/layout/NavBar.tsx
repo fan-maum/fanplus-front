@@ -19,7 +19,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           width: '100%',
           position: 'fixed',
           backgroundColor: isVotePage ? 'rgb(255,255,255)' : 'rgba(255,255,255,0.8)',
-          zIndex: '9999',
+          zIndex: '19999',
         }}
       >
         <div
