@@ -20,6 +20,7 @@ const BusinessInfo = ({ texts }: { texts: BusinessPageTextType }) => {
           lineHeight: '50px',
           fontStretch: '100%',
           whiteSpace: 'pre-line',
+          wordBreak: 'break-word',
           marginBottom: 40,
         }}
       >
