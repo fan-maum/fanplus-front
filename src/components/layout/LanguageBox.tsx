@@ -42,7 +42,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
           },
         }}
       >
-        <div css={{ display: 'flex', alignItems: 'center' }}>
+        <div css={{ display: 'flex', alignItems: 'center', marginRight: '5px' }}>
           <img
             src="/icons/언어팩.svg"
             css={{

@@ -38,6 +38,7 @@ const QuestionBox = ({
             fontSize: '18px',
             lineHeight: '36px',
             fontWeight: '500',
+            marginRight: '5px',
             ':hover': { color: 'rgb(102,102,102)' },
             '@media screen and (max-width: 768px)': {
               lineHeight: '24px',
@@ -46,7 +47,7 @@ const QuestionBox = ({
         >
           {question}
         </h3>
-        <IconArrowDown isReverse={isOpen} />
+        <IconArrowDown width="16" isReverse={isOpen} />
       </Stack>
       <div
         css={

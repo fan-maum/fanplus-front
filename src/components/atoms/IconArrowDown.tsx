@@ -1,6 +1,6 @@
 function IconArrowDown({
   width = '22',
-  height = '12',
+  height = 'auto',
   strokeWidth = '2',
   isReverse = false,
 }: {
@@ -16,7 +16,11 @@ function IconArrowDown({
       height={height}
       fill="none"
       viewBox="0 0 22 12"
-      css={{ transition: '0.4s ease-in-out', transform: isReverse ? 'scaleY(-1)' : '' }}
+      css={{
+        flexShrink: '0',
+        transition: '0.4s ease-in-out',
+        transform: isReverse ? 'scaleY(-1)' : '',
+      }}
     >
       <path
         stroke="#666"
