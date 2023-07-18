@@ -1,6 +1,7 @@
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import VotePaginationDetail from './VotePaginationDetail';
+import { getLanguage, getRouterLanguage } from '@/hooks/useLanguage';
 
 export interface VotePaginationProps {
   totalCount: number;
@@ -11,6 +12,8 @@ export interface VotePaginationProps {
 const VotePagination = ({ totalCount, itemsPerPage, isMobile }: VotePaginationProps) => {
   const router = useRouter();
   const pathname = usePathname();
+  const language = getLanguage();
+  const routerLang = getRouterLanguage();
   const { vote_type, page, per_page, lang } = router.query;
   const forcePage = Number(page) || 1;
   let pageCount = Math.ceil(totalCount / itemsPerPage);
@@ -22,7 +25,7 @@ const VotePagination = ({ totalCount, itemsPerPage, isMobile }: VotePaginationPr
         vote_type: vote_type,
         page: event.selected + 1,
         per_page: itemsPerPage,
-        lang: lang || 'ko',
+        lang: lang || routerLang,
       },
     });
   };

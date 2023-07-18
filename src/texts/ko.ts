@@ -141,3 +141,14 @@ export const FAQText_KR: FAQPageTextType = {
   q9: '탈퇴 후 같은 번호로 다시 인증하는 건 언제부터 가능한가요?',
   a9: '탈퇴한 계정에 인증되어 있는 번호는 탈퇴일로부터 90일이 지난 이후에 다시 번호 인증에 사용할 수 있어요.',
 };
+
+export const Votes_Text_ko = {
+  voteEnd: '투표 종료까지',
+  tab: {
+    all: '전체',
+    bday: '생일 투표',
+    league: '리그전',
+  },
+  winner: '1위',
+  daysAgo: '일',
+};

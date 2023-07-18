@@ -141,3 +141,14 @@ export const FAQText_zh_rCN: FAQPageTextType = {
   q9: '注销后什么时候可以重新认证相同的号码？',
   a9: '被已注销账户验证过的号码, 自注销日起, 90天以后, 可以重新用于号码验证。',
 };
+
+export const Votes_Text_zh = {
+  voteEnd: '距离投票截止还有',
+  tab: {
+    all: 'ALL',
+    bday: '生日投票',
+    league: '联赛',
+  },
+  winner: '1位',
+  daysAgo: '日 前',
+};

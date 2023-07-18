@@ -1,5 +1,8 @@
 import Image from 'next/image';
 import { Stack } from '../atoms/Stack';
+import { useRecoilState } from 'recoil';
+import { voteLangState } from '@/store/voteLangState';
+import { getLanguage } from '@/hooks/useLanguage';
 
 export interface PromotionTitleProps {
   remainTime: string | undefined;
@@ -8,6 +11,8 @@ export interface PromotionTitleProps {
 }
 
 export default function VoteTitle({ remainTime, remainTimeState, starName }: PromotionTitleProps) {
+  const language = getLanguage();
+  const voteLanguage = useRecoilState(voteLangState(language))[0];
   const activeBackgroundColor = remainTimeState ? '#FFD950' : '#666';
   const activeColor = remainTimeState ? '#000' : '#fff';
   return (
@@ -30,7 +35,7 @@ export default function VoteTitle({ remainTime, remainTimeState, starName }: Pro
     >
       {remainTimeState ? (
         <>
-          투표 종료까지
+          {voteLanguage?.voteEnd}
           <span
             css={[
               {
@@ -44,7 +49,7 @@ export default function VoteTitle({ remainTime, remainTimeState, starName }: Pro
         </>
       ) : (
         <>
-          1위
+          {voteLanguage?.winner}
           <span>
             <Image
               width={30}
