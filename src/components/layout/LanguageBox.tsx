@@ -20,7 +20,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
         position: 'relative',
         '@media(max-width:991px)': {
           width: '100%',
-          padding: isVotePage ? '0px 8px 0px 0px' : '10px 20px',
+          padding: isVotePage ? '0px' : '10px 20px',
           fontSize: isVotePage ? '16px' : '15px',
         },
       }}
@@ -35,7 +35,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
           alignItems: 'center',
           cursor: 'pointer',
           '@media(max-width:991px)': {
-            height: '24px',
+            height: isVotePage ? '32px' : '24px',
             margin: '0px',
             padding: '0px',
             justifyContent: 'space-between',
@@ -56,7 +56,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
         </div>
         <IconArrowDown stroke="3" />
       </div>
-      {isHovered && <LanguageContainer />}
+      {isHovered && <LanguageContainer isVotePage={isVotePage} />}
     </li>
   );
 };

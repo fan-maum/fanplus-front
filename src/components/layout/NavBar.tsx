@@ -36,12 +36,8 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           }}
         >
           <MainLogo link={texts.link.aboutUs} />
-          <NavContainer texts={texts} />
-          {isVotePage ? (
-            <ul css={{ display: 'none', '@media(max-width:991px)': { display: 'block' } }}>
-              <LanguageBox language={texts.language} isVotePage={isVotePage} />
-            </ul>
-          ) : (
+          <NavContainer texts={texts} isVotePage={isVotePage} />
+          {!isVotePage && (
             <img
               src="/icons/사이드바.svg"
               onClick={() => setIsSideBar(true)}

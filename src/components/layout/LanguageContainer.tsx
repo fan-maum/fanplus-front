@@ -1,7 +1,7 @@
 import Language from './Language';
 import { useRouter } from 'next/router';
 
-const LanguageContainer = () => {
+const LanguageContainer = ({ isVotePage }: { isVotePage: boolean }) => {
   const router = useRouter();
   const pageType = ['', 'votes', 'community', 'business', 'faq'];
   const pageLength = router.pathname.split('/').length;
@@ -18,7 +18,7 @@ const LanguageContainer = () => {
         padding: '10px 0px',
         zIndex: '19999',
         '@media(max-width: 991px)': {
-          top: '45px',
+          top: isVotePage ? '32px' : '45px',
           width: '100%',
           minWidth: '180px',
           paddingTop: '0px',
