@@ -1,4 +1,4 @@
-import { getLanguage } from '@/hooks/useLanguage';
+import { getLanguage, getRouterLanguage } from '@/hooks/useLanguage';
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
@@ -16,17 +16,18 @@ const VoteTab = ({
 }: VoteListTabProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const language = getLanguage();
+  const routerLang = getRouterLanguage();
 
   const onClickVoteTab = (tabValue: string) => {
     setTabState(tabValue);
+    console.log(router.query.lang);
     router.push({
       pathname: pathname,
       query: {
         vote_type: tabValue,
         page: 1,
         per_page: itemsPerPage,
-        lang: router.query.lang || language,
+        lang: router.query.lang || routerLang,
       },
     });
   };
@@ -39,7 +40,7 @@ const VoteTab = ({
             background: '#fff',
             position: 'sticky',
             top: '70px',
-            zIndex: 1000,
+            zIndex: 100,
             padding: '10px 0',
             margin: '40px auto',
             display: 'flex',
