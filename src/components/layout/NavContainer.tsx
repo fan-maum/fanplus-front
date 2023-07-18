@@ -28,7 +28,7 @@ const NavContainer = ({ texts }: { texts: NavBarTextType }) => {
         )}
         <ServiceBox title={texts.business} link={texts.link.business} />
         <ServiceBox title="FAQ" link={texts.link.faq} />
-        <LanguageBox language={texts.language} />
+        <LanguageBox language={texts.language} isVotePage={false} />
       </ul>
     </div>
   );

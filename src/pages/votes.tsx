@@ -7,6 +7,8 @@ import VoteTemplate from '@/components/templates/VoteTemplate';
 import { getVotes } from '@/api/Vote';
 import { useRouter } from 'next/router';
 import { useMediaQuery } from 'react-responsive';
+import Layout from '@/components/layout/Layout';
+import { FooterText_KR, NavBarText_KR } from '@/texts/ko';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
 const Votes = ({ initialData }: EventProps) => {
@@ -72,11 +74,13 @@ const Votes = ({ initialData }: EventProps) => {
   };
 
   return (
-    <VoteTemplate
-      voteListTab={<VoteListTab {...VoteListTabProps} />}
-      voteList={<VoteList {...VoteListProps} />}
-      votePagination={<VotePagination {...VotePaginationProps} />}
-    />
+    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+      <VoteTemplate
+        voteListTab={<VoteListTab {...VoteListTabProps} />}
+        voteList={<VoteList {...VoteListProps} />}
+        votePagination={<VotePagination {...VotePaginationProps} />}
+      />
+    </Layout>
   );
 };
 
