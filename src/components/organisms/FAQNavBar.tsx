@@ -19,7 +19,7 @@ const FAQNavBar = ({
       css={{
         '@media screen and (max-width: 768px)': {
           alignItems: 'center',
-          paddingLeft: 10,
+          paddingLeft: '10px',
         },
       }}
     >

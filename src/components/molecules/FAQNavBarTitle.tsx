@@ -23,7 +23,7 @@ const FAQNavBarTitle = ({
         selected ? { borderBottom: '2px solid #ff5656' } : '',
       ]}
     >
-      <h2>{title}</h2>
+      <h3 css={{ fontSize: '20px' }}>{title}</h3>
     </div>
   );
 };
