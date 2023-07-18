@@ -2,7 +2,7 @@ import { useState } from 'react';
 import LanguageContainer from './LanguageContainer';
 import IconArrowDown from '../atoms/IconArrowDown';
 
-const LanguageBox = ({ language }: { language: string }) => {
+const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: boolean }) => {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseOver = () => setIsHovered(true);
   const handleMouseOut = () => setIsHovered(false);
@@ -20,8 +20,8 @@ const LanguageBox = ({ language }: { language: string }) => {
         position: 'relative',
         '@media(max-width:991px)': {
           width: '100%',
-          padding: '10px 15px',
-          fontSize: '15px',
+          padding: isVotePage ? '0px 8px 0px 0px' : '10px 20px',
+          fontSize: isVotePage ? '16px' : '15px',
         },
       }}
     >

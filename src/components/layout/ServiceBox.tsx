@@ -20,7 +20,7 @@ const ServiceBox = ({ title, link }: PageLinkPropType) => {
         color: 'rgb(102, 102, 102)',
         '@media(max-width:991px)': {
           width: '100%',
-          padding: '10px 15px',
+          padding: '10px 20px',
           fontSize: '15px',
         },
       }}

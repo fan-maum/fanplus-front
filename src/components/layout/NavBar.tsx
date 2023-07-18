@@ -39,7 +39,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           <NavContainer texts={texts} />
           {isVotePage ? (
             <ul css={{ display: 'none', '@media(max-width:991px)': { display: 'block' } }}>
-              <LanguageBox language={texts.language} />
+              <LanguageBox language={texts.language} isVotePage={isVotePage} />
             </ul>
           ) : (
             <img
