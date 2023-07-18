@@ -54,7 +54,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
           />
           <p>{language}</p>
         </div>
-        <IconArrowDown width="11" height="6" stroke="3" />
+        <IconArrowDown width="11" height="6" strokeWidth="3" isReverse={isHovered} />
       </div>
       {isHovered && <LanguageContainer isVotePage={isVotePage} />}
     </li>

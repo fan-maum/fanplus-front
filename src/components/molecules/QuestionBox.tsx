@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Stack } from '../atoms/Stack';
+import IconArrowDown from '../atoms/IconArrowDown';
 
 const QuestionBox = ({
   question,
@@ -45,13 +46,7 @@ const QuestionBox = ({
         >
           {question}
         </h3>
-        <img
-          css={[
-            { alignSelf: 'center', width: 18, height: 18, transition: '0.5s ease-in-out' },
-            isOpen ? { transform: 'scaleY(-1)' } : '',
-          ]}
-          src="/icons/icon_down.svg"
-        />
+        <IconArrowDown isReverse={isOpen} />
       </Stack>
       <div
         css={

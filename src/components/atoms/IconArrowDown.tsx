@@ -1,11 +1,13 @@
 function IconArrowDown({
   width = '22',
   height = '12',
-  stroke = '3',
+  strokeWidth = '2',
+  isReverse = false,
 }: {
-  width: string;
-  height: string;
-  stroke: string;
+  width?: string;
+  height?: string;
+  strokeWidth?: string;
+  isReverse?: boolean;
 }) {
   return (
     <svg
@@ -14,12 +16,13 @@ function IconArrowDown({
       height={height}
       fill="none"
       viewBox="0 0 22 12"
+      css={{ transition: '0.4s ease-in-out', transform: isReverse ? 'scaleY(-1)' : '' }}
     >
       <path
         stroke="#666"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={stroke}
+        strokeWidth={strokeWidth}
         d="M1 1l10 10L21 1"
       ></path>
     </svg>
