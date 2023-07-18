@@ -1,6 +1,6 @@
 import ServiceBox from './ServiceBox';
 import LanguageContainer from './LanguageBox';
-import { css, keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import { useContext, useState, useEffect } from 'react';
 import { SideBarContext } from './Layout';
 import { SideBarContextType } from '@/types/contextTypes';
@@ -27,11 +27,6 @@ const SideBar = ({ texts }: { texts: NavBarTextType }) => {
   }, [isSideBar]);
 
   const open = isSideBar && animation;
-
-  const fadeOut = keyframes`from {opacity: 1;} to {opacity: 0;}`;
-  const fadeIn = keyframes`from {opacity: 0;} to {opacity: 1;}`;
-  const slideRight = keyframes`from {transform: translateX(-240px);} to {transform: translateX(0px);}`;
-  const slideLeft = keyframes`from {transform: translateX(0px);} to {transform: translateX(-240px);}`;
 
   return (
     <div
@@ -94,3 +89,8 @@ const SideBar = ({ texts }: { texts: NavBarTextType }) => {
 };
 
 export default SideBar;
+
+const fadeOut = keyframes`from {opacity: 1;} to {opacity: 0;}`;
+const fadeIn = keyframes`from {opacity: 0;} to {opacity: 1;}`;
+const slideRight = keyframes`from {transform: translateX(-240px);} to {transform: translateX(0px);}`;
+const slideLeft = keyframes`from {transform: translateX(0px);} to {transform: translateX(-240px);}`;
