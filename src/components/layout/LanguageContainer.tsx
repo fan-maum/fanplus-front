@@ -20,6 +20,7 @@ const LanguageContainer = () => {
         '@media(max-width: 991px)': {
           top: '45px',
           width: '100%',
+          minWidth: '180px',
           paddingTop: '0px',
         },
       }}

@@ -52,6 +52,7 @@ const SideBar = ({ texts }: { texts: NavBarTextType }) => {
           backgroundColor: 'white',
           zIndex: '10000',
           animation: open ? `${slideRight} 0.3s ease-in-out` : `${slideLeft} 0.3s ease-in-out`,
+          li: { borderBottom: '1px solid rgb(102,102,102)' },
         }}
       >
         <div

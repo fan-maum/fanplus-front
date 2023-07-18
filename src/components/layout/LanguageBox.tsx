@@ -20,8 +20,7 @@ const LanguageBox = ({ language }: { language: string }) => {
         position: 'relative',
         '@media(max-width:991px)': {
           width: '100%',
-          padding: '10px 20px',
-          borderBottom: '1px solid rgb(102,102,102)',
+          padding: '10px 15px',
           fontSize: '15px',
         },
       }}
