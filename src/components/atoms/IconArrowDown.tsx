@@ -1,11 +1,19 @@
-function IconArrowDown({ stroke = '3' }: { stroke: string }) {
+function IconArrowDown({
+  width = '22',
+  height = '12',
+  stroke = '3',
+}: {
+  width: string;
+  height: string;
+  stroke: string;
+}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="22"
-      height="12"
+      width={width}
+      height={height}
       fill="none"
-      viewBox="-7 -3 37 21"
+      viewBox="0 0 22 12"
     >
       <path
         stroke="#666"
