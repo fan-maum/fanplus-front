@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import styles from './styles/Carousel.module.css';
 import { css } from '@emotion/react';
 import CircleIcon from './CircleIcon';
 import { TouchEvent } from 'react';
@@ -42,10 +41,29 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div
+        css={{
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          '@media(max-width:768px)': { width: '75%', margin: '0px auto' },
+        }}
+      >
         <div
-          className={styles.imageContainer}
-          css={css(translation)}
+          css={[
+            {
+              width: '250%',
+              height: '100%',
+              transition: 'transform 0.4s',
+              '@media(max-width:768px)': { width: '500%' },
+              img: {
+                width: '20%',
+                padding: '10px',
+              },
+            },
+            css(translation),
+          ]}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
@@ -56,7 +74,19 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
           <img src={imgLinks.img1} alt="보유배지"></img>
         </div>
       </div>
-      <div className={styles.buttons}>
+      <div
+        css={{
+          width: '100%',
+          height: 'fit-content',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          span: {
+            margin: '10px',
+            cursor: 'pointer',
+          },
+        }}
+      >
         <span onClick={() => handleClick(0)}>
           <CircleIcon fill={currIndex === 0 ? 'black' : 'none'} />
         </span>

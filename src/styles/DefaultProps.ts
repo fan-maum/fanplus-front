@@ -68,7 +68,7 @@ export function getDefaultProps<T = HTMLAttributes<HTMLDivElement>>({
     marginLeft: ml || mx,
     marginRight: mr || mx,
     marginTop: mt || my,
-    marginBottom: mt || my,
+    marginBottom: mb || my,
 
     width: w,
     minWidth: miw,
