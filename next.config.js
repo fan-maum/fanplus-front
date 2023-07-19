@@ -10,7 +10,7 @@ const nextConfig = {
       fallback: [
         {
           source: '/:path*',
-          destination: `http://old.fanplus.co.kr/:path*`,
+          destination: `https://old.fanplus.co.kr/:path*`,
         },
       ],
     };
