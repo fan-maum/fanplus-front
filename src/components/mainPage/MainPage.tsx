@@ -21,8 +21,8 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             css={{
               display: 'flex',
               flexDirection: 'column',
+              alignItems: 'center',
               padding: '10px',
-              alignSelf: 'center',
               width: '60%',
               [mediaQuery768]: {
                 width: '100%',
@@ -36,7 +36,7 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
               <h1>{area1.line2}</h1>
               {area1.line3 && <h1>{area1.line3}</h1>}
             </div>
-            <div css={{ display: 'flex', margin: '0px auto' }}>
+            <div css={{ display: 'flex' }}>
               <AppLink
                 storeName="Google Play"
                 storeLink="https://play.google.com/store/apps/details?id=com.photocard.allstar"

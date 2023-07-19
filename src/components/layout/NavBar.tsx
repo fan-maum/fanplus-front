@@ -5,6 +5,7 @@ import { SideBarContext } from './Layout';
 import { SideBarContextType } from '@/types/contextTypes';
 import { NavBarTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
+import LanguageBox from './LanguageBox';
 
 const NavBar = ({ texts }: { texts: NavBarTextType }) => {
   const { setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
@@ -18,7 +19,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           width: '100%',
           position: 'fixed',
           backgroundColor: isVotePage ? 'rgb(255,255,255)' : 'rgba(255,255,255,0.8)',
-          zIndex: '9999',
+          zIndex: '19999',
         }}
       >
         <div
@@ -35,19 +36,21 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           }}
         >
           <MainLogo link={texts.link.aboutUs} />
-          <NavContainer texts={texts} />
-          <img
-            src="/icons/사이드바.svg"
-            onClick={() => setIsSideBar(true)}
-            css={{
-              display: 'none',
-              width: '24px',
-              height: '21px',
-              marginRight: '15px',
-              cursor: 'pointer',
-              '@media(max-width:991px)': { display: 'block' },
-            }}
-          />
+          <NavContainer texts={texts} isVotePage={isVotePage} />
+          {!isVotePage && (
+            <img
+              src="/icons/사이드바.svg"
+              onClick={() => setIsSideBar(true)}
+              css={{
+                display: 'none',
+                width: '24px',
+                height: '21px',
+                marginRight: '15px',
+                cursor: 'pointer',
+                '@media(max-width:991px)': { display: 'block' },
+              }}
+            />
+          )}
         </div>
       </div>
       {/* background용 div */}

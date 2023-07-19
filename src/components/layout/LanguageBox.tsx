@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import LanguageContainer from './LanguageContainer';
+import IconArrowDown from '../atoms/IconArrowDown';
 
-const LanguageBox = ({ language }: { language: string }) => {
+const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: boolean }) => {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseOver = () => setIsHovered(true);
   const handleMouseOut = () => setIsHovered(false);
@@ -19,9 +20,8 @@ const LanguageBox = ({ language }: { language: string }) => {
         position: 'relative',
         '@media(max-width:991px)': {
           width: '100%',
-          padding: '10px 20px',
-          borderBottom: '1px solid rgb(102,102,102)',
-          fontSize: '15px',
+          padding: isVotePage ? '0px' : '10px 20px',
+          fontSize: isVotePage ? '16px' : '15px',
         },
       }}
     >
@@ -35,16 +35,28 @@ const LanguageBox = ({ language }: { language: string }) => {
           alignItems: 'center',
           cursor: 'pointer',
           '@media(max-width:991px)': {
-            height: '24px',
+            height: isVotePage ? '32px' : '24px',
             margin: '0px',
             padding: '0px',
+            justifyContent: 'space-between',
           },
         }}
       >
-        <img src="/icons/언어팩.svg" css={{ marginRight: '7px', width: '14px', height: '14px' }} />
-        {language}
+        <div css={{ display: 'flex', alignItems: 'center', marginRight: '5px' }}>
+          <img
+            src="/icons/언어팩.svg"
+            css={{
+              margin: '0px 5px 2px 0px',
+              width: '14px',
+              height: '14px',
+              '@media(max-width:991px)': { margin: '0px 5px 0px 0px' },
+            }}
+          />
+          <p>{language}</p>
+        </div>
+        <IconArrowDown width="11" height="6" strokeWidth="3" isReverse={isHovered} />
       </div>
-      {isHovered && <LanguageContainer />}
+      {isHovered && <LanguageContainer isVotePage={isVotePage} />}
     </li>
   );
 };
