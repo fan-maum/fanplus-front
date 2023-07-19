@@ -30,7 +30,7 @@ const Language = ({ language, href }: PropType) => {
           width: '100%',
           textDecoration: 'none',
           color: 'rgb(148,148,148)',
-          margin: '3px',
+          // margin: '3px',
           padding: '5px',
           paddingRight: '20px',
           lineHeight: '32px',

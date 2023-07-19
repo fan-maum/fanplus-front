@@ -1,5 +1,5 @@
 import MainPage from '@/components/mainPage/MainPage';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import { NavBarText_zh_rTW, FooterText_zh_rTW, MainPageText_zh_rTW } from '@/texts/zh-rTW';
 
 const TaiwanHome = () => {

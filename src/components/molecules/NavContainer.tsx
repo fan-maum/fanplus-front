@@ -1,5 +1,5 @@
 import NavBox from '../atoms/NavBox';
-import LanguageBox from './LanguageBox';
+import LanguageBox from '../molecules/LanguageBox';
 import { NavBarTextType } from '@/types/textTypes';
 
 const NavContainer = ({ texts, isVotePage }: { texts: NavBarTextType; isVotePage: boolean }) => {

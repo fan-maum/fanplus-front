@@ -1,5 +1,5 @@
 import MainPage from '@/components/mainPage/MainPage';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import { NavBarText_IND, FooterText_IND, MainPageText_IND } from '@/texts/in';
 
 const IndonesiaHome = () => {

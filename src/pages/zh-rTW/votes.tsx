@@ -1,5 +1,5 @@
 import { InferGetServerSidePropsType } from 'next';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import VotesLayout from '@/components/templates/VoteLayout';
 import { FooterText_zh_rTW, NavBarText_zh_rTW } from '@/texts/zh-rTW';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}

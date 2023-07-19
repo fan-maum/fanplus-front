@@ -1,5 +1,5 @@
 import { InferGetServerSidePropsType } from 'next';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import { NavBarText_KR, FooterText_KR, Votes_Text_ko } from '@/texts/ko';
 import VotesLayout from '@/components/templates/VoteLayout';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}

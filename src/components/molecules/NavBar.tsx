@@ -1,7 +1,7 @@
-import MainLogo from './MainLogo';
+import MainLogo from '../atoms/MainLogo';
 import NavContainer from './NavContainer';
 import { useContext } from 'react';
-import { SideBarContext } from './Layout';
+import { SideBarContext } from '../organisms/Layout';
 import { SideBarContextType } from '@/types/contextTypes';
 import { NavBarTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';

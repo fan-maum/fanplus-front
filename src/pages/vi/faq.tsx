@@ -1,4 +1,4 @@
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import { NavBarText_VIE, FooterText_VIE, FAQText_VIE } from '@/texts/vi';
 import FAQTemplate from '@/components/templates/FAQTemplate';
 

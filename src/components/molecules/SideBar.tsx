@@ -2,7 +2,7 @@ import NavBox from '../atoms/NavBox';
 import LanguageContainer from './LanguageBox';
 import { keyframes } from '@emotion/react';
 import { useContext, useState, useEffect } from 'react';
-import { SideBarContext } from './Layout';
+import { SideBarContext } from '../organisms/Layout';
 import { SideBarContextType } from '@/types/contextTypes';
 import { NavBarTextType } from '@/types/textTypes';
 

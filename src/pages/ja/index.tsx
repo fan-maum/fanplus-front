@@ -1,5 +1,5 @@
 import MainPage from '@/components/mainPage/MainPage';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import { NavBarText_JAP, FooterText_JAP, MainPageText_JAP } from '@/texts/ja';
 
 const JapanHome = () => {

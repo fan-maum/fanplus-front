@@ -1,5 +1,5 @@
 import MainPage from '@/components/mainPage/MainPage';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import { NavBarText_zh_rCN, FooterText_zh_rCN, MainPageText_zh_rCN } from '@/texts/zh-rCN';
 
 const ChinaHome = () => {

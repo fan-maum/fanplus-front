@@ -1,4 +1,4 @@
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import { NavBarText_KR, FooterText_KR, FAQText_KR } from '@/texts/ko';
 import FAQTemplate from '@/components/templates/FAQTemplate';
 
