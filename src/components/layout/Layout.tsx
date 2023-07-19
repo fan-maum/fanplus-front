@@ -14,10 +14,10 @@ const Layout: React.FC<{
   footerTexts: FooterTextType;
   children: ReactNode;
 }> = ({ navBarTexts, footerTexts, children }) => {
-  const [isSideBar, setIsSideBar] = useState<boolean>(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
   return (
-    <SideBarContext.Provider value={{ isSideBar, setIsSideBar }}>
-      {isSideBar && <SideBar texts={navBarTexts} />}
+    <SideBarContext.Provider value={{ isSideBarOpen, setIsSideBarOpen }}>
+      {isSideBarOpen && <SideBar texts={navBarTexts} />}
       <NavBar texts={navBarTexts} />
       {children}
       <Footer texts={footerTexts} />

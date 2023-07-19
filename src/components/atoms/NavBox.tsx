@@ -1,28 +1,30 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-type PageLinkPropType = {
+type NavBoxPropType = {
   title: string;
   link: string;
+  isSide?: boolean;
 };
 
-const ServiceBox = ({ title, link }: PageLinkPropType) => {
+const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
   const path = useRouter().pathname;
   const picked = path === link;
   return (
     <li
       css={{
-        flexDirection: 'column',
         listStyleType: 'none',
         float: 'left',
         fontSize: '16px',
         fontWeight: '600',
         color: 'rgb(102, 102, 102)',
-        '@media(max-width:991px)': {
-          width: '100%',
-          padding: '10px 20px',
-          fontSize: '15px',
-        },
+        '@media(max-width:991px)': isSide
+          ? {
+              width: '100%',
+              padding: '10px 20px',
+              fontSize: '15px',
+            }
+          : {},
       }}
     >
       <Link
@@ -41,7 +43,9 @@ const ServiceBox = ({ title, link }: PageLinkPropType) => {
             color: 'rgb(0,0,0)',
             transition: 'color 0.5s',
           },
-          '@media(max-width:991px)': { margin: '0px', padding: '0px', height: '24px' },
+          '@media(max-width:991px)': isSide
+            ? { margin: '0px', padding: '0px', height: '24px' }
+            : { margin: '0px 6px', padding: '0px 6px' },
         }}
       >
         {title}
@@ -50,4 +54,4 @@ const ServiceBox = ({ title, link }: PageLinkPropType) => {
   );
 };
 
-export default ServiceBox;
+export default NavBox;

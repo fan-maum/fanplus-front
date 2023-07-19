@@ -1,4 +1,4 @@
-import ServiceBox from './ServiceBox';
+import NavBox from '../atoms/NavBox';
 import LanguageContainer from './LanguageBox';
 import { keyframes } from '@emotion/react';
 import { useContext, useState, useEffect } from 'react';
@@ -7,13 +7,13 @@ import { SideBarContextType } from '@/types/contextTypes';
 import { NavBarTextType } from '@/types/textTypes';
 
 const SideBar = ({ texts }: { texts: NavBarTextType }) => {
-  const { isSideBar, setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
+  const { isSideBarOpen, setIsSideBarOpen } = useContext(SideBarContext) as SideBarContextType;
   const [animation, setAnimation] = useState<boolean>(true);
   useEffect(() => {
     let timeout;
     if (!animation) {
       timeout = setTimeout(() => {
-        setIsSideBar(false);
+        setIsSideBarOpen(false);
       }, 270);
     }
     if (animation) {
@@ -21,12 +21,12 @@ const SideBar = ({ texts }: { texts: NavBarTextType }) => {
     }
   }, [animation]);
   useEffect(() => {
-    if (isSideBar) {
+    if (isSideBarOpen) {
       setAnimation(true);
     }
-  }, [isSideBar]);
+  }, [isSideBarOpen]);
 
-  const open = isSideBar && animation;
+  const open = isSideBarOpen && animation;
 
   return (
     <div
@@ -74,15 +74,16 @@ const SideBar = ({ texts }: { texts: NavBarTextType }) => {
         >
           Menu
         </div>
-        <ServiceBox title={texts.aboutUs} link={texts.link.aboutUs} />
+        <NavBox title={texts.aboutUs} link={texts.link.aboutUs} isSide />
         {texts.recruit && (
-          <ServiceBox
+          <NavBox
             title={texts.recruit}
             link="https://www.wanted.co.kr/search?query=%ED%8C%AC%EB%A7%88%EC%9D%8C"
+            isSide
           />
         )}
-        <ServiceBox title={texts.business} link={texts.link.business} />
-        <ServiceBox title="FAQ" link={texts.link.faq} />
+        <NavBox title={texts.business} link={texts.link.business} isSide />
+        <NavBox title="FAQ" link={texts.link.faq} isSide />
         <LanguageContainer language={texts.language} isVotePage={false} />
       </ul>
     </div>

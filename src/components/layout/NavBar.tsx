@@ -5,10 +5,9 @@ import { SideBarContext } from './Layout';
 import { SideBarContextType } from '@/types/contextTypes';
 import { NavBarTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
-import LanguageBox from './LanguageBox';
 
 const NavBar = ({ texts }: { texts: NavBarTextType }) => {
-  const { setIsSideBar } = useContext(SideBarContext) as SideBarContextType;
+  const { setIsSideBarOpen } = useContext(SideBarContext) as SideBarContextType;
   const router = useRouter();
   const isVotePage = router.pathname.endsWith('votes');
 
@@ -40,7 +39,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           {!isVotePage && (
             <img
               src="/icons/사이드바.svg"
-              onClick={() => setIsSideBar(true)}
+              onClick={() => setIsSideBarOpen(true)}
               css={{
                 display: 'none',
                 width: '24px',
