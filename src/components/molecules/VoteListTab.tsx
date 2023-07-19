@@ -20,7 +20,6 @@ const VoteTab = ({
 
   const onClickVoteTab = (tabValue: string) => {
     setTabState(tabValue);
-    console.log(router.query.lang);
     router.push({
       pathname: pathname,
       query: {
