@@ -9,9 +9,12 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
     if (!isTouching) {
       setIsHovered(true);
     }
-    setIsTouching(false);
   };
-  const handleMouseOut = () => setIsHovered(false);
+  const handleMouseOut = () => {
+    if (!isTouching) {
+      setIsHovered(false);
+    }
+  };
   const handleTouchStart = () => {
     setIsTouching(true);
     setIsHovered(!isHovered);
