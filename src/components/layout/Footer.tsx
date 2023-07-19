@@ -27,7 +27,7 @@ const Footer = ({ texts }: { texts: FooterTextType }) => {
           </h5>
           <div css={{ marginBottom: '26px' }}>
             <a
-              href="mailto:cs@fanmaum.com"
+              href="mailto:appfanplus@gmail.com"
               css={{
                 display: 'flex',
                 width: 'fit-content',
@@ -41,7 +41,7 @@ const Footer = ({ texts }: { texts: FooterTextType }) => {
               }}
             >
               <h3 css={{ fontSize: '20px', fontWeight: '800', marginRight: '5px' }}>
-                cs@fanmaum.com
+                appfanplus@gmail.com
               </h3>
               <button
                 css={{
