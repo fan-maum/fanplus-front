@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { css } from '@emotion/react';
-import CircleIcon from './CircleIcon';
+import IconCircle from '../atoms/IconCircle';
 import { TouchEvent } from 'react';
 
 export type OwnPropType = {
@@ -88,16 +88,16 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
         }}
       >
         <span onClick={() => handleClick(0)}>
-          <CircleIcon fill={currIndex === 0 ? 'black' : 'none'} />
+          <IconCircle fill={currIndex === 0 ? 'black' : 'none'} />
         </span>
         <span onClick={() => handleClick(1)}>
-          <CircleIcon fill={currIndex === 1 ? 'black' : 'none'} />
+          <IconCircle fill={currIndex === 1 ? 'black' : 'none'} />
         </span>
         <span onClick={() => handleClick(2)}>
-          <CircleIcon fill={currIndex === 2 ? 'black' : 'none'} />
+          <IconCircle fill={currIndex === 2 ? 'black' : 'none'} />
         </span>
         <span onClick={() => handleClick(3)}>
-          <CircleIcon fill={currIndex === 3 ? 'black' : 'none'} />
+          <IconCircle fill={currIndex === 3 ? 'black' : 'none'} />
         </span>
       </div>
     </>
