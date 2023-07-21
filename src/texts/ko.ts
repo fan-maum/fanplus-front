@@ -143,7 +143,7 @@ export const FAQText_KR: FAQPageTextType = {
 };
 
 export const Votes_Text_ko = {
-  voteEnd: '투표 종료까지',
+  voteEnd: '투표종료까지',
   tab: {
     all: '전체',
     bday: '생일 투표',
