@@ -26,13 +26,13 @@ function VoteDetailList({
               <VoteDetailListItem
                 starData={item}
                 starState={<VoteStarState starData={item} />}
-                clickEvent={
-                  {
-                    // shareOnClick: () => shareOnClick(item.id, gender),
-                    // voteOnClick: () => voteOnClick(item.id, gender),
-                    // communityOnClick: () => communityOnClick(item.board),
-                  }
-                }
+                // clickEvent={
+                //   {
+                //     shareOnClick: () => shareOnClick(item.VOTE_IDX),
+                //     voteOnClick: () => voteOnClick(item.VOTE_IDX),
+                //     communityOnClick: () => communityOnClick(item.VOTE_IDX),
+                //   }
+                // }
               />
             </div>
           );

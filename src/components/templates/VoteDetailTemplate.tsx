@@ -13,10 +13,6 @@ function VoteDetailTemplate({ ...props }: VoteDetailTemplateProps) {
         position: 'relative',
         maxWidth: '768px',
         minWidth: '360px',
-        padding: 0,
-        overflowY: 'auto',
-        height: '100vh',
-        width: '100%',
         margin: '0 auto',
         background: '#fff',
       }}

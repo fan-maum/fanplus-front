@@ -1,7 +1,7 @@
-import { colors } from '@/styles/Colors';
 import { PromotionVoteData } from '@/types/event';
 import Image from 'next/image';
-import { Avatar, Group, Typography } from './base';
+import { Group } from '../atoms';
+// import { Avatar, Group, Typography } from './base';
 
 export interface PromotionStarAvatarProps {
   starData: PromotionVoteData;
@@ -30,11 +30,11 @@ function VoteStarAvatar({ starData: starState, isBordered, ...props }: Promotion
             style={{ marginTop: -45 }}
           />
         ) : (
-          <Typography category="subtitle" color="gray.700">
+          // <Typography category="subtitle" color="gray.700">
             {starState.votes ? starState.rank : '-'}
-          </Typography>
+          // </Typography>
         )}
-        <Avatar
+        {/* <Avatar
           css={
             isBordered || (starState.votes && isRanked)
               ? {
@@ -56,7 +56,7 @@ function VoteStarAvatar({ starData: starState, isBordered, ...props }: Promotion
           size={84}
           src={starState.image}
           alt="Avatar"
-        />
+        /> */}
       </Group>
     </>
   );
