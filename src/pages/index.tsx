@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
-import MainPage from '@/components/mainPage/MainPage';
+import MainPageTemplate from '@/components/templates/MainPageTemplate';
 import Layout from '@/components/organisms/Layout';
 import { NavBarText_KR, MainPageText_KR, FooterText_KR } from '@/texts/ko';
 
@@ -35,7 +35,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
-        <MainPage texts={MainPageText_KR} />
+        <MainPageTemplate texts={MainPageText_KR} />
       </Layout>
     </>
   );

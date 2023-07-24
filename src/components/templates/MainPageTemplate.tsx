@@ -1,12 +1,12 @@
 import { MainPageTextType } from '@/types/textTypes';
 import { FC } from 'react';
 import { css } from '@emotion/react';
-import AppLink from './AppLink';
-import Carousel from './Carousel';
-import IconPlayStore from './IconPlayStore';
-import IconAppStore from './IconAppStore';
+import AppLink from '../molecules/AppLink';
+import Carousel from '../organisms/Carousel';
+import IconPlayStore from '../atoms/IconPlayStore';
+import IconAppStore from '../atoms/IconAppStore';
 
-const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
+const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
   const area1 = texts.Area1;
   const area2 = texts.Area2;
   const area3 = texts.Area3;
@@ -235,7 +235,7 @@ const MainPage: FC<{ texts: MainPageTextType }> = ({ texts }) => {
   );
 };
 
-export default MainPage;
+export default MainPageTemplate;
 
 //** css 속성 */
 const mediaQuery768 = '@media screen and (max-width: 768px)';
