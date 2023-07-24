@@ -8,6 +8,7 @@ import { wrap } from 'module';
 import { Avatar, Stack } from '@/components/atoms';
 import { formatNumberWithComma } from '@/utils/util';
 import RankProfile from '@/components/atoms/RankProfile';
+import Link from 'next/link';
 
 export interface VoteDetailInfoProps {
   voteDetailInfo: VoteDetailVoteInfo;
@@ -33,25 +34,38 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
           {secondRankStar?.STAR_NAME}
         </RankProfile>
       </Stack>
-      <Stack align="center" justify="center">
-        <UnstyledButton
-          px={50}
+      <UnstyledButton
+        px={50}
+        css={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 60,
+          borderRadius: '10px',
+          background: '#FCEEEE',
+          color: '#FC5280',
+          fontSize: '17px',
+          fontWeight: 600,
+          margin: '0 auto 40px auto',
+        }}
+      >
+        <Link
+          href={voteDetailInfo.LINK}
+          target="_blank"
           css={{
-            height: 60,
-            borderRadius: '10px',
-            background: '#FCEEEE',
-            color: '#FC5280',
-            fontSize: '17px',
-            fontWeight: 600,
-            margin: '0 auto 40px auto',
+            display: 'inline-block',
+            width: '100%',
+            height: '100%',
+            lineHeight: '60px',
+            padding: '0 50px',
           }}
         >
           <Center>
-            팬플러스 '리그전'이란 자세히 알아보기
+            {voteDetailInfo.LINK_TXT} 자세히 알아보기
             <img src="/icons/icon_pinkArrow.svg" alt="arrow" />
           </Center>
-        </UnstyledButton>
-      </Stack>
+        </Link>
+      </UnstyledButton>
     </div>
   );
 };
