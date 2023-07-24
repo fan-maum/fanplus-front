@@ -18,3 +18,8 @@ export const formatTime = (time: number | undefined) => {
     minutes < 10 ? '0' : ''
   }${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };
+
+export function formatNumberWithComma(num: number | undefined): string {
+  if (num === undefined) return '';
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}

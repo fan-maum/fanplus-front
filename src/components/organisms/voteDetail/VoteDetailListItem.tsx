@@ -1,11 +1,12 @@
 import ShareButton from '@/components/atoms/ShareButton';
 import { Button, Divider, Group, Stack } from '@/components/atoms';
 import { VoteDetailStars } from '@/types/vote';
+import { VoteButton } from '@/components/atoms/VoteButton';
 
 export interface PromotionRankListItemProps {
-  starData: VoteDetailStars
+  starData: VoteDetailStars;
   starState: React.ReactNode;
-  // clickEvent: { voteOnClick: () => void; shareOnClick: () => void; communityOnClick: () => void };
+  // clickEvent: { voteOnClick: () => void; shareOnClick: () => void };
   targetRef?: React.RefObject<HTMLDivElement>;
 }
 
@@ -18,29 +19,21 @@ function VoteDetailListItem({
 }: PromotionRankListItemProps) {
   return (
     <div ref={targetRef} className={targetRef ? 'highlight' : undefined}>
-      <Stack p={16} pr={24} spacing={0}>
-        {/* <PromotionStarState /> */}
+      <Divider size={2} />
+      <Stack p={16} pr={20} spacing={20}>
         {starState}
         <Group spacing={8} position="right">
           <ShareButton
-            // disabled={props.promoData.data.votes === null}
-            // onClick={clickEvent.shareOnClick}
+          // disabled={props.promoData.data.votes === null}
+          // onClick={clickEvent.shareOnClick}
           />
-          <Button color="gray" 
-          // onClick={clickEvent.communityOnClick}
-          >
-            {/* <Typography category="button" color={colors.gray[750]}> */}
-              게시판
-            {/* </Typography> */}
-          </Button>
-          <Button 
+          <VoteButton
           // onClick={clickEvent.voteOnClick}
           >
-            투표
-          </Button>
+            투표하기
+          </VoteButton>
         </Group>
       </Stack>
-      <Divider mx={24} />
     </div>
   );
 }

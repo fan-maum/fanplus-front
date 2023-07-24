@@ -1,52 +1,36 @@
 import { useState } from 'react';
-import { Stack } from '@/components/atoms';
+import { Group, Stack } from '@/components/atoms';
 import IconArrowDown from '@/components/atoms/IconArrowDown';
 
-const VoteDetailPrizeBox = ({
-  question,
-  answer,
-}: {
-  question: string;
-  answer: string;
-}) => {
+const VoteDetailPrizeBox = ({ question, answer }: { question: string; answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleClick = () => {
     setIsOpen((prev) => !prev);
   };
   return (
-    <div
-      css={{
-        width: '100%',
-        padding: '10px 15px',
-        color: 'rgb(51,51,51)',
-        '@media screen and (max-width: 768px)': {
-          padding: 5,
-        },
-      }}
-    >
-      <Stack
+    <Stack w={'100%'} px={'20px'}>
+      <Group
+        h={'100%'}
         align="center"
-        justify="space-between"
-        direct="row"
+        position="apart"
         onClick={handleClick}
-        css={{ cursor: 'pointer', padding: '10px 15px', marginBottom: 10 }}
+        css={{
+          cursor: 'pointer',
+          padding: '21px 0',
+          color: '#101010',
+        }}
       >
         <h3
           css={{
             fontSize: '18px',
-            lineHeight: '36px',
             fontWeight: '500',
             marginRight: '5px',
-            ':hover': { color: 'rgb(102,102,102)' },
-            '@media screen and (max-width: 768px)': {
-              lineHeight: '24px',
-            },
           }}
         >
           {question}
         </h3>
         <IconArrowDown width="16" isReverse={isOpen} />
-      </Stack>
+      </Group>
       <div
         css={
           isOpen
@@ -77,7 +61,7 @@ const VoteDetailPrizeBox = ({
           {answer}
         </p>
       </div>
-    </div>
+    </Stack>
   );
 };
 

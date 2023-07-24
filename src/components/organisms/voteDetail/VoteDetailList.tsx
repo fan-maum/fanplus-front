@@ -12,13 +12,13 @@ function VoteDetailList({
   voteDetailStars,
   //   shareOnClick: (id: number, gender: Gender) => void;
   //   voteOnClick: (id: number, gender: Gender) => void;
-  // communityOnClick: (url: string) => void;
   ...props
 }: VoteDetailListProps) {
   return (
     <>
-      <div>투표하기</div>
-      <Divider size={2} />
+      <Stack h={60} fz={22} fw={600} color="#000" pl={16} justify="center">
+        투표하기
+      </Stack>
       <Stack spacing={0} justify="flex-start" css={{ backgroundColor: '#fff' }}>
         {voteDetailStars.map((item, index) => {
           return (
@@ -30,7 +30,6 @@ function VoteDetailList({
                 //   {
                 //     shareOnClick: () => shareOnClick(item.VOTE_IDX),
                 //     voteOnClick: () => voteOnClick(item.VOTE_IDX),
-                //     communityOnClick: () => communityOnClick(item.VOTE_IDX),
                 //   }
                 // }
               />
