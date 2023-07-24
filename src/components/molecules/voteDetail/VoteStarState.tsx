@@ -16,6 +16,7 @@ const GRADIENT = [
 function VoteStarState({ starData, ...props }: VoteStarStateProps) {
   const rank = Number(starData.RANK);
   const Top3 = rank < 4;
+  const imageURl = `/icons/icon_medalTop${rank}.png`;
   return (
     <Group spacing={16} align={'center'}>
       {Top3 ? (
@@ -30,28 +31,40 @@ function VoteStarState({ starData, ...props }: VoteStarStateProps) {
           {starData.RANK}
         </div>
       )}
-      <Avatar
-        css={
-          starData.RANK && Top3
-            ? {
-                background: Top3 ? GRADIENT[rank - 1] : '#F2F4F5',
-                padding: 2,
-              }
-            : {
-                background: '#F2F4F5',
-                padding: 2,
-              }
-        }
-        imageProps={{
-          style: { borderRadius: '10px' },
-        }}
-        w={45}
-        h={60}
-        radius={10}
-        color="secondary.500"
-        src={starData.PROFILE_IMG}
-        alt="Avatar"
-      />
+      <div css={{ position: 'relative' }}>
+        {Top3 ? (
+          <span
+            css={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)' }}
+          >
+            <Image src={imageURl} width={16} height={10} alt={'medalTop'} />
+          </span>
+        ) : (
+          <></>
+        )}
+        <Avatar
+          css={
+            starData.RANK && Top3
+              ? {
+                  position: 'relative',
+                  background: Top3 ? GRADIENT[rank - 1] : '#F2F4F5',
+                  padding: 2,
+                }
+              : {
+                  background: '#F2F4F5',
+                  padding: 2,
+                }
+          }
+          imageProps={{
+            style: { borderRadius: '10px' },
+          }}
+          w={45}
+          h={60}
+          radius={10}
+          color="secondary.500"
+          src={starData.PROFILE_IMG}
+          alt="Avatar"
+        />
+      </div>
       <Stack spacing={4} fw={600} fz={17}>
         <div css={{ color: '#101010' }}>{starData.STAR_NAME}</div>
         <div

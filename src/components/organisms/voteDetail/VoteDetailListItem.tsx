@@ -20,7 +20,7 @@ function VoteDetailListItem({
   return (
     <div ref={targetRef} className={targetRef ? 'highlight' : undefined}>
       <Divider size={2} />
-      <Stack p={16} pr={20} spacing={20}>
+      <Stack p={'24px 16px 20px 16px'} spacing={20}>
         {starState}
         <Group spacing={8} position="right">
           <ShareButton

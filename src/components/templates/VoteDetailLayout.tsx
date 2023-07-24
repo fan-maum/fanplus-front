@@ -5,6 +5,7 @@ import VoteDetailInfo, {
 } from '@/components/organisms/voteDetail/VoteDetailInfo';
 import VoteDetailPrizeList, {
   VoteDetailPrizeListProps,
+  prizeTabContentsProps,
 } from '@/components/organisms/voteDetail/VoteDetailPrizeList';
 import VoteDetailList, {
   VoteDetailListProps,
@@ -12,13 +13,60 @@ import VoteDetailList, {
 import { getVoteDetail } from '@/api/Vote';
 
 const voteDetailData = getVoteDetail();
+const voteDetailInfo = voteDetailData.RESULTS.DATAS.VOTE_INFO;
 console.log(voteDetailData);
 
 const voteDetailInfoProps: VoteDetailInfoProps = {
   voteDetailInfo: voteDetailData.RESULTS.DATAS.VOTE_INFO,
 };
 
+export const prizeTabContents: prizeTabContentsProps = {
+  prizeTabContentsItem: [
+    {
+      id: 'prizeTab_01',
+      titleImage: '/icons/icon_explanation.png',
+      title: '상세 내용',
+      contents: {
+        DESCRIPTION: voteDetailInfo.DESCRIPTION,
+      },
+    },
+    {
+      id: 'prizeTab_02',
+      titleImage: '/icons/icon_medal1.png',
+      title: '1위 혜택 보기',
+      contents: {
+        PRIZE_IMG: voteDetailInfo.FIRST_PRIZE_IMG,
+        PRIZE_TITLE: voteDetailInfo.FIRST_PRIZE_TITLE,
+        PRIZE_DESCRIPTION: voteDetailInfo.FIRST_PRIZE_DESCRIPTION,
+      },
+    },
+    {
+      id: 'prizeTab_03',
+      titleImage: '/icons/icon_medal2.png',
+      title: '2위 혜택 보기',
+      contents: {
+        PRIZE_IMG: voteDetailInfo.SECOND_PRIZE_IMG,
+        PRIZE_TITLE: voteDetailInfo.SECOND_PRIZE_TITLE,
+        PRIZE_DESCRIPTION: voteDetailInfo.SECOND_PRIZE_DESCRIPTION,
+      },
+    },
+    {
+      id: 'prizeTab_04',
+      titleImage: '/icons/icon_medal3.png',
+      title: '3위 혜택 보기',
+      contents: {
+        PRIZE_IMG: voteDetailInfo.THIRD_PRIZE_IMG,
+        PRIZE_TITLE: voteDetailInfo.THIRD_PRIZE_TITLE,
+        PRIZE_DESCRIPTION: voteDetailInfo.THIRD_PRIZE_DESCRIPTION,
+      },
+    },
+  ],
+};
+
+const tabContent = {};
+
 const voteDetailPrizeListProps: VoteDetailPrizeListProps = {
+  prizeTabContents: prizeTabContents,
   voteDetailInfo: voteDetailData.RESULTS.DATAS.VOTE_INFO,
 };
 

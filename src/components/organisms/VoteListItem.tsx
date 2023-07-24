@@ -10,7 +10,7 @@ import { getVoteDetailLanguage } from '@/hooks/useLanguage';
 
 export interface VoteListItemProps {
   endDay: string;
-  voteData: VoteData;
+  voteData: any;
 }
 
 const today = new Date();
