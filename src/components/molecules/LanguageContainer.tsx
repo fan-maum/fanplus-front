@@ -1,4 +1,4 @@
-import Language from './Language';
+import Language from '../atoms/Language';
 import { useRouter } from 'next/router';
 
 const LanguageContainer = ({ isVotePage }: { isVotePage: boolean }) => {
@@ -18,10 +18,13 @@ const LanguageContainer = ({ isVotePage }: { isVotePage: boolean }) => {
         padding: '10px 0px',
         zIndex: '19999',
         '@media(max-width: 991px)': {
-          top: isVotePage ? '32px' : '45px',
+          top: isVotePage ? '32px' : '46px',
           width: '100%',
           minWidth: '180px',
           paddingTop: '0px',
+        },
+        '@media(max-width: 768px)': {
+          top: '46px',
         },
       }}
     >

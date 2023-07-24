@@ -4,8 +4,21 @@ import IconArrowDown from '../atoms/IconArrowDown';
 
 const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: boolean }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const handleMouseOver = () => setIsHovered(true);
-  const handleMouseOut = () => setIsHovered(false);
+  const [isTouching, setIsTouching] = useState(false);
+  const handleMouseOver = () => {
+    if (!isTouching) {
+      setIsHovered(true);
+    }
+  };
+  const handleMouseOut = () => {
+    if (!isTouching) {
+      setIsHovered(false);
+    }
+  };
+  const handleTouchStart = () => {
+    setIsTouching(true);
+    setIsHovered(!isHovered);
+  };
 
   return (
     <li
@@ -18,6 +31,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
         fontWeight: '600',
         color: 'rgb(102, 102, 102)',
         position: 'relative',
+        transition: '1s ease-in-out',
         '@media(max-width:991px)': {
           width: '100%',
           padding: isVotePage ? '0px' : '10px 20px',
@@ -26,6 +40,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
       }}
     >
       <div
+        onTouchStart={handleTouchStart}
         css={{
           display: 'flex',
           margin: '0px 8px',

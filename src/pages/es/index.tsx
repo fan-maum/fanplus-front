@@ -1,5 +1,5 @@
 import MainPageTemplate from '@/components/templates/MainPageTemplate';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import { NavBarText_ESP, FooterText_ESP, MainPageText_ESP } from '@/texts/es';
 
 const EspanolHome = () => {

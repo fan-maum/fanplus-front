@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FooterTextType, NavBarTextType } from '@/types/textTypes';
 import { ReactNode } from 'react';
-import NavBar from './NavBar';
-import Footer from './Footer';
-import SideBar from './SideBar';
+import NavBar from '../molecules/NavBar';
+import Footer from '../molecules/Footer';
+import SideBar from '../molecules/SideBar';
 import { SideBarContextType } from '@/types/contextTypes';
 import { createContext } from 'react';
 
@@ -14,10 +14,10 @@ const Layout: React.FC<{
   footerTexts: FooterTextType;
   children: ReactNode;
 }> = ({ navBarTexts, footerTexts, children }) => {
-  const [isSideBar, setIsSideBar] = useState<boolean>(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
   return (
-    <SideBarContext.Provider value={{ isSideBar, setIsSideBar }}>
-      {isSideBar && <SideBar texts={navBarTexts} />}
+    <SideBarContext.Provider value={{ isSideBarOpen, setIsSideBarOpen }}>
+      {isSideBarOpen && <SideBar texts={navBarTexts} />}
       <NavBar texts={navBarTexts} />
       {children}
       <Footer texts={footerTexts} />

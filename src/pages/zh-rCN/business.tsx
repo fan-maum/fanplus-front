@@ -1,4 +1,4 @@
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import BusinessTemplate from '@/components/templates/BusinessTemplate';
 import { NavBarText_zh_rCN, FooterText_zh_rCN, BusinessText_zh_rCN } from '@/texts/zh-rCN';
 
