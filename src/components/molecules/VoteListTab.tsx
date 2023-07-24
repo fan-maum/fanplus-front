@@ -38,12 +38,13 @@ const VoteTab = ({
           {
             background: '#fff',
             position: 'sticky',
-            top: '70px',
+            top: '85px',
             zIndex: 100,
             padding: '10px 0',
             margin: '40px auto',
             display: 'flex',
             justifyContent: 'center',
+            '@media(max-width:991px)': { top: '70px' },
           },
         ]}
       >
