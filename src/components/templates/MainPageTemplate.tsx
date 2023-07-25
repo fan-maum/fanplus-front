@@ -243,7 +243,7 @@ const mediaQuery991 = '@media screen and (max-width: 991px)';
 const container = css({
   fontSize: '20px',
   color: 'rgb(51,51,51)',
-  wordBreak: 'keep-all',
+  wordBreak: 'break-word',
   h1: {
     fontSize: '56px',
     wordBreak: 'keep-all',

@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     domains: ['cdnetphoto.appphotocard.com'],
   },
+  trailingSlash: true,
   async rewrites() {
     return {
       fallback: [
