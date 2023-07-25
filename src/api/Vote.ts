@@ -16,7 +16,7 @@ export const getVotes = (
   return response;
 };
 
-export const getVoteDetail = () => {
+export const getVoteDetail = (/*vote_idx: string, lang: string*/) => {
   const response = {
     RESULTS: {
       ERROR: 0,

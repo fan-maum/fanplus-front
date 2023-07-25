@@ -7,7 +7,7 @@ import { getLanguage } from '@/hooks/useLanguage';
 export interface PromotionTitleProps {
   remainTime: string | undefined;
   remainTimeState: boolean;
-  starName: string;
+  starName?: string;
 }
 
 export default function VoteTitle({ remainTime, remainTimeState, starName }: PromotionTitleProps) {

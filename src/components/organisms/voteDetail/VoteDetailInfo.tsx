@@ -1,11 +1,8 @@
 import { VoteDetailVoteInfo } from '@/types/vote';
-import VoteListItem from '@/components/organisms/VoteListItem';
-import { Button } from '@/components/atoms/Button';
-import { Divider } from '@/components/atoms/Divider';
+import VoteDetailItem from '@/components/organisms/voteDetail/VoteDetailItem';
 import { UnstyledButton } from '@/components/atoms/UnstyledButton';
 import { Center } from '@/components/atoms/Center';
-import { wrap } from 'module';
-import { Avatar, Stack } from '@/components/atoms';
+import { Stack } from '@/components/atoms';
 import { formatNumberWithComma } from '@/utils/util';
 import RankProfile from '@/components/atoms/RankProfile';
 import Link from 'next/link';
@@ -19,7 +16,11 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
   const secondRankStar = voteDetailInfo.STARS.find((star) => star.RANK === '2');
   return (
     <div css={{ padding: '0 16px' }}>
-      <VoteListItem endDay={voteDetailInfo.END_DATE} voteData={voteDetailInfo} />
+      <VoteDetailItem
+        endDay={voteDetailInfo.END_DATE}
+        voteDetailInfo={voteDetailInfo}
+        firstRankStarName={firstRankStar?.STAR_NAME}
+      />
       <Stack spacing={50} maw={320} h={100} align="center" direct="row" m={'0 auto'}>
         <RankProfile>
           <img width={36} src={'/icons/icon_medal1.png'} alt="icon_medal" />

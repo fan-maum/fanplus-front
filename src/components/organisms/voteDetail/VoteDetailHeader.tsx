@@ -2,8 +2,10 @@ import ShareButton from '@/components/atoms/ShareButton';
 import { Group } from '@/components/atoms/Group';
 import { UnstyledButton } from '@/components/atoms/UnstyledButton';
 import { Center } from '@/components/atoms/Center';
+import { useRouter } from 'next/router';
 
 function VoteDetailHeader() {
+  const router = useRouter();
   return (
     <>
       <Group
@@ -21,11 +23,7 @@ function VoteDetailHeader() {
         spacing={0}
       >
         <Center css={{ gap: 4 }}>
-          <UnstyledButton
-            onClick={() => {
-              console.log('back to voteLists');
-            }}
-          >
+          <UnstyledButton onClick={() => router.back()}>
             <img src="/icons/icon_back.svg" alt="icon_back" />
           </UnstyledButton>
           <span css={{ fontSize: 22, fontWeight: 600 }}>투표</span>

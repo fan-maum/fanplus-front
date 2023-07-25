@@ -12,7 +12,7 @@ import VoteDetailList, {
 } from '@/components/organisms/voteDetail/VoteDetailList';
 import { getVoteDetail } from '@/api/Vote';
 
-const voteDetailData = getVoteDetail();
+const voteDetailData = getVoteDetail(); // vote_IDX, lang
 const voteDetailInfo = voteDetailData.RESULTS.DATAS.VOTE_INFO;
 console.log(voteDetailData);
 
