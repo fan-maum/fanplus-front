@@ -152,3 +152,7 @@ export const Votes_Text_zhtw = {
   winner: '1位',
   daysAgo: '日 前',
 };
+
+export const VoteDetail_Text_zhtw = {
+  vote: '投票',
+};

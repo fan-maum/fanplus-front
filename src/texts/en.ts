@@ -152,3 +152,7 @@ export const Votes_Text_en = {
   winner: '1st',
   daysAgo: 'days ago',
 };
+
+export const VoteDetail_Text_en = {
+  vote: 'Vote',
+};

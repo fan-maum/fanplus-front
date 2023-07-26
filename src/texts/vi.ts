@@ -152,3 +152,7 @@ export const Votes_Text_vi = {
   winner: '1st',
   daysAgo: 'Ngày trước',
 };
+
+export const VoteDetail_Text_vi = {
+  vote: 'Bỏ phiếu',
+};

@@ -152,3 +152,7 @@ export const Votes_Text_es = {
   winner: 'Primer puesto',
   daysAgo: 'Día(s) antes',
 };
+
+export const VoteDetail_Text_es = {
+  vote: 'Votación',
+};

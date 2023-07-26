@@ -152,3 +152,7 @@ export const Votes_Text_ja = {
   winner: '1位',
   daysAgo: '日前',
 };
+
+export const VoteDetail_Text_ja = {
+  vote: '投票',
+};

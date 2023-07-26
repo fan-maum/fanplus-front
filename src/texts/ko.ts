@@ -152,3 +152,7 @@ export const Votes_Text_ko = {
   winner: '1위',
   daysAgo: '일',
 };
+
+export const VoteDetail_Text_ko = {
+  vote: '투표',
+};
