@@ -12,7 +12,7 @@ export interface prizeTabContentsProps {
   prizeTabContentsItem: {
     id: string;
     titleImage: string;
-    title: string;
+    title: string | undefined;
     isRequired: boolean;
     contents: prizeTabContentsItemsProps;
   }[];

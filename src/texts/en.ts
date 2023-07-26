@@ -155,4 +155,17 @@ export const Votes_Text_en = {
 
 export const VoteDetail_Text_en = {
   vote: 'Vote',
+  voting: 'Vote',
+  voteDifference : {
+    front: 'Winning by',
+    back: 'vote(s)'
+  },
+  seeMore: 'See More',
+  currentVote: 'VT(s)',
+  prizeTitle: {
+    detail: 'Description', 
+    first: 'The Prize for Winner',
+    second: '2nd Winner Prize',
+    third: '3rd Winner Prize',
+  }
 };

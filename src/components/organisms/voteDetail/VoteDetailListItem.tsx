@@ -2,6 +2,9 @@ import ShareButton from '@/components/atoms/ShareButton';
 import { Button, Divider, Group, Stack } from '@/components/atoms';
 import { VoteDetailStars } from '@/types/vote';
 import { VoteButton } from '@/components/atoms/VoteButton';
+import { getLanguage } from '@/hooks/useLanguage';
+import { useRecoilState } from 'recoil';
+import { voteDetailLangState } from '@/store/voteLangState';
 
 export interface PromotionRankListItemProps {
   starData: VoteDetailStars;
@@ -17,6 +20,8 @@ function VoteDetailListItem({
   // clickEvent,
   ...props
 }: PromotionRankListItemProps) {
+  const language = getLanguage();
+  const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   return (
     <div ref={targetRef} className={targetRef ? 'highlight' : undefined}>
       <Divider size={2} />
@@ -30,7 +35,7 @@ function VoteDetailListItem({
           <VoteButton
           // onClick={clickEvent.voteOnClick}
           >
-            투표하기
+            {voteDetailLanguage?.voting}
           </VoteButton>
         </Group>
       </Stack>

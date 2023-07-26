@@ -155,4 +155,17 @@ export const Votes_Text_zhtw = {
 
 export const VoteDetail_Text_zhtw = {
   vote: '投票',
+  voting: '投票',
+  voteDifference : {
+    front: null,
+    back: '票差距!'
+  },
+  seeMore: '查看詳情',
+  currentVote: '票',
+  prizeTitle: {
+    detail: '詳細內容', 
+    first: '查看第1名獎勵',
+    second: '查看第2名獎勵',
+    third: '查看第3名獎勵',
+  }
 };

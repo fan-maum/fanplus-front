@@ -12,7 +12,7 @@ const VoteDetailPrizeBox = ({
 }: {
   id: string;
   titleImage: string;
-  question: string;
+  question?: string;
   answer: prizeTabContentsItemsProps;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +44,7 @@ const VoteDetailPrizeBox = ({
             <Image width={26} height={26} src={titleImage} alt="icon" />
             {question}
           </Center>
-          <IconArrowDown width="16" isReverse={isOpen} />
+          <IconArrowDown width="16" height="16" isReverse={isOpen} />
         </Group>
         <div
           css={
