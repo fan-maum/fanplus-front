@@ -7,7 +7,7 @@ import { getLanguage } from '@/hooks/useLanguage';
 export interface PromotionTitleProps {
   remainTime: string | undefined;
   remainTimeState: boolean;
-  starName: string;
+  starName?: string;
 }
 
 export default function VoteTitle({ remainTime, remainTimeState, starName }: PromotionTitleProps) {
@@ -27,7 +27,7 @@ export default function VoteTitle({ remainTime, remainTimeState, starName }: Pro
         {
           color: activeColor,
           fontSize: '16px',
-          fontWeight: '400',
+          fontWeight: '600',
           borderRadius: '17px',
           lineHeight: '200%',
         },
@@ -40,7 +40,6 @@ export default function VoteTitle({ remainTime, remainTimeState, starName }: Pro
             css={[
               {
                 paddingLeft: '6px',
-                fontWeight: '600',
               },
             ]}
           >
