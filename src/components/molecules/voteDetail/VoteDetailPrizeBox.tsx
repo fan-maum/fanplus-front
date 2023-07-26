@@ -81,7 +81,6 @@ const VoteDetailPrizeBox = ({
           </div>
         </div>
       </Stack>
-      {id !== 'prizeTab_04' ? <Divider size={2} css={{ margin: '0 16px' }} /> : ''}
     </>
   );
 };

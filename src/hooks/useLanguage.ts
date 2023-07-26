@@ -18,14 +18,16 @@ export function getRouterLanguage() {
 
 export function getVoteDetailLanguage() {
   const router = useRouter();
-  const language = router.route.split('/')[1];
-
-  if (language === 'ko' || language === 'votes') return 'ko';
-  if (language === 'en') return 'en';
-  if (language === 'ja') return 'ja';
-  if (language === 'vi') return 'vi';
-  if (language === 'in') return 'id';
-  if (language === 'zh-rCN') return 'zh';
-  if (language === 'es') return 'en';
-  if (language === 'zh-rTW') return 'en';
+  const language: string | undefined = router.route.split('/')[1];
+  const acceptableLanguage: { [T: string]: string } = {
+    ko: 'ko',
+    en: 'en',
+    ja: 'ja',
+    vi: 'vi',
+    in: 'id',
+    'zh-rCN': 'zh',
+    es: 'en',
+    'zh-rTW': 'en',
+  };
+  return acceptableLanguage[language] || language;
 }

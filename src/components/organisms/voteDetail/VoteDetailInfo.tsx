@@ -21,12 +21,20 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
         voteDetailInfo={voteDetailInfo}
         firstRankStarName={firstRankStar?.STAR_NAME}
       />
-      <Stack spacing={50} maw={320} h={100} align="center" direct="row" m={'0 auto'}>
+      <Stack
+        spacing={50}
+        maw={320}
+        h={100}
+        justify="center"
+        align="center"
+        direct="row"
+        m={'0 auto'}
+      >
         <RankProfile>
           <img width={36} src={'/icons/icon_medal1.png'} alt="icon_medal" />
           {firstRankStar?.STAR_NAME}
         </RankProfile>
-        <RankProfile fontSize={18} fontWeight={700} color="#FF5656">
+        <RankProfile fontSize={18} fontWeight={700} color="#FF5656" css={{ maxWidth: 'none' }}>
           <div>[ LIVE ]</div>
           <div>{formatNumberWithComma(voteDetailInfo.VOTE_CNT_GAP)}표 차이</div>
         </RankProfile>
@@ -50,22 +58,29 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
           margin: '0 auto 40px auto',
         }}
       >
-        <Link
-          href={voteDetailInfo.LINK}
-          target="_blank"
-          css={{
-            display: 'inline-block',
-            width: '100%',
-            height: '100%',
-            lineHeight: '60px',
-            padding: '0 50px',
-          }}
-        >
+        {voteDetailInfo.LINK !== '' ? (
+          <Link
+            href={voteDetailInfo.LINK}
+            target="_blank"
+            css={{
+              display: 'inline-block',
+              width: '100%',
+              height: '100%',
+              lineHeight: '60px',
+              padding: '0 50px',
+            }}
+          >
+            <Center>
+              {voteDetailInfo.LINK_TXT} 자세히 알아보기
+              <img src="/icons/icon_pinkArrow.svg" alt="arrow" />
+            </Center>
+          </Link>
+        ) : (
           <Center>
-            {voteDetailInfo.LINK_TXT} 자세히 알아보기
+            자세히 알아보기
             <img src="/icons/icon_pinkArrow.svg" alt="arrow" />
           </Center>
-        </Link>
+        )}
       </UnstyledButton>
     </div>
   );
