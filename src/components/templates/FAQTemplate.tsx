@@ -3,8 +3,6 @@ import { Stack } from '../atoms/Stack';
 import { Center } from '../atoms/Center';
 import FAQContent from '../organisms/FAQContent';
 
-export type QuestionType = 'All' | 'Vote' | 'Photos' | 'Fanfic' | 'Accounts';
-
 const FAQTemplate = ({ texts }: { texts: FAQPageTextType }) => {
   return (
     <Stack
