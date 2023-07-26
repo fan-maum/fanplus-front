@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useInterval } from '@/hooks/useInterval';
-import { Stack } from '../atoms/Stack';
-import VoteTitle from '../molecules/VoteTitle';
-import { VoteData } from '@/types/vote';
+import { Stack } from '@/components/atoms';
+import { VoteDetailVoteInfo } from '@/types/vote';
 import { formatTime } from '@/utils/util';
-import Link from 'next/link';
-import { getLanguage } from '@/hooks/useLanguage';
-import VoteTitleImage from '../molecules/VoteTitleImage';
+import VoteTitle from '@/components/molecules/VoteTitle';
+import VoteTitleImage from '@/components/molecules/VoteTitleImage';
 
 export interface VoteListItemProps {
   endDay: string;
-  voteData: VoteData;
+  voteDetailInfo: VoteDetailVoteInfo;
+  firstRankStarName: string | undefined;
 }
 
 const today = new Date();
 
-const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
-  const language = getLanguage();
+const VoteDetailItem = ({
+  endDay,
+  voteDetailInfo,
+  firstRankStarName,
+  ...props
+}: VoteListItemProps) => {
   const endDate = new Date(endDay);
   const [seconds, setSeconds] = useState<number>();
   const interval = useInterval(() => setSeconds((second) => second && second - 1), 1000);
@@ -29,31 +32,14 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
 
   const remainTime = formatTime(seconds);
   const remainTimeState = formatTime(seconds) !== '종료' ? true : false;
-
   return (
-    <Stack align="center" spacing={20} css={{ cursor: 'pointer', overflow: 'hidden' }}>
+    <Stack align="center" spacing={20} css={{ overflow: 'hidden' }}>
       <VoteTitle
         remainTime={remainTime}
         remainTimeState={remainTimeState}
-        starName={voteData?.FIRST_RANK_STAR_INFO?.STAR_NAME}
+        starName={firstRankStarName}
       />
-      <div
-        css={[
-          {
-            position: 'relative',
-            width: '100%',
-            aspectRatio: '421/253',
-          },
-        ]}
-      >
-        <Link
-          href={`/voteDetail?vote_IDX=${voteData.VOTE_IDX}&lang=${language}`}
-          // href={`https://vote.fanplus.co.kr/?vote=${voteData.VOTE_IDX}&lang=${voteDetailLang}`}
-          target="_blank"
-        >
-          <VoteTitleImage remainTimeState={remainTimeState} voteDataImage={voteData.TITLE_IMG} />
-        </Link>
-      </div>
+      <VoteTitleImage remainTimeState={remainTimeState} voteDataImage={voteDetailInfo.TITLE_IMG} />
       <div
         css={[
           {
@@ -68,10 +54,10 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
           },
         ]}
       >
-        {voteData.TITLE}
+        {voteDetailInfo.TITLE}
       </div>
     </Stack>
   );
 };
 
-export default VoteListItem;
+export default VoteDetailItem;

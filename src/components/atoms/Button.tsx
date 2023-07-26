@@ -8,7 +8,6 @@ export function Button({ ...props }: ButtonProps) {
   return (
     <UnstyledButton
       css={{
-        width: '100%',
         paddingRight: 20,
         paddingLeft: 20,
         paddingTop: 15,

@@ -15,3 +15,10 @@ export const getVotes = (
   );
   return response;
 };
+
+export const getVoteDetail = (vote_idx: string, lang: string) => {
+  const response = fetch(`https://napi.appphotocard.com/voteWeb/${vote_idx}?lang=${lang}`, {
+    method: 'GET',
+  });
+  return response;
+};
