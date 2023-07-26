@@ -32,7 +32,7 @@ export function middleware(request: NextRequest) {
 
   // Escape Condition: url의 locale과 쿠키 (혹은 browser의 locale)이 일치할 경우
   if (urlPath.startsWith(userLang)) return NextResponse.next();
-  else return NextResponse.redirect(new URL(redirectUrl, request.url));
+ return NextResponse.redirect(new URL(redirectUrl, request.url));
 }
 
 const urlHandler = (userLang: string, urlPath: string, urlQueries: string) => {
