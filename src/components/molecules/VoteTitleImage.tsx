@@ -1,9 +1,15 @@
+import { useRouter } from 'next/router';
+
 export interface VoteTitleImageProps {
   remainTimeState: boolean;
   voteDataImage: string;
 }
 
 export default function VoteTitleImage({ remainTimeState, voteDataImage }: VoteTitleImageProps) {
+  const router = useRouter();
+  const voteDetailPage = router.route.includes('voteDetail');
+  const fadeOutImage = !remainTimeState && !voteDetailPage;
+
   return (
     <div
       css={[
@@ -16,7 +22,7 @@ export default function VoteTitleImage({ remainTimeState, voteDataImage }: VoteT
     >
       <div
         css={[
-          !remainTimeState && {
+          fadeOutImage && {
             '&::before': {
               content: '""',
               position: 'absolute',

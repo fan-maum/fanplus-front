@@ -20,12 +20,12 @@ export function getVoteDetailLanguage() {
   const router = useRouter();
   const language = router.route.split('/')[1];
 
-  if (language === 'ko' || language === 'votes') return 'ko_KR';
-  if (language === 'en') return 'en_US';
-  if (language === 'ja') return 'ja_JP';
-  if (language === 'vi') return 'vi_VN';
-  if (language === 'in') return 'id_ID';
-  if (language === 'zh-rCN') return 'zh_CN';
-  if (language === 'es') return 'en_US';
-  if (language === 'zh-rTW') return 'en_US';
+  if (language === 'ko' || language === 'votes') return 'ko';
+  if (language === 'en') return 'en';
+  if (language === 'ja') return 'ja';
+  if (language === 'vi') return 'vi';
+  if (language === 'in') return 'id';
+  if (language === 'zh-rCN') return 'zh';
+  if (language === 'es') return 'en';
+  if (language === 'zh-rTW') return 'en';
 }

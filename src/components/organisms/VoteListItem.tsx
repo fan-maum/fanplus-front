@@ -5,7 +5,7 @@ import VoteTitle from '../molecules/VoteTitle';
 import { VoteData } from '@/types/vote';
 import { formatTime } from '@/utils/util';
 import Link from 'next/link';
-import { getLanguage, getVoteDetailLanguage } from '@/hooks/useLanguage';
+import { getLanguage } from '@/hooks/useLanguage';
 import VoteTitleImage from '../molecules/VoteTitleImage';
 
 export interface VoteListItemProps {

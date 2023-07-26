@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useInterval } from '@/hooks/useInterval';
 import { Stack } from '@/components/atoms';
-import VoteTitle from '@/components/molecules/VoteTitle';
 import { VoteDetailVoteInfo } from '@/types/vote';
 import { formatTime } from '@/utils/util';
+import VoteTitle from '@/components/molecules/VoteTitle';
 import VoteTitleImage from '@/components/molecules/VoteTitleImage';
 
 export interface VoteListItemProps {

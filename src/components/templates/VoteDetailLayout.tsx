@@ -10,85 +10,74 @@ import VoteDetailPrizeList, {
 import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
-import { getVoteDetail } from '@/api/Vote';
+import { VoteDetailResponse } from '@/types/vote';
 
-const voteDetailData = getVoteDetail(); // vote_IDX, lang
-const voteDetailInfo = voteDetailData.RESULTS.DATAS.VOTE_INFO;
-console.log(voteDetailData);
+export interface VotesLayoutProps {
+  voteDetails: VoteDetailResponse;
+  error: number | boolean;
+}
 
-const voteDetailInfoProps: VoteDetailInfoProps = {
-  voteDetailInfo: voteDetailData.RESULTS.DATAS.VOTE_INFO,
-};
+const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
+  const voteDetailInfoProps: VoteDetailInfoProps = {
+    voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
+  };
 
-export const prizeTabContents: prizeTabContentsProps = {
-  prizeTabContentsItem: [
-    {
-      id: 'prizeTab_01',
-      titleImage: '/icons/icon_explanation.png',
-      title: '상세 내용',
-      contents: {
-        DESCRIPTION: voteDetailInfo.DESCRIPTION,
+  const prizeTabContents: prizeTabContentsProps = {
+    prizeTabContentsItem: [
+      {
+        id: 'prizeTab_01',
+        titleImage: '/icons/icon_explanation.png',
+        title: '상세 내용',
+        contents: {
+          DESCRIPTION: voteDetails.RESULTS.DATAS.VOTE_INFO.DESCRIPTION,
+        },
       },
-    },
-    {
-      id: 'prizeTab_02',
-      titleImage: '/icons/icon_medal1.png',
-      title: '1위 혜택 보기',
-      contents: {
-        PRIZE_IMG: voteDetailInfo.FIRST_PRIZE_IMG,
-        PRIZE_TITLE: voteDetailInfo.FIRST_PRIZE_TITLE,
-        PRIZE_DESCRIPTION: voteDetailInfo.FIRST_PRIZE_DESCRIPTION,
+      {
+        id: 'prizeTab_02',
+        titleImage: '/icons/icon_medal1.png',
+        title: '1위 혜택 보기',
+        contents: {
+          PRIZE_IMG: voteDetails.RESULTS.DATAS.VOTE_INFO.FIRST_PRIZE_IMG,
+          PRIZE_TITLE: voteDetails.RESULTS.DATAS.VOTE_INFO.FIRST_PRIZE_TITLE,
+          PRIZE_DESCRIPTION: voteDetails.RESULTS.DATAS.VOTE_INFO.FIRST_PRIZE_DESCRIPTION,
+        },
       },
-    },
-    {
-      id: 'prizeTab_03',
-      titleImage: '/icons/icon_medal2.png',
-      title: '2위 혜택 보기',
-      contents: {
-        PRIZE_IMG: voteDetailInfo.SECOND_PRIZE_IMG,
-        PRIZE_TITLE: voteDetailInfo.SECOND_PRIZE_TITLE,
-        PRIZE_DESCRIPTION: voteDetailInfo.SECOND_PRIZE_DESCRIPTION,
+      {
+        id: 'prizeTab_03',
+        titleImage: '/icons/icon_medal2.png',
+        title: '2위 혜택 보기',
+        contents: {
+          PRIZE_IMG: voteDetails.RESULTS.DATAS.VOTE_INFO.SECOND_PRIZE_IMG,
+          PRIZE_TITLE: voteDetails.RESULTS.DATAS.VOTE_INFO.SECOND_PRIZE_TITLE,
+          PRIZE_DESCRIPTION: voteDetails.RESULTS.DATAS.VOTE_INFO.SECOND_PRIZE_DESCRIPTION,
+        },
       },
-    },
-    {
-      id: 'prizeTab_04',
-      titleImage: '/icons/icon_medal3.png',
-      title: '3위 혜택 보기',
-      contents: {
-        PRIZE_IMG: voteDetailInfo.THIRD_PRIZE_IMG,
-        PRIZE_TITLE: voteDetailInfo.THIRD_PRIZE_TITLE,
-        PRIZE_DESCRIPTION: voteDetailInfo.THIRD_PRIZE_DESCRIPTION,
+      {
+        id: 'prizeTab_04',
+        titleImage: '/icons/icon_medal3.png',
+        title: '3위 혜택 보기',
+        contents: {
+          PRIZE_IMG: voteDetails.RESULTS.DATAS.VOTE_INFO.THIRD_PRIZE_IMG,
+          PRIZE_TITLE: voteDetails.RESULTS.DATAS.VOTE_INFO.THIRD_PRIZE_TITLE,
+          PRIZE_DESCRIPTION: voteDetails.RESULTS.DATAS.VOTE_INFO.THIRD_PRIZE_DESCRIPTION,
+        },
       },
-    },
-  ],
-};
+    ],
+  };
 
-const tabContent = {};
+  const voteDetailPrizeListProps: VoteDetailPrizeListProps = {
+    prizeTabContents: prizeTabContents,
+    voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
+  };
 
-const voteDetailPrizeListProps: VoteDetailPrizeListProps = {
-  prizeTabContents: prizeTabContents,
-  voteDetailInfo: voteDetailData.RESULTS.DATAS.VOTE_INFO,
-};
+  const voteDetailListProps: VoteDetailListProps = {
+    voteDetailStars: voteDetails.RESULTS.DATAS.VOTE_INFO.STARS,
+    //   shareOnClick,
+    //   voteOnClick,
+  };
 
-const voteDetailListProps: VoteDetailListProps = {
-  voteDetailStars: voteDetailData.RESULTS.DATAS.VOTE_INFO.STARS,
-  //   gender: tabState,
-  //   listData: data,
-  //   shareOnClick,
-  //   voteOnClick,
-  //   communityOnClick,
-  //   scrollTargetId:
-  //     (!imagePopup && +(typeof router.query.id === 'string' ? router.query.id : '')) || undefined,
-  //   isRenderComplete: router.isReady && !imagePopup,
-};
-
-const VoteDetailLayout = () => {
   return (
-    <div
-      css={{
-        background: '#FAFBFE',
-      }}
-    >
+    <div css={{ background: '#FAFBFE' }}>
       <VoteDetailTemplate
         voteDetailHeader={<VoteDetailHeader />}
         voteDetailInfo={<VoteDetailInfo {...voteDetailInfoProps} />}

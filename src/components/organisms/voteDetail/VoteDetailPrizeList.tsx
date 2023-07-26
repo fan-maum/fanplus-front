@@ -27,7 +27,6 @@ const VoteDetailPrizeList = ({
   voteDetailInfo,
   ...props
 }: VoteDetailPrizeListProps) => {
-  console.log(prizeTabContents);
   const items = prizeTabContents.prizeTabContentsItem;
 
   return (

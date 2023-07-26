@@ -79,7 +79,7 @@ export interface VoteDetailResponse {
     ERROR: number;
     MSG: string;
     DATAS: {
-      VOTE_INFO: VoteDetailVoteInfo[];
+      VOTE_INFO: VoteDetailVoteInfo;
     };
     TIMESTAMP: number;
   };
