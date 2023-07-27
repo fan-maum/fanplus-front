@@ -156,16 +156,16 @@ export const Votes_Text_es = {
 export const VoteDetail_Text_es = {
   vote: 'Votación',
   voting: 'Votar',
-  voteDifference : {
+  voteDifference: {
     front: '¡Diferencia de',
-    back: 'votos!'
+    back: 'votos!',
   },
   seeMore: 'Ver más detalles',
   currentVote: 'votos',
   prizeTitle: {
-    detail: 'Description', 
+    detail: 'Detalles',
     first: 'Ver el premio n.° 1',
     second: 'Ver el premio n.° 2',
     third: 'Ver el premio n.° 3',
-  }
+  },
 };
