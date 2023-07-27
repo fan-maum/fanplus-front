@@ -15,19 +15,3 @@ export function getRouterLanguage() {
   else if (language === 'zh-rTW') return 'zhtw';
   else return language;
 }
-
-export function getVoteDetailLanguage() {
-  const router = useRouter();
-  const language: string | undefined = router.route.split('/')[1];
-  const acceptableLanguage: { [T: string]: string } = {
-    ko: 'ko',
-    en: 'en',
-    ja: 'ja',
-    vi: 'vi',
-    in: 'id',
-    'zh-rCN': 'zh',
-    es: 'en',
-    'zh-rTW': 'en',
-  };
-  return acceptableLanguage[language] || language;
-}
