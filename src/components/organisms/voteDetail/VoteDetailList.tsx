@@ -9,12 +9,14 @@ import { voteDetailLangState } from '@/store/voteLangState';
 
 export interface VoteDetailListProps {
   voteDetailStars: VoteDetailStars[];
+  shareOnClick: (id: string) => void;
+  voteOnClick: (id: string) => void;
 }
 
 function VoteDetailList({
   voteDetailStars,
-  //   shareOnClick: (id: number, gender: Gender) => void;
-  //   voteOnClick: (id: number, gender: Gender) => void;
+  shareOnClick,
+  voteOnClick,
   ...props
 }: VoteDetailListProps) {
   const language = getLanguage();
@@ -31,12 +33,10 @@ function VoteDetailList({
               <VoteDetailListItem
                 starData={item}
                 starState={<VoteStarState starData={item} />}
-                // clickEvent={
-                //   {
-                //     shareOnClick: () => shareOnClick(item.VOTE_IDX),
-                //     voteOnClick: () => voteOnClick(item.VOTE_IDX),
-                //   }
-                // }
+                clickEvent={{
+                  shareOnClick: () => shareOnClick(item.STAR_IDX),
+                  voteOnClick: () => voteOnClick(item.STAR_IDX),
+                }}
               />
             </div>
           );

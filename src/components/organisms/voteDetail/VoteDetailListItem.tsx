@@ -9,7 +9,7 @@ import { voteDetailLangState } from '@/store/voteLangState';
 export interface PromotionRankListItemProps {
   starData: VoteDetailStars;
   starState: React.ReactNode;
-  // clickEvent: { voteOnClick: () => void; shareOnClick: () => void };
+  clickEvent: { shareOnClick: () => void; voteOnClick: () => void };
   targetRef?: React.RefObject<HTMLDivElement>;
 }
 
@@ -17,7 +17,7 @@ function VoteDetailListItem({
   starData,
   starState,
   targetRef,
-  // clickEvent,
+  clickEvent,
   ...props
 }: PromotionRankListItemProps) {
   const language = getLanguage();
@@ -28,15 +28,8 @@ function VoteDetailListItem({
       <Stack p={'24px 16px 20px 16px'} spacing={20}>
         {starState}
         <Group spacing={8} position="right">
-          <ShareButton
-          // disabled={props.promoData.data.votes === null}
-          // onClick={clickEvent.shareOnClick}
-          />
-          <VoteButton
-          // onClick={clickEvent.voteOnClick}
-          >
-            {voteDetailLanguage?.voting}
-          </VoteButton>
+          <ShareButton onClick={clickEvent.shareOnClick} />
+          <VoteButton onClick={clickEvent.voteOnClick}>{voteDetailLanguage?.voting}</VoteButton>
         </Group>
       </Stack>
     </div>

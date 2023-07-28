@@ -10,10 +10,14 @@ import VoteDetailPrizeList, {
 import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
-import { VoteDetailResponse } from '@/types/vote';
+import { VoteDetailResponse, VoteDetailStars } from '@/types/vote';
 import { getLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
+import { useState } from 'react';
+import VoteDetailShareModal, {
+  VoteDetailShareModalProps,
+} from '@/components/modals/VoteDetailShareModal';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -21,10 +25,10 @@ export interface VotesLayoutProps {
 }
 
 const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
-  console.log(voteDetails);
-
   const language = getLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
+  const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
+  const [star, setStar] = useState<VoteDetailStars | undefined>();
 
   const voteDetailInfoProps: VoteDetailInfoProps = {
     voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
@@ -82,10 +86,36 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
     voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
   };
 
+  const shareOnClick = (id: string) => {
+    const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
+    const selectedStar = stars.find((star) => star.STAR_IDX === id);
+    setStar(selectedStar);
+    setShareModalIsOpened(true);
+  };
+
+  const voteOnClick = (id: string) => {
+    // if (authCookie || isWebView) {
+    //   const starIndex = data[gender].data.findIndex((star) => star.id === id);
+    //   setStarWithIndex(starIndex, gender);
+    //   setPopupVote(true);
+    // } else {
+    //   openOtherError('NO_HEADER');
+    // }
+    console.log('vote clicked');
+  };
+
+  const voteDetailShareModalProps: VoteDetailShareModalProps = {
+    onClose: () => setShareModalIsOpened(false),
+    opened: shareModalIsOpened,
+    star: star,
+    // isWebView,
+    // phoneModel,
+  };
+
   const voteDetailListProps: VoteDetailListProps = {
     voteDetailStars: voteDetails.RESULTS.DATAS.VOTE_INFO.STARS,
-    //   shareOnClick,
-    //   voteOnClick,
+    shareOnClick,
+    voteOnClick,
   };
 
   return (
@@ -96,7 +126,7 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
         voteDetailPrizeList={<VoteDetailPrizeList {...voteDetailPrizeListProps} />}
         voteDetailList={<VoteDetailList {...voteDetailListProps} />}
       />
-      {/* <>testDiaLog</> */}
+      <VoteDetailShareModal {...voteDetailShareModalProps} />
     </div>
   );
 };
