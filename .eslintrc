@@ -3,6 +3,6 @@
   "plugins": ["react-hooks"],
   "rules": {
     "no-console": "error",
-    "react-hooks/rules-of-hooks": "warning"
+    "react-hooks/rules-of-hooks": 1
   }
 }
