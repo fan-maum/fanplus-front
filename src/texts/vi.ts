@@ -152,3 +152,20 @@ export const Votes_Text_vi = {
   winner: '1st',
   daysAgo: 'Ngày trước',
 };
+
+export const VoteDetail_Text_vi = {
+  vote: 'Bỏ phiếu',
+  voting: 'Bỏ phiếu',
+  voteDifference : {
+    front: null,
+    back: 'phiếu chênh lệch'
+  },
+  seeMore: 'Hiển thị chi tiết',
+  currentVote: 'phiếu',
+  prizeTitle: {
+    detail: 'Nội dung chi tiết', 
+    first: 'Xem đặc quyền hạng 1',
+    second: 'Giải thưởng người chiến thắng thứ hai',
+    third: 'Giải thưởng người chiến thắng thứ 3',
+  }
+};

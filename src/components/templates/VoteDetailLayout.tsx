@@ -11,6 +11,9 @@ import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
 import { VoteDetailResponse } from '@/types/vote';
+import { getLanguage } from '@/hooks/useLanguage';
+import { useRecoilState } from 'recoil';
+import { voteDetailLangState } from '@/store/voteLangState';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -18,6 +21,11 @@ export interface VotesLayoutProps {
 }
 
 const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
+  console.log(voteDetails);
+
+  const language = getLanguage();
+  const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
+
   const voteDetailInfoProps: VoteDetailInfoProps = {
     voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
   };
@@ -27,7 +35,8 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
       {
         id: 'prizeTab_01',
         titleImage: '/icons/icon_explanation.png',
-        title: '상세 내용',
+        title: voteDetailLanguage?.prizeTitle.detail,
+        isRequired: true,
         contents: {
           DESCRIPTION: voteDetails.RESULTS.DATAS.VOTE_INFO.DESCRIPTION,
         },
@@ -35,7 +44,8 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
       {
         id: 'prizeTab_02',
         titleImage: '/icons/icon_medal1.png',
-        title: '1위 혜택 보기',
+        title: voteDetailLanguage?.prizeTitle.first,
+        isRequired: true,
         contents: {
           PRIZE_IMG: voteDetails.RESULTS.DATAS.VOTE_INFO.FIRST_PRIZE_IMG,
           PRIZE_TITLE: voteDetails.RESULTS.DATAS.VOTE_INFO.FIRST_PRIZE_TITLE,
@@ -45,7 +55,8 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
       {
         id: 'prizeTab_03',
         titleImage: '/icons/icon_medal2.png',
-        title: '2위 혜택 보기',
+        title: voteDetailLanguage?.prizeTitle.second,
+        isRequired: true,
         contents: {
           PRIZE_IMG: voteDetails.RESULTS.DATAS.VOTE_INFO.SECOND_PRIZE_IMG,
           PRIZE_TITLE: voteDetails.RESULTS.DATAS.VOTE_INFO.SECOND_PRIZE_TITLE,
@@ -55,7 +66,8 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
       {
         id: 'prizeTab_04',
         titleImage: '/icons/icon_medal3.png',
-        title: '3위 혜택 보기',
+        title: voteDetailLanguage?.prizeTitle.third,
+        isRequired: false,
         contents: {
           PRIZE_IMG: voteDetails.RESULTS.DATAS.VOTE_INFO.THIRD_PRIZE_IMG,
           PRIZE_TITLE: voteDetails.RESULTS.DATAS.VOTE_INFO.THIRD_PRIZE_TITLE,

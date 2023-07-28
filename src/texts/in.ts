@@ -152,3 +152,20 @@ export const Votes_Text_in = {
   winner: '1st',
   daysAgo: 'hari sebelumnya',
 };
+
+export const VoteDetail_Text_in = {
+  vote: 'Pemungutan suara',
+  voting: 'Beri suara',
+  voteDifference : {
+    front: 'Beda',
+    back: 'suara!'
+  },
+  seeMore: 'Tampilkan Detail',
+  currentVote: 'suara',
+  prizeTitle: {
+    detail: 'Detil', 
+    first: 'Melihat keuntungan juara 1',
+    second: 'Hadiah Pemenang ke-2',
+    third: 'Hadiah Pemenang 3',
+  }
+};

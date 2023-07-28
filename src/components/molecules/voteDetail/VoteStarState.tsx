@@ -1,7 +1,10 @@
 import { Group, Stack, Avatar } from '@/components/atoms';
+import { getLanguage } from '@/hooks/useLanguage';
+import { voteDetailLangState } from '@/store/voteLangState';
 import { VoteDetailStars } from '@/types/vote';
 import { formatNumberWithComma } from '@/utils/util';
 import Image from 'next/image';
+import { useRecoilState } from 'recoil';
 
 export interface VoteStarStateProps {
   starData: VoteDetailStars;
@@ -17,6 +20,8 @@ function VoteStarState({ starData, ...props }: VoteStarStateProps) {
   const rank = Number(starData.RANK);
   const Top3 = rank < 4;
   const imageURl = `/icons/icon_medalTop${rank}.png`;
+  const language = getLanguage();
+  const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   return (
     <Group spacing={16} align={'center'}>
       {Top3 ? (
@@ -73,7 +78,7 @@ function VoteStarState({ starData, ...props }: VoteStarStateProps) {
             color: '#666',
           }}
         >
-          {formatNumberWithComma(Number(starData.VOTE_CNT)) || 0} 표
+          {formatNumberWithComma(Number(starData.VOTE_CNT)) || 0} {voteDetailLanguage?.currentVote}
         </div>
       </Stack>
     </Group>

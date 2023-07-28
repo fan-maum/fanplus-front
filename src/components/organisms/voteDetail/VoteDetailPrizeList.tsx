@@ -12,7 +12,8 @@ export interface prizeTabContentsProps {
   prizeTabContentsItem: {
     id: string;
     titleImage: string;
-    title: string;
+    title: string | undefined;
+    isRequired: boolean;
     contents: prizeTabContentsItemsProps;
   }[];
 }
@@ -28,20 +29,28 @@ const VoteDetailPrizeList = ({
   ...props
 }: VoteDetailPrizeListProps) => {
   const items = prizeTabContents.prizeTabContentsItem;
-
+  const isShowThirdPrize = items.find(
+    (item) => item.isRequired === false && item.contents.PRIZE_IMG !== null
+  );
   return (
     <>
       <Divider size={3} />
       <div>
-        {items.map((items) => (
-          <VoteDetailPrizeBox
-            key={items.id}
-            id={items.id}
-            titleImage={items.titleImage}
-            question={items.title}
-            answer={items.contents}
-          />
-        ))}
+        {items.map(
+          (item, index) =>
+            (item.isRequired || isShowThirdPrize) && (
+              <div>
+                {index !== 0 && <Divider size={2} css={{ margin: '0 16px' }} />}
+                <VoteDetailPrizeBox
+                  key={item.id}
+                  id={item.id}
+                  titleImage={item.titleImage}
+                  question={item.title}
+                  answer={item.contents}
+                />
+              </div>
+            )
+        )}
       </div>
       <Divider size={3} />
     </>

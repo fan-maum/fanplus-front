@@ -152,3 +152,20 @@ export const Votes_Text_ja = {
   winner: '1位',
   daysAgo: '日前',
 };
+
+export const VoteDetail_Text_ja = {
+  vote: '投票',
+  voting: '投票する',
+  voteDifference : {
+    front: null,
+    back: '票の得票差!'
+  },
+  seeMore: '詳細はこちら',
+  currentVote: '票',
+  prizeTitle: {
+    detail: '詳細', 
+    first: '1等の商品',
+    second: '2等の商品',
+    third: '3等の商品',
+  }
+};
