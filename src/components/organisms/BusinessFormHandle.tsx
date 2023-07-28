@@ -33,6 +33,7 @@ export const handleBusinessFormSubmit = async ({
       resetBusinessState();
       return;
     } else {
+      // eslint-disable-next-line no-console
       console.log(res);
       return res.json();
     }
