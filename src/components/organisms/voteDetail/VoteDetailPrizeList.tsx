@@ -39,10 +39,9 @@ const VoteDetailPrizeList = ({
         {items.map(
           (item, index) =>
             (item.isRequired || isShowThirdPrize) && (
-              <div>
+              <div key={item.id}>
                 {index !== 0 && <Divider size={2} css={{ margin: '0 16px' }} />}
                 <VoteDetailPrizeBox
-                  key={item.id}
                   id={item.id}
                   titleImage={item.titleImage}
                   question={item.title}

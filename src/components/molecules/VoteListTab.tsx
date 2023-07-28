@@ -1,4 +1,4 @@
-import { getLanguage, getRouterLanguage } from '@/hooks/useLanguage';
+import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
@@ -16,7 +16,7 @@ const VoteTab = ({
 }: VoteListTabProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const routerLang = getRouterLanguage();
+  const routerLang = GetRouterLanguage();
 
   const onClickVoteTab = (tabValue: string) => {
     setTabState(tabValue);

@@ -1,5 +1,5 @@
 import { Group, Stack, Avatar } from '@/components/atoms';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage } from '@/hooks/useLanguage';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { VoteDetailStars } from '@/types/vote';
 import { formatNumberWithComma } from '@/utils/util';
@@ -20,7 +20,7 @@ function VoteStarState({ starData, ...props }: VoteStarStateProps) {
   const rank = Number(starData.RANK);
   const Top3 = rank < 4;
   const imageURl = `/icons/icon_medalTop${rank}.png`;
-  const language = getLanguage();
+  const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   return (
     <Group spacing={16} align={'center'}>

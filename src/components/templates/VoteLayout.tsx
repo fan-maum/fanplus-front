@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import { VoteResponse } from '@/types/vote';
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage } from '@/hooks/useLanguage';
 
 export interface VotesLayoutProps {
   voteLists: VoteResponse;
@@ -15,7 +15,7 @@ export interface VotesLayoutProps {
 }
 
 const VotesLayout = ({ voteLists, error }: VotesLayoutProps) => {
-  const language = getLanguage();
+  const language = GetLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
 
   /* mediaQuery 설정 */
