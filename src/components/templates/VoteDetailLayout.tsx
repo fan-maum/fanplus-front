@@ -11,7 +11,7 @@ import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
 import { VoteDetailResponse, VoteDetailStars } from '@/types/vote';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { useState } from 'react';
@@ -25,7 +25,9 @@ export interface VotesLayoutProps {
 }
 
 const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
-  const language = getLanguage();
+  // console.log(voteDetails);
+
+  const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
   const [star, setStar] = useState<VoteDetailStars | undefined>();
@@ -101,6 +103,7 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
     // } else {
     //   openOtherError('NO_HEADER');
     // }
+    // eslint-disable-next-line no-console
     console.log('vote clicked');
   };
 

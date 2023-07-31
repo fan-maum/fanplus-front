@@ -1,9 +1,16 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import Script from 'next/script';
+import { GTM_NOSCRIPT, GTM_SCRIPT } from '@/utils/gtm';
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: GTM_SCRIPT }}
+        />
         <meta
           name="description"
           content="팬플러스는 최애가 같은 팬들을 대상으로 다양한 콘텐츠와 소통 기능을 제공하는 종합 덕질 앱이에요. 유일하게 유료 결제 없는 아이돌 생일/기념일 투표를 진행하고 있답니다."
@@ -31,6 +38,7 @@ export default function Document() {
         ></link>
       </Head>
       <body>
+        <noscript dangerouslySetInnerHTML={{ __html: GTM_NOSCRIPT }} />
         <Main />
         <NextScript />
       </body>
