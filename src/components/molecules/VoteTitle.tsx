@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Stack } from '../atoms/Stack';
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage } from '@/hooks/useLanguage';
 
 export interface PromotionTitleProps {
   remainTime: string | undefined;
@@ -11,7 +11,7 @@ export interface PromotionTitleProps {
 }
 
 export default function VoteTitle({ remainTime, remainTimeState, starName }: PromotionTitleProps) {
-  const language = getLanguage();
+  const language = GetLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
   const activeBackgroundColor = remainTimeState ? '#FFD950' : '#666';
   const activeColor = remainTimeState ? '#000' : '#fff';

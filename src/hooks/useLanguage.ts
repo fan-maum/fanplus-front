@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 
-export function getLanguage() {
+export function GetLanguage() {
   const router = useRouter();
   const language = router.route.split('/')[1];
   return language === 'votes' ? 'ko' : language === 'voteDetail' ? 'ko' : language;
 }
 
-export function getRouterLanguage() {
+export function GetRouterLanguage() {
   const router = useRouter();
   const language = router.route.split('/')[1];
   if (language === 'ko' || language === 'votes' || language === 'voteDetail') return 'ko';

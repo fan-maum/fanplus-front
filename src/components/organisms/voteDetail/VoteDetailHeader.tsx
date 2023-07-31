@@ -5,11 +5,11 @@ import { Center } from '@/components/atoms/Center';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage } from '@/hooks/useLanguage';
 
 function VoteDetailHeader() {
   const router = useRouter();
-  const language = getLanguage();
+  const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   return (
     <>
@@ -33,7 +33,12 @@ function VoteDetailHeader() {
           </UnstyledButton>
           <span css={{ fontSize: 22, fontWeight: 600 }}>{voteDetailLanguage?.vote}</span>
         </Center>
-        <ShareButton onClick={() => console.log('shareButton')} />
+        <ShareButton
+          onClick={() =>
+            // eslint-disable-next-line no-console
+            console.log('shareButton')
+          }
+        />
       </Group>
     </>
   );

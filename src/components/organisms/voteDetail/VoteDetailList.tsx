@@ -3,7 +3,7 @@ import { Divider } from '@/components/atoms/Divider';
 import { Stack } from '@/components/atoms/Stack';
 import VoteDetailListItem from '@/components/organisms/voteDetail/VoteDetailListItem';
 import VoteStarState from '@/components/molecules/voteDetail/VoteStarState';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 
@@ -17,7 +17,7 @@ function VoteDetailList({
   //   voteOnClick: (id: number, gender: Gender) => void;
   ...props
 }: VoteDetailListProps) {
-  const language = getLanguage();
+  const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   return (
     <>

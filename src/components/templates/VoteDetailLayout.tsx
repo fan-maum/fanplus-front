@@ -11,7 +11,7 @@ import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
 import { VoteDetailResponse } from '@/types/vote';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 
@@ -21,9 +21,9 @@ export interface VotesLayoutProps {
 }
 
 const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
-  console.log(voteDetails);
+  // console.log(voteDetails);
 
-  const language = getLanguage();
+  const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
 
   const voteDetailInfoProps: VoteDetailInfoProps = {
