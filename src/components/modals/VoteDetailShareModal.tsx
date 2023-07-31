@@ -2,29 +2,33 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Divider, Modal, ModalProps } from '@mantine/core';
 import CopyToClipboard from 'react-copy-to-clipboard';
-// import { isMobile } from 'react-device-detect';
 import { Stack, Group, UnstyledButton } from '@/components/atoms';
 import ShareButtonWithIcon from '../atoms/ShareButtonWithIcon';
 import { brandColor } from '@/styles/Colors';
 import CompletedShareModal from './CompletedShareModal';
 import { VoteDetailStars } from '@/types/vote';
+import { FormatShareTime, formatNumberWithComma } from '@/utils/util';
 
 export interface VoteDetailShareModalProps extends ModalProps {
-  star: VoteDetailStars | undefined;
-  // isWebView?: boolean;
-  // phoneModel?: string;
+  endDay: Date;
+  voteTitle: string;
+  stars: (VoteDetailStars | null)[];
+  isWebView?: boolean;
+  phoneModel?: string;
 }
 
 function VoteDetailShareModal({
-  star,
-  // isWebView,
-  // phoneModel,
+  endDay,
+  voteTitle,
+  stars: [prevStar, star, nextStar],
+  isWebView,
+  phoneModel,
   ...props
 }: VoteDetailShareModalProps) {
   const checkWindow = () => typeof window !== 'undefined';
   const router = useRouter();
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
-  // const today = new Date();
+  const today = new Date();
 
   const modalProps: ModalProps = {
     size: 328,
@@ -57,27 +61,46 @@ function VoteDetailShareModal({
     ...props,
   };
 
-  // const getIndexByVotes = () => {
-  //   if ((star?.votes || 0) < goal) {
-  //     if ((star?.rank || 0) <= 6) return 0;
-  //     else return 1;
-  //   }
-  //   if (star?.rank === 1) return 2;
-  //   return 3;
-  // };
-  // const remainTimeString = formatShareTime(Math.floor((endDay.getTime() - today.getTime()) / 1000));
-  // const starNameText = star?.name || '스타이름';
-  // const rankText = `${star?.rank}`;
-  // const votesText = `${formatNumberWithComma(star?.votes || 0)}`;
-  // const goalText = `${formatNumberWithComma(goal)}`;
-  // const diffGoalText = `${formatNumberWithComma(goal - (star?.votes || 0))}`;
-  // const diffPrevText = `${formatNumberWithComma((prevStar?.votes || 0) - (star?.votes || 0))}`;
-  // const diffNextText = `${formatNumberWithComma((star?.votes || 0) - (nextStar?.votes || 0))}`;
-  // const percent = Math.floor(((star?.votes || 0) / goal) * 100);
+  const getIndexByVotes = () => {
+    if (star?.RANK === '1') return 0;
+    else if (star?.RANK === null) return 3;
+    else if (star?.RANK === '100') return 2;
+    else return 1;
+  };
+  const remainTimeString = FormatShareTime(Math.floor((endDay.getTime() - today.getTime()) / 1000));
+  const starNameText = star?.STAR_NAME || '스타이름';
+  const voteCount = Number(star?.VOTE_CNT);
+  const rankText = `${star?.RANK}`;
+  const diffPrevText = `${formatNumberWithComma(
+    (Number(prevStar?.VOTE_CNT) || 0) - (voteCount || 0)
+  )}`;
+  const diffNextText = `${formatNumberWithComma(
+    (voteCount || 0) - (Number(nextStar?.VOTE_CNT) || 0)
+  )}`;
 
-  const copyUrl = `${checkWindow() ? window.location.origin : ''}${router.asPath}?id=${
-    star?.STAR_IDX
+  const titleText = [
+    `${voteTitle} 현재 순위는⁉`,
+    `${voteTitle} #${starNameText} 순위는⁉`,
+    `${voteTitle} #${starNameText} 순위는⁉`,
+    `${voteTitle}`,
+  ];
+  const middleText = [
+    `1위 ${star?.STAR_GROUP_NAME} #${starNameText} 🏆\n2위 ${nextStar?.STAR_NAME}\n\n단 ${diffNextText}표 차이 👀`,
+    `${star?.STAR_GROUP_NAME} #${starNameText} ${rankText}위 🏆\n\n${prevStar?.RANK}위 ${prevStar?.STAR_NAME}와(과) ${diffPrevText}표 차이\n${nextStar?.RANK}위 ${nextStar?.STAR_NAME}와(과) ${diffNextText}표 차이`,
+    `${star?.STAR_GROUP_NAME} #${starNameText} ${rankText}위 🏆\n\n${prevStar?.RANK}위 ${prevStar?.STAR_NAME}와(과) ${diffPrevText}표 차이`,
+    `#팬플러스 투표 참여하고\n최애만을 위한 특별한 광고 선물하자 🎁🎈\n\n현재 1위 : ❓`,
+  ];
+  const endText = [
+    `지금 바로 #팬플러스 에서 #${starNameText} 에게 투표하세요 ✊🏻✊🏻`,
+    `지금 바로 #팬플러스 에서 #${starNameText} 에게 투표하세요 ✊🏻✊🏻`,
+    `지금 바로 #팬플러스 에서 #${starNameText} 에게 투표하세요 ✊🏻✊🏻`,
+    `🔻실시간 순위 확인하러 가기🔻`,
+  ];
+  const text = `${titleText[getIndexByVotes()]}\n\n${middleText[getIndexByVotes()]}\n\n${
+    endText[getIndexByVotes()]
   }`;
+  const url = `${checkWindow() ? window.location.origin : ''}${router.asPath}?id=${star?.STAR_IDX}`;
+  const copyText = `${text}\n\n${url}`;
 
   const kakaoOnClick = () => {
     //   if (!window.Kakao.isInitialized()) window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
@@ -126,9 +149,12 @@ function VoteDetailShareModal({
     //     }
     //   } else window.Kakao.Share.sendCustom(template);
   };
+
   const twitterOnClick = () => {
     const windowPage = window.open(
-      `https://twitter.com/intent/tweet?text=${star?.STAR_NAME}&url=${copyUrl}`
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(
+        url
+      )}`
     );
     if (windowPage) windowPage.focus();
   };
@@ -160,7 +186,7 @@ function VoteDetailShareModal({
                 c={brandColor.twitter}
                 text="트위터"
               />
-              <CopyToClipboard text={copyUrl}>
+              <CopyToClipboard text={copyText}>
                 <ShareButtonWithIcon
                   onClick={shareOnClick}
                   src={`/icons/Icon_Link.svg`}

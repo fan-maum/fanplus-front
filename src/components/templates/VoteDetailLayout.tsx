@@ -1,5 +1,7 @@
 import VoteDetailTemplate from './VoteDetailTemplate';
-import VoteDetailHeader from '@/components/organisms/voteDetail/VoteDetailHeader';
+import VoteDetailHeader, {
+  VoteDetailHeaderProps,
+} from '@/components/organisms/voteDetail/VoteDetailHeader';
 import VoteDetailInfo, {
   VoteDetailInfoProps,
 } from '@/components/organisms/voteDetail/VoteDetailInfo';
@@ -14,23 +16,47 @@ import { VoteDetailResponse, VoteDetailStars } from '@/types/vote';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VoteDetailShareModal, {
   VoteDetailShareModalProps,
 } from '@/components/modals/VoteDetailShareModal';
+import { useRouter } from 'next/router';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
+  headers: [];
+  authCookie: string | null;
   error: number | boolean;
 }
 
-const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
-  // console.log(voteDetails);
+export const findStarById: (id: string, voteDetails: VoteDetailResponse) => any = (
+  id,
+  voteDetails
+) => voteDetails.RESULTS.DATAS.VOTE_INFO.STARS?.filter((item) => item.STAR_IDX === id) || undefined;
 
+export const findStarIndexById: (
+  id: string,
+  voteDetails: VoteDetailResponse
+) => { index: number } | undefined = (id, voteDetails) => {
+  const index = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS.findIndex((item) => item.STAR_IDX === id);
+  return index !== -1 ? { index: index } : undefined;
+};
+
+const VoteDetailLayout = ({ voteDetails, headers, authCookie, error }: VotesLayoutProps) => {
+  const endDay = new Date(voteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
+  const router = useRouter();
   const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
-  const [star, setStar] = useState<VoteDetailStars | undefined>();
+  const [stars, setStars] = useState<(VoteDetailStars | null)[]>([null, null, null]);
+  // eslint-disable-next-line no-console
+  console.log(headers);
+  // eslint-disable-next-line no-console
+  console.log(router.query);
+
+  const voteDetailHeaderProps: VoteDetailHeaderProps = {
+    voteTitle: voteDetails.RESULTS.DATAS.VOTE_INFO.TITLE,
+  };
 
   const voteDetailInfoProps: VoteDetailInfoProps = {
     voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
@@ -88,10 +114,40 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
     voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
   };
 
+  const setStarWithIndex = (index: number) => {
+    setStars([
+      voteDetails.RESULTS.DATAS.VOTE_INFO.STARS[index - 1] || null,
+      voteDetails.RESULTS.DATAS.VOTE_INFO.STARS[index] || null,
+      voteDetails.RESULTS.DATAS.VOTE_INFO.STARS[index + 1] || null,
+    ]);
+  };
+
+  useEffect(() => {
+    if (stars[1]) {
+      const starData = findStarIndexById(stars[1].STAR_IDX, voteDetails);
+      if (starData) setStarWithIndex(starData?.index);
+    }
+  }, [voteDetails]);
+
+  useEffect(() => {
+    const starId = String(router.query.id);
+    if (
+      starId &&
+      typeof router.query.login === 'string' &&
+      findStarById(starId, voteDetails) &&
+      authCookie
+    ) {
+      const star = findStarIndexById(starId, voteDetails);
+      if (star) {
+        setStarWithIndex(star.index);
+      }
+    }
+  }, []);
+
   const shareOnClick = (id: string) => {
     const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
-    const selectedStar = stars.find((star) => star.STAR_IDX === id);
-    setStar(selectedStar);
+    const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
+    setStarWithIndex(starIndex);
     setShareModalIsOpened(true);
   };
 
@@ -108,11 +164,11 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
   };
 
   const voteDetailShareModalProps: VoteDetailShareModalProps = {
+    endDay,
+    voteTitle: voteDetails.RESULTS.DATAS.VOTE_INFO.TITLE,
     onClose: () => setShareModalIsOpened(false),
     opened: shareModalIsOpened,
-    star: star,
-    // isWebView,
-    // phoneModel,
+    stars: stars,
   };
 
   const voteDetailListProps: VoteDetailListProps = {
@@ -124,7 +180,7 @@ const VoteDetailLayout = ({ voteDetails, error }: VotesLayoutProps) => {
   return (
     <div css={{ background: '#FAFBFE' }}>
       <VoteDetailTemplate
-        voteDetailHeader={<VoteDetailHeader />}
+        voteDetailHeader={<VoteDetailHeader {...voteDetailHeaderProps} />}
         voteDetailInfo={<VoteDetailInfo {...voteDetailInfoProps} />}
         voteDetailPrizeList={<VoteDetailPrizeList {...voteDetailPrizeListProps} />}
         voteDetailList={<VoteDetailList {...voteDetailListProps} />}
