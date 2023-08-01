@@ -1,6 +1,6 @@
 function IconArrowDown({
   width = '22',
-  height = 'auto',
+  height = '100%',
   strokeWidth = '2',
   isReverse = false,
 }: {
