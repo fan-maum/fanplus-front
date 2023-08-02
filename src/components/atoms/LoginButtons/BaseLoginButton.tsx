@@ -19,7 +19,7 @@ type LoginButtonProps = {
   css?: Interpolation<Theme>;
 };
 
-const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site }) => {
+const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon }) => {
   const router = useRouter();
   const nextUrl = process.env.NEXT_PUBLIC_DEV_BASE_PATH + router.pathname;
   const queries =
@@ -27,12 +27,27 @@ const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site }) => {
   return (
     <button
       css={{
-        margin: '100px',
-        width: '300px',
-        height: '100px',
+        maxWidth: '340px',
+        maxHeight: '56px',
+        width: '80%',
+        minHeight: '45px',
+        border: '1px solid #d9d9d9',
+        borderRadius: '10px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        margin: '5px 0px',
+        fontSize: '18px',
+        cursor: 'pointer',
+        ':hover': {
+          backgroundColor: '#d9d9d9',
+          transition: '0.4s ease-out',
+        },
       }}
       onClick={() => onClickLogin(nextUrl + queries, site)}
     >
+      {icon}
       {texts}
     </button>
   );

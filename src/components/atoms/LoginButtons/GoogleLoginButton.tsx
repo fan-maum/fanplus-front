@@ -1,7 +1,8 @@
-import BaseLoginButton from "./BaseLoginButton";
+import IconGoogle from '../IconGoogle';
+import BaseLoginButton from './BaseLoginButton';
 
 const GoogleLoginButton = ({ texts }: { texts: string }) => {
-  return <BaseLoginButton texts={texts} site="google" />;
+  return <BaseLoginButton texts={texts} site="google" icon={<IconGoogle />} />;
 };
 
 export default GoogleLoginButton;
