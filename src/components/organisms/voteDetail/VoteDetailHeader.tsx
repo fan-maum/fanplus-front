@@ -6,21 +6,17 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { GetLanguage } from '@/hooks/useLanguage';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import CompletedShareModal from '@/components/modals/CompletedShareModal';
+import Image from 'next/image';
 
 export interface VoteDetailHeaderProps {
   voteTitle: string;
+  sharePageOnClick: () => void;
 }
 
-function VoteDetailHeader({ voteTitle, ...props }: VoteDetailHeaderProps) {
+function VoteDetailHeader({ voteTitle, sharePageOnClick, ...props }: VoteDetailHeaderProps) {
   const router = useRouter();
   const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
-  const shareOnClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('share on clicked');
-  };
   return (
     <>
       <Group
@@ -39,13 +35,11 @@ function VoteDetailHeader({ voteTitle, ...props }: VoteDetailHeaderProps) {
       >
         <Center css={{ gap: 4 }}>
           <UnstyledButton onClick={() => router.back()}>
-            <img src="/icons/icon_back.svg" alt="icon_back" />
+            <Image width={24} height={24} src="/icons/icon_back.svg" alt="icon_back" />
           </UnstyledButton>
           <span css={{ fontSize: 22, fontWeight: 600 }}>{voteDetailLanguage?.vote}</span>
         </Center>
-        {/* <CopyToClipboard text={copyText}> */}
-        <ShareButton onClick={shareOnClick} />
-        {/* </CopyToClipboard> */}
+        <ShareButton onClick={sharePageOnClick} />
       </Group>
     </>
   );

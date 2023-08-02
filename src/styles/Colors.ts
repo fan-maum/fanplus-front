@@ -81,5 +81,5 @@ export const colors: Colors = {
 
 export const brandColor = {
   kakao: '#FAE100',
-  twitter: '#1D9BF0',
+  twitter: '#101010',
 };

@@ -1,7 +1,12 @@
 import { Modal, ModalProps } from '@mantine/core';
 import { UnstyledButton } from '../atoms';
+import { useRecoilState } from 'recoil';
+import { shareModalState } from '@/store/voteLangState';
+import { GetLanguage } from '@/hooks/useLanguage';
 
 export default function CompletedShareModal({ ...props }: ModalProps) {
+  const language = GetLanguage();
+  const shareModalLanguage = useRecoilState(shareModalState(language))[0];
   const modalProps: ModalProps = {
     size: 328,
     styles: (theme) => ({
@@ -29,7 +34,7 @@ export default function CompletedShareModal({ ...props }: ModalProps) {
           marginBottom: 16,
         }}
       >
-        URL이 복사되었습니다
+        {shareModalLanguage?.urlCopied}
       </div>
       <UnstyledButton
         fz={17}
@@ -37,7 +42,7 @@ export default function CompletedShareModal({ ...props }: ModalProps) {
         onClick={props.onClose}
         css={{ float: 'right', color: '#728388', textAlign: 'right' }}
       >
-        확인
+        {shareModalLanguage?.check}
       </UnstyledButton>
     </Modal>
   );

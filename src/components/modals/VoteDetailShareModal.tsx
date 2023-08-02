@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { VoteDetailStars } from '@/types/vote';
+import { brandColor } from '@/styles/Colors';
+import { FormatShareTime, formatNumberWithComma, getKoreaTime } from '@/utils/util';
 import { Box, Divider, Modal, ModalProps } from '@mantine/core';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { Stack, Group, UnstyledButton } from '@/components/atoms';
+import { isMobile } from 'react-device-detect';
 import ShareButtonWithIcon from '../atoms/ShareButtonWithIcon';
-import { brandColor } from '@/styles/Colors';
+import { Stack, Group, UnstyledButton } from '@/components/atoms';
 import CompletedShareModal from './CompletedShareModal';
-import { VoteDetailStars } from '@/types/vote';
-import { FormatShareTime, formatNumberWithComma } from '@/utils/util';
+import { GetLanguage } from '@/hooks/useLanguage';
+import { shareModalState } from '@/store/voteLangState';
+import { useRecoilState } from 'recoil';
 
 export interface VoteDetailShareModalProps extends ModalProps {
   endDay: Date;
@@ -28,7 +32,10 @@ function VoteDetailShareModal({
   const checkWindow = () => typeof window !== 'undefined';
   const router = useRouter();
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
+  const canShare = isMobile && navigator.share;
+  const language = GetLanguage();
   const today = new Date();
+  const shareModalLanguage = useRecoilState(shareModalState(language))[0];
 
   const modalProps: ModalProps = {
     size: 328,
@@ -56,18 +63,19 @@ function VoteDetailShareModal({
     withCloseButton: false,
     centered: true,
     trapFocus: false,
-    title: '공유하기',
+    title: `${shareModalLanguage?.shareModalTitle}`,
     zIndex: 200000,
     ...props,
   };
 
   const getIndexByVotes = () => {
     if (star?.RANK === '1') return 0;
-    else if (star?.RANK === null) return 3;
+    else if (star?.RANK === undefined) return 3;
     else if (star?.RANK === '100') return 2;
     else return 1;
   };
   const remainTimeString = FormatShareTime(Math.floor((endDay.getTime() - today.getTime()) / 1000));
+  const koreaTime = getKoreaTime();
   const starNameText = star?.STAR_NAME || '스타이름';
   const voteCount = Number(star?.VOTE_CNT);
   const rankText = `${star?.RANK}`;
@@ -78,28 +86,42 @@ function VoteDetailShareModal({
     (voteCount || 0) - (Number(nextStar?.VOTE_CNT) || 0)
   )}`;
 
+  const modalTitleText = shareModalLanguage?.shareTitleText;
+  const modalMiddleText = shareModalLanguage?.shareMiddleText;
+  const modalEndText = shareModalLanguage?.shareEndText;
+
   const titleText = [
-    `${voteTitle} 현재 순위는⁉`,
-    `${voteTitle} #${starNameText} 순위는⁉`,
-    `${voteTitle} #${starNameText} 순위는⁉`,
+    `${voteTitle} ${modalTitleText?.title0}\n(${modalTitleText?.standard.front} ${koreaTime} ${modalTitleText?.standard.back})`,
+    `${voteTitle} #${starNameText} ${modalTitleText?.title1}\n(${modalTitleText?.standard.front} ${koreaTime} ${modalTitleText?.standard.back})`,
+    `${voteTitle} #${starNameText} ${modalTitleText?.title2}\n(${modalTitleText?.standard.front} ${koreaTime} ${modalTitleText?.standard.back})`,
     `${voteTitle}`,
   ];
-  const middleText = [
-    `1위 ${star?.STAR_GROUP_NAME} #${starNameText} 🏆\n2위 ${nextStar?.STAR_NAME}\n\n단 ${diffNextText}표 차이 👀`,
-    `${star?.STAR_GROUP_NAME} #${starNameText} ${rankText}위 🏆\n\n${prevStar?.RANK}위 ${prevStar?.STAR_NAME}와(과) ${diffPrevText}표 차이\n${nextStar?.RANK}위 ${nextStar?.STAR_NAME}와(과) ${diffNextText}표 차이`,
-    `${star?.STAR_GROUP_NAME} #${starNameText} ${rankText}위 🏆\n\n${prevStar?.RANK}위 ${prevStar?.STAR_NAME}와(과) ${diffPrevText}표 차이`,
-    `#팬플러스 투표 참여하고\n최애만을 위한 특별한 광고 선물하자 🎁🎈\n\n현재 1위 : ❓`,
+  const middleTextStandard = [
+    `${modalMiddleText?.first} ${star?.STAR_GROUP_NAME} #${starNameText} 🏆\n${modalMiddleText?.second} ${nextStar?.STAR_NAME}\n\n${modalMiddleText?.voteDiffFront} ${diffNextText}${modalMiddleText?.voteDiffBack} 👀`,
+    `${star?.STAR_GROUP_NAME} #${starNameText} ${modalMiddleText?.current} ${rankText}${modalMiddleText?.place} 🏆\n\n${modalMiddleText?.voteDiff}${prevStar?.RANK}${modalMiddleText?.place} ${prevStar?.STAR_NAME}${modalMiddleText?.with} ${diffPrevText}${modalMiddleText?.voteDiffBack}\n${modalMiddleText?.voteDiff}${nextStar?.RANK}${modalMiddleText?.place} ${nextStar?.STAR_NAME}${modalMiddleText?.with} ${diffNextText}${modalMiddleText?.voteDiffBack}`,
+    `${star?.STAR_GROUP_NAME} #${starNameText} ${modalMiddleText?.current} ${rankText}${modalMiddleText?.place} 🏆\n\n${modalMiddleText?.voteDiff}${prevStar?.RANK}${modalMiddleText?.place} ${prevStar?.STAR_NAME}${modalMiddleText?.with} ${diffPrevText}${modalMiddleText?.voteDiffBack}`,
+    `${modalMiddleText?.middlePageFront}\n\n${modalMiddleText?.middlePageBack}`,
   ];
+  const middleTextMulti = [
+    `${modalMiddleText?.first} ${star?.STAR_GROUP_NAME} #${starNameText} 🏆\n${modalMiddleText?.second} ${nextStar?.STAR_NAME}\n\n${modalMiddleText?.voteDiffFront} ${diffNextText}${modalMiddleText?.voteDiffBack} 👀`,
+    `${star?.STAR_GROUP_NAME} #${starNameText} ${modalMiddleText?.current} ${rankText}${modalMiddleText?.place} 🏆\n\n${diffPrevText}${modalMiddleText?.voteDiffBack} ${modalMiddleText?.lessThan} ${prevStar?.RANK} ${prevStar?.STAR_NAME}\n$${diffNextText}${modalMiddleText?.voteDiffBack} ${modalMiddleText?.moreThan} ${nextStar?.RANK} ${nextStar?.STAR_NAME}`,
+    `${star?.STAR_GROUP_NAME} #${starNameText} ${modalMiddleText?.current} ${rankText}${modalMiddleText?.place} 🏆\n\n${diffPrevText}${modalMiddleText?.voteDiffBack} ${modalMiddleText?.lessThan} ${prevStar?.RANK} ${prevStar?.STAR_NAME}`,
+    `${modalMiddleText?.middlePageFront}\n\n${modalMiddleText?.middlePageBack}`,
+  ];
+  const standardLanguage = language === 'ko' || language === 'zh-rCN' || language === 'zh-rTW';
+  const middleText = standardLanguage ? middleTextStandard : middleTextMulti;
   const endText = [
-    `지금 바로 #팬플러스 에서 #${starNameText} 에게 투표하세요 ✊🏻✊🏻`,
-    `지금 바로 #팬플러스 에서 #${starNameText} 에게 투표하세요 ✊🏻✊🏻`,
-    `지금 바로 #팬플러스 에서 #${starNameText} 에게 투표하세요 ✊🏻✊🏻`,
-    `🔻실시간 순위 확인하러 가기🔻`,
+    `${modalEndText?.endFront} #${starNameText} ${modalEndText?.endBack}`,
+    `${modalEndText?.endFront} #${starNameText} ${modalEndText?.endBack}`,
+    `${modalEndText?.endFront} #${starNameText} ${modalEndText?.endBack}`,
+    `${modalEndText?.endPage}`,
   ];
   const text = `${titleText[getIndexByVotes()]}\n\n${middleText[getIndexByVotes()]}\n\n${
     endText[getIndexByVotes()]
   }`;
-  const url = `${checkWindow() ? window.location.origin : ''}${router.asPath}?id=${star?.STAR_IDX}`;
+  const url = star
+    ? `${checkWindow() ? window.location.origin : ''}${router.asPath}&id=${star?.STAR_IDX}`
+    : `${checkWindow() ? window.location.origin : ''}${router.asPath}`;
   const copyText = `${text}\n\n${url}`;
 
   const kakaoOnClick = () => {
@@ -160,7 +182,15 @@ function VoteDetailShareModal({
   };
   const shareOnClick = () => {
     props.onClose();
-    setCompletedShareModalIsOpen(true);
+    if (canShare) {
+      window.navigator?.share({
+        title: '팬플러스 투표 공유',
+        text,
+        url,
+      });
+    } else {
+      setCompletedShareModalIsOpen(true);
+    }
   };
 
   const completedShareModalProps = {
@@ -173,25 +203,32 @@ function VoteDetailShareModal({
       <Modal {...modalProps}>
         <Stack>
           <Box px={32} pb={32}>
-            <Group position="apart">
-              <ShareButtonWithIcon
-                onClick={kakaoOnClick}
-                src="/icons/icon_Kakao.svg"
-                c={brandColor.kakao}
-                text="카카오톡"
-              />
+            <Group style={{ justifyContent: 'space-around' }}>
+              {language === 'ko' && (
+                <ShareButtonWithIcon
+                  onClick={kakaoOnClick}
+                  src="/icons/icon_Kakao.svg"
+                  c={brandColor.kakao}
+                  text="카카오톡"
+                />
+              )}
               <ShareButtonWithIcon
                 onClick={twitterOnClick}
+                varient="twitter"
                 src="/icons/icon_Twitter.svg"
                 c={brandColor.twitter}
-                text="트위터"
+                text={`${shareModalLanguage?.twitter}`}
               />
               <CopyToClipboard text={copyText}>
                 <ShareButtonWithIcon
                   onClick={shareOnClick}
-                  src={`/icons/Icon_Link.svg`}
+                  src={`/icons/Icon_${canShare ? 'More' : 'Link'}.svg`}
                   c="#819298"
-                  text="URL 복사"
+                  text={
+                    canShare
+                      ? `${shareModalLanguage?.otherAppShare}`
+                      : `${shareModalLanguage?.urlShare}`
+                  }
                 />
               </CopyToClipboard>
             </Group>
@@ -203,7 +240,7 @@ function VoteDetailShareModal({
             onClick={props.onClose}
             css={{ padding: '14px 0', color: '#728388' }}
           >
-            닫기
+            {shareModalLanguage?.shareModalClose}
           </UnstyledButton>
         </Stack>
       </Modal>

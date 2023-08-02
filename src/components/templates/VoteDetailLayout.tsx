@@ -54,14 +54,6 @@ const VoteDetailLayout = ({ voteDetails, headers, authCookie, error }: VotesLayo
   // eslint-disable-next-line no-console
   console.log(router.query);
 
-  const voteDetailHeaderProps: VoteDetailHeaderProps = {
-    voteTitle: voteDetails.RESULTS.DATAS.VOTE_INFO.TITLE,
-  };
-
-  const voteDetailInfoProps: VoteDetailInfoProps = {
-    voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
-  };
-
   const prizeTabContents: prizeTabContentsProps = {
     prizeTabContentsItem: [
       {
@@ -151,6 +143,11 @@ const VoteDetailLayout = ({ voteDetails, headers, authCookie, error }: VotesLayo
     setShareModalIsOpened(true);
   };
 
+  const sharePageOnClick = () => {
+    setShareModalIsOpened(true);
+    setStarWithIndex(-1);
+  };
+
   const voteOnClick = (id: string) => {
     // if (authCookie || isWebView) {
     //   const starIndex = data[gender].data.findIndex((star) => star.id === id);
@@ -161,6 +158,15 @@ const VoteDetailLayout = ({ voteDetails, headers, authCookie, error }: VotesLayo
     // }
     // eslint-disable-next-line no-console
     console.log('vote clicked');
+  };
+
+  const voteDetailHeaderProps: VoteDetailHeaderProps = {
+    voteTitle: voteDetails.RESULTS.DATAS.VOTE_INFO.TITLE,
+    sharePageOnClick,
+  };
+
+  const voteDetailInfoProps: VoteDetailInfoProps = {
+    voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
   };
 
   const voteDetailShareModalProps: VoteDetailShareModalProps = {
@@ -175,6 +181,8 @@ const VoteDetailLayout = ({ voteDetails, headers, authCookie, error }: VotesLayo
     voteDetailStars: voteDetails.RESULTS.DATAS.VOTE_INFO.STARS,
     shareOnClick,
     voteOnClick,
+    scrollTargetId: typeof router.query.id === 'string' ? router.query.id : '',
+    isRenderComplete: router.isReady,
   };
 
   return (

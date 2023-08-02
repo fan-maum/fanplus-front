@@ -9,12 +9,20 @@ import {
 export interface ShareButtonWithIconProps extends UnstyledButtonProps {
   src: string;
   text: string;
+  varient?: 'twitter';
   avatarProps?: AvatarProps;
   c?: string;
   onClick?: () => void;
 }
 
-function ShareButtonWithIcon({ src, text, avatarProps, c, ...props }: ShareButtonWithIconProps) {
+function ShareButtonWithIcon({
+  src,
+  text,
+  avatarProps,
+  varient,
+  c,
+  ...props
+}: ShareButtonWithIconProps) {
   return (
     <UnstyledButton {...props}>
       <Stack spacing={6} w={72} align="center">
@@ -27,8 +35,8 @@ function ShareButtonWithIcon({ src, text, avatarProps, c, ...props }: ShareButto
           }}
           imageProps={{
             style: {
-              width: 40,
-              height: 40,
+              width: varient ? 72 : 40,
+              height: varient ? 72 : 40,
               margin: 'auto',
             },
           }}

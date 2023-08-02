@@ -151,21 +151,61 @@ export const Votes_Text_in = {
   },
   winner: '1st',
   daysAgo: 'hari sebelumnya',
+  hoursAgo: 'jam sebelumnya',
+  minutesAgo: 'menit sebelumnya',
 };
 
 export const VoteDetail_Text_in = {
   vote: 'Pemungutan suara',
   voting: 'Beri suara',
-  voteDifference : {
+  voteDifference: {
     front: 'Beda',
-    back: 'suara!'
+    back: 'suara!',
   },
   seeMore: 'Tampilkan Detail',
   currentVote: 'suara',
   prizeTitle: {
-    detail: 'Detil', 
+    detail: 'Detil',
     first: 'Melihat keuntungan juara 1',
     second: 'Hadiah Pemenang ke-2',
     third: 'Hadiah Pemenang 3',
-  }
+  },
+};
+
+export const ShareModal_Text_in = {
+  shareModalTitle: 'Bagi',
+  shareModalClose: 'Tutup',
+  twitter: 'Twitter',
+  urlShare: 'Salin URL',
+  otherAppShare: 'Bagikan ke aplikasi lain',
+  urlCopied: 'URL disali',
+  check: 'Memeriksa',
+  shareTitleText: {
+    standard: {
+      front: 'as of',
+      back: '',
+    },
+    title0: 'Current Ranking',
+    title1: 'Current Ranking',
+    title2: 'Current Ranking',
+  },
+  shareMiddleText: {
+    first: '1st',
+    second: '2nd',
+    voteDiffFront: 'Winning by',
+    voteDiffBack: 'votes',
+    current: 'is currently',
+    place: '. place',
+    lessThan: 'less than',
+    moreThan: 'more than',
+    voteDiff: '',
+    with: '',
+    middlePageFront: 'Participate in #FanPlus vote\nand give your bias AD rewards! 🎁🎈',
+    middlePageBack: 'Currently winning : ❓❔',
+  },
+  shareEndText: {
+    endFront: 'Vote',
+    endBack: 'on #FanPlus right now! ✊🏻✊🏻',
+    endPage: '🔻Check the current ranking🔻',
+  },
 };
