@@ -3,15 +3,18 @@ import Layout from '@/components/organisms/Layout';
 import { NavBarText_KR, FooterText_KR } from '@/texts/ko';
 import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
-import nookies, { parseCookies } from 'nookies';
+import nookies from 'nookies';
 
 const VoteDetail = ({ voteDetails, headers, authCookie, error }: EventProps) => {
+  const isWebView = !!headers.token || !!authCookie;
+
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
       <VoteDetailLayout
         voteDetails={voteDetails}
         headers={headers}
         authCookie={authCookie}
+        isWebView={isWebView}
         error={error}
       />
     </Layout>

@@ -9,7 +9,7 @@ import { isMobile } from 'react-device-detect';
 import ShareButtonWithIcon from '../atoms/ShareButtonWithIcon';
 import { Stack, Group, UnstyledButton } from '@/components/atoms';
 import CompletedShareModal from './CompletedShareModal';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 import { shareModalState } from '@/store/voteLangState';
 import { useRecoilState } from 'recoil';
 
@@ -34,6 +34,7 @@ function VoteDetailShareModal({
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
   const canShare = isMobile && navigator.share;
   const language = GetLanguage();
+  const routerLanguage = GetRouterLanguage();
   const today = new Date();
   const shareModalLanguage = useRecoilState(shareModalState(language))[0];
 
@@ -74,16 +75,15 @@ function VoteDetailShareModal({
     else if (star?.RANK === '100') return 2;
     else return 1;
   };
-  const remainTimeString = FormatShareTime(Math.floor((endDay.getTime() - today.getTime()) / 1000));
   const koreaTime = getKoreaTime();
   const starNameText = star?.STAR_NAME || '스타이름';
-  const voteCount = Number(star?.VOTE_CNT);
+  const voteCount = formatNumberWithComma(Number(star?.VOTE_CNT));
   const rankText = `${star?.RANK}`;
   const diffPrevText = `${formatNumberWithComma(
-    (Number(prevStar?.VOTE_CNT) || 0) - (voteCount || 0)
+    (Number(prevStar?.VOTE_CNT) || 0) - (Number(star?.VOTE_CNT) || 0)
   )}`;
   const diffNextText = `${formatNumberWithComma(
-    (voteCount || 0) - (Number(nextStar?.VOTE_CNT) || 0)
+    (Number(star?.VOTE_CNT) || 0) - (Number(nextStar?.VOTE_CNT) || 0)
   )}`;
 
   const modalTitleText = shareModalLanguage?.shareTitleText;
@@ -125,51 +125,53 @@ function VoteDetailShareModal({
   const copyText = `${text}\n\n${url}`;
 
   const kakaoOnClick = () => {
-    //   if (!window.Kakao.isInitialized()) window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
-    //   const defaultStarData = {
-    //     starImage: star?.image,
-    //     starName: star?.name,
-    //     starId: star?.id,
-    //   };
-    //   const title1 = ['현재 순위', '목표 투표수', '현재 순위', '현재 순위'];
-    //   const description1 = [`${rankText}위`, `${goalText}표`, `${rankText}위`, `${rankText}위`];
-    //   const title2 = '현재 투표수';
-    //   const description2 = `${votesText}표`;
-    //   const sumTitle = '목표 달성률';
-    //   const sumDescription = `${percent}%`;
-    //   const boldTitle = [
-    //     `광고 진행까지 ${diffGoalText}표 남았어요`,
-    //     `광고 진행까지 ${100 - percent}% 남았어요`,
-    //     `🚨2위 ${nextStar?.name}과(와) 단 ${diffNextText}표 차이`,
-    //     `🚨${prevStar?.rank}위 ${prevStar?.name}과(와) 단 ${diffPrevText}표 차이`,
-    //   ];
-    //   const boldDescription = [
-    //     `아무리 ${rankText}위여도 ${goalText}표를 넘지 않으면 광고 진행이 어려워요😭`,
-    //     `100%를 달성하지 않으면 광고 진행이 어려워요😭`,
-    //     `지금 바로 ${starNameText}에게 투표하고 1위 유지하세요💗`,
-    //     `지금 바로 ${starNameText}에게 투표하세요💗`,
-    //   ];
-    //   const template = {
-    //     templateId: 91860,
-    //     templateArgs: {
-    //       ...defaultStarData,
-    //       title1: title1[getIndexByVotes()],
-    //       description1: description1[getIndexByVotes()],
-    //       title2: title2,
-    //       description2: description2,
-    //       sumTitle: getIndexByVotes() === 1 ? sumTitle : undefined,
-    //       sumDescription: getIndexByVotes() === 1 ? sumDescription : undefined,
-    //       boldTitle: boldTitle[getIndexByVotes()],
-    //       boldDescription: boldDescription[getIndexByVotes()],
-    //     },
-    //   };
-    //   if (isWebView) {
-    //     if (phoneModel === 'android') {
-    //       (window as any).Android.kakaoShare(JSON.stringify(template));
-    //     } else if (phoneModel === 'iphone') {
-    //       (window as any).webkit.messageHandlers.kakaoShare.postMessage(JSON.stringify(template));
-    //     }
-    //   } else window.Kakao.Share.sendCustom(template);
+    if (!window.Kakao.isInitialized()) window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+
+    const defaultStarData = {
+      starImage: star?.PROFILE_IMG,
+      starName: star?.STAR_NAME,
+      starId: star?.STAR_IDX,
+    };
+
+    const title1 = ['현재 순위', '현재 순위', '현재 순위', ''];
+    const description1 = [`${rankText}위`, `${rankText}위`, `${rankText}위`, ''];
+    const title2 = '현재 투표수';
+    const description2 = `${voteCount}표`;
+    const boldTitle = [
+      `🚨2위 ${nextStar?.STAR_NAME}과(와) 단 ${diffNextText}표 차이`,
+      ,
+      `🚨${prevStar?.RANK}위 ${prevStar?.STAR_NAME}과(와) 단 ${diffPrevText}표 차이`,
+      `🚨${prevStar?.RANK}위 ${prevStar?.STAR_NAME}과(와) 단 ${diffPrevText}표 차이`,
+      '',
+    ];
+    const boldDescription = [
+      `지금 바로 ${starNameText}에게 투표하고 1위 유지하세요💗`,
+      `지금 바로 ${starNameText}에게 투표하세요💗`,
+      `지금 바로 ${starNameText}에게 투표하세요💗`,
+      `지금 바로 투표하세요💗`,
+    ];
+    const template = {
+      templateId: 96769,
+      templateArgs: {
+        ...defaultStarData,
+        title1: title1[getIndexByVotes()],
+        description1: description1[getIndexByVotes()],
+        title2: title2,
+        description2: description2,
+        boldTitle: boldTitle[getIndexByVotes()],
+        boldDescription: boldDescription[getIndexByVotes()],
+        vote_IDX: `${star?.VOTE_IDX}`,
+        language: `${language}`,
+        lang: `${routerLanguage}`,
+      },
+    };
+    if (isWebView) {
+      if (phoneModel === 'android') {
+        (window as any).Android.kakaoShare(JSON.stringify(template));
+      } else if (phoneModel === 'iphone') {
+        (window as any).webkit.messageHandlers.kakaoShare.postMessage(JSON.stringify(template));
+      }
+    } else window.Kakao.Share.sendCustom(template);
   };
 
   const twitterOnClick = () => {

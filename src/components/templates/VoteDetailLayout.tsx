@@ -26,6 +26,7 @@ export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
   headers: [];
   authCookie: string | null;
+  isWebView?: boolean;
   error: number | boolean;
 }
 
@@ -42,7 +43,13 @@ export const findStarIndexById: (
   return index !== -1 ? { index: index } : undefined;
 };
 
-const VoteDetailLayout = ({ voteDetails, headers, authCookie, error }: VotesLayoutProps) => {
+const VoteDetailLayout = ({
+  voteDetails,
+  headers,
+  authCookie,
+  isWebView,
+  error,
+}: VotesLayoutProps) => {
   const endDay = new Date(voteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
   const language = GetLanguage();
