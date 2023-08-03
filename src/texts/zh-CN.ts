@@ -152,3 +152,20 @@ export const Votes_Text_zh = {
   winner: '1位',
   daysAgo: '日 前',
 };
+
+export const VoteDetail_Text_zh = {
+  vote: '投票',
+  voting: '投票',
+  voteDifference : {
+    front: null,
+    back: '票差距!'
+  },
+  seeMore: '查看详情',
+  currentVote: '票',
+  prizeTitle: {
+    detail: '详细内容', 
+    first: '查看第1名奖励',
+    second: '查看第2名奖励',
+    third: '查看第3名奖励',
+  }
+};

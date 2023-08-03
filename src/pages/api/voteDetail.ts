@@ -8,8 +8,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const lang = String(req.query.lang);
     const response = await getVoteDetail(vote_IDX, lang);
     const result = await response.json();
-    console.log(req.query.vote_IDX);
-    console.log(req.query.lang);
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ error: 'failed to load data' });

@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router';
 
-export function getLanguage() {
+export function GetLanguage() {
   const router = useRouter();
   const language = router.route.split('/')[1];
   return language;
 }
 
-export function getRouterLanguage() {
+export function GetRouterLanguage() {
   const router = useRouter();
   const language = router.route.split('/')[1];
-  
+
   if (language === 'in') return 'id';
   else if (language === 'zh-CN') return 'zh';
   else if (language === 'zh-TW') return 'zhtw';

@@ -152,3 +152,20 @@ export const Votes_Text_ko = {
   winner: '1위',
   daysAgo: '일',
 };
+
+export const VoteDetail_Text_ko = {
+  vote: '투표',
+  voting: '투표하기',
+  voteDifference : {
+    front: null,
+    back: '표 차이'
+  },
+  seeMore: '자세히 알아보기',
+  currentVote: '표',
+  prizeTitle: {
+    detail: '상세 내용', 
+    first: '1위 혜택 보기',
+    second: '2위 혜택 보기',
+    third: '3위 혜택 보기',
+  }
+};

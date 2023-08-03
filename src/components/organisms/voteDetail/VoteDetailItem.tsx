@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useInterval } from '@/hooks/useInterval';
 import { Stack } from '@/components/atoms';
 import { VoteDetailVoteInfo } from '@/types/vote';
-import { formatTime } from '@/utils/util';
+import { FormatTime } from '@/utils/util';
 import VoteTitle from '@/components/molecules/VoteTitle';
 import VoteTitleImage from '@/components/molecules/VoteTitleImage';
 
@@ -30,8 +30,8 @@ const VoteDetailItem = ({
     return interval.stop;
   }, []);
 
-  const remainTime = formatTime(seconds);
-  const remainTimeState = formatTime(seconds) !== '종료' ? true : false;
+  const remainTime = FormatTime(seconds);
+  const remainTimeState = FormatTime(seconds) !== '종료' ? true : false;
   return (
     <Stack align="center" spacing={20} css={{ overflow: 'hidden' }}>
       <VoteTitle

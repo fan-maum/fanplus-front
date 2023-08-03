@@ -3,9 +3,9 @@ import { useInterval } from '@/hooks/useInterval';
 import { Stack } from '../atoms/Stack';
 import VoteTitle from '../molecules/VoteTitle';
 import { VoteData } from '@/types/vote';
-import { formatTime } from '@/utils/util';
+import { FormatTime } from '@/utils/util';
 import Link from 'next/link';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 import VoteTitleImage from '../molecules/VoteTitleImage';
 
 export interface VoteListItemProps {
@@ -16,7 +16,8 @@ export interface VoteListItemProps {
 const today = new Date();
 
 const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
-  const language = getLanguage();
+  const language = GetLanguage();
+  const voteDetailLanguage = GetRouterLanguage();
   const endDate = new Date(endDay);
   const [seconds, setSeconds] = useState<number>();
   const interval = useInterval(() => setSeconds((second) => second && second - 1), 1000);
@@ -27,8 +28,8 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
     return interval.stop;
   }, []);
 
-  const remainTime = formatTime(seconds);
-  const remainTimeState = formatTime(seconds) !== '종료' ? true : false;
+  const remainTime = FormatTime(seconds);
+  const remainTimeState = FormatTime(seconds) !== '종료' ? true : false;
 
   return (
     <Stack align="center" spacing={20} css={{ cursor: 'pointer', overflow: 'hidden' }}>
@@ -47,8 +48,10 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
         ]}
       >
         <Link
-          href={`/voteDetail?vote_IDX=${voteData.VOTE_IDX}&lang=${language}`}
-          // href={`https://vote.fanplus.co.kr/?vote=${voteData.VOTE_IDX}&lang=${voteDetailLang}`}
+          href={{
+            pathname: `/${language}/voteDetail`,
+            query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage },
+          }}
           target="_blank"
         >
           <VoteTitleImage remainTimeState={remainTimeState} voteDataImage={voteData.TITLE_IMG} />

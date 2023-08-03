@@ -1,9 +1,9 @@
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage } from '@/hooks/useLanguage';
 
-export const formatTime = (time: number | undefined) => {
-  const language = getLanguage();
+export const FormatTime = (time: number | undefined) => {
+  const language = GetLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
 
   if (time === undefined) return undefined;

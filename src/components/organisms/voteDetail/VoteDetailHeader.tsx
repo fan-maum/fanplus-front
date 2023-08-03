@@ -3,9 +3,14 @@ import { Group } from '@/components/atoms/Group';
 import { UnstyledButton } from '@/components/atoms/UnstyledButton';
 import { Center } from '@/components/atoms/Center';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { voteDetailLangState } from '@/store/voteLangState';
+import { GetLanguage } from '@/hooks/useLanguage';
 
 function VoteDetailHeader() {
   const router = useRouter();
+  const language = GetLanguage();
+  const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   return (
     <>
       <Group
@@ -26,9 +31,14 @@ function VoteDetailHeader() {
           <UnstyledButton onClick={() => router.back()}>
             <img src="/icons/icon_back.svg" alt="icon_back" />
           </UnstyledButton>
-          <span css={{ fontSize: 22, fontWeight: 600 }}>투표</span>
+          <span css={{ fontSize: 22, fontWeight: 600 }}>{voteDetailLanguage?.vote}</span>
         </Center>
-        <ShareButton onClick={() => console.log('shareButton')} />
+        <ShareButton
+          onClick={() =>
+            // eslint-disable-next-line no-console
+            console.log('shareButton')
+          }
+        />
       </Group>
     </>
   );
