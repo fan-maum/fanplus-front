@@ -235,7 +235,13 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
-      <button onClick={() => setIsLoginModalOpen(true)}>로그인~~₩</button>
+      <button
+        onClick={() => {
+          setIsLoginModalOpen(true);
+        }}
+      >
+        로그인~~₩
+      </button>
       <button onClick={() => setIsSignUpModalOpen(true)}>회원가입~~₩</button>
     </div>
   );

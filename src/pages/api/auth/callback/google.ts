@@ -8,6 +8,7 @@ const googleLoginHandler: NextApiHandler = async (req, res) => {
   if (user_lang === 'in') user_lang = 'id';
   else if (user_lang === 'zh-CN') user_lang = 'zh';
   else if (user_lang === 'zh-TW') user_lang = 'zhtw';
+
   const response = await axios.post(
     `https://oauth2.googleapis.com/token`,
     {
@@ -19,25 +20,27 @@ const googleLoginHandler: NextApiHandler = async (req, res) => {
     },
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
   );
-  const accessToken = response.data.access_token;
-  // const id_token = response.data.id_token;
-  const userInfo = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
-    headers: { Authorization: 'Bearer ' + accessToken },
-  });
-  // const result = await axios.post('https://napi.appphotocard.com/voteWeb/auth/google', {
-  //   platform: 'web',
-  //   id_token: id_token,
-  //   timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-  //   user_lang: user_lang,
-  // });
-  // if (result.data.MSG === 'success') {
-  //   res.setHeader(
-  //     'Set-Cookie',
-  //     `onboarded=${result.data.DATAS.ONBOARDING_FIN_YN}; Path=/; HttpOnly`
-  //   );
+  const id_token = response.data.id_token;
 
-  // }
-  res.setHeader('Set-Cookie', `USER_INFO=${userInfo.data}; Path=/; HttpOnly`);
+  // 만약 오류가 난다면 아마 ko 때문일 것. (나중에 develop이랑 머지하면 해결될 문제임!)
+  const result = await axios.post(
+    'https://napi.appphotocard.com/voteWeb/auth/google',
+    {
+      platform: 'web',
+      id_token: id_token,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      user_lang: user_lang,
+    },
+    { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+  );
+
+  if (result.data.RESULTS.MSG === 'success') {
+    res.setHeader(`Set-Cookie`, `logined=yes; Path=/; HttpOnly`);
+    res.setHeader(
+      'Set-Cookie',
+      `onboarded=${result.data.RESULTS.DATAS.ONBOARDING_FIN_YN}; Path=/; HttpOnly`
+    );
+  }
   res.redirect(nextUrl);
 };
 
