@@ -2,7 +2,7 @@ import { NextApiHandler } from 'next';
 import axios from 'axios';
 
 const appleLoginHandler: NextApiHandler = async (req, res) => {
-  const authorizationCode = req.query.code;
+  const authorizationCode = req.body.code;
   // eslint-disable-next-line no-console
   console.log(authorizationCode);
 
