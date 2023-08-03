@@ -1,17 +1,16 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import { VoteDetailStars } from '@/types/vote';
 import { brandColor } from '@/styles/Colors';
-import { FormatShareTime, formatNumberWithComma, getKoreaTime } from '@/utils/util';
+import { formatNumberWithComma, getIndexByVotes } from '@/utils/util';
 import { Box, Divider, Modal, ModalProps } from '@mantine/core';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { isMobile } from 'react-device-detect';
 import ShareButtonWithIcon from '../atoms/ShareButtonWithIcon';
 import { Stack, Group, UnstyledButton } from '@/components/atoms';
-import CompletedShareModal from './CompletedShareModal';
 import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 import { shareModalState } from '@/store/voteLangState';
 import { useRecoilState } from 'recoil';
+import { useEndText, useMiddleText, useTitleText } from '@/store/shareContent';
+import { useCopiedText } from '@/hooks/useCopyText';
 
 export interface VoteDetailShareModalProps extends ModalProps {
   endDay: Date;
@@ -19,6 +18,7 @@ export interface VoteDetailShareModalProps extends ModalProps {
   stars: (VoteDetailStars | null)[];
   isWebView?: boolean;
   phoneModel?: string;
+  confirmModalOpened: () => void;
 }
 
 function VoteDetailShareModal({
@@ -27,15 +27,12 @@ function VoteDetailShareModal({
   stars: [prevStar, star, nextStar],
   isWebView,
   phoneModel,
+  confirmModalOpened,
   ...props
 }: VoteDetailShareModalProps) {
-  const checkWindow = () => typeof window !== 'undefined';
-  const router = useRouter();
-  const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
   const canShare = isMobile && navigator.share;
   const language = GetLanguage();
   const routerLanguage = GetRouterLanguage();
-  const today = new Date();
   const shareModalLanguage = useRecoilState(shareModalState(language))[0];
 
   const modalProps: ModalProps = {
@@ -69,13 +66,6 @@ function VoteDetailShareModal({
     ...props,
   };
 
-  const getIndexByVotes = () => {
-    if (star?.RANK === '1') return 0;
-    else if (star?.RANK === undefined) return 3;
-    else if (star?.RANK === '100') return 2;
-    else return 1;
-  };
-  const koreaTime = getKoreaTime();
   const starNameText = star?.STAR_NAME || '스타이름';
   const voteCount = formatNumberWithComma(Number(star?.VOTE_CNT));
   const rankText = `${star?.RANK}`;
@@ -85,43 +75,18 @@ function VoteDetailShareModal({
   const diffNextText = `${formatNumberWithComma(
     (Number(star?.VOTE_CNT) || 0) - (Number(nextStar?.VOTE_CNT) || 0)
   )}`;
-
-  const modalTitleText = shareModalLanguage?.shareTitleText;
-  const modalMiddleText = shareModalLanguage?.shareMiddleText;
-  const modalEndText = shareModalLanguage?.shareEndText;
-
-  const titleText = [
-    `${voteTitle} ${modalTitleText?.title0}\n(${modalTitleText?.standard.front} ${koreaTime} ${modalTitleText?.standard.back})`,
-    `${voteTitle} #${starNameText} ${modalTitleText?.title1}\n(${modalTitleText?.standard.front} ${koreaTime} ${modalTitleText?.standard.back})`,
-    `${voteTitle} #${starNameText} ${modalTitleText?.title2}\n(${modalTitleText?.standard.front} ${koreaTime} ${modalTitleText?.standard.back})`,
-    `${voteTitle}`,
-  ];
-  const middleTextStandard = [
-    `${modalMiddleText?.first} ${star?.STAR_GROUP_NAME} #${starNameText} 🏆\n${modalMiddleText?.second} ${nextStar?.STAR_NAME}\n\n${modalMiddleText?.voteDiffFront} ${diffNextText}${modalMiddleText?.voteDiffBack} 👀`,
-    `${star?.STAR_GROUP_NAME} #${starNameText} ${modalMiddleText?.current} ${rankText}${modalMiddleText?.place} 🏆\n\n${modalMiddleText?.voteDiff}${prevStar?.RANK}${modalMiddleText?.place} ${prevStar?.STAR_NAME}${modalMiddleText?.with} ${diffPrevText}${modalMiddleText?.voteDiffBack}\n${modalMiddleText?.voteDiff}${nextStar?.RANK}${modalMiddleText?.place} ${nextStar?.STAR_NAME}${modalMiddleText?.with} ${diffNextText}${modalMiddleText?.voteDiffBack}`,
-    `${star?.STAR_GROUP_NAME} #${starNameText} ${modalMiddleText?.current} ${rankText}${modalMiddleText?.place} 🏆\n\n${modalMiddleText?.voteDiff}${prevStar?.RANK}${modalMiddleText?.place} ${prevStar?.STAR_NAME}${modalMiddleText?.with} ${diffPrevText}${modalMiddleText?.voteDiffBack}`,
-    `${modalMiddleText?.middlePageFront}\n\n${modalMiddleText?.middlePageBack}`,
-  ];
-  const middleTextMulti = [
-    `${modalMiddleText?.first} ${star?.STAR_GROUP_NAME} #${starNameText} 🏆\n${modalMiddleText?.second} ${nextStar?.STAR_NAME}\n\n${modalMiddleText?.voteDiffFront} ${diffNextText}${modalMiddleText?.voteDiffBack} 👀`,
-    `${star?.STAR_GROUP_NAME} #${starNameText} ${modalMiddleText?.current} ${rankText}${modalMiddleText?.place} 🏆\n\n${diffPrevText}${modalMiddleText?.voteDiffBack} ${modalMiddleText?.lessThan} ${prevStar?.RANK} ${prevStar?.STAR_NAME}\n$${diffNextText}${modalMiddleText?.voteDiffBack} ${modalMiddleText?.moreThan} ${nextStar?.RANK} ${nextStar?.STAR_NAME}`,
-    `${star?.STAR_GROUP_NAME} #${starNameText} ${modalMiddleText?.current} ${rankText}${modalMiddleText?.place} 🏆\n\n${diffPrevText}${modalMiddleText?.voteDiffBack} ${modalMiddleText?.lessThan} ${prevStar?.RANK} ${prevStar?.STAR_NAME}`,
-    `${modalMiddleText?.middlePageFront}\n\n${modalMiddleText?.middlePageBack}`,
-  ];
-  const standardLanguage = language === 'ko' || language === 'zh-rCN' || language === 'zh-rTW';
-  const middleText = standardLanguage ? middleTextStandard : middleTextMulti;
-  const endText = [
-    `${modalEndText?.endFront} #${starNameText} ${modalEndText?.endBack}`,
-    `${modalEndText?.endFront} #${starNameText} ${modalEndText?.endBack}`,
-    `${modalEndText?.endFront} #${starNameText} ${modalEndText?.endBack}`,
-    `${modalEndText?.endPage}`,
-  ];
-  const text = `${titleText[getIndexByVotes()]}\n\n${middleText[getIndexByVotes()]}\n\n${
-    endText[getIndexByVotes()]
-  }`;
-  const url = star
-    ? `${checkWindow() ? window.location.origin : ''}${router.asPath}&id=${star?.STAR_IDX}`
-    : `${checkWindow() ? window.location.origin : ''}${router.asPath}`;
+  const titleText = useTitleText(voteTitle, starNameText);
+  const middleText = useMiddleText(
+    star,
+    nextStar,
+    prevStar,
+    starNameText,
+    diffNextText,
+    rankText,
+    diffPrevText
+  );
+  const endText = useEndText(starNameText);
+  const { text, url } = useCopiedText(star, titleText, middleText, endText);
   const copyText = `${text}\n\n${url}`;
 
   const kakaoOnClick = () => {
@@ -139,27 +104,26 @@ function VoteDetailShareModal({
     const description2 = `${voteCount}표`;
     const boldTitle = [
       `🚨2위 ${nextStar?.STAR_NAME}과(와) 단 ${diffNextText}표 차이`,
-      ,
       `🚨${prevStar?.RANK}위 ${prevStar?.STAR_NAME}과(와) 단 ${diffPrevText}표 차이`,
       `🚨${prevStar?.RANK}위 ${prevStar?.STAR_NAME}과(와) 단 ${diffPrevText}표 차이`,
-      '',
+      `🚨${prevStar?.RANK}위 ${prevStar?.STAR_NAME}과(와) 단 ${diffPrevText}표 차이`,
     ];
     const boldDescription = [
       `지금 바로 ${starNameText}에게 투표하고 1위 유지하세요💗`,
       `지금 바로 ${starNameText}에게 투표하세요💗`,
       `지금 바로 ${starNameText}에게 투표하세요💗`,
-      `지금 바로 투표하세요💗`,
+      ``,
     ];
     const template = {
       templateId: 96769,
       templateArgs: {
         ...defaultStarData,
-        title1: title1[getIndexByVotes()],
-        description1: description1[getIndexByVotes()],
+        title1: title1[getIndexByVotes(star)],
+        description1: description1[getIndexByVotes(star)],
         title2: title2,
         description2: description2,
-        boldTitle: boldTitle[getIndexByVotes()],
-        boldDescription: boldDescription[getIndexByVotes()],
+        boldTitle: boldTitle[getIndexByVotes(star)],
+        boldDescription: boldDescription[getIndexByVotes(star)],
         vote_IDX: `${star?.VOTE_IDX}`,
         language: `${language}`,
         lang: `${routerLanguage}`,
@@ -191,13 +155,8 @@ function VoteDetailShareModal({
         url,
       });
     } else {
-      setCompletedShareModalIsOpen(true);
+      confirmModalOpened();
     }
-  };
-
-  const completedShareModalProps = {
-    onClose: () => setCompletedShareModalIsOpen(false),
-    opened: completedShareModalIsOpen,
   };
 
   return (
@@ -246,7 +205,6 @@ function VoteDetailShareModal({
           </UnstyledButton>
         </Stack>
       </Modal>
-      <CompletedShareModal {...completedShareModalProps} />
     </>
   );
 }

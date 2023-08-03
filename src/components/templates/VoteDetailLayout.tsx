@@ -21,6 +21,7 @@ import VoteDetailShareModal, {
   VoteDetailShareModalProps,
 } from '@/components/modals/VoteDetailShareModal';
 import { useRouter } from 'next/router';
+import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -55,11 +56,8 @@ const VoteDetailLayout = ({
   const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
+  const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
   const [stars, setStars] = useState<(VoteDetailStars | null)[]>([null, null, null]);
-  // eslint-disable-next-line no-console
-  console.log(headers);
-  // eslint-disable-next-line no-console
-  console.log(router.query);
 
   const prizeTabContents: prizeTabContentsProps = {
     prizeTabContentsItem: [
@@ -150,26 +148,14 @@ const VoteDetailLayout = ({
     setShareModalIsOpened(true);
   };
 
-  const sharePageOnClick = () => {
-    setShareModalIsOpened(true);
-    setStarWithIndex(-1);
-  };
-
   const voteOnClick = (id: string) => {
-    // if (authCookie || isWebView) {
-    //   const starIndex = data[gender].data.findIndex((star) => star.id === id);
-    //   setStarWithIndex(starIndex, gender);
-    //   setPopupVote(true);
-    // } else {
-    //   openOtherError('NO_HEADER');
-    // }
     // eslint-disable-next-line no-console
     console.log('vote clicked');
   };
 
   const voteDetailHeaderProps: VoteDetailHeaderProps = {
     voteTitle: voteDetails.RESULTS.DATAS.VOTE_INFO.TITLE,
-    sharePageOnClick,
+    confirmModalOpened: () => setCompletedShareModalIsOpen(true),
   };
 
   const voteDetailInfoProps: VoteDetailInfoProps = {
@@ -181,7 +167,13 @@ const VoteDetailLayout = ({
     voteTitle: voteDetails.RESULTS.DATAS.VOTE_INFO.TITLE,
     onClose: () => setShareModalIsOpened(false),
     opened: shareModalIsOpened,
+    confirmModalOpened: () => setCompletedShareModalIsOpen(true),
     stars: stars,
+  };
+
+  const completedShareModalProps: CompletedShareModalProps = {
+    onClose: () => setCompletedShareModalIsOpen(false),
+    opened: completedShareModalIsOpen,
   };
 
   const voteDetailListProps: VoteDetailListProps = {
@@ -201,6 +193,7 @@ const VoteDetailLayout = ({
         voteDetailList={<VoteDetailList {...voteDetailListProps} />}
       />
       <VoteDetailShareModal {...voteDetailShareModalProps} />
+      <CompletedShareModal {...completedShareModalProps} />
     </div>
   );
 };

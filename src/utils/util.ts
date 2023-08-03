@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
 import { GetLanguage } from '@/hooks/useLanguage';
+import { VoteDetailStars } from '@/types/vote';
 
 export const FormatTime = (time: number | undefined) => {
   const language = GetLanguage();
@@ -44,4 +45,11 @@ export const getKoreaTime = () => {
   const utcNow = now.getTime() + now.getTimezoneOffset() * 60 * 1000;
   const koreaTimeDiff = 9 * 60 * 60 * 1000;
   return new Date(utcNow + koreaTimeDiff);
+};
+
+export const getIndexByVotes = (star: VoteDetailStars | null) => {
+  if (star?.RANK === '1') return 0;
+  else if (star?.RANK === undefined) return 3;
+  else if (star?.RANK === '100') return 2;
+  else return 1;
 };

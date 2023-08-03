@@ -47,9 +47,9 @@ a {
 }
 
 .highlight {
-  -webkit-animation: highlightBg 1s ease-in-out;
+  /* -webkit-animation: highlightBg 1s ease-in-out;
   -o-animation: highlightBg 1s ease-in-out;
-  animation: highlightBg 1s ease-in-out;
+  animation: highlightBg 1s ease-in-out; */
   -webkit-animation-iteration-count: 4;
   -o-animation-iteration-count: 4;
   animation-iteration-count: 4;

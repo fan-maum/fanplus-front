@@ -4,7 +4,9 @@ import { useRecoilState } from 'recoil';
 import { shareModalState } from '@/store/voteLangState';
 import { GetLanguage } from '@/hooks/useLanguage';
 
-export default function CompletedShareModal({ ...props }: ModalProps) {
+export interface CompletedShareModalProps extends ModalProps {}
+
+export default function CompletedShareModal({ ...props }: CompletedShareModalProps) {
   const language = GetLanguage();
   const shareModalLanguage = useRecoilState(shareModalState(language))[0];
   const modalProps: ModalProps = {
