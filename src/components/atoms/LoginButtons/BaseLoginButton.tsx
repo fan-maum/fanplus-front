@@ -21,7 +21,7 @@ type LoginButtonProps = {
 
 const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon }) => {
   const router = useRouter();
-  const nextUrl = process.env.NEXT_PUBLIC_DEV_BASE_PATH + router.pathname;
+  const nextUrl = 'https://fanplus-front-git-fanmaum-front.vercel.app' + router.pathname;
   const queries =
     Object.keys(router.query).length !== 0 ? '?' + querystring.stringify(router.query, ';') : '';
   return (
