@@ -6,7 +6,7 @@ import { Interpolation, Theme } from '@emotion/react';
 
 const onClickLogin = async (nextUrl: string, site: string) => {
   window.location.href = (
-    await axios.post(`${process.env.NEXT_PUBLIC_DEV_BASE_PATH}/api/auth/login/${site}`, {
+    await axios.post(`https://fanplus-front-git-fanmaum-front.vercel.app/api/auth/login/${site}`, {
       data: nextUrl,
     })
   ).data;
