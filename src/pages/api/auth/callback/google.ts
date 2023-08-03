@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const googleLoginHandler: NextApiHandler = async (req, res) => {
   const authorizationCode = req.query.code;
+  console.log(authorizationCode);
   const nextUrl = (req.query.state as string).replaceAll(';', '&');
   const response = await axios.post(
     `https://oauth2.googleapis.com/token`,

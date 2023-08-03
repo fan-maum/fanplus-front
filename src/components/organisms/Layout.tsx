@@ -22,8 +22,8 @@ const Layout: React.FC<{
     <SideBarContext.Provider value={{ isSideBarOpen, setIsSideBarOpen }}>
       <LoginModalContext.Provider value={{ isLoginModalOpen, setIsLoginModalOpen }}>
         {isSideBarOpen && <SideBar texts={navBarTexts} />}
-        <NavBar texts={navBarTexts} />
         {isLoginModalOpen && <LoginModal />}
+        <NavBar texts={navBarTexts} />
         {children}
         <Footer texts={footerTexts} />
       </LoginModalContext.Provider>
