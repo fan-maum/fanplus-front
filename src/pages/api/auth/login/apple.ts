@@ -6,7 +6,7 @@ const handler: NextApiHandler = (req, res) => {
       .status(200)
       .json(
         'https://appleid.apple.com/auth/authorize?' +
-          `client_id=com.photocard.master` +
+          `client_id=app.vercel.fanplus-front-git-fanmaum-front` +
           `&redirect_uri=https://fanplus-front-git-fanmaum-front.vercel.app/api/auth/callback/apple` +
           '&response_type=code' +
           '&scope=name%20email' +
