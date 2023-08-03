@@ -8,7 +8,6 @@ export const AVAIL_PAGE = ['', 'votes', 'community', 'business', 'faq'];
 const SUPPORT_LANGUAGE: LangCookie[] = ['ko', 'en', 'es', 'in', 'ja', 'vi', 'zh-CN', 'zh-TW'];
 
 export function middleware(request: NextRequest) {
-  // _next로 시작하는 파일 및 api, public 파일에 대한 redirection 배제.
   if (
     request.nextUrl.pathname.startsWith('/_next') ||
     request.nextUrl.pathname.includes('/api/') ||
@@ -32,7 +31,7 @@ export function middleware(request: NextRequest) {
 
   // Escape Condition: url의 locale과 쿠키 (혹은 browser의 locale)이 일치할 경우
   if (urlPath.startsWith(userLang)) return NextResponse.next();
- return NextResponse.redirect(new URL(redirectUrl, request.url));
+  return NextResponse.redirect(new URL(redirectUrl, request.url));
 }
 
 const urlHandler = (userLang: string, urlPath: string, urlQueries: string) => {
@@ -42,19 +41,6 @@ const urlHandler = (userLang: string, urlPath: string, urlQueries: string) => {
   }
   // locale 정보가 있는 url이 입력되었을 경우: 그래도 cookie (혹은 locale)값을 따라가도록
   const path = urlPath.split('/');
-  path[0] = userLang;
-  const newPath = path.join('/');
+  const newPath = [userLang, ...path.slice(1)].join('/');
   return `/${newPath}${urlQueries}`;
 };
-
-// // Negotiator가 작동하지 않을 경우를 위한 plan B
-// const browserLang = (request: NextRequest): LangCookie => {
-//   const lang = request.headers.get("Accept-Language")?.split(",")[0];
-//   const shortLang = lang?.substring(0, 2) as LangCookie;
-
-//   if (lang === "zh-CN") return "zh-CN";
-//   if (lang === "zh-TW") return "zh-TW";
-//   if (SUPPORT_LANGUAGE.includes(shortLang)) return shortLang;
-
-//   return "en";
-// };

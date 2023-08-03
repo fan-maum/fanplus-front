@@ -25,13 +25,13 @@ export const voteLangState = atomFamily({
 export const voteDetailLangState = atomFamily({
   key: 'voteDetailLangState',
   default: (id: string) => {
-    if (id === 'ko' || id === 'voteDetail') return VoteDetail_Text_ko;
+    if (id === 'ko') return VoteDetail_Text_ko;
     if (id === 'en') return VoteDetail_Text_en;
     if (id === 'es') return VoteDetail_Text_es;
     if (id === 'in') return VoteDetail_Text_in;
     if (id === 'ja') return VoteDetail_Text_ja;
     if (id === 'vi') return VoteDetail_Text_vi;
-    if (id === 'zh-rCN') return VoteDetail_Text_zh;
-    if (id === 'zh-rTW') return VoteDetail_Text_zhtw;
+    if (id === 'zh-CN') return VoteDetail_Text_zh;
+    if (id === 'zh-TW') return VoteDetail_Text_zhtw;
   },
 });
