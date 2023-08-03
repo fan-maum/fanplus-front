@@ -1,12 +1,12 @@
 import { InferGetServerSidePropsType } from 'next';
 import Layout from '@/components/organisms/Layout';
 import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
-import { FooterText_zh_rCN, NavBarText_zh_rCN } from '@/texts/zh-rCN';
+import { FooterText_zh_CN, NavBarText_zh_CN } from '@/texts/zh-CN';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
 const VoteDetail = ({ voteDetails, error }: EventProps) => {
   return (
-    <Layout navBarTexts={NavBarText_zh_rCN} footerTexts={FooterText_zh_rCN}>
+    <Layout navBarTexts={NavBarText_zh_CN} footerTexts={FooterText_zh_CN}>
       <VoteDetailLayout voteDetails={voteDetails} error={error} />
     </Layout>
   );

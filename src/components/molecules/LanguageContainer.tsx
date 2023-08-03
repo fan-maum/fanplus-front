@@ -1,12 +1,6 @@
 import Language from '../atoms/Language';
-import { useRouter } from 'next/router';
 
 const LanguageContainer = ({ isVotePage }: { isVotePage: boolean }) => {
-  const router = useRouter();
-  const pageType = ['', 'votes', 'community', 'business', 'faq'];
-  const pageLength = router.pathname.split('/').length;
-  const page = router.pathname.split('/')[pageLength - 1];
-  const link = pageType.includes(page) ? page : '';
   return (
     <div
       css={{
@@ -28,14 +22,14 @@ const LanguageContainer = ({ isVotePage }: { isVotePage: boolean }) => {
         },
       }}
     >
-      <Language language="한국어" href={`/${link}`} />
-      <Language language="English" href={`/en/${link}`} />
-      <Language language="Español" href={`/es/${link}`} />
-      <Language language="日本語" href={`/ja/${link}`} />
-      <Language language="中文 (简体)" href={`/zh-rCN/${link}`} />
-      <Language language="中文 (繁體)" href={`/zh-rTW/${link}`} />
-      <Language language="Bahasa Indonesia" href={`/in/${link}`} />
-      <Language language="Tiếng việt" href={`/vi/${link}`} />
+      <Language language="한국어" langCookie="ko" />
+      <Language language="English" langCookie="en" />
+      <Language language="Español" langCookie="es" />
+      <Language language="日本語" langCookie="ja" />
+      <Language language="中文 (简体)" langCookie="zh-CN" />
+      <Language language="中文 (繁體)" langCookie="zh-TW" />
+      <Language language="Bahasa Indonesia" langCookie="in" />
+      <Language language="Tiếng việt" langCookie="vi" />
     </div>
   );
 };

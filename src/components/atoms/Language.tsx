@@ -1,11 +1,16 @@
+import { LangCookie, setLangCookie } from '@/utils/setLangCookie';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type PropType = {
   language: string;
-  href: string;
+  langCookie: LangCookie;
 };
 
-const Language = ({ language, href }: PropType) => {
+const Language = ({ language, langCookie }: PropType) => {
+  const path = useRouter().asPath.split('/');
+  path[1] = langCookie;
+  const href = path.join('/');
   return (
     <div
       css={{
@@ -30,12 +35,12 @@ const Language = ({ language, href }: PropType) => {
           width: '100%',
           textDecoration: 'none',
           color: 'rgb(148,148,148)',
-          // margin: '3px',
           padding: '5px',
           paddingRight: '20px',
           lineHeight: '32px',
           ':hover': { color: '#ff5656' },
         }}
+        onClick={() => setLangCookie(langCookie)}
       >
         {language}
       </Link>
