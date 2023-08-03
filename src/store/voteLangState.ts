@@ -46,7 +46,7 @@ export const shareModalState = atomFamily({
     if (id === 'in') return ShareModal_Text_in;
     if (id === 'ja') return ShareModal_Text_ja;
     if (id === 'vi') return ShareModal_Text_vi;
-    if (id === 'zh-rCN') return ShareModal_Text_zh;
-    if (id === 'zh-rTW') return ShareModal_Text_zhtw;
+    if (id === 'zh-CN') return ShareModal_Text_zh;
+    if (id === 'zh-TW') return ShareModal_Text_zhtw;
   },
 });
