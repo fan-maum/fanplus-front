@@ -1,6 +1,15 @@
-function IconFanPlus() {
+import { Interpolation, Theme } from '@emotion/react';
+
+function IconFanPlus({ iconCss }: { iconCss?: Interpolation<Theme> }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 26 26">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="26"
+      height="26"
+      fill="none"
+      viewBox="0 0 26 26"
+      css={iconCss}
+    >
       <g filter="url(#filter0_b_1146_12161)">
         <path
           fill="#FBB"
