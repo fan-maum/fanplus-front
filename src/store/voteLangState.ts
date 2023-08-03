@@ -8,8 +8,9 @@ import { Votes_Text_vi, VoteDetail_Text_vi, ShareModal_Text_vi } from '@/texts/v
 import { Votes_Text_zh, VoteDetail_Text_zh, ShareModal_Text_zh } from '@/texts/zh-CN';
 import { Votes_Text_zhtw, VoteDetail_Text_zhtw, ShareModal_Text_zhtw } from '@/texts/zh-TW';
 
+const randomNumber = Math.floor(Math.random() * 100);
 export const voteLangState = atomFamily({
-  key: 'voteLangState',
+  key: `voteLangState/${randomNumber}`,
   default: (id: string) => {
     if (id === 'ko') return Votes_Text_ko;
     if (id === 'en') return Votes_Text_en;
@@ -23,7 +24,7 @@ export const voteLangState = atomFamily({
 });
 
 export const voteDetailLangState = atomFamily({
-  key: 'voteDetailLangState',
+  key: `voteDetailLangState/${randomNumber}`,
   default: (id: string) => {
     if (id === 'ko') return VoteDetail_Text_ko;
     if (id === 'en') return VoteDetail_Text_en;
@@ -37,9 +38,9 @@ export const voteDetailLangState = atomFamily({
 });
 
 export const shareModalState = atomFamily({
-  key: 'shareModalState',
+  key: `shareModalState/${randomNumber}`,
   default: (id: string) => {
-    if (id === 'ko' || id === 'voteDetail') return ShareModal_Text_ko;
+    if (id === 'ko') return ShareModal_Text_ko;
     if (id === 'en') return ShareModal_Text_en;
     if (id === 'es') return ShareModal_Text_es;
     if (id === 'in') return ShareModal_Text_in;
