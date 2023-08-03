@@ -19,7 +19,13 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
     },
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
   );
-  console.log(result.data);
+  if (result.data.RESULTS.MSG === 'success') {
+    res.setHeader(`Set-Cookie`, `logined=yes; Path=/; HttpOnly`);
+    res.setHeader(
+      'Set-Cookie',
+      `onboarded=${result.data.RESULTS.DATAS.ONBOARDING_FIN_YN}; Path=/; HttpOnly`
+    );
+  }
 
   // console.log(authorizationCode);
   // console.log(nextUrl);
