@@ -5,34 +5,34 @@ import { Votes_Text_es, VoteDetail_Text_es, ShareModal_Text_es } from '@/texts/e
 import { Votes_Text_in, VoteDetail_Text_in, ShareModal_Text_in } from '@/texts/in';
 import { Votes_Text_ja, VoteDetail_Text_ja, ShareModal_Text_ja } from '@/texts/ja';
 import { Votes_Text_vi, VoteDetail_Text_vi, ShareModal_Text_vi } from '@/texts/vi';
-import { Votes_Text_zh, VoteDetail_Text_zh, ShareModal_Text_zh } from '@/texts/zh-rCN';
-import { Votes_Text_zhtw, VoteDetail_Text_zhtw, ShareModal_Text_zhtw } from '@/texts/zh-rTW';
+import { Votes_Text_zh, VoteDetail_Text_zh, ShareModal_Text_zh } from '@/texts/zh-CN';
+import { Votes_Text_zhtw, VoteDetail_Text_zhtw, ShareModal_Text_zhtw } from '@/texts/zh-TW';
 
 export const voteLangState = atomFamily({
   key: 'voteLangState',
   default: (id: string) => {
-    if (id === 'ko' || id === 'votes') return Votes_Text_ko;
+    if (id === 'ko') return Votes_Text_ko;
     if (id === 'en') return Votes_Text_en;
     if (id === 'es') return Votes_Text_es;
     if (id === 'in') return Votes_Text_in;
     if (id === 'ja') return Votes_Text_ja;
     if (id === 'vi') return Votes_Text_vi;
-    if (id === 'zh-rCN') return Votes_Text_zh;
-    if (id === 'zh-rTW') return Votes_Text_zhtw;
+    if (id === 'zh-CN') return Votes_Text_zh;
+    if (id === 'zh-TW') return Votes_Text_zhtw;
   },
 });
 
 export const voteDetailLangState = atomFamily({
   key: 'voteDetailLangState',
   default: (id: string) => {
-    if (id === 'ko' || id === 'voteDetail') return VoteDetail_Text_ko;
+    if (id === 'ko') return VoteDetail_Text_ko;
     if (id === 'en') return VoteDetail_Text_en;
     if (id === 'es') return VoteDetail_Text_es;
     if (id === 'in') return VoteDetail_Text_in;
     if (id === 'ja') return VoteDetail_Text_ja;
     if (id === 'vi') return VoteDetail_Text_vi;
-    if (id === 'zh-rCN') return VoteDetail_Text_zh;
-    if (id === 'zh-rTW') return VoteDetail_Text_zhtw;
+    if (id === 'zh-CN') return VoteDetail_Text_zh;
+    if (id === 'zh-TW') return VoteDetail_Text_zhtw;
   },
 });
 

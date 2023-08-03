@@ -6,7 +6,7 @@ import {
   FAQPageTextType,
 } from '@/types/textTypes';
 
-export const NavBarText_zh_rCN: NavBarTextType = {
+export const NavBarText_zh_CN: NavBarTextType = {
   vote: '投票',
   community: 'Community',
   aboutUs: '服务介绍',
@@ -14,14 +14,14 @@ export const NavBarText_zh_rCN: NavBarTextType = {
   business: '商务咨询',
   language: '中文(简体)',
   link: {
-    vote: '/zh-rCN/votes',
-    community: '/zh-rCN/community',
-    aboutUs: '/zh-rCN',
-    business: '/zh-rCN/business',
-    faq: '/zh-rCN/faq',
+    vote: '/zh-CN/votes',
+    community: '/zh-CN/community',
+    aboutUs: '/zh-CN',
+    business: '/zh-CN/business',
+    faq: '/zh-CN/faq',
   },
 };
-export const FooterText_zh_rCN: FooterTextType = {
+export const FooterText_zh_CN: FooterTextType = {
   customerService: '客户服务中心',
   emailButton: '咨询',
   termsOfService: 'Terms of service',
@@ -31,7 +31,7 @@ export const FooterText_zh_rCN: FooterTextType = {
   introduction: '10F 17-6, Yeoksam-ro 3-gil, Gangnam-gu, Seoul, Korea',
   copyright: 'Copyright © FanPlus. All Rights Reserved.',
 };
-export const MainPageText_zh_rCN: MainPageTextType = {
+export const MainPageText_zh_CN: MainPageTextType = {
   Area1: {
     line1: '在追星的快乐中,',
     line2: '加上Fanplus',
@@ -100,7 +100,7 @@ export const MainPageText_zh_rCN: MainPageTextType = {
     img2: '/images/서비스소개_04_채팅_zh-cn.png',
   },
 };
-export const BusinessText_zh_rCN: BusinessPageTextType = {
+export const BusinessText_zh_CN: BusinessPageTextType = {
   title: '随时欢迎您咨询业务合作。',
   content:
     '希望与Fanplus商务合作的个人/公司请先填写您的提案内容, 审核后将与您联系。 该提案仅用于内容审核。',
@@ -112,7 +112,7 @@ export const BusinessText_zh_rCN: BusinessPageTextType = {
     button: '咨询',
   },
 };
-export const FAQText_zh_rCN: FAQPageTextType = {
+export const FAQText_zh_CN: FAQPageTextType = {
   header: '您需要什么帮助？',
   navBar: {
     all: '全部',

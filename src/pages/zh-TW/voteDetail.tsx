@@ -1,7 +1,7 @@
 import { InferGetServerSidePropsType } from 'next';
 import Layout from '@/components/organisms/Layout';
 import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
-import { FooterText_zh_rCN, NavBarText_zh_rCN } from '@/texts/zh-rCN';
+import { FooterText_zh_TW, NavBarText_zh_TW } from '@/texts/zh-TW';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 import nookies from 'nookies';
 
@@ -9,7 +9,7 @@ const VoteDetail = ({ voteDetails, headers, authCookie, error }: EventProps) => 
   const isWebView = !!headers.token || !!authCookie;
 
   return (
-    <Layout navBarTexts={NavBarText_zh_rCN} footerTexts={FooterText_zh_rCN}>
+    <Layout navBarTexts={NavBarText_zh_TW} footerTexts={FooterText_zh_TW}>
       <VoteDetailLayout
         voteDetails={voteDetails}
         headers={headers}
@@ -28,7 +28,7 @@ export const getServerSideProps = async (context: any) => {
   const authCookie = cookies['mk_cid'];
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/voteDetail?vote_IDX=${vote_IDX}&lang=zh`
+    `${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/voteDetail?vote_IDX=${vote_IDX}&lang=zhtw`
   );
   const error = res.ok ? false : res.status;
 
