@@ -16,7 +16,7 @@ type LoginButtonProps = {
 
 const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon }) => {
   const router = useRouter();
-  const nextUrl = 'https://fanplus-front-git-fanmaum-front.vercel.app' + router.pathname;
+  const nextPath = router.pathname;
   const queries =
     Object.keys(router.query).length !== 0 ? '?' + querystring.stringify(router.query, ';') : '';
   return (
@@ -40,7 +40,7 @@ const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon }) => {
           transition: '0.4s ease-out',
         },
       }}
-      onClick={() => onClickLogin(nextUrl + queries, site)}
+      onClick={() => onClickLogin(nextPath + queries, site)}
     >
       {icon}
       {texts}
