@@ -1,12 +1,16 @@
 import { MainPageTextType } from '@/types/textTypes';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { css } from '@emotion/react';
 import AppLink from '../molecules/AppLink';
 import Carousel from '../organisms/Carousel';
 import IconPlayStore from '../atoms/IconPlayStore';
 import IconAppStore from '../atoms/IconAppStore';
+import { LoginModalContext, SignUpModalContext } from '../organisms/Layout';
+import { LoginModalContextType, SignUpModalContextType } from '@/types/contextTypes';
 
 const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
+  const { setIsLoginModalOpen } = useContext(LoginModalContext) as LoginModalContextType;
+  const { setIsSignUpModalOpen } = useContext(SignUpModalContext) as SignUpModalContextType;
   const area1 = texts.Area1;
   const area2 = texts.Area2;
   const area3 = texts.Area3;
@@ -231,6 +235,14 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
+      <button
+        onClick={() => {
+          setIsLoginModalOpen(true);
+        }}
+      >
+        로그인~~₩
+      </button>
+      <button onClick={() => setIsSignUpModalOpen(true)}>회원가입~~₩</button>
     </div>
   );
 };

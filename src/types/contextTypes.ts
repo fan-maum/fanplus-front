@@ -4,3 +4,13 @@ export type SideBarContextType = {
   isSideBarOpen: boolean;
   setIsSideBarOpen: Dispatch<SetStateAction<boolean>>;
 };
+
+export type LoginModalContextType = {
+  isLoginModalOpen: boolean;
+  setIsLoginModalOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+export type SignUpModalContextType = {
+  isSignUpModalOpen: boolean;
+  setIsSignUpModalOpen: Dispatch<SetStateAction<boolean>>;
+};
