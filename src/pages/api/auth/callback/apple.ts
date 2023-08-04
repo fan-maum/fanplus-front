@@ -5,6 +5,7 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   console.log(req);
   const authorizationCode = req.body;
   // console.log(authorizationCode);
+  const callbackURL = req.body.state;
   console.log('body: ', req.body);
   // const nextUrl = (req.query.state as string).replaceAll(';', '&');
 
@@ -32,7 +33,7 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   //   );
   // }
   // res.redirect(nextUrl);
-  res.redirect('https://fanplus-front-git-fanmaum-front.vercel.app');
+  res.redirect('https://google.com');
 };
 
 export default appleLoginHandler;
