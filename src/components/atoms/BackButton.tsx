@@ -10,7 +10,7 @@ function BackButton({ ...props }: Props) {
       <Image
         fill
         css={{ verticalAlign: 'middle' }}
-        src="/icons/icon_share.svg"
+        src="/icons/icon_back.svg"
         alt="icon_backArrow"
       />
     </UnstyledButton>
