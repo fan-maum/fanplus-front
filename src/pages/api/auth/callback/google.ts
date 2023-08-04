@@ -1,22 +1,9 @@
 import { NextApiHandler } from 'next';
 import axios from 'axios';
 
-export type availLang = 'ko' | 'en' | 'es' | 'in' | 'ja' | 'vi' | 'zh-CN' | 'zh-TW';
-
 const googleLoginHandler: NextApiHandler = async (req, res) => {
   const authorizationCode = req.query.code;
   const nextUrl = (req.query.state as string).replaceAll(';', '&');
-  const langTranslate = {
-    ko: 'ko',
-    en: 'en',
-    es: 'es',
-    in: 'id',
-    ja: 'ja',
-    vi: 'vi',
-    'zh-CN': 'zh',
-    'zh-TW': 'zhtw',
-  };
-  const user_lang = langTranslate[nextUrl.split('/')[3] as availLang] || 'en';
 
   const response = await axios.post(
     `https://oauth2.googleapis.com/token`,
@@ -38,7 +25,7 @@ const googleLoginHandler: NextApiHandler = async (req, res) => {
       platform: 'web',
       id_token: id_token,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      user_lang: user_lang,
+      user_lang: 'ko',
     },
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
   );
