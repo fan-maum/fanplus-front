@@ -1,9 +1,10 @@
-import { Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
+import { Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react';
 import { SignUpModalContext } from '../organisms/Layout';
 import { SignUpModalContextType } from '@/types/contextTypes';
 import IconFanPlus from '../atoms/IconFanPlus';
 import IconBack from '../atoms/IconBack';
 import IconCheckButton from '../atoms/IconCheckButton';
+import axios from 'axios';
 
 const LoginModal = () => {
   const { setIsSignUpModalOpen } = useContext(SignUpModalContext) as SignUpModalContextType;
@@ -11,12 +12,36 @@ const LoginModal = () => {
   const [check2, setCheck2] = useState(false);
   const [check3, setCheck3] = useState(false);
   const [check4, setCheck4] = useState(false);
+  const [start, setStart] = useState(false);
+
+  const handleClickStart = () => {
+    if (check1 && check2 && check3 && check4) setStart(true);
+  };
+  const handleClickApproveAllStart = () => {
+    setCheck1(true);
+    setCheck2(true);
+    setCheck3(true);
+    setCheck4(true);
+    setTimeout(() => setStart(true), 500);
+  };
+  useEffect(() => {
+    async function update() {
+      // TODO: url 뒤에 useridentity 값. (로그인 이후 서버에서 준 값.. 쿠키로 관리할 것 같습니다.) (소진님께 재확인 필요)
+      // await axios.put(`https://napi.appphotocard.com/v1/users/${999999999999}`, {
+      //   identity: '여기도 useridentity',
+      //   target: 'onboarding_finished_yn',
+      //   value: 'Y',
+      // });
+      setIsSignUpModalOpen(false);
+    }
+    if (start === true) update();
+  }, [start]);
 
   return (
     <div
       css={{
         position: 'fixed',
-        zIndex: '20000',
+        zIndex: '19999',
         width: '100%',
         height: '100%',
         top: '85px',
@@ -34,6 +59,7 @@ const LoginModal = () => {
         '@media(max-width:768px)': {
           top: '0px',
           height: '120%',
+          zIndex: '20000',
           justifyContent: 'flex-start',
           paddingBottom: '0px',
           borderTop: '0px',
@@ -133,16 +159,17 @@ const LoginModal = () => {
               css={{
                 width: '100px',
                 height: '60px',
-                border: '1px solid #abafb7',
+                border: check1 && check2 && check3 && check4 ? '0px' : '1px solid #abafb7',
                 borderRadius: '30px',
-                backgroundColor: '#fff',
+                backgroundColor: check1 && check2 && check3 && check4 ? '#ff5656' : '#fff',
+                color: check1 && check2 && check3 && check4 ? '#fff' : '#abafb7',
                 marginRight: '10px',
-                color: '#abafb7',
+                transition: '0.4s ease-out',
                 ':hover': {
-                  backgroundColor: check1 && check2 && check3 && check4 ? '#d9d9d9' : '#fff',
-                  transition: '0.4s ease-out',
+                  backgroundColor: check1 && check2 && check3 && check4 ? '#e64d4d' : '#fff',
                 },
               }}
+              onClick={handleClickStart}
             >
               시작
             </button>
@@ -159,6 +186,7 @@ const LoginModal = () => {
                   transition: '0.4s ease-out',
                 },
               }}
+              onClick={handleClickApproveAllStart}
             >
               모두 동의하고 시작
             </button>

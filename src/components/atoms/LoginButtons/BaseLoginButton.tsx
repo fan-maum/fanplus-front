@@ -1,15 +1,10 @@
 import { useRouter } from 'next/router';
 import { FC, ReactNode } from 'react';
-import axios from 'axios';
 import querystring from 'querystring';
 import { Interpolation, Theme } from '@emotion/react';
 
 const onClickLogin = async (nextUrl: string, site: string) => {
-  window.location.href = (
-    await axios.post(`https://fanplus-front-git-fanmaum-front.vercel.app/api/auth/login/${site}`, {
-      data: nextUrl,
-    })
-  ).data;
+  window.location.href = `/api/auth/login/${site}?nextUrl=${nextUrl}`;
 };
 
 type LoginButtonProps = {
@@ -21,7 +16,7 @@ type LoginButtonProps = {
 
 const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon }) => {
   const router = useRouter();
-  const nextUrl = 'https://fanplus-front-git-fanmaum-front.vercel.app' + router.pathname;
+  const nextUrl = process.env.NEXT_PUBLIC_DEV_BASE_PATH + router.pathname;
   const queries =
     Object.keys(router.query).length !== 0 ? '?' + querystring.stringify(router.query, ';') : '';
   return (

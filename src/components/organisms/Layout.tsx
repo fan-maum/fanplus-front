@@ -30,8 +30,8 @@ const Layout: React.FC<{
       <LoginModalContext.Provider value={{ isLoginModalOpen, setIsLoginModalOpen }}>
         <SignUpModalContext.Provider value={{ isSignUpModalOpen, setIsSignUpModalOpen }}>
           {isSideBarOpen && <SideBar texts={navBarTexts} />}
-          {isLoginModalOpen && <LoginModal />}
           {isSignUpModalOpen && <SignUpModal />}
+          {isLoginModalOpen && <LoginModal />}
           <NavBar texts={navBarTexts} />
           {children}
           <Footer texts={footerTexts} />

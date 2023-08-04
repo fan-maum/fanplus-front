@@ -12,7 +12,7 @@ const LoginModal = () => {
     <div
       css={{
         position: 'fixed',
-        zIndex: '20000',
+        zIndex: '19999',
         width: '100%',
         height: '100%',
         top: '85px',
@@ -30,6 +30,7 @@ const LoginModal = () => {
         '@media(max-width:768px)': {
           top: '0px',
           height: '120%',
+          zIndex: '20000',
           justifyContent: 'flex-start',
           paddingBottom: '0px',
           borderTop: '0px',
