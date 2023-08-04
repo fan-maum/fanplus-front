@@ -29,7 +29,7 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   //   );
   // }
   // res.redirect(nextUrl);
-  res.redirect('/');
+  res.redirect('https://fanplus-front-git-fanmaum-front.vercel.app');
 };
 
 export default appleLoginHandler;
