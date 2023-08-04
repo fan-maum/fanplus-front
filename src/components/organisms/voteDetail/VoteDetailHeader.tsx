@@ -57,8 +57,19 @@ function VoteDetailHeader({ voteTitle, confirmModalOpened, ...props }: VoteDetai
         spacing={0}
       >
         <Center css={{ gap: 4 }}>
-          <UnstyledButton onClick={() => router.back()}>
-            <Image width={24} height={24} src="/icons/icon_back.png" alt="icon_back" />
+          <UnstyledButton
+            w={24}
+            h={24}
+            css={{ position: 'relative' }}
+            {...props}
+            onClick={() => router.back()}
+          >
+            <Image
+              fill
+              css={{ verticalAlign: 'middle' }}
+              src="/icons/icon_back.svg"
+              alt="icon_back"
+            />
           </UnstyledButton>
           <span css={{ fontSize: 22, fontWeight: 600 }}>{voteDetailLanguage?.vote}</span>
         </Center>
