@@ -33,7 +33,7 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   //   );
   // }
   // res.redirect(nextUrl);
-  res.redirect('https://google.com');
+  res.redirect(302, 'https://google.com');
 };
 
 export default appleLoginHandler;
