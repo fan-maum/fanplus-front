@@ -5,10 +5,10 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   const authorizationCode = req.body.code;
   const nextUrl = req.body.state;
 
-  let user_lang = nextUrl.split('/')[3];
-  if (user_lang === 'in') user_lang = 'id';
-  else if (user_lang === 'zh-CN') user_lang = 'zh';
-  else if (user_lang === 'zh-TW') user_lang = 'zhtw';
+  // let user_lang = nextUrl.split('/')[3];
+  // if (user_lang === 'in') user_lang = 'id';
+  // else if (user_lang === 'zh-CN') user_lang = 'zh';
+  // else if (user_lang === 'zh-TW') user_lang = 'zhtw';
 
   const result = await axios.post(
     'https://napi.appphotocard.com/voteWeb/auth/apple',
@@ -16,7 +16,7 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
       platform: 'web',
       code: authorizationCode,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      user_lang: user_lang,
+      user_lang: 'ko',
     },
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
   );
