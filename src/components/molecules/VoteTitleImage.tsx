@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export interface VoteTitleImageProps {
   remainTimeState: boolean;
@@ -36,7 +37,8 @@ export default function VoteTitleImage({ remainTimeState, voteDataImage }: VoteT
           },
         ]}
       >
-        <img
+        <Image
+          fill
           src={voteDataImage}
           alt="vote_thumbnail"
           css={{

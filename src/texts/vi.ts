@@ -151,21 +151,61 @@ export const Votes_Text_vi = {
   },
   winner: '1st',
   daysAgo: 'Ngày trước',
+  hoursAgo: 'Giờ trước',
+  minutesAgo: 'Phút trước',
 };
 
 export const VoteDetail_Text_vi = {
   vote: 'Bỏ phiếu',
   voting: 'Bỏ phiếu',
-  voteDifference : {
+  voteDifference: {
     front: null,
-    back: 'phiếu chênh lệch'
+    back: 'phiếu chênh lệch',
   },
   seeMore: 'Hiển thị chi tiết',
   currentVote: 'phiếu',
   prizeTitle: {
-    detail: 'Nội dung chi tiết', 
+    detail: 'Nội dung chi tiết',
     first: 'Xem đặc quyền hạng 1',
     second: 'Giải thưởng người chiến thắng thứ hai',
     third: 'Giải thưởng người chiến thắng thứ 3',
-  }
+  },
+};
+
+export const ShareModal_Text_vi = {
+  shareModalTitle: 'Chia sẻ',
+  shareModalClose: 'Đóng',
+  twitter: 'Twitter',
+  urlShare: 'Sao chép UR',
+  otherAppShare: 'Chia sẻ với các ứng dụng khác',
+  urlCopied: 'Đã sao chép URL',
+  check: 'Xác nhận',
+  shareTitleText: {
+    standard: {
+      front: 'as of',
+      back: '',
+    },
+    title0: 'Current Ranking',
+    title1: 'Current Ranking',
+    title2: 'Current Ranking',
+  },
+  shareMiddleText: {
+    first: '1st',
+    second: '2nd',
+    voteDiffFront: 'Winning by',
+    voteDiffBack: 'votes',
+    current: 'is currently',
+    place: '. place',
+    lessThan: 'less than',
+    moreThan: 'more than',
+    voteDiff: '',
+    with: '',
+    middlePageFront: 'Participate in #FanPlus vote\nand give your bias AD rewards! 🎁🎈',
+    middlePageBack: 'Currently winning : ❓❔',
+  },
+  shareEndText: {
+    endFront: 'Vote',
+    endBack: 'on #FanPlus right now! ✊🏻✊🏻',
+    endPage: '🔻Check the current ranking🔻',
+  },
 };

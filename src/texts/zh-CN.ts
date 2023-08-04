@@ -151,21 +151,61 @@ export const Votes_Text_zh = {
   },
   winner: '1位',
   daysAgo: '日 前',
+  hoursAgo: '小时 前',
+  minutesAgo: '分钟 前',
 };
 
 export const VoteDetail_Text_zh = {
   vote: '投票',
   voting: '投票',
-  voteDifference : {
+  voteDifference: {
     front: null,
-    back: '票差距!'
+    back: '票差距!',
   },
   seeMore: '查看详情',
   currentVote: '票',
   prizeTitle: {
-    detail: '详细内容', 
+    detail: '详细内容',
     first: '查看第1名奖励',
     second: '查看第2名奖励',
     third: '查看第3名奖励',
-  }
+  },
+};
+
+export const ShareModal_Text_zh = {
+  shareModalTitle: '分享',
+  shareModalClose: '关闭',
+  twitter: 'Twitter',
+  urlShare: '复制URL',
+  otherAppShare: '共享到其他应用',
+  urlCopied: 'URL已复制',
+  check: '确认',
+  shareTitleText: {
+    standard: {
+      front: '',
+      back: '基准',
+    },
+    title0: '现在排名⁉',
+    title1: '排名是⁉',
+    title2: '排名是⁉',
+  },
+  shareMiddleText: {
+    first: '1位',
+    second: '2位',
+    voteDiffFront: '仅',
+    voteDiffBack: '票差',
+    current: '现在是第',
+    place: '位',
+    lessThan: '',
+    moreThan: '',
+    voteDiff: '与第',
+    with: '',
+    middlePageFront: '参加 #FanPlus 投票\n给最爱的偶像送上特别的礼物 🎁🎈',
+    middlePageBack: '现在第1位 : ❓❔',
+  },
+  shareEndText: {
+    endFront: '现在即刻 #在FanPlus上给',
+    endBack: '投票吧 ✊🏻✊🏻',
+    endPage: '🔻查看实时排名🔻',
+  },
 };

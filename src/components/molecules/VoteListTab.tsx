@@ -36,6 +36,7 @@ const VoteTab = ({
       <div
         css={[
           {
+            width: '90%',
             background: '#fff',
             position: 'sticky',
             top: '85px',

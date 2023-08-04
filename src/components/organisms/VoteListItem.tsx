@@ -52,7 +52,7 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
             pathname: `/${language}/voteDetail`,
             query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage },
           }}
-          target="_blank"
+          // target="_blank"
         >
           <VoteTitleImage remainTimeState={remainTimeState} voteDataImage={voteData.TITLE_IMG} />
         </Link>

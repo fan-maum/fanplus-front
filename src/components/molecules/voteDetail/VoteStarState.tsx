@@ -23,7 +23,7 @@ function VoteStarState({ starData, ...props }: VoteStarStateProps) {
   const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   return (
-    <Group spacing={16} align={'center'}>
+    <Group spacing={16} align={'center'} style={{ flexWrap: 'nowrap' }}>
       {Top3 ? (
         <Image
           width={50}
@@ -62,8 +62,8 @@ function VoteStarState({ starData, ...props }: VoteStarStateProps) {
           imageProps={{
             style: { borderRadius: '10px' },
           }}
-          w={45}
-          h={60}
+          w={60}
+          h={78}
           radius={10}
           color="secondary.500"
           src={starData.PROFILE_IMG}
@@ -71,7 +71,10 @@ function VoteStarState({ starData, ...props }: VoteStarStateProps) {
         />
       </div>
       <Stack spacing={4} fw={600} fz={17}>
-        <div css={{ color: '#101010' }}>{starData.STAR_NAME}</div>
+        <div css={{ color: '#101010' }}>
+          {starData.STAR_GROUP_IDX !== '0' && <>{starData.STAR_GROUP_NAME} </>}
+          <span style={{ wordBreak: 'keep-all' }}>{starData.STAR_NAME}</span>
+        </div>
         <div
           css={{
             fontSize: 18,

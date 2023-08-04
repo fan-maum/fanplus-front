@@ -6,19 +6,38 @@ import VoteStarState from '@/components/molecules/voteDetail/VoteStarState';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
+import { useEffect, useRef } from 'react';
 
 export interface VoteDetailListProps {
   voteDetailStars: VoteDetailStars[];
+  shareOnClick: (id: string) => void;
+  voteOnClick: (id: string) => void;
+  scrollTargetId?: string;
+  isRenderComplete: boolean;
 }
 
 function VoteDetailList({
   voteDetailStars,
-  //   shareOnClick: (id: number, gender: Gender) => void;
-  //   voteOnClick: (id: number, gender: Gender) => void;
+  shareOnClick,
+  voteOnClick,
+  scrollTargetId,
+  isRenderComplete,
   ...props
 }: VoteDetailListProps) {
   const language = GetLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (itemRef.current && isRenderComplete) {
+      window.scroll({
+        top: itemRef.current.offsetTop - 300,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [itemRef, voteDetailStars, isRenderComplete]);
+
   return (
     <>
       <Stack h={60} fz={22} fw={600} color="#000" pl={16} justify="center">
@@ -31,12 +50,11 @@ function VoteDetailList({
               <VoteDetailListItem
                 starData={item}
                 starState={<VoteStarState starData={item} />}
-                // clickEvent={
-                //   {
-                //     shareOnClick: () => shareOnClick(item.VOTE_IDX),
-                //     voteOnClick: () => voteOnClick(item.VOTE_IDX),
-                //   }
-                // }
+                clickEvent={{
+                  shareOnClick: () => shareOnClick(item.STAR_IDX),
+                  voteOnClick: () => voteOnClick(item.STAR_IDX),
+                }}
+                targetRef={item.STAR_IDX === scrollTargetId ? itemRef : undefined}
               />
             </div>
           );
