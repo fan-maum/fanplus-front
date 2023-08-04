@@ -1,17 +1,15 @@
 import ShareButton from '@/components/atoms/ShareButton';
 import { Group } from '@/components/atoms/Group';
-import { UnstyledButton } from '@/components/atoms/UnstyledButton';
 import { Center } from '@/components/atoms/Center';
-import { useRouter } from 'next/router';
 import { isMobile } from 'react-device-detect';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { GetLanguage } from '@/hooks/useLanguage';
-import Image from 'next/image';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useCopiedText } from '@/hooks/useCopyText';
 import { useEndText, useMiddleText, useTitleText } from '@/store/shareContent';
 import BackButton from '@/components/atoms/BackButton';
+import { useRouter } from 'next/router';
 
 export interface VoteDetailHeaderProps {
   voteTitle: string;
@@ -58,7 +56,7 @@ function VoteDetailHeader({ voteTitle, confirmModalOpened, ...props }: VoteDetai
         spacing={0}
       >
         <Center css={{ gap: 4 }}>
-          <BackButton />
+          <BackButton onClick={() => router.back()} />
           <span css={{ fontSize: 22, fontWeight: 600 }}>{voteDetailLanguage?.vote}</span>
         </Center>
         <CopyToClipboard text={copyText}>
