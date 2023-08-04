@@ -1,13 +1,22 @@
 import { NextApiHandler } from 'next';
 import axios from 'axios';
 
+export type availLang = 'ko' | 'en' | 'es' | 'in' | 'ja' | 'vi' | 'zh-CN' | 'zh-TW';
+
 const googleLoginHandler: NextApiHandler = async (req, res) => {
   const authorizationCode = req.query.code;
   const nextUrl = (req.query.state as string).replaceAll(';', '&');
-  let user_lang = nextUrl.split('/')[3];
-  if (user_lang === 'in') user_lang = 'id';
-  else if (user_lang === 'zh-CN') user_lang = 'zh';
-  else if (user_lang === 'zh-TW') user_lang = 'zhtw';
+  const langTranslate = {
+    ko: 'ko',
+    en: 'en',
+    es: 'es',
+    in: 'id',
+    ja: 'ja',
+    vi: 'vi',
+    'zh-CN': 'zh',
+    'zh-TW': 'zhtw',
+  };
+  const user_lang = langTranslate[nextUrl.split('/')[3] as availLang] || 'en';
 
   const response = await axios.post(
     `https://oauth2.googleapis.com/token`,
