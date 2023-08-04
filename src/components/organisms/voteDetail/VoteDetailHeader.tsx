@@ -67,8 +67,8 @@ function VoteDetailHeader({ voteTitle, confirmModalOpened, ...props }: VoteDetai
             <Image
               fill
               css={{ verticalAlign: 'middle' }}
-              src="/icons/icon_back.svg"
-              alt="icon_back"
+              src="/icons/icon_backArrow.svg"
+              alt="icon_backArrow"
             />
           </UnstyledButton>
           <span css={{ fontSize: 22, fontWeight: 600 }}>{voteDetailLanguage?.vote}</span>
