@@ -70,10 +70,16 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
               width: '100%',
               height: '100%',
               lineHeight: '60px',
-              padding: '0 50px',
             }}
           >
-            <Center>
+            <Center
+              css={{
+                padding: '0 50px',
+                '@media(max-width:425px)': {
+                  padding: '0 20px',
+                },
+              }}
+            >
               {voteDetailInfo.LINK_TXT} {voteDetailLanguage?.seeMore}
               <Image width={24} height={24} src="/icons/icon_pinkArrow.svg" alt="arrow" />
             </Center>
