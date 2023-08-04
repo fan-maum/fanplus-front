@@ -21,10 +21,9 @@ export default function RankProfile({
 }: RankProfileProps) {
   return (
     <Stack
-      spacing={6}
       maw={'33.33333%'}
       css={[
-        { 
+        {
           flex: flex || 1,
           alignItems: align || 'center',
           fontSize: fontSize || 14,
@@ -35,7 +34,9 @@ export default function RankProfile({
         getDefaultProps(props),
       ]}
     >
-      {children}
+      <Stack spacing={6} dir="column" align="center">
+        {children}
+      </Stack>
     </Stack>
   );
 }

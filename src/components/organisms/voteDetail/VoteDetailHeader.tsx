@@ -58,7 +58,7 @@ function VoteDetailHeader({ voteTitle, confirmModalOpened, ...props }: VoteDetai
       >
         <Center css={{ gap: 4 }}>
           <UnstyledButton onClick={() => router.back()}>
-            <Image width={24} height={24} src="/icons/icon_back.svg" alt="icon_back" />
+            <Image width={24} height={24} src="/icons/icon_back.png" alt="icon_back" />
           </UnstyledButton>
           <span css={{ fontSize: 22, fontWeight: 600 }}>{voteDetailLanguage?.vote}</span>
         </Center>
