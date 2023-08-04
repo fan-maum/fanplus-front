@@ -2,13 +2,16 @@ import { NextApiHandler } from 'next';
 import axios from 'axios';
 
 const appleLoginHandler: NextApiHandler = async (req, res) => {
-  const authorizationCode = req.query.code;
-  const nextUrl = (req.query.state as string).replaceAll(';', '&');
+  console.log(req);
+  const authorizationCode = req.body;
+  // console.log(authorizationCode);
+  console.log('body: ', req.body);
+  // const nextUrl = (req.query.state as string).replaceAll(';', '&');
 
-  let user_lang = nextUrl.split('/')[3];
-  if (user_lang === 'in') user_lang = 'id';
-  else if (user_lang === 'zh-CN') user_lang = 'zh';
-  else if (user_lang === 'zh-TW') user_lang = 'zhtw';
+  // let user_lang = nextUrl.split('/')[3];
+  // if (user_lang === 'in') user_lang = 'id';
+  // else if (user_lang === 'zh-CN') user_lang = 'zh';
+  // else if (user_lang === 'zh-TW') user_lang = 'zhtw';
 
   // const result = await axios.post(
   //   'https://napi.appphotocard.com/voteWeb/auth/apple',
