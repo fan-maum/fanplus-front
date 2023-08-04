@@ -6,7 +6,7 @@ import IconBack from '../atoms/IconBack';
 import IconCheckButton from '../atoms/IconCheckButton';
 import axios from 'axios';
 
-const LoginModal = () => {
+const SignUpModal = () => {
   const { setIsSignUpModalOpen } = useContext(SignUpModalContext) as SignUpModalContextType;
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
@@ -84,8 +84,7 @@ const LoginModal = () => {
           maxWidth: '506px',
           maxHeight: '560px',
           width: '90%',
-          minHeight: '40%',
-          height: '70%',
+          minHeight: '70%',
           padding: '10px 50px',
           backgroundColor: 'white',
           border: '2px solid #d9d9d9',
@@ -197,7 +196,7 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default SignUpModal;
 
 const CheckList = ({
   checked,
