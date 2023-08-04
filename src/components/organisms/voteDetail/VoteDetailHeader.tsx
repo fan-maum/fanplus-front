@@ -11,6 +11,7 @@ import Image from 'next/image';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useCopiedText } from '@/hooks/useCopyText';
 import { useEndText, useMiddleText, useTitleText } from '@/store/shareContent';
+import BackButton from '@/components/atoms/BackButton';
 
 export interface VoteDetailHeaderProps {
   voteTitle: string;
@@ -57,20 +58,7 @@ function VoteDetailHeader({ voteTitle, confirmModalOpened, ...props }: VoteDetai
         spacing={0}
       >
         <Center css={{ gap: 4 }}>
-          <UnstyledButton
-            w={24}
-            h={24}
-            css={{ position: 'relative' }}
-            {...props}
-            onClick={() => router.back()}
-          >
-            <Image
-              fill
-              css={{ verticalAlign: 'middle' }}
-              src="/icons/icon_backArrow.svg"
-              alt="icon_backArrow"
-            />
-          </UnstyledButton>
+          <BackButton />
           <span css={{ fontSize: 22, fontWeight: 600 }}>{voteDetailLanguage?.vote}</span>
         </Center>
         <CopyToClipboard text={copyText}>
