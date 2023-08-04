@@ -3,7 +3,8 @@ import axios from 'axios';
 
 const appleLoginHandler: NextApiHandler = async (req, res) => {
   const authorizationCode = req.body.code;
-  const nextUrl = encodeURIComponent(req.body.state).replaceAll(';', '&');
+  const callbackUrl = encodeURIComponent(req.body.state);
+  const nextUrl = callbackUrl.replaceAll(';', '&');
 
   let user_lang = nextUrl.split('/')[3];
   if (user_lang === 'in') user_lang = 'id';
