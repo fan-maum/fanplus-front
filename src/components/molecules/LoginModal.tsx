@@ -1,6 +1,6 @@
 import GoogleLoginButton from '../atoms/LoginButtons/GoogleLoginButton';
 import AppleLoginButton from '../atoms/LoginButtons/AppleLoginButton';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { LoginModalContext } from '../organisms/Layout';
 import { LoginModalContextType } from '@/types/contextTypes';
 import IconFanPlus from '../atoms/IconFanPlus';
@@ -8,6 +8,12 @@ import IconArrowLeft from '../atoms/IconArrowLeft';
 
 const LoginModal = () => {
   const { setIsLoginModalOpen } = useContext(LoginModalContext) as LoginModalContextType;
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
   return (
     <div
       css={{
