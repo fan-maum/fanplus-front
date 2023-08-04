@@ -6,10 +6,10 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {}
 
 function BackButton({ ...props }: Props) {
   return (
-    <UnstyledButton w={24} h={24} bg="#F2F4F5" css={{ position: 'relative' }} {...props}>
+    <UnstyledButton w={24} h={24} css={{ position: 'relative' }} {...props}>
       <Image
         fill
-        css={{ verticalAlign: 'middle' }}
+        css={{ padding: 4, verticalAlign: 'middle' }}
         src="/icons/icon_back.svg"
         alt="icon_backArrow"
       />
