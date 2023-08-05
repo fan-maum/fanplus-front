@@ -29,7 +29,7 @@ const Language = ({ language, langCookie }: PropType) => {
         },
       }}
     >
-      <Link
+      <a
         href={href}
         css={{
           width: '100%',
@@ -43,7 +43,7 @@ const Language = ({ language, langCookie }: PropType) => {
         onClick={() => setLangCookie(langCookie)}
       >
         {language}
-      </Link>
+      </a>
     </div>
   );
 };
