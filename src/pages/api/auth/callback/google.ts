@@ -38,7 +38,6 @@ const googleLoginHandler: NextApiHandler = async (req, res) => {
 
   const results = backResponse.data.RESULTS;
   if (results.MSG === 'success') {
-    console.log(results.DATAS.USER_IDENTITY);
     res.setHeader('set-cookie', [
       serialize('user_id', results.DATAS.USER_IDENTITY, { path: '/' }),
       serialize('onboarding', results.DATAS.ONBOARDING_FIN_YN, { path: '/' }),
