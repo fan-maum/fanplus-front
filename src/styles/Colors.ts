@@ -76,6 +76,7 @@ export const colors: Colors = {
     2: 'linear-gradient(360deg, #4E43B3 1.22%, #B1A0F6 44.37%, #F8ADAF 90.05%)',
     3: 'linear-gradient(258.68deg, #4E43B3 10.11%, #B1A0F6 48.6%, #FACBCC 89.57%)',
     4: 'linear-gradient(90deg, #F26F72 6.94%, #8473FF 81.94%)',
+    5: 'linear-gradient(139deg, #FF5656 0%, #EF30BA 100%)',
   },
 };
 
