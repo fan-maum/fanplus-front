@@ -28,7 +28,8 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   //   res.setHeader('Set-Cookie', `onboarding=${results.DATAS.ONBOARDING_FIN_YN}; Path=/; HttpOnly`);
   // }
   res.setHeader('Set-Cookie', `auth_code=${authorizationCode}; Path=/; HttpOnly`);
-  res.redirect(nextUrl);
+  res.setHeader('Set-Cookie', `nextUrl=${nextUrl}; Path=/; HttpOnly`);
+  res.redirect(302, nextUrl);
 };
 
 export default appleLoginHandler;
