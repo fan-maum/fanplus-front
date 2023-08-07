@@ -1,5 +1,7 @@
 import { NextApiHandler } from 'next';
 import axios from 'axios';
+import Negotiator from 'negotiator';
+import { SUPPORT_LANGUAGE } from '@/middleware';
 
 const googleLoginHandler: NextApiHandler = async (req, res) => {
   const authorizationCode = req.query.code;
@@ -16,22 +18,26 @@ const googleLoginHandler: NextApiHandler = async (req, res) => {
     },
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
   );
-  const id_token = googleResponse.data.id_token;
 
+  const id_token = googleResponse.data.id_token;
+  const negotiator = new Negotiator({
+    headers: { 'accept-language': req.headers['accept-language'] },
+  });
+  const user_lang = negotiator.language(SUPPORT_LANGUAGE) || 'en';
   const backResponse = await axios.post(
     'https://napi.appphotocard.com/voteWeb/auth/google',
     {
       platform: 'web',
       id_token: id_token,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      user_lang: 'ko',
+      user_lang: user_lang,
     },
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
   );
 
   const results = backResponse.data.RESULTS;
   if (results.MSG === 'success') {
-    res.setHeader(`Set-Cookie`, `user_id=${results.DATA.USER_IDENTITY}; Path=/; HttpOnly`);
+    res.setHeader(`Set-Cookie`, `user_id=${results.DATAS.USER_IDENTITY}; Path=/; HttpOnly`);
     res.setHeader('Set-Cookie', `onboarding=${results.DATAS.ONBOARDING_FIN_YN}; Path=/; HttpOnly`);
   }
   res.redirect(nextUrl);
