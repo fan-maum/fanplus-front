@@ -5,6 +5,9 @@ import { VoteButton } from '@/components/atoms/VoteButton';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
+import { Cookies } from 'react-cookie';
+
+const cookies = new Cookies();
 
 export interface PromotionRankListItemProps {
   starData: VoteDetailStars;
@@ -12,6 +15,14 @@ export interface PromotionRankListItemProps {
   // clickEvent: { voteOnClick: () => void; shareOnClick: () => void };
   targetRef?: React.RefObject<HTMLDivElement>;
 }
+
+const handleButtonClick = () => {
+  const user_id = cookies.get('user_id');
+  if (!user_id) {
+    window.location.href = `/login/?nextUrl=${window.location.href}`;
+  }
+  // * vote 로직..
+};
 
 function VoteDetailListItem({
   starData,
@@ -32,11 +43,7 @@ function VoteDetailListItem({
           // disabled={props.promoData.data.votes === null}
           // onClick={clickEvent.shareOnClick}
           />
-          <VoteButton
-          // onClick={clickEvent.voteOnClick}
-          >
-            {voteDetailLanguage?.voting}
-          </VoteButton>
+          <VoteButton onClick={handleButtonClick}>{voteDetailLanguage?.voting}</VoteButton>
         </Group>
       </Stack>
     </div>

@@ -29,13 +29,14 @@ const SignUpTemplate = ({ texts }: { texts: SignUpPageTextType }) => {
   useEffect(() => {
     async function update() {
       const user_id = cookies.get('user_id');
+      const user_idx = cookies.get('user_idx');
       // TODO: url 뒤에 useridentity 값. (로그인 이후 서버에서 준 값.. 쿠키로 관리할 것 같습니다.) (소진님께 재확인 필요)
-      // await axios.put(`https://napi.appphotocard.com/v1/users/${user_id}`, {
+      // await axios.put(`https://napi.appphotocard.com/v1/users/${user_idx}`, {
       //   identity: user_id,
       //   target: 'onboarding_finished_yn',
       //   value: 'Y',
       // });
-      router.back();
+      router.push(router.query['nextUrl'] as string);
     }
     if (start === true) update();
   }, [start]);

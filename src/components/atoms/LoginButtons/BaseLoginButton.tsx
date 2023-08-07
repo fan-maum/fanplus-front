@@ -1,6 +1,4 @@
 import { FC, ReactNode, useContext } from 'react';
-import { NextUrlContext } from '@/components/organisms/Layout';
-import { NextUrlContextType } from '@/types/contextTypes';
 
 const onClickLogin = async (nextUrl: string, site: string) => {
   window.location.href = `/api/auth/login/${site}?nextUrl=${nextUrl}`;
@@ -10,10 +8,11 @@ type LoginButtonProps = {
   texts: string;
   site: string;
   icon?: ReactNode;
+  nextUrl: string;
 };
 
-const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon }) => {
-  const { nextUrl } = useContext(NextUrlContext) as NextUrlContextType;
+const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon, nextUrl }) => {
+  // const { nextUrl } = useContext(NextUrlContext) as NextUrlContextType;
   // const router = useRouter();
   // const nextPath = router.pathname;
   // const queries =

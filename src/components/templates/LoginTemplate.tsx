@@ -7,6 +7,7 @@ import { LoginPageTextType } from '@/types/textTypes';
 
 const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   const router = useRouter();
+  const nextUrl = router.query['nextUrl'] as string;
   return (
     <div
       css={{
@@ -79,8 +80,8 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
             '@media(max-width:768px)': { height: '50%', justifyContent: 'center' },
           }}
         >
-          <AppleLoginButton texts={texts.appleButton} />
-          <GoogleLoginButton texts={texts.googleButton} />
+          <AppleLoginButton texts={texts.appleButton} nextUrl={nextUrl} />
+          <GoogleLoginButton texts={texts.googleButton} nextUrl={nextUrl} />
         </div>
       </div>
     </div>
