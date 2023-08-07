@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 
 export const NavBarText_KR: NavBarTextType = {
@@ -141,6 +143,23 @@ export const FAQText_KR: FAQPageTextType = {
   q9: '탈퇴 후 같은 번호로 다시 인증하는 건 언제부터 가능한가요?',
   a9: '탈퇴한 계정에 인증되어 있는 번호는 탈퇴일로부터 90일이 지난 이후에 다시 번호 인증에 사용할 수 있어요.',
 };
+export const LoginPageText_KR: LoginPageTextType = {
+  heading: '팬플러스 로그인 하기',
+  line1: '로그인이 필요합니다. 로그인을 하시겠습니까?',
+  appleButton: 'Apple 계정으로 로그인',
+  googleButton: 'Google 계정으로 로그인',
+};
+export const SignUpPageText_KR: SignUpPageTextType = {
+  heading: '이용약관',
+  line1: '원활한 서비스 이용을 위해 동의해주세요.',
+  agree1: '(필수) 만 14세 이상입니다.',
+  agree2: '(필수) 서비스 이용약관',
+  agree3: '(필수) 개인정보 취급방침',
+  agree4: '(필수) 개인정보 수집, 이용 및 제3자 제공',
+  detail: '보기',
+  start: '시작',
+  agreeAll: '모두 동의하기',
+};
 
 export const Votes_Text_ko = {
   voteEnd: '투표종료까지',
@@ -156,16 +175,16 @@ export const Votes_Text_ko = {
 export const VoteDetail_Text_ko = {
   vote: '투표',
   voting: '투표하기',
-  voteDifference : {
+  voteDifference: {
     front: null,
-    back: '표 차이'
+    back: '표 차이',
   },
   seeMore: '자세히 알아보기',
   currentVote: '표',
   prizeTitle: {
-    detail: '상세 내용', 
+    detail: '상세 내용',
     first: '1위 혜택 보기',
     second: '2위 혜택 보기',
     third: '3위 혜택 보기',
-  }
+  },
 };

@@ -9,7 +9,9 @@ import { useRouter } from 'next/router';
 const NavBar = ({ texts }: { texts: NavBarTextType }) => {
   const { setIsSideBarOpen } = useContext(SideBarContext) as SideBarContextType;
   const router = useRouter();
-  const isVotePage = router.pathname.endsWith('votes');
+  const page = router.pathname.split('/')[2];
+  const isVotePage = page === 'votes';
+  const isLoginSignUpPage = page === 'login' || page === 'signUp';
 
   return (
     <>
@@ -19,6 +21,9 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           position: 'fixed',
           backgroundColor: isVotePage ? 'rgb(255,255,255)' : 'rgba(255,255,255,0.8)',
           zIndex: '19999',
+          '@media(max-width:768px)': {
+            display: isLoginSignUpPage ? 'none' : 'block',
+          },
         }}
       >
         <div
@@ -53,7 +58,11 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
         </div>
       </div>
       {/* background용 div */}
-      <div css={{ width: '100%', height: '85px', '@media(max-width:991px)': { height: '70px' } }} />
+      {!isLoginSignUpPage && (
+        <div
+          css={{ width: '100%', height: '85px', '@media(max-width:991px)': { height: '70px' } }}
+        />
+      )}
     </>
   );
 };

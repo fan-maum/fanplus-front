@@ -2,6 +2,7 @@ import { NextApiHandler } from 'next';
 import axios from 'axios';
 import Negotiator from 'negotiator';
 import { SUPPORT_LANGUAGE } from '@/middleware';
+import { serialize } from 'cookie';
 
 const googleLoginHandler: NextApiHandler = async (req, res) => {
   const authorizationCode = req.query.code;
@@ -37,8 +38,11 @@ const googleLoginHandler: NextApiHandler = async (req, res) => {
 
   const results = backResponse.data.RESULTS;
   if (results.MSG === 'success') {
-    res.setHeader(`Set-Cookie`, `user_id=${results.DATAS.USER_IDENTITY}; Path=/; HttpOnly`);
-    res.setHeader('Set-Cookie', `onboarding=${results.DATAS.ONBOARDING_FIN_YN}; Path=/; HttpOnly`);
+    console.log(results.DATAS.USER_IDENTITY);
+    res.setHeader('set-cookie', [
+      serialize('user_id', results.DATAS.USER_IDENTITY, { path: '/' }),
+      serialize('onboarding', results.DATAS.ONBOARDING_FIN_YN, { path: '/' }),
+    ]);
   }
   res.redirect(nextUrl);
 };

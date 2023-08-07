@@ -5,12 +5,13 @@ import AppLink from '../molecules/AppLink';
 import Carousel from '../organisms/Carousel';
 import IconPlayStore from '../atoms/IconPlayStore';
 import IconAppStore from '../atoms/IconAppStore';
-import { LoginModalContext, SignUpModalContext } from '../organisms/Layout';
+// import { LoginModalContext, SignUpModalContext } from '../organisms/Layout';
 import { LoginModalContextType, SignUpModalContextType } from '@/types/contextTypes';
+import Link from 'next/link';
 
 const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
-  const { setIsLoginModalOpen } = useContext(LoginModalContext) as LoginModalContextType;
-  const { setIsSignUpModalOpen } = useContext(SignUpModalContext) as SignUpModalContextType;
+  // const { setIsLoginModalOpen } = useContext(LoginModalContext) as LoginModalContextType;
+  // const { setIsSignUpModalOpen } = useContext(SignUpModalContext) as SignUpModalContextType;
   const area1 = texts.Area1;
   const area2 = texts.Area2;
   const area3 = texts.Area3;
@@ -235,14 +236,16 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
-      <button
+      <Link href={'/login'}>로그인 페이지로~~~</Link>
+      <Link href={'/signUp'}>회원가입 페이지로~~</Link>
+      {/* <button
         onClick={() => {
           setIsLoginModalOpen(true);
         }}
       >
         로그인~~₩
       </button>
-      <button onClick={() => setIsSignUpModalOpen(true)}>회원가입~~₩</button>
+      <button onClick={() => setIsSignUpModalOpen(true)}>회원가입~~₩</button> */}
     </div>
   );
 };

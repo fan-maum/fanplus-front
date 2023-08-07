@@ -1,48 +1,24 @@
 import GoogleLoginButton from '../atoms/LoginButtons/GoogleLoginButton';
 import AppleLoginButton from '../atoms/LoginButtons/AppleLoginButton';
-import { useContext, useEffect } from 'react';
-// import { LoginModalContext } from '../organisms/Layout';
-import { LoginModalContextType } from '@/types/contextTypes';
 import IconFanPlus from '../atoms/IconFanPlus';
 import IconArrowLeft from '../atoms/IconArrowLeft';
+import { useRouter } from 'next/router';
+import { LoginPageTextType } from '@/types/textTypes';
 
-const LoginModal = () => {
-  // const { setIsLoginModalOpen } = useContext(LoginModalContext) as LoginModalContextType;
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
+const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
+  const router = useRouter();
   return (
     <div
       css={{
-        position: 'fixed',
-        zIndex: '19999',
-        width: '100%',
-        height: '100%',
-        top: '85px',
-        paddingBottom: '85px',
+        width: '100vw',
+        height: '100vh',
         backgroundColor: 'white',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        borderTop: '1px solid #d9d9d9',
-        '@media(max-width:991px)': {
-          top: '70px',
-          paddingBottom: '70px',
-        },
-        '@media(max-width:768px)': {
-          top: '0px',
-          height: '120%',
-          zIndex: '20000',
-          justifyContent: 'flex-start',
-          paddingBottom: '0px',
-          borderTop: '0px',
-        },
+        '@media(max-width:768px)': { justifyContent: 'flex-start' },
       }}
-      // onClick={() => setIsLoginModalOpen(false)}
     >
       <IconArrowLeft
         iconCss={{
@@ -55,6 +31,7 @@ const LoginModal = () => {
             display: 'block',
           },
         }}
+        onClickBack={() => router.back()}
       />
       <div
         css={{
@@ -76,7 +53,6 @@ const LoginModal = () => {
             height: '80%',
           },
         }}
-        onClick={(event) => event.stopPropagation()}
       >
         <div
           css={{
@@ -88,9 +64,9 @@ const LoginModal = () => {
           }}
         >
           <IconFanPlus />
-          <h2 css={{ margin: '25px 0px' }}>팬플러스 로그인 하기</h2>
+          <h2 css={{ margin: '25px 0px' }}>{texts.heading}</h2>
           <p css={{ marginBottom: '50px', textAlign: 'center', wordBreak: 'keep-all' }}>
-            팬플러스 서비스는 로그인 후 이용할 수 있습니다.
+            {texts.line1}
           </p>
         </div>
         <div
@@ -102,12 +78,12 @@ const LoginModal = () => {
             '@media(max-width:768px)': { height: '50%', justifyContent: 'center' },
           }}
         >
-          <AppleLoginButton texts="Apple로 로그인" />
-          <GoogleLoginButton texts="Google 계정으로 로그인" />
+          <AppleLoginButton texts={texts.appleButton} />
+          <GoogleLoginButton texts={texts.googleButton} />
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginModal;
+export default LoginTemplate;

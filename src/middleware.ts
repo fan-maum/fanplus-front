@@ -4,7 +4,7 @@ import { LangCookie } from './utils/setLangCookie';
 import Negotiator from 'negotiator';
 
 const PUBLIC_FILE = /\.(.*)$/;
-export const AVAIL_PAGE = ['', 'votes', 'community', 'business', 'faq'];
+export const AVAIL_PAGE = ['', 'votes', 'community', 'business', 'faq', 'login', 'signUp'];
 export const SUPPORT_LANGUAGE: LangCookie[] = [
   'ko',
   'en',
