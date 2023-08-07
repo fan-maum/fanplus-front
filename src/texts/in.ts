@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 
 export const NavBarText_IND: NavBarTextType = {
@@ -141,6 +143,23 @@ export const FAQText_IND: FAQPageTextType = {
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
 };
+export const LoginPageText_IND: LoginPageTextType = {
+  heading: 'Masuk FanPlus',
+  line1: 'Login diperlukan. Apakah Anda ingin login?',
+  appleButton: 'Masuk dengan Apple',
+  googleButton: 'Masuk dengan Google',
+};
+export const SignUpPageText_IND: SignUpPageTextType = {
+  heading: 'Persetujuan Penggunaan',
+  line1: 'Harap setujui persyaratan dan ketentuan.',
+  agree1: 'Aku 14 tahun atau lebih tua (yg dibutuhkan)',
+  agree2: 'Ketentuan layanan (yg dibutuhkan)',
+  agree3: 'Kebijakan pribadi (yg dibutuhkan)',
+  agree4: 'Pemberian Informasi kepada Pihak Ketiga (yg dibutuhkan)',
+  detail: 'Details',
+  start: 'Mulailah',
+  agreeAll: 'Saya setuju semua',
+};
 
 export const Votes_Text_in = {
   voteEnd: 'Sampai akhir',
@@ -156,16 +175,16 @@ export const Votes_Text_in = {
 export const VoteDetail_Text_in = {
   vote: 'Pemungutan suara',
   voting: 'Beri suara',
-  voteDifference : {
+  voteDifference: {
     front: 'Beda',
-    back: 'suara!'
+    back: 'suara!',
   },
   seeMore: 'Tampilkan Detail',
   currentVote: 'suara',
   prizeTitle: {
-    detail: 'Detil', 
+    detail: 'Detil',
     first: 'Melihat keuntungan juara 1',
     second: 'Hadiah Pemenang ke-2',
     third: 'Hadiah Pemenang 3',
-  }
+  },
 };

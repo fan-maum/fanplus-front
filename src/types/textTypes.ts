@@ -156,4 +156,6 @@ export type TextType = {
   MainPage: MainPageTextType;
   BuisnessPage: BusinessPageTextType;
   FAQPage: FAQPageTextType;
+  LoginPage: LoginPageTextType;
+  SignUpPage: SignUpPageTextType;
 };

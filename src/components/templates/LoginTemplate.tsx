@@ -48,6 +48,7 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
           alignItems: 'center',
           flexDirection: 'column',
           '@media(max-width:768px)': {
+            width: '100%',
             border: '0px',
             maxHeight: '80%',
             height: '80%',

@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 
 export const NavBarText_zh_CN: NavBarTextType = {
@@ -141,6 +143,23 @@ export const FAQText_zh_CN: FAQPageTextType = {
   q9: '注销后什么时候可以重新认证相同的号码？',
   a9: '被已注销账户验证过的号码, 自注销日起, 90天以后, 可以重新用于号码验证。',
 };
+export const LoginPageText_zh_CN: LoginPageTextType = {
+  heading: 'FanPlus登录',
+  line1: '需要登录。您现在要登录吗？',
+  appleButton: '使用Apple 账号登陆',
+  googleButton: '使用Google 账号登陆',
+};
+export const SignUpPageText_zh_CN: SignUpPageTextType = {
+  heading: '用户协议',
+  line1: '为顺利使用该服务，请同意条款。',
+  agree1: '我是14岁及以上 (必选)',
+  agree2: '服务条款 (必选)',
+  agree3: '个人隐私政策 (必选)',
+  agree4: '第三方隐私政策 (必选)',
+  detail: '查看详情',
+  start: '开始',
+  agreeAll: '全部同意',
+};
 
 export const Votes_Text_zh = {
   voteEnd: '距离投票截止还有',
@@ -156,16 +175,16 @@ export const Votes_Text_zh = {
 export const VoteDetail_Text_zh = {
   vote: '投票',
   voting: '投票',
-  voteDifference : {
+  voteDifference: {
     front: null,
-    back: '票差距!'
+    back: '票差距!',
   },
   seeMore: '查看详情',
   currentVote: '票',
   prizeTitle: {
-    detail: '详细内容', 
+    detail: '详细内容',
     first: '查看第1名奖励',
     second: '查看第2名奖励',
     third: '查看第3名奖励',
-  }
+  },
 };

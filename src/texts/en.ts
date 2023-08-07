@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 
 export const NavBarText_ENG: NavBarTextType = {
@@ -141,6 +143,23 @@ export const FAQText_ENG: FAQPageTextType = {
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
 };
+export const LoginPageText_ENG: LoginPageTextType = {
+  heading: 'FanPlus Login',
+  line1: 'Login is required. Would you like to log in?',
+  appleButton: 'Sign in with Apple',
+  googleButton: 'Sign in with Google',
+};
+export const SignUpPageText_ENG: SignUpPageTextType = {
+  heading: 'Terms of Service',
+  line1: 'Please agree to the terms and conditions.',
+  agree1: "I'm 14 years or older (required)",
+  agree2: 'Terms of service (required)',
+  agree3: 'Privacy Policy (required)',
+  agree4: 'Privacy Terms and Conditions: third parties (required)',
+  detail: 'Details',
+  start: 'Start',
+  agreeAll: 'I agree all',
+};
 
 export const Votes_Text_en = {
   voteEnd: 'Until the end',
@@ -156,16 +175,16 @@ export const Votes_Text_en = {
 export const VoteDetail_Text_en = {
   vote: 'Vote',
   voting: 'Vote',
-  voteDifference : {
+  voteDifference: {
     front: 'Winning by',
-    back: 'vote(s)'
+    back: 'vote(s)',
   },
   seeMore: 'See More',
   currentVote: 'VT(s)',
   prizeTitle: {
-    detail: 'Description', 
+    detail: 'Description',
     first: 'The Prize for Winner',
     second: '2nd Winner Prize',
     third: '3rd Winner Prize',
-  }
+  },
 };

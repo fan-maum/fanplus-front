@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 
 export const NavBarText_zh_TW: NavBarTextType = {
@@ -141,6 +143,23 @@ export const FAQText_zh_TW: FAQPageTextType = {
   q9: '註銷後什麼時候可以重新認證相同的號碼？',
   a9: '被已註銷賬戶驗證過的號碼, 自註銷日起, 90天以後, 可以重新用於號碼驗證。',
 };
+export const LoginPageText_zh_TW: LoginPageTextType = {
+  heading: 'FanPlus登錄',
+  line1: '需要登錄。您現在要登錄嗎？',
+  appleButton: '使用Apple 賬號登陸',
+  googleButton: '使用Google 賬號登陸',
+};
+export const SignUpPageText_zh_TW: SignUpPageTextType = {
+  heading: '用戶協議',
+  line1: '為順利使用該服務，請同意條款。',
+  agree1: '我是14歲及以上(必選)',
+  agree2: '服務條款 (必選)',
+  agree3: '個人隱私政策 (必選)',
+  agree4: '第三方隱私政策 (必選)',
+  detail: '查看詳情',
+  start: '開始',
+  agreeAll: '全部同意',
+};
 
 export const Votes_Text_zhtw = {
   voteEnd: '距離投票截止還有',
@@ -156,16 +175,16 @@ export const Votes_Text_zhtw = {
 export const VoteDetail_Text_zhtw = {
   vote: '投票',
   voting: '投票',
-  voteDifference : {
+  voteDifference: {
     front: null,
-    back: '票差距!'
+    back: '票差距!',
   },
   seeMore: '查看詳情',
   currentVote: '票',
   prizeTitle: {
-    detail: '詳細內容', 
+    detail: '詳細內容',
     first: '查看第1名獎勵',
     second: '查看第2名獎勵',
     third: '查看第3名獎勵',
-  }
+  },
 };

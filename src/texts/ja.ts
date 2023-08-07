@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 
 export const NavBarText_JAP: NavBarTextType = {
@@ -141,6 +143,23 @@ export const FAQText_JAP: FAQPageTextType = {
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
 };
+export const LoginPageText_JAP: LoginPageTextType = {
+  heading: 'FanPlusログイン',
+  line1: 'ログインが必要です。あなたは、ログインしますか？',
+  appleButton: 'アップルでサインイン',
+  googleButton: 'Googleアカウントでサインイン',
+};
+export const SignUpPageText_JAP: SignUpPageTextType = {
+  heading: '利用規約',
+  line1: '円滑なサービスの利用のために同意してください。',
+  agree1: '私は14歳以上です(必須)',
+  agree2: 'サービス利用約款 (必須)',
+  agree3: '個人情報取扱方針 (必須)',
+  agree4: '個人情報の第三者提供 (必須)',
+  detail: '続きを読む',
+  start: '詩作',
+  agreeAll: '同意(必須)',
+};
 
 export const Votes_Text_ja = {
   voteEnd: '最後まで',
@@ -156,16 +175,16 @@ export const Votes_Text_ja = {
 export const VoteDetail_Text_ja = {
   vote: '投票',
   voting: '投票する',
-  voteDifference : {
+  voteDifference: {
     front: null,
-    back: '票の得票差!'
+    back: '票の得票差!',
   },
   seeMore: '詳細はこちら',
   currentVote: '票',
   prizeTitle: {
-    detail: '詳細', 
+    detail: '詳細',
     first: '1等の商品',
     second: '2等の商品',
     third: '3等の商品',
-  }
+  },
 };

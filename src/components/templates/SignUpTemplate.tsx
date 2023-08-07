@@ -121,19 +121,28 @@ const SignUpTemplate = ({ texts }: { texts: SignUpPageTextType }) => {
         >
           <ul css={{ width: '100%', padding: '3px' }}>
             <CheckList checked={check1} setChecked={setCheck1}>
-              <p>{texts.agree1}</p>
+              <p css={{ marginRight: '80px' }}>{texts.agree1}</p>
             </CheckList>
             <CheckList checked={check2} setChecked={setCheck2}>
-              <p>{texts.agree2}</p>
-              <Anchor href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR" />
+              <p css={{ marginRight: '80px' }}>{texts.agree2}</p>
+              <Anchor
+                href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR"
+                text={texts.detail}
+              />
             </CheckList>
             <CheckList checked={check3} setChecked={setCheck3}>
-              <p>{texts.agree3}</p>
-              <Anchor href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR" />
+              <p css={{ marginRight: '80px' }}>{texts.agree3}</p>
+              <Anchor
+                href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR"
+                text={texts.detail}
+              />
             </CheckList>
             <CheckList checked={check4} setChecked={setCheck4}>
-              <p>{texts.agree4}</p>
-              <Anchor href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR" />
+              <p css={{ marginRight: '80px' }}>{texts.agree4}</p>
+              <Anchor
+                href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR"
+                text={texts.detail}
+              />
             </CheckList>
           </ul>
           <div
@@ -196,24 +205,25 @@ const CheckList = ({
     <li
       css={{
         width: '100%',
-        height: '36px',
+        lineHeight: '24px',
         position: 'relative',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
+        margin: '8px 0px',
       }}
       onClick={() => setChecked((prev) => !prev)}
     >
       <IconCheckButton
         fill={checked ? '#ff5656' : '#fff'}
         stroke={checked ? '' : '#abafb7'}
-        iconCss={{ marginRight: '5px' }}
+        iconCss={{ marginRight: '5px', flexShrink: '0' }}
       />
       {children}
     </li>
   );
 };
 
-const Anchor = ({ href }: { href: string }) => {
+const Anchor = ({ href, text }: { href: string; text: string }) => {
   return (
     <a
       href={href}
@@ -221,7 +231,7 @@ const Anchor = ({ href }: { href: string }) => {
       css={{ position: 'absolute', right: '0px', color: '#abafb7' }}
       onClick={(e) => e.stopPropagation()}
     >
-      보기
+      {text}
     </a>
   );
 };

@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 
 export const NavBarText_VIE: NavBarTextType = {
@@ -141,6 +143,23 @@ export const FAQText_VIE: FAQPageTextType = {
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
 };
+export const LoginPageText_VIE: LoginPageTextType = {
+  heading: 'Đăng nhập FanPlus',
+  line1: 'Đăng nhập là bắt buộc. Bạn có muốn đăng nhập?',
+  appleButton: 'Đăng nhập với Apple',
+  googleButton: 'Đăng nhập bằng Google',
+};
+export const SignUpPageText_VIE: SignUpPageTextType = {
+  heading: 'Điều khoản sử dụng',
+  line1: 'Vui lòng đồng ý với các điều khoản và điều kiện.',
+  agree1: 'Tôi từ 14 tuổi trở lên(bắt buộc)',
+  agree2: 'Điều khoản dịch vụ (bắt buộc)',
+  agree3: 'Chính sách bảo mật (bắt buộc)',
+  agree4: 'Cung cấp thông tin cho các bên thứ ba (bắt buộc)',
+  detail: 'Chi tiết',
+  start: 'Khởi đầu',
+  agreeAll: 'Tôi đồng ý tất cả',
+};
 
 export const Votes_Text_vi = {
   voteEnd: 'Cho đến khi kết thúc',
@@ -156,16 +175,16 @@ export const Votes_Text_vi = {
 export const VoteDetail_Text_vi = {
   vote: 'Bỏ phiếu',
   voting: 'Bỏ phiếu',
-  voteDifference : {
+  voteDifference: {
     front: null,
-    back: 'phiếu chênh lệch'
+    back: 'phiếu chênh lệch',
   },
   seeMore: 'Hiển thị chi tiết',
   currentVote: 'phiếu',
   prizeTitle: {
-    detail: 'Nội dung chi tiết', 
+    detail: 'Nội dung chi tiết',
     first: 'Xem đặc quyền hạng 1',
     second: 'Giải thưởng người chiến thắng thứ hai',
     third: 'Giải thưởng người chiến thắng thứ 3',
-  }
+  },
 };
