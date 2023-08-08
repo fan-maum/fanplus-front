@@ -22,6 +22,10 @@ import VoteDetailShareModal, {
 } from '@/components/modals/VoteDetailShareModal';
 import { useRouter } from 'next/router';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
+import CommonModal from '../modals/CommonModal';
+import VoteProcessModal, { VoteProcessModalProps } from '../modals/VoteProcessModal';
+import VoteDoneModal from '../modals/VoteDoneModal';
+import VoteBlockModal from '../modals/VoteBlockModal';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -51,6 +55,8 @@ const VoteDetailLayout = ({
   isWebView,
   error,
 }: VotesLayoutProps) => {
+  // console.log(isWebView);
+
   const endDay = new Date(voteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
   const language = GetLanguage();
@@ -58,6 +64,10 @@ const VoteDetailLayout = ({
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
   const [stars, setStars] = useState<(VoteDetailStars | null)[]>([null, null, null]);
+
+  const [voteModalBlock, setVoteModalBlock] = useState(false);
+  const [voteModal, setVoteModal] = useState(false);
+  const [voteModalDone, setVoteModalDone] = useState(0);
 
   const prizeTabContents: prizeTabContentsProps = {
     prizeTabContentsItem: [
@@ -149,8 +159,12 @@ const VoteDetailLayout = ({
   };
 
   const voteOnClick = (id: string) => {
-    // eslint-disable-next-line no-console
-    console.log('vote clicked');
+    const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
+    const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
+    setStarWithIndex(starIndex);
+    setVoteModal(true); // 테스트 => 투표하시겠습니까? 모달
+    // setVoteModalDone(3); // 테스트 => 투표완료되었습니다. 모달
+    // setVoteModalBlock(true); // 테스트 => 이미 투표했음. 모달
   };
 
   const voteDetailHeaderProps: VoteDetailHeaderProps = {
@@ -194,6 +208,32 @@ const VoteDetailLayout = ({
       />
       <VoteDetailShareModal {...voteDetailShareModalProps} />
       <CompletedShareModal {...completedShareModalProps} />
+      <VoteProcessModal
+        opened={voteModal}
+        onClose={() => {
+          setVoteModal(false);
+        }}
+        star={stars[1]}
+      />
+      <VoteDoneModal
+        onClose={() => {
+          setVoteModalDone(0);
+        }}
+        isWebView={isWebView}
+        resultQuantity={voteModalDone}
+        onWebViewLink={() => window.open('https://naver.com/')}
+        // onWebViewLink={() => window.open('딥링크')}
+        starName={stars[1]?.STAR_NAME || '스타이름'}
+      />
+      <VoteBlockModal
+        opened={voteModalBlock}
+        onClose={() => {
+          setVoteModalBlock(false);
+        }}
+        isWebView={isWebView}
+        onWebViewLink={() => window.open('https://naver.com/')}
+        // onWebViewLink={() => window.open('딥링크')}
+      />
     </div>
   );
 };
