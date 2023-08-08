@@ -12,8 +12,8 @@ import VoteDetailPrizeList, {
 import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
-import { VoteDetailResponse, VoteDetailStars, VoteMutateParam } from '@/types/vote';
-import { GetLanguage, getVoteDetailLanguage } from '@/hooks/useLanguage';
+import { VoteDetailResponse, VoteDetailStars } from '@/types/vote';
+import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { useEffect, useState } from 'react';
@@ -26,8 +26,6 @@ import CommonModal from '../modals/CommonModal';
 import VoteProcessModal, { VoteProcessModalProps } from '../modals/VoteProcessModal';
 import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
-import { useMutation } from 'react-query';
-import { getVoteDetail, postVotes } from '@/api/Vote';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -66,7 +64,6 @@ const VoteDetailLayout = ({
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
   const [stars, setStars] = useState<(VoteDetailStars | null)[]>([null, null, null]);
-  const [data, setData] = useState(voteDetails);
 
   const [voteModalBlock, setVoteModalBlock] = useState(false);
   const [voteModal, setVoteModal] = useState(false);
@@ -132,35 +129,6 @@ const VoteDetailLayout = ({
     ]);
   };
 
-  async function handleRefresh() {
-    const voteIndex = router.query['vote_IDX'] as string;
-    const lang = getVoteDetailLanguage() as string;
-    const res = await (await getVoteDetail(voteIndex, lang)).json();
-    if (Object.keys(res).length) {
-      setData(res);
-    }
-  }
-
-  const voteMutate = useMutation(
-    'promotion-vote-mutate',
-    async (param: VoteMutateParam) => postVotes(param, isWebView as boolean),
-    {
-      onSuccess: async (data) => {
-        setVoteModal(false);
-        if (true) {
-          // TODO: 이미 투표했을 경우.
-          await handleRefresh();
-          await router.push({ query: { ...router.query, id: stars[1]?.STAR_IDX } }, undefined, {
-            shallow: true,
-          });
-          setVoteModalDone(1); // TODO: 여기도
-        } else {
-          setVoteModalBlock(true);
-        }
-      },
-    }
-  );
-
   useEffect(() => {
     if (stars[1]) {
       const starData = findStarIndexById(stars[1].STAR_IDX, voteDetails);
@@ -172,15 +140,13 @@ const VoteDetailLayout = ({
     const starId = String(router.query.id);
     if (
       starId &&
-      // typeof router.query.login === 'string' &&
-      // authCookie &&
-      findStarById(starId, voteDetails)
+      typeof router.query.login === 'string' &&
+      findStarById(starId, voteDetails) &&
+      authCookie
     ) {
-      const star = findStarById(starId, voteDetails);
-      const starIndex = findStarIndexById(starId, voteDetails)?.index;
-      if (star && starIndex) {
-        setStarWithIndex(starIndex);
-        setVoteModal(true);
+      const star = findStarIndexById(starId, voteDetails);
+      if (star) {
+        setStarWithIndex(star.index);
       }
     }
   }, []);
@@ -196,17 +162,9 @@ const VoteDetailLayout = ({
     const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
     const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
     setStarWithIndex(starIndex);
-    if (authCookie) {
-      setStarWithIndex(starIndex);
-      setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
-    } else {
-      const nextUrl = (
-        router.asPath.includes('id=') ? router.asPath : router.asPath + `&id=${id}`
-      ).replaceAll('&', ';');
-      router.push({ pathname: '/login', query: { nextUrl } });
-    }
-    // setVoteModalDone(3); // * 테스트 => 투표완료되었습니다. 모달
-    // setVoteModalBlock(true); // * 테스트 => 이미 투표했음. 모달
+    setVoteModal(true); // 테스트 => 투표하시겠습니까? 모달
+    // setVoteModalDone(3); // 테스트 => 투표완료되었습니다. 모달
+    // setVoteModalBlock(true); // 테스트 => 이미 투표했음. 모달
   };
 
   const voteDetailHeaderProps: VoteDetailHeaderProps = {
@@ -253,18 +211,6 @@ const VoteDetailLayout = ({
       <VoteProcessModal
         opened={voteModal}
         onClose={() => {
-          setVoteModal(false);
-        }}
-        onVoteButtonClick={() => {
-          // TODO: 여기 작성하면 될 듯!
-          console.log('hi');
-          if (stars[1] && authCookie) {
-            voteMutate.mutate({
-              voteId: 1, // * 어떤 투표인지
-              token: authCookie || '',
-              starId: parseInt(stars[1].STAR_IDX),
-            });
-          }
           setVoteModal(false);
         }}
         star={stars[1]}

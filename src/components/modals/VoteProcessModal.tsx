@@ -5,23 +5,16 @@ import CommonModal, { CommonModalProps } from './CommonModal';
 export interface VoteProcessModalProps {
   opened: boolean;
   onClose: () => void;
-  onVoteButtonClick: () => void;
   star: VoteDetailStars | null;
 }
 
-const VoteProcessModal = ({
-  opened,
-  onClose,
-  onVoteButtonClick,
-  star,
-  ...props
-}: VoteProcessModalProps) => {
+const VoteProcessModal = ({ opened, onClose, star, ...props }: VoteProcessModalProps) => {
   const voteProcessModalProps: CommonModalProps = {
     opened,
     onClose,
     cancelButton: { text: '취소하기', onClick: onClose },
     confirmButton: {
-      onClick: onVoteButtonClick,
+      onClick: onClose,
       text: '투표하기',
     },
   };

@@ -84,14 +84,3 @@ export interface VoteDetailResponse {
     TIMESTAMP: number;
   };
 }
-
-export interface VoteMutateParam {
-  voteId: number;
-  starId: number;
-  token: string;
-}
-
-export interface Result {
-  code: number;
-  message: string;
-}
