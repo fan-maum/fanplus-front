@@ -12,11 +12,6 @@ type LoginButtonProps = {
 };
 
 const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon, nextUrl }) => {
-  // const { nextUrl } = useContext(NextUrlContext) as NextUrlContextType;
-  // const router = useRouter();
-  // const nextPath = router.pathname;
-  // const queries =
-  //   Object.keys(router.query).length !== 0 ? '?' + querystring.stringify(router.query, ';') : '';
   return (
     <button
       css={{

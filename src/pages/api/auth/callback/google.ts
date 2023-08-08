@@ -4,14 +4,43 @@ import Negotiator from 'negotiator';
 import { SUPPORT_LANGUAGE } from '@/middleware';
 import { serialize } from 'cookie';
 
-const getIdTokenByCode = async (authorizationCode?: unknown) => {
-  if (typeof authorizationCode !== 'string') {
-    return;
+const googleLoginHandler: NextApiHandler = async (req, res) => {
+  const code = req.query.code;
+  const nextUrl = req.query.state as string;
+
+  if (!code || typeof code !== 'string') throw new Error('Bad Request');
+  const idToken = await getIdTokenByCode(code);
+
+  if (!idToken) throw new Error('Token Undfined');
+  const results = await getResultsByIdToken(req, idToken);
+
+  if (results.MSG === 'success') {
+    res.setHeader('set-cookie', [
+      serialize('user_id', results.DATAS.USER_IDENTITY, {
+        path: '/',
+        secure: true,
+        domain: process.env.COOKIE_DOMAIN || 'localhost',
+      }),
+      serialize('user_idx', results.DATAS.USER_IDX, {
+        path: '/',
+        secure: true,
+        domain: process.env.COOKIE_DOMAIN || 'localhost',
+      }),
+    ]);
+    if (results.DATAS.ONBOARDING_FIN_YN === 'N') {
+      res.redirect(`/signUp/?nextUrl=${nextUrl}`);
+    }
   }
+  res.redirect(302, nextUrl);
+};
+
+export default googleLoginHandler;
+
+const getIdTokenByCode = async (code?: unknown) => {
   const googleResponse = await axios.post(
     `https://oauth2.googleapis.com/token`,
     {
-      code: authorizationCode,
+      code: code,
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
       redirect_uri: process.env.GOOGLE_REDIRECT_URI,
@@ -23,7 +52,7 @@ const getIdTokenByCode = async (authorizationCode?: unknown) => {
   return googleResponse.data.id_token;
 };
 
-const getAccessTokenByIdToken = async (req: NextApiRequest, idToken: string) => {
+const getResultsByIdToken = async (req: NextApiRequest, idToken: string) => {
   const negotiator = new Negotiator({
     headers: { 'accept-language': req.headers['accept-language'] },
   });
@@ -32,7 +61,7 @@ const getAccessTokenByIdToken = async (req: NextApiRequest, idToken: string) => 
   const backResponse = await axios.post(
     'https://napi.appphotocard.com/voteWeb/auth/google',
     {
-      platform: 'android',
+      platform: 'web',
       id_token: idToken,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       user_lang: user_lang,
@@ -42,25 +71,3 @@ const getAccessTokenByIdToken = async (req: NextApiRequest, idToken: string) => 
 
   return backResponse.data.RESULTS;
 };
-
-const googleLoginHandler: NextApiHandler = async (req, res) => {
-  const authorizationCode = req.query.code;
-  const nextUrl = (req.query.state as string).replaceAll(';', '&');
-
-  const idToken = await getIdTokenByCode(authorizationCode);
-  const results = await getAccessTokenByIdToken(req, idToken);
-  console.log(results.DATAS);
-  if (results.MSG === 'success') {
-    res.setHeader('set-cookie', [
-      serialize('user_id', results.DATAS.USER_IDENTITY, { path: '/' }),
-      serialize('user_idx', results.DATAS.USER_IDX, { path: '/' }),
-    ]);
-    if (results.DATAS.ONBOARDING_FIN_YN === 'N') {
-      res.redirect(`/signUp/?nextUrl=${nextUrl}`);
-    }
-  }
-
-  res.redirect(302, nextUrl);
-};
-
-export default googleLoginHandler;
