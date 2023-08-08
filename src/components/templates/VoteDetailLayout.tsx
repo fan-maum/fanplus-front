@@ -28,6 +28,7 @@ import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
 import { useMutation } from 'react-query';
 import { getVoteDetail, postVotes } from '@/api/Vote';
+import { ParsedUrlQuery } from 'querystring';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -132,6 +133,14 @@ const VoteDetailLayout = ({
     ]);
   };
 
+  const setNextQueryWithId = (starId: string) => {
+    const query = { ...router.query };
+    query.id = starId;
+    let nextQuery = '/?';
+    for (const key in query) nextQuery += key + '=' + query[key] + ';';
+    return nextQuery.slice(0, nextQuery.length - 1);
+  };
+
   async function handleRefresh() {
     const voteIndex = router.query['vote_IDX'] as string;
     const lang = getVoteDetailLanguage() as string;
@@ -199,12 +208,8 @@ const VoteDetailLayout = ({
       setStarWithIndex(starIndex);
       setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
     } else {
-      const query = { ...router.query };
-      query.id = id;
-      let nextQuery = '/?';
-      for (const key in query) nextQuery += key + '=' + query[key] + ';';
-      const nextUrl = router.pathname + nextQuery.slice(0, nextQuery.length - 1);
-      router.push({ pathname: '/login', query: { nextUrl } });
+      const nextQuery = setNextQueryWithId(id);
+      router.push({ pathname: '/login', query: { nextUrl: router.pathname + nextQuery } });
     }
     // setVoteModalDone(3); // * 테스트 => 투표완료되었습니다. 모달
     // setVoteModalBlock(true); // * 테스트 => 이미 투표했음. 모달
