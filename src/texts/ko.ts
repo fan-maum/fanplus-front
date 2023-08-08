@@ -170,6 +170,8 @@ export const Votes_Text_ko = {
   },
   winner: '1위',
   daysAgo: '일',
+  hoursAgo: '시',
+  minutesAgo: '분',
 };
 
 export const VoteDetail_Text_ko = {
@@ -186,5 +188,43 @@ export const VoteDetail_Text_ko = {
     first: '1위 혜택 보기',
     second: '2위 혜택 보기',
     third: '3위 혜택 보기',
+  },
+};
+
+export const ShareModal_Text_ko = {
+  shareModalTitle: '공유하기',
+  shareModalClose: '닫기',
+  twitter: '트위터',
+  urlShare: 'URL 복사',
+  otherAppShare: '다른 앱으로 공유',
+  urlCopied: 'URL이 복사되었습니다',
+  check: '확인',
+  shareTitleText: {
+    standard: {
+      front: '',
+      back: '',
+    },
+    title0: '현재 순위는⁉',
+    title1: '순위는⁉',
+    title2: '순위는⁉',
+  },
+  shareMiddleText: {
+    first: '1위',
+    second: '2위',
+    voteDiffFront: '단',
+    voteDiffBack: '표 차이',
+    current: '현재',
+    place: '위',
+    lessThan: '',
+    moreThan: '',
+    voteDiff: '',
+    with: '와(과)',
+    middlePageFront: '#팬플러스 투표 참여하고\n최애만을 위한 특별한 광고 선물하자 🎁🎈',
+    middlePageBack: '현재 1위 : ❓❔',
+  },
+  shareEndText: {
+    endFront: '지금 바로 #팬플러스 에서',
+    endBack: '에게 투표하세요 ✊🏻✊🏻',
+    endPage: '🔻실시간 순위 확인하러 가기🔻',
   },
 };

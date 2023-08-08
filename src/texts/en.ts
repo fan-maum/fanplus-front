@@ -170,6 +170,8 @@ export const Votes_Text_en = {
   },
   winner: '1st',
   daysAgo: 'days ago',
+  hoursAgo: 'hours ago',
+  minutesAgo: 'mins ago',
 };
 
 export const VoteDetail_Text_en = {
@@ -186,5 +188,43 @@ export const VoteDetail_Text_en = {
     first: 'The Prize for Winner',
     second: '2nd Winner Prize',
     third: '3rd Winner Prize',
+  },
+};
+
+export const ShareModal_Text_en = {
+  shareModalTitle: 'Share',
+  shareModalClose: 'Close',
+  twitter: 'Twitter',
+  urlShare: 'Copy URL',
+  otherAppShare: 'Share to other apps',
+  urlCopied: 'URL copied',
+  check: 'Check',
+  shareTitleText: {
+    standard: {
+      front: 'as of',
+      back: '',
+    },
+    title0: 'Current Ranking',
+    title1: 'Current Ranking',
+    title2: 'Current Ranking',
+  },
+  shareMiddleText: {
+    first: '1st',
+    second: '2nd',
+    voteDiffFront: 'Winning by',
+    voteDiffBack: 'votes',
+    current: 'is currently',
+    place: '. place',
+    lessThan: 'less than',
+    moreThan: 'more than',
+    voteDiff: '',
+    with: '',
+    middlePageFront: 'Participate in #FanPlus vote\nand give your bias AD rewards! 🎁🎈',
+    middlePageBack: 'Currently winning : ❓❔',
+  },
+  shareEndText: {
+    endFront: 'Vote',
+    endBack: 'on #FanPlus right now! ✊🏻✊🏻',
+    endPage: '🔻Check the current ranking🔻',
   },
 };

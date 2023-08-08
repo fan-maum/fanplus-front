@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
+import Image from 'next/image';
 
 export interface VoteDetailInfoProps {
   voteDetailInfo: VoteDetailVoteInfo;
@@ -28,7 +29,7 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
       />
       <Stack spacing={50} h={100} justify="center" align="center" direct="row" m={'0 auto'}>
         <RankProfile align="end">
-          <img width={36} src={'/icons/icon_medal1.png'} alt="icon_medal" />
+          <Image width={36} height={36} src={'/icons/icon_medal1.png'} alt="icon_medal" />
           {firstRankStar?.STAR_NAME}
         </RankProfile>
         <RankProfile fontSize={18} fontWeight={700} color="#FF5656" flex={'none'}>
@@ -42,12 +43,11 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
           </div>
         </RankProfile>
         <RankProfile align="start">
-          <img width={36} src={'/icons/icon_medal2.png'} alt="icon_medal" />
+          <Image width={36} height={36} src={'/icons/icon_medal2.png'} alt="icon_medal" />
           {secondRankStar?.STAR_NAME}
         </RankProfile>
       </Stack>
       <UnstyledButton
-        px={50}
         css={{
           display: 'flex',
           alignItems: 'center',
@@ -70,18 +70,24 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
               width: '100%',
               height: '100%',
               lineHeight: '60px',
-              padding: '0 50px',
             }}
           >
-            <Center>
+            <Center
+              css={{
+                padding: '0 50px',
+                '@media(max-width:425px)': {
+                  padding: '0 20px',
+                },
+              }}
+            >
               {voteDetailInfo.LINK_TXT} {voteDetailLanguage?.seeMore}
-              <img src="/icons/icon_pinkArrow.svg" alt="arrow" />
+              <Image width={24} height={24} src="/icons/icon_pinkArrow.svg" alt="arrow" />
             </Center>
           </Link>
         ) : (
-          <Center>
+          <Center px={50}>
             {voteDetailLanguage?.seeMore}
-            <img src="/icons/icon_pinkArrow.svg" alt="arrow" />
+            <Image width={24} height={24} src="/icons/icon_pinkArrow.svg" alt="arrow" />
           </Center>
         )}
       </UnstyledButton>

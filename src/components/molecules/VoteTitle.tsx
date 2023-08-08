@@ -20,11 +20,13 @@ export default function VoteTitle({ remainTime, remainTimeState, starName }: Pro
       direct="row"
       justify="center"
       w={'100%'}
-      h={38}
+      h={'auto'}
+      mih={38}
       align="center"
       bg={activeBackgroundColor}
       css={[
         {
+          flexWrap: 'wrap',
           color: activeColor,
           fontSize: '16px',
           fontWeight: '600',

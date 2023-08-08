@@ -45,3 +45,48 @@ a {
   color: #d9d9d9;
   font-weight: 400;
 }
+
+.highlight {
+  /* -webkit-animation: highlightBg 1s ease-in-out;
+  -o-animation: highlightBg 1s ease-in-out;
+  animation: highlightBg 1s ease-in-out; */
+  -webkit-animation-iteration-count: 4;
+  -o-animation-iteration-count: 4;
+  animation-iteration-count: 4;
+}
+
+@-o-keyframes highlightBg {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #fff5f5;
+  }
+  to {
+    background: transparent;
+  }
+}
+
+@-webkit-keyframes highlightBg {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #fff5f5;
+  }
+  to {
+    background: transparent;
+  }
+}
+
+@keyframes highlightBg {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: #fff5f5;
+  }
+  to {
+    background: transparent;
+  }
+}

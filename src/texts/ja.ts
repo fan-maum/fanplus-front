@@ -170,6 +170,8 @@ export const Votes_Text_ja = {
   },
   winner: '1位',
   daysAgo: '日前',
+  hoursAgo: '時間前',
+  minutesAgo: '分前',
 };
 
 export const VoteDetail_Text_ja = {
@@ -186,5 +188,43 @@ export const VoteDetail_Text_ja = {
     first: '1等の商品',
     second: '2等の商品',
     third: '3等の商品',
+  },
+};
+
+export const ShareModal_Text_ja = {
+  shareModalTitle: '共有',
+  shareModalClose: '閉じる',
+  twitter: 'Twitter',
+  urlShare: 'URLをコピー',
+  otherAppShare: '他のアプリで共有',
+  urlCopied: 'URLがコピーされました',
+  check: '確認',
+  shareTitleText: {
+    standard: {
+      front: 'as of',
+      back: '',
+    },
+    title0: 'Current Ranking',
+    title1: 'Current Ranking',
+    title2: 'Current Ranking',
+  },
+  shareMiddleText: {
+    first: '1st',
+    second: '2nd',
+    voteDiffFront: 'Winning by',
+    voteDiffBack: 'votes',
+    current: 'is currently',
+    place: '. place',
+    lessThan: 'less than',
+    moreThan: 'more than',
+    voteDiff: '',
+    with: '',
+    middlePageFront: 'Participate in #FanPlus vote\nand give your bias AD rewards! 🎁🎈',
+    middlePageBack: 'Currently winning : ❓❔',
+  },
+  shareEndText: {
+    endFront: 'Vote',
+    endBack: 'on #FanPlus right now! ✊🏻✊🏻',
+    endPage: '🔻Check the current ranking🔻',
   },
 };

@@ -170,6 +170,8 @@ export const Votes_Text_zhtw = {
   },
   winner: '1位',
   daysAgo: '日 前',
+  hoursAgo: '小時 前',
+  minutesAgo: '分鐘 前',
 };
 
 export const VoteDetail_Text_zhtw = {
@@ -186,5 +188,43 @@ export const VoteDetail_Text_zhtw = {
     first: '查看第1名獎勵',
     second: '查看第2名獎勵',
     third: '查看第3名獎勵',
+  },
+};
+
+export const ShareModal_Text_zhtw = {
+  shareModalTitle: '分享',
+  shareModalClose: '關閉',
+  twitter: 'Twitter',
+  urlShare: '複製URL',
+  otherAppShare: '分享到其他應用',
+  urlCopied: 'URL已復制',
+  check: '確認',
+  shareTitleText: {
+    standard: {
+      front: '',
+      back: '基準',
+    },
+    title0: '現在排名⁉',
+    title1: '排名是⁉',
+    title2: '排名是⁉',
+  },
+  shareMiddleText: {
+    first: '1位',
+    second: '2位',
+    voteDiffFront: '僅',
+    voteDiffBack: '票差',
+    current: '現在是第',
+    place: '位',
+    lessThan: '',
+    moreThan: '',
+    voteDiff: '與第',
+    with: '',
+    middlePageFront: '参加 #FanPlus 投票\n给最爱的偶像送上特别的礼物 🎁🎈',
+    middlePageBack: '现在第1位 : ❓❔',
+  },
+  shareEndText: {
+    endFront: '現在即刻 #在FanPlus上給',
+    endBack: '投票吧 ✊🏻✊🏻',
+    endPage: '🔻查看實時排名🔻',
   },
 };
