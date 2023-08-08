@@ -199,8 +199,11 @@ const VoteDetailLayout = ({
       setStarWithIndex(starIndex);
       setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
     } else {
-      const nextUrl =
-        router.pathname + `/?vote_IDX=${router.query.vote_IDX};lang=${router.query.lang};id=${id}`;
+      const query = { ...router.query };
+      query.id = id;
+      let nextQuery = '/?';
+      for (const key in query) nextQuery += key + '=' + query[key] + ';';
+      const nextUrl = router.pathname + nextQuery.slice(0, nextQuery.length - 1);
       router.push({ pathname: '/login', query: { nextUrl } });
     }
     // setVoteModalDone(3); // * 테스트 => 투표완료되었습니다. 모달
