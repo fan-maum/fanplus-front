@@ -136,7 +136,7 @@ const VoteDetailLayout = ({
   const setNextQueryWithId = (starId: string) => {
     const query = { ...router.query };
     query.id = starId;
-    let nextQuery = '/?';
+    let nextQuery = '?';
     for (const key in query) nextQuery += key + '=' + query[key] + ';';
     return nextQuery.slice(0, nextQuery.length - 1);
   };
@@ -208,8 +208,9 @@ const VoteDetailLayout = ({
       setStarWithIndex(starIndex);
       setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
     } else {
+      const nextPath = router.pathname;
       const nextQuery = setNextQueryWithId(id);
-      router.push({ pathname: '/login', query: { nextUrl: router.pathname + nextQuery } });
+      router.push({ pathname: '/login', query: { nextUrl: nextPath + nextQuery } });
     }
     // setVoteModalDone(3); // * 테스트 => 투표완료되었습니다. 모달
     // setVoteModalBlock(true); // * 테스트 => 이미 투표했음. 모달
