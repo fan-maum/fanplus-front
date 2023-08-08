@@ -25,15 +25,6 @@ const VoteDoneModal = ({
 
   const voteDoneModalProps: CommonModalProps = {
     onClose,
-    overridestyle: {
-      title: {
-        marginTop: -82,
-      },
-      header: {
-        margin: 0,
-        height: 16,
-      },
-    },
     opened: !!resultQuantity,
     cancelButton: { text: '완료', onClick: onClose },
     confirmButton: {
