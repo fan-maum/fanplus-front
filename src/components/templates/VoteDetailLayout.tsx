@@ -170,16 +170,13 @@ const VoteDetailLayout = ({
 
   useEffect(() => {
     const starId = String(router.query.id);
-    // const star = findStarById(starId, voteDetails);
     if (
       starId &&
       // typeof router.query.login === 'string' &&
       authCookie &&
-      // star
       findStarById(starId, voteDetails)
     ) {
       const starIndex = findStarIndexById(starId, voteDetails)?.index;
-      // if (star && starIndex) {
       if (starIndex) {
         setStarWithIndex(starIndex);
         setVoteModal(true);
