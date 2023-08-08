@@ -25,7 +25,7 @@ export const getServerSideProps = async (context: any) => {
   const vote_IDX = context.query.vote_IDX;
   const headers = context.req.headers;
   const cookies = nookies.get(context);
-  const authCookie = cookies['mk_cid'];
+  const authCookie = cookies['user_id'];
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/voteDetail?vote_IDX=${vote_IDX}&lang=zhtw`

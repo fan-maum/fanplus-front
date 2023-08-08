@@ -6,7 +6,7 @@ import { serialize } from 'cookie';
 
 const googleLoginHandler: NextApiHandler = async (req, res) => {
   const code = req.query.code;
-  const nextUrl = req.query.state as string;
+  const nextUrl = (req.query.state as string).replaceAll(';', '&');
 
   if (!code || typeof code !== 'string') throw new Error('Bad Request');
   const idToken = await getIdTokenByCode(code);
