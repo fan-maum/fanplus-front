@@ -6,6 +6,7 @@ import Carousel from '../organisms/Carousel';
 import IconPlayStore from '../atoms/IconPlayStore';
 import IconAppStore from '../atoms/IconAppStore';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
   const area1 = texts.Area1;
@@ -232,7 +233,9 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
-      <Link href={'/login'}>로그인 페이지로~~~</Link>
+      <Link href={`/login/?nextUrl=/${encodeURIComponent(useRouter().asPath)}`}>
+        로그인 페이지로~~~
+      </Link>
       <Link href={'/signUp'}>회원가입 페이지로~~</Link>
     </div>
   );

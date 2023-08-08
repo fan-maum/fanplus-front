@@ -1,3 +1,6 @@
+import { Result, VoteMutateParam } from '@/types/vote';
+import axios, { AxiosResponse } from 'axios';
+
 export const getVotes = (
   vote_type: string | undefined | null,
   page: number,
@@ -21,4 +24,36 @@ export const getVoteDetail = (vote_idx: string, lang: string) => {
     method: 'GET',
   });
   return response;
+};
+
+export const postVotes = async ({ voteId, starId, token }: VoteMutateParam, isWebView: boolean) => {
+  const response: AxiosResponse<{
+    data: {
+      vote: {
+        user_id: number;
+        vote_id: number;
+        star_id: number;
+        candidate_id: number;
+        site: string;
+        quantity: number;
+        created_at: string;
+        id: number;
+      };
+      ticket: number;
+    };
+    result: Result;
+  }> = await axios.post(
+    `/votes/${voteId}/stars/${starId}/tickets${isWebView ? '' : ''}`,
+    undefined,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      timeout: 10000,
+      params: {
+        site: isWebView ? 'APP' : 'WEB',
+      },
+    }
+  );
+  return response.data;
 };
