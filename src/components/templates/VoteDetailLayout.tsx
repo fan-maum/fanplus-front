@@ -185,9 +185,9 @@ const VoteDetailLayout = ({
       authCookie &&
       findStarById(starId, voteDetails)
     ) {
-      const starIndex = findStarIndexById(starId, voteDetails)?.index;
-      if (starIndex) {
-        setStarWithIndex(starIndex);
+      const star = findStarIndexById(starId, voteDetails);
+      if (star) {
+        setStarWithIndex(star.index);
         setVoteModal(true);
       }
     }
