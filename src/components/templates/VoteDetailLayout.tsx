@@ -201,10 +201,9 @@ const VoteDetailLayout = ({
   };
 
   const voteOnClick = (id: string) => {
-    const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
-    const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
-    setStarWithIndex(starIndex);
     if (authCookie) {
+      const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
+      const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
       setStarWithIndex(starIndex);
       setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
     } else {
