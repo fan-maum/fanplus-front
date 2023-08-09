@@ -87,7 +87,8 @@ function VoteDetailShareModal({
   );
   const endText = useEndText(starNameText);
   const { text, url } = useCopiedText(star, titleText, middleText, endText);
-  const copyText = `${text}\n\n${url}`;
+  const copyText2 = `${text}\r\n${url}`;
+  const copyText = copyText2.replace('\\r\\n', '<br>').replace('\\n', '<br>');
 
   const kakaoOnClick = () => {
     if (!window.Kakao.isInitialized()) window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);

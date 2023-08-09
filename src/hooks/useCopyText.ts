@@ -16,9 +16,9 @@ export function useCopiedText(
 ) {
   const router = useRouter();
   const checkWindow = () => typeof window !== 'undefined';
-  const text = `${titleText[getIndexByVotes(star)]}\n\n${middleText[getIndexByVotes(star)]}\n\n${
-    endText[getIndexByVotes(star)]
-  }`;
+  const text = `${titleText[getIndexByVotes(star)]}\r\n\r\n${
+    middleText[getIndexByVotes(star)]
+  }\r\n\r\n${endText[getIndexByVotes(star)]}`;
   const url = star
     ? `${checkWindow() ? window.location.origin : ''}${router.asPath}&id=${star?.STAR_IDX}`
     : `${checkWindow() ? window.location.origin : ''}${router.asPath}`;
