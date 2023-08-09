@@ -40,7 +40,7 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   //     res.redirect(`/signUp/?nextUrl=${nextUrl}`);
   //   }
   // }
-  res.redirect(302, '/');
+  res.redirect(302, nextUrl);
 };
 
 export default appleLoginHandler;
