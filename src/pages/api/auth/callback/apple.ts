@@ -8,7 +8,7 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   const code = req.body.code;
   const nextUrl = (req.query.state as string).replaceAll(';', '&');
 
-  if (!code || typeof code !== 'string') throw new Error('Bad Request');
+  // if (!code || typeof code !== 'string') throw new Error('Bad Request');
   // res.setHeader('set-cookie', `appleCode=${code}`);
   // const results = await getResultsByCode(req, code);
 
