@@ -73,6 +73,10 @@ const VoteDetailLayout = ({
   const [voteModal, setVoteModal] = useState(false);
   const [voteModalDone, setVoteModalDone] = useState(0);
 
+  const webViewLink = `https://p7m9w.app.goo.gl/?link=${encodeURIComponent(
+    `https://vote.fanplus.co.kr/?vote=${router.query.vote_IDX}&photocard_type=share_vote&vote_idx=${router.query.vote_IDX}&apn=com.photocard.allstar&amv=100&ibi=com.photocard.master&isi=1448805815`
+  )}`;
+
   const prizeTabContents: prizeTabContentsProps = {
     prizeTabContentsItem: [
       {
@@ -280,8 +284,7 @@ const VoteDetailLayout = ({
         }}
         isWebView={isWebView}
         resultQuantity={voteModalDone}
-        onWebViewLink={() => window.open('https://naver.com/')}
-        // onWebViewLink={() => window.open('딥링크')}
+        onWebViewLink={() => window.open(webViewLink)}
         starName={stars[1]?.STAR_NAME || '스타이름'}
       />
       <VoteBlockModal
@@ -290,8 +293,7 @@ const VoteDetailLayout = ({
           setVoteModalBlock(false);
         }}
         isWebView={isWebView}
-        onWebViewLink={() => window.open('https://naver.com/')}
-        // onWebViewLink={() => window.open('딥링크')}
+        onWebViewLink={() => window.open(webViewLink)}
       />
     </div>
   );
