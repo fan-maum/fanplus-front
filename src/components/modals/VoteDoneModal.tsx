@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import CommonModal, { CommonModalProps } from '@/components/modals/CommonModal';
 import VoteModalText from '@/components/molecules/VoteModalText';
+import { voteModalState } from '@/store/voteLangState';
+import { useRecoilState } from 'recoil';
+import { GetLanguage } from '@/hooks/useLanguage';
+import { Group } from '../atoms';
+import useHtmlElement from '@/hooks/useHtmlElement';
 
 export interface VoteDoneModalProps {
   onClose: () => void;
@@ -19,6 +24,11 @@ const VoteDoneModal = ({
   ...props
 }: VoteDoneModalProps) => {
   const [quantity, setQuantity] = useState(0);
+  const language = GetLanguage();
+  const voteModalLang = useRecoilState(voteModalState(language))[0];
+  const voteDoneFirstText = voteModalLang({ n: 1, starName: starName }).voteDoneFirst;
+  const voteDoneEndText = voteModalLang({ n: quantity }).voteDoneEnd;
+
   useEffect(() => {
     if (resultQuantity) setQuantity(resultQuantity);
   }, [resultQuantity]);
@@ -42,12 +52,19 @@ const VoteDoneModal = ({
     <>
       <CommonModal {...voteDoneModalProps}>
         <VoteModalText
-          starName={starName}
           voteText={
             <>
-              <span css={{ fontWeight: 700 }}>무료로 1표</span>가 투표가 되었어요.
-              <br />
-              <span css={{ fontWeight: 700 }}>팬마음 앱에서 {quantity}표</span> 더 투표해보세요!
+              <Group spacing={6} position="center">
+                <div
+                  className="voteModalTextWrap"
+                  css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}
+                  dangerouslySetInnerHTML={useHtmlElement(voteDoneFirstText)}
+                ></div>
+              </Group>
+              <div
+                css={{ fontSize: 18, fontWeight: 400 }}
+                dangerouslySetInnerHTML={useHtmlElement(voteDoneEndText)}
+              ></div>
             </>
           }
         />

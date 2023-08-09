@@ -5,6 +5,7 @@ import {
   BusinessPageTextType,
   FAQPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_JAP: NavBarTextType = {
   vote: '投票',
@@ -150,9 +151,9 @@ export const Votes_Text_ja = {
     league: 'League Vote',
   },
   winner: '1位',
-  daysAgo: '日前',
-  hoursAgo: '時間前',
-  minutesAgo: '分前',
+  daysAgo: '日々',
+  hoursAgo: '時間',
+  minutesAgo: '分',
 };
 
 export const VoteDetail_Text_ja = {
@@ -208,4 +209,15 @@ export const ShareModal_Text_ja = {
     endBack: 'on #FanPlus right now! ✊🏻✊🏻',
     endPage: '🔻Check the current ranking🔻',
   },
+};
+
+export const VoteModal_Text_ja: any = ({ n, starName }: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `<span>${starName}</span>様へ<b>${n}</b>票を無料で 投票しますか？`,
+    voteDoneFirst: `<span>${starName}</span>様へ無料で<b>${n}</b>票が投票されました`,
+    voteDoneEnd: ` FanPlusアプリでさらに<b>${n}</b>票投票してみてください！`,
+    voteBlockFirst: `1日に1回投票に参加できます<br/>(無料投票は 00:00 KSTに更新されます）`,
+    voteBlockEnd: `FanPlusアプリをインストールすると<br/>毎日 ${n}票差し上げます`,
+  };
+  return modalItems;
 };

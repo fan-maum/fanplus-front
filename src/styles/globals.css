@@ -54,6 +54,11 @@ a {
   -o-animation-iteration-count: 4;
   animation-iteration-count: 4;
 }
+.voteModalTextWrap > span {
+  color: #475357;
+  font-size: 24px;
+  font-weight: 700;
+}
 
 @-o-keyframes highlightBg {
   0% {

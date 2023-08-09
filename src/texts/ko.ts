@@ -5,6 +5,7 @@ import {
   BusinessPageTextType,
   FAQPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_KR: NavBarTextType = {
   vote: '투표',
@@ -208,4 +209,15 @@ export const ShareModal_Text_ko = {
     endBack: '에게 투표하세요 ✊🏻✊🏻',
     endPage: '🔻실시간 순위 확인하러 가기🔻',
   },
+};
+
+export const VoteModal_Text_ko: any = ({ n, starName }: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `<span>${starName}</span>님에게<br/><b>무료로 ${n}표</b> 투표하시겠어요?`,
+    voteDoneFirst: `<span>${starName}</span> 님에게<br/><b>무료로 ${n}표</b> 투표 되었어요.`,
+    voteDoneEnd: `<b>팬플러스 앱에서 ${n}표</b> 더 투표해보세요!`,
+    voteBlockFirst: `하루에 한 번 투표에 참여할 수 있어요.<br/>(매일 0시 기준으로 초기화 됩니다)`,
+    voteBlockEnd: `팬플러스 앱 설치하면<br/>매일 ${n}표를 드리고 있어요.`,
+  };
+  return modalItems;
 };

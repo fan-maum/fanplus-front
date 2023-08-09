@@ -5,6 +5,7 @@ import {
   BusinessPageTextType,
   FAQPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_ESP: NavBarTextType = {
   vote: 'Votación',
@@ -150,9 +151,9 @@ export const Votes_Text_es = {
     league: 'League Vote',
   },
   winner: 'Primer puesto',
-  daysAgo: 'Día(s) antes',
-  hoursAgo: 'Hora(s) antes',
-  minutesAgo: 'Minuto(s) antes',
+  daysAgo: 'Día',
+  hoursAgo: 'Hora',
+  minutesAgo: 'Minuto',
 };
 
 export const VoteDetail_Text_es = {
@@ -208,4 +209,15 @@ export const ShareModal_Text_es = {
     endBack: 'on #FanPlus right now! ✊🏻✊🏻',
     endPage: '🔻Check the current ranking🔻',
   },
+};
+
+export const VoteModal_Text_es: any = ({ n, starName }: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `¿Votaría <b>${n} voto(s)</b> gratis parael <span>${starName}</span>`,
+    voteDoneFirst: `Para <span>${starName}</span>,<br/><b>${n} voto(s)</b> fueron gratis`,
+    voteDoneEnd: `Voten más <b>${n} voto(s)</b> en la aplicación FanPlus!`,
+    voteBlockFirst: `Pueden votar una vez al día<br/>La hora estándar es 00:00 (hora coreana)`,
+    voteBlockEnd: `Si instalan la aplicación FanPlus se puede obtener  ${n} voto(s) cada día`,
+  };
+  return modalItems;
 };
