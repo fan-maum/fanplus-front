@@ -34,22 +34,22 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
 
 export default appleLoginHandler;
 
-const getResultsByCode = async (req: NextApiRequest, code: string) => {
-  const negotiator = new Negotiator({
-    headers: { 'accept-language': req.headers['accept-language'] },
-  });
-  const user_lang = negotiator.language(SUPPORT_LANGUAGE) || 'en';
+// const getResultsByCode = async (req: NextApiRequest, code: string) => {
+//   const negotiator = new Negotiator({
+//     headers: { 'accept-language': req.headers['accept-language'] },
+//   });
+//   const user_lang = negotiator.language(SUPPORT_LANGUAGE) || 'en';
 
-  const backResponse = await axios.post(
-    'https://napi.appphotocard.com/voteWeb/auth/google',
-    {
-      platform: 'web',
-      code: code,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      user_lang: user_lang,
-    },
-    { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-  );
+//   const backResponse = await axios.post(
+//     'https://napi.appphotocard.com/voteWeb/auth/apple',
+//     {
+//       platform: 'web',
+//       code: code,
+//       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+//       user_lang: user_lang,
+//     },
+//     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+//   );
 
-  return backResponse.data.RESULTS;
-};
+//   return backResponse.data.RESULTS;
+// };
