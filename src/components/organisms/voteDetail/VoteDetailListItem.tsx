@@ -16,14 +16,6 @@ export interface PromotionRankListItemProps {
   targetRef?: React.RefObject<HTMLDivElement>;
 }
 
-const handleButtonClick = () => {
-  const user_id = cookies.get('user_id');
-  if (!user_id) {
-    window.location.href = `/login/?nextUrl=${window.location.href}`;
-  }
-  // * vote 로직..
-};
-
 function VoteDetailListItem({
   starData,
   starState,

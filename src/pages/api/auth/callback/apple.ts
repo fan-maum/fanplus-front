@@ -6,8 +6,8 @@ import { serialize } from 'cookie';
 
 const appleLoginHandler: NextApiHandler = async (req, res) => {
   const code = req.body.code;
-  const nextUrl =
-    req.body.state !== 'undefined' ? (req.body.state as string).replaceAll(';', '&') : '/';
+  const state = req.body.state !== 'undefined' ? (req.body.state as string) : '/';
+  const nextUrl = state.replaceAll(';', '&');
 
   // res.setHeader('set-cookie', [
   //   serialize('appleCode', code, {

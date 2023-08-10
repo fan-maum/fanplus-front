@@ -36,7 +36,7 @@ const SignUpTemplate = ({ texts }: { texts: SignUpPageTextType }) => {
       //   target: 'onboarding_finished_yn',
       //   value: 'Y',
       // });
-      router.push(router.query['nextUrl'] as string);
+      router.push((router.query['nextUrl'] as string).replaceAll(';', '&'));
     }
     if (start === true) update();
   }, [start]);

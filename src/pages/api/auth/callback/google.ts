@@ -6,8 +6,8 @@ import { serialize } from 'cookie';
 
 const googleLoginHandler: NextApiHandler = async (req, res) => {
   const code = req.query.code;
-  const nextUrl =
-    req.query.state !== 'undefined' ? (req.query.state as string).replaceAll(';', '&') : '/';
+  const state = req.query.state !== 'undefined' ? (req.query.state as string) : '/';
+  const nextUrl = state.replaceAll(';', '&');
 
   if (!code || typeof code !== 'string') throw new Error('Bad Request');
   const idToken = await getIdTokenByCode(code);
@@ -29,7 +29,7 @@ const googleLoginHandler: NextApiHandler = async (req, res) => {
       }),
     ]);
     if (results.DATAS.ONBOARDING_FIN_YN === 'N') {
-      res.redirect(`/signUp/?nextUrl=${nextUrl}`);
+      res.redirect(`/signUp/?nextUrl=${state}`);
     }
   }
   res.redirect(302, nextUrl);
