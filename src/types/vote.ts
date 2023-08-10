@@ -84,3 +84,8 @@ export interface VoteDetailResponse {
     TIMESTAMP: number;
   };
 }
+
+export interface voteModalTextProps {
+  n?: string;
+  starName?: string;
+}
