@@ -12,7 +12,7 @@ import VoteDetailPrizeList, {
 import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
-import { VoteDetailResponse, VoteDetailStars, VoteMutateParam } from '@/types/vote';
+import { VoteDetailResponse, VoteDetailStars, VoteMutateParam, VoteResponse } from '@/types/vote';
 import { GetLanguage, getVoteDetailLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
@@ -52,22 +52,21 @@ export const findStarIndexById: (
 };
 
 const VoteDetailLayout = ({
-  voteDetails,
+  voteDetails: propsVoteDetails,
   headers,
   authCookie,
   isWebView,
   error,
 }: VotesLayoutProps) => {
-  // console.log(isWebView);
-
-  const endDay = new Date(voteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
+  const endDay = new Date(propsVoteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
   const language = GetLanguage();
+  const voteLanguage = getVoteDetailLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
   const [stars, setStars] = useState<(VoteDetailStars | null)[]>([null, null, null]);
-  const [data, setData] = useState(voteDetails);
+  const [voteDetails, setVoteDetails] = useState(propsVoteDetails);
 
   const [voteModalBlock, setVoteModalBlock] = useState(false);
   const [voteModal, setVoteModal] = useState(false);
@@ -145,14 +144,35 @@ const VoteDetailLayout = ({
     return nextQuery.slice(0, nextQuery.length - 1);
   };
 
-  // ! setting 하는 Data가 다를 것..
+  // setting 하는 Data가 다를 것..
   async function handleRefresh() {
-    const voteIndex = router.query['vote_IDX'] as string;
-    const lang = getVoteDetailLanguage() as string;
-    const res = await (await getVoteDetail(voteIndex, lang)).json();
-    if (Object.keys(res).length) {
-      setData(res);
-    }
+    // const voteIndex = router.query['vote_IDX'] as string;
+    const id = router.query['id'] as string;
+    const gg: VoteDetailResponse = {
+      ...voteDetails,
+      RESULTS: {
+        ...voteDetails.RESULTS,
+        DATAS: {
+          ...voteDetails.RESULTS.DATAS,
+          VOTE_INFO: {
+            ...voteDetails.RESULTS.DATAS.VOTE_INFO,
+            STARS: voteDetails.RESULTS.DATAS.VOTE_INFO.STARS.map((star) => {
+              if (star.STAR_IDX === id) {
+                return {
+                  ...star,
+                  VOTE_CNT: (Number(star.VOTE_CNT) + 1).toString(),
+                };
+              }
+              return star;
+            }),
+          },
+        },
+      },
+    };
+    // const res = await getVoteDetail(voteIndex, voteLanguage);
+    // if (Object.keys(res.data).length) {
+    setVoteDetails(gg);
+    // }
   }
 
   const voteMutate = useMutation(
@@ -160,14 +180,11 @@ const VoteDetailLayout = ({
     async (param: VoteMutateParam) => postVotes(param),
     {
       onSuccess: async (data) => {
-        setVoteModal(false);
         if (data.RESULTS.MSG === '투표 완료') {
           // * 투표가 성공한 케이스
           await handleRefresh();
-          await router.push({ query: { ...router.query, id: stars[1]?.STAR_IDX } }, undefined, {
-            shallow: true,
-          });
-          setVoteModalDone(1); // TODO: 여기도
+          setVoteModal(false);
+          setVoteModalDone(1); // TODO: 여기도 (n 표 더 투표하시겠습니까? (앱링크로))
         } else {
           setVoteModalBlock(true);
         }
@@ -205,19 +222,21 @@ const VoteDetailLayout = ({
     setShareModalIsOpened(true);
   };
 
-  const voteOnClick = (id: string) => {
+  const voteOnClick = async (id: string) => {
+    const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
+    const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
+    setStarWithIndex(starIndex);
+    const newId = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS[starIndex].STAR_IDX;
+    await router.push({ query: { ...router.query, id: newId } }, undefined, {
+      shallow: true,
+    });
     if (authCookie) {
-      const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
-      const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
-      setStarWithIndex(starIndex);
       setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
     } else {
       const nextPath = router.pathname;
       const nextQuery = setNextQueryWithId(id);
       router.push({ pathname: '/login', query: { nextUrl: nextPath + nextQuery } });
     }
-    // setVoteModalDone(3); // * 테스트 => 투표완료되었습니다. 모달
-    // setVoteModalBlock(true); // * 테스트 => 이미 투표했음. 모달
   };
 
   const voteDetailHeaderProps: VoteDetailHeaderProps = {
@@ -266,7 +285,7 @@ const VoteDetailLayout = ({
         onClose={() => {
           setVoteModal(false);
         }}
-        onVoteButtonClick={() => {
+        onVoteButtonClick={async () => {
           if (stars[1] && authCookie) {
             voteMutate.mutate({
               voteId: parseInt(router.query.vote_IDX as string),
@@ -274,7 +293,6 @@ const VoteDetailLayout = ({
               starId: parseInt(stars[1].STAR_IDX),
             });
           }
-          setVoteModal(false);
         }}
         star={stars[1]}
       />

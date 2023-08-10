@@ -4,6 +4,7 @@ import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
 import { FooterText_zh_CN, NavBarText_zh_CN } from '@/texts/zh-CN';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 import nookies from 'nookies';
+import { getVoteDetail } from '@/api/Vote';
 
 const VoteDetail = ({ voteDetails, headers, authCookie, error }: EventProps) => {
   const isWebView = !!headers.token || !!authCookie;
@@ -27,12 +28,9 @@ export const getServerSideProps = async (context: any) => {
   const cookies = nookies.get(context);
   const authCookie = cookies['user_id'];
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/voteDetail?vote_IDX=${vote_IDX}&lang=zh`
-  );
-  const error = res.ok ? false : res.status;
-
-  const voteDetails = await res.json();
+  const res = await getVoteDetail(vote_IDX, 'zh');
+  const voteDetails = res.data;
+  const error = voteDetails ? false : res.status;
   return {
     props: { voteDetails, headers, error, authCookie: authCookie || null },
   };

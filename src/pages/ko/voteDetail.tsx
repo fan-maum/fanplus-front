@@ -4,6 +4,7 @@ import { NavBarText_KR, FooterText_KR } from '@/texts/ko';
 import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 import nookies from 'nookies';
+import { getVoteDetail } from '@/api/Vote';
 
 const VoteDetail = ({ voteDetails, headers, authCookie, error }: EventProps) => {
   const isWebView = !!headers.token || !!authCookie;
@@ -27,12 +28,10 @@ export const getServerSideProps = async (context: any) => {
   const cookies = nookies.get(context);
   const authCookie = cookies['user_id'];
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/voteDetail?vote_IDX=${vote_IDX}&lang=ko`
-  );
-  const error = res.ok ? false : res.status;
+  const res = await getVoteDetail(vote_IDX, 'ko');
+  const voteDetails = res.data;
+  const error = voteDetails ? false : res.status;
 
-  const voteDetails = await res.json();
   return {
     props: { voteDetails, headers, error, authCookie: authCookie || null },
   };
