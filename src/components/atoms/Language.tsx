@@ -8,7 +8,8 @@ type PropType = {
 };
 
 const Language = ({ language, langCookie }: PropType) => {
-  const path = useRouter().asPath.split('/');
+  const router = useRouter();
+  const path = router.asPath.split('/');
   path[1] = langCookie;
   const href = path.join('/');
   return (
@@ -29,21 +30,32 @@ const Language = ({ language, langCookie }: PropType) => {
         },
       }}
     >
-      <a
-        href={href}
+      <button
         css={{
           width: '100%',
-          textDecoration: 'none',
           color: 'rgb(148,148,148)',
+          textAlign: 'left',
           padding: '5px',
           paddingRight: '20px',
           lineHeight: '32px',
+          backgroundColor: 'transparent',
+          border: 'none',
+          fontFamily: 'Pretendard',
+          fontSize: '16px',
+          fontWeight: '600',
+          cursor: 'pointer',
           ':hover': { color: '#ff5656' },
+          '@media(max-width:991px)': {
+            fontSize: '15px',
+          },
         }}
-        onClick={() => setLangCookie(langCookie)}
+        onClick={() => {
+          setLangCookie(langCookie);
+          router.push(href);
+        }}
       >
         {language}
-      </a>
+      </button>
     </div>
   );
 };
