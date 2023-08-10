@@ -9,17 +9,6 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   const state = req.body.state !== 'undefined' ? (req.body.state as string) : '/';
   const nextUrl = state.replaceAll(';', '&');
 
-  // res.setHeader('set-cookie', [
-  //   serialize('appleCode', code, {
-  //     path: '/',
-  //     secure: true,
-  //   }),
-  //   serialize('nextUrl', nextUrl, {
-  //     path: '/',
-  //     secure: true,
-  //   }),
-  // ]);
-
   if (!code || typeof code !== 'string') throw new Error('Bad Request');
   const results = await getResultsByCode(req, code);
 
