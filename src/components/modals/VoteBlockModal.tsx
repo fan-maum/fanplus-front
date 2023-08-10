@@ -5,11 +5,14 @@ import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteModalState } from '@/store/voteLangState';
 import { Group } from '../atoms';
+import { formatNumberWithComma } from '@/utils/util';
+import { useEffect, useState } from 'react';
 
 export interface VoteBlockModalProps {
   opened: boolean;
   onWebViewLink?: () => void;
   onClose: () => void;
+  resultQuantity: number;
   isWebView?: boolean;
 }
 
@@ -17,6 +20,7 @@ function VoteBlockModal({
   onClose,
   onWebViewLink,
   opened,
+  resultQuantity,
   isWebView,
   ...props
 }: VoteBlockModalProps) {
@@ -35,11 +39,15 @@ function VoteBlockModal({
       text: '앱 설치하기',
     },
   };
-  const freeVotes = 3;
+  const [quantity, setQuantity] = useState(0);
   const language = GetLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
   const voteBlockFirstText = voteModalLang({}).voteBlockFirst;
-  const voteBlockEndText = voteModalLang({ n: freeVotes }).voteBlockEnd;
+  const voteBlockEndText = voteModalLang({ N: formatNumberWithComma(quantity) }).voteBlockEnd;
+
+  useEffect(() => {
+    if (resultQuantity) setQuantity(resultQuantity);
+  }, [resultQuantity]);
 
   return (
     <>

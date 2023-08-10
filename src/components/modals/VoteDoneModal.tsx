@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { Group } from '../atoms';
 import useHtmlElement from '@/hooks/useHtmlElement';
+import { formatNumberWithComma } from '@/utils/util';
 
 export interface VoteDoneModalProps {
   onClose: () => void;
@@ -26,8 +27,8 @@ const VoteDoneModal = ({
   const [quantity, setQuantity] = useState(0);
   const language = GetLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
-  const voteDoneFirstText = voteModalLang({ n: 1, starName: starName }).voteDoneFirst;
-  const voteDoneEndText = voteModalLang({ n: quantity }).voteDoneEnd;
+  const voteDoneFirstText = voteModalLang({ n: 15, starName: starName }).voteDoneFirst;
+  const voteDoneEndText = voteModalLang({ N: formatNumberWithComma(quantity) }).voteDoneEnd;
 
   useEffect(() => {
     if (resultQuantity) setQuantity(resultQuantity);

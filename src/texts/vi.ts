@@ -211,13 +211,13 @@ export const ShareModal_Text_vi = {
   },
 };
 
-export const VoteModal_Text_vi: any = ({ n, starName }: voteModalTextProps) => {
+export const VoteModal_Text_vi: any = ({ n, starName, N }: voteModalTextProps) => {
   const modalItems = {
     voteProcess: `Bạn có muốn bình chọn phiếu <b>${n}</b> miễn phí cho <span>${starName}</span> không?`,
     voteDoneFirst: `Bạn đã bỏ phiếu xong phiếu <b>${n}</b> miễn phí cho <span>${starName}</span>`,
-    voteDoneEnd: `Bạn hãy bình chọn thêm phiếu <b>${n}</b> ở app FanPlus!`,
+    voteDoneEnd: `Bạn hãy bình chọn thêm phiếu <b>${N}</b> ở app FanPlus!`,
     voteBlockFirst: `Một ngày chỉ có một lần được bình chọn<br/>(Phiếu bầu miễn phí sẽ được gia hạn vào lúc 00:00 KST)`,
-    voteBlockEnd: `Nếu bạn tải appFanPlus,<br/>chúng tôi sẽ tặng thêm phiếu ${n} mỗi ngày`,
+    voteBlockEnd: `Nếu bạn tải appFanPlus,<br/>chúng tôi sẽ tặng thêm phiếu <b>${N}</b> mỗi ngày`,
   };
   return modalItems;
 };

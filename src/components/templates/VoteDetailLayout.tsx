@@ -69,6 +69,8 @@ const VoteDetailLayout = ({
   const [voteModal, setVoteModal] = useState(false);
   const [voteModalDone, setVoteModalDone] = useState(0);
 
+  let resultVotes = 1650;
+
   const prizeTabContents: prizeTabContentsProps = {
     prizeTabContentsItem: [
       {
@@ -163,7 +165,7 @@ const VoteDetailLayout = ({
     const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
     setStarWithIndex(starIndex);
     setVoteModal(true); // 테스트 => 투표하시겠습니까? 모달
-    // setVoteModalDone(3); // 테스트 => 투표완료되었습니다. 모달
+    // setVoteModalDone(resultVotes); // 테스트 => 투표완료되었습니다. 모달
     // setVoteModalBlock(true); // 테스트 => 이미 투표했음. 모달
   };
 
@@ -231,6 +233,7 @@ const VoteDetailLayout = ({
           setVoteModalBlock(false);
         }}
         isWebView={isWebView}
+        resultQuantity={resultVotes}
         onWebViewLink={() => window.open('https://naver.com/')}
         // onWebViewLink={() => window.open('딥링크')}
       />

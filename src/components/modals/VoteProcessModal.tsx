@@ -16,7 +16,7 @@ export interface VoteProcessModalProps {
 const VoteProcessModal = ({ opened, onClose, star, ...props }: VoteProcessModalProps) => {
   const language = GetLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
-  const text = voteModalLang({ n: 1, starName: star?.STAR_NAME || '스타이름' }).voteProcess;
+  const text = voteModalLang({ n: 15, starName: star?.STAR_NAME || '스타이름' }).voteProcess;
 
   const voteProcessModalProps: CommonModalProps = {
     opened,

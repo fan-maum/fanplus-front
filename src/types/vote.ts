@@ -88,4 +88,5 @@ export interface VoteDetailResponse {
 export interface voteModalTextProps {
   n?: string;
   starName?: string;
+  N?: string;
 }
