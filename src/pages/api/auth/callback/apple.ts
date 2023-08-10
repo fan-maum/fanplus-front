@@ -25,9 +25,9 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
         domain: process.env.COOKIE_DOMAIN || 'localhost',
       }),
     ]);
-    if (results.DATAS.ONBOARDING_FIN_YN === 'N') {
-      res.redirect(`/signUp/?nextUrl=${state}`);
-    }
+    // if (results.DATAS.ONBOARDING_FIN_YN === 'N') {
+    //   res.redirect(`/signUp/?nextUrl=${state}`);
+    // }
   }
   res.redirect(302, nextUrl);
 };
