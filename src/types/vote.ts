@@ -87,8 +87,8 @@ export interface VoteDetailResponse {
 
 export interface VoteMutateParam {
   voteId: number;
+  userId: string;
   starId: number;
-  token: string;
 }
 
 export interface Result {

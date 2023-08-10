@@ -26,34 +26,20 @@ export const getVoteDetail = (vote_idx: string, lang: string) => {
   return response;
 };
 
-export const postVotes = async ({ voteId, starId, token }: VoteMutateParam, isWebView: boolean) => {
+export const postVotes = async ({ voteId, userId, starId }: VoteMutateParam) => {
   const response: AxiosResponse<{
-    data: {
-      vote: {
-        user_id: number;
-        vote_id: number;
-        star_id: number;
-        candidate_id: number;
-        site: string;
-        quantity: number;
-        created_at: string;
-        id: number;
-      };
-      ticket: number;
+    RESULTS: {
+      ERROR: number;
+      MSG: string;
+      DATAS: object;
+      TIMESTAMP: number;
     };
-    result: Result;
-  }> = await axios.post(
-    `/votes/${voteId}/stars/${starId}/tickets${isWebView ? '' : ''}`,
-    undefined,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      timeout: 10000,
-      params: {
-        site: isWebView ? 'APP' : 'WEB',
-      },
-    }
-  );
+  }> = await axios.post(`https://napi.appphotocard.com/voteWeb/${voteId}`, undefined, {
+    timeout: 10000,
+    params: {
+      identity: userId,
+      target_star_idx: starId,
+    },
+  });
   return response.data;
 };

@@ -145,6 +145,7 @@ const VoteDetailLayout = ({
     return nextQuery.slice(0, nextQuery.length - 1);
   };
 
+  // ! setting 하는 Data가 다를 것..
   async function handleRefresh() {
     const voteIndex = router.query['vote_IDX'] as string;
     const lang = getVoteDetailLanguage() as string;
@@ -155,13 +156,13 @@ const VoteDetailLayout = ({
   }
 
   const voteMutate = useMutation(
-    'promotion-vote-mutate',
-    async (param: VoteMutateParam) => postVotes(param, isWebView as boolean),
+    'vote-mutate',
+    async (param: VoteMutateParam) => postVotes(param),
     {
       onSuccess: async (data) => {
         setVoteModal(false);
-        if (true) {
-          // TODO: 이미 투표했을 경우.
+        if (data.RESULTS.MSG === '투표 완료') {
+          // * 투표가 성공한 케이스
           await handleRefresh();
           await router.push({ query: { ...router.query, id: stars[1]?.STAR_IDX } }, undefined, {
             shallow: true,
@@ -266,11 +267,10 @@ const VoteDetailLayout = ({
           setVoteModal(false);
         }}
         onVoteButtonClick={() => {
-          // TODO: 여기 작성하면 될 듯! (이미 투표했는지 여부 ㅇㅇ)
           if (stars[1] && authCookie) {
             voteMutate.mutate({
-              voteId: 1, // * 어떤 투표인지
-              token: authCookie || '',
+              voteId: parseInt(router.query.vote_IDX as string),
+              userId: authCookie,
               starId: parseInt(stars[1].STAR_IDX),
             });
           }
