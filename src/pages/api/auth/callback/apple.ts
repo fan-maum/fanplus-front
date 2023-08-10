@@ -20,26 +20,26 @@ const appleLoginHandler: NextApiHandler = async (req, res) => {
   //   }),
   // ]);
 
-  if (!code || typeof code !== 'string') throw new Error('Bad Request');
-  const results = await getResultsByCode(req, code);
+  // if (!code || typeof code !== 'string') throw new Error('Bad Request');
+  // const results = await getResultsByCode(req, code);
 
-  if (results.MSG === 'success') {
-    res.setHeader('set-cookie', [
-      serialize('user_id', results.DATAS.USER_IDENTITY, {
-        path: '/',
-        secure: true,
-        domain: process.env.COOKIE_DOMAIN || 'localhost',
-      }),
-      serialize('user_idx', results.DATAS.USER_IDX, {
-        path: '/',
-        secure: true,
-        domain: process.env.COOKIE_DOMAIN || 'localhost',
-      }),
-    ]);
-    if (results.DATAS.ONBOARDING_FIN_YN === 'N') {
-      res.redirect(`/signUp/?nextUrl=${nextUrl}`);
-    }
-  }
+  // if (results.MSG === 'success') {
+  //   res.setHeader('set-cookie', [
+  //     serialize('user_id', results.DATAS.USER_IDENTITY, {
+  //       path: '/',
+  //       secure: true,
+  //       domain: process.env.COOKIE_DOMAIN || 'localhost',
+  //     }),
+  //     serialize('user_idx', results.DATAS.USER_IDX, {
+  //       path: '/',
+  //       secure: true,
+  //       domain: process.env.COOKIE_DOMAIN || 'localhost',
+  //     }),
+  //   ]);
+  //   if (results.DATAS.ONBOARDING_FIN_YN === 'N') {
+  //     res.redirect(`/signUp/?nextUrl=${nextUrl}`);
+  //   }
+  // }
   res.redirect(302, nextUrl);
 };
 
