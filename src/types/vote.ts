@@ -95,6 +95,7 @@ export interface Result {
   message: string;
 }
 export interface voteModalTextProps {
-  n?: string;
+  freeVoteCount?: string;
   starName?: string;
+  moreVoteCount?: string;
 }

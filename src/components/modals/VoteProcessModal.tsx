@@ -6,11 +6,13 @@ import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteModalState } from '@/store/voteLangState';
 import useHtmlElement from '@/hooks/useHtmlElement';
+import { formatNumberWithComma } from '@/utils/util';
 
 export interface VoteProcessModalProps {
   opened: boolean;
   onClose: () => void;
   onVoteButtonClick: () => void;
+  freeVoteCount: number;
   star: VoteDetailStars | null;
 }
 
@@ -18,12 +20,16 @@ const VoteProcessModal = ({
   opened,
   onClose,
   onVoteButtonClick,
+  freeVoteCount,
   star,
   ...props
 }: VoteProcessModalProps) => {
   const language = GetLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
-  const text = voteModalLang({ n: 1, starName: star?.STAR_NAME || '스타이름' }).voteProcess;
+  const text = voteModalLang({
+    freeVoteCount: formatNumberWithComma(freeVoteCount),
+    starName: star?.STAR_NAME || '스타이름',
+  }).voteProcess;
 
   const voteProcessModalProps: CommonModalProps = {
     opened,

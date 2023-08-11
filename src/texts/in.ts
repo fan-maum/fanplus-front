@@ -230,13 +230,17 @@ export const ShareModal_Text_in = {
   },
 };
 
-export const VoteModal_Text_in: any = ({ n, starName }: voteModalTextProps) => {
+export const VoteModal_Text_in: any = ({
+  freeVoteCount,
+  starName,
+  moreVoteCount,
+}: voteModalTextProps) => {
   const modalItems = {
-    voteProcess: `Apakah Anda ingin memilih <b>${n}</b> suara secara gratis untuk <span>${starName}</span>?`,
-    voteDoneFirst: `<span>${starName}</span> mendapat <b>${n}</b> suara gratis.`,
-    voteDoneEnd: `Pilih lebih banyak <b>${n}suara</b> di aplikasi FanPlus!`,
+    voteProcess: `Apakah Anda ingin memilih <b>${freeVoteCount}</b> suara secara gratis untuk <span>${starName}</span>?`,
+    voteDoneFirst: `<span>${starName}</span> mendapat <b>${freeVoteCount}</b> suara gratis.`,
+    voteDoneEnd: `Pilih lebih banyak <b>${moreVoteCount}suara</b> di aplikasi FanPlus!`,
     voteBlockFirst: `Anda dapat memilih sekali per hari<br/>(gratis suara bebas diperbarui pukul 00:00 KST)`,
-    voteBlockEnd: `FanPlus app Instal aplikasinya.<br/>Anda mendapatkan ${n} suara memberikan suara setiap hari`,
+    voteBlockEnd: `FanPlus app Instal aplikasinya.<br/>Anda mendapatkan <b>${moreVoteCount}</b> suara memberikan suara setiap hari`,
   };
   return modalItems;
 };

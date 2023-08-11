@@ -6,11 +6,13 @@ import { useRecoilState } from 'recoil';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { Group } from '../atoms';
 import useHtmlElement from '@/hooks/useHtmlElement';
+import { formatNumberWithComma } from '@/utils/util';
 
 export interface VoteDoneModalProps {
   onClose: () => void;
   onWebViewLink?: () => void;
-  resultQuantity: number;
+  freeVoteCount: number;
+  moreVoteCount: number;
   isWebView?: boolean;
   starName: string;
 }
@@ -18,7 +20,8 @@ export interface VoteDoneModalProps {
 const VoteDoneModal = ({
   onClose,
   isWebView,
-  resultQuantity,
+  freeVoteCount,
+  moreVoteCount,
   onWebViewLink,
   starName,
   ...props
@@ -26,16 +29,21 @@ const VoteDoneModal = ({
   const [quantity, setQuantity] = useState(0);
   const language = GetLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
-  const voteDoneFirstText = voteModalLang({ n: 1, starName: starName }).voteDoneFirst;
-  const voteDoneEndText = voteModalLang({ n: quantity }).voteDoneEnd;
+  const voteDoneFirstText = voteModalLang({
+    freeVoteCount: freeVoteCount,
+    starName: starName,
+  }).voteDoneFirst;
+  const voteDoneEndText = voteModalLang({
+    moreVoteCount: formatNumberWithComma(quantity),
+  }).voteDoneEnd;
 
   useEffect(() => {
-    if (resultQuantity) setQuantity(resultQuantity);
-  }, [resultQuantity]);
+    if (moreVoteCount) setQuantity(moreVoteCount);
+  }, [moreVoteCount]);
 
   const voteDoneModalProps: CommonModalProps = {
     onClose,
-    opened: !!resultQuantity,
+    opened: !!moreVoteCount,
     cancelButton: { text: '완료', onClick: onClose },
     confirmButton: {
       onClick: () => {

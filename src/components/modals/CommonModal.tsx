@@ -61,12 +61,7 @@ function CommonModal({
             {(typeof cancelButton === 'object' && cancelButton?.text) || '취소'}
           </VoteModalButton>
         )}
-        <VoteModalButton
-          variant="primary"
-          css={{ flex: 1 }}
-          onClick={confirmButton?.onClick}
-          //   loading={confirmButton?.loading}
-        >
+        <VoteModalButton variant="primary" css={{ flex: 1 }} onClick={confirmButton?.onClick}>
           {confirmButton?.text || '확인'}
         </VoteModalButton>
       </Flex>

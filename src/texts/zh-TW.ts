@@ -230,13 +230,17 @@ export const ShareModal_Text_zhtw = {
   },
 };
 
-export const VoteModal_Text_zhtw: any = ({ n, starName }: voteModalTextProps) => {
+export const VoteModal_Text_zhtw: any = ({
+  freeVoteCount,
+  starName,
+  moreVoteCount,
+}: voteModalTextProps) => {
   const modalItems = {
     voteProcess: `您想給<span>${starName}</span>免費投票嗎？`,
     voteDoneFirst: `給<span>${starName}</span>投票了。`,
-    voteDoneEnd: `请在FanPlus應用投<b>${n}</b>票`,
+    voteDoneEnd: `请在FanPlus應用投<b>${moreVoteCount}</b>票`,
     voteBlockFirst: `您每天只能參與一次投票。<br/>(免費投票00:00 KST重新設置)`,
-    voteBlockEnd: `下載FanPlus,<br/>每天贈送${n}票。`,
+    voteBlockEnd: `下載FanPlus,<br/>每天贈送<b>${moreVoteCount}</b>票。`,
   };
   return modalItems;
 };

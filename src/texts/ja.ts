@@ -230,13 +230,17 @@ export const ShareModal_Text_ja = {
   },
 };
 
-export const VoteModal_Text_ja: any = ({ n, starName }: voteModalTextProps) => {
+export const VoteModal_Text_ja: any = ({
+  freeVoteCount,
+  starName,
+  moreVoteCount,
+}: voteModalTextProps) => {
   const modalItems = {
-    voteProcess: `<span>${starName}</span>様へ<b>${n}</b>票を無料で 投票しますか？`,
-    voteDoneFirst: `<span>${starName}</span>様へ無料で<b>${n}</b>票が投票されました`,
-    voteDoneEnd: ` FanPlusアプリでさらに<b>${n}</b>票投票してみてください！`,
+    voteProcess: `<span>${starName}</span>様へ<b>${freeVoteCount}</b>票を無料で 投票しますか？`,
+    voteDoneFirst: `<span>${starName}</span>様へ無料で<b>${freeVoteCount}</b>票が投票されました`,
+    voteDoneEnd: ` FanPlusアプリでさらに<b>${moreVoteCount}</b>票投票してみてください！`,
     voteBlockFirst: `1日に1回投票に参加できます<br/>(無料投票は 00:00 KSTに更新されます）`,
-    voteBlockEnd: `FanPlusアプリをインストールすると<br/>毎日 ${n}票差し上げます`,
+    voteBlockEnd: `FanPlusアプリをインストールすると<br/>毎日 <b>${moreVoteCount}</b>票差し上げます`,
   };
   return modalItems;
 };
