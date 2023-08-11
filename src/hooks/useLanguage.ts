@@ -28,4 +28,5 @@ export function getVoteDetailLanguage() {
   if (language === 'zh-CN') return 'zh';
   if (language === 'es') return 'en';
   if (language === 'zh-TW') return 'en';
+  return 'en';
 }

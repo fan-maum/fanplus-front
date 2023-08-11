@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -141,6 +143,23 @@ export const FAQText_IND: FAQPageTextType = {
   a8: 'You can re-register on FanPlus anytime. However, you can use the same email address/nickname/mobile number 90 days after deactivation.',
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
+};
+export const LoginPageText_IND: LoginPageTextType = {
+  heading: 'Masuk FanPlus',
+  line1: 'Login diperlukan. Apakah Anda ingin login?',
+  appleButton: 'Masuk dengan Apple',
+  googleButton: 'Masuk dengan Google',
+};
+export const SignUpPageText_IND: SignUpPageTextType = {
+  heading: 'Persetujuan Penggunaan',
+  line1: 'Harap setujui persyaratan dan ketentuan.',
+  agree1: 'Aku 14 tahun atau lebih tua (yg dibutuhkan)',
+  agree2: 'Ketentuan layanan (yg dibutuhkan)',
+  agree3: 'Kebijakan pribadi (yg dibutuhkan)',
+  agree4: 'Pemberian Informasi kepada Pihak Ketiga (yg dibutuhkan)',
+  detail: 'Details',
+  start: 'Mulailah',
+  agreeAll: 'Saya setuju semua',
 };
 
 export const Votes_Text_in = {

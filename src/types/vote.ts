@@ -84,7 +84,16 @@ export interface VoteDetailResponse {
     TIMESTAMP: number;
   };
 }
+export interface VoteMutateParam {
+  voteId: number;
+  userId: string;
+  starId: number;
+}
 
+export interface Result {
+  code: number;
+  message: string;
+}
 export interface voteModalTextProps {
   n?: string;
   starName?: string;

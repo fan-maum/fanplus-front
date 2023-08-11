@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -141,6 +143,23 @@ export const FAQText_KR: FAQPageTextType = {
   a8: '탈퇴 후 재가입은 바로 가능해요. 다만, 어뷰징 방지를 위해 탈퇴된 계정과 동일한 닉네임/계정 주소/인증된 번호로는 탈퇴일로부터 90일간 가입이 제한됩니다.',
   q9: '탈퇴 후 같은 번호로 다시 인증하는 건 언제부터 가능한가요?',
   a9: '탈퇴한 계정에 인증되어 있는 번호는 탈퇴일로부터 90일이 지난 이후에 다시 번호 인증에 사용할 수 있어요.',
+};
+export const LoginPageText_KR: LoginPageTextType = {
+  heading: '팬플러스 로그인 하기',
+  line1: '로그인이 필요합니다. 로그인을 하시겠습니까?',
+  appleButton: 'Apple 계정으로 로그인',
+  googleButton: 'Google 계정으로 로그인',
+};
+export const SignUpPageText_KR: SignUpPageTextType = {
+  heading: '이용약관',
+  line1: '원활한 서비스 이용을 위해 동의해주세요.',
+  agree1: '만 14세 이상입니다. (필수)',
+  agree2: '서비스 이용약관 (필수)',
+  agree3: '개인정보 취급방침 (필수)',
+  agree4: '개인정보 제3자 제공 (필수)',
+  detail: '보기',
+  start: '시작',
+  agreeAll: '모두 동의하기',
 };
 
 export const Votes_Text_ko = {

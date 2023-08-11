@@ -12,8 +12,8 @@ import VoteDetailPrizeList, {
 import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
-import { VoteDetailResponse, VoteDetailStars } from '@/types/vote';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { VoteDetailResponse, VoteDetailStars, VoteMutateParam } from '@/types/vote';
+import { GetLanguage, getVoteDetailLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { useEffect, useState } from 'react';
@@ -26,6 +26,8 @@ import CommonModal from '../modals/CommonModal';
 import VoteProcessModal, { VoteProcessModalProps } from '../modals/VoteProcessModal';
 import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
+import { useMutation } from 'react-query';
+import { getVoteDetail, postVotes } from '@/api/Vote';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -49,27 +51,30 @@ export const findStarIndexById: (
 };
 
 const VoteDetailLayout = ({
-  voteDetails,
+  voteDetails: propsVoteDetails,
   headers,
   authCookie,
   isWebView,
   error,
 }: VotesLayoutProps) => {
-  // console.log(isWebView);
-
-  const endDay = new Date(voteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
+  const endDay = new Date(propsVoteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
   const language = GetLanguage();
+  const voteLanguage = getVoteDetailLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
   const [stars, setStars] = useState<(VoteDetailStars | null)[]>([null, null, null]);
+  const [voteDetails, setVoteDetails] = useState(propsVoteDetails);
 
   const [voteModalBlock, setVoteModalBlock] = useState(false);
   const [voteModal, setVoteModal] = useState(false);
   const [voteModalDone, setVoteModalDone] = useState(0);
 
   let resultVotes = 1650;
+  const webViewLink = `https://p7m9w.app.goo.gl/?link=${encodeURIComponent(
+    `https://vote.fanplus.co.kr/?vote=${router.query.vote_IDX}&photocard_type=share_vote&vote_idx=${router.query.vote_IDX}&apn=com.photocard.allstar&amv=100&ibi=com.photocard.master&isi=1448805815`
+  )}`;
 
   const prizeTabContents: prizeTabContentsProps = {
     prizeTabContentsItem: [
@@ -131,6 +136,61 @@ const VoteDetailLayout = ({
     ]);
   };
 
+  const setNextQueryWithId = (starId: string) => {
+    const query = { ...router.query };
+    query.id = starId;
+    let nextQuery = '?';
+    for (const key in query) nextQuery += key + '=' + query[key] + ';';
+    return nextQuery.slice(0, nextQuery.length - 1);
+  };
+
+  // setting 하는 Data가 다를 것..
+  async function handleRefresh() {
+    // const voteIndex = router.query['vote_IDX'] as string;
+    const id = router.query['id'] as string;
+    const gg: VoteDetailResponse = {
+      ...voteDetails,
+      RESULTS: {
+        ...voteDetails.RESULTS,
+        DATAS: {
+          ...voteDetails.RESULTS.DATAS,
+          VOTE_INFO: {
+            ...voteDetails.RESULTS.DATAS.VOTE_INFO,
+            STARS: voteDetails.RESULTS.DATAS.VOTE_INFO.STARS.map((star) => {
+              if (star.STAR_IDX === id) {
+                return {
+                  ...star,
+                  VOTE_CNT: (Number(star.VOTE_CNT) + 1).toString(),
+                };
+              }
+              return star;
+            }),
+          },
+        },
+      },
+    };
+    // const res = await getVoteDetail(voteIndex, voteLanguage);
+    // if (Object.keys(res.data).length) {
+    setVoteDetails(gg);
+    // }
+  }
+
+  const voteMutate = useMutation(
+    'vote-mutate',
+    async (param: VoteMutateParam) => postVotes(param),
+    {
+      onSuccess: async (data) => {
+        setVoteModal(false);
+        if (data.RESULTS.MSG === '투표 완료') {
+          await handleRefresh();
+          setVoteModalDone(resultVotes); // TODO: 여기도 (n 표 더 투표하시겠습니까? (앱링크로))
+        } else {
+          setVoteModalBlock(true);
+        }
+      },
+    }
+  );
+
   useEffect(() => {
     if (stars[1]) {
       const starData = findStarIndexById(stars[1].STAR_IDX, voteDetails);
@@ -140,15 +200,11 @@ const VoteDetailLayout = ({
 
   useEffect(() => {
     const starId = String(router.query.id);
-    if (
-      starId &&
-      typeof router.query.login === 'string' &&
-      findStarById(starId, voteDetails) &&
-      authCookie
-    ) {
+    if (starId && authCookie && findStarById(starId, voteDetails)) {
       const star = findStarIndexById(starId, voteDetails);
       if (star) {
         setStarWithIndex(star.index);
+        setVoteModal(true);
       }
     }
   }, []);
@@ -160,13 +216,21 @@ const VoteDetailLayout = ({
     setShareModalIsOpened(true);
   };
 
-  const voteOnClick = (id: string) => {
+  const voteOnClick = async (id: string) => {
     const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
     const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
     setStarWithIndex(starIndex);
-    setVoteModal(true); // 테스트 => 투표하시겠습니까? 모달
-    // setVoteModalDone(resultVotes); // 테스트 => 투표완료되었습니다. 모달
-    // setVoteModalBlock(true); // 테스트 => 이미 투표했음. 모달
+    const newId = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS[starIndex].STAR_IDX;
+    await router.push({ query: { ...router.query, id: newId } }, undefined, {
+      shallow: true,
+    });
+    if (authCookie) {
+      setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
+    } else {
+      const nextPath = router.pathname;
+      const nextQuery = setNextQueryWithId(id);
+      router.push({ pathname: '/login', query: { nextUrl: nextPath + nextQuery } });
+    }
   };
 
   const voteDetailHeaderProps: VoteDetailHeaderProps = {
@@ -215,6 +279,15 @@ const VoteDetailLayout = ({
         onClose={() => {
           setVoteModal(false);
         }}
+        onVoteButtonClick={async () => {
+          if (stars[1] && authCookie) {
+            voteMutate.mutate({
+              voteId: parseInt(router.query.vote_IDX as string),
+              userId: authCookie,
+              starId: parseInt(stars[1].STAR_IDX),
+            });
+          }
+        }}
         star={stars[1]}
       />
       <VoteDoneModal
@@ -223,8 +296,7 @@ const VoteDetailLayout = ({
         }}
         isWebView={isWebView}
         resultQuantity={voteModalDone}
-        onWebViewLink={() => window.open('https://naver.com/')}
-        // onWebViewLink={() => window.open('딥링크')}
+        onWebViewLink={() => window.open(webViewLink)}
         starName={stars[1]?.STAR_NAME || '스타이름'}
       />
       <VoteBlockModal
@@ -234,8 +306,7 @@ const VoteDetailLayout = ({
         }}
         isWebView={isWebView}
         resultQuantity={resultVotes}
-        onWebViewLink={() => window.open('https://naver.com/')}
-        // onWebViewLink={() => window.open('딥링크')}
+        onWebViewLink={() => window.open(webViewLink)}
       />
     </div>
   );

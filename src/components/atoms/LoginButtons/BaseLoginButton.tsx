@@ -1,7 +1,4 @@
-import { useRouter } from 'next/router';
-import { FC, ReactNode } from 'react';
-import querystring from 'querystring';
-import { Interpolation, Theme } from '@emotion/react';
+import { FC, ReactNode, useContext } from 'react';
 
 const onClickLogin = async (nextUrl: string, site: string) => {
   window.location.href = `/api/auth/login/${site}?nextUrl=${nextUrl}`;
@@ -11,14 +8,10 @@ type LoginButtonProps = {
   texts: string;
   site: string;
   icon?: ReactNode;
-  css?: Interpolation<Theme>;
+  nextUrl: string;
 };
 
-const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon }) => {
-  const router = useRouter();
-  const nextPath = router.pathname;
-  const queries =
-    Object.keys(router.query).length !== 0 ? '?' + querystring.stringify(router.query, ';') : '';
+const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon, nextUrl }) => {
   return (
     <button
       css={{
@@ -40,7 +33,7 @@ const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon }) => {
           transition: '0.4s ease-out',
         },
       }}
-      onClick={() => onClickLogin(nextPath + queries, site)}
+      onClick={() => onClickLogin(nextUrl, site)}
     >
       {icon}
       {texts}

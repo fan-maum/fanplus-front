@@ -62,7 +62,7 @@ function CommonModal({
           </VoteModalButton>
         )}
         <VoteModalButton variant="primary" css={{ flex: 1 }} onClick={confirmButton?.onClick}>
-          {!confirmButton?.loading && (confirmButton?.text || '확인')}
+          {confirmButton?.text || '확인'}
         </VoteModalButton>
       </Flex>
     </Modal>

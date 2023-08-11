@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -141,6 +143,23 @@ export const FAQText_zh_CN: FAQPageTextType = {
   a8: '注销后可以立即重新注册。 只是, 为了防止滥用, 与注销账户相同的昵称/账户地址/已认证的号码, 自注销日起, 90天内无法再申请注册。',
   q9: '注销后什么时候可以重新认证相同的号码？',
   a9: '被已注销账户验证过的号码, 自注销日起, 90天以后, 可以重新用于号码验证。',
+};
+export const LoginPageText_zh_CN: LoginPageTextType = {
+  heading: 'FanPlus登录',
+  line1: '需要登录。您现在要登录吗？',
+  appleButton: '使用Apple 账号登陆',
+  googleButton: '使用Google 账号登陆',
+};
+export const SignUpPageText_zh_CN: SignUpPageTextType = {
+  heading: '用户协议',
+  line1: '为顺利使用该服务，请同意条款。',
+  agree1: '我是14岁及以上 (必选)',
+  agree2: '服务条款 (必选)',
+  agree3: '个人隐私政策 (必选)',
+  agree4: '第三方隐私政策 (必选)',
+  detail: '查看详情',
+  start: '开始',
+  agreeAll: '全部同意',
 };
 
 export const Votes_Text_zh = {
