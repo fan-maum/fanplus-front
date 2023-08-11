@@ -72,9 +72,7 @@ const VoteDetailLayout = ({
 
   const freeVoteCount = 15;
   const moreVoteCount = 1650;
-  const webViewLink = `https://p7m9w.app.goo.gl/?link=${encodeURIComponent(
-    `https://vote.fanplus.co.kr/?vote=${router.query.vote_IDX}&photocard_type=share_vote&vote_idx=${router.query.vote_IDX}&apn=com.photocard.allstar&amv=100&ibi=com.photocard.master&isi=1448805815`
-  )}`;
+  const webViewLink = `https://p7m9w.app.goo.gl/install`;
 
   const prizeTabContents: prizeTabContentsProps = {
     prizeTabContentsItem: [
