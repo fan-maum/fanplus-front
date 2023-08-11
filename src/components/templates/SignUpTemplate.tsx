@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { Cookies } from 'react-cookie';
 import { SignUpPageTextType } from '@/types/textTypes';
+import { setUserOnboard } from '@/api/User';
 
 const cookies = new Cookies();
 
@@ -30,13 +31,8 @@ const SignUpTemplate = ({ texts }: { texts: SignUpPageTextType }) => {
     async function update() {
       const user_id = cookies.get('user_id');
       const user_idx = cookies.get('user_idx');
-      // TODO: url 뒤에 useridentity 값. (로그인 이후 서버에서 준 값.. 쿠키로 관리할 것 같습니다.) (소진님께 재확인 필요)
-      await axios.put(`https://napi.appphotocard.com/v1/users/4113749`, {
-        identity: '1060f8c3d01173cccc96585c49edd779ab1f7916c5ed85c75490d2e6611e6cc8',
-        target: 'onboarding_finished_yn',
-        value: 'Y',
-      });
-      router.push((router.query['nextUrl'] as string).replaceAll(';', '&'));
+      const response = await setUserOnboard(user_id, user_idx);
+      router.push((router.query['nextUrl'] as string)?.replaceAll(';', '&') || '/');
     }
     if (start === true) update();
   }, [start]);
