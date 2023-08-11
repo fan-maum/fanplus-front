@@ -7,7 +7,8 @@ import nookies from 'nookies';
 import { getVoteDetail } from '@/api/Vote';
 
 const VoteDetail = ({ voteDetails, headers, authCookie, error }: EventProps) => {
-  const isWebView = !!headers.token || !!authCookie;
+  // const isWebView = !!headers.token || !!authCookie;
+  const isWebView = false;
 
   return (
     <Layout navBarTexts={NavBarText_zh_TW} footerTexts={FooterText_zh_TW}>
