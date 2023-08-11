@@ -30,6 +30,8 @@ const googleLoginHandler: NextApiHandler = async (req, res) => {
     ]);
     if (results.DATAS.ONBOARDING_FIN_YN === 'N') {
       res.redirect(`/signUp/?nextUrl=${state}`);
+    } else {
+      res.redirect(302, nextUrl);
     }
   } else {
     res.redirect(302, nextUrl);

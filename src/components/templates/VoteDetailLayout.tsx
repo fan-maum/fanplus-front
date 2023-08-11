@@ -180,10 +180,9 @@ const VoteDetailLayout = ({
     async (param: VoteMutateParam) => postVotes(param),
     {
       onSuccess: async (data) => {
+        setVoteModal(false);
         if (data.RESULTS.MSG === '투표 완료') {
-          // * 투표가 성공한 케이스
           await handleRefresh();
-          setVoteModal(false);
           setVoteModalDone(1); // TODO: 여기도 (n 표 더 투표하시겠습니까? (앱링크로))
         } else {
           setVoteModalBlock(true);
