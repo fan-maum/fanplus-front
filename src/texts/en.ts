@@ -230,13 +230,17 @@ export const ShareModal_Text_en = {
   },
 };
 
-export const VoteModal_Text_en: any = ({ n, starName, N }: voteModalTextProps) => {
+export const VoteModal_Text_en: any = ({
+  freeVoteCount,
+  starName,
+  moreVoteCount,
+}: voteModalTextProps) => {
   const modalItems = {
-    voteProcess: `Do you want to user <b>${n} VTs for free</b> to vote<br/>for <span>${starName}</span>?`,
-    voteDoneFirst: `<b>${n} VTs</b> have been used for free to vote<br/>for <span>${starName}</span>.`,
-    voteDoneEnd: `Vote for your star with <b>${N} more VTs on FanPlus!</b>`,
+    voteProcess: `Do you want to user <b>${freeVoteCount} VTs for free</b> to vote<br/>for <span>${starName}</span>?`,
+    voteDoneFirst: `<b>${freeVoteCount} VTs</b> have been used for free to vote<br/>for <span>${starName}</span>.`,
+    voteDoneEnd: `Vote for your star with <b>${moreVoteCount} more VTs on FanPlus!</b>`,
     voteBlockFirst: `You can participate in the vote only once per day.<br/>(Free vote is renewed at 00:00 KST)`,
-    voteBlockEnd: `<b>${N}</b> voting tickets are given away everyday<br/>for FanPlus app users.`,
+    voteBlockEnd: `<b>${moreVoteCount}</b> voting tickets are given away everyday<br/>for FanPlus app users.`,
   };
   return modalItems;
 };

@@ -12,7 +12,7 @@ export interface VoteBlockModalProps {
   opened: boolean;
   onWebViewLink?: () => void;
   onClose: () => void;
-  resultQuantity: number;
+  moreVoteCount: number;
   isWebView?: boolean;
 }
 
@@ -20,7 +20,7 @@ function VoteBlockModal({
   onClose,
   onWebViewLink,
   opened,
-  resultQuantity,
+  moreVoteCount,
   isWebView,
   ...props
 }: VoteBlockModalProps) {
@@ -39,15 +39,12 @@ function VoteBlockModal({
       text: '앱 설치하기',
     },
   };
-  const [quantity, setQuantity] = useState(0);
   const language = GetLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
   const voteBlockFirstText = voteModalLang({}).voteBlockFirst;
-  const voteBlockEndText = voteModalLang({ N: formatNumberWithComma(quantity) }).voteBlockEnd;
-
-  useEffect(() => {
-    if (resultQuantity) setQuantity(resultQuantity);
-  }, [resultQuantity]);
+  const voteBlockEndText = voteModalLang({
+    moreVoteCount: formatNumberWithComma(moreVoteCount),
+  }).voteBlockEnd;
 
   return (
     <>

@@ -71,7 +71,8 @@ const VoteDetailLayout = ({
   const [voteModal, setVoteModal] = useState(false);
   const [voteModalDone, setVoteModalDone] = useState(0);
 
-  let resultVotes = 1650;
+  const freeVoteCount = 15;
+  const moreVoteCount = 1650;
   const webViewLink = `https://p7m9w.app.goo.gl/?link=${encodeURIComponent(
     `https://vote.fanplus.co.kr/?vote=${router.query.vote_IDX}&photocard_type=share_vote&vote_idx=${router.query.vote_IDX}&apn=com.photocard.allstar&amv=100&ibi=com.photocard.master&isi=1448805815`
   )}`;
@@ -183,7 +184,7 @@ const VoteDetailLayout = ({
         setVoteModal(false);
         if (data.RESULTS.MSG === '투표 완료') {
           await handleRefresh();
-          setVoteModalDone(resultVotes); // TODO: 여기도 (n 표 더 투표하시겠습니까? (앱링크로))
+          setVoteModalDone(moreVoteCount); // TODO: 여기도 (n 표 더 투표하시겠습니까? (앱링크로))
         } else {
           setVoteModalBlock(true);
         }
@@ -276,6 +277,7 @@ const VoteDetailLayout = ({
       <CompletedShareModal {...completedShareModalProps} />
       <VoteProcessModal
         opened={voteModal}
+        freeVoteCount={freeVoteCount}
         onClose={() => {
           setVoteModal(false);
         }}
@@ -295,7 +297,8 @@ const VoteDetailLayout = ({
           setVoteModalDone(0);
         }}
         isWebView={isWebView}
-        resultQuantity={voteModalDone}
+        freeVoteCount={freeVoteCount}
+        moreVoteCount={voteModalDone}
         onWebViewLink={() => window.open(webViewLink)}
         starName={stars[1]?.STAR_NAME || '스타이름'}
       />
@@ -305,7 +308,7 @@ const VoteDetailLayout = ({
           setVoteModalBlock(false);
         }}
         isWebView={isWebView}
-        resultQuantity={resultVotes}
+        moreVoteCount={moreVoteCount}
         onWebViewLink={() => window.open(webViewLink)}
       />
     </div>

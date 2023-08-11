@@ -230,13 +230,17 @@ export const ShareModal_Text_es = {
   },
 };
 
-export const VoteModal_Text_es: any = ({ n, starName, N }: voteModalTextProps) => {
+export const VoteModal_Text_es: any = ({
+  freeVoteCount,
+  starName,
+  moreVoteCount,
+}: voteModalTextProps) => {
   const modalItems = {
-    voteProcess: `¿Votaría <b>${n} voto(s)</b> gratis parael <span>${starName}</span>`,
-    voteDoneFirst: `Para <span>${starName}</span>,<br/><b>${n} voto(s)</b> fueron gratis`,
-    voteDoneEnd: `Voten más <b>${N} voto(s)</b> en la aplicación FanPlus!`,
+    voteProcess: `¿Votaría <b>${freeVoteCount} voto(s)</b> gratis parael <span>${starName}</span>`,
+    voteDoneFirst: `Para <span>${starName}</span>,<br/><b>${freeVoteCount} voto(s)</b> fueron gratis`,
+    voteDoneEnd: `Voten más <b>${moreVoteCount} voto(s)</b> en la aplicación FanPlus!`,
     voteBlockFirst: `Pueden votar una vez al día<br/>La hora estándar es 00:00 (hora coreana)`,
-    voteBlockEnd: `Si instalan la aplicación FanPlus se puede obtener  <b>${N}</b> voto(s) cada día`,
+    voteBlockEnd: `Si instalan la aplicación FanPlus se puede obtener  <b>${moreVoteCount}</b> voto(s) cada día`,
   };
   return modalItems;
 };
