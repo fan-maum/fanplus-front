@@ -160,6 +160,9 @@ export const SignUpPageText_zh_CN: SignUpPageTextType = {
   detail: '查看详情',
   start: '开始',
   agreeAll: '全部同意',
+  agree2Link: 'https://privacy.fanplus.co.kr/terms_of_service.html',
+  agree3Link: 'https://privacy.fanplus.co.kr/privacy.html',
+  agree4Link: 'https://privacy.fanplus.co.kr/thrid_parties.html',
 };
 
 export const Votes_Text_zh = {

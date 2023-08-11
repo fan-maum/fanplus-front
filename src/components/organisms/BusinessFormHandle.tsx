@@ -22,7 +22,7 @@ export const handleBusinessFormSubmit = async ({
   formdata.append('email', email);
   formdata.append('message', message);
 
-  const result = new Request(`${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/Businessform`, {
+  const result = new Request(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/businessform`, {
     method: 'POST',
     body: formdata,
   });

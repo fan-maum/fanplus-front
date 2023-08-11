@@ -5,6 +5,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const vote_IDX = String(req.query.vote_idx) || '';
     const lang = String(req.query.lang);
+    const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
     const response: AxiosResponse<{
       RESULTS: {
@@ -15,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       };
     }> = await axios.get(`https://napi.appphotocard.com/voteWeb/${vote_IDX}?lang=${lang}`, {
       headers: {
-        Origin: 'http://vote.appphotocard.com',
+        Origin: origin,
         'Cache-Control': 'no-cache',
       },
     });

@@ -2,6 +2,8 @@ import { VoteMutateParam } from '@/types/vote';
 import axios, { AxiosResponse } from 'axios';
 import { VoteDetailResponse } from '@/types/vote';
 
+const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+
 export const getVotes = (
   vote_type: string | undefined | null,
   page: number,
@@ -12,7 +14,7 @@ export const getVotes = (
     `https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${lang}`,
     {
       method: 'GET',
-      headers: { Origin: 'http://vote.appphotocard.com' },
+      headers: { Origin: origin },
     }
   );
   return response;
@@ -20,7 +22,7 @@ export const getVotes = (
 
 export const getVoteDetail = async (vote_idx: string, lang: string) => {
   const response: AxiosResponse<VoteDetailResponse> = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/voteDetail`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/voteDetail`,
     { params: { vote_idx, lang } }
   );
 
@@ -35,7 +37,7 @@ export const postVotes = async ({ voteId, userId, starId }: VoteMutateParam) => 
       DATAS: object;
       TIMESTAMP: number;
     };
-  }> = await axios.post(`${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/vote`, {
+  }> = await axios.post(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/vote`, {
     voteId,
     userId,
     starId,

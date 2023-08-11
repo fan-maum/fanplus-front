@@ -148,6 +148,9 @@ export type SignUpPageTextType = {
   detail: string;
   start: string;
   agreeAll: string;
+  agree2Link: string;
+  agree3Link: string;
+  agree4Link: string;
 };
 
 export type TextType = {

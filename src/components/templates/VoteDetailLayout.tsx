@@ -22,7 +22,6 @@ import VoteDetailShareModal, {
 } from '@/components/modals/VoteDetailShareModal';
 import { useRouter } from 'next/router';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
-import CommonModal from '../modals/CommonModal';
 import VoteProcessModal, { VoteProcessModalProps } from '../modals/VoteProcessModal';
 import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
@@ -149,7 +148,7 @@ const VoteDetailLayout = ({
   async function handleRefresh() {
     // const voteIndex = router.query['vote_IDX'] as string;
     const id = router.query['id'] as string;
-    const gg: VoteDetailResponse = {
+    const optimisticResponse: VoteDetailResponse = {
       ...voteDetails,
       RESULTS: {
         ...voteDetails.RESULTS,
@@ -161,7 +160,7 @@ const VoteDetailLayout = ({
               if (star.STAR_IDX === id) {
                 return {
                   ...star,
-                  VOTE_CNT: (Number(star.VOTE_CNT) + 1).toString(),
+                  VOTE_CNT: (Number(star.VOTE_CNT) + 15).toString(),
                 };
               }
               return star;
@@ -172,7 +171,7 @@ const VoteDetailLayout = ({
     };
     // const res = await getVoteDetail(voteIndex, voteLanguage);
     // if (Object.keys(res.data).length) {
-    setVoteDetails(gg);
+    setVoteDetails(optimisticResponse);
     // }
   }
 
