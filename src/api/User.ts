@@ -8,7 +8,7 @@ export const setUserOnboard = async (userId: string, userIndex: string) => {
       DATAS: object;
       TIMESTAMP: number;
     };
-  }> = await axios.put(`${process.env.HOME_API_URL}/api/userUpdate`, {
+  }> = await axios.put(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/userUpdate`, {
     userId,
     userIndex,
   });

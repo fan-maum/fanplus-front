@@ -20,7 +20,7 @@ export const getVotes = (
 
 export const getVoteDetail = async (vote_idx: string, lang: string) => {
   const response: AxiosResponse<VoteDetailResponse> = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/voteDetail`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/voteDetail`,
     { params: { vote_idx, lang } }
   );
 
@@ -35,7 +35,7 @@ export const postVotes = async ({ voteId, userId, starId }: VoteMutateParam) => 
       DATAS: object;
       TIMESTAMP: number;
     };
-  }> = await axios.post(`${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/vote`, {
+  }> = await axios.post(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/vote`, {
     voteId,
     userId,
     starId,

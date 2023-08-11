@@ -18,7 +18,7 @@ export const getServerSideProps = async (context: any) => {
   const per_page = Number(context.query.per_page) || 9;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_VOTE_URL}/api/votes?vote_type=${vote_type}&page=${
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/votes?vote_type=${vote_type}&page=${
       page - 1
     }&per_page=${per_page}&lang=ja`
   );
