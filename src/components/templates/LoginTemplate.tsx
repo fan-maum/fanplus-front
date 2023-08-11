@@ -8,6 +8,19 @@ import { LoginPageTextType } from '@/types/textTypes';
 const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   const router = useRouter();
   const nextUrl = router.query['nextUrl'] as string;
+  const onClickLogin = async (nextUrl: string, site: string) => {
+    window.location.href = `/api/auth/login/${site}?nextUrl=${nextUrl}`;
+  };
+
+  const handleGoogleLoginClick = () => {
+    const isKakao = navigator?.userAgent?.match('KAKAOTALK');
+    if (isKakao) {
+      alert('구글 로그인은 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
+      return;
+    }
+
+    window.location.href = `/api/auth/login/google?nextUrl=${nextUrl}`;
+  };
   return (
     <div
       css={{
@@ -80,8 +93,11 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
             '@media(max-width:768px)': { height: '50%', justifyContent: 'center' },
           }}
         >
-          <AppleLoginButton texts={texts.appleButton} nextUrl={nextUrl} />
-          <GoogleLoginButton texts={texts.googleButton} nextUrl={nextUrl} />
+          <AppleLoginButton
+            texts={texts.appleButton}
+            onClick={() => onClickLogin(nextUrl, 'apple')}
+          />
+          <GoogleLoginButton texts={texts.googleButton} onClick={handleGoogleLoginClick} />
         </div>
       </div>
     </div>

@@ -1,8 +1,12 @@
 import IconGoogle from '../IconGoogle';
 import BaseLoginButton from './BaseLoginButton';
 
-const GoogleLoginButton = ({ texts, nextUrl }: { texts: string; nextUrl: string }) => {
-  return <BaseLoginButton texts={texts} site="google" icon={<IconGoogle />} nextUrl={nextUrl} />;
+const GoogleLoginButton = ({ texts, onClick }: { texts: string; onClick: () => void }) => {
+  const handleClick = () => {
+    onClick();
+  };
+
+  return <BaseLoginButton texts={texts} icon={<IconGoogle />} onClick={handleClick} />;
 };
 
 export default GoogleLoginButton;

@@ -1,17 +1,15 @@
 import { FC, ReactNode, useContext } from 'react';
 
-const onClickLogin = async (nextUrl: string, site: string) => {
-  window.location.href = `/api/auth/login/${site}?nextUrl=${nextUrl}`;
-};
-
 type LoginButtonProps = {
   texts: string;
-  site: string;
   icon?: ReactNode;
-  nextUrl: string;
+  onClick: () => void;
 };
 
-const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon, nextUrl }) => {
+const BaseLoginButton: FC<LoginButtonProps> = ({ texts, icon, onClick }) => {
+  const handleClick = () => {
+    onClick();
+  };
   return (
     <button
       css={{
@@ -33,7 +31,7 @@ const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon, nextUrl }) =
           transition: '0.4s ease-out',
         },
       }}
-      onClick={() => onClickLogin(nextUrl, site)}
+      onClick={handleClick}
     >
       {icon}
       {texts}

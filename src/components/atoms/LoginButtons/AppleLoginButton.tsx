@@ -1,13 +1,15 @@
 import IconAppStore from '../IconAppStore';
 import BaseLoginButton from './BaseLoginButton';
 
-const AppleLoginButton = ({ texts, nextUrl }: { texts: string; nextUrl: string }) => {
+const AppleLoginButton = ({ texts, onClick }: { texts: string; onClick: () => void }) => {
+  const handleClick = () => {
+    onClick();
+  };
   return (
     <BaseLoginButton
       texts={texts}
-      site="apple"
       icon={<IconAppStore fill="#000" mB="5px" />}
-      nextUrl={nextUrl}
+      onClick={handleClick}
     />
   );
 };

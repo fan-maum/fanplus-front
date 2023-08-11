@@ -7,7 +7,7 @@ import nookies from 'nookies';
 import { getVoteDetail } from '@/api/Vote';
 import { NextSeo } from 'next-seo';
 
-const VoteDetail = ({ voteDetails, headers, authCookie, error }: EventProps) => {
+const VoteDetail = ({ voteDetails, headers, authCookie, error, url }: EventProps) => {
   // const isWebView = !!headers.token || !!authCookie;
   const isWebView = false;
 
