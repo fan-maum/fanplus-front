@@ -160,6 +160,9 @@ export const SignUpPageText_ESP: SignUpPageTextType = {
   detail: 'Ver detalles',
   start: 'Iniciar',
   agreeAll: 'Aceptar todo',
+  agree2Link: 'https://privacy.fanplus.co.kr/terms_of_service.html',
+  agree3Link: 'https://privacy.fanplus.co.kr/privacy.html',
+  agree4Link: 'https://privacy.fanplus.co.kr/thrid_parties.html',
 };
 
 export const Votes_Text_es = {

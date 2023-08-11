@@ -160,6 +160,9 @@ export const SignUpPageText_JAP: SignUpPageTextType = {
   detail: '続きを読む',
   start: '詩作',
   agreeAll: '同意(必須)',
+  agree2Link: 'https://privacy.fanplus.co.kr/terms_of_service.html',
+  agree3Link: 'https://privacy.fanplus.co.kr/privacy.html',
+  agree4Link: 'https://privacy.fanplus.co.kr/thrid_parties.html',
 };
 
 export const Votes_Text_ja = {

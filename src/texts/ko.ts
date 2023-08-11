@@ -160,6 +160,9 @@ export const SignUpPageText_KR: SignUpPageTextType = {
   detail: '보기',
   start: '시작',
   agreeAll: '모두 동의하기',
+  agree2Link: 'https://privacy.fanplus.co.kr/terms_of_service_ko.html',
+  agree3Link: 'https://privacy.fanplus.co.kr/privacy_ko.html',
+  agree4Link: 'https://privacy.fanplus.co.kr/thrid_parties_ko.html',
 };
 
 export const Votes_Text_ko = {
