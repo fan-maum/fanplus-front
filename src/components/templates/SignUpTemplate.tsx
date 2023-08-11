@@ -122,24 +122,15 @@ const SignUpTemplate = ({ texts }: { texts: SignUpPageTextType }) => {
             </CheckList>
             <CheckList checked={check2} setChecked={setCheck2}>
               <p css={{ marginRight: '80px' }}>{texts.agree2}</p>
-              <Anchor
-                href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR"
-                text={texts.detail}
-              />
+              <Anchor href={texts.agree2Link} text={texts.detail} />
             </CheckList>
             <CheckList checked={check3} setChecked={setCheck3}>
               <p css={{ marginRight: '80px' }}>{texts.agree3}</p>
-              <Anchor
-                href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR"
-                text={texts.detail}
-              />
+              <Anchor href={texts.agree3Link} text={texts.detail} />
             </CheckList>
             <CheckList checked={check4} setChecked={setCheck4}>
               <p css={{ marginRight: '80px' }}>{texts.agree4}</p>
-              <Anchor
-                href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR"
-                text={texts.detail}
-              />
+              <Anchor href={texts.agree4Link} text={texts.detail} />
             </CheckList>
           </ul>
           <div
