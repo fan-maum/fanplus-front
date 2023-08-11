@@ -244,3 +244,10 @@ export const VoteModal_Text_vi: any = ({
   };
   return modalItems;
 };
+
+export const VoteModalButton_Text_vi = {
+  voteModalVote: 'Bỏ phiếu',
+  voteModalCancel: 'Hủy bỏ',
+  voteModalComplete: 'Hoàn thành',
+  voteModalInstall: 'Cài đặt ứng dụng',
+};

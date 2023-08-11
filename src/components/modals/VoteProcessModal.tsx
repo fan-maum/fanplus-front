@@ -4,7 +4,7 @@ import CommonModal, { CommonModalProps } from './CommonModal';
 import { Group } from '../atoms';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
-import { voteModalState } from '@/store/voteLangState';
+import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
 import useHtmlElement from '@/hooks/useHtmlElement';
 import { formatNumberWithComma } from '@/utils/util';
 
@@ -26,6 +26,7 @@ const VoteProcessModal = ({
 }: VoteProcessModalProps) => {
   const language = GetLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
+  const voteModalButton = useRecoilState(voteModalButtonState(language))[0];
   const text = voteModalLang({
     freeVoteCount: formatNumberWithComma(freeVoteCount),
     starName: star?.STAR_NAME || '스타이름',
@@ -34,10 +35,10 @@ const VoteProcessModal = ({
   const voteProcessModalProps: CommonModalProps = {
     opened,
     onClose,
-    cancelButton: { text: '취소하기', onClick: onClose },
+    cancelButton: { text: voteModalButton?.voteModalCancel, onClick: onClose },
     confirmButton: {
       onClick: onVoteButtonClick,
-      text: '투표하기',
+      text: voteModalButton?.voteModalVote,
     },
   };
   return (

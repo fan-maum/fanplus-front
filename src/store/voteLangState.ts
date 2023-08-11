@@ -4,48 +4,56 @@ import {
   VoteDetail_Text_ko,
   ShareModal_Text_ko,
   VoteModal_Text_ko,
+  VoteModalButton_Text_ko,
 } from '@/texts/ko';
 import {
   Votes_Text_en,
   VoteDetail_Text_en,
   ShareModal_Text_en,
   VoteModal_Text_en,
+  VoteModalButton_Text_en,
 } from '@/texts/en';
 import {
   Votes_Text_es,
   VoteDetail_Text_es,
   ShareModal_Text_es,
   VoteModal_Text_es,
+  VoteModalButton_Text_es,
 } from '@/texts/es';
 import {
   Votes_Text_in,
   VoteDetail_Text_in,
   ShareModal_Text_in,
   VoteModal_Text_in,
+  VoteModalButton_Text_in,
 } from '@/texts/in';
 import {
   Votes_Text_ja,
   VoteDetail_Text_ja,
   ShareModal_Text_ja,
   VoteModal_Text_ja,
+  VoteModalButton_Text_ja,
 } from '@/texts/ja';
 import {
   Votes_Text_vi,
   VoteDetail_Text_vi,
   ShareModal_Text_vi,
   VoteModal_Text_vi,
+  VoteModalButton_Text_vi,
 } from '@/texts/vi';
 import {
   Votes_Text_zh,
   VoteDetail_Text_zh,
   ShareModal_Text_zh,
   VoteModal_Text_zh,
+  VoteModalButton_Text_zh,
 } from '@/texts/zh-CN';
 import {
   Votes_Text_zhtw,
   VoteDetail_Text_zhtw,
   ShareModal_Text_zhtw,
   VoteModal_Text_zhtw,
+  VoteModalButton_Text_zhtw,
 } from '@/texts/zh-TW';
 
 const randomNumber = Math.floor(Math.random() * 100);
@@ -102,5 +110,19 @@ export const voteModalState = atomFamily({
     if (id === 'vi') return VoteModal_Text_vi;
     if (id === 'zh-CN') return VoteModal_Text_zh;
     if (id === 'zh-TW') return VoteModal_Text_zhtw;
+  },
+});
+
+export const voteModalButtonState = atomFamily({
+  key: `voteModalButtonState/${randomNumber}`,
+  default: (id: string) => {
+    if (id === 'ko') return VoteModalButton_Text_ko;
+    if (id === 'en') return VoteModalButton_Text_en;
+    if (id === 'es') return VoteModalButton_Text_es;
+    if (id === 'in') return VoteModalButton_Text_in;
+    if (id === 'ja') return VoteModalButton_Text_ja;
+    if (id === 'vi') return VoteModalButton_Text_vi;
+    if (id === 'zh-CN') return VoteModalButton_Text_zh;
+    if (id === 'zh-TW') return VoteModalButton_Text_zhtw;
   },
 });

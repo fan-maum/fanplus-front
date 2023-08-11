@@ -244,3 +244,10 @@ export const VoteModal_Text_ko: any = ({
   };
   return modalItems;
 };
+
+export const VoteModalButton_Text_ko = {
+  voteModalVote: '투표하기',
+  voteModalCancel: '취소하기',
+  voteModalComplete: '완료',
+  voteModalInstall: '앱 설치하기',
+};

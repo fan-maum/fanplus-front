@@ -244,3 +244,10 @@ export const VoteModal_Text_ja: any = ({
   };
   return modalItems;
 };
+
+export const VoteModalButton_Text_ja = {
+  voteModalVote: '投票する',
+  voteModalCancel: 'キャンセル',
+  voteModalComplete: '完了',
+  voteModalInstall: 'アプリをインストールする',
+};

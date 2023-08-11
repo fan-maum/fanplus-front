@@ -244,3 +244,10 @@ export const VoteModal_Text_zhtw: any = ({
   };
   return modalItems;
 };
+
+export const VoteModalButton_Text_zhtw = {
+  voteModalVote: '投票',
+  voteModalCancel: '取消',
+  voteModalComplete: '完成',
+  voteModalInstall: '下載APP',
+};

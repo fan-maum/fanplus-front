@@ -244,3 +244,10 @@ export const VoteModal_Text_in: any = ({
   };
   return modalItems;
 };
+
+export const VoteModalButton_Text_in = {
+  voteModalVote: 'Beri suara',
+  voteModalCancel: 'Batal',
+  voteModalComplete: 'Selesai',
+  voteModalInstall: 'Pasang aplikasi',
+};
