@@ -8,14 +8,15 @@ import { LoginPageTextType } from '@/types/textTypes';
 const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   const router = useRouter();
   const nextUrl = router.query['nextUrl'] as string;
-  const onClickLogin = async (nextUrl: string, site: string) => {
-    window.location.href = `/api/auth/login/${site}?nextUrl=${nextUrl}`;
+
+  const handleAppleLoginClick = () => {
+    window.location.href = `/api/auth/login/apple?nextUrl=${nextUrl}`;
   };
 
   const handleGoogleLoginClick = () => {
     const isKakao = navigator?.userAgent?.match('KAKAOTALK');
     if (isKakao) {
-      alert('구글 로그인은 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
+      alert('구글 로그인을 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
       return;
     }
 
@@ -93,10 +94,7 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
             '@media(max-width:768px)': { height: '50%', justifyContent: 'center' },
           }}
         >
-          <AppleLoginButton
-            texts={texts.appleButton}
-            onClick={() => onClickLogin(nextUrl, 'apple')}
-          />
+          <AppleLoginButton texts={texts.appleButton} onClick={handleAppleLoginClick} />
           <GoogleLoginButton texts={texts.googleButton} onClick={handleGoogleLoginClick} />
         </div>
       </div>
