@@ -17,6 +17,7 @@ const BaseLoginButton: FC<LoginButtonProps> = ({ texts, site, icon, nextUrl }) =
       css={{
         maxWidth: '340px',
         maxHeight: '56px',
+        color: '#000',
         width: '90%',
         minHeight: '45px',
         border: '1px solid #d9d9d9',
