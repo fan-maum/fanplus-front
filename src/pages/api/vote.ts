@@ -1,6 +1,8 @@
 import { NextApiHandler } from 'next';
 import axios, { AxiosResponse } from 'axios';
 
+const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+
 const handler: NextApiHandler = async (req, res) => {
   const voteId = req.body?.voteId;
   const userId = req.body?.userId;
@@ -19,7 +21,7 @@ const handler: NextApiHandler = async (req, res) => {
       { identity: userId, target_star_idx: starId },
       {
         headers: {
-          Origin: 'http://vote.appphotocard.com',
+          Origin: origin,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       }
