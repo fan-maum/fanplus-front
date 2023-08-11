@@ -4,7 +4,10 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_ENG: NavBarTextType = {
   vote: 'Vote',
@@ -141,6 +144,26 @@ export const FAQText_ENG: FAQPageTextType = {
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
 };
+export const LoginPageText_ENG: LoginPageTextType = {
+  heading: 'FanPlus Login',
+  line1: 'Login is required. Would you like to log in?',
+  appleButton: 'Sign in with Apple',
+  googleButton: 'Sign in with Google',
+};
+export const SignUpPageText_ENG: SignUpPageTextType = {
+  heading: 'Terms of Service',
+  line1: 'Please agree to the terms and conditions.',
+  agree1: "I'm 14 years or older (required)",
+  agree2: 'Terms of service (required)',
+  agree3: 'Privacy Policy (required)',
+  agree4: 'Privacy Terms and Conditions: third parties (required)',
+  detail: 'Details',
+  start: 'Start',
+  agreeAll: 'I agree all',
+  agree2Link: 'https://privacy.fanplus.co.kr/terms_of_service.html',
+  agree3Link: 'https://privacy.fanplus.co.kr/privacy.html',
+  agree4Link: 'https://privacy.fanplus.co.kr/thrid_parties.html',
+};
 
 export const Votes_Text_en = {
   voteEnd: 'Until the end',
@@ -150,5 +173,84 @@ export const Votes_Text_en = {
     league: 'League Vote',
   },
   winner: '1st',
-  daysAgo: 'days ago',
+  daysAgo: 'd',
+  hoursAgo: 'h',
+  minutesAgo: 'm',
+};
+
+export const VoteDetail_Text_en = {
+  vote: 'Vote',
+  voting: 'Vote',
+  voteDifference: {
+    front: 'Winning by',
+    back: 'vote(s)',
+  },
+  seeMore: 'See More',
+  currentVote: 'VT(s)',
+  prizeTitle: {
+    detail: 'Description',
+    first: 'The Prize for Winner',
+    second: '2nd Winner Prize',
+    third: '3rd Winner Prize',
+  },
+};
+
+export const ShareModal_Text_en = {
+  shareModalTitle: 'Share',
+  shareModalClose: 'Close',
+  twitter: 'Twitter',
+  urlShare: 'Copy URL',
+  otherAppShare: 'Share to other apps',
+  urlCopied: 'URL copied',
+  check: 'Check',
+  shareTitleText: {
+    standard: {
+      front: 'as of',
+      back: '',
+    },
+    title0: 'Current Ranking',
+    title1: 'Current Ranking',
+    title2: 'Current Ranking',
+  },
+  shareMiddleText: {
+    first: '1st',
+    second: '2nd',
+    voteDiffFront: 'Winning by',
+    voteDiffBack: 'votes',
+    current: 'is currently',
+    place: '. place',
+    lessThan: 'less than',
+    moreThan: 'more than',
+    voteDiff: '',
+    with: '',
+    middlePageFront: 'Participate in #FanPlus vote\nand give your bias AD rewards! 🎁🎈',
+    middlePageBack: 'Currently winning : ❓❔',
+  },
+  shareEndText: {
+    endFront: 'Vote',
+    endBack: 'on #FanPlus right now! ✊🏻✊🏻',
+    endPage: '🔻Check the current ranking🔻',
+  },
+};
+
+export const VoteModal_Text_en: any = ({
+  freeVoteCount,
+  starName,
+  moreVoteCount,
+}: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `Do you want to user <b>${freeVoteCount} VTs for free</b> to vote<br/>for <span>${starName}</span>?`,
+    voteDoneFirst: `<b>${freeVoteCount} VTs</b> have been used for free to vote<br/>for <span>${starName}</span>.`,
+    voteDoneEnd: `Vote for your star with <b>${moreVoteCount} more VTs on FanPlus!</b>`,
+    voteBlockFirst: `You can participate in the vote only once per day.<br/>(Free vote is renewed at 00:00 KST)`,
+    voteBlockEnd: `<b>${moreVoteCount}</b> voting tickets are given away everyday<br/>for FanPlus app users.`,
+  };
+  return modalItems;
+};
+
+export const VoteModalButton_Text_en = {
+  voteModalVote: 'Vote',
+  voteModalCancel: 'Cancel',
+  voteModalComplete: 'Done',
+  voteModalInstall: 'Install the app',
 };

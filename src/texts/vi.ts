@@ -4,7 +4,10 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_VIE: NavBarTextType = {
   vote: 'Bỏ phiếu',
@@ -141,6 +144,26 @@ export const FAQText_VIE: FAQPageTextType = {
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
 };
+export const LoginPageText_VIE: LoginPageTextType = {
+  heading: 'Đăng nhập FanPlus',
+  line1: 'Đăng nhập là bắt buộc. Bạn có muốn đăng nhập?',
+  appleButton: 'Đăng nhập với Apple',
+  googleButton: 'Đăng nhập bằng Google',
+};
+export const SignUpPageText_VIE: SignUpPageTextType = {
+  heading: 'Điều khoản sử dụng',
+  line1: 'Vui lòng đồng ý với các điều khoản và điều kiện.',
+  agree1: 'Tôi từ 14 tuổi trở lên(bắt buộc)',
+  agree2: 'Điều khoản dịch vụ (bắt buộc)',
+  agree3: 'Chính sách bảo mật (bắt buộc)',
+  agree4: 'Cung cấp thông tin cho các bên thứ ba (bắt buộc)',
+  detail: 'Chi tiết',
+  start: 'Khởi đầu',
+  agreeAll: 'Tôi đồng ý tất cả',
+  agree2Link: 'https://privacy.fanplus.co.kr/terms_of_service.html',
+  agree3Link: 'https://privacy.fanplus.co.kr/privacy.html',
+  agree4Link: 'https://privacy.fanplus.co.kr/thrid_parties.html',
+};
 
 export const Votes_Text_vi = {
   voteEnd: 'Cho đến khi kết thúc',
@@ -150,5 +173,84 @@ export const Votes_Text_vi = {
     league: 'League Vote',
   },
   winner: '1st',
-  daysAgo: 'Ngày trước',
+  daysAgo: 'ngày',
+  hoursAgo: 'giờ',
+  minutesAgo: 'từ phút',
+};
+
+export const VoteDetail_Text_vi = {
+  vote: 'Bỏ phiếu',
+  voting: 'Bỏ phiếu',
+  voteDifference: {
+    front: null,
+    back: 'phiếu chênh lệch',
+  },
+  seeMore: 'Hiển thị chi tiết',
+  currentVote: 'phiếu',
+  prizeTitle: {
+    detail: 'Nội dung chi tiết',
+    first: 'Xem đặc quyền hạng 1',
+    second: 'Giải thưởng người chiến thắng thứ hai',
+    third: 'Giải thưởng người chiến thắng thứ 3',
+  },
+};
+
+export const ShareModal_Text_vi = {
+  shareModalTitle: 'Chia sẻ',
+  shareModalClose: 'Đóng',
+  twitter: 'Twitter',
+  urlShare: 'Sao chép UR',
+  otherAppShare: 'Chia sẻ với các ứng dụng khác',
+  urlCopied: 'Đã sao chép URL',
+  check: 'Xác nhận',
+  shareTitleText: {
+    standard: {
+      front: 'as of',
+      back: '',
+    },
+    title0: 'Current Ranking',
+    title1: 'Current Ranking',
+    title2: 'Current Ranking',
+  },
+  shareMiddleText: {
+    first: '1st',
+    second: '2nd',
+    voteDiffFront: 'Winning by',
+    voteDiffBack: 'votes',
+    current: 'is currently',
+    place: '. place',
+    lessThan: 'less than',
+    moreThan: 'more than',
+    voteDiff: '',
+    with: '',
+    middlePageFront: 'Participate in #FanPlus vote\nand give your bias AD rewards! 🎁🎈',
+    middlePageBack: 'Currently winning : ❓❔',
+  },
+  shareEndText: {
+    endFront: 'Vote',
+    endBack: 'on #FanPlus right now! ✊🏻✊🏻',
+    endPage: '🔻Check the current ranking🔻',
+  },
+};
+
+export const VoteModal_Text_vi: any = ({
+  freeVoteCount,
+  starName,
+  moreVoteCount,
+}: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `Bạn có muốn bình chọn phiếu <b>${freeVoteCount}</b> miễn phí cho <span>${starName}</span> không?`,
+    voteDoneFirst: `Bạn đã bỏ phiếu xong phiếu <b>${freeVoteCount}</b> miễn phí cho <span>${starName}</span>`,
+    voteDoneEnd: `Bạn hãy bình chọn thêm phiếu <b>${moreVoteCount}</b> ở app FanPlus!`,
+    voteBlockFirst: `Một ngày chỉ có một lần được bình chọn<br/>(Phiếu bầu miễn phí sẽ được gia hạn vào lúc 00:00 KST)`,
+    voteBlockEnd: `Nếu bạn tải appFanPlus,<br/>chúng tôi sẽ tặng thêm phiếu <b>${moreVoteCount}</b> mỗi ngày`,
+  };
+  return modalItems;
+};
+
+export const VoteModalButton_Text_vi = {
+  voteModalVote: 'Bỏ phiếu',
+  voteModalCancel: 'Hủy bỏ',
+  voteModalComplete: 'Hoàn thành',
+  voteModalInstall: 'Cài đặt ứng dụng',
 };

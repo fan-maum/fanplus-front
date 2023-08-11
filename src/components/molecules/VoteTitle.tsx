@@ -2,16 +2,16 @@ import Image from 'next/image';
 import { Stack } from '../atoms/Stack';
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
-import { getLanguage } from '@/hooks/useLanguage';
+import { GetLanguage } from '@/hooks/useLanguage';
 
 export interface PromotionTitleProps {
   remainTime: string | undefined;
   remainTimeState: boolean;
-  starName: string;
+  starName?: string;
 }
 
 export default function VoteTitle({ remainTime, remainTimeState, starName }: PromotionTitleProps) {
-  const language = getLanguage();
+  const language = GetLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
   const activeBackgroundColor = remainTimeState ? '#FFD950' : '#666';
   const activeColor = remainTimeState ? '#000' : '#fff';
@@ -20,14 +20,16 @@ export default function VoteTitle({ remainTime, remainTimeState, starName }: Pro
       direct="row"
       justify="center"
       w={'100%'}
-      h={38}
+      h={'auto'}
+      mih={38}
       align="center"
       bg={activeBackgroundColor}
       css={[
         {
+          flexWrap: 'wrap',
           color: activeColor,
           fontSize: '16px',
-          fontWeight: '400',
+          fontWeight: '600',
           borderRadius: '17px',
           lineHeight: '200%',
         },
@@ -40,7 +42,6 @@ export default function VoteTitle({ remainTime, remainTimeState, starName }: Pro
             css={[
               {
                 paddingLeft: '6px',
-                fontWeight: '600',
               },
             ]}
           >

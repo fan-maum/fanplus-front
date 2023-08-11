@@ -4,7 +4,10 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_JAP: NavBarTextType = {
   vote: '投票',
@@ -141,6 +144,26 @@ export const FAQText_JAP: FAQPageTextType = {
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
 };
+export const LoginPageText_JAP: LoginPageTextType = {
+  heading: 'FanPlusログイン',
+  line1: 'ログインが必要です。あなたは、ログインしますか？',
+  appleButton: 'アップルでサインイン',
+  googleButton: 'Googleアカウントでサインイン',
+};
+export const SignUpPageText_JAP: SignUpPageTextType = {
+  heading: '利用規約',
+  line1: '円滑なサービスの利用のために同意してください。',
+  agree1: '私は14歳以上です(必須)',
+  agree2: 'サービス利用約款 (必須)',
+  agree3: '個人情報取扱方針 (必須)',
+  agree4: '個人情報の第三者提供 (必須)',
+  detail: '続きを読む',
+  start: '詩作',
+  agreeAll: '同意(必須)',
+  agree2Link: 'https://privacy.fanplus.co.kr/terms_of_service.html',
+  agree3Link: 'https://privacy.fanplus.co.kr/privacy.html',
+  agree4Link: 'https://privacy.fanplus.co.kr/thrid_parties.html',
+};
 
 export const Votes_Text_ja = {
   voteEnd: '最後まで',
@@ -150,5 +173,84 @@ export const Votes_Text_ja = {
     league: 'League Vote',
   },
   winner: '1位',
-  daysAgo: '日前',
+  daysAgo: '日々',
+  hoursAgo: '時間',
+  minutesAgo: '分',
+};
+
+export const VoteDetail_Text_ja = {
+  vote: '投票',
+  voting: '投票する',
+  voteDifference: {
+    front: null,
+    back: '票の得票差!',
+  },
+  seeMore: '詳細はこちら',
+  currentVote: '票',
+  prizeTitle: {
+    detail: '詳細',
+    first: '1等の商品',
+    second: '2等の商品',
+    third: '3等の商品',
+  },
+};
+
+export const ShareModal_Text_ja = {
+  shareModalTitle: '共有',
+  shareModalClose: '閉じる',
+  twitter: 'Twitter',
+  urlShare: 'URLをコピー',
+  otherAppShare: '他のアプリで共有',
+  urlCopied: 'URLがコピーされました',
+  check: '確認',
+  shareTitleText: {
+    standard: {
+      front: 'as of',
+      back: '',
+    },
+    title0: 'Current Ranking',
+    title1: 'Current Ranking',
+    title2: 'Current Ranking',
+  },
+  shareMiddleText: {
+    first: '1st',
+    second: '2nd',
+    voteDiffFront: 'Winning by',
+    voteDiffBack: 'votes',
+    current: 'is currently',
+    place: '. place',
+    lessThan: 'less than',
+    moreThan: 'more than',
+    voteDiff: '',
+    with: '',
+    middlePageFront: 'Participate in #FanPlus vote\nand give your bias AD rewards! 🎁🎈',
+    middlePageBack: 'Currently winning : ❓❔',
+  },
+  shareEndText: {
+    endFront: 'Vote',
+    endBack: 'on #FanPlus right now! ✊🏻✊🏻',
+    endPage: '🔻Check the current ranking🔻',
+  },
+};
+
+export const VoteModal_Text_ja: any = ({
+  freeVoteCount,
+  starName,
+  moreVoteCount,
+}: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `<span>${starName}</span>様へ<b>${freeVoteCount}</b>票を無料で 投票しますか？`,
+    voteDoneFirst: `<span>${starName}</span>様へ無料で<b>${freeVoteCount}</b>票が投票されました`,
+    voteDoneEnd: ` FanPlusアプリでさらに<b>${moreVoteCount}</b>票投票してみてください！`,
+    voteBlockFirst: `1日に1回投票に参加できます<br/>(無料投票は 00:00 KSTに更新されます）`,
+    voteBlockEnd: `FanPlusアプリをインストールすると<br/>毎日 <b>${moreVoteCount}</b>票差し上げます`,
+  };
+  return modalItems;
+};
+
+export const VoteModalButton_Text_ja = {
+  voteModalVote: '投票する',
+  voteModalCancel: 'キャンセル',
+  voteModalComplete: '完了',
+  voteModalInstall: 'アプリをインストールする',
 };

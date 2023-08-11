@@ -4,7 +4,10 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_KR: NavBarTextType = {
   vote: '투표',
@@ -141,9 +144,29 @@ export const FAQText_KR: FAQPageTextType = {
   q9: '탈퇴 후 같은 번호로 다시 인증하는 건 언제부터 가능한가요?',
   a9: '탈퇴한 계정에 인증되어 있는 번호는 탈퇴일로부터 90일이 지난 이후에 다시 번호 인증에 사용할 수 있어요.',
 };
+export const LoginPageText_KR: LoginPageTextType = {
+  heading: '팬플러스 로그인 하기',
+  line1: '로그인이 필요합니다. 로그인을 하시겠습니까?',
+  appleButton: 'Apple 계정으로 로그인',
+  googleButton: 'Google 계정으로 로그인',
+};
+export const SignUpPageText_KR: SignUpPageTextType = {
+  heading: '이용약관',
+  line1: '원활한 서비스 이용을 위해 동의해주세요.',
+  agree1: '만 14세 이상입니다. (필수)',
+  agree2: '서비스 이용약관 (필수)',
+  agree3: '개인정보 취급방침 (필수)',
+  agree4: '개인정보 제3자 제공 (필수)',
+  detail: '보기',
+  start: '시작',
+  agreeAll: '모두 동의하기',
+  agree2Link: 'https://privacy.fanplus.co.kr/terms_of_service_ko.html',
+  agree3Link: 'https://privacy.fanplus.co.kr/privacy_ko.html',
+  agree4Link: 'https://privacy.fanplus.co.kr/thrid_parties_ko.html',
+};
 
 export const Votes_Text_ko = {
-  voteEnd: '투표 종료까지',
+  voteEnd: '투표종료까지',
   tab: {
     all: '전체',
     bday: '생일 투표',
@@ -151,4 +174,83 @@ export const Votes_Text_ko = {
   },
   winner: '1위',
   daysAgo: '일',
+  hoursAgo: '시',
+  minutesAgo: '분',
+};
+
+export const VoteDetail_Text_ko = {
+  vote: '투표',
+  voting: '투표하기',
+  voteDifference: {
+    front: null,
+    back: '표 차이',
+  },
+  seeMore: '자세히 알아보기',
+  currentVote: '표',
+  prizeTitle: {
+    detail: '상세 내용',
+    first: '1위 혜택 보기',
+    second: '2위 혜택 보기',
+    third: '3위 혜택 보기',
+  },
+};
+
+export const ShareModal_Text_ko = {
+  shareModalTitle: '공유하기',
+  shareModalClose: '닫기',
+  twitter: '트위터',
+  urlShare: 'URL 복사',
+  otherAppShare: '다른 앱으로 공유',
+  urlCopied: 'URL이 복사되었습니다',
+  check: '확인',
+  shareTitleText: {
+    standard: {
+      front: '',
+      back: '',
+    },
+    title0: '현재 순위는⁉',
+    title1: '순위는⁉',
+    title2: '순위는⁉',
+  },
+  shareMiddleText: {
+    first: '1위',
+    second: '2위',
+    voteDiffFront: '단',
+    voteDiffBack: '표 차이',
+    current: '현재',
+    place: '위',
+    lessThan: '',
+    moreThan: '',
+    voteDiff: '',
+    with: '와(과)',
+    middlePageFront: '#팬플러스 투표 참여하고\n최애만을 위한 특별한 광고 선물하자 🎁🎈',
+    middlePageBack: '현재 1위 : ❓❔',
+  },
+  shareEndText: {
+    endFront: '지금 바로 #팬플러스 에서',
+    endBack: '에게 투표하세요 ✊🏻✊🏻',
+    endPage: '🔻실시간 순위 확인하러 가기🔻',
+  },
+};
+
+export const VoteModal_Text_ko: any = ({
+  freeVoteCount,
+  starName,
+  moreVoteCount,
+}: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `<span>${starName}</span>님에게<br/><b>무료로 ${freeVoteCount}표</b> 투표하시겠어요?`,
+    voteDoneFirst: `<span>${starName}</span> 님에게<br/><b>무료로 ${freeVoteCount}표</b> 투표 되었어요.`,
+    voteDoneEnd: `<b>팬플러스 앱에서 ${moreVoteCount}표</b> 더 투표해보세요!`,
+    voteBlockFirst: `하루에 한 번 투표에 참여할 수 있어요.<br/>(매일 0시 기준으로 초기화 됩니다)`,
+    voteBlockEnd: `팬플러스 앱 설치하면<br/>매일 <b>${moreVoteCount}표</b>를 드리고 있어요.`,
+  };
+  return modalItems;
+};
+
+export const VoteModalButton_Text_ko = {
+  voteModalVote: '투표하기',
+  voteModalCancel: '취소하기',
+  voteModalComplete: '완료',
+  voteModalInstall: '앱 설치하기',
 };

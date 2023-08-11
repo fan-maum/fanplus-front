@@ -1,4 +1,4 @@
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/organisms/Layout';
 import { NavBarText_ESP, FooterText_ESP, FAQText_ESP } from '@/texts/es';
 import FAQTemplate from '@/components/templates/FAQTemplate';
 
