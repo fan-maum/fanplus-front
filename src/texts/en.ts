@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_ENG: NavBarTextType = {
   vote: 'Vote',
@@ -169,9 +170,9 @@ export const Votes_Text_en = {
     league: 'League Vote',
   },
   winner: '1st',
-  daysAgo: 'days ago',
-  hoursAgo: 'hours ago',
-  minutesAgo: 'mins ago',
+  daysAgo: 'd',
+  hoursAgo: 'h',
+  minutesAgo: 'm',
 };
 
 export const VoteDetail_Text_en = {
@@ -227,4 +228,15 @@ export const ShareModal_Text_en = {
     endBack: 'on #FanPlus right now! ✊🏻✊🏻',
     endPage: '🔻Check the current ranking🔻',
   },
+};
+
+export const VoteModal_Text_en: any = ({ n, starName }: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `Do you want to user <b>${n} VTs for free</b> to vote<br/>for <span>${starName}</span>?`,
+    voteDoneFirst: `<b>${n} VTs</b> have been used for free to vote<br/>for <span>${starName}</span>.`,
+    voteDoneEnd: `Vote for your star with <b>${n} more VTs on FanPlus!</b>`,
+    voteBlockFirst: `You can participate in the vote only once per day.<br/>(Free vote is renewed at 00:00 KST)`,
+    voteBlockEnd: `${n} voting tickets are given away everyday<br/>for FanPlus app users.`,
+  };
+  return modalItems;
 };

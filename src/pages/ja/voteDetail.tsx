@@ -27,7 +27,6 @@ export const getServerSideProps = async (context: any) => {
   const headers = context.req.headers;
   const cookies = nookies.get(context);
   const authCookie = cookies['user_id'];
-
   const res = await getVoteDetail(vote_IDX, 'ja');
   const voteDetails = res.data;
   const error = voteDetails ? false : res.status;

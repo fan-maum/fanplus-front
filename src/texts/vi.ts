@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_VIE: NavBarTextType = {
   vote: 'Bỏ phiếu',
@@ -169,9 +170,9 @@ export const Votes_Text_vi = {
     league: 'League Vote',
   },
   winner: '1st',
-  daysAgo: 'Ngày trước',
-  hoursAgo: 'Giờ trước',
-  minutesAgo: 'Phút trước',
+  daysAgo: 'ngày',
+  hoursAgo: 'giờ',
+  minutesAgo: 'từ phút',
 };
 
 export const VoteDetail_Text_vi = {
@@ -227,4 +228,15 @@ export const ShareModal_Text_vi = {
     endBack: 'on #FanPlus right now! ✊🏻✊🏻',
     endPage: '🔻Check the current ranking🔻',
   },
+};
+
+export const VoteModal_Text_vi: any = ({ n, starName }: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `Bạn có muốn bình chọn phiếu <b>${n}</b> miễn phí cho <span>${starName}</span> không?`,
+    voteDoneFirst: `Bạn đã bỏ phiếu xong phiếu <b>${n}</b> miễn phí cho <span>${starName}</span>`,
+    voteDoneEnd: `Bạn hãy bình chọn thêm phiếu <b>${n}</b> ở app FanPlus!`,
+    voteBlockFirst: `Một ngày chỉ có một lần được bình chọn<br/>(Phiếu bầu miễn phí sẽ được gia hạn vào lúc 00:00 KST)`,
+    voteBlockEnd: `Nếu bạn tải appFanPlus,<br/>chúng tôi sẽ tặng thêm phiếu ${n} mỗi ngày`,
+  };
+  return modalItems;
 };

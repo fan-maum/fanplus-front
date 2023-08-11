@@ -12,7 +12,7 @@ import VoteDetailPrizeList, {
 import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
-import { VoteDetailResponse, VoteDetailStars, VoteMutateParam, VoteResponse } from '@/types/vote';
+import { VoteDetailResponse, VoteDetailStars, VoteMutateParam } from '@/types/vote';
 import { GetLanguage, getVoteDetailLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
@@ -28,7 +28,6 @@ import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
 import { useMutation } from 'react-query';
 import { getVoteDetail, postVotes } from '@/api/Vote';
-import { ParsedUrlQuery } from 'querystring';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -200,12 +199,7 @@ const VoteDetailLayout = ({
 
   useEffect(() => {
     const starId = String(router.query.id);
-    if (
-      starId &&
-      // typeof router.query.login === 'string' &&
-      authCookie &&
-      findStarById(starId, voteDetails)
-    ) {
+    if (starId && authCookie && findStarById(starId, voteDetails)) {
       const star = findStarIndexById(starId, voteDetails);
       if (star) {
         setStarWithIndex(star.index);

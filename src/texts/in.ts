@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_IND: NavBarTextType = {
   vote: 'Pemungutan suara',
@@ -169,9 +170,9 @@ export const Votes_Text_in = {
     league: 'League Vote',
   },
   winner: '1st',
-  daysAgo: 'hari sebelumnya',
-  hoursAgo: 'jam sebelumnya',
-  minutesAgo: 'menit sebelumnya',
+  daysAgo: 'd',
+  hoursAgo: 'h',
+  minutesAgo: 'm',
 };
 
 export const VoteDetail_Text_in = {
@@ -227,4 +228,15 @@ export const ShareModal_Text_in = {
     endBack: 'on #FanPlus right now! ✊🏻✊🏻',
     endPage: '🔻Check the current ranking🔻',
   },
+};
+
+export const VoteModal_Text_in: any = ({ n, starName }: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `Apakah Anda ingin memilih <b>${n}</b> suara secara gratis untuk <span>${starName}</span>?`,
+    voteDoneFirst: `<span>${starName}</span> mendapat <b>${n}</b> suara gratis.`,
+    voteDoneEnd: `Pilih lebih banyak <b>${n}suara</b> di aplikasi FanPlus!`,
+    voteBlockFirst: `Anda dapat memilih sekali per hari<br/>(gratis suara bebas diperbarui pukul 00:00 KST)`,
+    voteBlockEnd: `FanPlus app Instal aplikasinya.<br/>Anda mendapatkan ${n} suara memberikan suara setiap hari`,
+  };
+  return modalItems;
 };

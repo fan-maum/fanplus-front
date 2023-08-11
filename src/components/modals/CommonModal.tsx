@@ -29,6 +29,7 @@ function CommonModal({
       styles={(theme) => ({
         content: {
           borderRadius: 24,
+          overflow: 'hidden',
         },
         body: {
           minWidth: 328,

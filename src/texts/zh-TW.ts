@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
 } from '@/types/textTypes';
+import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_zh_TW: NavBarTextType = {
   vote: '投票',
@@ -169,9 +170,9 @@ export const Votes_Text_zhtw = {
     league: '聯賽',
   },
   winner: '1位',
-  daysAgo: '日 前',
-  hoursAgo: '小時 前',
-  minutesAgo: '分鐘 前',
+  daysAgo: '天',
+  hoursAgo: '小時',
+  minutesAgo: '分',
 };
 
 export const VoteDetail_Text_zhtw = {
@@ -227,4 +228,15 @@ export const ShareModal_Text_zhtw = {
     endBack: '投票吧 ✊🏻✊🏻',
     endPage: '🔻查看實時排名🔻',
   },
+};
+
+export const VoteModal_Text_zhtw: any = ({ n, starName }: voteModalTextProps) => {
+  const modalItems = {
+    voteProcess: `您想給<span>${starName}</span>免費投票嗎？`,
+    voteDoneFirst: `給<span>${starName}</span>投票了。`,
+    voteDoneEnd: `请在FanPlus應用投<b>${n}</b>票`,
+    voteBlockFirst: `您每天只能參與一次投票。<br/>(免費投票00:00 KST重新設置)`,
+    voteBlockEnd: `下載FanPlus,<br/>每天贈送${n}票。`,
+  };
+  return modalItems;
 };

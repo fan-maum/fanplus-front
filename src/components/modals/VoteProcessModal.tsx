@@ -1,6 +1,11 @@
 import { VoteDetailStars } from '@/types/vote';
 import VoteModalText from '../molecules/VoteModalText';
 import CommonModal, { CommonModalProps } from './CommonModal';
+import { Group } from '../atoms';
+import { GetLanguage } from '@/hooks/useLanguage';
+import { useRecoilState } from 'recoil';
+import { voteModalState } from '@/store/voteLangState';
+import useHtmlElement from '@/hooks/useHtmlElement';
 
 export interface VoteProcessModalProps {
   opened: boolean;
@@ -16,6 +21,10 @@ const VoteProcessModal = ({
   star,
   ...props
 }: VoteProcessModalProps) => {
+  const language = GetLanguage();
+  const voteModalLang = useRecoilState(voteModalState(language))[0];
+  const text = voteModalLang({ n: 1, starName: star?.STAR_NAME || '스타이름' }).voteProcess;
+
   const voteProcessModalProps: CommonModalProps = {
     opened,
     onClose,
@@ -28,10 +37,15 @@ const VoteProcessModal = ({
   return (
     <CommonModal {...voteProcessModalProps}>
       <VoteModalText
-        starName={star?.STAR_NAME || '스타이름'}
         voteText={
           <>
-            <span css={{ fontWeight: 700 }}>무료로 1표</span> 투표하시겠어요?
+            <Group spacing={6} position="center">
+              <div
+                className="voteModalTextWrap"
+                css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}
+                dangerouslySetInnerHTML={useHtmlElement(text)}
+              ></div>
+            </Group>
           </>
         }
       />
