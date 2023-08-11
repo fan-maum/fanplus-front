@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import CommonModal, { CommonModalProps } from '@/components/modals/CommonModal';
 import VoteModalText from '@/components/molecules/VoteModalText';
-import { voteModalState } from '@/store/voteLangState';
+import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
 import { useRecoilState } from 'recoil';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { Group } from '../atoms';
@@ -29,6 +29,7 @@ const VoteDoneModal = ({
   const [quantity, setQuantity] = useState(0);
   const language = GetLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
+  const voteModalButton = useRecoilState(voteModalButtonState(language))[0];
   const voteDoneFirstText = voteModalLang({
     freeVoteCount: freeVoteCount,
     starName: starName,
@@ -44,7 +45,7 @@ const VoteDoneModal = ({
   const voteDoneModalProps: CommonModalProps = {
     onClose,
     opened: !!moreVoteCount,
-    cancelButton: { text: '완료', onClick: onClose },
+    cancelButton: { text: voteModalButton?.voteModalComplete, onClick: onClose },
     confirmButton: {
       onClick: () => {
         if (!isWebView && onWebViewLink) {
@@ -53,7 +54,7 @@ const VoteDoneModal = ({
           onClose();
         }
       },
-      text: '앱 설치하기',
+      text: voteModalButton?.voteModalInstall,
     },
   };
   return (

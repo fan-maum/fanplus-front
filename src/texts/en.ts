@@ -244,3 +244,10 @@ export const VoteModal_Text_en: any = ({
   };
   return modalItems;
 };
+
+export const VoteModalButton_Text_en = {
+  voteModalVote: 'Vote',
+  voteModalCancel: 'Cancel',
+  voteModalComplete: 'Done',
+  voteModalInstall: 'Install the app',
+};

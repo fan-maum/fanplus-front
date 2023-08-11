@@ -3,7 +3,7 @@ import VoteModalText from '../molecules/VoteModalText';
 import useHtmlElement from '@/hooks/useHtmlElement';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
-import { voteModalState } from '@/store/voteLangState';
+import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
 import { Group } from '../atoms';
 import { formatNumberWithComma } from '@/utils/util';
 import { useEffect, useState } from 'react';
@@ -24,10 +24,18 @@ function VoteBlockModal({
   isWebView,
   ...props
 }: VoteBlockModalProps) {
+  const language = GetLanguage();
+  const voteModalLang = useRecoilState(voteModalState(language))[0];
+  const voteModalButton = useRecoilState(voteModalButtonState(language))[0];
+  const voteBlockFirstText = voteModalLang({}).voteBlockFirst;
+  const voteBlockEndText = voteModalLang({
+    moreVoteCount: formatNumberWithComma(moreVoteCount),
+  }).voteBlockEnd;
+
   const voteBlockModalProps: CommonModalProps = {
     opened,
     onClose,
-    cancelButton: { text: '완료', onClick: onClose },
+    cancelButton: { text: voteModalButton?.voteModalComplete, onClick: onClose },
     confirmButton: {
       onClick: () => {
         if (!isWebView && onWebViewLink) {
@@ -36,15 +44,9 @@ function VoteBlockModal({
           onClose();
         }
       },
-      text: '앱 설치하기',
+      text: voteModalButton?.voteModalInstall,
     },
   };
-  const language = GetLanguage();
-  const voteModalLang = useRecoilState(voteModalState(language))[0];
-  const voteBlockFirstText = voteModalLang({}).voteBlockFirst;
-  const voteBlockEndText = voteModalLang({
-    moreVoteCount: formatNumberWithComma(moreVoteCount),
-  }).voteBlockEnd;
 
   return (
     <>

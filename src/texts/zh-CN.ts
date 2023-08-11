@@ -244,3 +244,10 @@ export const VoteModal_Text_zh: any = ({
   };
   return modalItems;
 };
+
+export const VoteModalButton_Text_zh = {
+  voteModalVote: '投票',
+  voteModalCancel: '取消',
+  voteModalComplete: '完成',
+  voteModalInstall: '下载APP',
+};
