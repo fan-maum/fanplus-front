@@ -132,6 +132,23 @@ export type FAQPageTextType = {
   q9: string;
   a9: string;
 };
+export type LoginPageTextType = {
+  heading: string;
+  line1: string;
+  appleButton: string;
+  googleButton: string;
+};
+export type SignUpPageTextType = {
+  heading: string;
+  line1: string;
+  agree1: string;
+  agree2: string;
+  agree3: string;
+  agree4: string;
+  detail: string;
+  start: string;
+  agreeAll: string;
+};
 
 export type TextType = {
   NavBar: NavBarTextType;
@@ -139,4 +156,6 @@ export type TextType = {
   MainPage: MainPageTextType;
   BuisnessPage: BusinessPageTextType;
   FAQPage: FAQPageTextType;
+  LoginPage: LoginPageTextType;
+  SignUpPage: SignUpPageTextType;
 };

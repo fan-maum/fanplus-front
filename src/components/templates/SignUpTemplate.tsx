@@ -1,20 +1,17 @@
-import { Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react';
-import { SignUpModalContext } from '../organisms/Layout';
-import { SignUpModalContextType } from '@/types/contextTypes';
+import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
 import IconFanPlus from '../atoms/IconFanPlus';
 import IconBack from '../atoms/IconBack';
 import IconCheckButton from '../atoms/IconCheckButton';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import { Cookies } from 'react-cookie';
+import { SignUpPageTextType } from '@/types/textTypes';
+import { setUserOnboard } from '@/api/User';
 
-const SignUpModal = () => {
-  const { setIsSignUpModalOpen } = useContext(SignUpModalContext) as SignUpModalContextType;
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
+const cookies = new Cookies();
 
+const SignUpTemplate = ({ texts }: { texts: SignUpPageTextType }) => {
+  const router = useRouter();
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
   const [check3, setCheck3] = useState(false);
@@ -24,22 +21,18 @@ const SignUpModal = () => {
   const handleClickStart = () => {
     if (check1 && check2 && check3 && check4) setStart(true);
   };
-  const handleClickApproveAllStart = () => {
+  const handleClickAgreeAll = () => {
     setCheck1(true);
     setCheck2(true);
     setCheck3(true);
     setCheck4(true);
-    setTimeout(() => setStart(true), 500);
   };
   useEffect(() => {
     async function update() {
-      // TODO: url 뒤에 useridentity 값. (로그인 이후 서버에서 준 값.. 쿠키로 관리할 것 같습니다.) (소진님께 재확인 필요)
-      // await axios.put(`https://napi.appphotocard.com/v1/users/${999999999999}`, {
-      //   identity: '여기도 useridentity',
-      //   target: 'onboarding_finished_yn',
-      //   value: 'Y',
-      // });
-      setIsSignUpModalOpen(false);
+      const user_id = cookies.get('user_id');
+      const user_idx = cookies.get('user_idx');
+      const response = await setUserOnboard(user_id, user_idx);
+      router.push((router.query['nextUrl'] as string)?.replaceAll(';', '&') || '/');
     }
     if (start === true) update();
   }, [start]);
@@ -47,32 +40,15 @@ const SignUpModal = () => {
   return (
     <div
       css={{
-        position: 'fixed',
-        zIndex: '19999',
-        width: '100%',
-        height: '100%',
-        top: '85px',
-        paddingBottom: '85px',
+        width: '100vw',
+        height: '100vh',
         backgroundColor: 'white',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        borderTop: '1px solid #d9d9d9',
-        '@media(max-width:991px)': {
-          top: '70px',
-          paddingBottom: '70px',
-        },
-        '@media(max-width:768px)': {
-          top: '0px',
-          height: '120%',
-          zIndex: '20000',
-          justifyContent: 'flex-start',
-          paddingBottom: '0px',
-          borderTop: '0px',
-        },
+        '@media(max-width:768px)': { justifyContent: 'flex-start' },
       }}
-      onClick={() => setIsSignUpModalOpen(false)}
     >
       <IconBack
         iconCss={{
@@ -85,6 +61,7 @@ const SignUpModal = () => {
             display: 'block',
           },
         }}
+        onClickBack={() => router.back()}
       />
       <div
         css={{
@@ -107,7 +84,6 @@ const SignUpModal = () => {
             padding: '10px',
           },
         }}
-        onClick={(event) => event.stopPropagation()}
       >
         <div
           css={{
@@ -125,10 +101,9 @@ const SignUpModal = () => {
               '@media(max-width:768px)': { display: 'none' },
             }}
           />
-          <h1 css={{ margin: '25px 0px' }}>팬플러스 이용약관</h1>
+          <h1 css={{ margin: '25px 0px' }}>{texts.heading}</h1>
           <p css={{ marginBottom: '50px', wordBreak: 'keep-all', lineHeight: '22px' }}>
-            팬플러스 서비스 이용을 위해 <br />
-            약관에 동의해주세요
+            {texts.line1}
           </p>
           <p css={{ width: '100%', borderBottom: '3px solid #d9d9d9', marginBottom: '10px' }}></p>
         </div>
@@ -143,19 +118,28 @@ const SignUpModal = () => {
         >
           <ul css={{ width: '100%', padding: '3px' }}>
             <CheckList checked={check1} setChecked={setCheck1}>
-              <p>(필수) 만 14세 이상입니다.</p>
+              <p css={{ marginRight: '80px' }}>{texts.agree1}</p>
             </CheckList>
             <CheckList checked={check2} setChecked={setCheck2}>
-              <p>(필수) 이용약관 동의</p>
-              <Anchor href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR" />
+              <p css={{ marginRight: '80px' }}>{texts.agree2}</p>
+              <Anchor
+                href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR"
+                text={texts.detail}
+              />
             </CheckList>
             <CheckList checked={check3} setChecked={setCheck3}>
-              <p>(필수) 개인정보 처리 방침</p>
-              <Anchor href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR" />
+              <p css={{ marginRight: '80px' }}>{texts.agree3}</p>
+              <Anchor
+                href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR"
+                text={texts.detail}
+              />
             </CheckList>
             <CheckList checked={check4} setChecked={setCheck4}>
-              <p>(필수) 개인정보 제 3자 제공 동의</p>
-              <Anchor href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR" />
+              <p css={{ marginRight: '80px' }}>{texts.agree4}</p>
+              <Anchor
+                href="https://privacy.fanplus.co.kr/terms_of_service_ko.htmlR"
+                text={texts.detail}
+              />
             </CheckList>
           </ul>
           <div
@@ -177,7 +161,7 @@ const SignUpModal = () => {
               }}
               onClick={handleClickStart}
             >
-              시작
+              {texts.start}
             </button>
             <button
               css={{
@@ -192,9 +176,9 @@ const SignUpModal = () => {
                   transition: '0.4s ease-out',
                 },
               }}
-              onClick={handleClickApproveAllStart}
+              onClick={handleClickAgreeAll}
             >
-              모두 동의하고 시작
+              {texts.agreeAll}
             </button>
           </div>
         </div>
@@ -203,7 +187,7 @@ const SignUpModal = () => {
   );
 };
 
-export default SignUpModal;
+export default SignUpTemplate;
 
 const CheckList = ({
   checked,
@@ -218,24 +202,25 @@ const CheckList = ({
     <li
       css={{
         width: '100%',
-        height: '36px',
+        lineHeight: '24px',
         position: 'relative',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
+        margin: '8px 0px',
       }}
       onClick={() => setChecked((prev) => !prev)}
     >
       <IconCheckButton
         fill={checked ? '#ff5656' : '#fff'}
         stroke={checked ? '' : '#abafb7'}
-        iconCss={{ marginRight: '5px' }}
+        iconCss={{ marginRight: '5px', flexShrink: '0' }}
       />
       {children}
     </li>
   );
 };
 
-const Anchor = ({ href }: { href: string }) => {
+const Anchor = ({ href, text }: { href: string; text: string }) => {
   return (
     <a
       href={href}
@@ -243,7 +228,7 @@ const Anchor = ({ href }: { href: string }) => {
       css={{ position: 'absolute', right: '0px', color: '#abafb7' }}
       onClick={(e) => e.stopPropagation()}
     >
-      보기
+      {text}
     </a>
   );
 };

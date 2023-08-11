@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -141,6 +143,23 @@ export const FAQText_VIE: FAQPageTextType = {
   a8: 'You can re-register on FanPlus anytime. However, you can use the same email address/nickname/mobile number 90 days after deactivation.',
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
+};
+export const LoginPageText_VIE: LoginPageTextType = {
+  heading: 'Đăng nhập FanPlus',
+  line1: 'Đăng nhập là bắt buộc. Bạn có muốn đăng nhập?',
+  appleButton: 'Đăng nhập với Apple',
+  googleButton: 'Đăng nhập bằng Google',
+};
+export const SignUpPageText_VIE: SignUpPageTextType = {
+  heading: 'Điều khoản sử dụng',
+  line1: 'Vui lòng đồng ý với các điều khoản và điều kiện.',
+  agree1: 'Tôi từ 14 tuổi trở lên(bắt buộc)',
+  agree2: 'Điều khoản dịch vụ (bắt buộc)',
+  agree3: 'Chính sách bảo mật (bắt buộc)',
+  agree4: 'Cung cấp thông tin cho các bên thứ ba (bắt buộc)',
+  detail: 'Chi tiết',
+  start: 'Khởi đầu',
+  agreeAll: 'Tôi đồng ý tất cả',
 };
 
 export const Votes_Text_vi = {

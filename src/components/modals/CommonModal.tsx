@@ -67,7 +67,7 @@ function CommonModal({
           onClick={confirmButton?.onClick}
           //   loading={confirmButton?.loading}
         >
-          {!confirmButton?.loading && (confirmButton?.text || '확인')}
+          {confirmButton?.text || '확인'}
         </VoteModalButton>
       </Flex>
     </Modal>

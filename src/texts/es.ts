@@ -4,6 +4,8 @@ import {
   MainPageTextType,
   BusinessPageTextType,
   FAQPageTextType,
+  LoginPageTextType,
+  SignUpPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -141,6 +143,23 @@ export const FAQText_ESP: FAQPageTextType = {
   a8: 'You can re-register on FanPlus anytime. However, you can use the same email address/nickname/mobile number 90 days after deactivation.',
   q9: 'When can I use the same mobile number from my old account to verify?',
   a9: 'You can use the mobile number which has been verified with the deactivated account 90 days after deactivation.',
+};
+export const LoginPageText_ESP: LoginPageTextType = {
+  heading: 'FanPlus Inicia sesión',
+  line1: 'Se requiere iniciar sesión. ¿Desea iniciar sesión?',
+  appleButton: 'Iniciar sesión con cuenta de Apple',
+  googleButton: 'Iniciar sesión con cuenta de Google',
+};
+export const SignUpPageText_ESP: SignUpPageTextType = {
+  heading: 'Términos y Condiciones',
+  line1: 'Por favor, acepta usar el servicio sin problemas.',
+  agree1: 'Tengo 14 años o más. (Obligatorio)',
+  agree2: 'Términos y Condiciones del servicio (Obligatorio)',
+  agree3: 'Política de privacidad de información personal (Obligatorio)',
+  agree4: 'Suministro de información a terceros (Obligatorio)</b>',
+  detail: 'Ver detalles',
+  start: 'Iniciar',
+  agreeAll: 'Aceptar todo',
 };
 
 export const Votes_Text_es = {

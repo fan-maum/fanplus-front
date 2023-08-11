@@ -1,6 +1,13 @@
 import { Interpolation, Theme } from '@emotion/react';
+import { MouseEventHandler } from 'react';
 
-function IconArrowLeft({ iconCss }: { iconCss?: Interpolation<Theme> }) {
+function IconArrowLeft({
+  iconCss,
+  onClickBack,
+}: {
+  iconCss?: Interpolation<Theme>;
+  onClickBack?: MouseEventHandler<SVGSVGElement>;
+}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,6 +16,7 @@ function IconArrowLeft({ iconCss }: { iconCss?: Interpolation<Theme> }) {
       fill="none"
       viewBox="0 0 24 24"
       css={iconCss}
+      onClick={onClickBack}
     >
       <path
         stroke="#000"

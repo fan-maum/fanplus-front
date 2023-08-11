@@ -5,6 +5,9 @@ import { VoteButton } from '@/components/atoms/VoteButton';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
+import { Cookies } from 'react-cookie';
+
+const cookies = new Cookies();
 
 export interface PromotionRankListItemProps {
   starData: VoteDetailStars;
