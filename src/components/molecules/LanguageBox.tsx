@@ -42,11 +42,11 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
       <div
         onTouchStart={handleTouchStart}
         css={{
+          height: '32px',
           display: 'flex',
           margin: '0px 8px',
           padding: '0px 8px',
           textAlign: 'center',
-          lineHeight: '32px',
           alignItems: 'center',
           cursor: 'pointer',
           '@media(max-width:991px)': {

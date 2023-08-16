@@ -34,7 +34,7 @@ const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
           margin: '0px 8px',
           padding: '0px 8px',
           textAlign: 'center',
-          lineHeight: '32px',
+          // lineHeight: '32px',
           alignItems: 'center',
           textDecoration: 'none',
           transition: 'color 0.5s',

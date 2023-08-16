@@ -18,12 +18,24 @@ const NavContainer = ({ texts, isVotePage }: { texts: NavBarTextType; isVotePage
         {/* <PageBox title={texts.community} link={texts.link.community} /> */}
       </ul>
       {isVotePage ? (
-        <ul css={{ padding: '10px', '@media(max-width:991px)': { padding: '7px' } }}>
+        <ul
+          css={{
+            padding: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            '@media(max-width:991px)': { padding: '7px' },
+          }}
+        >
           <LanguageBox language={texts.language} isVotePage={true} />
         </ul>
       ) : (
         <ul
-          css={{ padding: '10px', '@media(max-width:991px)': { padding: '7px', display: 'none' } }}
+          css={{
+            padding: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            '@media(max-width:991px)': { padding: '7px', display: 'none' },
+          }}
         >
           <NavBox title={texts.aboutUs} link={texts.link.aboutUs} isSide />
           {texts.recruit && (
