@@ -14,36 +14,30 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   };
 
   const handleGoogleLoginClick = () => {
-    const userAgent = navigator?.userAgent;
-    let isAllowed = false;
-
-    const allowedBrowser = ['Chrome', 'Safari', 'Edge', 'Firefox', 'Opera'];
-    // for (let i = 0; i < allowedBrowser.length; i++) {
-    //   if (userAgent?.match(allowedBrowser[i])) {
+    // const userAgent = navigator?.userAgent;
+    // let isAllowed = false;
+    // const allowedBrowser = ['Chrome', 'Safari', 'Edge', 'Firefox', 'Opera'];
+    // allowedBrowser.forEach((browser) => {
+    //   if (userAgent?.match(browser)) {
     //     isAllowed = true;
     //   }
+    // });
+    // if (!isAllowed) {
+    //   alert('구글 로그인을 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
+    //   return;
     // }
-    allowedBrowser.forEach((browser) => {
-      if (userAgent?.match(browser)) {
-        isAllowed = true;
-      }
-    });
-    if (!isAllowed) {
+    // router.push(`/api/auth/login/google?nextUrl=${nextUrl}`);
+    // return;
+
+    const userAgent = navigator?.userAgent;
+    const isKakao = userAgent?.match('KAKAOTALK');
+    const isNaver = userAgent?.match('NAVER') || userAgent?.match('NaverCafe');
+    const isDaum = userAgent?.match('Daum');
+    if (isKakao || isNaver || isDaum) {
       alert('구글 로그인을 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
       return;
     }
-    router.push(`/api/auth/login/google?nextUrl=${nextUrl}`);
-    return;
-
-    // const userAgent = navigator?.userAgent;
-    // const isKakao = userAgent?.match('KAKAOTALK');
-    // const isNaver = userAgent?.match('NAVER') || userAgent?.match('NaverCafe');
-    // const isDaum = userAgent?.match('Daum') || userAgent?.match('DAUM');
-    // if (isKakao || isNaver || isDaum) {
-    // alert('구글 로그인을 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
-    // return;
-    // }
-    // window.location.href = `/api/auth/login/google?nextUrl=${nextUrl}`;
+    window.location.href = `/api/auth/login/google?nextUrl=${nextUrl}`;
   };
   return (
     <div
