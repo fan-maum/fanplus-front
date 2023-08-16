@@ -10,7 +10,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
   const { setIsSideBarOpen } = useContext(SideBarContext) as SideBarContextType;
   const router = useRouter();
   const page = router.pathname.split('/')[2];
-  const isVotePage = page === 'votes';
+  const isVotePage = page === 'votes' || page === 'voteDetail';
   const isLoginSignUpPage = page === 'login' || page === 'signUp';
 
   return (
