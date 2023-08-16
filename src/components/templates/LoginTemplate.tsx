@@ -14,15 +14,14 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   };
 
   const handleGoogleLoginClick = () => {
-    const isKakao = navigator?.userAgent?.match('KAKAOTALK');
-    const isNaverApp = navigator?.userAgent?.match('NAVER');
-    const isDaumApp = navigator?.userAgent?.match('Daum');
-    const isNaverCafe = navigator?.userAgent?.match('NaverCafe');
-    if (isKakao || isNaverApp || isDaumApp || isNaverCafe) {
+    const userAgent = navigator?.userAgent;
+    const isKakao = userAgent?.match('KAKAOTALK');
+    const isNaver = userAgent?.match('NAVER') || userAgent?.match('NaverCafe');
+    const isDaumApp = userAgent?.match('Daum') || userAgent?.match('DAUM');
+    if (isKakao || isNaver || isDaumApp) {
       alert('구글 로그인을 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
       return;
     }
-
     window.location.href = `/api/auth/login/google?nextUrl=${nextUrl}`;
   };
   return (
