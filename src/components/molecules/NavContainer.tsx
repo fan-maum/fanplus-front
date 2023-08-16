@@ -13,7 +13,7 @@ const NavContainer = ({ texts, isVotePage }: { texts: NavBarTextType; isVotePage
         flexShrink: '1',
       }}
     >
-      <ul css={{ padding: '10px', '@media(max-width:991px)': { padding: '7px' } }}>
+      <ul css={{ padding: '10px', '@media(max-width:991px)': { padding: '5px' } }}>
         <NavBox title={texts.vote} link={texts.link.vote} />
         {/* <PageBox title={texts.community} link={texts.link.community} /> */}
       </ul>
@@ -23,7 +23,7 @@ const NavContainer = ({ texts, isVotePage }: { texts: NavBarTextType; isVotePage
             padding: '10px',
             display: 'flex',
             alignItems: 'center',
-            '@media(max-width:991px)': { padding: '7px' },
+            '@media(max-width:991px)': { padding: '5px' },
           }}
         >
           <LanguageBox language={texts.language} isVotePage={true} />
@@ -34,7 +34,7 @@ const NavContainer = ({ texts, isVotePage }: { texts: NavBarTextType; isVotePage
             padding: '10px',
             display: 'flex',
             alignItems: 'center',
-            '@media(max-width:991px)': { padding: '7px', display: 'none' },
+            '@media(max-width:991px)': { padding: '5px', display: 'none' },
           }}
         >
           <NavBox title={texts.aboutUs} link={texts.link.aboutUs} isSide />

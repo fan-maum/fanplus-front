@@ -169,8 +169,8 @@ export const Votes_Text_es = {
   voteEnd: 'Termina en',
   tab: {
     all: 'ALL',
-    bday: 'B-day Vote',
-    league: 'League Vote',
+    bday: 'B-day',
+    league: 'League',
   },
   winner: 'Primer puesto',
   daysAgo: 'Día',

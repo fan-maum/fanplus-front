@@ -44,7 +44,7 @@ const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
           },
           '@media(max-width:991px)': isSide
             ? { margin: '0px', padding: '0px', height: '24px' }
-            : { margin: '0px 6px', padding: '0px 6px' },
+            : { margin: '0px 5px', padding: '0px 2px' },
         }}
       >
         {title}
