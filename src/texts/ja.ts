@@ -169,8 +169,8 @@ export const Votes_Text_ja = {
   voteEnd: '最後まで',
   tab: {
     all: 'ALL',
-    bday: 'B-day Vote',
-    league: 'League Vote',
+    bday: '誕生日 投票',
+    league: 'リーグ 投票',
   },
   winner: '1位',
   daysAgo: '日々',

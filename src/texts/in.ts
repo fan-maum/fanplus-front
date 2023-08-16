@@ -169,8 +169,8 @@ export const Votes_Text_in = {
   voteEnd: 'Sampai akhir',
   tab: {
     all: 'ALL',
-    bday: 'B-day Vote',
-    league: 'League Vote',
+    bday: 'B-day',
+    league: 'League',
   },
   winner: '1st',
   daysAgo: 'd',
