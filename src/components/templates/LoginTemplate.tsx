@@ -16,7 +16,9 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   const handleGoogleLoginClick = () => {
     const isKakao = navigator?.userAgent?.match('KAKAOTALK');
     const isNaverApp = navigator?.userAgent?.match('NAVER');
-    if (isKakao || isNaverApp) {
+    const isDaumApp = navigator?.userAgent?.match('Daum');
+    const isNaverCafe = navigator?.userAgent?.match('NaverCafe');
+    if (isKakao || isNaverApp || isDaumApp || isNaverCafe) {
       alert('구글 로그인을 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
       return;
     }
