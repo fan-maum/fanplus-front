@@ -7,6 +7,9 @@ import { FormatTime } from '@/utils/util';
 import Link from 'next/link';
 import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 import VoteTitleImage from '../molecules/VoteTitleImage';
+import VoteHighRankTab, { VoteHighRankTabProps, VoteStatus } from '../molecules/VoteHighRankTab';
+import { useRecoilState } from 'recoil';
+import { voteDetailLangState } from '@/store/voteLangState';
 
 export interface VoteListItemProps {
   endDay: string;
@@ -18,6 +21,7 @@ const today = new Date();
 const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
   const language = GetLanguage();
   const voteDetailLanguage = GetRouterLanguage();
+  const voteDetailText = useRecoilState(voteDetailLangState(language))[0];
   const endDate = new Date(endDay);
   const [seconds, setSeconds] = useState<number>();
   const interval = useInterval(() => setSeconds((second) => second && second - 1), 1000);
@@ -31,8 +35,24 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
   const remainTime = FormatTime(seconds);
   const remainTimeState = FormatTime(seconds) !== '종료' ? true : false;
 
+  const VoteHighRankTabProps: VoteHighRankTabProps = {
+    status: voteData.STATUS as VoteStatus,
+    stars: {
+      firstRankStarName: voteData.FIRST_RANK_STAR_INFO.STAR_NAME,
+      secondRankStarName: voteData.SECOND_RANK_STAR_INFO.STAR_NAME,
+    },
+    votes: {
+      voteDiff:
+        parseInt(voteData.FIRST_RANK_STAR_INFO.VOTE_CNT) -
+        parseInt(voteData.SECOND_RANK_STAR_INFO.VOTE_CNT),
+      voteDiffFront: voteDetailText?.voteDifference.front as string,
+      voteDiffBack: voteDetailText?.voteDifference.back as string,
+      voteResult: voteDetailText?.voteResult as string,
+    },
+  };
+
   return (
-    <Stack align="center" spacing={20} css={{ cursor: 'pointer', overflow: 'hidden' }}>
+    <Stack align="center" spacing={15} css={{ cursor: 'pointer', overflow: 'hidden' }}>
       <VoteTitle
         remainTime={remainTime}
         remainTimeState={remainTimeState}
@@ -73,6 +93,7 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
       >
         {voteData.TITLE}
       </div>
+      <VoteHighRankTab {...VoteHighRankTabProps} />
     </Stack>
   );
 };

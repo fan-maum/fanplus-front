@@ -167,6 +167,8 @@ export const SignUpPageText_zh_CN: SignUpPageTextType = {
 
 export const Votes_Text_zh = {
   voteEnd: '距离投票截止还有',
+  voteFinished: '投票已结束',
+  voteStart: '离公开投票还有一段距离',
   tab: {
     all: 'ALL',
     bday: '生日投票',
@@ -181,6 +183,7 @@ export const Votes_Text_zh = {
 export const VoteDetail_Text_zh = {
   vote: '投票',
   voting: '投票',
+  voteResult: '投票结果',
   voteDifference: {
     front: null,
     back: '票差距!',

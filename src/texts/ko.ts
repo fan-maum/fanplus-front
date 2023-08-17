@@ -166,7 +166,9 @@ export const SignUpPageText_KR: SignUpPageTextType = {
 };
 
 export const Votes_Text_ko = {
-  voteEnd: '투표종료까지',
+  voteEnd: '투표 종료까지',
+  voteFinished: '투표 종료',
+  voteStart: '투표 시작까지',
   tab: {
     all: '전체',
     bday: '생일 투표',
@@ -181,6 +183,7 @@ export const Votes_Text_ko = {
 export const VoteDetail_Text_ko = {
   vote: '투표',
   voting: '투표하기',
+  voteResult: '투표 결과',
   voteDifference: {
     front: null,
     back: '표 차이',

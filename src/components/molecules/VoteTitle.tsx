@@ -49,23 +49,7 @@ export default function VoteTitle({ remainTime, remainTimeState, starName }: Pro
           </span>
         </>
       ) : (
-        <>
-          {voteLanguage?.winner}
-          <span>
-            <Image
-              width={30}
-              height={16}
-              src={'/icons/icon_star.svg'}
-              alt="Icon_star"
-              css={[
-                {
-                  verticalAlign: 'middle',
-                },
-              ]}
-            />
-          </span>
-          {starName}
-        </>
+        <>{voteLanguage?.voteFinished}</>
       )}
     </Stack>
   );
