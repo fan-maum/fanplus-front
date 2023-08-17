@@ -58,7 +58,7 @@ const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProp
   };
 
   return (
-    <Stack align="center" spacing={15} css={{ cursor: 'pointer', overflow: 'hidden' }}>
+    <Stack align="center" spacing={15} css={{ overflow: 'hidden' }}>
       <VoteTitle
         remainTime={remainTime}
         voteStatus={voteData.STATUS as VoteStatus}
@@ -78,7 +78,6 @@ const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProp
             pathname: `/${language}/voteDetail`,
             query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage },
           }}
-          // target="_blank"
         >
           <VoteTitleImage
             voteStatus={voteData.STATUS as VoteStatus}
@@ -102,7 +101,23 @@ const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProp
       >
         {voteData.TITLE}
       </div>
-      <VoteHighRankTab {...VoteHighRankTabProps} />
+      <Link
+        href={{
+          pathname: `/${language}/voteDetail`,
+          query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage },
+        }}
+      >
+        <VoteHighRankTab {...VoteHighRankTabProps} />
+      </Link>
+      <div
+        css={{
+          display: 'none',
+          width: '100%',
+          height: '1px',
+          backgroundColor: '#d9d9d9',
+          '@media(max-width:768px)': { display: 'block' },
+        }}
+      />
     </Stack>
   );
 };
