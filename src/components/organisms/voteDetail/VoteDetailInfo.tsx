@@ -10,6 +10,7 @@ import { GetLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import Image from 'next/image';
+import { VoteStatus } from '@/components/molecules/VoteHighRankTab';
 
 export interface VoteDetailInfoProps {
   voteDetailInfo: VoteDetailVoteInfo;
@@ -23,6 +24,8 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
   return (
     <div css={{ padding: '0 16px' }}>
       <VoteDetailItem
+        voteStatus={voteDetailInfo.STATUS as VoteStatus}
+        startDay={voteDetailInfo.START_DATE}
         endDay={voteDetailInfo.END_DATE}
         voteDetailInfo={voteDetailInfo}
         firstRankStarName={firstRankStar?.STAR_NAME}

@@ -167,6 +167,8 @@ export const SignUpPageText_IND: SignUpPageTextType = {
 
 export const Votes_Text_in = {
   voteEnd: 'Sampai akhir',
+  voteFinished: 'Pemungutan suara sudah selesai.',
+  voteStart: 'Sampai tempat terbuka',
   tab: {
     all: 'ALL',
     bday: 'B-day Vote',
@@ -181,6 +183,7 @@ export const Votes_Text_in = {
 export const VoteDetail_Text_in = {
   vote: 'Pemungutan suara',
   voting: 'Beri suara',
+  voteResult: 'Hasil',
   voteDifference: {
     front: 'Beda',
     back: 'suara!',
