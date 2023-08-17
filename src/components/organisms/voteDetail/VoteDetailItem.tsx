@@ -50,7 +50,10 @@ const VoteDetailItem = ({
         voteStatus={voteDetailInfo.STATUS as VoteStatus}
         starName={firstRankStarName}
       />
-      <VoteTitleImage remainTimeState={remainTimeState} voteDataImage={voteDetailInfo.TITLE_IMG} />
+      <VoteTitleImage
+        voteStatus={voteDetailInfo.STATUS as VoteStatus}
+        voteDataImage={voteDetailInfo.TITLE_IMG}
+      />
       <div
         css={[
           {
