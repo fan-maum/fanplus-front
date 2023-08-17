@@ -41,8 +41,6 @@ const VoteDetailItem = ({
   }, []);
 
   const remainTime = FormatTime(seconds);
-
-  const remainTimeState = FormatTime(seconds) !== '종료' ? true : false;
   return (
     <Stack align="center" spacing={20} css={{ overflow: 'hidden' }}>
       <VoteTitle

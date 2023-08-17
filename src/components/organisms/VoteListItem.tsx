@@ -40,7 +40,6 @@ const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProp
   }, []);
 
   const remainTime = FormatTime(seconds);
-  const remainTimeState = FormatTime(seconds) !== '종료' ? true : false;
 
   const VoteHighRankTabProps: VoteHighRankTabProps = {
     status: voteData.STATUS as VoteStatus,
