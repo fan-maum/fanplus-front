@@ -3,18 +3,21 @@ import { Stack } from '../atoms/Stack';
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
 import { GetLanguage } from '@/hooks/useLanguage';
+import { VoteStatus } from './VoteHighRankTab';
 
 export interface PromotionTitleProps {
   remainTime: string | undefined;
-  remainTimeState: boolean;
+  voteStatus: VoteStatus;
   starName?: string;
 }
 
-export default function VoteTitle({ remainTime, remainTimeState, starName }: PromotionTitleProps) {
+export default function VoteTitle({ remainTime, voteStatus, starName }: PromotionTitleProps) {
   const language = GetLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
-  const activeBackgroundColor = remainTimeState ? '#FFD950' : '#666';
-  const activeColor = remainTimeState ? '#000' : '#fff';
+  const activeBackgroundColor =
+    voteStatus === 'N' ? '#FFD950' : voteStatus === 'R' ? '#bfcff6' : '#666';
+  const activeColor = voteStatus !== 'E' ? '#000' : '#fff';
+  const titlePrefix = voteStatus === 'N' ? voteLanguage?.voteEnd : voteLanguage?.voteStart;
   return (
     <Stack
       direct="row"
@@ -35,9 +38,9 @@ export default function VoteTitle({ remainTime, remainTimeState, starName }: Pro
         },
       ]}
     >
-      {remainTimeState ? (
+      {voteStatus !== 'E' ? (
         <>
-          {voteLanguage?.voteEnd}
+          {titlePrefix}
           <span
             css={[
               {

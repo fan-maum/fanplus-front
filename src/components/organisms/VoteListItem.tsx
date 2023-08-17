@@ -12,23 +12,30 @@ import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 
 export interface VoteListItemProps {
+  startDay: string;
   endDay: string;
   voteData: VoteData;
 }
 
 const today = new Date();
 
-const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
+const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProps) => {
   const language = GetLanguage();
   const voteDetailLanguage = GetRouterLanguage();
   const voteDetailText = useRecoilState(voteDetailLangState(language))[0];
+  const startDate = new Date(startDay);
   const endDate = new Date(endDay);
   const [seconds, setSeconds] = useState<number>();
   const interval = useInterval(() => setSeconds((second) => second && second - 1), 1000);
 
   useEffect(() => {
+    if (voteData.STATUS === 'N') {
+      setSeconds(Math.floor((endDate.getTime() - today.getTime()) / 1000));
+    }
+    if (voteData.STATUS === 'R') {
+      setSeconds(Math.floor((startDate.getTime() - today.getTime()) / 1000));
+    }
     interval.start();
-    setSeconds(Math.floor((endDate.getTime() - today.getTime()) / 1000));
     return interval.stop;
   }, []);
 
@@ -55,7 +62,7 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
     <Stack align="center" spacing={15} css={{ cursor: 'pointer', overflow: 'hidden' }}>
       <VoteTitle
         remainTime={remainTime}
-        remainTimeState={remainTimeState}
+        voteStatus={voteData.STATUS as VoteStatus}
         starName={voteData?.FIRST_RANK_STAR_INFO?.STAR_NAME}
       />
       <div
@@ -74,7 +81,10 @@ const VoteListItem = ({ endDay, voteData, ...props }: VoteListItemProps) => {
           }}
           // target="_blank"
         >
-          <VoteTitleImage remainTimeState={remainTimeState} voteDataImage={voteData.TITLE_IMG} />
+          <VoteTitleImage
+            voteStatus={voteData.STATUS as VoteStatus}
+            voteDataImage={voteData.TITLE_IMG}
+          />
         </Link>
       </div>
       <div
