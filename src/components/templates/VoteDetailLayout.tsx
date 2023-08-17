@@ -73,9 +73,7 @@ const VoteDetailLayout = ({
   const freeVoteCount = 15;
   const moreVoteCount = 1650;
   const webViewLink = `https://p7m9w.app.goo.gl/?link=${encodeURIComponent(
-    `https://vote.fanplus.co.kr/?vote=${router.query.vote_IDX}&photocard_type=share_vote&vote_idx=${router.query.vote_IDX}`
-  )}&apn=com.photocard.allstar&amv=100&ibi=com.photocard.master&isi=1448805815&ofl=${encodeURIComponent(
-    `https://fanplus.co.kr/ko/voteDetail/?vote_IDX=${router.query.vote_IDX}&lang=${router.query.lang}&id=${router.query.id}`
+    `https://fanplus.co.kr/ko/voteDetail/?vote_IDX=${router.query.vote_IDX}&apn=com.photocard.allstar&amv=100&ibi=com.photocard.master&isi=1448805815`
   )}`;
 
   const prizeTabContents: prizeTabContentsProps = {
@@ -300,7 +298,7 @@ const VoteDetailLayout = ({
         isWebView={isWebView}
         freeVoteCount={freeVoteCount}
         moreVoteCount={voteModalDone}
-        onWebViewLink={() => router.push(webViewLink)}
+        onWebViewLink={() => window.open(webViewLink)}
         starName={stars[1]?.STAR_NAME || '스타이름'}
       />
       <VoteBlockModal
@@ -310,7 +308,7 @@ const VoteDetailLayout = ({
         }}
         isWebView={isWebView}
         moreVoteCount={moreVoteCount}
-        onWebViewLink={() => router.push(webViewLink)}
+        onWebViewLink={() => window.open(webViewLink)}
       />
     </div>
   );
