@@ -22,7 +22,7 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   const handleGoogleLoginClick = () => {
     const userAgent = navigator?.userAgent;
     const isKakao = userAgent?.match('KAKAOTALK');
-    const isNaver = userAgent?.match('Naver') || userAgent?.match('NaverCafe');
+    const isNaver = userAgent?.match('NAVER') || userAgent?.match('NaverCafe');
     const isDaum = userAgent?.match('Daum');
     const isWechat = userAgent?.match('Wechat') || userAgent?.match('MicroMessenger');
     const isLine = userAgent?.match('Line');
