@@ -50,21 +50,21 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
           {secondRankStar?.STAR_NAME}
         </RankProfile>
       </Stack>
-      <UnstyledButton
-        css={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: 60,
-          borderRadius: '10px',
-          background: '#FCEEEE',
-          color: '#FC5280',
-          fontSize: '17px',
-          fontWeight: 600,
-          margin: '0 auto 40px auto',
-        }}
-      >
-        {voteDetailInfo.LINK !== '' ? (
+      {voteDetailInfo.LINK !== '' && (
+        <UnstyledButton
+          css={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 60,
+            borderRadius: '10px',
+            background: '#FCEEEE',
+            color: '#FC5280',
+            fontSize: '17px',
+            fontWeight: 600,
+            margin: '0 auto 40px auto',
+          }}
+        >
           <Link
             href={voteDetailInfo.LINK}
             target="_blank"
@@ -87,13 +87,8 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
               <Image width={24} height={24} src="/icons/icon_pinkArrow.svg" alt="arrow" />
             </Center>
           </Link>
-        ) : (
-          <Center px={50}>
-            {voteDetailLanguage?.seeMore}
-            <Image width={24} height={24} src="/icons/icon_pinkArrow.svg" alt="arrow" />
-          </Center>
-        )}
-      </UnstyledButton>
+        </UnstyledButton>
+      )}
     </div>
   );
 };

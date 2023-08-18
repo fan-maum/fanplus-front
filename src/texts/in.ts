@@ -171,8 +171,8 @@ export const Votes_Text_in = {
   voteStart: 'Sampai tempat terbuka',
   tab: {
     all: 'ALL',
-    bday: 'B-day Vote',
-    league: 'League Vote',
+    bday: 'B-day',
+    league: 'League',
   },
   winner: '1st',
   daysAgo: 'd',

@@ -171,8 +171,8 @@ export const Votes_Text_es = {
   voteStart: 'hasta la apertura',
   tab: {
     all: 'ALL',
-    bday: 'B-day Vote',
-    league: 'League Vote',
+    bday: 'B-day',
+    league: 'League',
   },
   winner: 'Primer puesto',
   daysAgo: 'Día',
