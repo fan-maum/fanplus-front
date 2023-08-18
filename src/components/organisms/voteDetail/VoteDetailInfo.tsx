@@ -30,12 +30,12 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
         voteDetailInfo={voteDetailInfo}
         firstRankStarName={firstRankStar?.STAR_NAME}
       />
-      <Stack spacing={50} h={100} justify="center" align="center" direct="row" m={'0 auto'}>
+      <Stack spacing={20} h={100} justify="center" align="center" direct="row" m={'0 auto'}>
         <RankProfile align="end">
           <Image width={36} height={36} src={'/icons/icon_medal1.png'} alt="icon_medal" />
           {firstRankStar?.STAR_NAME}
         </RankProfile>
-        <RankProfile fontSize={18} fontWeight={700} color="#FF5656" flex={'none'}>
+        <RankProfile maxWidth="50%" fontSize={18} fontWeight={700} color="#FF5656" flex={'none'}>
           <div>[ LIVE ]</div>
           <div>
             {voteDetailLanguage?.voteDifference.front}
