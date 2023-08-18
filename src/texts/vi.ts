@@ -167,10 +167,12 @@ export const SignUpPageText_VIE: SignUpPageTextType = {
 
 export const Votes_Text_vi = {
   voteEnd: 'Cho đến khi kết thúc',
+  voteFinished: 'Hết hạn bỏ phiếu',
+  voteStart: 'cho đến khi khai trương',
   tab: {
     all: 'ALL',
-    bday: 'B-day Vote',
-    league: 'League Vote',
+    bday: 'B-day',
+    league: 'League',
   },
   winner: '1st',
   daysAgo: 'ngày',
@@ -181,6 +183,7 @@ export const Votes_Text_vi = {
 export const VoteDetail_Text_vi = {
   vote: 'Bỏ phiếu',
   voting: 'Bỏ phiếu',
+  voteResult: 'Kết quả',
   voteDifference: {
     front: null,
     back: 'phiếu chênh lệch',

@@ -167,10 +167,12 @@ export const SignUpPageText_JAP: SignUpPageTextType = {
 
 export const Votes_Text_ja = {
   voteEnd: '最後まで',
+  voteFinished: '投票が締め切られました。',
+  voteStart: 'オープンまで',
   tab: {
     all: 'ALL',
-    bday: 'B-day Vote',
-    league: 'League Vote',
+    bday: '誕生日 投票',
+    league: 'リーグ 投票',
   },
   winner: '1位',
   daysAgo: '日々',
@@ -181,6 +183,7 @@ export const Votes_Text_ja = {
 export const VoteDetail_Text_ja = {
   vote: '投票',
   voting: '投票する',
+  voteResult: '投票結果',
   voteDifference: {
     front: null,
     back: '票の得票差!',

@@ -5,10 +5,11 @@ export interface VoteData {
   START_DATE: string;
   END_DATE: string;
   STATUS: string;
-  FIRST_RANK_STAR_INFO: FirstRankStarData;
+  FIRST_RANK_STAR_INFO: StarInfo;
+  SECOND_RANK_STAR_INFO: StarInfo;
 }
 
-export interface FirstRankStarData {
+export interface StarInfo {
   STAR_IDX: string;
   STAR_GROUP_IDX: string;
   STAR_RANK: string;

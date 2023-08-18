@@ -33,7 +33,12 @@ function VoteList({ isMobile, voteList, loading, error, ...props }: VoteListProp
       ]}
     >
       {voteList?.map((item) => (
-        <VoteListItem endDay={item.END_DATE} key={item.VOTE_IDX} voteData={item} />
+        <VoteListItem
+          startDay={item.START_DATE}
+          endDay={item.END_DATE}
+          key={item.VOTE_IDX}
+          voteData={item}
+        />
       ))}
     </div>
   );

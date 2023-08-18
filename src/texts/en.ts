@@ -167,10 +167,12 @@ export const SignUpPageText_ENG: SignUpPageTextType = {
 
 export const Votes_Text_en = {
   voteEnd: 'Until the end',
+  voteFinished: 'The vote has been closed',
+  voteStart: 'Until the open',
   tab: {
     all: 'ALL',
-    bday: 'B-day Vote',
-    league: 'League Vote',
+    bday: 'B-day',
+    league: 'League',
   },
   winner: '1st',
   daysAgo: 'd',
@@ -181,6 +183,7 @@ export const Votes_Text_en = {
 export const VoteDetail_Text_en = {
   vote: 'Vote',
   voting: 'Vote',
+  voteResult: 'Result',
   voteDifference: {
     front: 'Winning by',
     back: 'vote(s)',
