@@ -4,10 +4,16 @@ import IconFanPlus from '../atoms/IconFanPlus';
 import IconArrowLeft from '../atoms/IconArrowLeft';
 import { useRouter } from 'next/router';
 import { LoginPageTextType } from '@/types/textTypes';
+import { useState } from 'react';
+import OtherBrowserModal from '../modals/OtherBrowserModal';
+import { isAndroid } from 'react-device-detect';
+import CompletedShareModal from '../modals/CompletedShareModal';
 
 const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   const router = useRouter();
   const nextUrl = router.query['nextUrl'] as string;
+  const [otherBrowserModalOpen, setOtherBrowserModalOpen] = useState(false);
+  const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
 
   const handleAppleLoginClick = () => {
     window.location.href = `/api/auth/login/apple?nextUrl=${nextUrl}`;
@@ -16,10 +22,14 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   const handleGoogleLoginClick = () => {
     const userAgent = navigator?.userAgent;
     const isKakao = userAgent?.match('KAKAOTALK');
-    const isNaver = userAgent?.match('NAVER') || userAgent?.match('NaverCafe');
+    const isNaver = userAgent?.match('Naver') || userAgent?.match('NaverCafe');
     const isDaum = userAgent?.match('Daum');
-    if (isKakao || isNaver || isDaum) {
-      alert('구글 로그인을 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
+    const isWechat = userAgent?.match('Wechat') || userAgent?.match('MicroMessenger');
+    const isLine = userAgent?.match('Line');
+    const isFaceBook = userAgent?.match('FB');
+    const isInstagram = userAgent?.match('Instagram');
+    if (isKakao || isNaver || isDaum || isWechat || isLine || isFaceBook || isInstagram) {
+      setOtherBrowserModalOpen(true);
       return;
     }
     window.location.href = `/api/auth/login/google?nextUrl=${nextUrl}`;
@@ -99,6 +109,22 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
         >
           <AppleLoginButton texts={texts.appleButton} onClick={handleAppleLoginClick} />
           <GoogleLoginButton texts={texts.googleButton} onClick={handleGoogleLoginClick} />
+          <OtherBrowserModal
+            texts={{
+              text1: texts.modal.text1,
+              text2: isAndroid ? texts.modal.text2AOS : texts.modal.text2IOS,
+              close: texts.modal.close,
+              copyUrl: texts.modal.copyUrl,
+            }}
+            setBrowserModal={setOtherBrowserModalOpen}
+            nextUrl={nextUrl}
+            setCompletedShareModal={setCompletedShareModalIsOpen}
+            opened={otherBrowserModalOpen}
+          />
+          <CompletedShareModal
+            onClose={() => setCompletedShareModalIsOpen(false)}
+            opened={completedShareModalIsOpen}
+          />
         </div>
       </div>
     </div>

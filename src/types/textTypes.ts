@@ -137,6 +137,13 @@ export type LoginPageTextType = {
   line1: string;
   appleButton: string;
   googleButton: string;
+  modal: {
+    text1: string;
+    text2AOS: string;
+    text2IOS: string;
+    copyUrl: string;
+    close: string;
+  };
 };
 export type SignUpPageTextType = {
   heading: string;
