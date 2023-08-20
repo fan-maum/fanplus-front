@@ -151,7 +151,8 @@ export const LoginPageText_KR: LoginPageTextType = {
   googleButton: 'Google 계정으로 로그인',
   modal: {
     text1: '해당 브라우저에서는 구글 로그인을 사용할 수 없습니다.',
-    text2AOS: 'URL 복사를 통해 크롬 혹은 삼성 인터넷 브라우저에서 진행해주세요.',
+    text2AOS: 'URL 복사를 통해 크롬 혹은',
+    text3AOS: '삼성 인터넷 브라우저에서 진행해주세요.',
     text2IOS: 'URL 복사를 통해 사파리 혹은 크롬 브라우저에서 진행해주세요.',
     copyUrl: 'URL 복사',
     close: '닫기',

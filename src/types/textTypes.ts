@@ -140,6 +140,7 @@ export type LoginPageTextType = {
   modal: {
     text1: string;
     text2AOS: string;
+    text3AOS?: string;
     text2IOS: string;
     copyUrl: string;
     close: string;

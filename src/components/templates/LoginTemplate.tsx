@@ -113,6 +113,7 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
             texts={{
               text1: texts.modal.text1,
               text2: isAndroid ? texts.modal.text2AOS : texts.modal.text2IOS,
+              text3: texts.modal.text3AOS,
               close: texts.modal.close,
               copyUrl: texts.modal.copyUrl,
             }}

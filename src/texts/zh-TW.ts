@@ -151,9 +151,9 @@ export const LoginPageText_zh_TW: LoginPageTextType = {
   googleButton: '使用Google 賬號登陸',
   modal: {
     text1: '您無法在此瀏覽器中使用谷歌(Google)登錄。',
-    text2AOS: '請複制URL並在Chrome瀏覽器進行',
-    text2IOS: '請複制URL並在Safari或Chrome瀏覽器進行',
-    copyUrl: '複製URL',
+    text2AOS: '請複制URL並在 Chrome瀏覽器進行',
+    text2IOS: '請複制URL並在 Safari或 Chrome瀏覽器進行',
+    copyUrl: '複製 URL',
     close: '關閉',
   },
 };
