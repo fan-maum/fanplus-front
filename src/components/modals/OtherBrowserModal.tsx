@@ -8,6 +8,7 @@ import { Stack, Group, UnstyledButton } from '@/components/atoms';
 type textType = {
   text1: string;
   text2: string;
+  text3?: string;
   copyUrl: string;
   close: string;
 };
@@ -82,13 +83,15 @@ const OtherBrowserModal = ({
                 fontSize: '18px',
                 fontWeight: '400',
                 wordBreak: 'keep-all',
-                p: {
-                  margin: '10px 0px',
-                },
+                p: { margin: '10px 0px' },
               }}
             >
               <p>{texts.text1}</p>
-              <p>{texts.text2}</p>
+              <p>
+                {texts.text2}
+                <br />
+                {texts.text3}
+              </p>
             </div>
             <CopyToClipboard text={url}>
               <ShareButtonWithIcon

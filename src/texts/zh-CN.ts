@@ -151,9 +151,9 @@ export const LoginPageText_zh_CN: LoginPageTextType = {
   googleButton: '使用Google 账号登陆',
   modal: {
     text1: '您无法在此浏览器中使用谷歌(Google)登录。',
-    text2AOS: '请复制URL并在Chrome浏览器进行',
-    text2IOS: '请复制URL并在Safari或Chrome浏览器进行',
-    copyUrl: '复制URL',
+    text2AOS: '请复制URL并在 Chrome浏览器进行',
+    text2IOS: '请复制URL并在 Safari或 Chrome浏览器进行',
+    copyUrl: '复制 URL',
     close: '关闭',
   },
 };

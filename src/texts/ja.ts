@@ -151,8 +151,8 @@ export const LoginPageText_JAP: LoginPageTextType = {
   googleButton: 'Googleアカウントでサインイン',
   modal: {
     text1: 'このブラウザでは Google ログインを使用できません。',
-    text2AOS: 'URLをコピーしてChromeブラウザでお進みください。',
-    text2IOS: 'URLをコピーして、SafariまたはChromeブラウザでお進みください。',
+    text2AOS: 'URLをコピーして、 Chrome ブラウザで お進みください。',
+    text2IOS: 'URLをコピーして、 Safari または Chrome ブラウザで お進みください。',
     copyUrl: 'URL コピー',
     close: '閉じる',
   },
