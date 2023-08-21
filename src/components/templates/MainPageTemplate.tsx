@@ -232,8 +232,6 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
         </div>
       </div>
-      <Link href={'/login'}>로그인 페이지로~~~</Link>
-      <Link href={'/signUp'}>회원가입 페이지로~~</Link>
     </div>
   );
 };

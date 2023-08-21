@@ -4,24 +4,31 @@ import IconFanPlus from '../atoms/IconFanPlus';
 import IconArrowLeft from '../atoms/IconArrowLeft';
 import { useRouter } from 'next/router';
 import { LoginPageTextType } from '@/types/textTypes';
+import { useState } from 'react';
+import OtherBrowserModal from '../modals/OtherBrowserModal';
+import { isAndroid } from 'react-device-detect';
+import CompletedShareModal from '../modals/CompletedShareModal';
 
 const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
   const router = useRouter();
   const nextUrl = router.query['nextUrl'] as string;
+  const [otherBrowserModalOpen, setOtherBrowserModalOpen] = useState(false);
+  const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
 
   const handleAppleLoginClick = () => {
     window.location.href = `/api/auth/login/apple?nextUrl=${nextUrl}`;
   };
 
   const handleGoogleLoginClick = () => {
-    const isKakao = navigator?.userAgent?.match('KAKAOTALK');
-    if (isKakao) {
-      alert('구글 로그인을 사용할 수 없습니다. 기본 브라우저에서 계속해주세요.');
+    const userAgent = navigator?.userAgent;
+    const unspportedBrowsers = /kakaotalk|naver|daum|wechat|micromessenger|line|fb|instagram/gi;
+    if (userAgent?.match(unspportedBrowsers)) {
+      setOtherBrowserModalOpen(true);
       return;
     }
-
     window.location.href = `/api/auth/login/google?nextUrl=${nextUrl}`;
   };
+
   return (
     <div
       css={{
@@ -96,6 +103,23 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
         >
           <AppleLoginButton texts={texts.appleButton} onClick={handleAppleLoginClick} />
           <GoogleLoginButton texts={texts.googleButton} onClick={handleGoogleLoginClick} />
+          <OtherBrowserModal
+            texts={{
+              googleLoginProhibited: texts.modal.text1,
+              useOtherBrowser: isAndroid ? texts.modal.text2AOS : texts.modal.text2IOS,
+              useSamsungBrowser: isAndroid ? texts.modal.text3AOS : undefined,
+              close: texts.modal.close,
+              copyUrl: texts.modal.copyUrl,
+            }}
+            setBrowserModal={setOtherBrowserModalOpen}
+            nextUrl={nextUrl}
+            setCompletedShareModal={setCompletedShareModalIsOpen}
+            opened={otherBrowserModalOpen}
+          />
+          <CompletedShareModal
+            onClose={() => setCompletedShareModalIsOpen(false)}
+            opened={completedShareModalIsOpen}
+          />
         </div>
       </div>
     </div>

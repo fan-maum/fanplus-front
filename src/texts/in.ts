@@ -149,6 +149,13 @@ export const LoginPageText_IND: LoginPageTextType = {
   line1: 'Login diperlukan. Apakah Anda ingin login?',
   appleButton: 'Masuk dengan Apple',
   googleButton: 'Masuk dengan Google',
+  modal: {
+    text1: 'Anda tidak dapat menggunakan login Google di browser ini.',
+    text2AOS: 'Silakan salin URL dan lanjutkan di browser Chrome.',
+    text2IOS: 'Anda tidak dapat menggunakan login Google di browser ini.',
+    copyUrl: 'Salin URL',
+    close: 'Tutup',
+  },
 };
 export const SignUpPageText_IND: SignUpPageTextType = {
   heading: 'Persetujuan Penggunaan',

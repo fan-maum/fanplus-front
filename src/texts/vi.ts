@@ -149,6 +149,13 @@ export const LoginPageText_VIE: LoginPageTextType = {
   line1: 'Đăng nhập là bắt buộc. Bạn có muốn đăng nhập?',
   appleButton: 'Đăng nhập với Apple',
   googleButton: 'Đăng nhập bằng Google',
+  modal: {
+    text1: 'Bạn không thể sử dụng đăng nhập Google trong trình duyệt này.',
+    text2AOS: 'Vui lòng sao chép URL và tiếp tục trong trình duyệt Chrome.',
+    text2IOS: 'Vui lòng sao chép URL và tiếp tục trong trình duyệt Safari hoặc Chrome.',
+    copyUrl: 'Sao chép UR',
+    close: 'Đóng',
+  },
 };
 export const SignUpPageText_VIE: SignUpPageTextType = {
   heading: 'Điều khoản sử dụng',
