@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { css } from '@emotion/react';
 import IconCircle from '../atoms/IconCircle';
 import { TouchEvent } from 'react';
+import Image from 'next/image';
 
 export type OwnPropType = {
   imgs: {
@@ -59,6 +60,7 @@ const Carousel: FC<OwnPropType> = ({ imgs }) => {
               '@media(max-width:768px)': { width: '500%' },
               img: {
                 width: '20%',
+                height: 'auto',
                 padding: '10px',
               },
             },
@@ -67,11 +69,11 @@ const Carousel: FC<OwnPropType> = ({ imgs }) => {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <img src={imgs.img1} alt="보유배지"></img>
-          <img src={imgs.img2} alt="프로필"></img>
-          <img src={imgs.img3} alt="미션배지"></img>
-          <img src={imgs.img4} alt="업적배지"></img>
-          <img src={imgs.img1} alt="보유배지"></img>
+          <Image src={imgs.img1} width={528} height={1092} alt="보유배지" />
+          <Image src={imgs.img2} width={528} height={1092} alt="프로필" />
+          <Image src={imgs.img3} width={528} height={1092} alt="미션배지" />
+          <Image src={imgs.img4} width={528} height={1092} alt="업적배지" />
+          <Image src={imgs.img1} width={528} height={1092} alt="보유배지" />
         </div>
       </div>
       <div
