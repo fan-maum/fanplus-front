@@ -6,9 +6,9 @@ import CompletedShareModal, { CompletedShareModalProps } from './CompletedShareM
 import { Stack, Group, UnstyledButton } from '@/components/atoms';
 
 type textType = {
-  text1: string;
-  text2: string;
-  text3?: string;
+  googleLoginProhibited: string;
+  useOtherBrowser: string;
+  useSamsungBrowser?: string;
   copyUrl: string;
   close: string;
 };
@@ -86,11 +86,11 @@ const OtherBrowserModal = ({
                 p: { margin: '10px 0px' },
               }}
             >
-              <p>{texts.text1}</p>
+              <p>{texts.googleLoginProhibited}</p>
               <p>
-                {texts.text2}
+                {texts.useOtherBrowser}
                 <br />
-                {texts.text3}
+                {texts.useSamsungBrowser}
               </p>
             </div>
             <CopyToClipboard text={url}>
