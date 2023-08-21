@@ -63,6 +63,7 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
               width={994}
               height={1104}
               alt="main"
+              loading="eager"
             />
           </div>
         </div>
@@ -75,6 +76,7 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
               width={585}
               height={293}
               alt="intro"
+              loading="eager"
             />
           </div>
           <div
@@ -271,6 +273,7 @@ const AutoFitImage = ({
   width: number;
   height: number;
   alt: string;
+  loading?: 'lazy' | 'eager';
 }) => {
   return <Image css={{ width: '100%', height: 'auto' }} {...props} />;
 };
