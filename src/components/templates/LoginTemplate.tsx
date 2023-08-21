@@ -107,7 +107,7 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
             texts={{
               googleLoginProhibited: texts.modal.text1,
               useOtherBrowser: isAndroid ? texts.modal.text2AOS : texts.modal.text2IOS,
-              useSamsungBrowser: texts.modal.text3AOS,
+              useSamsungBrowser: isAndroid ? texts.modal.text3AOS : undefined,
               close: texts.modal.close,
               copyUrl: texts.modal.copyUrl,
             }}
