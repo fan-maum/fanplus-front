@@ -21,14 +21,8 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
 
   const handleGoogleLoginClick = () => {
     const userAgent = navigator?.userAgent;
-    const isKakao = userAgent?.match('KAKAOTALK');
-    const isNaver = userAgent?.match('NAVER') || userAgent?.match('NaverCafe');
-    const isDaum = userAgent?.match('Daum');
-    const isWechat = userAgent?.match('Wechat') || userAgent?.match('MicroMessenger');
-    const isLine = userAgent?.match('Line');
-    const isFaceBook = userAgent?.match('FB');
-    const isInstagram = userAgent?.match('Instagram');
-    if (isKakao || isNaver || isDaum || isWechat || isLine || isFaceBook || isInstagram) {
+    const unspportedBrowsers = /kakaotalk|naver|daum|wechat|micromessenger|line|fb|instagram/gi;
+    if (userAgent?.match(unspportedBrowsers)) {
       setOtherBrowserModalOpen(true);
       return;
     }
@@ -111,9 +105,9 @@ const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
           <GoogleLoginButton texts={texts.googleButton} onClick={handleGoogleLoginClick} />
           <OtherBrowserModal
             texts={{
-              text1: texts.modal.text1,
-              text2: isAndroid ? texts.modal.text2AOS : texts.modal.text2IOS,
-              text3: texts.modal.text3AOS,
+              googleLoginProhibited: texts.modal.text1,
+              useOtherBrowser: isAndroid ? texts.modal.text2AOS : texts.modal.text2IOS,
+              useSamsungBrowser: texts.modal.text3AOS,
               close: texts.modal.close,
               copyUrl: texts.modal.copyUrl,
             }}
