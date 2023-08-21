@@ -149,6 +149,13 @@ export const LoginPageText_JAP: LoginPageTextType = {
   line1: 'ログインが必要です。あなたは、ログインしますか？',
   appleButton: 'アップルでサインイン',
   googleButton: 'Googleアカウントでサインイン',
+  modal: {
+    text1: 'このブラウザでは Google ログインを使用できません。',
+    text2AOS: 'URLをコピーして、 Chrome ブラウザで お進みください。',
+    text2IOS: 'URLをコピーして、 Safari または Chrome ブラウザで お進みください。',
+    copyUrl: 'URL コピー',
+    close: '閉じる',
+  },
 };
 export const SignUpPageText_JAP: SignUpPageTextType = {
   heading: '利用規約',

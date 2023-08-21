@@ -149,6 +149,13 @@ export const LoginPageText_ENG: LoginPageTextType = {
   line1: 'Login is required. Would you like to log in?',
   appleButton: 'Sign in with Apple',
   googleButton: 'Sign in with Google',
+  modal: {
+    text1: 'You cannot use Google login in this browser.',
+    text2AOS: 'Please copy the URL and proceed in Chrome browser.',
+    text2IOS: 'Please copy the URL and proceed in Safari or Chrome browser.',
+    copyUrl: 'Copy URL',
+    close: 'Close',
+  },
 };
 export const SignUpPageText_ENG: SignUpPageTextType = {
   heading: 'Terms of Service',

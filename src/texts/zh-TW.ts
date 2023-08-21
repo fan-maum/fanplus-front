@@ -149,6 +149,13 @@ export const LoginPageText_zh_TW: LoginPageTextType = {
   line1: '需要登錄。您現在要登錄嗎？',
   appleButton: '使用Apple 賬號登陸',
   googleButton: '使用Google 賬號登陸',
+  modal: {
+    text1: '您無法在此瀏覽器中使用谷歌(Google)登錄。',
+    text2AOS: '請複制URL並在 Chrome瀏覽器進行',
+    text2IOS: '請複制URL並在 Safari或 Chrome瀏覽器進行',
+    copyUrl: '複製 URL',
+    close: '關閉',
+  },
 };
 export const SignUpPageText_zh_TW: SignUpPageTextType = {
   heading: '用戶協議',

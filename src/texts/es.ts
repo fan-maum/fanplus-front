@@ -149,6 +149,13 @@ export const LoginPageText_ESP: LoginPageTextType = {
   line1: 'Se requiere iniciar sesión. ¿Desea iniciar sesión?',
   appleButton: 'Iniciar sesión con cuenta de Apple',
   googleButton: 'Iniciar sesión con cuenta de Google',
+  modal: {
+    text1: 'No se puede usar Google en este navegador.',
+    text2AOS: 'Por favor, copia el URL y siga en el navegador Chrome.',
+    text2IOS: 'Por favor copia la URL y siga en Safari o en Chrome.',
+    copyUrl: 'Copiar URL',
+    close: 'Cerrar',
+  },
 };
 export const SignUpPageText_ESP: SignUpPageTextType = {
   heading: 'Términos y Condiciones',
