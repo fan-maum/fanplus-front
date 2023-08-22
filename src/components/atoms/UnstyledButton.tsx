@@ -2,13 +2,15 @@ import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
 import { ButtonHTMLAttributes } from 'react';
 
 export interface UnstyledButtonProps extends DefaultProps<ButtonHTMLAttributes<HTMLButtonElement>> {
+  buttonId?: string;
   children?: React.ReactNode;
   size?: number;
 }
 
-export function UnstyledButton({ ...props }: UnstyledButtonProps) {
+export function UnstyledButton({ buttonId, ...props }: UnstyledButtonProps) {
   return (
     <button
+      id={buttonId}
       css={[
         {
           WebkitTapHighlightColor: 'transparent',

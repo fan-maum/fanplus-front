@@ -7,6 +7,7 @@ import {
 } from '@/components/atoms';
 
 export interface ShareButtonWithIconProps extends UnstyledButtonProps {
+  buttonId?: string;
   src: string;
   text: string;
   varient?: 'twitter';
@@ -16,6 +17,7 @@ export interface ShareButtonWithIconProps extends UnstyledButtonProps {
 }
 
 function ShareButtonWithIcon({
+  buttonId,
   src,
   text,
   avatarProps,
@@ -24,7 +26,7 @@ function ShareButtonWithIcon({
   ...props
 }: ShareButtonWithIconProps) {
   return (
-    <UnstyledButton {...props}>
+    <UnstyledButton buttonId={buttonId} {...props}>
       <Stack spacing={6} w={72} align="center">
         <Avatar
           src={src}
