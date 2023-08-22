@@ -1,13 +1,15 @@
 import { colors } from '@/styles/Colors';
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, useEffect } from 'react';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  buttonId?: string;
   variant?: 'primary' | 'secondary';
 }
 
-export function VoteModalButton({ variant = 'secondary', ...props }: Props) {
+export function VoteModalButton({ buttonId, variant = 'secondary', ...props }: Props) {
   return (
     <button
+      id={buttonId}
       css={{
         outline: 'none',
         borderRadius: '20px',

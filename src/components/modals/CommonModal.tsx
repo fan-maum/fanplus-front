@@ -3,6 +3,7 @@ import { colors } from '@/styles/Colors';
 import { VoteModalButton } from '../atoms/VoteModalButton';
 
 export interface CommonModalProps extends ModalProps {
+  buttonId?: string;
   confirmButton?: { onClick?: () => void; text?: string; loading?: boolean };
   cancelButton?: { onClick?: () => void; text?: string } | boolean;
   withCancelButton?: boolean;
@@ -10,6 +11,7 @@ export interface CommonModalProps extends ModalProps {
 }
 
 function CommonModal({
+  buttonId,
   confirmButton,
   cancelButton,
   withCancelButton,
@@ -61,7 +63,12 @@ function CommonModal({
             {(typeof cancelButton === 'object' && cancelButton?.text) || '취소'}
           </VoteModalButton>
         )}
-        <VoteModalButton variant="primary" css={{ flex: 1 }} onClick={confirmButton?.onClick}>
+        <VoteModalButton
+          buttonId={buttonId}
+          variant="primary"
+          css={{ flex: 1 }}
+          onClick={confirmButton?.onClick}
+        >
           {confirmButton?.text || '확인'}
         </VoteModalButton>
       </Flex>

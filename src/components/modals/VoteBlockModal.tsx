@@ -33,6 +33,7 @@ function VoteBlockModal({
   }).voteBlockEnd;
 
   const voteBlockModalProps: CommonModalProps = {
+    buttonId: 'appDownloadButton',
     opened,
     onClose,
     cancelButton: { text: voteModalButton?.voteModalComplete, onClick: onClose },
