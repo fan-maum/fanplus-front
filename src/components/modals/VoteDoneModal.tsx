@@ -43,7 +43,7 @@ const VoteDoneModal = ({
   }, [moreVoteCount]);
 
   const voteDoneModalProps: CommonModalProps = {
-    buttonId: 'appDownloadButton',
+    buttonId: 'modalAppDownloadButton',
     onClose,
     opened: !!moreVoteCount,
     cancelButton: { text: voteModalButton?.voteModalComplete, onClick: onClose },

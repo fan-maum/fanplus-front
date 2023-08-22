@@ -168,7 +168,7 @@ function VoteDetailShareModal({
             <Group style={{ justifyContent: 'space-around' }}>
               {language === 'ko' && (
                 <ShareButtonWithIcon
-                  buttonId="kakao"
+                  buttonId="kakaoShareButton"
                   onClick={kakaoOnClick}
                   src="/icons/icon_Kakao.svg"
                   c={brandColor.kakao}
@@ -176,7 +176,7 @@ function VoteDetailShareModal({
                 />
               )}
               <ShareButtonWithIcon
-                buttonId="twitter"
+                buttonId="twitterShareButton"
                 onClick={twitterOnClick}
                 varient="twitter"
                 src="/icons/icon_Twitter.svg"
@@ -185,7 +185,7 @@ function VoteDetailShareModal({
               />
               <CopyToClipboard text={copyText}>
                 <ShareButtonWithIcon
-                  buttonId="url"
+                  buttonId="urlShareButton"
                   onClick={shareOnClick}
                   src={`/icons/Icon_${canShare ? 'More' : 'Link'}.svg`}
                   c="#819298"

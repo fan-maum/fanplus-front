@@ -33,7 +33,7 @@ const VoteProcessModal = ({
   }).voteProcess;
 
   const voteProcessModalProps: CommonModalProps = {
-    buttonId: 'voteButton',
+    buttonId: 'voteProcessModalVoteButton',
     opened,
     onClose,
     cancelButton: { text: voteModalButton?.voteModalCancel, onClick: onClose },
