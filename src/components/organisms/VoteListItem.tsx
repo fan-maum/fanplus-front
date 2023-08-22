@@ -44,13 +44,13 @@ const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProp
   const VoteHighRankTabProps: VoteHighRankTabProps = {
     status: voteData.STATUS as VoteStatus,
     stars: {
-      firstRankStarName: voteData.FIRST_RANK_STAR_INFO.STAR_NAME,
-      secondRankStarName: voteData.SECOND_RANK_STAR_INFO.STAR_NAME,
+      firstRankStarName: voteData?.FIRST_RANK_STAR_INFO?.STAR_NAME,
+      secondRankStarName: voteData?.SECOND_RANK_STAR_INFO?.STAR_NAME,
     },
     votes: {
       voteDiff:
-        parseInt(voteData.FIRST_RANK_STAR_INFO.VOTE_CNT) -
-        parseInt(voteData.SECOND_RANK_STAR_INFO.VOTE_CNT),
+        parseInt(voteData?.FIRST_RANK_STAR_INFO?.VOTE_CNT) -
+        parseInt(voteData?.SECOND_RANK_STAR_INFO?.VOTE_CNT),
       voteDiffFront: voteDetailText?.voteDifference.front as string,
       voteDiffBack: voteDetailText?.voteDifference.back as string,
       voteResult: voteDetailText?.voteResult as string,
@@ -101,14 +101,16 @@ const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProp
       >
         {voteData.TITLE}
       </div>
-      <Link
-        href={{
-          pathname: `/${language}/voteDetail`,
-          query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage },
-        }}
-      >
-        <VoteHighRankTab {...VoteHighRankTabProps} />
-      </Link>
+      {voteData.STATUS !== 'R' && (
+        <Link
+          href={{
+            pathname: `/${language}/voteDetail`,
+            query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage },
+          }}
+        >
+          <VoteHighRankTab {...VoteHighRankTabProps} />
+        </Link>
+      )}
       <div
         css={{
           display: 'none',
