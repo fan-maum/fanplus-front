@@ -3,11 +3,11 @@ import { Stack } from '../atoms/Stack';
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
 import { GetLanguage } from '@/hooks/useLanguage';
-import { VoteStatus } from './VoteHighRankTab';
+import type { TranslatedVoteStatus } from '../organisms/VoteListItem';
 
 export interface PromotionTitleProps {
   remainTime: string | undefined;
-  voteStatus: VoteStatus;
+  voteStatus: TranslatedVoteStatus;
   starName?: string;
 }
 
@@ -15,9 +15,9 @@ export default function VoteTitle({ remainTime, voteStatus, starName }: Promotio
   const language = GetLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
   const activeBackgroundColor =
-    voteStatus === 'N' ? '#FFD950' : voteStatus === 'R' ? '#bfcff6' : '#666';
-  const activeColor = voteStatus !== 'E' ? '#000' : '#fff';
-  const titlePrefix = voteStatus === 'N' ? voteLanguage?.voteEnd : voteLanguage?.voteStart;
+    voteStatus === 'ONGOING' ? '#FFD950' : voteStatus === 'READY' ? '#bfcff6' : '#666';
+  const activeColor = voteStatus !== 'END' ? '#000' : '#fff';
+  const titlePrefix = voteStatus === 'ONGOING' ? voteLanguage?.voteEnd : voteLanguage?.voteStart;
   return (
     <Stack
       direct="row"
@@ -38,18 +38,10 @@ export default function VoteTitle({ remainTime, voteStatus, starName }: Promotio
         },
       ]}
     >
-      {voteStatus !== 'E' ? (
+      {voteStatus !== 'END' ? (
         <>
           {titlePrefix}
-          <span
-            css={[
-              {
-                paddingLeft: '6px',
-              },
-            ]}
-          >
-            {remainTime}
-          </span>
+          <span css={{ paddingLeft: '6px' }}>{remainTime}</span>
         </>
       ) : (
         <>{voteLanguage?.voteFinished}</>
