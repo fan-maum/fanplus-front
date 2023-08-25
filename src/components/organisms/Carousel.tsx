@@ -68,10 +68,10 @@ const Carousel: FC<OwnPropType> = ({ imgs }) => {
           onTouchEnd={handleTouchEnd}
         >
           <img src={imgs.img1} alt="보유배지" />
+          <img src={imgs.img2} alt="프로필" />
           <img src={imgs.img3} alt="미션배지" />
           <img src={imgs.img4} alt="업적배지" />
           <img src={imgs.img1} alt="보유배지" />
-          <img src={imgs.img2} alt="프로필" />
         </div>
       </div>
       <div
