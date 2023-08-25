@@ -5,10 +5,10 @@ import { VoteDetailVoteInfo } from '@/types/vote';
 import { FormatTime } from '@/utils/util';
 import VoteTitle from '@/components/molecules/VoteTitle';
 import VoteTitleImage from '@/components/molecules/VoteTitleImage';
-import { VoteStatus } from '@/components/molecules/VoteHighRankTab';
+import type { TranslatedVoteStatus } from '../VoteListItem';
 
 export interface VoteListItemProps {
-  voteStatus: VoteStatus;
+  voteStatus: TranslatedVoteStatus;
   startDay: string;
   endDay: string;
   voteDetailInfo: VoteDetailVoteInfo;
@@ -18,6 +18,7 @@ export interface VoteListItemProps {
 const today = new Date();
 
 const VoteDetailItem = ({
+  voteStatus,
   startDay,
   endDay,
   voteDetailInfo,
@@ -30,10 +31,10 @@ const VoteDetailItem = ({
   const interval = useInterval(() => setSeconds((second) => second && second - 1), 1000);
 
   useEffect(() => {
-    if (voteDetailInfo.STATUS === 'N') {
+    if (voteStatus === 'ONGOING') {
       setSeconds(Math.floor((endDate.getTime() - today.getTime()) / 1000));
     }
-    if (voteDetailInfo.STATUS === 'R') {
+    if (voteStatus === 'READY') {
       setSeconds(Math.floor((startDate.getTime() - today.getTime()) / 1000));
     }
     interval.start();
@@ -43,15 +44,8 @@ const VoteDetailItem = ({
   const remainTime = FormatTime(seconds);
   return (
     <Stack align="center" spacing={20} css={{ overflow: 'hidden' }}>
-      <VoteTitle
-        remainTime={remainTime}
-        voteStatus={voteDetailInfo.STATUS as VoteStatus}
-        starName={firstRankStarName}
-      />
-      <VoteTitleImage
-        voteStatus={voteDetailInfo.STATUS as VoteStatus}
-        voteDataImage={voteDetailInfo.TITLE_IMG}
-      />
+      <VoteTitle remainTime={remainTime} voteStatus={voteStatus} starName={firstRankStarName} />
+      <VoteTitleImage voteStatus={voteStatus} voteDataImage={voteDetailInfo.TITLE_IMG} />
       <div
         css={[
           {

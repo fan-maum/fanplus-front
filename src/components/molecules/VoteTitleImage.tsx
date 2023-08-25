@@ -1,16 +1,16 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { VoteStatus } from './VoteHighRankTab';
+import type { TranslatedVoteStatus } from '../organisms/VoteListItem';
 
 export interface VoteTitleImageProps {
-  voteStatus: VoteStatus;
+  voteStatus: TranslatedVoteStatus;
   voteDataImage: string;
 }
 
 export default function VoteTitleImage({ voteStatus, voteDataImage }: VoteTitleImageProps) {
   const router = useRouter();
   const voteDetailPage = router.route.includes('voteDetail');
-  const fadeOutImage = voteStatus === 'E' && !voteDetailPage;
+  const fadeOutImage = voteStatus === 'END' && !voteDetailPage;
 
   return (
     <div

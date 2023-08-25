@@ -2,11 +2,10 @@ import { Stack } from '../atoms';
 import RankProfile from '../atoms/RankProfile';
 import Image from 'next/image';
 import { formatNumberWithComma } from '@/utils/util';
-
-export type VoteStatus = 'N' | 'E' | 'R';
+import type { TranslatedVoteStatus } from '../organisms/VoteListItem';
 
 export type VoteHighRankTabProps = {
-  status: VoteStatus;
+  status: TranslatedVoteStatus;
   stars: {
     firstRankStarName: string;
     secondRankStarName: string;
@@ -20,7 +19,7 @@ export type VoteHighRankTabProps = {
 };
 
 const VoteHighRankTab = ({ status, stars, votes }: VoteHighRankTabProps) => {
-  if (status === 'N') {
+  if (status === 'ONGOING') {
     return (
       <Stack spacing={20} mih={65} justify="center" align="center" direct="row" m={'0 auto'}>
         <RankProfile align="end">
@@ -42,7 +41,7 @@ const VoteHighRankTab = ({ status, stars, votes }: VoteHighRankTabProps) => {
       </Stack>
     );
   }
-  if (status === 'E') {
+  if (status === 'END') {
     return (
       <Stack spacing={5} mih={65} justify="center" align="center" direct="column" m={'0 auto'}>
         <RankProfile fontSize={18} fontWeight={700} color="#FF5656" flex={'none'}>
