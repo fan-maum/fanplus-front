@@ -1,7 +1,6 @@
 import { MainPageTextType } from '@/types/textTypes';
 import { FC } from 'react';
 import { css } from '@emotion/react';
-import Image from 'next/image';
 import AppLink from '../molecules/AppLink';
 import Carousel from '../organisms/Carousel';
 import IconPlayStore from '../atoms/IconPlayStore';
@@ -58,26 +57,14 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             </div>
           </div>
           <div css={{ width: '40%', alignSelf: 'center', [mediaQuery768]: { width: '70%' } }}>
-            <AutoFitImage
-              src={'/images/서비스소개_00_대표.png'}
-              width={994}
-              height={1104}
-              alt="main"
-              loading="eager"
-            />
+            <AutoFitImage src="/images/서비스소개_00_대표.png" alt="main" />
           </div>
         </div>
       </div>
       <div css={greyArea}>
         <div css={css(center, { flexDirection: 'column' })}>
           <div css={{ width: '75%', maxWidth: '585px', alignSelf: 'center', marginBottom: '40px' }}>
-            <AutoFitImage
-              src={'/images/서비스소개_00_소개.png'}
-              width={585}
-              height={293}
-              alt="intro"
-              loading="eager"
-            />
+            <AutoFitImage src="/images/서비스소개_00_소개.png" alt="intro" />
           </div>
           <div
             css={{
@@ -123,7 +110,7 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             <p>{area3.line4}</p>
           </div>
           <div css={imgContainer}>
-            <AutoFitImage src={area3.img} width={588} height={444} alt="voteThumbnail" />
+            <AutoFitImage src={area3.img} alt="voteThumbnail" />
           </div>
         </div>
         <div css={center}>
@@ -147,34 +134,19 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
             }}
           >
             <div css={ad}>
-              <AutoFitImage
-                src={'/images/서비스소개_01_미국타임스퀘어.png'}
-                width={720}
-                height={600}
-                alt="TimesquareNY"
-              />
+              <AutoFitImage src="/images/서비스소개_01_미국타임스퀘어.png" alt="TimesquareNY" />
               <p>
                 <b>{area3.Ad1}</b>
               </p>
             </div>
             <div css={ad}>
-              <AutoFitImage
-                src={'/images/서비스소개_01_중국닝보.png'}
-                width={720}
-                height={600}
-                alt="Ningbo"
-              />
+              <AutoFitImage src="/images/서비스소개_01_중국닝보.png" alt="Ningbo" />
               <p>
                 <b>{area3.Ad2}</b>
               </p>
             </div>
             <div css={ad}>
-              <AutoFitImage
-                src={'/images/서비스소개_01_인천공항.png'}
-                width={694}
-                height={578}
-                alt="IncheonAirport"
-              />
+              <AutoFitImage src="/images/서비스소개_01_인천공항.png" alt="IncheonAirport" />
               <p>
                 <b>{area3.Ad3}</b>
               </p>
@@ -199,14 +171,14 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
           <div css={css(imgContainer, { display: 'flex' })}>
             <div css={imgSet}>
-              <AutoFitImage src={area4.img1} width={538} height={666} alt="02_board" />
-              <AutoFitImage src={area4.img2} width={538} height={490} alt="02_image" />
+              <AutoFitImage src={area4.img1} alt="02_board" />
+              <AutoFitImage src={area4.img2} alt="02_image" />
               <div />
             </div>
             <div css={imgSet}>
               <div />
-              <AutoFitImage src={area4.img3} width={538} height={490} alt="02_fanfic" />
-              <AutoFitImage src={area4.img4} width={538} height={666} alt="02_kingOfKing" />
+              <AutoFitImage src={area4.img3} alt="02_fanfic" />
+              <AutoFitImage src={area4.img4} alt="02_kingOfKing" />
             </div>
           </div>
         </div>
@@ -252,10 +224,10 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
           </div>
           <div css={css(imgContainer, { display: 'flex' })}>
             <div css={imgContainer2}>
-              <AutoFitImage src={area6.img1} width={518} height={1072} alt="friend" />
+              <AutoFitImage src={area6.img1} alt="friend" />
             </div>
             <div css={imgContainer2}>
-              <AutoFitImage src={area6.img2} width={518} height={1072} alt="chatting" />
+              <AutoFitImage src={area6.img2} alt="chatting" />
             </div>
           </div>
         </div>
@@ -266,16 +238,8 @@ const MainPageTemplate: FC<{ texts: MainPageTextType }> = ({ texts }) => {
 
 export default MainPageTemplate;
 
-const AutoFitImage = ({
-  ...props
-}: {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  loading?: 'lazy' | 'eager';
-}) => {
-  return <Image css={{ width: '100%', height: 'auto' }} {...props} />;
+const AutoFitImage = ({ ...props }: { src: string; alt: string }) => {
+  return <img css={{ width: '100%', height: 'auto' }} {...props} />;
 };
 
 //** css 속성 */
