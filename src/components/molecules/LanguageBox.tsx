@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import LanguageContainer from './LanguageContainer';
 import IconArrowDown from '../atoms/IconArrowDown';
+import IconGlobe from '../atoms/IconGlobe';
 
 const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: boolean }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -58,15 +59,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
         }}
       >
         <div css={{ display: 'flex', alignItems: 'center', marginRight: '5px' }}>
-          <img
-            src="/icons/언어팩.svg"
-            css={{
-              margin: '0px 5px 2px 0px',
-              width: '14px',
-              height: '14px',
-              '@media(max-width:991px)': { margin: '0px 5px 0px 0px' },
-            }}
-          />
+          <IconGlobe />
           <p>{language}</p>
         </div>
         <IconArrowDown width="11" height="6" strokeWidth="3" isReverse={isHovered} />

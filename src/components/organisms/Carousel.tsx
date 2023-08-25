@@ -4,7 +4,7 @@ import IconCircle from '../atoms/IconCircle';
 import { TouchEvent } from 'react';
 
 export type OwnPropType = {
-  imgLinks: {
+  imgs: {
     img1: string;
     img2: string;
     img3: string;
@@ -12,7 +12,7 @@ export type OwnPropType = {
   };
 };
 
-const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
+const Carousel: FC<OwnPropType> = ({ imgs }) => {
   const [currIndex, setCurrIndex] = useState(0);
   const [translation, setTranslation] = useState('');
   const [touchPosition, setTouchPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -67,11 +67,11 @@ const Carousel: FC<OwnPropType> = ({ imgLinks }) => {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <img src={imgLinks.img1} alt="보유배지"></img>
-          <img src={imgLinks.img2} alt="프로필"></img>
-          <img src={imgLinks.img3} alt="미션배지"></img>
-          <img src={imgLinks.img4} alt="업적배지"></img>
-          <img src={imgLinks.img1} alt="보유배지"></img>
+          <img src={imgs.img1} alt="보유배지" />
+          <img src={imgs.img2} alt="프로필" />
+          <img src={imgs.img3} alt="미션배지" />
+          <img src={imgs.img4} alt="업적배지" />
+          <img src={imgs.img1} alt="보유배지" />
         </div>
       </div>
       <div
