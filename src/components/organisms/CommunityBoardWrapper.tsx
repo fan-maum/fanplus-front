@@ -10,7 +10,7 @@ const CommunityBoardWrapper = ({ title, boardList }: CommunityBoardWrapperType) 
   return (
     <section css={{ marginBottom: '30px' }}>
       {title && <h4 css={{ margin: '15px 5px' }}>{title}</h4>}
-      {boardList.map((boardItem, index) => {
+      {boardList.map((boardItem) => {
         return (
           <CommunityBoardItem
             icon={boardItem.BOARD_ICON}

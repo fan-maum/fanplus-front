@@ -24,7 +24,6 @@ const CommunityPageTemplate = ({ communityHomeData }: CommunityPropTypes) => {
         margin: '0px auto',
       }}
     >
-      {/** TODO: 커뮤니티 대신 string 작업 해야함 */}
       <h3 css={{ margin: '5px' }}>{texts.community}</h3>
       <TabBar
         tabTitles={{ home: texts.home, search: texts.search }}
