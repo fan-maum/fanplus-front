@@ -11,7 +11,7 @@ import {
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_IND: NavBarTextType = {
-  vote: 'Pemungutan suara',
+  vote: 'Vote',
   community: 'Komunitas',
   aboutUs: 'About Us',
   recruit: '',
