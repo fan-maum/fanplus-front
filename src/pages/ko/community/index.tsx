@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import Layout from '@/components/organisms/Layout';
 import { NavBarText_KR, FooterText_KR } from '@/texts/ko';
 import nookies from 'nookies';
-import type { CommunityHomeResponseType } from '@/pages/api/community/home';
+import type { CommunityHomeResponseType } from '@/types/community';
 import CommunityPageTemplate, {
   CommunityPropTypes,
 } from '@/components/templates/CommunityPageTemplate';

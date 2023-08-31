@@ -1,5 +1,5 @@
 import { CommunityMainText_KR } from '@/texts/ko';
-import { CommunityHomeResponseType } from '@/pages/api/community/home';
+import { CommunityHomeResponseType } from '@/types/community';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 export type CommunityPropTypes = {
