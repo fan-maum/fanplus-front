@@ -12,7 +12,7 @@ import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_ESP: NavBarTextType = {
   vote: 'Votación',
-  community: 'Community',
+  community: 'Comunidad',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',

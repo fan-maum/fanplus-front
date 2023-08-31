@@ -12,7 +12,7 @@ import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_zh_TW: NavBarTextType = {
   vote: '投票',
-  community: 'Community',
+  community: '社區',
   aboutUs: '服務介紹',
   recruit: '',
   business: '商務諮詢',

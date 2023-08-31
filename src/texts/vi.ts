@@ -12,7 +12,7 @@ import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_VIE: NavBarTextType = {
   vote: 'Bỏ phiếu',
-  community: 'Community',
+  community: 'Cộng đồng',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -267,7 +267,7 @@ export const VoteModalButton_Text_vi = {
 };
 
 export const CommunityMainText_VIE: CommunityPageTextType = {
-  community: 'cộng đồng',
+  community: 'Cộng đồng',
   home: 'Trang chủ',
   search: 'Tìm kiếm',
   recentlyBoards: 'Ban đã ghé thăm gần đây',
