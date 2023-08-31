@@ -18,7 +18,7 @@ const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
       css={{
         listStyleType: 'none',
         float: 'left',
-        fontSize: '16px',
+        fontSize: '18px',
         fontWeight: '600',
         color: 'rgb(102, 102, 102)',
         '@media(max-width:991px)': isSide
@@ -45,9 +45,9 @@ const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
             color: 'rgb(0,0,0)',
             transition: 'color 0.5s',
           },
-          '@media(max-width:991px)': isSide
+          '@media(max-width:768px)': isSide
             ? { margin: '0px', padding: '0px', height: '24px' }
-            : { margin: '0px 5px', padding: '0px 2px' },
+            : { margin: '0px 7px', padding: '0px 3px' },
         }}
       >
         {title}

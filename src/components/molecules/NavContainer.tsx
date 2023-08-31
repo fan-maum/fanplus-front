@@ -19,7 +19,7 @@ const NavContainer = ({
         flexShrink: '1',
       }}
     >
-      <ul css={{ padding: '10px', '@media(max-width:991px)': { padding: '5px' } }}>
+      <ul css={{ padding: '10px', '@media(max-width:768px)': { padding: '2px' } }}>
         <NavBox title={texts.vote} link={texts.link.vote} />
         <NavBox title={texts.community} link={texts.link.community} />
       </ul>
