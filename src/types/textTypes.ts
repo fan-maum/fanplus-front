@@ -160,6 +160,13 @@ export type SignUpPageTextType = {
   agree3Link: string;
   agree4Link: string;
 };
+export type CommunityPageTextType = {
+  community: string;
+  home: string;
+  search: string;
+  recentlyBoards: string;
+  recommendedBoards: string;
+};
 
 export type TextType = {
   NavBar: NavBarTextType;

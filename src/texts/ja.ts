@@ -6,12 +6,13 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_JAP: NavBarTextType = {
   vote: '投票',
-  community: 'Community',
+  community: 'コミュニティ',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +264,12 @@ export const VoteModalButton_Text_ja = {
   voteModalCancel: 'キャンセル',
   voteModalComplete: '完了',
   voteModalInstall: 'アプリをインストールする',
+};
+
+export const CommunityMainText_JAP: CommunityPageTextType = {
+  community: 'コミュニティ',
+  home: '掲示板ホーム',
+  search: '掲示板検索',
+  recentlyBoards: '最近訪れた掲示板',
+  recommendedBoards: 'おすすめ掲示板',
 };

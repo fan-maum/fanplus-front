@@ -3,7 +3,13 @@ import LanguageContainer from './LanguageContainer';
 import IconArrowDown from '../atoms/IconArrowDown';
 import IconGlobe from '../atoms/IconGlobe';
 
-const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: boolean }) => {
+const LanguageBox = ({
+  language,
+  isVoteCommunityPage,
+}: {
+  language: string;
+  isVoteCommunityPage: boolean;
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isTouching, setIsTouching] = useState(false);
   const handleMouseOver = () => {
@@ -35,8 +41,8 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
         transition: '1s ease-in-out',
         '@media(max-width:991px)': {
           width: '100%',
-          padding: isVotePage ? '0px' : '10px 20px',
-          fontSize: isVotePage ? '16px' : '15px',
+          padding: isVoteCommunityPage ? '0px' : '10px 20px',
+          fontSize: isVoteCommunityPage ? '16px' : '15px',
         },
       }}
     >
@@ -51,7 +57,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
           alignItems: 'center',
           cursor: 'pointer',
           '@media(max-width:991px)': {
-            height: isVotePage ? '32px' : '24px',
+            height: isVoteCommunityPage ? '32px' : '24px',
             margin: '0px',
             padding: '0px',
             justifyContent: 'space-between',
@@ -64,7 +70,7 @@ const LanguageBox = ({ language, isVotePage }: { language: string; isVotePage: b
         </div>
         <IconArrowDown width="11" height="6" strokeWidth="3" isReverse={isHovered} />
       </div>
-      {isHovered && <LanguageContainer isVotePage={isVotePage} />}
+      {isHovered && <LanguageContainer isVoteCommunityPage={isVoteCommunityPage} />}
     </li>
   );
 };

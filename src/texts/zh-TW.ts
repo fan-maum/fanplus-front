@@ -6,12 +6,13 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_zh_TW: NavBarTextType = {
   vote: '投票',
-  community: 'Community',
+  community: '社區',
   aboutUs: '服務介紹',
   recruit: '',
   business: '商務諮詢',
@@ -263,4 +264,12 @@ export const VoteModalButton_Text_zhtw = {
   voteModalCancel: '取消',
   voteModalComplete: '完成',
   voteModalInstall: '下載APP',
+};
+
+export const CommunityMainText_zh_TW: CommunityPageTextType = {
+  community: '社區',
+  home: '消息面板主頁',
+  search: '搜索消息面板',
+  recentlyBoards: '最近瀏覽的消息面板',
+  recommendedBoards: '推薦的消息面板',
 };

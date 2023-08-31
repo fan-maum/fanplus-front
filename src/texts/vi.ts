@@ -6,12 +6,13 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_VIE: NavBarTextType = {
   vote: 'Bỏ phiếu',
-  community: 'Community',
+  community: 'Cộng đồng',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +264,12 @@ export const VoteModalButton_Text_vi = {
   voteModalCancel: 'Hủy bỏ',
   voteModalComplete: 'Hoàn thành',
   voteModalInstall: 'Cài đặt ứng dụng',
+};
+
+export const CommunityMainText_VIE: CommunityPageTextType = {
+  community: 'Cộng đồng',
+  home: 'Trang chủ',
+  search: 'Tìm kiếm',
+  recentlyBoards: 'Ban đã ghé thăm gần đây',
+  recommendedBoards: 'Được đề xuất cho của bạn',
 };

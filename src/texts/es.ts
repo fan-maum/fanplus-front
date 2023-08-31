@@ -6,12 +6,13 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_ESP: NavBarTextType = {
   vote: 'Votación',
-  community: 'Community',
+  community: 'Comunidad',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +264,12 @@ export const VoteModalButton_Text_es = {
   voteModalCancel: 'Cancelar',
   voteModalComplete: 'Completado',
   voteModalInstall: 'Instala la aplicación',
+};
+
+export const CommunityMainText_ESP: CommunityPageTextType = {
+  community: 'Comunidad',
+  home: 'Home',
+  search: 'Search',
+  recentlyBoards: 'Visita reciente',
+  recommendedBoards: 'Recomendación',
 };
