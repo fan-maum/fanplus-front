@@ -12,7 +12,7 @@ import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_IND: NavBarTextType = {
   vote: 'Pemungutan suara',
-  community: 'Community',
+  community: 'Komunitas',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -267,7 +267,7 @@ export const VoteModalButton_Text_in = {
 };
 
 export const CommunityMainText_IND: CommunityPageTextType = {
-  community: 'Komunikasi',
+  community: 'Komunitas',
   home: 'Beranda',
   search: 'Cari',
   recentlyBoards: 'Papan Baru-Baru Ini Dikunjungi',

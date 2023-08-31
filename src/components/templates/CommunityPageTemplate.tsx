@@ -1,6 +1,7 @@
 import { CommunityMainText_KR } from '@/texts/ko';
 import { CommunityHomeResponseType } from '@/types/community';
 import { Dispatch, SetStateAction, useState } from 'react';
+import CommunityBoardWrapper from '../organisms/CommunityBoardWrapper';
 
 export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
@@ -21,7 +22,6 @@ const CommunityPageTemplate = ({ communityHomeData }: CommunityPropTypes) => {
         width: '100%',
         maxWidth: '400px',
         margin: '0px auto',
-        backgroundColor: 'rgba(102, 102, 255, 0.2)',
       }}
     >
       {/** TODO: 커뮤니티 대신 string 작업 해야함 */}
@@ -31,17 +31,12 @@ const CommunityPageTemplate = ({ communityHomeData }: CommunityPropTypes) => {
         tabBar={tabBar}
         setTabBar={setTabBar}
       />
-      {/** 아래에 게시판들 작업해야함 */}
-      <h1>안녕하세요</h1>
-      <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
-      <h1>안녕하세요</h1>
-      <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
-      <h1>안녕하세요</h1>
-      <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
-      <h1>안녕하세요</h1>
-      <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
-      <h1>안녕하세요</h1>
-      <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
+      {tabBar === 'home' ? (
+        <>
+          <CommunityBoardWrapper title={texts.recentlyBoards} boardList={recentlyList} />
+          <CommunityBoardWrapper title={texts.recommendedBoards} boardList={recommendList} />
+        </>
+      ) : null}
     </div>
   );
 };

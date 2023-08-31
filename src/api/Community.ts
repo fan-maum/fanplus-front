@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import type { CommunityHomeResponseType } from '@/pages/api/community/home';
+import type { CommunityHomeResponseType } from '@/types/community';
 
 export const getCommunityHomeData = async (userId: string) => {
   const response: AxiosResponse<CommunityHomeResponseType> = await axios.get(
