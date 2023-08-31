@@ -21,7 +21,7 @@ const NavContainer = ({
     >
       <ul css={{ padding: '10px', '@media(max-width:991px)': { padding: '5px' } }}>
         <NavBox title={texts.vote} link={texts.link.vote} />
-        {/* <PageBox title={texts.community} link={texts.link.community} /> */}
+        <NavBox title={texts.community} link={texts.link.community} />
       </ul>
       {isVoteCommunityPage ? (
         <ul
