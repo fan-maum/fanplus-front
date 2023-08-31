@@ -1,6 +1,6 @@
 import Language from '../atoms/Language';
 
-const LanguageContainer = ({ isVotePage }: { isVotePage: boolean }) => {
+const LanguageContainer = ({ isVoteCommunityPage }: { isVoteCommunityPage: boolean }) => {
   return (
     <div
       css={{
@@ -12,7 +12,7 @@ const LanguageContainer = ({ isVotePage }: { isVotePage: boolean }) => {
         padding: '10px 0px',
         zIndex: '19999',
         '@media(max-width: 991px)': {
-          top: isVotePage ? '32px' : '46px',
+          top: isVoteCommunityPage ? '32px' : '46px',
           width: '100%',
           minWidth: '180px',
           paddingTop: '0px',

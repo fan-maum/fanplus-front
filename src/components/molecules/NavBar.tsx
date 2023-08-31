@@ -10,7 +10,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
   const { setIsSideBarOpen } = useContext(SideBarContext) as SideBarContextType;
   const router = useRouter();
   const page = router.pathname.split('/')[2];
-  const isVotePage = page === 'votes' || page === 'voteDetail';
+  const isVoteCommunityPage = page === 'votes' || page === 'voteDetail' || page === 'community';
   const isLoginSignUpPage = page === 'login' || page === 'signUp';
 
   return (
@@ -19,7 +19,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
         css={{
           width: '100%',
           position: 'fixed',
-          backgroundColor: isVotePage ? 'rgb(255,255,255)' : 'rgba(255,255,255,0.8)',
+          backgroundColor: isVoteCommunityPage ? 'rgb(255,255,255)' : 'rgba(255,255,255,0.8)',
           zIndex: '19999',
           '@media(max-width:768px)': {
             display: isLoginSignUpPage ? 'none' : 'block',
@@ -40,8 +40,8 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           }}
         >
           <MainLogo link={texts.link.aboutUs} />
-          <NavContainer texts={texts} isVotePage={isVotePage} />
-          {!isVotePage && (
+          <NavContainer texts={texts} isVoteCommunityPage={isVoteCommunityPage} />
+          {!isVoteCommunityPage && (
             <img
               src="/icons/사이드바.svg"
               onClick={() => setIsSideBarOpen(true)}
