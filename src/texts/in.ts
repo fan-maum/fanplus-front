@@ -6,6 +6,7 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -263,4 +264,12 @@ export const VoteModalButton_Text_in = {
   voteModalCancel: 'Batal',
   voteModalComplete: 'Selesai',
   voteModalInstall: 'Pasang aplikasi',
+};
+
+export const CommunityMainText_IND: CommunityPageTextType = {
+  community: '',
+  home: '',
+  search: '',
+  recentlyBoards: '',
+  recommendedBoards: '',
 };

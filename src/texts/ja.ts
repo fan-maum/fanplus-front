@@ -6,6 +6,7 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -263,4 +264,12 @@ export const VoteModalButton_Text_ja = {
   voteModalCancel: 'キャンセル',
   voteModalComplete: '完了',
   voteModalInstall: 'アプリをインストールする',
+};
+
+export const CommunityMainText_JAP: CommunityPageTextType = {
+  community: '',
+  home: '',
+  search: '',
+  recentlyBoards: '',
+  recommendedBoards: '',
 };

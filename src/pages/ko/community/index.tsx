@@ -1,9 +1,9 @@
 import { getCommunityHomeData } from '@/api/Community';
 import { GetServerSideProps } from 'next';
 import Layout from '@/components/organisms/Layout';
-import { NavBarText_KR, FooterText_KR } from '@/texts/ko';
+import { NavBarText_KR, FooterText_KR, CommunityMainText_KR } from '@/texts/ko';
 import nookies from 'nookies';
-import { CommunityHomeResponseType } from '../api/community/home';
+import { CommunityHomeResponseType } from '@/pages/api/community/home';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 type CommunityPropTypes = {
@@ -15,6 +15,7 @@ type TabBarType = 'home' | 'search';
 const Community = ({ communityHomeData }: CommunityPropTypes) => {
   const [tabBar, setTabBar] = useState<TabBarType>('home');
 
+  const texts = CommunityMainText_KR;
   const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
 
@@ -29,9 +30,9 @@ const Community = ({ communityHomeData }: CommunityPropTypes) => {
         }}
       >
         {/** TODO: 커뮤니티 대신 string 작업 해야함 */}
-        <h3 css={{ margin: '2px 5px' }}>커뮤니티</h3>
+        <h3 css={{ margin: '2px 5px' }}>{texts.community}</h3>
         <TabBar
-          tabTitles={{ home: '게시판 홈', search: '게시판 검색' }}
+          tabTitles={{ home: texts.home, search: texts.search }}
           tabBar={tabBar}
           setTabBar={setTabBar}
         />

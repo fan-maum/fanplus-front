@@ -6,6 +6,7 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -264,4 +265,12 @@ export const VoteModalButton_Text_ko = {
   voteModalCancel: '취소하기',
   voteModalComplete: '완료',
   voteModalInstall: '앱 설치하기',
+};
+
+export const CommunityMainText_KR: CommunityPageTextType = {
+  community: '커뮤니티',
+  home: '게시판 홈',
+  search: '게시판 검색',
+  recentlyBoards: '최근 방문한 게시판',
+  recommendedBoards: '추천 게시판',
 };
