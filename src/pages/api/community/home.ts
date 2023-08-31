@@ -25,7 +25,7 @@ export type CommunityHomeResponseType = {
 };
 
 const handler: NextApiHandler = async (req, res) => {
-  const identity = req.query.userId;
+  const identity = req.query.userId || '';
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
