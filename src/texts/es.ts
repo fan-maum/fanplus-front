@@ -267,9 +267,9 @@ export const VoteModalButton_Text_es = {
 };
 
 export const CommunityMainText_ESP: CommunityPageTextType = {
-  community: '',
-  home: '',
-  search: '',
-  recentlyBoards: '',
-  recommendedBoards: '',
+  community: 'Comunidad',
+  home: 'Home',
+  search: 'Search',
+  recentlyBoards: 'Visita reciente',
+  recommendedBoards: 'Recomendación',
 };

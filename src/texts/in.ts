@@ -267,9 +267,9 @@ export const VoteModalButton_Text_in = {
 };
 
 export const CommunityMainText_IND: CommunityPageTextType = {
-  community: '',
-  home: '',
-  search: '',
-  recentlyBoards: '',
-  recommendedBoards: '',
+  community: 'Komunikasi',
+  home: 'Beranda',
+  search: 'Cari',
+  recentlyBoards: 'Papan Baru-Baru Ini Dikunjungi',
+  recommendedBoards: 'Disarankan untuk Anda',
 };

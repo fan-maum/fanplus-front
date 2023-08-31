@@ -267,9 +267,9 @@ export const VoteModalButton_Text_zh = {
 };
 
 export const CommunityMainText_zh_CN: CommunityPageTextType = {
-  community: '',
-  home: '',
-  search: '',
-  recentlyBoards: '',
-  recommendedBoards: '',
+  community: '社区',
+  home: '消息面板主页',
+  search: '搜索消息面板',
+  recentlyBoards: '最近浏览的消息面板',
+  recommendedBoards: '推荐的消息面板',
 };

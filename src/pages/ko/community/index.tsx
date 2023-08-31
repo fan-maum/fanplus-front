@@ -30,7 +30,7 @@ const Community = ({ communityHomeData }: CommunityPropTypes) => {
         }}
       >
         {/** TODO: 커뮤니티 대신 string 작업 해야함 */}
-        <h3 css={{ margin: '2px 5px' }}>{texts.community}</h3>
+        <h3 css={{ margin: '5px' }}>{texts.community}</h3>
         <TabBar
           tabTitles={{ home: texts.home, search: texts.search }}
           tabBar={tabBar}
@@ -38,15 +38,15 @@ const Community = ({ communityHomeData }: CommunityPropTypes) => {
         />
         {/** 아래에 게시판들 작업해야함 */}
         <h1>안녕하세요</h1>
-        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="400px" />
+        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
         <h1>안녕하세요</h1>
-        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="400px" />
+        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
         <h1>안녕하세요</h1>
-        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="400px" />
+        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
         <h1>안녕하세요</h1>
-        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="400px" />
+        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
         <h1>안녕하세요</h1>
-        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="400px" />
+        <img src={recentlyList[2].BOARD_ICON} alt={recentlyList[2].BOARD_TITLE} width="300px" />
       </div>
     </Layout>
   );
@@ -113,6 +113,7 @@ const TabBarItem = ({
         color: selected ? '#ff5656' : '#000',
         borderBottom: `2.5px solid ${selected ? '#ff5656' : '#d9d9d9'}`,
         textAlign: 'center',
+        cursor: 'pointer',
       }}
       onClick={onClick}
     >

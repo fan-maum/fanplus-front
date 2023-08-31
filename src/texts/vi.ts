@@ -267,9 +267,9 @@ export const VoteModalButton_Text_vi = {
 };
 
 export const CommunityMainText_VIE: CommunityPageTextType = {
-  community: '',
-  home: '',
-  search: '',
-  recentlyBoards: '',
-  recommendedBoards: '',
+  community: 'cộng đồng',
+  home: 'Trang chủ',
+  search: 'Tìm kiếm',
+  recentlyBoards: 'Ban đã ghé thăm gần đây',
+  recommendedBoards: 'Được đề xuất cho của bạn',
 };

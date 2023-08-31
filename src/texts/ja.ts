@@ -267,9 +267,9 @@ export const VoteModalButton_Text_ja = {
 };
 
 export const CommunityMainText_JAP: CommunityPageTextType = {
-  community: '',
-  home: '',
-  search: '',
-  recentlyBoards: '',
-  recommendedBoards: '',
+  community: 'コミュニティ',
+  home: '掲示板ホーム',
+  search: '掲示板検索',
+  recentlyBoards: '最近訪れた掲示板',
+  recommendedBoards: 'おすすめ掲示板',
 };
