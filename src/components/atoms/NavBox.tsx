@@ -18,7 +18,7 @@ const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
       css={{
         listStyleType: 'none',
         float: 'left',
-        fontSize: '18px',
+        fontSize: '17px',
         fontWeight: '600',
         color: 'rgb(102, 102, 102)',
         '@media(max-width:991px)': isSide
