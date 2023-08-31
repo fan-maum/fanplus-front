@@ -84,7 +84,7 @@ const SideBar = ({ texts }: { texts: NavBarTextType }) => {
         )}
         <NavBox title={texts.business} link={texts.link.business} isSide />
         <NavBox title="FAQ" link={texts.link.faq} isSide />
-        <LanguageContainer language={texts.language} isVoteCommunityPage={false} />
+        <LanguageContainer language={texts.language} isVoteCommunityPage={false} isSide />
       </ul>
     </div>
   );

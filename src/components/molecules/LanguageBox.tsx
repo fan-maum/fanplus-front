@@ -6,9 +6,11 @@ import IconGlobe from '../atoms/IconGlobe';
 const LanguageBox = ({
   language,
   isVoteCommunityPage,
+  isSide,
 }: {
   language: string;
   isVoteCommunityPage: boolean;
+  isSide?: boolean;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isTouching, setIsTouching] = useState(false);
@@ -66,7 +68,7 @@ const LanguageBox = ({
       >
         <div css={{ display: 'flex', alignItems: 'center', marginRight: '5px' }}>
           <IconGlobe />
-          <p>{language}</p>
+          <p css={!isSide && { maxWidth: '77px' }}>{language}</p>
         </div>
         <IconArrowDown width="11" height="6" strokeWidth="3" isReverse={isHovered} />
       </div>
