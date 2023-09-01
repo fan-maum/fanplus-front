@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
   CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -272,4 +273,7 @@ export const CommunityMainText_zh_CN: CommunityPageTextType = {
   search: '搜索消息面板',
   recentlyBoards: '最近浏览的消息面板',
   recommendedBoards: '推荐的消息面板',
+};
+export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
+  all: '全部',
 };

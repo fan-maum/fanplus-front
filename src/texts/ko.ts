@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
   CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -273,4 +274,7 @@ export const CommunityMainText_KR: CommunityPageTextType = {
   search: '게시판 검색',
   recentlyBoards: '최근 방문한 게시판',
   recommendedBoards: '추천 게시판',
+};
+export const CommunityBoardText_KR: CommunityBoardTextType = {
+  all: '전체',
 };

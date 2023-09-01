@@ -167,6 +167,9 @@ export type CommunityPageTextType = {
   recentlyBoards: string;
   recommendedBoards: string;
 };
+export type CommunityBoardTextType = {
+  all: string;
+};
 
 export type TextType = {
   NavBar: NavBarTextType;

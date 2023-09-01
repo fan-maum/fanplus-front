@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
   CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -272,4 +273,7 @@ export const CommunityMainText_JAP: CommunityPageTextType = {
   search: '掲示板検索',
   recentlyBoards: '最近訪れた掲示板',
   recommendedBoards: 'おすすめ掲示板',
+};
+export const CommunityBoardText_JAP: CommunityBoardTextType = {
+  all: '全',
 };

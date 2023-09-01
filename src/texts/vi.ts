@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
   CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -272,4 +273,7 @@ export const CommunityMainText_VIE: CommunityPageTextType = {
   search: 'Tìm kiếm',
   recentlyBoards: 'Ban đã ghé thăm gần đây',
   recommendedBoards: 'Được đề xuất cho của bạn',
+};
+export const CommunityBoardText_VIE: CommunityBoardTextType = {
+  all: 'Tất cả',
 };

@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
   CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -272,4 +273,7 @@ export const CommunityMainText_IND: CommunityPageTextType = {
   search: 'Cari',
   recentlyBoards: 'Papan Baru-Baru Ini Dikunjungi',
   recommendedBoards: 'Disarankan untuk Anda',
+};
+export const CommunityBoardText_IND: CommunityBoardTextType = {
+  all: 'Semua',
 };

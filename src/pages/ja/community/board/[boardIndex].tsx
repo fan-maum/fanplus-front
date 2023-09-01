@@ -1,29 +1,32 @@
-import { getCommunityBoardData } from '@/api/Community';
-import { CommunityBoardPropType } from '@/components/templates/CommunityBoardTemplate';
+import { getCommunityBoardData, getCommunityBoardTopics } from '@/api/Community';
+import CommunityBoardTemplate, {
+  CommunityBoardPropType,
+} from '@/components/templates/CommunityBoardTemplate';
 import { translateFrontLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityBoardResponseType } from '@/types/community';
 import { LangCookie } from '@/utils/setLangCookie';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import nookies from 'nookies';
+import Layout from '@/components/organisms/Layout';
+import { CommunityBoardText_JAP, FooterText_JAP, NavBarText_JAP } from '@/texts/ja';
 
-const Board = ({ communityBoardData }: CommunityBoardPropType) => {
-  const router = useRouter();
-  const boardIndex = router.query.boardIndex;
-  // console.log(communityBoardData);
+const Board = ({ communityBoardData, communityBoardTopics }: CommunityBoardPropType) => {
   return (
-    <div>
-      {/** 각 게시판. query 값으로 이동하도록 하면 될려나? */}
-      {boardIndex}
-    </div>
+    <Layout navBarTexts={NavBarText_JAP} footerTexts={FooterText_JAP}>
+      <CommunityBoardTemplate
+        communityBoardData={communityBoardData}
+        communityBoardTopics={communityBoardTopics}
+        stringTopicAll={CommunityBoardText_JAP.all}
+      />
+    </Layout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<{
-  communityBoardData: CommunityBoardResponseType | null;
-}> = async (context) => {
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'];
+export const getServerSideProps: GetServerSideProps<
+  Omit<CommunityBoardPropType, 'stringTopicAll'>
+> = async (context) => {
+  // const cookies = nookies.get(context);
+  // const userId = cookies['user_id'];
+  const userId = '008badb6f4296505f6741654eb98d11f324b4dc5f2ee396a5f68e6c18d4872ab';
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
@@ -31,7 +34,8 @@ export const getServerSideProps: GetServerSideProps<{
   const boardLang = translateFrontLangToBackLang(context.query.boardLang as LangCookie) || lang;
   const topic = parseInt(context.query.topic as string) || '';
 
-  if (typeof boardIndex !== 'number') return { notFound: true };
+  if (!boardIndex) return { notFound: true };
+
   const communityBoardData = await getCommunityBoardData(
     userId,
     boardIndex,
@@ -40,8 +44,10 @@ export const getServerSideProps: GetServerSideProps<{
     boardLang,
     topic
   );
+  const communityBoardTopics = await getCommunityBoardTopics(userId, boardIndex);
+
   return {
-    props: { communityBoardData },
+    props: { communityBoardData, communityBoardTopics },
   };
 };
 
