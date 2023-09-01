@@ -1,4 +1,4 @@
-import { BackLangType } from '@/api/Community';
+import { BackLangType } from '@/types/common';
 import { LangCookie } from '@/utils/setLangCookie';
 import { useRouter } from 'next/router';
 

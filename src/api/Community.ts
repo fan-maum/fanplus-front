@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import type { CommunityHomeResponseType } from '@/types/community';
+import type { BackLangType } from '@/types/common';
 
 export const getCommunityHomeData = async (userId: string) => {
   const response: AxiosResponse<CommunityHomeResponseType> = await axios.get(
@@ -9,7 +10,6 @@ export const getCommunityHomeData = async (userId: string) => {
   return response.data;
 };
 
-export type BackLangType = 'ko' | 'en' | 'ja' | 'es' | 'vi' | 'id' | 'zh' | 'zhtw';
 export const getCommunityBoardData = async (
   userId: string,
   boardIndex: number,
