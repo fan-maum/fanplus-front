@@ -7,7 +7,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
 
-const board = ({ communityBoardData }: CommunityBoardPropType) => {
+const Board = ({ communityBoardData }: CommunityBoardPropType) => {
   const router = useRouter();
   const boardIndex = router.query.boardIndex;
   // console.log(communityBoardData);
@@ -45,4 +45,4 @@ export const getServerSideProps: GetServerSideProps<{
   };
 };
 
-export default board;
+export default Board;
