@@ -24,3 +24,11 @@ export const getCommunityBoardData = async (
   );
   return response.data;
 };
+
+export const getCommunityBoardCategoryData = async (userId: string) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
+    { params: { userId } }
+  );
+  return response.data;
+};

@@ -54,3 +54,19 @@ export type CommunityBoardResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type BoardCategoryItemType = {
+  CATEGORY_IDX: number;
+  CATEGORY_NAME: string;
+};
+
+export type CommunityBoardCategoryResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      CATEGORY_LIST: Array<BoardCategoryItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};

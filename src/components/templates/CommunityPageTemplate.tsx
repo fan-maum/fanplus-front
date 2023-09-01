@@ -2,6 +2,8 @@ import { CommunityMainText_KR } from '@/texts/ko';
 import { CommunityHomeResponseType } from '@/types/community';
 import { Dispatch, SetStateAction, useState } from 'react';
 import CommunityBoardWrapper from '../organisms/CommunityBoardWrapper';
+import CommunityBoardSearchWrapper from '@/components/organisms/community/CommunityBoardSearchWrapper';
+import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
 
 export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
@@ -10,7 +12,7 @@ export type CommunityPropTypes = {
 type TabBarType = 'home' | 'search';
 
 const CommunityPageTemplate = ({ communityHomeData }: CommunityPropTypes) => {
-  const [tabBar, setTabBar] = useState<TabBarType>('home');
+  const [tabBar, setTabBar] = useState<TabBarType>('search');
 
   const texts = CommunityMainText_KR;
   const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
@@ -35,7 +37,13 @@ const CommunityPageTemplate = ({ communityHomeData }: CommunityPropTypes) => {
           <CommunityBoardWrapper title={texts.recentlyBoards} boardList={recentlyList} />
           <CommunityBoardWrapper title={texts.recommendedBoards} boardList={recommendList} />
         </>
-      ) : null}
+      ) : (
+        <>
+          {/* <CommunityBoardSearchWrapper /> */}
+          <CommunityBoardFilterTab />
+          <CommunityBoardWrapper boardList={recommendList} />
+        </>
+      )}
     </div>
   );
 };
