@@ -1,3 +1,5 @@
+import { BackLangType } from '@/api/Community';
+import { LangCookie } from '@/utils/setLangCookie';
 import { useRouter } from 'next/router';
 
 export function GetLanguage() {
@@ -29,4 +31,18 @@ export function getVoteDetailLanguage() {
   if (language === 'es') return 'en';
   if (language === 'zh-TW') return 'en';
   return 'en';
+}
+
+export function translateFrontLangToBackLang(lang: LangCookie) {
+  const translator = {
+    ko: 'ko',
+    en: 'en',
+    ja: 'ja',
+    vi: 'vi',
+    es: 'es',
+    in: 'id',
+    'zh-CN': 'zh',
+    'zh-TW': 'zhtw',
+  };
+  return (translator[lang] || 'en') as BackLangType;
 }

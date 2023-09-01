@@ -8,3 +8,19 @@ export const getCommunityHomeData = async (userId: string) => {
   );
   return response.data;
 };
+
+export type BackLangType = 'ko' | 'en' | 'ja' | 'es' | 'vi' | 'id' | 'zh' | 'zhtw';
+export const getCommunityBoardData = async (
+  userId: string,
+  boardIndex: number,
+  page: number,
+  lang: BackLangType,
+  boardLang: BackLangType | 'ALL',
+  topic: number | ''
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
+    { params: { userId, boardIndex, page, topic, lang, boardLang } }
+  );
+  return response.data;
+};
