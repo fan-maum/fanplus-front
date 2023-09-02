@@ -1,24 +1,22 @@
 import Link from 'next/link';
 import type { PostListItemType } from '@/types/community';
 import IconPopular from '../atoms/IconPopular';
-
-// TODO: 1. string 작업 필요 // 2. link 연결 (경은님과 합치면.. 이 부분 논의(게시물 index?))
-// * 인기 (TopicBubble의 name으로 들어가는 값)
-// * 조회수, 추천수
+import { CommunityBoardTextType } from '@/types/textTypes';
 
 type OwnPropType = {
   postItem: PostListItemType;
   link: string;
+  texts: CommunityBoardTextType;
 };
 
-const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
+const CommunityBoardArticle = ({ postItem, link, texts }: OwnPropType) => {
   const writtenTime = postItem.PUBLISH_DATE;
   return (
     <li css={{ margin: '6px 12px', padding: '3px 0px 6px', borderBottom: '1px solid #d9d9d9' }}>
       <Link href={link}>
         <div css={{ display: 'flex' }}>
           <TopicBubble name={postItem.TOPIC_NAME as string} />
-          {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name="인기" hightlight />}
+          {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}
         </div>
         <div css={{ display: 'flex', justifyContent: 'space-between' }}>
           <div css={{ margin: '3px 3px 6px' }}>
@@ -33,7 +31,8 @@ const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
                 {postItem.WRITER_NAME} | {writtenTime}
               </p>
               <p>
-                조회수 {postItem.VIEW_CNT} 추천수 {postItem.RECOMMEND_CNT}
+                {texts.viewCount} {postItem.VIEW_CNT} {texts.recommendCount}{' '}
+                {postItem.RECOMMEND_CNT}
               </p>
             </div>
           </div>

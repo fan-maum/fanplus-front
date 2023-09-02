@@ -169,6 +169,9 @@ export type CommunityPageTextType = {
 };
 export type CommunityBoardTextType = {
   all: string;
+  viewCount: string;
+  recommendCount: string;
+  popular: string;
 };
 
 export type TextType = {

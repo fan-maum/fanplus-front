@@ -276,4 +276,7 @@ export const CommunityMainText_ENG: CommunityPageTextType = {
 };
 export const CommunityBoardText_ENG: CommunityBoardTextType = {
   all: 'All',
+  recommendCount: 'Like',
+  viewCount: 'View',
+  popular: 'Popular',
 };

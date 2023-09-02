@@ -276,4 +276,7 @@ export const CommunityMainText_VIE: CommunityPageTextType = {
 };
 export const CommunityBoardText_VIE: CommunityBoardTextType = {
   all: 'Tất cả',
+  recommendCount: 'Giống như',
+  viewCount: 'Xem',
+  popular: 'Nổi tiếng',
 };

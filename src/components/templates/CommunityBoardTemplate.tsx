@@ -3,23 +3,24 @@ import type {
   CommunityBoardTopicResponseType,
   TopicListItemType,
 } from '@/types/community';
+import type { CommunityBoardTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useState } from 'react';
 import CommunityBoardTopNavi from '../molecules/CommunityBoardTopNavi';
 import CommunityBoardArticle from '../molecules/CommunityBoardArticle';
 
-// TODO 1. 게시판 언어 선택 / 2.
+// TODO 1. 게시판 언어 선택 / 2. 각 게시글 실제 link 연결 (경은님과 함께 해야함)
 
 export type CommunityBoardPropType = {
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
-  stringTopicAll: string;
+  texts: CommunityBoardTextType;
 };
 
 const CommunityBoardTemplate = ({
   communityBoardData,
   communityBoardTopics,
-  stringTopicAll,
+  texts,
 }: CommunityBoardPropType) => {
   const router = useRouter();
 
@@ -39,14 +40,14 @@ const CommunityBoardTemplate = ({
     >
       <CommunityBoardTopNavi boardTitle={boardInfo.BOARD_TITLE} />
       <TopicTabBar
-        stringTopicAll={stringTopicAll}
+        stringTopicAll={texts.all}
         topicList={topicList}
         topicIndex={topicIndex}
         setTopicIndex={setTopicIndex}
       />
       <ul>
         {postList.map((post, idx) => {
-          return <CommunityBoardArticle postItem={post} link="/" key={idx} />;
+          return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
         })}
       </ul>
     </div>

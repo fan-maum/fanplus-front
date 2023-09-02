@@ -15,15 +15,15 @@ const Board = ({ communityBoardData, communityBoardTopics }: CommunityBoardPropT
       <CommunityBoardTemplate
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
-        stringTopicAll={CommunityBoardText_ESP.all}
+        texts={CommunityBoardText_ESP}
       />
     </Layout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<
-  Omit<CommunityBoardPropType, 'stringTopicAll'>
-> = async (context) => {
+export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType, 'texts'>> = async (
+  context
+) => {
   // const cookies = nookies.get(context);
   // const userId = cookies['user_id'];
   const userId = '008badb6f4296505f6741654eb98d11f324b4dc5f2ee396a5f68e6c18d4872ab';

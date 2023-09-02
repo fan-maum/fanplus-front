@@ -277,4 +277,7 @@ export const CommunityMainText_KR: CommunityPageTextType = {
 };
 export const CommunityBoardText_KR: CommunityBoardTextType = {
   all: '전체',
+  recommendCount: '추천수',
+  viewCount: '조회수',
+  popular: '인기',
 };

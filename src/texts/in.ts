@@ -276,4 +276,7 @@ export const CommunityMainText_IND: CommunityPageTextType = {
 };
 export const CommunityBoardText_IND: CommunityBoardTextType = {
   all: 'Semua',
+  recommendCount: 'Seperti',
+  viewCount: 'Lihat',
+  popular: 'Populer',
 };

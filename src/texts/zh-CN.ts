@@ -276,4 +276,7 @@ export const CommunityMainText_zh_CN: CommunityPageTextType = {
 };
 export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   all: '全部',
+  recommendCount: '推荐',
+  viewCount: '阅读数',
+  popular: '人气',
 };

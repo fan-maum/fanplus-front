@@ -276,4 +276,7 @@ export const CommunityMainText_JAP: CommunityPageTextType = {
 };
 export const CommunityBoardText_JAP: CommunityBoardTextType = {
   all: '全',
+  recommendCount: 'おすすめ',
+  viewCount: 'ヒット',
+  popular: '人気',
 };
