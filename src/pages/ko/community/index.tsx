@@ -1,7 +1,7 @@
 import { getCommunityHomeData } from '@/api/Community';
 import { GetServerSideProps } from 'next';
 import Layout from '@/components/organisms/Layout';
-import { NavBarText_KR, FooterText_KR } from '@/texts/ko';
+import { NavBarText_KR, FooterText_KR, CommunityMainText_KR } from '@/texts/ko';
 import nookies from 'nookies';
 import type { CommunityHomeResponseType } from '@/types/community';
 import CommunityPageTemplate, {
@@ -11,7 +11,7 @@ import CommunityPageTemplate, {
 const Community = ({ communityHomeData }: CommunityPropTypes) => {
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
-      <CommunityPageTemplate communityHomeData={communityHomeData} />
+      <CommunityPageTemplate communityHomeData={communityHomeData} texts={CommunityMainText_KR} />
     </Layout>
   );
 };

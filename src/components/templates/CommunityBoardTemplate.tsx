@@ -34,7 +34,7 @@ const CommunityBoardTemplate = ({
     <div
       css={{
         width: '100%',
-        maxWidth: '480px',
+        maxWidth: '800px',
         margin: '0px auto',
       }}
     >
