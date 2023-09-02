@@ -1,10 +1,14 @@
-import {
+import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   TopicListItemType,
 } from '@/types/community';
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
+import CommunityBoardTopNavi from '../molecules/CommunityBoardTopNavi';
+import CommunityBoardArticle from '../molecules/CommunityBoardArticle';
+
+// TODO 1. 게시판 언어 선택 / 2.
 
 export type CommunityBoardPropType = {
   communityBoardData: CommunityBoardResponseType;
@@ -20,27 +24,31 @@ const CommunityBoardTemplate = ({
   const router = useRouter();
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
-  // console.log(communityBoardData.RESULTS.DATAS.POST_LIST);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
+  const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
 
   return (
     <div
       css={{
         width: '100%',
-        maxWidth: '400px',
+        maxWidth: '480px',
         margin: '0px auto',
-        backgroundColor: 'rgba(51,51,255,0.2)',
       }}
     >
+      <CommunityBoardTopNavi boardTitle={boardInfo.BOARD_TITLE} />
       <TopicTabBar
         stringTopicAll={stringTopicAll}
         topicList={topicList}
         topicIndex={topicIndex}
         setTopicIndex={setTopicIndex}
       />
-      {postList[0]?.WRITER_NAME}
+      <ul>
+        {postList.map((post, idx) => {
+          return <CommunityBoardArticle postItem={post} link="/" key={idx} />;
+        })}
+      </ul>
     </div>
   );
 };
@@ -63,10 +71,17 @@ const TopicTabBar = ({
   const router = useRouter();
   const handleClick = (topicIndex: number) => {
     setTopicIndex(topicIndex);
-    router.push({ pathname: router.pathname, query: { ...router.query, topic: topicIndex } });
+    router.replace({ pathname: router.pathname, query: { ...router.query, topic: topicIndex } });
   };
   return (
-    <ul css={{ width: '100%', display: 'flex', margin: '8px 0px' }}>
+    <ul
+      css={{
+        width: '100%',
+        display: 'flex',
+        margin: '8px 0px 16px',
+        borderBottom: '1px solid #d9d9d9',
+      }}
+    >
       <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => handleClick(0)} />
       {topicList.map((topic, idx) => {
         return (
@@ -99,11 +114,11 @@ const Topic = ({
         fontSize: '15px',
         fontWeight: '600',
         color: selected ? '#ff5656' : '#000',
-        borderBottom: `2.5px solid ${selected ? '#ff5656' : '#d9d9d9'}`,
+        borderBottom: `${selected ? '2.5px solid #ff5656' : ''}`,
         textAlign: 'center',
         cursor: 'pointer',
         padding: '5px 8px',
-        margin: '2px',
+        margin: '0px 2px',
       }}
       onClick={onClick}
     >

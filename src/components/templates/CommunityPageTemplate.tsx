@@ -20,7 +20,7 @@ const CommunityPageTemplate = ({ communityHomeData }: CommunityPropTypes) => {
     <div
       css={{
         width: '100%',
-        maxWidth: '400px',
+        maxWidth: '480px',
         margin: '0px auto',
       }}
     >
@@ -86,7 +86,7 @@ const TabBarItem = ({
         lineHeight: '37px',
         fontSize: '15px',
         fontWeight: '600',
-        color: selected ? '#ff5656' : '#000',
+        color: selected ? '#ff5656' : '#999999',
         borderBottom: `2.5px solid ${selected ? '#ff5656' : '#d9d9d9'}`,
         textAlign: 'center',
         cursor: 'pointer',
