@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useState } from 'react';
 import CommunityBoardTopNavi from '../molecules/CommunityBoardTopNavi';
 import CommunityBoardArticle from '../molecules/CommunityBoardArticle';
+import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 
 // TODO 1. 게시판 언어 선택 / 2. 각 게시글 실제 link 연결 (경은님과 함께 해야함)
 
@@ -50,6 +51,7 @@ const CommunityBoardTemplate = ({
           return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
         })}
       </ul>
+      <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT) || 200} />
     </div>
   );
 };
