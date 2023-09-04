@@ -23,8 +23,9 @@ export const getServerSideProps: GetServerSideProps<{
   communityHomeData: CommunityHomeResponseType;
 }> = async (context) => {
   // TODO: api에 userId 값이 필요없게 변경될 예정.. (feat. 소진님) + 게시판 언어 설정도..
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'];
+  // const cookies = nookies.get(context);
+  // const userId = cookies['user_id'];
+  const userId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
   const communityHomeData = await getCommunityHomeData(userId);
   return {
     props: { communityHomeData },
