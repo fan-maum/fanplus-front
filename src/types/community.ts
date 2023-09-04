@@ -70,3 +70,23 @@ export type CommunityBoardCategoryResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type BoardResultItemType = {
+  BOARD_IDX: number;
+  BOARD_TITLE: string;
+  HEAD_IMG: string;
+  POST_CNT: number;
+  STAR_IDX: number | null;
+  STAR_GROUP_IDX: number | null;
+};
+
+export type CommunityBoardResultResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      BOARD_LIST: Array<BoardResultItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};

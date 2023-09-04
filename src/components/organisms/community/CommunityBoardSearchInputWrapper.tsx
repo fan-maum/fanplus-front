@@ -1,6 +1,6 @@
 import CommunityBoardSearchInput from '@/components/molecules/community/CommunityBoardSearchInput';
 
-const CommunityBoardSearchWrapper = () => {
+const CommunityBoardSearchInputWrapper = () => {
   return (
     <form>
       <CommunityBoardSearchInput />
@@ -8,4 +8,4 @@ const CommunityBoardSearchWrapper = () => {
   );
 };
 
-export default CommunityBoardSearchWrapper;
+export default CommunityBoardSearchInputWrapper;
