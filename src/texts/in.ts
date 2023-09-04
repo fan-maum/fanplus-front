@@ -279,4 +279,7 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
   recommendCount: 'Seperti',
   viewCount: 'Lihat',
   popular: 'Populer',
+  daysAgo: 'hari sebelumnya',
+  hoursAgo: 'jam sebelumnya',
+  minsAgo: 'menit sebelumnya',
 };

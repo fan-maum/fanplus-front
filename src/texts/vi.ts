@@ -279,4 +279,7 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
   recommendCount: 'Giống như',
   viewCount: 'Xem',
   popular: 'Nổi tiếng',
+  daysAgo: 'Ngày trước',
+  hoursAgo: 'Giờ trước',
+  minsAgo: 'Phút trước',
 };

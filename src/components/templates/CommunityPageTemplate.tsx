@@ -21,7 +21,7 @@ const CommunityPageTemplate = ({ communityHomeData, texts }: CommunityPropTypes)
     <div
       css={{
         width: '100%',
-        maxWidth: '800px',
+        maxWidth: '768px',
         margin: '0px auto',
       }}
     >

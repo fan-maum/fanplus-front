@@ -280,4 +280,7 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
   recommendCount: '추천수',
   viewCount: '조회수',
   popular: '인기',
+  daysAgo: '일 전',
+  hoursAgo: '시간 전',
+  minsAgo: '분 전',
 };

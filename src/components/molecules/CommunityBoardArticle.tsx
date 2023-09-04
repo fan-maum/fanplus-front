@@ -2,6 +2,10 @@ import Link from 'next/link';
 import type { PostListItemType } from '@/types/community';
 import IconPopular from '../atoms/IconPopular';
 import { CommunityBoardTextType } from '@/types/textTypes';
+import { formatWrittenTime, timeType } from '@/utils/util';
+import { text } from 'stream/consumers';
+
+// TODO: 작성 시간 변환하는 로직 추가 필요~
 
 type OwnPropType = {
   postItem: PostListItemType;
@@ -10,7 +14,15 @@ type OwnPropType = {
 };
 
 const CommunityBoardArticle = ({ postItem, link, texts }: OwnPropType) => {
-  const writtenTime = postItem.PUBLISH_DATE;
+  const writtenTime = formatWrittenTime(postItem.PUBLISH_DATE);
+  const timeAppend: { [key in timeType]: string } = {
+    Full: ' (KST)',
+    Date: texts.daysAgo,
+    Hour: texts.hoursAgo,
+    Minute: texts.minsAgo,
+  };
+  const timeExpression = writtenTime.time + timeAppend[writtenTime.timeType];
+
   return (
     <li css={{ margin: '6px 12px', padding: '3px 0px 6px', borderBottom: '1px solid #d9d9d9' }}>
       <Link href={link}>
@@ -19,20 +31,16 @@ const CommunityBoardArticle = ({ postItem, link, texts }: OwnPropType) => {
           {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}
         </div>
         <div css={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div css={{ margin: '3px 3px 6px' }}>
-            <h4 css={{ wordBreak: 'keep-all', lineHeight: '1.5', fontWeight: '400' }}>
+          <div css={{ margin: '3px 3px 6px', lineHeight: '1.5' }}>
+            <h4 css={{ wordBreak: 'keep-all', fontWeight: '400' }}>
               {postItem.POST_TITLE}
-              {postItem.COMMENT_CNT !== '0' && (
-                <span css={{ color: '#ff5656', fontWeight: '400' }}> [{postItem.COMMENT_CNT}]</span>
-              )}
+              <span css={{ color: '#ff5656' }}> [{postItem.COMMENT_CNT}]</span>
             </h4>
-            <div css={{ color: '#999999', fontSize: '12px', lineHeight: '1.5', marginTop: '6px' }}>
+            <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>
+              <p>{postItem.WRITER_NAME + ' | ' + timeExpression}</p>
               <p>
-                {postItem.WRITER_NAME} | {writtenTime}
-              </p>
-              <p>
-                {texts.viewCount} {postItem.VIEW_CNT} {texts.recommendCount}{' '}
-                {postItem.RECOMMEND_CNT}
+                <span>{texts.viewCount + ' ' + postItem.VIEW_CNT} </span>
+                <span>{texts.recommendCount + ' ' + postItem.RECOMMEND_CNT}</span>
               </p>
             </div>
           </div>

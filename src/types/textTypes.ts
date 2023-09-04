@@ -172,6 +172,9 @@ export type CommunityBoardTextType = {
   viewCount: string;
   recommendCount: string;
   popular: string;
+  daysAgo: string;
+  hoursAgo: string;
+  minsAgo: string;
 };
 
 export type TextType = {

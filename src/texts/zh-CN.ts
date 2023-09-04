@@ -279,4 +279,7 @@ export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   recommendCount: '推荐',
   viewCount: '阅读数',
   popular: '人气',
+  daysAgo: '日 前',
+  hoursAgo: '小时 前',
+  minsAgo: '分钟 前',
 };

@@ -279,4 +279,7 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
   recommendCount: 'Like',
   viewCount: 'View',
   popular: 'Popular',
+  daysAgo: 'days ago',
+  hoursAgo: 'hours ago',
+  minsAgo: 'mins ago',
 };

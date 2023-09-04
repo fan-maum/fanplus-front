@@ -279,4 +279,7 @@ export const CommunityBoardText_JAP: CommunityBoardTextType = {
   recommendCount: 'おすすめ',
   viewCount: 'ヒット',
   popular: '人気',
+  daysAgo: '日 前',
+  hoursAgo: '時間 前',
+  minsAgo: '分 前',
 };
