@@ -185,8 +185,15 @@ const BottomTabBar = ({ items }: { items: BottomTabBarItemPropType[] }) => {
           svg: { width: '30px', height: '30px', margin: '2px' },
         }}
       >
-        {items.map((item) => {
-          return <BottomTabBarItem icon={item.icon} title={item.title} onClick={item.onClick} />;
+        {items.map((item, idx) => {
+          return (
+            <BottomTabBarItem
+              icon={item.icon}
+              title={item.title}
+              onClick={item.onClick}
+              key={idx}
+            />
+          );
         })}
       </div>
     </>
