@@ -45,11 +45,14 @@ const CommunityBoardTemplate = ({
   const onClickPopular = () => {
     if (viewType !== 'best_post') {
       setViewType('best_post');
-      router.push({ pathname: router.pathname, query: { ...router.query, view: 'best_post' } });
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, view: 'best_post', page: 1 },
+      });
       return;
     }
     setViewType('all');
-    router.push({ pathname: router.pathname, query: { ...router.query, view: 'all' } });
+    router.push({ pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } });
   };
   const onClickMyPost = () => router.push('/');
 
