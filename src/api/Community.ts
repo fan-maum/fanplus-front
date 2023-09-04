@@ -20,12 +20,13 @@ export const getCommunityBoardData = async (
   page: number,
   lang: BackLangType,
   boardLang: BackLangType | 'ALL',
-  topic: number | ''
+  topic: number | '',
+  view_type: string
 ) => {
   if (topic === 0) topic = '';
   const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang } }
+    { params: { userId, boardIndex, page, topic, lang, boardLang, view_type } }
   );
   return response.data;
 };

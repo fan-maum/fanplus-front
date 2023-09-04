@@ -282,4 +282,9 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
   daysAgo: 'days ago',
   hoursAgo: 'hours ago',
   minsAgo: 'mins ago',
+  bottomTabBar: {
+    write: 'Write',
+    popular: 'Trending',
+    myPost: 'My Posts',
+  },
 };

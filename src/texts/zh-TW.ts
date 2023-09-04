@@ -282,4 +282,9 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
   daysAgo: '日 前',
   hoursAgo: '小時 前',
   minsAgo: '分鐘 前',
+  bottomTabBar: {
+    write: '發帖子',
+    popular: '熱門文章',
+    myPost: '我發的貼子',
+  },
 };

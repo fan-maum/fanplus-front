@@ -282,4 +282,9 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
   daysAgo: 'Ngày trước',
   hoursAgo: 'Giờ trước',
   minsAgo: 'Phút trước',
+  bottomTabBar: {
+    write: 'Viết',
+    popular: 'Nổi tiếng',
+    myPost: 'Câu chuyện của tôi',
+  },
 };

@@ -282,4 +282,9 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
   daysAgo: 'hari sebelumnya',
   hoursAgo: 'jam sebelumnya',
   minsAgo: 'menit sebelumnya',
+  bottomTabBar: {
+    write: 'Tulis',
+    popular: 'Populer',
+    myPost: 'Cerita Saya',
+  },
 };

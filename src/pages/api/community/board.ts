@@ -3,13 +3,13 @@ import axios, { AxiosResponse } from 'axios';
 import type { CommunityBoardResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { userId, boardIndex, page, lang, boardLang, topic } = req.query;
+  const { userId, boardIndex, page, lang, boardLang, view_type, topic } = req.query;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
     const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
       `https://napi.appphotocard.com/v1/boards/boards/${boardIndex}?identity=${userId}` +
-        `&page=${page}&per_page=20&app_lang=${lang}&lang=${boardLang}&view_type=all&topic_ids[]=${topic}`,
+        `&page=${page}&per_page=20&app_lang=${lang}&lang=${boardLang}&view_type=${view_type}&topic_ids[]=${topic}`,
       {
         headers: {
           Origin: origin,

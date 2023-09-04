@@ -175,6 +175,11 @@ export type CommunityBoardTextType = {
   daysAgo: string;
   hoursAgo: string;
   minsAgo: string;
+  bottomTabBar: {
+    write: string;
+    popular: string;
+    myPost: string;
+  };
 };
 
 export type TextType = {

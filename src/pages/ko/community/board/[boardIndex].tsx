@@ -26,13 +26,14 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
 ) => {
   // const cookies = nookies.get(context);
   // const userId = cookies['user_id'];
-  const userId = '008badb6f4296505f6741654eb98d11f324b4dc5f2ee396a5f68e6c18d4872ab';
+  const userId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
   const lang = translateFrontLangToBackLang(context.req.url?.split('/')[1] as LangCookie);
   const boardLang = translateFrontLangToBackLang(context.query.boardLang as LangCookie) || lang;
   const topic = parseInt(context.query.topic as string) || '';
+  const view_type = (context.query.view as string) || 'all';
 
   if (!boardIndex) return { notFound: true };
 
@@ -42,7 +43,8 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
     page,
     lang,
     boardLang,
-    topic
+    topic,
+    view_type
   );
   const communityBoardTopics = await getCommunityBoardTopics(userId, boardIndex);
 

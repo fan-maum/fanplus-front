@@ -282,4 +282,9 @@ export const CommunityBoardText_JAP: CommunityBoardTextType = {
   daysAgo: '日 前',
   hoursAgo: '時間 前',
   minsAgo: '分 前',
+  bottomTabBar: {
+    write: '書き込み',
+    popular: '人気',
+    myPost: '私が書いた記事',
+  },
 };

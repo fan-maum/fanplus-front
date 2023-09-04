@@ -282,4 +282,9 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
   daysAgo: 'Día(s) antes',
   hoursAgo: 'Hora(s) antes',
   minsAgo: 'Minuto(s) antes',
+  bottomTabBar: {
+    write: 'Escribir',
+    popular: 'Popular',
+    myPost: 'El texto que escribí',
+  },
 };

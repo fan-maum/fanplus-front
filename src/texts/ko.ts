@@ -283,4 +283,9 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
   daysAgo: '일 전',
   hoursAgo: '시간 전',
   minsAgo: '분 전',
+  bottomTabBar: {
+    write: '글쓰기',
+    popular: '인기글',
+    myPost: '내가 쓴 글',
+  },
 };

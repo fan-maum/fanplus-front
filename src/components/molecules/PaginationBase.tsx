@@ -19,6 +19,7 @@ const PaginationBase = ({
           gap: '20px',
           zIndex: 100,
           margin: '40px 0',
+          fontSize: '12px',
         }}
         previousLabel={
           <Image width={11} height={11} src="/icons/icon_paginationArrow.png" alt="arrow" />
