@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
-      `https://napi.appphotocard.com/v1/boards/boards/${boardIndex}?identity=${userId}` +
+      `https://napi.appphotocard.com/v2/boards/boards/${boardIndex}?identity=${userId}` +
         `&page=${page}&per_page=20&app_lang=${lang}&lang=${boardLang}&view_type=${view_type}&topic_ids[]=${topic}`,
       {
         headers: {
@@ -19,7 +19,7 @@ const handler: NextApiHandler = async (req, res) => {
     );
     res.status(200).json(response.data);
   } catch (error) {
-    res.status(500).json('failed to load data');
+    res.status(500).json('Failed to load Community-Board data');
   }
 };
 

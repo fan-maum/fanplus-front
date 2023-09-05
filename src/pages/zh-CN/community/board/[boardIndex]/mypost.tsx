@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
-  const lang = translateFrontLangToBackLang(context.req.url?.split('/')[1] as LangCookie);
+  const lang = 'zh';
   const boardLang = translateFrontLangToBackLang(context.query.boardLang as LangCookie) || 'ALL';
   const topic = parseInt(context.query.topic as string) || '';
   const view_type = 'my_post';
