@@ -38,3 +38,25 @@ export const getCommunityBoardTopics = async (userId: string, boardIndex: number
   );
   return response.data;
 };
+
+export const getCommunityBoardCategoryData = async (userId: string) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
+    { params: { userId } }
+  );
+  return response.data;
+};
+
+export const getCommunityBoardResultData = async (
+  userId: string,
+  category_type: number,
+  searchValue: any,
+  page: number,
+  per_page: number
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
+    { params: { userId, category_type, searchValue, page, per_page } }
+  );
+  return response.data;
+};
