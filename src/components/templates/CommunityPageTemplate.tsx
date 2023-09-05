@@ -9,6 +9,7 @@ import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper'
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
+import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 
 export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
@@ -69,6 +70,10 @@ const CommunityPageTemplate = ({
           <CommunitySearchBoardWrapper
             boardList={boardResultList}
             activeTabIndex={activeTabIndex}
+          />
+          <CommunitySearchBoardPagination
+            totalCount={/*boardResultList.length*/ 200}
+            itemsPerPage={20}
           />
         </>
       )}

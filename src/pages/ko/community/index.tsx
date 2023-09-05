@@ -37,7 +37,8 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   // TODO: api에 userId 값이 필요없게 변경될 예정.. (feat. 소진님) + 게시판 언어 설정도..
   const cookies = nookies.get(context);
-  const userId = cookies['user_id'];
+  // const userId = cookies['user_id'];
+  const userId = '48b9edc90318e96a2863221de2470d5ae1d546081eb670d100ad320e2b22c704';
   const category_type = parseInt(context.query.category_type as string) || 0;
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) || 0;

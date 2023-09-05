@@ -1,7 +1,7 @@
 import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
 import Image from 'next/image';
 
-const VotePaginationDetail = ({ pageCount, forcePage, onPageChange }: ReactPaginateProps) => {
+const CommonPagination = ({ pageCount, forcePage, onPageChange }: ReactPaginateProps) => {
   return (
     <div css={{ background: '#FFF', width: '100%', display: 'flex', justifyContent: 'center' }}>
       <ReactPaginate
@@ -38,4 +38,4 @@ const VotePaginationDetail = ({ pageCount, forcePage, onPageChange }: ReactPagin
   );
 };
 
-export default VotePaginationDetail;
+export default CommonPagination;

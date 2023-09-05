@@ -17,7 +17,7 @@ const CommunitySearchBoardWrapper = ({ title, boardList }: CommunityBoardWrapper
             icon={boardItem.HEAD_IMG}
             title={boardItem.BOARD_TITLE}
             link={`/community/board/${boardItem.BOARD_IDX}/`}
-            key={boardItem.BOARD_TITLE}
+            key={boardItem.BOARD_IDX}
           />
         );
       })}
