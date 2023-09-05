@@ -44,5 +44,5 @@ export function translateFrontLangToBackLang(lang: LangCookie) {
     'zh-CN': 'zh',
     'zh-TW': 'zhtw',
   };
-  return (translator[lang] || 'en') as BackLangType;
+  return translator[lang] as BackLangType;
 }

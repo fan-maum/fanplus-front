@@ -5,17 +5,17 @@ import CommunityBoardTemplate, {
 import { translateFrontLangToBackLang } from '@/hooks/useLanguage';
 import { LangCookie } from '@/utils/setLangCookie';
 import { GetServerSideProps } from 'next';
+import { CommunityBoardText_zh_TW, FooterText_zh_TW, NavBarText_zh_TW } from '@/texts/zh-TW';
 import nookies from 'nookies';
 import Layout from '@/components/organisms/Layout';
-import { CommunityBoardText_VIE, FooterText_VIE, NavBarText_VIE } from '@/texts/vi';
 
 const Board = ({ communityBoardData, communityBoardTopics }: CommunityBoardPropType) => {
   return (
-    <Layout navBarTexts={NavBarText_VIE} footerTexts={FooterText_VIE}>
+    <Layout navBarTexts={NavBarText_zh_TW} footerTexts={FooterText_zh_TW}>
       <CommunityBoardTemplate
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
-        texts={CommunityBoardText_VIE}
+        texts={CommunityBoardText_zh_TW}
       />
     </Layout>
   );
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
   const lang = translateFrontLangToBackLang(context.req.url?.split('/')[1] as LangCookie);
-  const boardLang = translateFrontLangToBackLang(context.query.boardLang as LangCookie) || lang;
+  const boardLang = translateFrontLangToBackLang(context.query.boardLang as LangCookie) || 'ALL';
   const topic = parseInt(context.query.topic as string) || '';
   const view_type = (context.query.view as string) || 'all';
 

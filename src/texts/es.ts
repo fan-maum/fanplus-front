@@ -287,4 +287,18 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
     popular: 'Popular',
     myPost: 'El texto que escribí',
   },
+  boardLang: {
+    modalHeader: 'Publicación Idioma configurado',
+    modalExplain: 'Pueden ver texto escrito en la lengua seleccionada!',
+    current: 'Filtro lingüístico actualmente en uso',
+    ALL: 'Todos los idiomas',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

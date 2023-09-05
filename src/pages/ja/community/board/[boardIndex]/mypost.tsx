@@ -5,17 +5,18 @@ import CommunityBoardTemplate, {
 import { translateFrontLangToBackLang } from '@/hooks/useLanguage';
 import { LangCookie } from '@/utils/setLangCookie';
 import { GetServerSideProps } from 'next';
+import { CommunityBoardText_JAP, FooterText_JAP, NavBarText_JAP } from '@/texts/ja';
 import nookies from 'nookies';
 import Layout from '@/components/organisms/Layout';
-import { CommunityBoardText_ENG, FooterText_ENG, NavBarText_ENG } from '@/texts/en';
 
-const Board = ({ communityBoardData, communityBoardTopics }: CommunityBoardPropType) => {
+const MyPost = ({ communityBoardData, communityBoardTopics }: CommunityBoardPropType) => {
   return (
-    <Layout navBarTexts={NavBarText_ENG} footerTexts={FooterText_ENG}>
+    <Layout navBarTexts={NavBarText_JAP} footerTexts={FooterText_JAP}>
       <CommunityBoardTemplate
+        isMyPost
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
-        texts={CommunityBoardText_ENG}
+        texts={CommunityBoardText_JAP}
       />
     </Layout>
   );
@@ -30,10 +31,10 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
-  const lang = translateFrontLangToBackLang(context.req.url?.split('/')[1] as LangCookie);
+  const lang = translateFrontLangToBackLang(context.req.url?.split('/')[1] as LangCookie) || 'en';
   const boardLang = translateFrontLangToBackLang(context.query.boardLang as LangCookie) || lang;
   const topic = parseInt(context.query.topic as string) || '';
-  const view_type = (context.query.view as string) || 'all';
+  const view_type = 'my_post';
 
   if (!boardIndex) return { notFound: true };
 
@@ -53,4 +54,4 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
   };
 };
 
-export default Board;
+export default MyPost;

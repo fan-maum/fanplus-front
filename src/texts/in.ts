@@ -287,4 +287,18 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
     popular: 'Populer',
     myPost: 'Cerita Saya',
   },
+  boardLang: {
+    modalHeader: 'Posts Pengaturan Bahasa',
+    modalExplain: 'Anda dapat melihat teks yang ditulis dalam bahasa yang dipilih',
+    current: 'Filter bahasa yang kini dipakai',
+    ALL: 'Semua bahasa',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

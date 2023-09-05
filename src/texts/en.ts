@@ -287,4 +287,18 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
     popular: 'Trending',
     myPost: 'My Posts',
   },
+  boardLang: {
+    modalHeader: 'Posts Language Settings',
+    modalExplain: 'You can only see the post written in the selected language.',
+    current: 'The current language',
+    ALL: 'All languages',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

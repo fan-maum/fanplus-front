@@ -4,6 +4,7 @@ import type {
   TopicListItemType,
 } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
+import type { BackLangType } from '@/types/common';
 import { useRouter } from 'next/router';
 import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
 import CommunityBoardTopNavi from '../molecules/CommunityBoardTopNavi';
@@ -13,16 +14,19 @@ import IconWrite from '../atoms/IconWrite';
 import IconPopularBlack from '../atoms/IconPopularBlack';
 import IconMyPost from '../atoms/IconMyPost';
 import IconPopular from '../atoms/IconPopular';
+import CommunityLanguageModal from '../modals/CommunityLanguageModal';
 
-// TODO 1. 게시판 언어 선택 / 2. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바 링크도 연결해야함.)
+// TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
 
 export type CommunityBoardPropType = {
+  isMyPost?: boolean;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   texts: CommunityBoardTextType;
 };
 
 const CommunityBoardTemplate = ({
+  isMyPost,
   communityBoardData,
   communityBoardTopics,
   texts,
@@ -31,15 +35,22 @@ const CommunityBoardTemplate = ({
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
+  const [boardLang, setBoardLang] = useState<BackLangType | 'ALL'>(
+    (router.query.boardLang as BackLangType) || 'ALL'
+  );
+  const [langModal, setLangModal] = useState(false);
 
   useEffect(() => {
     setTopicIndex(parseInt(router.query.topic as string) || 0);
     setViewType((router.query.view as string) || 'all');
+    setBoardLang((router.query.boardLang as BackLangType) || 'ALL');
   }, [router.query]);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
+
+  const backLink = isMyPost ? `/community/board/${boardInfo.BOARD_IDX}` : '/community';
 
   const onClickWrite = () => router.push('/');
   const onClickPopular = () => {
@@ -54,7 +65,7 @@ const CommunityBoardTemplate = ({
     setViewType('all');
     router.push({ pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } });
   };
-  const onClickMyPost = () => router.push('/');
+  const onClickMyPost = () => router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
 
   return (
     <div
@@ -65,13 +76,21 @@ const CommunityBoardTemplate = ({
         position: 'relative',
       }}
     >
-      <CommunityBoardTopNavi boardTitle={boardInfo.BOARD_TITLE} />
-      <TopicTabBar
-        stringTopicAll={texts.all}
-        topicList={topicList}
-        topicIndex={topicIndex}
-        setTopicIndex={setTopicIndex}
+      <CommunityBoardTopNavi
+        backLink={backLink}
+        boardTitle={!isMyPost ? boardInfo.BOARD_TITLE : texts.bottomTabBar.myPost}
+        withLang={!isMyPost}
+        language={texts.boardLang[boardLang]}
+        setLangModal={setLangModal}
       />
+      {!isMyPost && (
+        <TopicTabBar
+          stringTopicAll={texts.all}
+          topicList={topicList}
+          topicIndex={topicIndex}
+          setTopicIndex={setTopicIndex}
+        />
+      )}
       <ul>
         {postList.map((post, idx) => {
           return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
@@ -88,6 +107,13 @@ const CommunityBoardTemplate = ({
           },
           { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
         ]}
+      />
+      <CommunityLanguageModal
+        texts={texts.boardLang}
+        opened={langModal}
+        setModal={setLangModal}
+        boardLang={boardLang}
+        setBoardLanguage={setBoardLang}
       />
     </div>
   );
@@ -167,6 +193,13 @@ const Topic = ({
   );
 };
 
+type BottomTabBarItemPropType = {
+  icon: ReactNode;
+  title: string;
+  onClick: () => void;
+  selected?: boolean;
+};
+
 const BottomTabBar = ({ items }: { items: BottomTabBarItemPropType[] }) => {
   return (
     <>
@@ -203,12 +236,6 @@ const BottomTabBar = ({ items }: { items: BottomTabBarItemPropType[] }) => {
   );
 };
 
-type BottomTabBarItemPropType = {
-  icon: ReactNode;
-  title: string;
-  onClick: () => void;
-  selected?: boolean;
-};
 const BottomTabBarItem = ({ icon, title, onClick }: BottomTabBarItemPropType) => {
   return (
     <div
@@ -220,6 +247,7 @@ const BottomTabBarItem = ({ icon, title, onClick }: BottomTabBarItemPropType) =>
         width: '90px',
         margin: '3px 0px',
         textAlign: 'center',
+        cursor: 'pointer',
       }}
       onClick={onClick}
     >

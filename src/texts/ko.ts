@@ -288,4 +288,18 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
     popular: '인기글',
     myPost: '내가 쓴 글',
   },
+  boardLang: {
+    modalHeader: '게시물 언어 설정',
+    modalExplain: '선택한 언어로 작성된 게시물만 보입니다!',
+    current: '현재 사용 중인 언어필터',
+    ALL: '모든 언어',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

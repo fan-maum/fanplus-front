@@ -287,4 +287,18 @@ export const CommunityBoardText_JAP: CommunityBoardTextType = {
     popular: '人気',
     myPost: '私が書いた記事',
   },
+  boardLang: {
+    modalHeader: '話 設定言語',
+    modalExplain: '選択した言語で書かれたテキストを見ることができます!',
+    current: 'すべての言語',
+    ALL: 'すべての言語',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

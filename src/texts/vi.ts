@@ -287,4 +287,18 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
     popular: 'Nổi tiếng',
     myPost: 'Câu chuyện của tôi',
   },
+  boardLang: {
+    modalHeader: 'Câu chuyện Thiết lập ngôn ngữ',
+    modalExplain: 'Bạn có thể thấy văn bản được viết bằng ngôn ngữ đã chọn!',
+    current: 'Bộ lọc ngôn ngữ hiện đang được sử dụng',
+    ALL: 'Tất cả các ngôn ngữ',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

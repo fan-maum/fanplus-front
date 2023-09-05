@@ -287,4 +287,18 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
     popular: '熱門文章',
     myPost: '我發的貼子',
   },
+  boardLang: {
+    modalHeader: '帖子 語言設定',
+    modalExplain: '您只能看到以所選語言撰寫的帖子',
+    current: '当前使用的语言',
+    ALL: '全部語言',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };
