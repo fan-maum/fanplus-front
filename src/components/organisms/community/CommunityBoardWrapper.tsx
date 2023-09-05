@@ -1,5 +1,5 @@
 import { BoardListItemType } from '@/types/community';
-import CommunityBoardItem from '../molecules/CommunityBoardItem';
+import CommunityBoardItem from '@/components/molecules/community/CommunityBoardItem';
 
 type CommunityBoardWrapperType = {
   title?: string;
