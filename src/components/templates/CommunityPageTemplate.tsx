@@ -62,7 +62,7 @@ const CommunityPageTemplate = ({
         </>
       ) : (
         <>
-          {/* <CommunityBoardSearchInputWrapper /> */}
+          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} />
           <CommunityBoardFilterTab
             searchCategoryTabs={searchCategoryTabs}
             searchTabState={searchTabState}
