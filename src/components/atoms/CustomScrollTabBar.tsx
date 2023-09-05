@@ -1,10 +1,11 @@
 import { BoardCategoryItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 type CustomTabBarProps = {
   tabs: BoardCategoryItemType[];
-  searchTabState: [number, React.Dispatch<React.SetStateAction<any>>];
+  searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
 };
 
 export default function CustomScrollTabBar({
@@ -13,8 +14,8 @@ export default function CustomScrollTabBar({
 }: CustomTabBarProps) {
   const router = useRouter();
   const { category_type, searchValue, page = 0 } = router?.query;
-  const handleTabClick = (index: number) => {
-    setActiveTab(index);
+  const handleTabClick = (index: number, tabName: string) => {
+    setActiveTab(tabName);
     router.push({
       pathname: router.pathname,
       query: {
@@ -23,11 +24,25 @@ export default function CustomScrollTabBar({
       },
     });
   };
+
+  useEffect(() => {
+    if (category_type) {
+      const matchCategoryQuery = tabs.find(
+        (tab) => tab.CATEGORY_IDX === parseInt(category_type as string)
+      );
+      setActiveTab(matchCategoryQuery?.CATEGORY_NAME);
+    }
+  }, [category_type, setActiveTab, tabs]);
+
   return (
     <TabContainer>
       {tabs.map((tab, index) => (
-        <TabButton key={index} active={activeTab === index} onClick={() => handleTabClick(index)}>
-          <Title active={activeTab === index}>{tab.CATEGORY_NAME}</Title>
+        <TabButton
+          key={index}
+          active={activeTab === tab.CATEGORY_NAME}
+          onClick={() => handleTabClick(index, tab.CATEGORY_NAME)}
+        >
+          <Title active={activeTab === tab.CATEGORY_NAME}>{tab.CATEGORY_NAME}</Title>
         </TabButton>
       ))}
     </TabContainer>

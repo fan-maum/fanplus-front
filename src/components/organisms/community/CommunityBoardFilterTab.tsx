@@ -3,7 +3,7 @@ import CustomScrollTabBar from '@/components/atoms/CustomScrollTabBar';
 
 export type CommunityBoardFilterTabProps = {
   searchCategoryTabs: BoardCategoryItemType[];
-  searchTabState: [number, React.Dispatch<React.SetStateAction<any>>];
+  searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
 };
 
 const CommunityBoardFilterTab = ({

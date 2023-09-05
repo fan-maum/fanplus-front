@@ -25,8 +25,8 @@ const CommunityPageTemplate = ({
   boardResultData,
 }: CommunityPropTypes) => {
   const [tabBar, setTabBar] = useState<TabBarType>('search');
-  const searchTabState = useState<number>(0);
-  const [activeTabIndex] = searchTabState;
+  const searchTabState = useState<string>('전체');
+  const [activeTabState] = searchTabState;
 
   const texts = CommunityMainText_KR;
   const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
@@ -69,7 +69,7 @@ const CommunityPageTemplate = ({
           />
           <CommunitySearchBoardWrapper
             boardList={boardResultList}
-            activeTabIndex={activeTabIndex}
+            activeTabState={activeTabState}
           />
           <CommunitySearchBoardPagination
             totalCount={/*boardResultList.length*/ 200}

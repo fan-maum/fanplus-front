@@ -4,7 +4,7 @@ import CommunityBoardItem from '@/components/molecules/community/CommunityBoardI
 type CommunityBoardWrapperType = {
   title?: string;
   boardList: BoardResultItemType[];
-  activeTabIndex: number;
+  activeTabState: string;
 };
 
 const CommunitySearchBoardWrapper = ({ title, boardList }: CommunityBoardWrapperType) => {
