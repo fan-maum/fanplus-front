@@ -11,16 +11,38 @@ const CommunitySearchBoardWrapper = ({ title, boardList }: CommunityBoardWrapper
   return (
     <section css={{ marginBottom: '30px' }}>
       {title && <h4 css={{ margin: '15px 5px' }}>{title}</h4>}
-      {boardList.map((boardItem) => {
-        return (
-          <CommunityBoardItem
-            icon={boardItem.HEAD_IMG}
-            title={boardItem.BOARD_TITLE}
-            link={`/community/board/${boardItem.BOARD_IDX}/`}
-            key={boardItem.BOARD_IDX}
-          />
-        );
-      })}
+      {boardList.length !== 0 ? (
+        <>
+          {boardList.map((boardItem) => {
+            return (
+              <CommunityBoardItem
+                icon={boardItem.HEAD_IMG}
+                title={boardItem.BOARD_TITLE}
+                link={`/community/board/${boardItem.BOARD_IDX}/`}
+                key={boardItem.BOARD_IDX}
+              />
+            );
+          })}
+        </>
+      ) : (
+        <p
+          css={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            padding: '30px 0',
+            lineHeight: 1.5,
+            fontSize: '22px',
+            fontWeight: 600,
+            color: '#666',
+          }}
+        >
+          검색 결과가 없습니다.
+          <br />
+          연예인 명을 다시 한 번 확인해주세요.
+        </p>
+      )}
     </section>
   );
 };

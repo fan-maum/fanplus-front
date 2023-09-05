@@ -71,10 +71,9 @@ const CommunityPageTemplate = ({
             boardList={boardResultList}
             activeTabState={activeTabState}
           />
-          <CommunitySearchBoardPagination
-            totalCount={/*boardResultList.length*/ 200}
-            itemsPerPage={20}
-          />
+          {boardResultList.length !== 0 && (
+            <CommunitySearchBoardPagination totalCount={boardResultList.length} itemsPerPage={20} />
+          )}
         </>
       )}
     </div>

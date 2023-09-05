@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import CommonPagination from '../CommonPagination';
+import { BoardResultItemType } from '@/types/community';
 
 export interface VotePaginationProps {
   totalCount: number;
