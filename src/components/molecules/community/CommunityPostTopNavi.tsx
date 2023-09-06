@@ -1,11 +1,14 @@
 import { useRouter } from 'next/router';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
+import IconVerticalMore from '@/components/atoms/IconVerticalMore';
 import IconFilter from '@/components/atoms/IconFilter';
 import { Dispatch, SetStateAction } from 'react';
 
 const CommunityPostTopNavi = () => {
   const router = useRouter();
-
+  const handleClickMore = () => {
+    console.log('popup open');
+  };
   return (
     <>
       <div
@@ -26,13 +29,11 @@ const CommunityPostTopNavi = () => {
         <div
           css={{
             cursor: 'pointer',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            width: 40,
+            heigh: 40,
           }}
-          onClick={() => console.log('test')}
         >
-          <span css={{ margin: '0px 5px' }}>...</span>
+          <IconVerticalMore handleClickMore={handleClickMore} />
         </div>
       </div>
     </>

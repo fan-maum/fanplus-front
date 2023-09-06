@@ -1,24 +1,9 @@
-import type {
-  CommunityBoardResponseType,
-  CommunityBoardTopicResponseType,
-  CommunityPostResponseType,
-  TopicListItemType,
-} from '@/types/community';
-import type { CommunityPostTextType } from '@/types/textTypes';
-import type { BackLangType } from '@/types/common';
 import { useRouter } from 'next/router';
-import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
-import CommunityBoardTopNavi from '../molecules/CommunityBoardTopNavi';
-import CommunityBoardArticle from '../molecules/CommunityBoardArticle';
-import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
-import IconWrite from '../atoms/IconWrite';
-import IconPopularBlack from '../atoms/IconPopularBlack';
-import IconMyPost from '../atoms/IconMyPost';
-import IconPopular from '../atoms/IconPopular';
-import CommunityLanguageModal from '../modals/CommunityLanguageModal';
-import CommunityPostTopNavi from '../molecules/community/CommunityPostTopNavi';
-
-// TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
+import type { CommunityPostResponseType } from '@/types/community';
+import type { CommunityPostTextType } from '@/types/textTypes';
+import CommunityPostTopNavi from '@/components/molecules/community/CommunityPostTopNavi';
+import CommunityPostInfo from '@/components/organisms/community/CommunityPostInfo';
+import CommunityPostDetail from '@/components/organisms/community/CommunityPostDetail';
 
 export type CommunityPostPropType = {
   communityPostData: CommunityPostResponseType;
@@ -30,6 +15,9 @@ const CommunityPostTemplate = ({ communityPostData, texts }: CommunityPostPropTy
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
   const commentList = communityPostData.RESULTS.DATAS.COMMENT_LIST;
   const headList = communityPostData.RESULTS.DATAS.HEAD_LIST;
+  console.log(postInfo);
+  console.log(commentList);
+  console.log(headList);
   return (
     <div
       css={{
@@ -39,11 +27,13 @@ const CommunityPostTemplate = ({ communityPostData, texts }: CommunityPostPropTy
         position: 'relative',
       }}
     >
-      <CommunityPostTopNavi />
-      <div>게시글 정보</div>
-      <div>게시글 내용</div>
-      <div>댓글</div>
-      <div>댓글입력 및 공유 Bottom Bar</div>
+      <div>
+        <CommunityPostTopNavi />
+        <CommunityPostInfo postInfo={postInfo} />
+        <CommunityPostDetail postInfo={postInfo} />
+        <div>댓글</div>
+        <div>댓글입력 및 공유 Bottom Bar</div>
+      </div>
     </div>
   );
 };
