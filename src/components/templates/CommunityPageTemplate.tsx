@@ -25,9 +25,9 @@ const CommunityPageTemplate = ({
   communityHomeData,
   boardCategoryData,
   boardResultData,
-  texts
+  texts,
 }: CommunityPropTypes) => {
-  const [tabBar, setTabBar] = useState<TabBarType>('search');
+  const [tabBar, setTabBar] = useState<TabBarType>('home');
   const searchTabState = useState<string>('전체');
   const [activeTabState] = searchTabState;
 
