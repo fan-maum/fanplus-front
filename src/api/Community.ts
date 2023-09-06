@@ -39,6 +39,10 @@ export const getCommunityBoardTopics = async (userId: string, boardIndex: number
   return response.data;
 };
 
+/**
+ * Search Board
+ */
+/* 검색 페이지 내 중간부분 Tab response */
 export const getCommunityBoardCategoryData = async (userId: string) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
@@ -47,6 +51,7 @@ export const getCommunityBoardCategoryData = async (userId: string) => {
   return response.data;
 };
 
+/* 검색 페이지 내 검색 결과 response */
 export const getCommunityBoardResultData = async (
   userId: string,
   category_type: number,
@@ -57,6 +62,22 @@ export const getCommunityBoardResultData = async (
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
     { params: { userId, category_type, searchValue, page, per_page } }
+  );
+  return response.data;
+};
+
+/**
+ * Post
+ */
+/* 게시글 불러오기 */
+export const getCommunityPostData = async (
+  boardIndex: number,
+  postIndex: number,
+  lang: BackLangType
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
+    { params: { boardIndex, postIndex, lang } }
   );
   return response.data;
 };

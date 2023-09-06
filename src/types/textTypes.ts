@@ -196,6 +196,8 @@ export type CommunityBoardTextType = {
   };
 };
 
+export type CommunityPostTextType = {};
+
 export type TextType = {
   NavBar: NavBarTextType;
   Footer: FooterTextType;

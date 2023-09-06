@@ -72,6 +72,9 @@ export type CommunityBoardTopicResponseType = {
   };
 };
 
+/**
+ * Search Board
+ */
 export type BoardCategoryItemType = {
   CATEGORY_IDX: number;
   CATEGORY_NAME: string;
@@ -103,6 +106,78 @@ export type CommunityBoardResultResponseType = {
     MSG: string;
     DATAS: {
       BOARD_LIST: Array<BoardResultItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};
+
+/**
+ * Post
+ */
+export type CommunityPost_PostInfoItemType = {
+  POST_IDX: string;
+  TOPIC_NAME: string;
+  POST_TITLE: string;
+  POST_CONTENTS: string;
+  BOARD_IDX: string;
+  TOPIC_IDX: string;
+  POST_IMG_YN: string;
+  SUMNAIL_IMG: string;
+  WRITER_IDX: string;
+  PUBLISH_DATE: string;
+  VIEW_CNT: string;
+  COMMENT_CNT: string;
+  RECOMMEND_CNT: string;
+  IS_REMOVE: string;
+  IS_PUBLISH: string;
+  HAS_BEST_BADGE: string;
+  HAS_POPULAR_BADGE: string;
+  BASE_LANG: string;
+  BEST_DATE: string;
+  WRITER_NAME: string;
+  WRITER_PROFILE_IMG: string;
+  RECOMMEND_YN: string;
+  THUMBNAIL_IMG: string;
+};
+export type CommunityPost_CommentListItemType = {
+  COMMENT_IDX: string;
+  TYPE: string;
+  TARGET: string;
+  TARGET_IDX: string;
+  USER_IDX: string;
+  COMMENT: string;
+  IS_BLIND: string;
+  IS_REMOVED: string;
+  LIKE_CNT: string;
+  SPAM_REPORT_CNT: string;
+  BAD_REPORT_CNT: string;
+  RE_COMMENT_CNT: string;
+  INS_DATE: string;
+  UPD_DATE: string;
+  BLIND_DATE: string;
+  REMOVE_DATE: string;
+  USER_PROFILE_IMG: string;
+  NICK: string;
+  USER_LANG: string;
+  IDX: string;
+  COMMENT_BLIND_YN: string;
+  ALREADY_LIKE: string;
+};
+export type CommunityPost_HeadListItemType = {
+  HEAD_IDX: string;
+  BOARD_IDX: string;
+  LANG_TYPE: string;
+  HEAD_NAME: string;
+};
+
+export type CommunityPostResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      POST_INFO: CommunityPost_PostInfoItemType;
+      COMMENT_LIST: Array<CommunityPost_CommentListItemType>;
+      HEAD_LIST: Array<CommunityPost_HeadListItemType>;
     };
     TIMESTAMP: number;
   };

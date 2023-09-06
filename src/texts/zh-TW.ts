@@ -8,6 +8,7 @@ import {
   SignUpPageTextType,
   CommunityPageTextType,
   CommunityBoardTextType,
+  CommunityPostTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -302,3 +303,5 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
     zhtw: '中文(繁體)',
   },
 };
+
+export const CommunityPostText_zh_TW: CommunityPostTextType = {};
