@@ -32,10 +32,7 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
         position: 'relative',
       }}
     >
-      <CommunityBoardTopNavi
-        backLink={`/community/board/${boardInfo.BOARD_IDX}`}
-        boardTitle={texts.bottomTabBar.myPost}
-      />
+      <CommunityBoardTopNavi boardTitle={texts.bottomTabBar.myPost} />
       {isPostExist ? (
         <ul>
           {postList.map((post, idx) => {

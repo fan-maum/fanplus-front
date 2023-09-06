@@ -51,7 +51,7 @@ const Language = ({ language, langCookie }: PropType) => {
         }}
         onClick={() => {
           setLangCookie(langCookie);
-          router.push(href);
+          router.replace(href);
         }}
       >
         {language}

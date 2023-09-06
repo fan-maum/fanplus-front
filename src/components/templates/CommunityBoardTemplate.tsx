@@ -56,14 +56,14 @@ const CommunityBoardTemplate = ({
   const onClickPopular = () => {
     if (viewType !== 'best_post') {
       setViewType('best_post');
-      router.push({
+      router.replace({
         pathname: router.pathname,
         query: { ...router.query, view: 'best_post', page: 1 },
       });
       return;
     }
     setViewType('all');
-    router.push({ pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } });
+    router.replace({ pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } });
   };
   const onClickMyPost = () => router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
 
@@ -77,9 +77,8 @@ const CommunityBoardTemplate = ({
       }}
     >
       <CommunityBoardTopNavi
-        backLink="/community"
         boardTitle={boardInfo.BOARD_TITLE}
-        langSelector={
+        rightItem={
           <CommunityBoardLangSelector
             language={texts.boardLang[boardLang]}
             onClick={() => setLangModal(true)}
@@ -146,7 +145,7 @@ const TopicTabBar = ({
   const router = useRouter();
   const handleClick = (topicIndex: number) => {
     setTopicIndex(topicIndex);
-    router.push({ pathname: router.pathname, query: { ...router.query, topic: topicIndex } });
+    router.replace({ pathname: router.pathname, query: { ...router.query, topic: topicIndex } });
   };
   return (
     <ul
