@@ -10,6 +10,7 @@ import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper'
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
+import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 
 export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
@@ -27,8 +28,8 @@ const CommunityPageTemplate = ({
   texts
 }: CommunityPropTypes) => {
   const [tabBar, setTabBar] = useState<TabBarType>('search');
-  const searchTabState = useState<number>(0);
-  const [activeTabIndex] = searchTabState;
+  const searchTabState = useState<string>('전체');
+  const [activeTabState] = searchTabState;
 
   const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
@@ -63,15 +64,18 @@ const CommunityPageTemplate = ({
         </>
       ) : (
         <>
-          {/* <CommunityBoardSearchInputWrapper /> */}
+          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} />
           <CommunityBoardFilterTab
             searchCategoryTabs={searchCategoryTabs}
             searchTabState={searchTabState}
           />
           <CommunitySearchBoardWrapper
             boardList={boardResultList}
-            activeTabIndex={activeTabIndex}
+            activeTabState={activeTabState}
           />
+          {boardResultList.length !== 0 && (
+            <CommunitySearchBoardPagination totalCount={boardResultList.length} itemsPerPage={20} />
+          )}
         </>
       )}
     </div>

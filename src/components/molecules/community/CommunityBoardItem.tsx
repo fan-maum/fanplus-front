@@ -20,8 +20,14 @@ const CommunityBoardItem = ({ icon, title, link }: BoardItemType) => {
           padding: '5px 5px 10px',
         }}
       >
-        <div css={{ position: 'relative', width: '66px', aspectRatio: '1/1' }}>
-          <Image src={icon} fill css={{ width: '100%', height: '100%' }} alt={title} />
+        <div css={{ position: 'relative', height: '84px', aspectRatio: '1/1' }}>
+          <Image
+            src={icon}
+            fill
+            sizes={'66px 84px'}
+            css={{ width: '100%', height: '100%' }}
+            alt={title}
+          />
         </div>
         <p css={{ margin: 'auto 5px', fontWeight: '500' }}>{title}</p>
       </Link>
