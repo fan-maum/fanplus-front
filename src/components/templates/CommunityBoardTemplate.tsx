@@ -40,12 +40,6 @@ const CommunityBoardTemplate = ({
   );
   const [langModal, setLangModal] = useState(false);
 
-  useEffect(() => {
-    setTopicIndex(parseInt(router.query.topic as string) || 0);
-    setViewType((router.query.view as string) || 'all');
-    setBoardLang((router.query.boardLang as BackLangType) || 'ALL');
-  }, [router.query]);
-
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
