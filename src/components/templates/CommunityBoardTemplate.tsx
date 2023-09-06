@@ -52,7 +52,7 @@ const CommunityBoardTemplate = ({
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
 
   const isPostExist = postList.length !== 0;
-  const backLink = isMyPostPage ? `/community/board/${boardInfo.BOARD_IDX}` : '/community';
+  const showTabBar = !isMyPostPage;
 
   const onClickWrite = () => router.push('/');
   const onClickPopular = () => {
@@ -79,13 +79,13 @@ const CommunityBoardTemplate = ({
       }}
     >
       <CommunityBoardTopNavi
-        backLink={backLink}
+        backLink={!isMyPostPage ? '/community' : `/community/board/${boardInfo.BOARD_IDX}`}
         boardTitle={!isMyPostPage ? boardInfo.BOARD_TITLE : texts.bottomTabBar.myPost}
         withLang={!isMyPostPage}
         language={texts.boardLang[boardLang]}
         setLangModal={setLangModal}
       />
-      {!isMyPostPage && (
+      {showTabBar && (
         <TopicTabBar
           stringTopicAll={texts.all}
           topicList={topicList}
@@ -107,7 +107,7 @@ const CommunityBoardTemplate = ({
         />
       )}
       <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT) || 200} />
-      {!isMyPostPage && (
+      {showTabBar && (
         <BottomTabBar
           items={[
             { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
