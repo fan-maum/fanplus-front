@@ -9,6 +9,9 @@ type NavBoxPropType = {
 
 const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
   const path = useRouter().pathname;
+  const isHighlight =
+    (path.includes('vote') && link.includes('vote')) ||
+    (path.includes('community') && link.includes('community'));
   const picked = path === link;
   return (
     <li
@@ -37,12 +40,12 @@ const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
           alignItems: 'center',
           textDecoration: 'none',
           transition: 'color 0.5s',
-          color: picked ? 'rgb(0,0,0)' : 'rgb(102,102,102)',
+          color: isHighlight ? '#ff5656' : picked ? 'rgb(0,0,0)' : 'rgb(102,102,102)',
           ':hover': {
             color: 'rgb(0,0,0)',
             transition: 'color 0.5s',
           },
-          '@media(max-width:991px)': isSide
+          '@media(max-width:768px)': isSide
             ? { margin: '0px', padding: '0px', height: '24px' }
             : { margin: '0px 5px', padding: '0px 2px' },
         }}

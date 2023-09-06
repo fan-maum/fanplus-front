@@ -6,12 +6,14 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_VIE: NavBarTextType = {
   vote: 'Bỏ phiếu',
-  community: 'Community',
+  community: 'Cộng đồng',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +265,40 @@ export const VoteModalButton_Text_vi = {
   voteModalCancel: 'Hủy bỏ',
   voteModalComplete: 'Hoàn thành',
   voteModalInstall: 'Cài đặt ứng dụng',
+};
+
+export const CommunityMainText_VIE: CommunityPageTextType = {
+  community: 'Cộng đồng',
+  home: 'Trang chủ',
+  search: 'Tìm kiếm',
+  recentlyBoards: 'Ban đã ghé thăm gần đây',
+  recommendedBoards: 'Được đề xuất cho của bạn',
+};
+export const CommunityBoardText_VIE: CommunityBoardTextType = {
+  all: 'Tất cả',
+  recommendCount: 'Giống như',
+  viewCount: 'Xem',
+  popular: 'Nổi tiếng',
+  daysAgo: 'Ngày trước',
+  hoursAgo: 'Giờ trước',
+  minsAgo: 'Phút trước',
+  bottomTabBar: {
+    write: 'Viết',
+    popular: 'Nổi tiếng',
+    myPost: 'Câu chuyện của tôi',
+  },
+  boardLang: {
+    modalHeader: 'Câu chuyện Thiết lập ngôn ngữ',
+    modalExplain: 'Bạn có thể thấy văn bản được viết bằng ngôn ngữ đã chọn!',
+    current: 'Bộ lọc ngôn ngữ hiện đang được sử dụng',
+    ALL: 'Tất cả các ngôn ngữ',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

@@ -6,12 +6,14 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_JAP: NavBarTextType = {
   vote: '投票',
-  community: 'Community',
+  community: 'コミュニティ',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +265,40 @@ export const VoteModalButton_Text_ja = {
   voteModalCancel: 'キャンセル',
   voteModalComplete: '完了',
   voteModalInstall: 'アプリをインストールする',
+};
+
+export const CommunityMainText_JAP: CommunityPageTextType = {
+  community: 'コミュニティ',
+  home: '掲示板ホーム',
+  search: '掲示板検索',
+  recentlyBoards: '最近訪れた掲示板',
+  recommendedBoards: 'おすすめ掲示板',
+};
+export const CommunityBoardText_JAP: CommunityBoardTextType = {
+  all: '全',
+  recommendCount: 'おすすめ',
+  viewCount: 'ヒット',
+  popular: '人気',
+  daysAgo: '日 前',
+  hoursAgo: '時間 前',
+  minsAgo: '分 前',
+  bottomTabBar: {
+    write: '書き込み',
+    popular: '人気',
+    myPost: '私が書いた記事',
+  },
+  boardLang: {
+    modalHeader: '話 設定言語',
+    modalExplain: '選択した言語で書かれたテキストを見ることができます!',
+    current: 'すべての言語',
+    ALL: 'すべての言語',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

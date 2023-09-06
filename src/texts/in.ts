@@ -6,12 +6,14 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_IND: NavBarTextType = {
-  vote: 'Pemungutan suara',
-  community: 'Community',
+  vote: 'Vote',
+  community: 'Komunitas',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +265,40 @@ export const VoteModalButton_Text_in = {
   voteModalCancel: 'Batal',
   voteModalComplete: 'Selesai',
   voteModalInstall: 'Pasang aplikasi',
+};
+
+export const CommunityMainText_IND: CommunityPageTextType = {
+  community: 'Komunitas',
+  home: 'Beranda',
+  search: 'Cari',
+  recentlyBoards: 'Papan Baru-Baru Ini Dikunjungi',
+  recommendedBoards: 'Disarankan untuk Anda',
+};
+export const CommunityBoardText_IND: CommunityBoardTextType = {
+  all: 'Semua',
+  recommendCount: 'Seperti',
+  viewCount: 'Lihat',
+  popular: 'Populer',
+  daysAgo: 'hari sebelumnya',
+  hoursAgo: 'jam sebelumnya',
+  minsAgo: 'menit sebelumnya',
+  bottomTabBar: {
+    write: 'Tulis',
+    popular: 'Populer',
+    myPost: 'Cerita Saya',
+  },
+  boardLang: {
+    modalHeader: 'Posts Pengaturan Bahasa',
+    modalExplain: 'Anda dapat melihat teks yang ditulis dalam bahasa yang dipilih',
+    current: 'Filter bahasa yang kini dipakai',
+    ALL: 'Semua bahasa',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };
