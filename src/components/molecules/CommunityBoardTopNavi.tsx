@@ -1,22 +1,18 @@
 import { useRouter } from 'next/router';
 import IconArrowLeft from '../atoms/IconArrowLeft';
-import IconFilter from '../atoms/IconFilter';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
+import CommunityBoardLangSelector from './CommunityBoardLangSelector';
 
 export type CommunityBoardTopNaviPropType = {
   backLink: string;
   boardTitle: string;
-  withLang: boolean;
-  language: string;
-  setLangModal: Dispatch<SetStateAction<boolean>>;
+  langSelector?: ReactNode;
 };
 
 const CommunityBoardTopNavi = ({
   backLink,
   boardTitle,
-  withLang,
-  language,
-  setLangModal,
+  langSelector,
 }: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
 
@@ -37,20 +33,7 @@ const CommunityBoardTopNavi = ({
           />
           <h2>{boardTitle}</h2>
         </div>
-        {withLang && (
-          <div
-            css={{
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            onClick={() => setLangModal(true)}
-          >
-            <IconFilter />
-            <span css={{ margin: '0px 5px' }}>{language}</span>
-          </div>
-        )}
+        {langSelector}
       </div>
     </>
   );

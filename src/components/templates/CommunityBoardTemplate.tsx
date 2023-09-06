@@ -16,18 +16,17 @@ import IconMyPost from '../atoms/IconMyPost';
 import IconPopular from '../atoms/IconPopular';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
+import CommunityBoardLangSelector from '../molecules/CommunityBoardLangSelector';
 
 // TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
 
 export type CommunityBoardPropType = {
-  isMyPostPage?: boolean;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   texts: CommunityBoardTextType;
 };
 
 const CommunityBoardTemplate = ({
-  isMyPostPage,
   communityBoardData,
   communityBoardTopics,
   texts,
@@ -52,7 +51,6 @@ const CommunityBoardTemplate = ({
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
 
   const isPostExist = postList.length !== 0;
-  const showTabBar = !isMyPostPage;
 
   const onClickWrite = () => router.push('/');
   const onClickPopular = () => {
@@ -79,20 +77,21 @@ const CommunityBoardTemplate = ({
       }}
     >
       <CommunityBoardTopNavi
-        backLink={!isMyPostPage ? '/community' : `/community/board/${boardInfo.BOARD_IDX}`}
-        boardTitle={!isMyPostPage ? boardInfo.BOARD_TITLE : texts.bottomTabBar.myPost}
-        withLang={!isMyPostPage}
-        language={texts.boardLang[boardLang]}
-        setLangModal={setLangModal}
+        backLink="/community"
+        boardTitle={boardInfo.BOARD_TITLE}
+        langSelector={
+          <CommunityBoardLangSelector
+            language={texts.boardLang[boardLang]}
+            onClick={() => setLangModal(true)}
+          />
+        }
       />
-      {showTabBar && (
-        <TopicTabBar
-          stringTopicAll={texts.all}
-          topicList={topicList}
-          topicIndex={topicIndex}
-          setTopicIndex={setTopicIndex}
-        />
-      )}
+      <TopicTabBar
+        stringTopicAll={texts.all}
+        topicList={topicList}
+        topicIndex={topicIndex}
+        setTopicIndex={setTopicIndex}
+      />
       {isPostExist ? (
         <ul>
           {postList.map((post, idx) => {
@@ -103,23 +102,21 @@ const CommunityBoardTemplate = ({
         <CommunityBoardNoPost
           onClickWrite={onClickWrite}
           buttonText={texts.buttonWrite}
-          texts={isMyPostPage ? texts.noMyPostTexts : texts.noPostTexts}
+          texts={texts.noPostTexts}
         />
       )}
       <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT) || 200} />
-      {showTabBar && (
-        <BottomTabBar
-          items={[
-            { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
-            {
-              icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
-              title: texts.bottomTabBar.popular,
-              onClick: onClickPopular,
-            },
-            { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
-          ]}
-        />
-      )}
+      <BottomTabBar
+        items={[
+          { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
+          {
+            icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
+            title: texts.bottomTabBar.popular,
+            onClick: onClickPopular,
+          },
+          { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
+        ]}
+      />
       <CommunityLanguageModal
         texts={texts.boardLang}
         opened={langModal}
