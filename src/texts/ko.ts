@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
   CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -273,4 +274,32 @@ export const CommunityMainText_KR: CommunityPageTextType = {
   search: '게시판 검색',
   recentlyBoards: '최근 방문한 게시판',
   recommendedBoards: '추천 게시판',
+};
+export const CommunityBoardText_KR: CommunityBoardTextType = {
+  all: '전체',
+  recommendCount: '추천수',
+  viewCount: '조회수',
+  popular: '인기',
+  daysAgo: '일 전',
+  hoursAgo: '시간 전',
+  minsAgo: '분 전',
+  bottomTabBar: {
+    write: '글쓰기',
+    popular: '인기글',
+    myPost: '내가 쓴 글',
+  },
+  boardLang: {
+    modalHeader: '게시물 언어 설정',
+    modalExplain: '선택한 언어로 작성된 게시물만 보입니다!',
+    current: '현재 사용 중인 언어필터',
+    ALL: '모든 언어',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

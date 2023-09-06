@@ -5,7 +5,7 @@ import {
 } from '@/api/Community';
 import { GetServerSideProps } from 'next';
 import Layout from '@/components/organisms/Layout';
-import { NavBarText_KR, FooterText_KR } from '@/texts/ko';
+import { NavBarText_KR, FooterText_KR, CommunityMainText_KR } from '@/texts/ko';
 import nookies from 'nookies';
 import type {
   CommunityBoardCategoryResponseType,
@@ -26,6 +26,7 @@ const Community = ({
         communityHomeData={communityHomeData}
         boardCategoryData={boardCategoryData}
         boardResultData={boardResultData}
+        texts={CommunityMainText_KR}
       />
     </Layout>
   );

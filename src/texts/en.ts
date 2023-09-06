@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
   CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -272,4 +273,32 @@ export const CommunityMainText_ENG: CommunityPageTextType = {
   search: 'Search',
   recentlyBoards: 'Recently Visited Board',
   recommendedBoards: 'Recommended for you',
+};
+export const CommunityBoardText_ENG: CommunityBoardTextType = {
+  all: 'All',
+  recommendCount: 'Like',
+  viewCount: 'View',
+  popular: 'Popular',
+  daysAgo: 'days ago',
+  hoursAgo: 'hours ago',
+  minsAgo: 'mins ago',
+  bottomTabBar: {
+    write: 'Write',
+    popular: 'Trending',
+    myPost: 'My Posts',
+  },
+  boardLang: {
+    modalHeader: 'Posts Language Settings',
+    modalExplain: 'You can only see the post written in the selected language.',
+    current: 'The current language',
+    ALL: 'All languages',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

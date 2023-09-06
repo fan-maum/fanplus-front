@@ -55,6 +55,23 @@ export type CommunityBoardResponseType = {
   };
 };
 
+export type TopicListItemType = {
+  IDX: number;
+  NAME: string;
+  STATUS: 'Y' | 'N';
+  POST_CNT: number;
+};
+export type CommunityBoardTopicResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      TOPIC_LIST: Array<TopicListItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};
+
 export type BoardCategoryItemType = {
   CATEGORY_IDX: number;
   CATEGORY_NAME: string;

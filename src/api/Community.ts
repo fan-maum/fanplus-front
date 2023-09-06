@@ -1,5 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
-import type { CommunityHomeResponseType } from '@/types/community';
+import type {
+  CommunityBoardResponseType,
+  CommunityBoardTopicResponseType,
+  CommunityHomeResponseType,
+} from '@/types/community';
 import type { BackLangType } from '@/types/common';
 
 export const getCommunityHomeData = async (userId: string) => {
@@ -16,11 +20,21 @@ export const getCommunityBoardData = async (
   page: number,
   lang: BackLangType,
   boardLang: BackLangType | 'ALL',
-  topic: number | ''
+  topic: number | '',
+  view_type: string
 ) => {
-  const response: AxiosResponse = await axios.get(
+  if (topic === 0) topic = '';
+  const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang } }
+    { params: { userId, boardIndex, page, topic, lang, boardLang, view_type } }
+  );
+  return response.data;
+};
+
+export const getCommunityBoardTopics = async (userId: string, boardIndex: number) => {
+  const response: AxiosResponse<CommunityBoardTopicResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/boardTopic`,
+    { params: { userId, boardIndex } }
   );
   return response.data;
 };

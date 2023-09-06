@@ -1,6 +1,6 @@
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
-import CommonPagination from './CommonPagination';
+import PaginationBase from '../molecules/PaginationBase';
 import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 
 export interface VotePaginationProps {
@@ -30,9 +30,7 @@ const VotePagination = ({ totalCount, itemsPerPage, isMobile }: VotePaginationPr
     });
   };
 
-  return (
-    <CommonPagination pageCount={pageCount} forcePage={forcePage} onPageChange={onPageChange} />
-  );
+  return <PaginationBase pageCount={pageCount} forcePage={forcePage} onPageChange={onPageChange} />;
 };
 
 export default VotePagination;

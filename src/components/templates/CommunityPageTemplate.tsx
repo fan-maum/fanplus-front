@@ -5,6 +5,7 @@ import {
   CommunityHomeResponseType,
 } from '@/types/community';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { CommunityPageTextType } from '@/types/textTypes';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
@@ -15,6 +16,7 @@ export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
   boardCategoryData: CommunityBoardCategoryResponseType;
   boardResultData: CommunityBoardResultResponseType;
+  texts: CommunityPageTextType;
 };
 
 type TabBarType = 'home' | 'search';
@@ -23,12 +25,12 @@ const CommunityPageTemplate = ({
   communityHomeData,
   boardCategoryData,
   boardResultData,
+  texts
 }: CommunityPropTypes) => {
   const [tabBar, setTabBar] = useState<TabBarType>('search');
   const searchTabState = useState<string>('전체');
   const [activeTabState] = searchTabState;
 
-  const texts = CommunityMainText_KR;
   const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
   const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
@@ -45,7 +47,7 @@ const CommunityPageTemplate = ({
     <div
       css={{
         width: '100%',
-        maxWidth: '400px',
+        maxWidth: '768px',
         margin: '0px auto',
       }}
     >
@@ -126,7 +128,7 @@ const TabBarItem = ({
         lineHeight: '37px',
         fontSize: '15px',
         fontWeight: '600',
-        color: selected ? '#ff5656' : '#000',
+        color: selected ? '#ff5656' : '#999999',
         borderBottom: `2.5px solid ${selected ? '#ff5656' : '#d9d9d9'}`,
         textAlign: 'center',
         cursor: 'pointer',

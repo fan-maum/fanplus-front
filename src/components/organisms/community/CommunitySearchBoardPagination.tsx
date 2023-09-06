@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
-import CommonPagination from '../CommonPagination';
-import { BoardResultItemType } from '@/types/community';
+import PaginationBase from '@/components/molecules/PaginationBase';
 
 export interface VotePaginationProps {
   totalCount: number;
@@ -24,9 +23,7 @@ const CommunitySearchBoardPagination = ({ totalCount, itemsPerPage }: VotePagina
     });
   };
 
-  return (
-    <CommonPagination pageCount={pageCount} forcePage={forcePage} onPageChange={onPageChange} />
-  );
+  return <PaginationBase pageCount={pageCount} forcePage={forcePage} onPageChange={onPageChange} />;
 };
 
 export default CommunitySearchBoardPagination;

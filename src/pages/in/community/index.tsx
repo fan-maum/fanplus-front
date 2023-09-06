@@ -5,7 +5,7 @@ import {
 } from '@/api/Community';
 import { GetServerSideProps } from 'next';
 import Layout from '@/components/organisms/Layout';
-import { NavBarText_IND, FooterText_IND } from '@/texts/in';
+import { NavBarText_IND, FooterText_IND, CommunityMainText_IND } from '@/texts/in';
 import nookies from 'nookies';
 import type {
   CommunityBoardCategoryResponseType,
@@ -26,6 +26,7 @@ const Community = ({
         communityHomeData={communityHomeData}
         boardCategoryData={boardCategoryData}
         boardResultData={boardResultData}
+        texts={CommunityMainText_IND}
       />
     </Layout>
   );
@@ -36,8 +37,9 @@ export const getServerSideProps: GetServerSideProps<{
   boardCategoryData: CommunityBoardCategoryResponseType;
 }> = async (context) => {
   // TODO: api에 userId 값이 필요없게 변경될 예정.. (feat. 소진님) + 게시판 언어 설정도..
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'];
+  // const cookies = nookies.get(context);
+  // const userId = cookies['user_id'];
+  const userId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
   const category_type = parseInt(context.query.category_type as string) || 0;
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) || 0;
