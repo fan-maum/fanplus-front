@@ -166,6 +166,8 @@ export type CommunityPageTextType = {
   search: string;
   recentlyBoards: string;
   recommendedBoards: string;
+  noRecentBoardTexts: string[];
+  buttonSearch: string;
 };
 export type CommunityBoardTextType = {
   all: string;
@@ -194,6 +196,9 @@ export type CommunityBoardTextType = {
     id: string;
     zhtw: string;
   };
+  noPostTexts: string[];
+  noMyPostTexts: string[];
+  buttonWrite: string;
 };
 
 export type TextType = {

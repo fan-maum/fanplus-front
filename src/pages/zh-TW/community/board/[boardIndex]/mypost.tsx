@@ -13,7 +13,7 @@ const MyPost = ({ communityBoardData, communityBoardTopics }: CommunityBoardProp
   return (
     <Layout navBarTexts={NavBarText_zh_TW} footerTexts={FooterText_zh_TW}>
       <CommunityBoardTemplate
-        isMyPost
+        isMyPostPage
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
         texts={CommunityBoardText_zh_TW}

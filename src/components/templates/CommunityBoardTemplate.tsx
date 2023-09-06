@@ -15,18 +15,19 @@ import IconPopularBlack from '../atoms/IconPopularBlack';
 import IconMyPost from '../atoms/IconMyPost';
 import IconPopular from '../atoms/IconPopular';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
+import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 
 // TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
 
 export type CommunityBoardPropType = {
-  isMyPost?: boolean;
+  isMyPostPage?: boolean;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   texts: CommunityBoardTextType;
 };
 
 const CommunityBoardTemplate = ({
-  isMyPost,
+  isMyPostPage,
   communityBoardData,
   communityBoardTopics,
   texts,
@@ -50,7 +51,8 @@ const CommunityBoardTemplate = ({
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
 
-  const backLink = isMyPost ? `/community/board/${boardInfo.BOARD_IDX}` : '/community';
+  const isPostExist = postList.length !== 0;
+  const backLink = isMyPostPage ? `/community/board/${boardInfo.BOARD_IDX}` : '/community';
 
   const onClickWrite = () => router.push('/');
   const onClickPopular = () => {
@@ -78,12 +80,12 @@ const CommunityBoardTemplate = ({
     >
       <CommunityBoardTopNavi
         backLink={backLink}
-        boardTitle={!isMyPost ? boardInfo.BOARD_TITLE : texts.bottomTabBar.myPost}
-        withLang={!isMyPost}
+        boardTitle={!isMyPostPage ? boardInfo.BOARD_TITLE : texts.bottomTabBar.myPost}
+        withLang={!isMyPostPage}
         language={texts.boardLang[boardLang]}
         setLangModal={setLangModal}
       />
-      {!isMyPost && (
+      {!isMyPostPage && (
         <TopicTabBar
           stringTopicAll={texts.all}
           topicList={topicList}
@@ -91,23 +93,33 @@ const CommunityBoardTemplate = ({
           setTopicIndex={setTopicIndex}
         />
       )}
-      <ul>
-        {postList.map((post, idx) => {
-          return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
-        })}
-      </ul>
+      {isPostExist ? (
+        <ul>
+          {postList.map((post, idx) => {
+            return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
+          })}
+        </ul>
+      ) : (
+        <CommunityBoardNoPost
+          onClickWrite={onClickWrite}
+          buttonText={texts.buttonWrite}
+          texts={isMyPostPage ? texts.noMyPostTexts : texts.noPostTexts}
+        />
+      )}
       <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT) || 200} />
-      <BottomTabBar
-        items={[
-          { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
-          {
-            icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
-            title: texts.bottomTabBar.popular,
-            onClick: onClickPopular,
-          },
-          { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
-        ]}
-      />
+      {!isMyPostPage && (
+        <BottomTabBar
+          items={[
+            { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
+            {
+              icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
+              title: texts.bottomTabBar.popular,
+              onClick: onClickPopular,
+            },
+            { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
+          ]}
+        />
+      )}
       <CommunityLanguageModal
         texts={texts.boardLang}
         opened={langModal}
