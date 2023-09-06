@@ -7,6 +7,7 @@ import {
   LoginPageTextType,
   SignUpPageTextType,
   CommunityPageTextType,
+  CommunityBoardTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -272,4 +273,32 @@ export const CommunityMainText_zh_TW: CommunityPageTextType = {
   search: '搜索消息面板',
   recentlyBoards: '最近瀏覽的消息面板',
   recommendedBoards: '推薦的消息面板',
+};
+export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
+  all: '全部',
+  recommendCount: '推薦',
+  viewCount: '閱讀數',
+  popular: '人氣',
+  daysAgo: '日 前',
+  hoursAgo: '小時 前',
+  minsAgo: '分鐘 前',
+  bottomTabBar: {
+    write: '發帖子',
+    popular: '熱門文章',
+    myPost: '我發的貼子',
+  },
+  boardLang: {
+    modalHeader: '帖子 語言設定',
+    modalExplain: '您只能看到以所選語言撰寫的帖子',
+    current: '当前使用的语言',
+    ALL: '全部語言',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
 };

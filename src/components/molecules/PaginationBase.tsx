@@ -1,7 +1,12 @@
 import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
 import Image from 'next/image';
 
-const VotePaginationDetail = ({ pageCount, forcePage, onPageChange }: ReactPaginateProps) => {
+const PaginationBase = ({
+  pageRangeDisplayed,
+  pageCount,
+  forcePage,
+  onPageChange,
+}: ReactPaginateProps) => {
   return (
     <div css={{ background: '#FFF', width: '100%', display: 'flex', justifyContent: 'center' }}>
       <ReactPaginate
@@ -10,12 +15,14 @@ const VotePaginationDetail = ({ pageCount, forcePage, onPageChange }: ReactPagin
           background: '#FFF',
           display: 'flex',
           justifyContent: 'center',
+          alignItems: 'center',
           gap: '20px',
           zIndex: 100,
           margin: '40px 0',
+          fontSize: '12px',
         }}
         previousLabel={
-          <Image width={10} height={10} src="/icons/icon_paginationArrow.png" alt="arrow" />
+          <Image width={11} height={11} src="/icons/icon_paginationArrow.png" alt="arrow" />
         }
         nextLabel={
           <Image
@@ -26,7 +33,7 @@ const VotePaginationDetail = ({ pageCount, forcePage, onPageChange }: ReactPagin
             css={{ transform: 'scaleX(-1)' }}
           />
         }
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={pageRangeDisplayed || 5}
         marginPagesDisplayed={0}
         forcePage={forcePage && forcePage - 1}
         pageCount={pageCount}
@@ -38,4 +45,4 @@ const VotePaginationDetail = ({ pageCount, forcePage, onPageChange }: ReactPagin
   );
 };
 
-export default VotePaginationDetail;
+export default PaginationBase;

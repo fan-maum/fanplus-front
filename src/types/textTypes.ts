@@ -167,6 +167,34 @@ export type CommunityPageTextType = {
   recentlyBoards: string;
   recommendedBoards: string;
 };
+export type CommunityBoardTextType = {
+  all: string;
+  viewCount: string;
+  recommendCount: string;
+  popular: string;
+  daysAgo: string;
+  hoursAgo: string;
+  minsAgo: string;
+  bottomTabBar: {
+    write: string;
+    popular: string;
+    myPost: string;
+  };
+  boardLang: {
+    modalHeader: string;
+    modalExplain: string;
+    current: string;
+    ALL: string;
+    ko: string;
+    en: string;
+    ja: string;
+    zh: string;
+    es: string;
+    vi: string;
+    id: string;
+    zhtw: string;
+  };
+};
 
 export type TextType = {
   NavBar: NavBarTextType;
