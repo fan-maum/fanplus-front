@@ -6,10 +6,10 @@ import type {
 } from '@/types/community';
 import type { BackLangType } from '@/types/common';
 
-export const getCommunityHomeData = async (userId: string) => {
+export const getCommunityHomeData = async (userId: string, lang: BackLangType | 'ALL') => {
   const response: AxiosResponse<CommunityHomeResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId } }
+    { params: { userId, lang } }
   );
   return response.data;
 };

@@ -35,7 +35,7 @@ const CommunityPageTemplate = ({
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
   const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
 
-  const isRecentlyListExist = recentlyList.length !== 0;
+  const isRecentlyListExist = !!recentlyList && recentlyList.length !== 0;
 
   /**
    * searchCategoryTab : IDX - NAME

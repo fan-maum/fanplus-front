@@ -1,4 +1,4 @@
-import { getCommunityBoardData, getCommunityBoardTopics } from '@/api/Community';
+import { getCommunityBoardData } from '@/api/Community';
 import { GetServerSideProps } from 'next';
 import { CommunityBoardText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
 import nookies from 'nookies';
@@ -6,6 +6,7 @@ import Layout from '@/components/organisms/Layout';
 import CommunityMyPostTemplate, {
   CommunityMyPostPropType,
 } from '@/components/templates/CommunityMyPostTemplate';
+import { notFound } from 'next/navigation';
 
 const MyPost = ({ communityBoardData }: CommunityMyPostPropType) => {
   return (
@@ -21,9 +22,8 @@ const MyPost = ({ communityBoardData }: CommunityMyPostPropType) => {
 export const getServerSideProps: GetServerSideProps<
   Omit<CommunityMyPostPropType, 'texts'>
 > = async (context) => {
-  // const cookies = nookies.get(context);
-  // const userId = cookies['user_id'];
-  const userId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
+  const cookies = nookies.get(context);
+  const userId = cookies['user_id'] || '';
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps<
   const topic = '';
   const view_type = 'my_post';
 
-  if (!boardIndex) return { notFound: true };
+  if (typeof boardIndex !== 'number') return { notFound: true };
 
   const communityBoardData = await getCommunityBoardData(
     userId,
@@ -43,11 +43,8 @@ export const getServerSideProps: GetServerSideProps<
     topic,
     view_type
   );
-  const communityBoardTopics = await getCommunityBoardTopics(userId, boardIndex);
 
-  return {
-    props: { communityBoardData, communityBoardTopics },
-  };
+  return { props: { communityBoardData } };
 };
 
 export default MyPost;

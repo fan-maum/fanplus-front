@@ -24,9 +24,9 @@ const Board = ({ communityBoardData, communityBoardTopics }: CommunityBoardPropT
 export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType, 'texts'>> = async (
   context
 ) => {
-  // const cookies = nookies.get(context);
-  // const userId = cookies['user_id'];
-  const userId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
+  const cookies = nookies.get(context);
+  const userId = cookies['user_id'] || '';
+  const userIdforTopic = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
     topic,
     view_type
   );
-  const communityBoardTopics = await getCommunityBoardTopics(userId, boardIndex);
+  const communityBoardTopics = await getCommunityBoardTopics(userIdforTopic, boardIndex);
 
   return {
     props: { communityBoardData, communityBoardTopics },

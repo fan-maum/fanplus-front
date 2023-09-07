@@ -36,18 +36,21 @@ export const getServerSideProps: GetServerSideProps<{
   communityHomeData: CommunityHomeResponseType;
   boardCategoryData: CommunityBoardCategoryResponseType;
 }> = async (context) => {
-  // TODO: api에 userId 값이 필요없게 변경될 예정.. (feat. 소진님) + 게시판 언어 설정도..
-  // const cookies = nookies.get(context);
-  // const userId = cookies['user_id'];
-  const userId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
+  const cookies = nookies.get(context);
+  const userId = cookies['user_id'] || '';
+  const lang = 'vi';
   const category_type = parseInt(context.query.category_type as string) || 0;
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) || 0;
   const per_page = 20;
-  const communityHomeData = await getCommunityHomeData(userId);
-  const boardCategoryData = await getCommunityBoardCategoryData(userId);
+
+  // TODO: userId 필요없는 api 나올 예정 (게시판 검색 부분: 경은님 쪽 작업)
+  const mockUserId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
+
+  const communityHomeData = await getCommunityHomeData(userId, lang);
+  const boardCategoryData = await getCommunityBoardCategoryData(mockUserId);
   const boardResultData = await getCommunityBoardResultData(
-    userId,
+    mockUserId,
     category_type,
     searchValue,
     page,
