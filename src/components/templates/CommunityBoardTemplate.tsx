@@ -15,18 +15,18 @@ import IconPopularBlack from '../atoms/IconPopularBlack';
 import IconMyPost from '../atoms/IconMyPost';
 import IconPopular from '../atoms/IconPopular';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
+import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
+import CommunityBoardLangSelector from '../molecules/CommunityBoardLangSelector';
 
 // TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
 
 export type CommunityBoardPropType = {
-  isMyPost?: boolean;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   texts: CommunityBoardTextType;
 };
 
 const CommunityBoardTemplate = ({
-  isMyPost,
   communityBoardData,
   communityBoardTopics,
   texts,
@@ -40,30 +40,24 @@ const CommunityBoardTemplate = ({
   );
   const [langModal, setLangModal] = useState(false);
 
-  useEffect(() => {
-    setTopicIndex(parseInt(router.query.topic as string) || 0);
-    setViewType((router.query.view as string) || 'all');
-    setBoardLang((router.query.boardLang as BackLangType) || 'ALL');
-  }, [router.query]);
-
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
 
-  const backLink = isMyPost ? `/community/board/${boardInfo.BOARD_IDX}` : '/community';
+  const isPostExist = postList.length !== 0;
 
   const onClickWrite = () => router.push('/');
   const onClickPopular = () => {
     if (viewType !== 'best_post') {
       setViewType('best_post');
-      router.push({
+      router.replace({
         pathname: router.pathname,
         query: { ...router.query, view: 'best_post', page: 1 },
       });
       return;
     }
     setViewType('all');
-    router.push({ pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } });
+    router.replace({ pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } });
   };
   const onClickMyPost = () => router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
 
@@ -77,25 +71,33 @@ const CommunityBoardTemplate = ({
       }}
     >
       <CommunityBoardTopNavi
-        backLink={backLink}
-        boardTitle={!isMyPost ? boardInfo.BOARD_TITLE : texts.bottomTabBar.myPost}
-        withLang={!isMyPost}
-        language={texts.boardLang[boardLang]}
-        setLangModal={setLangModal}
+        boardTitle={boardInfo.BOARD_TITLE}
+        rightItem={
+          <CommunityBoardLangSelector
+            language={texts.boardLang[boardLang]}
+            onClick={() => setLangModal(true)}
+          />
+        }
       />
-      {!isMyPost && (
-        <TopicTabBar
-          stringTopicAll={texts.all}
-          topicList={topicList}
-          topicIndex={topicIndex}
-          setTopicIndex={setTopicIndex}
+      <TopicTabBar
+        stringTopicAll={texts.all}
+        topicList={topicList}
+        topicIndex={topicIndex}
+        setTopicIndex={setTopicIndex}
+      />
+      {isPostExist ? (
+        <ul>
+          {postList.map((post, idx) => {
+            return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
+          })}
+        </ul>
+      ) : (
+        <CommunityBoardNoPost
+          onClickWrite={onClickWrite}
+          buttonText={texts.buttonWrite}
+          texts={texts.noPostTexts}
         />
       )}
-      <ul>
-        {postList.map((post, idx) => {
-          return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
-        })}
-      </ul>
       <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT) || 200} />
       <BottomTabBar
         items={[
@@ -137,7 +139,7 @@ const TopicTabBar = ({
   const router = useRouter();
   const handleClick = (topicIndex: number) => {
     setTopicIndex(topicIndex);
-    router.push({ pathname: router.pathname, query: { ...router.query, topic: topicIndex } });
+    router.replace({ pathname: router.pathname, query: { ...router.query, topic: topicIndex } });
   };
   return (
     <ul

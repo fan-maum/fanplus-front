@@ -9,7 +9,7 @@ const CommunityBoardPagination = ({ totalCount }: { totalCount: number }) => {
   const { page } = router.query;
   const forcePage = Number(page) || 1;
   const handlePageChange = (event: { selected: number }) => {
-    router.push({
+    router.replace({
       pathname: router.pathname,
       query: {
         ...router.query,

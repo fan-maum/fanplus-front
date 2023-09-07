@@ -273,6 +273,12 @@ export const CommunityMainText_IND: CommunityPageTextType = {
   search: 'Cari',
   recentlyBoards: 'Papan Baru-Baru Ini Dikunjungi',
   recommendedBoards: 'Disarankan untuk Anda',
+  noRecentBoardTexts: [
+    'Apakah ini pertama kalinya',
+    'Anda menggunakan Fan Plus?',
+    'Cari bintang favoritmu!',
+  ],
+  buttonSearch: 'Cari',
 };
 export const CommunityBoardText_IND: CommunityBoardTextType = {
   all: 'Semua',
@@ -301,4 +307,7 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
     id: 'Bahasa Indonesia',
     zhtw: '中文(繁體)',
   },
+  noPostTexts: ['Tidak ada postingan', 'Jadilah orang pertama', 'yang meninggalkan postingan'],
+  noMyPostTexts: ['Tidak ada postingan yang ditulis'],
+  buttonWrite: 'Tulis',
 };

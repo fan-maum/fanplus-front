@@ -273,6 +273,8 @@ export const CommunityMainText_ENG: CommunityPageTextType = {
   search: 'Search',
   recentlyBoards: 'Recently Visited Board',
   recommendedBoards: 'Recommended for you',
+  noRecentBoardTexts: ['Are you new to FanPlus?', 'Search for your favorite star!'],
+  buttonSearch: 'Search',
 };
 export const CommunityBoardText_ENG: CommunityBoardTextType = {
   all: 'All',
@@ -301,4 +303,7 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
     id: 'Bahasa Indonesia',
     zhtw: '中文(繁體)',
   },
+  noPostTexts: ['There is no post.', 'Write a first post.'],
+  noMyPostTexts: ['There is no post.'],
+  buttonWrite: 'Write',
 };
