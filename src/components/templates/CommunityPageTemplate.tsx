@@ -1,16 +1,16 @@
-import { CommunityMainText_KR } from '@/texts/ko';
-import {
+import type {
   CommunityBoardCategoryResponseType,
   CommunityBoardResultResponseType,
   CommunityHomeResponseType,
 } from '@/types/community';
+import type { CommunityPageTextType } from '@/types/textTypes';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { CommunityPageTextType } from '@/types/textTypes';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
+import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
 
 export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
@@ -34,6 +34,8 @@ const CommunityPageTemplate = ({
   const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
   const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
+
+  const isRecentlyListExist = recentlyList.length !== 0;
 
   /**
    * searchCategoryTab : IDX - NAME
@@ -59,7 +61,16 @@ const CommunityPageTemplate = ({
       />
       {tabBar === 'home' ? (
         <>
-          <CommunityBoardWrapper title={texts.recentlyBoards} boardList={recentlyList} />
+          {isRecentlyListExist ? (
+            <CommunityBoardWrapper title={texts.recentlyBoards} boardList={recentlyList} />
+          ) : (
+            <CommunityNoRecentBoard
+              title={texts.recentlyBoards}
+              texts={texts.noRecentBoardTexts}
+              buttonText={texts.buttonSearch}
+              onClickSearch={() => setTabBar('search')}
+            />
+          )}
           <CommunityBoardWrapper title={texts.recommendedBoards} boardList={recommendList} />
         </>
       ) : (

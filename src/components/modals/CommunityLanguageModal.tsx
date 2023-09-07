@@ -60,7 +60,7 @@ const CommunityLanguageModal = ({
   const router = useRouter();
   const onClickLanguageBox = (language: BackLangType | 'ALL') => {
     setBoardLanguage(language);
-    router.push({
+    router.replace({
       pathname: router.pathname,
       query: { ...router.query, boardLang: language, page: 1 },
     });

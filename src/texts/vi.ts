@@ -274,6 +274,12 @@ export const CommunityMainText_VIE: CommunityPageTextType = {
   search: 'Tìm kiếm',
   recentlyBoards: 'Ban đã ghé thăm gần đây',
   recommendedBoards: 'Được đề xuất cho của bạn',
+  noRecentBoardTexts: [
+    'Đây có phải là lần đầu tiên',
+    'bạn sử dụng Fan Plus?',
+    'Hãy tìm kiếm ngôi sao yêu thích của bạn!',
+  ],
+  buttonSearch: 'Tìm kiếm',
 };
 export const CommunityBoardText_VIE: CommunityBoardTextType = {
   all: 'Tất cả',
@@ -302,6 +308,9 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
     id: 'Bahasa Indonesia',
     zhtw: '中文(繁體)',
   },
+  noPostTexts: ['Không có bài viết nào', 'Hãy là người đầu tiên để lại bài viết'],
+  noMyPostTexts: ['Không có bài viết nào được viết'],
+  buttonWrite: 'Viết',
 };
 
 export const CommunityPostText_VIE: CommunityPostTextType = {};

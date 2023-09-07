@@ -3,10 +3,7 @@ import type { PostListItemType } from '@/types/community';
 import IconPopular from '../atoms/IconPopular';
 import { CommunityBoardTextType } from '@/types/textTypes';
 import { formatWrittenTime, timeType } from '@/utils/util';
-import { text } from 'stream/consumers';
 import TopicBubble from '../atoms/TopicBubble';
-
-// TODO: 작성 시간 변환하는 로직 추가 필요~
 
 type OwnPropType = {
   postItem: PostListItemType;

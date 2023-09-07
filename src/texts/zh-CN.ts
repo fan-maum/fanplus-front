@@ -274,6 +274,8 @@ export const CommunityMainText_zh_CN: CommunityPageTextType = {
   search: '搜索消息面板',
   recentlyBoards: '最近浏览的消息面板',
   recommendedBoards: '推荐的消息面板',
+  noRecentBoardTexts: ['您是FanPlus新手吗？', '搜索你最喜欢的明星！'],
+  buttonSearch: '搜索',
 };
 export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   all: '全部',
@@ -302,6 +304,9 @@ export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
     id: 'Bahasa Indonesia',
     zhtw: '中文(繁體)',
   },
+  noPostTexts: ['没有帖子。', '成为第一个发表帖子的人'],
+  noMyPostTexts: ['没有帖子。'],
+  buttonWrite: '发帖子',
 };
 
 export const CommunityPostText_zh_CN: CommunityPostTextType = {};
