@@ -6,7 +6,6 @@ import Layout from '@/components/organisms/Layout';
 import CommunityMyPostTemplate, {
   CommunityMyPostPropType,
 } from '@/components/templates/CommunityMyPostTemplate';
-import { notFound } from 'next/navigation';
 
 const MyPost = ({ communityBoardData }: CommunityMyPostPropType) => {
   return (
