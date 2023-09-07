@@ -67,6 +67,7 @@ export type CommunityBoardTopicResponseType = {
     MSG: string;
     DATAS: {
       TOPIC_LIST: Array<TopicListItemType>;
+      DATE: string;
     };
     TIMESTAMP: number;
   };

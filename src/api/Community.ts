@@ -31,10 +31,10 @@ export const getCommunityBoardData = async (
   return response.data;
 };
 
-export const getCommunityBoardTopics = async (userId: string, boardIndex: number) => {
+export const getCommunityBoardTopics = async (boardIndex: number, lang: BackLangType) => {
   const response: AxiosResponse<CommunityBoardTopicResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/boardTopic`,
-    { params: { userId, boardIndex } }
+    { params: { boardIndex, lang } }
   );
   return response.data;
 };
