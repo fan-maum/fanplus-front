@@ -3,6 +3,7 @@ import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityHomeResponseType,
+  CommunityNoticeBannerResponseType,
 } from '@/types/community';
 import type { BackLangType } from '@/types/common';
 
@@ -57,6 +58,14 @@ export const getCommunityBoardResultData = async (
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
     { params: { userId, category_type, searchValue, page, per_page } }
+  );
+  return response.data;
+};
+
+export const getCommunityNoticeBannerData = async (boardIndex: number, userId: string) => {
+  const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/noticeBanner`,
+    { params: { boardIndex, userId } }
   );
   return response.data;
 };

@@ -1,6 +1,7 @@
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
+  CommunityNoticeBannerResponseType,
   TopicListItemType,
 } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
@@ -17,18 +18,21 @@ import IconPopular from '../atoms/IconPopular';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import CommunityBoardLangSelector from '../molecules/CommunityBoardLangSelector';
+import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 
 // TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
 
 export type CommunityBoardPropType = {
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
+  communityNoticeBannerData: CommunityNoticeBannerResponseType;
   texts: CommunityBoardTextType;
 };
 
 const CommunityBoardTemplate = ({
   communityBoardData,
   communityBoardTopics,
+  communityNoticeBannerData,
   texts,
 }: CommunityBoardPropType) => {
   const router = useRouter();
@@ -43,8 +47,10 @@ const CommunityBoardTemplate = ({
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
+  const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
 
   const isPostExist = postList.length !== 0;
+  const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
 
   const onClickWrite = () => router.push('/');
   const onClickPopular = () => {
@@ -85,6 +91,7 @@ const CommunityBoardTemplate = ({
         topicIndex={topicIndex}
         setTopicIndex={setTopicIndex}
       />
+      {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerLists={noticeBannerList} />}
       {isPostExist ? (
         <ul>
           {postList.map((post, idx) => {

@@ -1,4 +1,8 @@
-import { getCommunityBoardData, getCommunityBoardTopics } from '@/api/Community';
+import {
+  getCommunityBoardData,
+  getCommunityBoardTopics,
+  getCommunityNoticeBannerData,
+} from '@/api/Community';
 import CommunityBoardTemplate, {
   CommunityBoardPropType,
 } from '@/components/templates/CommunityBoardTemplate';
@@ -9,12 +13,17 @@ import { CommunityBoardText_ESP, FooterText_ESP, NavBarText_ESP } from '@/texts/
 import nookies from 'nookies';
 import Layout from '@/components/organisms/Layout';
 
-const Board = ({ communityBoardData, communityBoardTopics }: CommunityBoardPropType) => {
+const Board = ({
+  communityBoardData,
+  communityBoardTopics,
+  communityNoticeBannerData,
+}: CommunityBoardPropType) => {
   return (
     <Layout navBarTexts={NavBarText_ESP} footerTexts={FooterText_ESP}>
       <CommunityBoardTemplate
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
+        communityNoticeBannerData={communityNoticeBannerData}
         texts={CommunityBoardText_ESP}
       />
     </Layout>
@@ -47,9 +56,10 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
     view_type
   );
   const communityBoardTopics = await getCommunityBoardTopics(boardIndex, lang);
+  const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, userIdforTopic);
 
   return {
-    props: { communityBoardData, communityBoardTopics },
+    props: { communityBoardData, communityBoardTopics, communityNoticeBannerData },
   };
 };
 

@@ -108,3 +108,26 @@ export type CommunityBoardResultResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type CommunityNoticeBannerItemType = {
+  ORDER: number;
+  BOARD_IDX: number;
+  POST_IDX: number;
+  TITLE: string;
+  SUB_TITLE: string;
+  BG_HEX: string;
+  TITLE_HEX: string;
+  SUBTITLE_HEX: string;
+  BANNER_IDX: number;
+};
+export type CommunityNoticeBannerResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      COUNT: number;
+      LIST: Array<CommunityNoticeBannerItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};
