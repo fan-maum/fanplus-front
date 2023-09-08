@@ -91,7 +91,7 @@ const CommunityBoardTemplate = ({
         topicIndex={topicIndex}
         setTopicIndex={setTopicIndex}
       />
-      {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerLists={noticeBannerList} />}
+      {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
       {isPostExist ? (
         <ul>
           {postList.map((post, idx) => {
@@ -155,6 +155,11 @@ const TopicTabBar = ({
         display: 'flex',
         margin: '8px 0px 16px',
         borderBottom: '1px solid #d9d9d9',
+        overflowX: 'scroll',
+        whiteSpace: 'nowrap',
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+        '::-webkit-scrollbar': { display: 'none' },
       }}
     >
       <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => handleClick(0)} />

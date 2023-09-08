@@ -1,28 +1,14 @@
 import { CommunityNoticeBannerItemType } from '@/types/community';
 import { useRouter } from 'next/router';
-import { useState, MouseEvent, TouchEvent } from 'react';
-import { css } from '@emotion/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 type OwnPropType = {
-  bannerLists: Array<CommunityNoticeBannerItemType>;
+  bannerList: Array<CommunityNoticeBannerItemType>;
 };
 
-const CommunityBoardNoticeBanner = ({ bannerLists }: OwnPropType) => {
-  const [scroll, setScroll] = useState(false);
-  const [xCoordinate, setXCoordinate] = useState(0);
-  const [translation, setTranslation] = useState('');
-  // const [currPo];
-
-  const handleScroll = (event: MouseEvent<HTMLDivElement>) => {
-    if (scroll) {
-      console.log('hi');
-      setTranslation(`transform: translateX(${event.clientX - xCoordinate}px);`);
-    }
-  };
-  const handleTouchScroll = (event: TouchEvent<HTMLDivElement>) => {
-    setTranslation(`transform: translateX(${event.changedTouches[0].pageX}px);)`);
-  };
-
+const CommunityBoardNoticeBanner = ({ bannerList }: OwnPropType) => {
   return (
     <>
       <section
@@ -31,36 +17,43 @@ const CommunityBoardNoticeBanner = ({ bannerLists }: OwnPropType) => {
           height: '100%',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
-          // '::-webkit-scrollbar': { display: 'none' },
-          // scrollbarWidth: 'none',
-          // msOverflowStyle: 'none',
         }}
       >
-        <div
-          css={[
-            {
+        <Swiper
+          pagination={{ type: 'bullets', bulletElement: 'span', clickable: true }}
+          loop={true}
+          navigation={true}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          modules={[Autoplay, Pagination, Navigation]}
+          slidesPerView={1}
+          onSwiper={(swiper) => swiper}
+          touchMoveStopPropagation
+          touchStartForcePreventDefault
+          css={{
+            '.swiper-pagination': {
               display: 'flex',
-              width: `${bannerLists.length * 100}%`,
-              height: '100%',
-              transition: 'transform 0.01s linear',
-              div: {
-                width: '33.3%',
-              },
+              justifyContent: 'center',
+              alignItems: 'center',
             },
-            css(translation),
-          ]}
-          onMouseDown={(e) => {
-            setScroll(true);
-            setXCoordinate(e.clientX);
+            '.swiper-pagination-bullet': {
+              margin: '0px 4px',
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: '#d9d9d9',
+              cursor: 'pointer',
+            },
+            '.swiper-pagination-bullet-active': { backgroundColor: '#ff5656' },
           }}
-          onMouseUp={() => setScroll(false)}
-          onMouseMove={handleScroll}
-          onTouchMove={handleTouchScroll}
         >
-          {bannerLists.map((banner, idx) => {
-            return <NoticeBanner bannerData={banner} key={idx} />;
+          {bannerList.map((banner, idx) => {
+            return (
+              <SwiperSlide key={idx}>
+                <NoticeBanner bannerData={banner} />
+              </SwiperSlide>
+            );
           })}
-        </div>
+        </Swiper>
       </section>
     </>
   );
@@ -74,11 +67,11 @@ const NoticeBanner = ({ bannerData }: { bannerData: CommunityNoticeBannerItemTyp
     <div
       css={{
         backgroundColor: '#' + bannerData.BG_HEX,
-        margin: '15px',
-        padding: '15px',
+        margin: '0px 16px 12px',
+        padding: '16px',
         lineHeight: '2',
         textAlign: 'center',
-        borderRadius: '6px',
+        borderRadius: '8px',
         cursor: 'pointer',
       }}
       onClick={() => {
