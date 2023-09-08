@@ -17,7 +17,7 @@ const CommunitySearchBoardWrapper = ({ title, boardList }: CommunityBoardWrapper
           {boardList.map((boardItem) => {
             return (
               <CommunityBoardItem
-                icon={boardItem.BOARD_ICON}
+                icon={boardItem.HEAD_IMG as string}
                 title={boardItem.BOARD_TITLE}
                 link={`/community/board/${boardItem.BOARD_IDX}/`}
                 key={boardItem.BOARD_IDX}
