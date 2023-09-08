@@ -280,6 +280,8 @@ export const CommunityMainText_VIE: CommunityPageTextType = {
     'Hãy tìm kiếm ngôi sao yêu thích của bạn!',
   ],
   buttonSearch: 'Tìm kiếm',
+  allCategory: 'Tất cả',
+  searchPlaceholder: '원하는 게시판을 찾아보세요.',
 };
 export const CommunityBoardText_VIE: CommunityBoardTextType = {
   all: 'Tất cả',

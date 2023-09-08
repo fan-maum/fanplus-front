@@ -276,6 +276,8 @@ export const CommunityMainText_zh_CN: CommunityPageTextType = {
   recommendedBoards: '推荐的消息面板',
   noRecentBoardTexts: ['您是FanPlus新手吗？', '搜索你最喜欢的明星！'],
   buttonSearch: '搜索',
+  allCategory: '全部',
+  searchPlaceholder: '원하는 게시판을 찾아보세요.',
 };
 export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   all: '全部',

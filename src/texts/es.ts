@@ -276,6 +276,8 @@ export const CommunityMainText_ESP: CommunityPageTextType = {
   recommendedBoards: 'Recomendación',
   noRecentBoardTexts: ['¿Eres nuevo en FanPlus?', '¡Busca tu estrella favorita!'],
   buttonSearch: 'Buscar',
+  allCategory: 'Total',
+  searchPlaceholder: '원하는 게시판을 찾아보세요.',
 };
 export const CommunityBoardText_ESP: CommunityBoardTextType = {
   all: 'Total',

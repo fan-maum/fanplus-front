@@ -277,6 +277,8 @@ export const CommunityMainText_KR: CommunityPageTextType = {
   recommendedBoards: '추천 게시판',
   noRecentBoardTexts: ['팬플러스는 처음 사용하시나요?', '좋아하는 스타를 검색해 보세요!'],
   buttonSearch: '검색하기',
+  allCategory: '전체',
+  searchPlaceholder: '원하는 게시판을 찾아보세요.',
 };
 export const CommunityBoardText_KR: CommunityBoardTextType = {
   all: '전체',

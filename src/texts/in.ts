@@ -280,6 +280,8 @@ export const CommunityMainText_IND: CommunityPageTextType = {
     'Cari bintang favoritmu!',
   ],
   buttonSearch: 'Cari',
+  allCategory: 'Semua',
+  searchPlaceholder: '원하는 게시판을 찾아보세요.',
 };
 export const CommunityBoardText_IND: CommunityBoardTextType = {
   all: 'Semua',

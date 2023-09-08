@@ -168,6 +168,8 @@ export type CommunityPageTextType = {
   recommendedBoards: string;
   noRecentBoardTexts: string[];
   buttonSearch: string;
+  allCategory: string;
+  searchPlaceholder: string;
 };
 export type CommunityBoardTextType = {
   all: string;

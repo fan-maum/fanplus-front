@@ -276,6 +276,8 @@ export const CommunityMainText_JAP: CommunityPageTextType = {
   recommendedBoards: 'おすすめ掲示板',
   noRecentBoardTexts: ['ファンプラスを利用するのは初めてですか?', 'お気に入りのスターを探せ！'],
   buttonSearch: '検索',
+  allCategory: '全',
+  searchPlaceholder: '원하는 게시판을 찾아보세요.',
 };
 export const CommunityBoardText_JAP: CommunityBoardTextType = {
   all: '全',
