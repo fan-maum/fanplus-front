@@ -19,7 +19,8 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
 
-  const isPostExist = postList.length !== 0;
+  const isFirstPage = !router.query.page || router.query.page === '1';
+  const isPostExist = !isFirstPage || postList.length !== 0;
 
   const onClickWrite = () => router.push('/');
 

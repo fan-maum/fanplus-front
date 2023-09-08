@@ -49,7 +49,8 @@ const CommunityBoardTemplate = ({
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
   const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
 
-  const isPostExist = postList.length !== 0;
+  const isFirstPage = !router.query.page || router.query.page === '1';
+  const isPostExist = !isFirstPage || postList.length !== 0;
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
 
   const onClickWrite = () => router.push('/');
