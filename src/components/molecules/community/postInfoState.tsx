@@ -1,10 +1,6 @@
 import { Group, Stack, Avatar } from '@/components/atoms';
-import { GetLanguage } from '@/hooks/useLanguage';
-import { voteDetailLangState } from '@/store/voteLangState';
 import { CommunityPost_PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
-import Image from 'next/image';
-import { useRecoilState } from 'recoil';
 
 export interface PostInfoStateProps {
   postInfo: CommunityPost_PostInfoItemType;

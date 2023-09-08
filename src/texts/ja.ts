@@ -316,4 +316,5 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
   post: '글',
   viewCount: 'ヒット',
   recommendCount: 'おすすめ',
+  recommend: 'おすすめ',
 };

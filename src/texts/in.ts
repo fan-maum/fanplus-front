@@ -320,4 +320,5 @@ export const CommunityPostText_IND: CommunityPostTextType = {
   post: '글',
   viewCount: 'Lihat',
   recommendCount: 'Seperti',
+  recommend: 'Seperti',
 };

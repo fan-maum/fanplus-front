@@ -317,4 +317,5 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   post: '글',
   viewCount: '조회수',
   recommendCount: '추천수',
+  recommend: '추천',
 };

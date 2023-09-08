@@ -316,4 +316,5 @@ export const CommunityPostText_zh_CN: CommunityPostTextType = {
   post: '글',
   viewCount: '阅读数',
   recommendCount: '推荐',
+  recommend: '推荐',
 };

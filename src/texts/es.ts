@@ -316,4 +316,5 @@ export const CommunityPostText_ESP: CommunityPostTextType = {
   post: '글',
   viewCount: 'Número de búsquedas',
   recommendCount: 'Gusta',
+  recommend: 'Gusta',
 };

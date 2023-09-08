@@ -42,7 +42,7 @@ const CommunityPostTemplate = ({
       <div>
         <CommunityPostTopNavi />
         <CommunityPostInfo postInfo={postInfo} texts={texts} />
-        <CommunityPostDetail postInfo={postInfo} />
+        <CommunityPostDetail postInfo={postInfo} texts={texts} />
         <CommunityPostComment commentList={commentList} commentTotalCount={commentTotalCount} />
       </div>
     </div>

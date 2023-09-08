@@ -320,4 +320,5 @@ export const CommunityPostText_VIE: CommunityPostTextType = {
   post: '글',
   viewCount: 'Xem',
   recommendCount: 'Giống như',
+  recommend: 'Giống như',
 };
