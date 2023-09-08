@@ -43,25 +43,25 @@ export const getCommunityBoardTopics = async (userId: string, boardIndex: number
  * Search Board
  */
 /* 검색 페이지 내 중간부분 Tab response */
-export const getCommunityBoardCategoryData = async (userId: string) => {
+export const getCommunityBoardCategoryData = async (lang: string) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
-    { params: { userId } }
+    { params: { lang } }
   );
   return response.data;
 };
 
 /* 검색 페이지 내 검색 결과 response */
 export const getCommunityBoardResultData = async (
-  userId: string,
   category_type: number,
   searchValue: any,
+  lang: string,
   page: number,
   per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
-    { params: { userId, category_type, searchValue, page, per_page } }
+    { params: { category_type, searchValue, lang, page, per_page } }
   );
   return response.data;
 };

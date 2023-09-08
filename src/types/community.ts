@@ -95,6 +95,7 @@ export type BoardResultItemType = {
   BOARD_IDX: number;
   BOARD_TITLE: string;
   HEAD_IMG: string;
+  BOARD_ICON: string;
   POST_CNT: number;
   STAR_IDX: number | null;
   STAR_GROUP_IDX: number | null;
@@ -105,6 +106,7 @@ export type CommunityBoardResultResponseType = {
     ERROR: number;
     MSG: string;
     DATAS: {
+      TOTAL_COUNT: number;
       BOARD_LIST: Array<BoardResultItemType>;
     };
     TIMESTAMP: number;
@@ -163,6 +165,7 @@ export type CommunityPost_CommentListItemType = {
   COMMENT_BLIND_YN: string;
   ALREADY_LIKE: string;
 };
+
 export type CommunityPost_HeadListItemType = {
   HEAD_IDX: string;
   BOARD_IDX: string;
@@ -178,6 +181,36 @@ export type CommunityPostResponseType = {
       POST_INFO: CommunityPost_PostInfoItemType;
       COMMENT_LIST: Array<CommunityPost_CommentListItemType>;
       HEAD_LIST: Array<CommunityPost_HeadListItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};
+
+export type CommunityCommentListItemType = {
+  COMMENT_IDX: string;
+  IS_WRITER: string;
+  LIKE_CNT: string;
+  RE_COMMENT_CNT: string;
+  INS_DATE: string;
+  COMMENT: string;
+  WRITER_IDX: string;
+  NICK: string;
+  ALREADY_LIKE: string;
+  IS_BEST_COMMENT: string;
+  PROFILE_IMG_URL: string;
+  IS_BLOCKED_USER: string;
+};
+
+export type CommunityCommentResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      TOTAL_CNT: number;
+      BEST_COMMENTS: [];
+      COMMENTS: Array<CommunityCommentListItemType>;
+      PAGE: number;
+      PER_PAGE: string;
     };
     TIMESTAMP: number;
   };

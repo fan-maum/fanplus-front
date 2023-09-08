@@ -33,6 +33,7 @@ const CommunityPageTemplate = ({
 
   const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
+  const boardResultTotalCount = boardResultData.RESULTS.DATAS.TOTAL_COUNT;
   const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
 
   const isRecentlyListExist = recentlyList.length !== 0;
@@ -85,7 +86,7 @@ const CommunityPageTemplate = ({
             activeTabState={activeTabState}
           />
           {boardResultList.length !== 0 && (
-            <CommunitySearchBoardPagination totalCount={boardResultList.length} itemsPerPage={20} />
+            <CommunitySearchBoardPagination totalCount={boardResultTotalCount} itemsPerPage={20} />
           )}
         </>
       )}

@@ -31,8 +31,8 @@ export const getServerSideProps: GetServerSideProps<{
 
   const target_type = 'post' as TargetType;
   const target = postIndex;
-  const order_by = 'oldest' as OrderType;
-  const board_lang = translateFrontLangToBackLang(context.query.boardLang as LangCookie) || 'ALL';
+  const order_by = (context.query.order_by as OrderType) || 'oldest';
+  const board_lang = 'ALL';
   const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
 
