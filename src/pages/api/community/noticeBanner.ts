@@ -3,12 +3,12 @@ import axios, { AxiosResponse } from 'axios';
 import type { CommunityNoticeBannerResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { boardIndex, userId } = req.query;
+  const { boardIndex, lang } = req.query;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
     const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
-      `https://napi.appphotocard.com/v1/boards/${boardIndex}/banners?identity=${userId}`,
+      `https://napi.appphotocard.com/voteWeb/boards/${boardIndex}/banners?lang=${lang}`,
       {
         headers: {
           Origin: origin,

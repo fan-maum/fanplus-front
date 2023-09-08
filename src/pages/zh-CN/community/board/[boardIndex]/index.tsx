@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
     view_type
   );
   const communityBoardTopics = await getCommunityBoardTopics(boardIndex, lang);
-  const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, userIdforTopic);
+  const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, lang);
 
   return {
     props: { communityBoardData, communityBoardTopics, communityNoticeBannerData },

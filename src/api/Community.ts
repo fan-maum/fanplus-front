@@ -62,10 +62,10 @@ export const getCommunityBoardResultData = async (
   return response.data;
 };
 
-export const getCommunityNoticeBannerData = async (boardIndex: number, userId: string) => {
+export const getCommunityNoticeBannerData = async (boardIndex: number, lang: BackLangType) => {
   const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/noticeBanner`,
-    { params: { boardIndex, userId } }
+    { params: { boardIndex, lang } }
   );
   return response.data;
 };
