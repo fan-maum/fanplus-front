@@ -203,7 +203,12 @@ export type CommunityBoardTextType = {
   buttonWrite: string;
 };
 
-export type CommunityPostTextType = {};
+export type CommunityPostTextType = {
+  popular: string;
+  post: string;
+  viewCount: string;
+  recommendCount: string;
+};
 
 export type TextType = {
   NavBar: NavBarTextType;

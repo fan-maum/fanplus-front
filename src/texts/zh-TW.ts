@@ -311,4 +311,9 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
   buttonWrite: '發帖子',
 };
 
-export const CommunityPostText_zh_TW: CommunityPostTextType = {};
+export const CommunityPostText_zh_TW: CommunityPostTextType = {
+  popular: '人氣',
+  post: '글',
+  viewCount: '閱讀數',
+  recommendCount: '推薦',
+};

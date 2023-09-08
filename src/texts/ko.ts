@@ -312,4 +312,9 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
   buttonWrite: '글쓰기',
 };
 
-export const CommunityPostText_KR: CommunityPostTextType = {};
+export const CommunityPostText_KR: CommunityPostTextType = {
+  popular: '인기',
+  post: '글',
+  viewCount: '조회수',
+  recommendCount: '추천수',
+};

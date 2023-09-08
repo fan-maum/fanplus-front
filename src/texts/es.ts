@@ -311,4 +311,9 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
   buttonWrite: 'Escribir',
 };
 
-export const CommunityPostText_ESP: CommunityPostTextType = {};
+export const CommunityPostText_ESP: CommunityPostTextType = {
+  popular: 'Popular',
+  post: '글',
+  viewCount: 'Número de búsquedas',
+  recommendCount: 'Gusta',
+};

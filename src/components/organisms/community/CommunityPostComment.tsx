@@ -12,7 +12,7 @@ type CommunityPostCommentProps = {
 };
 
 const CommunityPostComment = ({ commentList, commentTotalCount }: CommunityPostCommentProps) => {
-  const [commentOrder, setCommentOrder] = useState<OrderType>('oldest');
+  const [commentOrder, setCommentOrder] = useState<OrderType>('newest');
   return (
     <>
       <Group h={80} position="apart" px={24} mb={15}>

@@ -17,7 +17,6 @@ const PostCommentList = ({
   const router = useRouter();
   const page = parseInt(router.query.page as string) | 0;
   const hasNextPage = commentList.length * (page + 1) < commentTotalCount;
-  //   console.log(commentList.length * (page + 1));
 
   return (
     <ul data-role="comments">

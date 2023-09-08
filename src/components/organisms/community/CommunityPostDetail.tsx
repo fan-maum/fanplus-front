@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { Center, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
 import { CommunityPost_PostInfoItemType } from '@/types/community';
@@ -9,7 +10,7 @@ type CommunityPostDetailProps = {
 const CommunityPostDetail = ({ postInfo }: CommunityPostDetailProps) => {
   return (
     <Stack p={'24px 22px'} spacing={140} css={{ borderBottom: '6px solid #f1f1f1' }}>
-      <div dangerouslySetInnerHTML={{ __html: postInfo.POST_CONTENTS }} />
+      <PostContents dangerouslySetInnerHTML={{ __html: postInfo.POST_CONTENTS }} />
       <Center mb={8}>
         <LikesButton
           text={`추천 ${postInfo.RECOMMEND_CNT}`}
@@ -24,3 +25,10 @@ const CommunityPostDetail = ({ postInfo }: CommunityPostDetailProps) => {
 };
 
 export default CommunityPostDetail;
+
+const PostContents = styled.div`
+  position: 'relative';
+  img {
+    width: 100%;
+  }
+`;

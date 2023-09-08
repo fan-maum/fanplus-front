@@ -311,4 +311,9 @@ export const CommunityBoardText_JAP: CommunityBoardTextType = {
   buttonWrite: '書き込み',
 };
 
-export const CommunityPostText_JAP: CommunityPostTextType = {};
+export const CommunityPostText_JAP: CommunityPostTextType = {
+  popular: '人気',
+  post: '글',
+  viewCount: 'ヒット',
+  recommendCount: 'おすすめ',
+};

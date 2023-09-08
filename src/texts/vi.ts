@@ -315,4 +315,9 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
   buttonWrite: 'Viết',
 };
 
-export const CommunityPostText_VIE: CommunityPostTextType = {};
+export const CommunityPostText_VIE: CommunityPostTextType = {
+  popular: 'Nổi tiếng',
+  post: '글',
+  viewCount: 'Xem',
+  recommendCount: 'Giống như',
+};

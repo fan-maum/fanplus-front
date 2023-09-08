@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { getCommunityPostCommentData, getCommunityPostData } from '@/api/Community';
-import { CommunityPostText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import { CommunityPostText_ENG, FooterText_ENG, NavBarText_ENG } from '@/texts/en';
 import Layout from '@/components/organisms/Layout';
 import { CommunityPostResponseType } from '@/types/community';
 import CommunityPostTemplate, {
@@ -10,11 +10,11 @@ import { OrderType, TargetType } from '@/types/common';
 
 const Post = ({ communityPostData, communityPostCommentData }: CommunityPostPropType) => {
   return (
-    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+    <Layout navBarTexts={NavBarText_ENG} footerTexts={FooterText_ENG}>
       <CommunityPostTemplate
         communityPostData={communityPostData}
         communityPostCommentData={communityPostCommentData}
-        texts={CommunityPostText_KR}
+        texts={CommunityPostText_ENG}
       />
     </Layout>
   );
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
-  const lang = 'ko';
+  const lang = 'en';
 
   const target_type = 'post' as TargetType;
   const target = postIndex;

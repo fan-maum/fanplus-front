@@ -2,14 +2,16 @@ import { Group, Stack, Avatar } from '@/components/atoms';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { CommunityPost_PostInfoItemType } from '@/types/community';
+import { CommunityPostTextType } from '@/types/textTypes';
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 
 export interface PostInfoStateProps {
   postInfo: CommunityPost_PostInfoItemType;
+  texts: CommunityPostTextType;
 }
 
-function PostInfoState({ postInfo }: PostInfoStateProps) {
+function PostInfoState({ postInfo, texts }: PostInfoStateProps) {
   return (
     <Group spacing={10} align={'flex-start'}>
       <div css={{ position: 'relative' }}>
@@ -38,8 +40,12 @@ function PostInfoState({ postInfo }: PostInfoStateProps) {
           {postInfo.PUBLISH_DATE}
         </div>
         <Group spacing={10} fw={500} fz={16} mt={4} css={{ color: '#999' }}>
-          <div>조회수 {postInfo.VIEW_CNT}</div>
-          <span>추천수 {postInfo.RECOMMEND_CNT}</span>
+          <div>
+            {texts.viewCount} {postInfo.VIEW_CNT}
+          </div>
+          <span>
+            {texts.recommendCount} {postInfo.RECOMMEND_CNT}
+          </span>
         </Group>
       </Stack>
     </Group>

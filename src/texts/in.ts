@@ -315,4 +315,9 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
   buttonWrite: 'Tulis',
 };
 
-export const CommunityPostText_IND: CommunityPostTextType = {};
+export const CommunityPostText_IND: CommunityPostTextType = {
+  popular: 'Popular',
+  post: '글',
+  viewCount: 'Lihat',
+  recommendCount: 'Seperti',
+};

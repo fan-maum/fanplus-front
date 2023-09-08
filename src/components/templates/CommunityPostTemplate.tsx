@@ -28,6 +28,8 @@ const CommunityPostTemplate = ({
   console.log('commentList => ', communityPostCommentData.RESULTS.DATAS.COMMENTS);
   // eslint-disable-next-line no-console
   // console.log(headList);
+  // eslint-disable-next-line no-console
+  console.log('postInfo => ', postInfo);
   return (
     <div
       css={{
@@ -39,7 +41,7 @@ const CommunityPostTemplate = ({
     >
       <div>
         <CommunityPostTopNavi />
-        <CommunityPostInfo postInfo={postInfo} />
+        <CommunityPostInfo postInfo={postInfo} texts={texts} />
         <CommunityPostDetail postInfo={postInfo} />
         <CommunityPostComment commentList={commentList} commentTotalCount={commentTotalCount} />
       </div>
