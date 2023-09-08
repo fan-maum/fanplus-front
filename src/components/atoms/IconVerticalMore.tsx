@@ -14,6 +14,7 @@ export default function IconVerticalMore({
       height="40"
       viewBox="0 0 40 40"
       fill="none"
+      style={{ cursor: 'pointer' }}
       xmlns="http://www.w3.org/2000/svg"
       css={iconCss}
       onClick={handleClickMore}

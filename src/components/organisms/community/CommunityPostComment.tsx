@@ -19,11 +19,7 @@ const CommunityPostComment = ({ commentList, commentTotalCount }: CommunityPostC
         <PostCommentCount count={commentTotalCount} />
         <PostCommentOrders commentOrder={commentOrder} setCommentOrder={setCommentOrder} />
       </Group>
-      <PostCommentList
-        commentTotalCount={commentTotalCount}
-        commentList={commentList}
-        commentOrder={commentOrder}
-      />
+      <PostCommentList commentTotalCount={commentTotalCount} commentList={commentList} />
       {/* 
       <>
         <div>댓글입력 및 공유 Bottom Bar</div>;

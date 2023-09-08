@@ -6,14 +6,9 @@ import { useRouter } from 'next/router';
 type PostCommentListProps = {
   commentTotalCount: number;
   commentList: Array<CommunityCommentListItemType>;
-  commentOrder: OrderType;
 };
 
-const PostCommentList = ({
-  commentTotalCount,
-  commentList,
-  commentOrder,
-}: PostCommentListProps) => {
+const PostCommentList = ({ commentTotalCount, commentList }: PostCommentListProps) => {
   const router = useRouter();
   const page = parseInt(router.query.page as string) | 0;
   const hasNextPage = commentList.length * (page + 1) < commentTotalCount;

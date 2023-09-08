@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import type { CommunityPostResponseType, CommunityCommentResponseType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import CommunityPostTopNavi from '@/components/molecules/community/CommunityPostTopNavi';

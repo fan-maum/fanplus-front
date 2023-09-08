@@ -4,6 +4,7 @@ import { voteDetailLangState } from '@/store/voteLangState';
 import { CommunityCommentListItemType, CommunityPost_PostInfoItemType } from '@/types/community';
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
+import CommentPopover from './CommentPopover';
 
 type CommentInfoStateProps = {
   comment: CommunityCommentListItemType;
@@ -50,7 +51,7 @@ function CommentInfoState({ comment }: CommentInfoStateProps) {
           </div>
         </Stack>
       </Group>
-      <div>test</div>
+      <CommentPopover />
     </Group>
   );
 }
