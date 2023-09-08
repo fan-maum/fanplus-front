@@ -1,5 +1,6 @@
 import { BoardResultItemType } from '@/types/community';
 import CommunityBoardItem from '@/components/molecules/community/CommunityBoardItem';
+import { setRecentBoardList } from '@/utils/recentBoard';
 
 type CommunityBoardWrapperType = {
   title?: string;
@@ -16,10 +17,11 @@ const CommunitySearchBoardWrapper = ({ title, boardList }: CommunityBoardWrapper
           {boardList.map((boardItem) => {
             return (
               <CommunityBoardItem
-                icon={boardItem.HEAD_IMG}
+                icon={boardItem.BOARD_ICON}
                 title={boardItem.BOARD_TITLE}
                 link={`/community/board/${boardItem.BOARD_IDX}/`}
                 key={boardItem.BOARD_IDX}
+                onClickLocalStore={() => setRecentBoardList(boardItem)}
               />
             );
           })}

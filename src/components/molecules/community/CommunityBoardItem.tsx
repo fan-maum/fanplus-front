@@ -1,4 +1,3 @@
-import { AspectRatio } from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -6,9 +5,10 @@ export type BoardItemType = {
   icon: string;
   title: string;
   link: string;
+  onClickLocalStore: () => void;
 };
 
-const CommunityBoardItem = ({ icon, title, link }: BoardItemType) => {
+const CommunityBoardItem = ({ icon, title, link, onClickLocalStore }: BoardItemType) => {
   return (
     <>
       <Link
@@ -19,6 +19,7 @@ const CommunityBoardItem = ({ icon, title, link }: BoardItemType) => {
           margin: '5px 0px',
           padding: '5px 5px 10px',
         }}
+        onClick={onClickLocalStore}
       >
         <div css={{ position: 'relative', height: '84px', aspectRatio: '1/1' }}>
           <Image

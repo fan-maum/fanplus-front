@@ -4,13 +4,14 @@ import type {
   CommunityHomeResponseType,
 } from '@/types/community';
 import type { CommunityPageTextType } from '@/types/textTypes';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
+import { getStorageRecentBoardDatas } from '@/utils/recentBoard';
 
 export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
@@ -28,10 +29,14 @@ const CommunityPageTemplate = ({
   texts,
 }: CommunityPropTypes) => {
   const [tabBar, setTabBar] = useState<TabBarType>('home');
+  const [recentlyList, setRecentlyList] = useState(communityHomeData.RESULTS.DATAS.RECENTLY_LIST);
   const searchTabState = useState<string>('전체');
   const [activeTabState] = searchTabState;
 
-  const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
+  useEffect(() => {
+    const storageRecentlyList = getStorageRecentBoardDatas();
+    if (!recentlyList) setRecentlyList(storageRecentlyList);
+  }, []);
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
   const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
 

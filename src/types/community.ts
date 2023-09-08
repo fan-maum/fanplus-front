@@ -89,14 +89,7 @@ export type CommunityBoardCategoryResponseType = {
   };
 };
 
-export type BoardResultItemType = {
-  BOARD_IDX: number;
-  BOARD_TITLE: string;
-  HEAD_IMG: string;
-  POST_CNT: number;
-  STAR_IDX: number | null;
-  STAR_GROUP_IDX: number | null;
-};
+export type BoardResultItemType = BoardListItemType;
 
 export type CommunityBoardResultResponseType = {
   RESULTS: {
