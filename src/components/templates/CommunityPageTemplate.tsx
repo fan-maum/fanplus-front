@@ -12,6 +12,7 @@ import CommunityBoardSearchInputWrapper from '@/components/organisms/community/C
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
 import { getStorageRecentBoardDatas } from '@/utils/recentBoard';
+import { useRouter } from 'next/router';
 
 export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
@@ -28,7 +29,9 @@ const CommunityPageTemplate = ({
   boardResultData,
   texts,
 }: CommunityPropTypes) => {
-  const [tabBar, setTabBar] = useState<TabBarType>('home');
+  const router = useRouter();
+
+  const [tabBar, setTabBar] = useState<TabBarType>((router.query.tab as TabBarType) || 'home');
   const [recentlyList, setRecentlyList] = useState(communityHomeData.RESULTS.DATAS.RECENTLY_LIST);
   const searchTabState = useState<string>('전체');
   const [activeTabState] = searchTabState;
@@ -73,7 +76,10 @@ const CommunityPageTemplate = ({
               title={texts.recentlyBoards}
               texts={texts.noRecentBoardTexts}
               buttonText={texts.buttonSearch}
-              onClickSearch={() => setTabBar('search')}
+              onClickSearch={() => {
+                setTabBar('search');
+                router.push({ pathname: router.pathname, query: { tab: 'search' } });
+              }}
             />
           )}
           <CommunityBoardWrapper title={texts.recommendedBoards} boardList={recommendList} />
@@ -110,7 +116,11 @@ type TabBarPropTypes = {
 };
 
 const TabBar = ({ tabTitles, tabBar, setTabBar }: TabBarPropTypes) => {
-  const handleClick = (tabBar: TabBarType) => setTabBar(tabBar);
+  const router = useRouter();
+  const handleClick = (tabBar: TabBarType) => {
+    setTabBar(tabBar);
+    router.push({ pathname: router.pathname, query: { tab: tabBar } });
+  };
   return (
     <ul css={{ width: '100%', display: 'flex', margin: '8px 0px' }}>
       <TabBarItem
