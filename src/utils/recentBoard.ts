@@ -5,12 +5,12 @@ export const getStorageRecentBoardDatas = () => {
   return !!storageBoardDatas ? (JSON.parse(storageBoardDatas) as Array<BoardListItemType>) : [];
 };
 
-export const setRecentBoardList = (boardItem: BoardListItemType) => {
+export const updateStorageRecentBoardList = (boardItem: BoardListItemType) => {
   const storageBoardDataObject = getStorageRecentBoardDatas();
   for (let i = 0; i < storageBoardDataObject.length; i++) {
     if (storageBoardDataObject[i].BOARD_IDX === boardItem.BOARD_IDX) {
       storageBoardDataObject.splice(i, 1);
-      return;
+      break;
     }
   }
   storageBoardDataObject.unshift(boardItem);
