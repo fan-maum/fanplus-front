@@ -5,7 +5,7 @@ import type {
   TopicListItemType,
 } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
-import type { BackLangType } from '@/types/common';
+import type { BoardLangType } from '@/types/common';
 import { useRouter } from 'next/router';
 import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
 import CommunityBoardTopNavi from '../molecules/CommunityBoardTopNavi';
@@ -39,9 +39,7 @@ const CommunityBoardTemplate = ({
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
-  const [boardLang, setBoardLang] = useState<BackLangType | 'ALL'>(
-    (router.query.boardLang as BackLangType) || 'ALL'
-  );
+  const [boardLang, setBoardLang] = useState(router.query.boardLang as BoardLangType);
   const [langModal, setLangModal] = useState(false);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;

@@ -5,9 +5,9 @@ import type {
   CommunityHomeResponseType,
   CommunityNoticeBannerResponseType,
 } from '@/types/community';
-import type { BackLangType } from '@/types/common';
+import type { BackLangType, BoardLangType } from '@/types/common';
 
-export const getCommunityHomeData = async (userId: string, lang: BackLangType | 'ALL') => {
+export const getCommunityHomeData = async (userId: string, lang: BoardLangType) => {
   const response: AxiosResponse<CommunityHomeResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
     { params: { userId, lang } }
@@ -20,7 +20,7 @@ export const getCommunityBoardData = async (
   boardIndex: number,
   page: number,
   lang: BackLangType,
-  boardLang: BackLangType | 'ALL',
+  boardLang: BoardLangType,
   topic: number | '',
   view_type: string
 ) => {
