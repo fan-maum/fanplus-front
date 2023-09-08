@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction } from 'react';
 const CommunityPostTopNavi = () => {
   const router = useRouter();
   const handleClickMore = () => {
+    // eslint-disable-next-line no-console
     console.log('popup open');
   };
   return (

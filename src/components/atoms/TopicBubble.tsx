@@ -5,7 +5,7 @@ export interface TopicBubbleProps extends DefaultProps {
   name: string;
   hightlight?: boolean;
   height?: number;
-  padding?: number;
+  padding?: number | string;
   radius?: number;
   children?: React.ReactNode;
 }

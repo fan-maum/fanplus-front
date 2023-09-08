@@ -11,7 +11,10 @@ const CommunityPostInfo = ({ postInfo }: CommunityPostInfoProps) => {
   return (
     <Stack spacing={12} p={20} css={{ borderBottom: '2px solid #f1f1f1' }}>
       <div css={{ display: 'flex' }}>
-        <TopicBubble height={40} p={10} radius={20} name={postInfo.TOPIC_NAME} />
+        <TopicBubble height={32} p={8} radius={20} name={postInfo.TOPIC_NAME} />
+        {postInfo.HAS_POPULAR_BADGE && (
+          <TopicBubble height={32} p={8} radius={20} hightlight={true} name={'인기'} />
+        )}
       </div>
       <div
         css={{

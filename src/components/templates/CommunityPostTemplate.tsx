@@ -4,6 +4,7 @@ import type { CommunityPostTextType } from '@/types/textTypes';
 import CommunityPostTopNavi from '@/components/molecules/community/CommunityPostTopNavi';
 import CommunityPostInfo from '@/components/organisms/community/CommunityPostInfo';
 import CommunityPostDetail from '@/components/organisms/community/CommunityPostDetail';
+import CommunityPostComment from '@/components/organisms/community/CommunityPostComment';
 
 export type CommunityPostPropType = {
   communityPostData: CommunityPostResponseType;
@@ -15,9 +16,12 @@ const CommunityPostTemplate = ({ communityPostData, texts }: CommunityPostPropTy
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
   const commentList = communityPostData.RESULTS.DATAS.COMMENT_LIST;
   const headList = communityPostData.RESULTS.DATAS.HEAD_LIST;
-  console.log(postInfo);
-  console.log(commentList);
-  console.log(headList);
+  // eslint-disable-next-line no-console
+  // console.log(postInfo);
+  // eslint-disable-next-line no-console
+  console.log('commentList => ', commentList);
+  // eslint-disable-next-line no-console
+  // console.log(headList);
   return (
     <div
       css={{
@@ -31,8 +35,7 @@ const CommunityPostTemplate = ({ communityPostData, texts }: CommunityPostPropTy
         <CommunityPostTopNavi />
         <CommunityPostInfo postInfo={postInfo} />
         <CommunityPostDetail postInfo={postInfo} />
-        <div>댓글</div>
-        <div>댓글입력 및 공유 Bottom Bar</div>
+        <CommunityPostComment commentList={commentList} />
       </div>
     </div>
   );
