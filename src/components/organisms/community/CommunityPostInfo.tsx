@@ -1,6 +1,6 @@
 import { Stack } from '@/components/atoms';
 import TopicBubble from '@/components/atoms/TopicBubble';
-import PostInfoState from '../../molecules/community/PostInfoState';
+import CommunityPostInfoState from '@/components/molecules/community/CommunityPostInfoState';
 import { CommunityPost_PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
 
@@ -28,7 +28,7 @@ const CommunityPostInfo = ({ postInfo, texts }: CommunityPostInfoProps) => {
       >
         {postInfo.POST_TITLE}
       </div>
-      <PostInfoState postInfo={postInfo} texts={texts} />
+      <CommunityPostInfoState postInfo={postInfo} texts={texts} />
     </Stack>
   );
 };

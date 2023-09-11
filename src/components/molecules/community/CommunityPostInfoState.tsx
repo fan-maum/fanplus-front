@@ -1,13 +1,13 @@
-import { Group, Stack, Avatar } from '@/components/atoms';
+import { Avatar, Group, Stack } from '@/components/atoms';
 import { CommunityPost_PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
 
-export interface PostInfoStateProps {
+export interface CommunityPostInfoStateProps {
   postInfo: CommunityPost_PostInfoItemType;
   texts: CommunityPostTextType;
 }
 
-function PostInfoState({ postInfo, texts }: PostInfoStateProps) {
+const CommunityPostInfoState = ({ postInfo, texts }: CommunityPostInfoStateProps) => {
   return (
     <Group spacing={10} align={'flex-start'}>
       <div css={{ position: 'relative' }}>
@@ -46,6 +46,6 @@ function PostInfoState({ postInfo, texts }: PostInfoStateProps) {
       </Stack>
     </Group>
   );
-}
+};
 
-export default PostInfoState;
+export default CommunityPostInfoState;
