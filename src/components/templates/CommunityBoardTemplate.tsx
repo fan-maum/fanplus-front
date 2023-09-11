@@ -7,9 +7,9 @@ import type {
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import type { BoardLangType } from '@/types/common';
 import { useRouter } from 'next/router';
-import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
-import CommunityBoardTopNavi from '../molecules/CommunityBoardTopNavi';
-import CommunityBoardArticle from '../molecules/CommunityBoardArticle';
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
+import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import IconWrite from '../atoms/IconWrite';
 import IconPopularBlack from '../atoms/IconPopularBlack';
@@ -17,7 +17,7 @@ import IconMyPost from '../atoms/IconMyPost';
 import IconPopular from '../atoms/IconPopular';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
-import CommunityBoardLangSelector from '../molecules/CommunityBoardLangSelector';
+import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 
 // TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
@@ -79,7 +79,7 @@ const CommunityBoardTemplate = ({
         boardTitle={boardInfo.BOARD_TITLE}
         rightItem={
           <CommunityBoardLangSelector
-            language={texts.boardLang[boardLang]}
+            language={texts.boardLang[boardLang || 'ALL']}
             onClick={() => setLangModal(true)}
           />
         }

@@ -66,9 +66,13 @@ const NoticeBanner = ({ bannerData }: { bannerData: CommunityNoticeBannerItemTyp
   return (
     <div
       css={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: '#' + bannerData.BG_HEX,
         margin: '0px 16px 12px',
-        padding: '16px',
+        padding: '16px 0px',
         lineHeight: '2',
         textAlign: 'center',
         borderRadius: '8px',

@@ -1,8 +1,8 @@
 import type { CommunityBoardResponseType } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
-import CommunityBoardTopNavi from '../molecules/CommunityBoardTopNavi';
-import CommunityBoardArticle from '../molecules/CommunityBoardArticle';
+import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
+import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 

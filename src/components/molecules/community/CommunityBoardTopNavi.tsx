@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import IconArrowLeft from '../atoms/IconArrowLeft';
+import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { ReactNode } from 'react';
 
 export type CommunityBoardTopNaviPropType = {

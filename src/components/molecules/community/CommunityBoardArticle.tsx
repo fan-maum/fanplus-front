@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { PostListItemType } from '@/types/community';
-import IconPopular from '../atoms/IconPopular';
+import IconPopular from '../../atoms/IconPopular';
 import { CommunityBoardTextType } from '@/types/textTypes';
 import { formatWrittenTime, timeType } from '@/utils/util';
 

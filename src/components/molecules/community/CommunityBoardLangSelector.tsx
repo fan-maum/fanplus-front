@@ -1,5 +1,5 @@
-import IconArrowDown from '../atoms/IconArrowDown';
-import IconFilter from '../atoms/IconFilter';
+import IconArrowDown from '@/components/atoms/IconArrowDown';
+import IconFilter from '@/components/atoms/IconFilter';
 
 type OwnPropType = {
   onClick: () => void;
