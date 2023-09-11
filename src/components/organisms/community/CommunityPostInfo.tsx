@@ -1,6 +1,6 @@
 import { Stack } from '@/components/atoms';
 import TopicBubble from '@/components/atoms/TopicBubble';
-import PostInfoState from '@/components/molecules/community/PostInfoState';
+import PostInfoState from '../../molecules/community/PostInfoState';
 import { CommunityPost_PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
 
