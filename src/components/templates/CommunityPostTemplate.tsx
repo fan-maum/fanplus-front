@@ -7,12 +7,14 @@ import CommunityPostComment from '@/components/organisms/community/CommunityPost
 import CommunityPostFixedAreaWrapper from '@/components/organisms/community/CommunityPostFixedAreaWrapper';
 
 export type CommunityPostPropType = {
+  identity: string;
   communityPostData: CommunityPostResponseType;
   communityPostCommentData: CommunityCommentResponseType;
   texts: CommunityPostTextType;
 };
 
 const CommunityPostTemplate = ({
+  identity,
   communityPostData,
   communityPostCommentData,
   texts,
@@ -54,6 +56,8 @@ const CommunityPostTemplate = ({
           <CommunityPostComment commentList={commentList} commentTotalCount={commentTotalCount} />
         </div>
         <CommunityPostFixedAreaWrapper
+          identity={identity}
+          BOARD_IDX={postInfo.BOARD_IDX}
           WRITER_PROFILE_IMG={postInfo.WRITER_PROFILE_IMG}
           commentTotalCount={commentTotalCount}
         />

@@ -2,11 +2,15 @@ import CommunityPostBottomNavi from '@/components/molecules/community/CommunityP
 import CommentRegister from './CommentRegister';
 
 export type CommunityPostFixedAreaWrapperProps = {
+  identity: string;
+  BOARD_IDX: string;
   WRITER_PROFILE_IMG: string;
   commentTotalCount: number;
 };
 
 const CommunityPostFixedAreaWrapper = ({
+  identity,
+  BOARD_IDX,
   WRITER_PROFILE_IMG,
   commentTotalCount,
 }: CommunityPostFixedAreaWrapperProps) => {
@@ -21,7 +25,11 @@ const CommunityPostFixedAreaWrapper = ({
         background: '#fff',
       }}
     >
-      <CommentRegister WRITER_PROFILE_IMG={WRITER_PROFILE_IMG} />
+      <CommentRegister
+        identity={identity}
+        BOARD_IDX={BOARD_IDX}
+        WRITER_PROFILE_IMG={WRITER_PROFILE_IMG}
+      />
       <CommunityPostBottomNavi commentTotalCount={commentTotalCount} />
     </div>
   );

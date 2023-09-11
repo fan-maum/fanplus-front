@@ -1,10 +1,12 @@
 import { NextApiHandler } from 'next';
 import axios from 'axios';
 
-const handler: NextApiHandler = async (contents) => {
-  const { target_type, target, order_by, board_lang, lang, page } = req.query;
-  const identity = '8d11881894651bcd2467d8cf5a1377e00e9eb9e5f3546c75bf9bd36c8b588d04';
-
+const handler: NextApiHandler = async (
+  identity: string,
+  target_type: string,
+  target: string,
+  contents: string | number
+) => {
   try {
     const response = await axios.post(`https://napi.appphotocard.com/v1/comments`, {
       identity: identity,
@@ -19,3 +21,23 @@ const handler: NextApiHandler = async (contents) => {
 };
 
 export default handler;
+
+import { NextResponse } from 'next/server'
+ 
+export async function POST(identity: string,
+  target_type: string,
+  target: string,
+  contents: string | number) {
+  const res = await axios.post('https://napi.appphotocard.com/v1/comments', {
+    body: JSON.stringify(
+      identity: identity,
+      target_type: target_type,
+      target: target,
+      contents: contents
+      ),
+  })
+ 
+  const data = await res.data
+ 
+  return NextResponse.json(data)
+}

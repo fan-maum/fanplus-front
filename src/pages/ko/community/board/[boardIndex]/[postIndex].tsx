@@ -7,11 +7,14 @@ import CommunityPostTemplate, {
   CommunityPostPropType,
 } from '@/components/templates/CommunityPostTemplate';
 import { OrderType, TargetType } from '@/types/common';
+import nookies from 'nookies';
 
-const Post = ({ communityPostData, communityPostCommentData }: CommunityPostPropType) => {
+const Post = ({ identity, communityPostData, communityPostCommentData }: CommunityPostPropType) => {
+  console.log(identity);
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
       <CommunityPostTemplate
+        identity={identity}
         communityPostData={communityPostData}
         communityPostCommentData={communityPostCommentData}
         texts={CommunityPostText_KR}
@@ -26,6 +29,9 @@ export const getServerSideProps: GetServerSideProps<{
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
   const lang = 'ko';
+
+  const cookies = nookies.get(context);
+  const identity = cookies.user_id;
 
   const target_type = 'post' as TargetType;
   const target = postIndex;
@@ -48,7 +54,7 @@ export const getServerSideProps: GetServerSideProps<{
   );
 
   return {
-    props: { communityPostData, communityPostCommentData },
+    props: { identity, communityPostData, communityPostCommentData },
   };
 };
 

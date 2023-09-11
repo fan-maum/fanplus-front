@@ -1,22 +1,30 @@
+import { postCommentResult } from '@/api/Community';
 import { Avatar, Stack, UnstyledButton } from '@/components/atoms';
 import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import nookies from 'nookies';
 
 interface FormValue {
   registerValue: string | number;
 }
 
 type CommentRegisterProps = {
+  identity: string;
+  BOARD_IDX: string;
   WRITER_PROFILE_IMG: string;
 };
 
-const CommentRegister = ({ WRITER_PROFILE_IMG }: CommentRegisterProps) => {
+const CommentRegister = ({ identity, BOARD_IDX, WRITER_PROFILE_IMG }: CommentRegisterProps) => {
   const RegisterOnClick = () => {
     // eslint-disable-next-line no-console
     console.log('clicked');
   };
   const { handleSubmit, register, reset } = useForm<FormValue>();
-  const handleRegisterSubmit: SubmitHandler<FormValue> = (data) => {
+  const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
+    const contents = data.registerValue;
+    const result = await postCommentResult(identity, 'comment', BOARD_IDX, contents);
+    console.log(result);
     // setActiveTab(texts.allCategory);
     // router.push({
     //   pathname: router.pathname,

@@ -97,3 +97,21 @@ export const getCommunityPostCommentData = async (
   );
   return response.data;
 };
+
+export const postCommentResult = async (
+  userId: string,
+  target_type: string,
+  target: string,
+  contents: string | number
+) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment`,
+    {
+      identity: userId,
+      target_type: target_type,
+      target: target,
+      contents: contents,
+    }
+  );
+  return response;
+};
