@@ -26,30 +26,31 @@ export function middleware(request: NextRequest) {
   }
 
   const negotiator = new Negotiator({
-    headers: {
-      'accept-language': request.headers.get('accept-language') as string,
-    },
+    headers: { 'accept-language': request.headers.get('accept-language') as string },
   });
+
   const userLang =
-    request.cookies.get('USER_LANG')?.value ||
-    (negotiator.language(SUPPORT_LANGUAGE) as string) ||
-    'en';
-  const urlPath = request.nextUrl.pathname.substring(1); // base 주소 다음에 오는 슬래쉬 (/) 제거
+    request.cookies.get('USER_LANG')?.value || negotiator.language(SUPPORT_LANGUAGE) || 'en';
+
+  const urlPaths = request.nextUrl.pathname.substring(1); // * base 주소 다음에 오는 슬래쉬 (/) 제거
+  const urlFirstPath = urlPaths.split('/')[0];
   const urlQueries = request.nextUrl.search;
-  const redirectUrl = urlHandler(userLang, urlPath, urlQueries);
 
-  // Escape Condition: url의 locale과 쿠키 (혹은 browser의 locale)이 일치할 경우
-  if (urlPath.startsWith(userLang)) return NextResponse.next();
-  return NextResponse.redirect(new URL(redirectUrl, request.url));
-}
+  // * url에 locale 값이 존재하고 쿠키와 (혹은 browser의 locale과) 일치할 경우: 그대로 반환.
+  if (urlFirstPath === userLang) return NextResponse.next();
 
-const urlHandler = (userLang: string, urlPath: string, urlQueries: string) => {
-  // locale 정보가 없는 url이 입력되었을 경우: cookie (혹은 locale)값에 따라 redirect
-  if (AVAIL_PAGE.includes(urlPath.split('/')[0])) {
-    return `/${userLang}/${urlPath}${urlQueries}`;
+  // * url에 locale 값이 존재하지만 쿠키와 (혹은 browser의 locale과) 일치하지 않을 경우: lang 값만 바꿔서 redirect.
+  if (SUPPORT_LANGUAGE.includes(urlFirstPath as LangCookie)) {
+    const path = urlPaths.split('/');
+    const newPath = [userLang, ...path.slice(1)].join('/');
+    return NextResponse.redirect(new URL(`/${newPath}/${urlQueries}`, request.url));
   }
-  // locale 정보가 있는 url이 입력되었을 경우: 그래도 cookie (혹은 locale)값을 따라가도록
-  const path = urlPath.split('/');
-  const newPath = [userLang, ...path.slice(1)].join('/');
-  return `/${newPath}${urlQueries}`;
-};
+
+  // * url에 locale 정보는 없지만 올바른 page path를 갖고 있는 경우: 쿠키 혹은 browser의 locale 값을 붙여서 redirect.
+  if (AVAIL_PAGE.includes(urlFirstPath)) {
+    return NextResponse.redirect(new URL(`/${userLang}/${urlPaths}/${urlQueries}`, request.url));
+  }
+
+  // * 올바르지 않은 page path를 가지는 경우: 예전 웹사이트로 rewrite 시킴.
+  return NextResponse.rewrite(`https://old.fanplus.co.kr/${urlPaths}`);
+}
