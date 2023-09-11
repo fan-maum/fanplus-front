@@ -19,8 +19,7 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
 
-  const isFirstPage = !router.query.page || router.query.page === '1';
-  const isPostExist = !isFirstPage || postList.length !== 0;
+  const isPostExist = boardInfo.POST_CNT !== 0;
 
   const onClickWrite = () => router.push('/');
 
@@ -35,11 +34,14 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
     >
       <CommunityBoardTopNavi boardTitle={texts.bottomTabBar.myPost} />
       {isPostExist ? (
-        <ul>
-          {postList.map((post, idx) => {
-            return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
-          })}
-        </ul>
+        <>
+          <ul>
+            {postList.map((post, idx) => {
+              return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
+            })}
+          </ul>
+          <CommunityBoardPagination totalCount={boardInfo.POST_CNT} />
+        </>
       ) : (
         <CommunityBoardNoPost
           onClickWrite={onClickWrite}
@@ -47,7 +49,6 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
           texts={texts.noMyPostTexts}
         />
       )}
-      <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT)} />
     </div>
   );
 };

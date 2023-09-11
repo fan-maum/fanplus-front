@@ -3,7 +3,7 @@ export type BoardListItemType = {
   BOARD_TITLE: string;
   HEAD_IMG: string;
   BOARD_ICON: string;
-  POST_CNT: string;
+  POST_CNT: number;
   STAR_IDX: string;
   STAR_GROUP_IDX: string;
 };
