@@ -1,26 +1,20 @@
 import { NextApiHandler } from 'next';
-import axios, { AxiosResponse } from 'axios';
-import type { CommunityBoardResponseType } from '@/types/community';
+import axios from 'axios';
 
-const handler: NextApiHandler = async (req, res) => {
+const handler: NextApiHandler = async (contents) => {
   const { target_type, target, order_by, board_lang, lang, page } = req.query;
-  const per_page = 20;
-  const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+  const identity = '8d11881894651bcd2467d8cf5a1377e00e9eb9e5f3546c75bf9bd36c8b588d04';
 
   try {
-    const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
-      `https://napi.appphotocard.com/voteWeb/comments?target_type=${target_type}&target=${target}` +
-        `&order_by=${order_by}&lang=${board_lang}&app_lang=${lang}&page=${page}&per_page=${per_page}`,
-      {
-        headers: {
-          Origin: origin,
-          'Cache-Control': 'no-cache',
-        },
-      }
-    );
-    res.status(200).json(response.data);
+    const response = await axios.post(`https://napi.appphotocard.com/v1/comments`, {
+      identity: identity,
+      target_type: target_type,
+      target: target,
+      contents: contents,
+    });
+    return response.data;
   } catch (error) {
-    res.status(500).json('Failed to load Community-Board data');
+    return 'Failed to load Community-Board data';
   }
 };
 

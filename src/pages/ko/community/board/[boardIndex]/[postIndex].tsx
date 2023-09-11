@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<{
   const target_type = 'post' as TargetType;
   const target = postIndex;
   const order_by = (context.query.order_by as OrderType) || 'newest';
-  const board_lang = 'ALL';
+  const board_lang = 'ko';
   const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
 

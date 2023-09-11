@@ -277,7 +277,7 @@ export const CommunityMainText_ESP: CommunityPageTextType = {
   noRecentBoardTexts: ['¿Eres nuevo en FanPlus?', '¡Busca tu estrella favorita!'],
   buttonSearch: 'Buscar',
   allCategory: 'Total',
-  searchPlaceholder: '원하는 게시판을 찾아보세요.',
+  searchPlaceholder: 'Encuentra el tablón de anuncios que deseas.',
 };
 export const CommunityBoardText_ESP: CommunityBoardTextType = {
   all: 'Total',
@@ -313,7 +313,7 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
 
 export const CommunityPostText_ESP: CommunityPostTextType = {
   popular: 'Popular',
-  post: '글',
+  post: 'Texto',
   viewCount: 'Número de búsquedas',
   recommendCount: 'Gusta',
   recommend: 'Gusta',

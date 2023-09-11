@@ -281,7 +281,7 @@ export const CommunityMainText_IND: CommunityPageTextType = {
   ],
   buttonSearch: 'Cari',
   allCategory: 'Semua',
-  searchPlaceholder: '원하는 게시판을 찾아보세요.',
+  searchPlaceholder: 'Cari papan yang mungkin Anda sukai.',
 };
 export const CommunityBoardText_IND: CommunityBoardTextType = {
   all: 'Semua',
@@ -317,7 +317,7 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
 
 export const CommunityPostText_IND: CommunityPostTextType = {
   popular: 'Popular',
-  post: '글',
+  post: 'Post',
   viewCount: 'Lihat',
   recommendCount: 'Seperti',
   recommend: 'Seperti',

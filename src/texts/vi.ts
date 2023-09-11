@@ -281,7 +281,7 @@ export const CommunityMainText_VIE: CommunityPageTextType = {
   ],
   buttonSearch: 'Tìm kiếm',
   allCategory: 'Tất cả',
-  searchPlaceholder: '원하는 게시판을 찾아보세요.',
+  searchPlaceholder: 'Tìm kiếm một bảng bạn có thể thích.',
 };
 export const CommunityBoardText_VIE: CommunityBoardTextType = {
   all: 'Tất cả',
@@ -317,7 +317,7 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
 
 export const CommunityPostText_VIE: CommunityPostTextType = {
   popular: 'Nổi tiếng',
-  post: '글',
+  post: 'Câu chuyện',
   viewCount: 'Xem',
   recommendCount: 'Giống như',
   recommend: 'Giống như',

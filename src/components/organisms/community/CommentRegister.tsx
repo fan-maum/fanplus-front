@@ -1,4 +1,10 @@
-import { Avatar, Button, Group, Stack } from '@/components/atoms';
+import { Avatar, Stack, UnstyledButton } from '@/components/atoms';
+import styled from '@emotion/styled';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+interface FormValue {
+  registerValue: string | number;
+}
 
 type CommentRegisterProps = {
   WRITER_PROFILE_IMG: string;
@@ -9,12 +15,26 @@ const CommentRegister = ({ WRITER_PROFILE_IMG }: CommentRegisterProps) => {
     // eslint-disable-next-line no-console
     console.log('clicked');
   };
+  const { handleSubmit, register, reset } = useForm<FormValue>();
+  const handleRegisterSubmit: SubmitHandler<FormValue> = (data) => {
+    // setActiveTab(texts.allCategory);
+    // router.push({
+    //   pathname: router.pathname,
+    //   query: {
+    //     category_type: 0,
+    //     searchValue: data.searchValue,
+    //   },
+    // });
+    reset({ registerValue: data.registerValue });
+  };
+
   return (
-    <Group
-      spacing={10}
-      dir="row"
-      align={'center'}
+    <form
+      onSubmit={handleSubmit(handleRegisterSubmit)}
       css={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
         width: '100%',
         margin: '0 auto',
         maxWidth: '768px',
@@ -41,32 +61,44 @@ const CommentRegister = ({ WRITER_PROFILE_IMG }: CommentRegisterProps) => {
         spacing={5}
         css={{ flexDirection: 'row', flex: 1 }}
       >
-        <input
-          type="text"
+        <RegisterInput
           placeholder="댓글을 남겨주세요. (200자)"
-          css={{
-            width: '100%',
-            height: '100%',
-            flex: 1,
-            border: 'none',
-            outline: 'none',
-            color: '#ABAFB7',
-            fontSize: 20,
-            fontWeight: 500,
-            '&::placeholder': {
-              color: '#ABAFB7',
-            },
-          }}
+          {...register('registerValue', { maxLength: 200 })}
         />
-        <Button
-          onClick={RegisterOnClick}
-          css={{ width: 'auto', height: 38, margin: 0, padding: '6px 14px' }}
+        <UnstyledButton
+          type="submit"
+          bg="#FF5656"
+          h={36}
+          px={16}
+          css={{
+            width: 'auto',
+            height: 38,
+            margin: 0,
+            padding: '6px 14px',
+            borderRadius: '6px',
+            color: '#fff',
+            fontSize: 20,
+            fontWeight: 600,
+          }}
         >
-          등록
-        </Button>
+          <span>등록</span>
+        </UnstyledButton>
       </Stack>
-    </Group>
+    </form>
   );
 };
 
 export default CommentRegister;
+
+const RegisterInput = styled.input`
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  font-weight: 500;
+  &::placeholder {
+    color: '#ABAFB7';
+  }
+`;

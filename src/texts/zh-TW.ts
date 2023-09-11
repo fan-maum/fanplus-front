@@ -277,7 +277,7 @@ export const CommunityMainText_zh_TW: CommunityPageTextType = {
   noRecentBoardTexts: ['您是FanPlus新手嗎？', '搜索你最喜歡的明星！'],
   buttonSearch: '搜索',
   allCategory: '全部',
-  searchPlaceholder: '원하는 게시판을 찾아보세요.',
+  searchPlaceholder: '找到您想要的消息面板',
 };
 export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
   all: '全部',
@@ -313,7 +313,7 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
 
 export const CommunityPostText_zh_TW: CommunityPostTextType = {
   popular: '人氣',
-  post: '글',
+  post: '帖子',
   viewCount: '閱讀數',
   recommendCount: '推薦',
   recommend: '推薦',

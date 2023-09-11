@@ -277,7 +277,7 @@ export const CommunityMainText_ENG: CommunityPageTextType = {
   noRecentBoardTexts: ['Are you new to FanPlus?', 'Search for your favorite star!'],
   buttonSearch: 'Search',
   allCategory: 'All',
-  searchPlaceholder: '원하는 게시판을 찾아보세요.',
+  searchPlaceholder: 'Search for a board you may like.',
 };
 export const CommunityBoardText_ENG: CommunityBoardTextType = {
   all: 'All',
@@ -313,7 +313,7 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
 
 export const CommunityPostText_ENG: CommunityPostTextType = {
   popular: 'Popular',
-  post: '글',
+  post: 'Post',
   viewCount: 'View',
   recommendCount: 'Like',
   recommend: 'Like',

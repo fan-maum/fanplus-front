@@ -92,7 +92,7 @@ export const getCommunityPostCommentData = async (
   per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/comment`,
     { params: { target_type, target, order_by, board_lang, lang, page, per_page } }
   );
   return response.data;
