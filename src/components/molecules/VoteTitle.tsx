@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Stack } from '../atoms/Stack';
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { TranslatedVoteStatus } from '../organisms/VoteListItem';
 
 export interface PromotionTitleProps {
@@ -12,7 +12,7 @@ export interface PromotionTitleProps {
 }
 
 export default function VoteTitle({ remainTime, voteStatus, starName }: PromotionTitleProps) {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
   const activeBackgroundColor =
     voteStatus === 'ONGOING' ? '#FFD950' : voteStatus === 'READY' ? '#bfcff6' : '#666';

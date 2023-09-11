@@ -1,5 +1,4 @@
 import { LangCookie, setLangCookie } from '@/utils/setLangCookie';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 type PropType = {

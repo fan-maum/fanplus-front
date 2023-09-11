@@ -3,7 +3,7 @@ import CommonModal, { CommonModalProps } from '@/components/modals/CommonModal';
 import VoteModalText from '@/components/molecules/VoteModalText';
 import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
 import { useRecoilState } from 'recoil';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { Group } from '../atoms';
 import useHtmlElement from '@/hooks/useHtmlElement';
 import { formatNumberWithComma } from '@/utils/util';
@@ -27,7 +27,7 @@ const VoteDoneModal = ({
   ...props
 }: VoteDoneModalProps) => {
   const [quantity, setQuantity] = useState(0);
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
   const voteModalButton = useRecoilState(voteModalButtonState(language))[0];
   const voteDoneFirstText = voteModalLang({

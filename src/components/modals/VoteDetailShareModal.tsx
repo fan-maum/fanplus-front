@@ -6,7 +6,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { isMobile } from 'react-device-detect';
 import ShareButtonWithIcon from '../atoms/ShareButtonWithIcon';
 import { Stack, Group, UnstyledButton } from '@/components/atoms';
-import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 import { shareModalState } from '@/store/voteLangState';
 import { useRecoilState } from 'recoil';
 import { useEndText, useMiddleText, useTitleText } from '@/store/shareContent';
@@ -31,7 +31,7 @@ function VoteDetailShareModal({
   ...props
 }: VoteDetailShareModalProps) {
   const canShare = isMobile && navigator.share;
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const routerLanguage = GetRouterLanguage();
   const shareModalLanguage = useRecoilState(shareModalState(language))[0];
 
