@@ -57,11 +57,11 @@ export default function LikesButton({
 }
 
 const SIZE_VARIANTS = {
-  medium: {
+  large: {
     fontSize: '20px',
     fontWeight: '600',
   },
-  large: {
+  medium: {
     fontSize: '16px',
     fontWeight: '400',
   },

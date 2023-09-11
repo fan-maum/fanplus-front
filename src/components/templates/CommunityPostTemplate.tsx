@@ -4,6 +4,7 @@ import CommunityPostTopNavi from '@/components/molecules/community/CommunityPost
 import CommunityPostInfo from '@/components/organisms/community/CommunityPostInfo';
 import CommunityPostDetail from '@/components/organisms/community/CommunityPostDetail';
 import CommunityPostComment from '@/components/organisms/community/CommunityPostComment';
+import CommunityPostFixedAreaWrapper from '@/components/organisms/community/CommunityPostFixedAreaWrapper';
 
 export type CommunityPostPropType = {
   communityPostData: CommunityPostResponseType;
@@ -30,21 +31,34 @@ const CommunityPostTemplate = ({
   // eslint-disable-next-line no-console
   console.log('postInfo => ', postInfo);
   return (
-    <div
-      css={{
-        width: '100%',
-        maxWidth: '768px',
-        margin: '0px auto',
-        position: 'relative',
-      }}
-    >
-      <div>
-        <CommunityPostTopNavi />
-        <CommunityPostInfo postInfo={postInfo} texts={texts} />
-        <CommunityPostDetail postInfo={postInfo} texts={texts} />
-        <CommunityPostComment commentList={commentList} commentTotalCount={commentTotalCount} />
+    <>
+      <div
+        css={{
+          position: 'relative',
+          width: '100%',
+          margin: '0px auto',
+        }}
+      >
+        <div
+          css={{
+            maxWidth: '768px',
+            margin: '0px auto',
+            position: 'relative',
+            width: '100%',
+            paddingBottom: 192,
+          }}
+        >
+          <CommunityPostTopNavi />
+          <CommunityPostInfo postInfo={postInfo} texts={texts} />
+          <CommunityPostDetail postInfo={postInfo} texts={texts} />
+          <CommunityPostComment commentList={commentList} commentTotalCount={commentTotalCount} />
+        </div>
+        <CommunityPostFixedAreaWrapper
+          WRITER_PROFILE_IMG={postInfo.WRITER_PROFILE_IMG}
+          commentTotalCount={commentTotalCount}
+        />
       </div>
-    </div>
+    </>
   );
 };
 

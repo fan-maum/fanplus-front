@@ -5,6 +5,7 @@ import PostCommentOrders from '@/components/molecules/community/PostCommentOrder
 import { OrderType } from '@/types/common';
 import { CommunityCommentListItemType } from '@/types/community';
 import PostCommentList from './PostCommentList';
+import CommentRegister from './CommentRegister';
 
 type CommunityPostCommentProps = {
   commentList: Array<CommunityCommentListItemType>;

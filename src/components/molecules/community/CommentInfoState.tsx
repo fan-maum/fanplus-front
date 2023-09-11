@@ -27,7 +27,7 @@ function CommentInfoState({ comment }: CommentInfoStateProps) {
             alt="Avatar"
           />
         </div>
-        <Stack fw={600} fz={17} pt={6}>
+        <Stack fw={600} fz={17} pt={6} spacing={5}>
           <Group spacing={10}>
             <h4 css={{ color: '#000', fontSize: 18, fontWeight: 600 }}>{comment.NICK}</h4>
             <div

@@ -19,7 +19,7 @@ const PostCommentListItem = ({ comment }: PostCommentListItemProps) => {
         // handleReplyToggleClick={handleReplyToggleClick}
         // anonymity={anonymity}
       />
-      <div className="comment-reply">
+      <div>
         {/* {reply.write && (
           <FormComment
             uniqueKey={`comment-${comment.id}`}
