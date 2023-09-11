@@ -47,7 +47,7 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
           texts={texts.noMyPostTexts}
         />
       )}
-      <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT) || 1} />
+      <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT)} />
     </div>
   );
 };

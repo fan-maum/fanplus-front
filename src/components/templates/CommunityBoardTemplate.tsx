@@ -104,7 +104,7 @@ const CommunityBoardTemplate = ({
           texts={texts.noPostTexts}
         />
       )}
-      <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT) || 1} />
+      <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT)} />
       <BottomTabBar
         items={[
           { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
