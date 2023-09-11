@@ -8,11 +8,12 @@ import PostCommentList from './PostCommentList';
 import CommentRegister from './CommentRegister';
 
 type CommunityPostCommentProps = {
+  identity:string;
   commentList: Array<CommunityCommentListItemType>;
   commentTotalCount: number;
 };
 
-const CommunityPostComment = ({ commentList, commentTotalCount }: CommunityPostCommentProps) => {
+const CommunityPostComment = ({ identity, commentList, commentTotalCount }: CommunityPostCommentProps) => {
   const [commentOrder, setCommentOrder] = useState<OrderType>('newest');
   return (
     <>
@@ -20,7 +21,7 @@ const CommunityPostComment = ({ commentList, commentTotalCount }: CommunityPostC
         <PostCommentCount count={commentTotalCount} />
         <PostCommentOrders commentOrder={commentOrder} setCommentOrder={setCommentOrder} />
       </Group>
-      <PostCommentList commentTotalCount={commentTotalCount} commentList={commentList} />
+      <PostCommentList identity={identity} commentTotalCount={commentTotalCount} commentList={commentList} />
     </>
   );
 };

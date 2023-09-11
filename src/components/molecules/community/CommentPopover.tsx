@@ -1,33 +1,48 @@
-import { useState } from 'react';
-import Image from 'next/image';
-import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
+import { Popover } from '@mantine/core';
+import IconHorizontalMore from "@/components/atoms/IconHorizontalMore";
 
 type CommentPopoverProps = {
   children: React.ReactNode;
 };
 
-const CommentPopover = () => {
-  const [visible, setVisible] = useState(false);
-  const handleMenuVisible = async () => {
-    if (visible) return removeEventListener();
-    setVisible(true);
-  };
-
-  const removeEventListener = () => {
-    setVisible(false);
-  };
-
+export default function CommentPopover({}:CommentPopoverProps) {
   return (
-    <div css={{ position: 'relative' }}>
-      <IconHorizontalMore handleClickMore={handleMenuVisible} />
-      {visible && (
-        <ul css={{ position: 'absolute', border: '1px solid #232323' }}>
-          <li>신고하기</li>
-        </ul>
-      )}
-    </div>
-    // <Popover/>
+    <Popover width={60} position="bottom-end" shadow="none" 
+          styles={() => ({
+            dropdown: {
+              padding: 0,
+              border: "1px solid #d9d9d9",
+              borderRadius: "6px"
+            },
+          })}
+          >
+            <Popover.Target>
+            <button css={{
+              display: 'flex',
+              outline: 'none',
+              border: "none",
+              background: "none",
+            }}><IconHorizontalMore/></button>
+            </Popover.Target>
+            <Popover.Dropdown>
+              <ul css={{
+                display: "flex",
+                flexDirection: "column",
+                minWidth: "60px",
+                '& > li' : {
+                  padding: "8px 16px",
+                  color: "#101010",
+                  fontSize: 14,
+                  fontWeight: 400
+                },
+                '& > li:nth-of-type(1)' : {
+                  borderBottom: "1px solid #d9d9d9"
+                }
+              }}>
+                <li onClick={() => console.log("edit")}>수정</li>
+                <li onClick={() => console.log("delete")}>삭제</li>
+              </ul>
+            </Popover.Dropdown>
+          </Popover>
   );
-};
-
-export default CommentPopover;
+}

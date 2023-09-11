@@ -24,6 +24,7 @@ const CommunityPostTemplate = ({
   const commentTotalCount = communityPostCommentData.RESULTS.DATAS.TOTAL_CNT;
   const commentPage = communityPostCommentData.RESULTS.DATAS.PAGE;
   const headList = communityPostData.RESULTS.DATAS.HEAD_LIST;
+  console.log(postInfo.WRITER_IDX)
   // eslint-disable-next-line no-console
   console.log('commentListFromPost => ', communityPostData.RESULTS.DATAS.COMMENT_LIST);
   // eslint-disable-next-line no-console
@@ -53,7 +54,7 @@ const CommunityPostTemplate = ({
           <CommunityPostTopNavi />
           <CommunityPostInfo postInfo={postInfo} texts={texts} />
           <CommunityPostDetail postInfo={postInfo} texts={texts} />
-          <CommunityPostComment commentList={commentList} commentTotalCount={commentTotalCount} />
+          <CommunityPostComment identity={identity} commentList={commentList} commentTotalCount={commentTotalCount} />
         </div>
         <CommunityPostFixedAreaWrapper
           identity={identity}

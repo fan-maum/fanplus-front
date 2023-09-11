@@ -115,3 +115,27 @@ export const postCommentResult = async (
   );
   return response;
 };
+
+export const postLikes = async (
+  identity: string,
+) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes`,
+    {
+      identity: identity,
+    }
+  );
+  return response;
+};
+
+export const deleteLikes = async (
+  identity: string,
+) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes`,
+    {
+      identity: identity,
+    }
+  );
+  return response;
+};

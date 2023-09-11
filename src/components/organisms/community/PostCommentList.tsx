@@ -4,11 +4,12 @@ import PostCommentListItem from './PostCommentListItem';
 import { useRouter } from 'next/router';
 
 type PostCommentListProps = {
+  identity: string;
   commentTotalCount: number;
   commentList: Array<CommunityCommentListItemType>;
 };
 
-const PostCommentList = ({ commentTotalCount, commentList }: PostCommentListProps) => {
+const PostCommentList = ({ identity, commentTotalCount, commentList }: PostCommentListProps) => {
   const router = useRouter();
   const page = parseInt(router.query.page as string) | 0;
   const hasNextPage = commentList.length * (page + 1) < commentTotalCount;
@@ -16,7 +17,7 @@ const PostCommentList = ({ commentTotalCount, commentList }: PostCommentListProp
   return (
     <ul data-role="comments">
       {commentList.map((comment) => {
-        return <PostCommentListItem key={comment.COMMENT_IDX} comment={comment} />;
+        return <PostCommentListItem key={comment.COMMENT_IDX} identity={identity} comment={comment} />;
       })}
       {hasNextPage && <button type="button">다음 댓글 더보기</button>}
     </ul>

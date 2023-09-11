@@ -10,7 +10,6 @@ import { OrderType, TargetType } from '@/types/common';
 import nookies from 'nookies';
 
 const Post = ({ identity, communityPostData, communityPostCommentData }: CommunityPostPropType) => {
-  console.log(identity);
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
       <CommunityPostTemplate
@@ -31,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<{
   const lang = 'ko';
 
   const cookies = nookies.get(context);
-  const identity = cookies.user_id;
+  const identity = cookies.user_id || null;
 
   const target_type = 'post' as TargetType;
   const target = postIndex;

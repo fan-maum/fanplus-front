@@ -3,13 +3,15 @@ import { CommunityCommentListItemType } from '@/types/community';
 import CommentCard from './CommentCard';
 
 type PostCommentListItemProps = {
+  identity: string;
   comment: CommunityCommentListItemType;
 };
 
-const PostCommentListItem = ({ comment }: PostCommentListItemProps) => {
+const PostCommentListItem = ({ identity, comment }: PostCommentListItemProps) => {
   return (
     <li className="comment">
       <CommentCard
+      identity={identity}
         comment={comment}
         // {...comment}
         // postID={postID}
