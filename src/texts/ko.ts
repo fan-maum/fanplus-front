@@ -321,4 +321,7 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   edit: '수정',
   delete: '삭제',
   report: '신고하기',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };

@@ -212,6 +212,9 @@ export type CommunityPostTextType = {
   edit: string;
   delete: string;
   report: string;
+  cancelButton: string,
+  confirmButton: string,
+  reportButton: string,
 };
 
 export type TextType = {

@@ -324,4 +324,7 @@ export const CommunityPostText_VIE: CommunityPostTextType = {
   edit: 'Chỉnh sửa',
   delete: 'Xóa',
   report: 'Khai báo',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };

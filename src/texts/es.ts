@@ -320,4 +320,7 @@ export const CommunityPostText_ESP: CommunityPostTextType = {
   edit: 'Editar',
   delete: 'Eliminar',
   report: 'Reportar',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };

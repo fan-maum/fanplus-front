@@ -24,6 +24,7 @@ const CommunityPostDetail = ({ identity, postInfo, texts }: CommunityPostDetailP
       <Center mb={8}>
         <LikesButton
           text={`${texts.recommend} ${postInfo.RECOMMEND_CNT}`}
+          recommendYN={postInfo.RECOMMEND_YN}
           onClick={RecommendOnClick}
         />
       </Center>

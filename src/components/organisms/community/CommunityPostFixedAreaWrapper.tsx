@@ -3,14 +3,14 @@ import CommentRegister from './CommentRegister';
 
 export type CommunityPostFixedAreaWrapperProps = {
   identity: string;
-  BOARD_IDX: string;
+  POST_IDX: string;
   WRITER_PROFILE_IMG: string;
   commentTotalCount: number;
 };
 
 const CommunityPostFixedAreaWrapper = ({
   identity,
-  BOARD_IDX,
+  POST_IDX,
   WRITER_PROFILE_IMG,
   commentTotalCount,
 }: CommunityPostFixedAreaWrapperProps) => {
@@ -27,7 +27,7 @@ const CommunityPostFixedAreaWrapper = ({
     >
       <CommentRegister
         identity={identity}
-        BOARD_IDX={BOARD_IDX}
+        POST_IDX={POST_IDX}
         WRITER_PROFILE_IMG={WRITER_PROFILE_IMG}
       />
       <CommunityPostBottomNavi commentTotalCount={commentTotalCount} />

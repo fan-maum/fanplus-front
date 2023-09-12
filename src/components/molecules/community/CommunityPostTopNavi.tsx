@@ -7,11 +7,12 @@ import { Popover } from '@mantine/core';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useMutation } from 'react-query';
 
-type CommunityPostTopNaviProps = {
+export type CommunityPostTopNaviProps = {
   texts: CommunityPostTextType;
+  deletePostOnClick: () => void;
 };
 
-const CommunityPostTopNavi = ({ texts }: CommunityPostTopNaviProps) => {
+const CommunityPostTopNavi = ({ texts, deletePostOnClick }: CommunityPostTopNaviProps) => {
   const router = useRouter();
   // const likesMutate = useMutation();
 
@@ -122,12 +123,7 @@ const CommunityPostTopNavi = ({ texts }: CommunityPostTopNaviProps) => {
                 >
                   {texts.edit}
                 </li>
-                <li
-                  onClick={() => {
-                    // eslint-disable-next-line no-console
-                    console.log('delete');
-                  }}
-                >
+                <li onClick={deletePostOnClick}>
                   {texts.delete}
                 </li>
               </ul>

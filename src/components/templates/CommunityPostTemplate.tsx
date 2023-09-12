@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import type { CommunityPostResponseType, CommunityCommentResponseType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
-import CommunityPostTopNavi from '@/components/molecules/community/CommunityPostTopNavi';
+import CommunityPostTopNavi, { CommunityPostTopNaviProps } from '@/components/molecules/community/CommunityPostTopNavi';
 import CommunityPostInfo from '@/components/organisms/community/CommunityPostInfo';
 import CommunityPostDetail from '@/components/organisms/community/CommunityPostDetail';
 import CommunityPostComment from '@/components/organisms/community/CommunityPostComment';
 import CommunityPostFixedAreaWrapper from '@/components/organisms/community/CommunityPostFixedAreaWrapper';
+import CommunityDeleteModal from '@/components/modals/CommunityDeleteModal';
 
 export type CommunityPostPropType = {
   identity: string;
@@ -33,6 +35,15 @@ const CommunityPostTemplate = ({
   // console.log(headList);
   // eslint-disable-next-line no-console
   console.log('postInfo => ', postInfo);
+  const [deleteModalBlock, setDeleteModalBlock] = useState(false);
+  const postIdx = postInfo.POST_IDX;
+  const deletePostOnClick = () => {
+    setDeleteModalBlock(true);
+  }
+  const CommunityPostTopNaviProps: CommunityPostTopNaviProps = {
+    texts,
+    deletePostOnClick,
+  };
   return (
     <>
       <div
@@ -51,7 +62,7 @@ const CommunityPostTemplate = ({
             paddingBottom: 192,
           }}
         >
-          <CommunityPostTopNavi texts={texts} />
+          <CommunityPostTopNavi {...CommunityPostTopNaviProps}/>
           <CommunityPostInfo postInfo={postInfo} texts={texts} />
           <CommunityPostDetail identity={identity} postInfo={postInfo} texts={texts} />
           <CommunityPostComment
@@ -62,11 +73,18 @@ const CommunityPostTemplate = ({
         </div>
         <CommunityPostFixedAreaWrapper
           identity={identity}
-          BOARD_IDX={postInfo.BOARD_IDX}
+          POST_IDX={postInfo.POST_IDX}
           WRITER_PROFILE_IMG={postInfo.WRITER_PROFILE_IMG}
           commentTotalCount={commentTotalCount}
         />
       </div>
+      <CommunityDeleteModal
+        opened={deleteModalBlock}
+        onClose={() => {
+          setDeleteModalBlock(false);
+        }}
+        texts={texts}
+      />
     </>
   );
 };

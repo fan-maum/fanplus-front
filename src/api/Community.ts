@@ -123,7 +123,7 @@ export const getCommunityUnAuthPostCommentData = async (
 };
 
 export const postCommentResult = async (
-  userId: string,
+  identity: string,
   target_type: string,
   target: string,
   contents: string | number
@@ -131,7 +131,7 @@ export const postCommentResult = async (
   const response: AxiosResponse = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment`,
     {
-      identity: userId,
+      identity: identity,
       target_type: target_type,
       target: target,
       contents: contents,
@@ -183,8 +183,7 @@ export const postRecommends = async (identity: string, post_idx: string) => {
 
 export const deleteRecommends = async (identity: string, post_idx: string) => {
   const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends`,
-    {
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends`, {
       data: {
         identity: identity,
         post_idx: post_idx,

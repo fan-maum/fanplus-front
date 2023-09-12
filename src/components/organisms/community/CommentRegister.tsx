@@ -11,11 +11,11 @@ interface FormValue {
 
 type CommentRegisterProps = {
   identity: string;
-  BOARD_IDX: string;
+  POST_IDX: string;
   WRITER_PROFILE_IMG: string;
 };
 
-const CommentRegister = ({ identity, BOARD_IDX, WRITER_PROFILE_IMG }: CommentRegisterProps) => {
+const CommentRegister = ({ identity, POST_IDX, WRITER_PROFILE_IMG }: CommentRegisterProps) => {
   const RegisterOnClick = () => {
     // eslint-disable-next-line no-console
     console.log('clicked');
@@ -23,7 +23,7 @@ const CommentRegister = ({ identity, BOARD_IDX, WRITER_PROFILE_IMG }: CommentReg
   const { handleSubmit, register, reset } = useForm<FormValue>();
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
-    const result = await postCommentResult(identity, 'comment', BOARD_IDX, contents);
+    const result = await postCommentResult(identity, 'post', POST_IDX, contents);
     // setActiveTab(texts.allCategory);
     // router.push({
     //   pathname: router.pathname,
@@ -32,6 +32,7 @@ const CommentRegister = ({ identity, BOARD_IDX, WRITER_PROFILE_IMG }: CommentReg
     //     searchValue: data.searchValue,
     //   },
     // });
+    // console.log(result);
     reset({ registerValue: data.registerValue });
   };
 

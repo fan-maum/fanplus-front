@@ -320,4 +320,7 @@ export const CommunityPostText_zh_CN: CommunityPostTextType = {
   edit: '修改',
   delete: '删除',
   report: '举报',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };

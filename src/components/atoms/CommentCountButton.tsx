@@ -19,6 +19,7 @@ export default function CommentCountButton({ text, gap, padding, ...props }: Lik
           gap: gap || 6,
           padding: padding || '0',
           borderRadius: 5,
+          cursor: "default"
         }}
         {...props}
       >

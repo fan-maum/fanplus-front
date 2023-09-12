@@ -1,11 +1,8 @@
 import {
-  Avatar,
-  AvatarProps,
-  Stack,
   UnstyledButton,
   UnstyledButtonProps,
 } from '@/components/atoms';
-import Image from 'next/image';
+import IconLikes from './IconLikes';
 
 export interface LikesButtonProps extends UnstyledButtonProps {
   buttonSize?: 'medium' | 'large';
@@ -26,6 +23,7 @@ export default function LikesButton({
   recommendYN,
   ...props
 }: LikesButtonProps) {
+  const active = alreadyLike === 'Y' || recommendYN === 'Y';
   return (
     <div>
       <UnstyledButton
@@ -36,14 +34,16 @@ export default function LikesButton({
           padding: padding || '16px 30px',
           borderRadius: 5,
           border: buttonSize === 'large' ? '2px solid #D9D9D9' : 'none',
+          color: active ? '#FF5656' : "#999"
         }}
         {...props}
       >
-        <Image
-          src={'/icons/icon_likes.svg'}
-          width={buttonSize === 'large' ? 20 : 16}
-          height={buttonSize === 'large' ? 20 : 16}
-          alt="likes"
+        <IconLikes 
+          iconCss={{
+            width: buttonSize === 'large' ? 20 : 16,
+            height: buttonSize === 'large' ? 20 : 16,
+          }}
+          active={active}
         />
         <div
           css={{
