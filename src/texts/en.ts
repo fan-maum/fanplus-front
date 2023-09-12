@@ -317,4 +317,7 @@ export const CommunityPostText_ENG: CommunityPostTextType = {
   viewCount: 'View',
   recommendCount: 'Like',
   recommend: 'Like',
+  edit: 'Edit',
+  delete: 'Delete',
+  report: 'Report',
 };

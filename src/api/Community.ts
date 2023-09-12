@@ -70,13 +70,21 @@ export const getCommunityBoardResultData = async (
  * Post
  */
 /* 게시글 불러오기 */
-export const getCommunityPostData = async (
+export const getCommunityPostData = async (postIndex: number, identity: string) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
+    { params: { postIndex, identity } }
+  );
+  return response.data;
+};
+
+export const getCommunityUnAuthPostData = async (
   boardIndex: number,
   postIndex: number,
   lang: BackLangType
 ) => {
   const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/post`,
     { params: { boardIndex, postIndex, lang } }
   );
   return response.data;
@@ -86,13 +94,29 @@ export const getCommunityPostCommentData = async (
   target_type: TargetType,
   target: number,
   order_by: OrderType,
+  lang: BackLangType, // system
+  page: number,
+  identity: string,
+  per_page: number
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/comment`,
+    { params: { target_type, target, order_by, lang, page, identity, per_page } }
+  );
+  return response.data;
+};
+
+export const getCommunityUnAuthPostCommentData = async (
+  target_type: TargetType,
+  target: number,
+  order_by: OrderType,
   board_lang: BackLangType | 'ALL', // filterLang
   lang: BackLangType, // system
   page: number,
   per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/comment`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/comment`,
     { params: { target_type, target, order_by, board_lang, lang, page, per_page } }
   );
   return response.data;
@@ -116,11 +140,9 @@ export const postCommentResult = async (
   return response;
 };
 
-export const postLikes = async (
-  identity: string,
-) => {
+export const postLikes = async (commentIndex: string, identity: string) => {
   const response: AxiosResponse = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
     {
       identity: identity,
     }
@@ -128,13 +150,13 @@ export const postLikes = async (
   return response;
 };
 
-export const deleteLikes = async (
-  identity: string,
-) => {
+export const deleteLikes = async (commentIndex: string, identity: string) => {
   const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
     {
-      identity: identity,
+      data: {
+        identity: identity,
+      },
     }
   );
   return response;

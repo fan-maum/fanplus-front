@@ -1,4 +1,4 @@
-import { postLikes } from '@/api/Community';
+import { deleteLikes, postLikes } from '@/api/Community';
 import { Group, Stack, UnstyledButton } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
 import CommentInfoState from '@/components/molecules/community/CommentInfoState';
@@ -18,9 +18,13 @@ const CommentCard = ({ identity, comment }: CommentCardProps) => {
     //     identity: identity
     //   }
     // })
-    const res = await axios.post(`http://localhost:302/api/community/${comment.COMMENT_IDX}`,{identity: identity});
-    console.log(res);
-  }
+    // const res = await axios.post(`/api/community/${comment.COMMENT_IDX}`, { identity: identity });
+    // const res = await axios.post(`/api/community/likes/${comment.COMMENT_IDX}`, {
+    //   identity: identity,
+    // });
+    const res = await postLikes(comment.COMMENT_IDX, identity);
+    // const res = await deleteLikes(comment.COMMENT_IDX, identity);
+  };
   return (
     <Stack p={'26px 20px 20px 20px'} spacing={18}>
       <CommentInfoState comment={comment} />
@@ -31,6 +35,7 @@ const CommentCard = ({ identity, comment }: CommentCardProps) => {
         <LikesButton
           buttonSize="medium"
           padding="0"
+          alreadyLike={comment.ALREADY_LIKE}
           text={`${comment.LIKE_CNT}`}
           onClick={LikesOnClick}
         />

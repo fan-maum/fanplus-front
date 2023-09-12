@@ -209,6 +209,9 @@ export type CommunityPostTextType = {
   viewCount: string;
   recommendCount: string;
   recommend: string;
+  edit: string;
+  delete: string;
+  report: string;
 };
 
 export type TextType = {

@@ -318,4 +318,7 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   viewCount: '조회수',
   recommendCount: '추천수',
   recommend: '추천',
+  edit: '수정',
+  delete: '삭제',
+  report: '신고하기',
 };

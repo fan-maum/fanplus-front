@@ -321,4 +321,7 @@ export const CommunityPostText_VIE: CommunityPostTextType = {
   viewCount: 'Xem',
   recommendCount: 'Giống như',
   recommend: 'Giống như',
+  edit: 'Chỉnh sửa',
+  delete: 'Xóa',
+  report: 'Khai báo',
 };

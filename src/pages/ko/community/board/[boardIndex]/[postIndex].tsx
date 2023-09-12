@@ -1,5 +1,11 @@
 import { GetServerSideProps } from 'next';
-import { getCommunityPostCommentData, getCommunityPostData } from '@/api/Community';
+import nookies from 'nookies';
+import {
+  getCommunityPostCommentData,
+  getCommunityPostData,
+  getCommunityUnAuthPostCommentData,
+  getCommunityUnAuthPostData,
+} from '@/api/Community';
 import { CommunityPostText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
 import Layout from '@/components/organisms/Layout';
 import { CommunityPostResponseType } from '@/types/community';
@@ -7,7 +13,6 @@ import CommunityPostTemplate, {
   CommunityPostPropType,
 } from '@/components/templates/CommunityPostTemplate';
 import { OrderType, TargetType } from '@/types/common';
-import nookies from 'nookies';
 
 const Post = ({ identity, communityPostData, communityPostCommentData }: CommunityPostPropType) => {
   return (
@@ -30,7 +35,7 @@ export const getServerSideProps: GetServerSideProps<{
   const lang = 'ko';
 
   const cookies = nookies.get(context);
-  const identity = cookies.user_id || null;
+  const identity = cookies.user_id;
 
   const target_type = 'post' as TargetType;
   const target = postIndex;
@@ -41,16 +46,31 @@ export const getServerSideProps: GetServerSideProps<{
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
-  const communityPostData = await getCommunityPostData(boardIndex, postIndex, lang);
-  const communityPostCommentData = await getCommunityPostCommentData(
-    target_type,
-    target,
-    order_by,
-    board_lang,
-    lang,
-    page,
-    per_page
-  );
+  let communityPostData;
+  let communityPostCommentData;
+  if (identity !== null) {
+    communityPostData = await getCommunityPostData(postIndex, identity);
+    communityPostCommentData = await getCommunityPostCommentData(
+      target_type,
+      target,
+      order_by,
+      lang,
+      page,
+      identity,
+      per_page
+    );
+  } else {
+    communityPostData = await getCommunityUnAuthPostData(boardIndex, postIndex, lang);
+    communityPostCommentData = await getCommunityUnAuthPostCommentData(
+      target_type,
+      target,
+      order_by,
+      board_lang,
+      lang,
+      page,
+      per_page
+    );
+  }
 
   return {
     props: { identity, communityPostData, communityPostCommentData },

@@ -321,4 +321,7 @@ export const CommunityPostText_IND: CommunityPostTextType = {
   viewCount: 'Lihat',
   recommendCount: 'Seperti',
   recommend: 'Seperti',
+  edit: 'Edit',
+  delete: 'Hapus',
+  report: 'Laporkan',
 };

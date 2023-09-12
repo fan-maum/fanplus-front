@@ -1,5 +1,11 @@
 import { GetServerSideProps } from 'next';
-import { getCommunityPostCommentData, getCommunityPostData } from '@/api/Community';
+import nookies from 'nookies';
+import {
+  getCommunityPostCommentData,
+  getCommunityPostData,
+  getCommunityUnAuthPostCommentData,
+  getCommunityUnAuthPostData,
+} from '@/api/Community';
 import { CommunityPostText_zh_TW, FooterText_zh_TW, NavBarText_zh_TW } from '@/texts/zh-TW';
 import Layout from '@/components/organisms/Layout';
 import { CommunityPostResponseType } from '@/types/community';
@@ -8,10 +14,11 @@ import CommunityPostTemplate, {
 } from '@/components/templates/CommunityPostTemplate';
 import { OrderType, TargetType } from '@/types/common';
 
-const Post = ({ communityPostData, communityPostCommentData }: CommunityPostPropType) => {
+const Post = ({ identity, communityPostData, communityPostCommentData }: CommunityPostPropType) => {
   return (
     <Layout navBarTexts={NavBarText_zh_TW} footerTexts={FooterText_zh_TW}>
       <CommunityPostTemplate
+        identity={identity}
         communityPostData={communityPostData}
         communityPostCommentData={communityPostCommentData}
         texts={CommunityPostText_zh_TW}
@@ -27,6 +34,9 @@ export const getServerSideProps: GetServerSideProps<{
   const postIndex = parseInt(context.query.postIndex as string);
   const lang = 'zhtw';
 
+  const cookies = nookies.get(context);
+  const identity = cookies.user_id;
+
   const target_type = 'post' as TargetType;
   const target = postIndex;
   const order_by = (context.query.order_by as OrderType) || 'newest';
@@ -36,19 +46,34 @@ export const getServerSideProps: GetServerSideProps<{
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
-  const communityPostData = await getCommunityPostData(boardIndex, postIndex, lang);
-  const communityPostCommentData = await getCommunityPostCommentData(
-    target_type,
-    target,
-    order_by,
-    board_lang,
-    lang,
-    page,
-    per_page
-  );
+  let communityPostData;
+  let communityPostCommentData;
+  if (identity !== null) {
+    communityPostData = await getCommunityPostData(postIndex, identity);
+    communityPostCommentData = await getCommunityPostCommentData(
+      target_type,
+      target,
+      order_by,
+      lang,
+      page,
+      identity,
+      per_page
+    );
+  } else {
+    communityPostData = await getCommunityUnAuthPostData(boardIndex, postIndex, lang);
+    communityPostCommentData = await getCommunityUnAuthPostCommentData(
+      target_type,
+      target,
+      order_by,
+      board_lang,
+      lang,
+      page,
+      per_page
+    );
+  }
 
   return {
-    props: { communityPostData, communityPostCommentData },
+    props: { identity, communityPostData, communityPostCommentData },
   };
 };
 

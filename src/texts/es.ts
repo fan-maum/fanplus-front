@@ -317,4 +317,7 @@ export const CommunityPostText_ESP: CommunityPostTextType = {
   viewCount: 'Número de búsquedas',
   recommendCount: 'Gusta',
   recommend: 'Gusta',
+  edit: 'Editar',
+  delete: 'Eliminar',
+  report: 'Reportar',
 };

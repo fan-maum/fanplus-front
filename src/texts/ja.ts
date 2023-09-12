@@ -317,4 +317,7 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
   viewCount: 'ヒット',
   recommendCount: 'おすすめ',
   recommend: 'おすすめ',
+  edit: '修正',
+  delete: '削除',
+  report: '申告する',
 };

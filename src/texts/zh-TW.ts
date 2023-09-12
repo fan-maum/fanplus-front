@@ -317,4 +317,7 @@ export const CommunityPostText_zh_TW: CommunityPostTextType = {
   viewCount: '閱讀數',
   recommendCount: '推薦',
   recommend: '推薦',
+  edit: '修改',
+  delete: '刪除',
+  report: '舉報',
 };
