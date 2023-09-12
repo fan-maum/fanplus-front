@@ -3,7 +3,7 @@ import { Center, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
 import { CommunityPost_PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { postLikes } from '@/api/Community';
+import { deleteRecommends, postLikes, postRecommends } from '@/api/Community';
 
 type CommunityPostDetailProps = {
   identity: string;
@@ -12,10 +12,10 @@ type CommunityPostDetailProps = {
 };
 
 const CommunityPostDetail = ({ identity, postInfo, texts }: CommunityPostDetailProps) => {
-  console.log(postInfo.RECOMMEND_YN);
   const RecommendOnClick = async () => {
-    const res = await postLikes(postInfo.POST_IDX, identity);
-    // const res = await deleteLikes(comment.COMMENT_IDX, identity);
+    // const res = await postRecommends(identity, postInfo.POST_IDX);
+    const res = await deleteRecommends(identity, postInfo.POST_IDX);
+    // eslint-disable-next-line no-console
     console.log(res);
   };
   return (

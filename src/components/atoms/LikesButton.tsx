@@ -12,7 +12,8 @@ export interface LikesButtonProps extends UnstyledButtonProps {
   gap?: number;
   padding?: string | number;
   text?: string;
-  alreadyLike: string;
+  alreadyLike?: string;
+  recommendYN?: string;
   onClick?: () => void;
 }
 
@@ -22,6 +23,7 @@ export default function LikesButton({
   gap,
   padding,
   alreadyLike,
+  recommendYN,
   ...props
 }: LikesButtonProps) {
   return (

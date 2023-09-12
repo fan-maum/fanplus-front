@@ -140,6 +140,10 @@ export const postCommentResult = async (
   return response;
 };
 
+/**
+ * Likes
+ */
+/* 좋아요 */
 export const postLikes = async (commentIndex: string, identity: string) => {
   const response: AxiosResponse = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
@@ -156,6 +160,34 @@ export const deleteLikes = async (commentIndex: string, identity: string) => {
     {
       data: {
         identity: identity,
+      },
+    }
+  );
+  return response;
+};
+
+/**
+ * Recommend
+ */
+/* 추천 */
+export const postRecommends = async (identity: string, post_idx: string) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends`,
+    {
+      identity: identity,
+      post_idx: post_idx,
+    }
+  );
+  return response;
+};
+
+export const deleteRecommends = async (identity: string, post_idx: string) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends`,
+    {
+      data: {
+        identity: identity,
+        post_idx: post_idx,
       },
     }
   );
