@@ -105,11 +105,31 @@ const CommunityPostTopNavi = ({ texts }: CommunityPostTopNaviProps) => {
                   },
                 }}
               >
-                <li onClick={() => console.log('report')}>{texts.report}</li>
-                <li onClick={() => console.log('edit')} css={{ borderBottom: '1px solid #d9d9d9' }}>
+                <li
+                  onClick={() => {
+                    // eslint-disable-next-line no-console
+                    console.log('report');
+                  }}
+                >
+                  {texts.report}
+                </li>
+                <li
+                  onClick={() => {
+                    // eslint-disable-next-line no-console
+                    console.log('edit');
+                  }}
+                  css={{ borderBottom: '1px solid #d9d9d9' }}
+                >
                   {texts.edit}
                 </li>
-                <li onClick={() => console.log('delete')}>{texts.delete}</li>
+                <li
+                  onClick={() => {
+                    // eslint-disable-next-line no-console
+                    console.log('delete');
+                  }}
+                >
+                  {texts.delete}
+                </li>
               </ul>
             </Popover.Dropdown>
           </Popover>

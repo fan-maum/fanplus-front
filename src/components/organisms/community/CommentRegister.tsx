@@ -24,7 +24,6 @@ const CommentRegister = ({ identity, BOARD_IDX, WRITER_PROFILE_IMG }: CommentReg
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
     const result = await postCommentResult(identity, 'comment', BOARD_IDX, contents);
-    console.log(result);
     // setActiveTab(texts.allCategory);
     // router.push({
     //   pathname: router.pathname,
