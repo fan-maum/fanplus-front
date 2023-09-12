@@ -22,19 +22,20 @@ const handler: NextApiHandler = async (req, res) => {
     }
   }
   if (req.method === 'DELETE') {
-    const { identity, post_idx } = req.body;
+    const { user_id } = req.cookies;
+    const { post_idx } = req.query;
+    const url = `https://napi.appphotocard.com/v1/recommends/posts`;
     try {
-      const result = await axios({
-        method: 'delete',
-        url: `https://napi.appphotocard.com/v1/recommends/posts`,
-        data: {
-          identity: identity,
-          post_idx: post_idx,
-        },
+      const result = await axios.delete(url, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        data: {
+          identity: user_id,
+          post_idx: post_idx,
+        },
       });
+      // });
       res.status(200).json(result.data);
     } catch (error) {
       res.json(error);

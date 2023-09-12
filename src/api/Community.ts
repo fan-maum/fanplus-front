@@ -183,7 +183,8 @@ export const postRecommends = async (identity: string, post_idx: string) => {
 
 export const deleteRecommends = async (identity: string, post_idx: string) => {
   const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends`, {
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends?post_idx=${post_idx}`,
+    {
       data: {
         identity: identity,
         post_idx: post_idx,
