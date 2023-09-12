@@ -1,11 +1,7 @@
 import { Popover } from '@mantine/core';
 import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
 
-type CommentPopoverProps = {
-  children: React.ReactNode;
-};
-
-export default function CommentPopover({}: CommentPopoverProps) {
+export default function CommentPopover() {
   return (
     <Popover
       width={60}
