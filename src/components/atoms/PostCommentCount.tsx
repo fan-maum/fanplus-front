@@ -1,5 +1,5 @@
 type PostCommentCountProps = {
-  count: number;
+  count: string | number;
 };
 
 export default function PostCommentCount({ count }: PostCommentCountProps) {

@@ -1,19 +1,25 @@
 import { Group, Stack, Avatar } from '@/components/atoms';
 import { GetLanguage } from '@/hooks/useLanguage';
 import { voteDetailLangState } from '@/store/voteLangState';
-import { CommunityCommentListItemType, CommunityPost_PostInfoItemType } from '@/types/community';
+import {
+  CommunityCommentListItemType,
+  CommunityPost_CommentListItemType,
+  CommunityPost_PostInfoItemType,
+} from '@/types/community';
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 import CommentPopover from './CommentPopover';
 
 type CommentInfoStateProps = {
-  comment: CommunityCommentListItemType;
+  identity: string;
+  comment: CommunityPost_CommentListItemType;
+  // comment: CommunityCommentListItemType;
 };
 
-function CommentInfoState({ comment }: CommentInfoStateProps) {
+function CommentInfoState({ identity, comment }: CommentInfoStateProps) {
   return (
-    <Group position="apart" align={'flex-start'}>
-      <Group spacing={10} align={'flex-start'}>
+    <Group position="apart" spacing={30} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
+      <Group spacing={10} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
         <div css={{ position: 'relative' }}>
           <Avatar
             imageProps={{ style: { borderRadius: '50%' } }}
@@ -23,7 +29,7 @@ function CommentInfoState({ comment }: CommentInfoStateProps) {
             css={{
               border: '1px solid #F8F8F9',
             }}
-            src={comment.PROFILE_IMG_URL}
+            src={comment.USER_PROFILE_IMG}
             alt="Avatar"
           />
         </div>
@@ -51,7 +57,7 @@ function CommentInfoState({ comment }: CommentInfoStateProps) {
           </div>
         </Stack>
       </Group>
-      <CommentPopover />
+      <CommentPopover identity={identity} comment_idx={comment.COMMENT_IDX} />
     </Group>
   );
 }

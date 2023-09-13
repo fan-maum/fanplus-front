@@ -3,7 +3,8 @@ import { Center, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
 import { CommunityPost_PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { deleteRecommends, postLikes, postRecommends } from '@/api/Community';
+import { deleteRecommends, postRecommends } from '@/api/Community';
+import { useState } from 'react';
 
 type CommunityPostDetailProps = {
   identity: string;
@@ -12,18 +13,26 @@ type CommunityPostDetailProps = {
 };
 
 const CommunityPostDetail = ({ identity, postInfo, texts }: CommunityPostDetailProps) => {
+  const [likes, setLikes] = useState(false);
   const RecommendOnClick = async () => {
-    // const res = await postRecommends(identity, postInfo.POST_IDX);
-    const res = await deleteRecommends(identity, postInfo.POST_IDX);
-    // eslint-disable-next-line no-console
-    console.log(res);
+    if (postInfo.RECOMMEND_YN === 'Y' || likes === true) {
+      const res = await deleteRecommends(identity, postInfo.POST_IDX);
+      console.log(likes);
+      setLikes(false);
+    } else {
+      console.log(likes);
+      const res = await postRecommends(identity, postInfo.POST_IDX);
+      setLikes(true);
+    }
   };
   return (
     <Stack p={'24px 22px'} spacing={140} css={{ borderBottom: '6px solid #f1f1f1' }}>
       <PostContents dangerouslySetInnerHTML={{ __html: postInfo.POST_CONTENTS }} />
       <Center mb={8}>
         <LikesButton
-          text={`${texts.recommend} ${postInfo.RECOMMEND_CNT}`}
+          text={texts.recommend}
+          likes={likes}
+          count={Number(postInfo.RECOMMEND_CNT)}
           recommendYN={postInfo.RECOMMEND_YN}
           onClick={RecommendOnClick}
         />

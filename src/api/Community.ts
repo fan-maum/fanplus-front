@@ -140,6 +140,47 @@ export const postCommentResult = async (
   return response;
 };
 
+export const deleteCommentResult = async (identity: string, comment_idx: string) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment?comment_idx=${comment_idx}`,
+    {
+      data: {
+        identity: identity,
+        comment_idx: comment_idx,
+      },
+    }
+  );
+  return response;
+};
+
+export const replyUnAuthResult = async (
+  board_lang: BackLangType | 'ko-en-ja-es-vi-id-zh-zhtw',
+  lang: string,
+  comment_idx: string,
+  order_by: OrderType,
+  page: number
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/reply`,
+    { params: { board_lang, lang, comment_idx, order_by, page } }
+  );
+  return response.data;
+};
+
+export const replyResult = async (
+  lang: BackLangType,
+  comment_idx: string,
+  order_by: OrderType,
+  identity: string,
+  page: number
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reply`,
+    { params: { lang, comment_idx, order_by, identity, page } }
+  );
+  return response.data;
+};
+
 /**
  * Likes
  */

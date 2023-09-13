@@ -5,7 +5,7 @@ export type CommunityPostFixedAreaWrapperProps = {
   identity: string;
   POST_IDX: string;
   WRITER_PROFILE_IMG: string;
-  commentTotalCount: number;
+  commentTotalCount: string | number;
 };
 
 const CommunityPostFixedAreaWrapper = ({

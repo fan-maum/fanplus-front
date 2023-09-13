@@ -26,7 +26,7 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === 'DELETE') {
-    const { comment_idx } = req.body;
+    const { comment_idx } = req.query;
     const { user_id } = req.cookies;
     try {
       const result = await axios({

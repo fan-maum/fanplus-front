@@ -3,7 +3,7 @@ import { Group } from '@/components/atoms';
 import CommentCountButton from '@/components/atoms/CommentCountButton';
 
 type CommunityPostBottomNaviProps = {
-  commentTotalCount: number;
+  commentTotalCount: string | number;
 };
 
 const CommunityPostBottomNavi = ({ commentTotalCount }: CommunityPostBottomNaviProps) => {

@@ -215,3 +215,19 @@ export type CommunityCommentResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type replyResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      TOTAL_CNT: number;
+      ORIGINAL_COMMENTS: Array<CommunityCommentListItemType>;
+      BEST_COMMENTS: [];
+      COMMENTS: Array<CommunityCommentListItemType>;
+      PAGE: number;
+      PER_PAGE: string;
+    };
+    TIMESTAMP: number;
+  };
+};

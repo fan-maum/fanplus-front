@@ -24,13 +24,13 @@ const handler: NextApiHandler = async (req, res) => {
 
   if (req.method === 'DELETE') {
     const { commentIndex } = req.query;
-    const { identity } = req.body;
+    const { user_id } = req.cookies;
     try {
       const result = await axios({
         method: 'delete',
         url: `https://napi.appphotocard.com/v1/likes/comment/${commentIndex}`,
         data: {
-          identity: identity,
+          identity: user_id,
         },
         headers: {
           'Content-Type': 'multipart/form-data',
