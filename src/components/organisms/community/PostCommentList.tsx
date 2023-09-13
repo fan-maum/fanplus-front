@@ -33,7 +33,7 @@ const PostCommentList = ({
     
     const getRes:CommunityCommentResponseType = await getCommunityPostCommentData(getCommentParams.target_type, getCommentParams.target, 'newest', getCommentParams.lang, 0, identity, 10);
     const comments = getRes.RESULTS.DATAS.COMMENTS;
-    setData([...testData, ...anotherArray])
+    setData([...testData, ...comments])
   };
   return (
     <ul data-role="comments">
