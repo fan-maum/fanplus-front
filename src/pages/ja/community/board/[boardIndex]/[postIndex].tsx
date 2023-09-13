@@ -14,11 +14,12 @@ import CommunityPostTemplate, {
 } from '@/components/templates/CommunityPostTemplate';
 import { OrderType, TargetType } from '@/types/common';
 
-const Post = ({ identity, communityPostData, communityPostCommentData }: CommunityPostPropType) => {
+const Post = ({ identity, lang, communityPostData, communityPostCommentData }: CommunityPostPropType) => {
   return (
     <Layout navBarTexts={NavBarText_JAP} footerTexts={FooterText_JAP}>
       <CommunityPostTemplate
         identity={identity}
+        lang={lang}
         communityPostData={communityPostData}
         communityPostCommentData={communityPostCommentData}
         texts={CommunityPostText_JAP}
@@ -73,7 +74,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   return {
-    props: { identity, communityPostData, communityPostCommentData },
+    props: { identity, lang, communityPostData, communityPostCommentData },
   };
 };
 

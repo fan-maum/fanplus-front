@@ -12,11 +12,12 @@ import CommentPopover from './CommentPopover';
 
 type CommentInfoStateProps = {
   identity: string;
-  comment: CommunityPost_CommentListItemType;
+  comment?: CommunityPost_CommentListItemType;
+  reply?: CommunityCommentListItemType;
   // comment: CommunityCommentListItemType;
 };
 
-function CommentInfoState({ identity, comment }: CommentInfoStateProps) {
+function CommentInfoState({ identity, comment, reply }: CommentInfoStateProps) {
   return (
     <Group position="apart" spacing={30} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
       <Group spacing={10} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
@@ -29,13 +30,13 @@ function CommentInfoState({ identity, comment }: CommentInfoStateProps) {
             css={{
               border: '1px solid #F8F8F9',
             }}
-            src={comment.USER_PROFILE_IMG}
+            src={comment ? comment?.USER_PROFILE_IMG : reply?.PROFILE_IMG_URL}
             alt="Avatar"
           />
         </div>
         <Stack fw={600} fz={17} pt={6} spacing={5}>
           <Group spacing={10}>
-            <h4 css={{ color: '#000', fontSize: 18, fontWeight: 600 }}>{comment.NICK}</h4>
+            <h4 css={{ color: '#000', fontSize: 18, fontWeight: 600 }}>{comment ? comment.NICK : reply?.NICK}</h4>
             <div
               css={{
                 fontSize: 16,
@@ -43,7 +44,7 @@ function CommentInfoState({ identity, comment }: CommentInfoStateProps) {
                 fontWeight: 400,
               }}
             >
-              {comment.INS_DATE}
+              {comment ? comment.INS_DATE : reply?.INS_DATE}
             </div>
           </Group>
           <div
@@ -53,11 +54,11 @@ function CommentInfoState({ identity, comment }: CommentInfoStateProps) {
               fontWeight: 400,
             }}
           >
-            {comment.COMMENT}
+            {comment ? comment.COMMENT : reply?.COMMENT}
           </div>
         </Stack>
       </Group>
-      <CommentPopover identity={identity} comment_idx={comment.COMMENT_IDX} />
+      <CommentPopover identity={identity} comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX} />
     </Group>
   );
 }

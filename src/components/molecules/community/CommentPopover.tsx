@@ -4,7 +4,7 @@ import { deleteCommentResult } from '@/api/Community';
 
 type CommentPopoverProps = {
   identity: string;
-  comment_idx: string;
+  comment_idx: any;
 };
 export default function CommentPopover({ identity, comment_idx }: CommentPopoverProps) {
   const DeleteOnClick = async () => {

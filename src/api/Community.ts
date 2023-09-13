@@ -92,7 +92,7 @@ export const getCommunityUnAuthPostData = async (
 
 export const getCommunityPostCommentData = async (
   target_type: TargetType,
-  target: number,
+  target: string,
   order_by: OrderType,
   lang: BackLangType, // system
   page: number,

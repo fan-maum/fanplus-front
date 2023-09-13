@@ -9,9 +9,12 @@ import CommunityPostDetail from '@/components/organisms/community/CommunityPostD
 import CommunityPostComment from '@/components/organisms/community/CommunityPostComment';
 import CommunityPostFixedAreaWrapper from '@/components/organisms/community/CommunityPostFixedAreaWrapper';
 import CommunityDeleteModal from '@/components/modals/CommunityDeleteModal';
+import { getCommunityPostCommentData, postCommentResult } from '@/api/Community';
+import { BackLangType, TargetType } from '@/types/common';
 
 export type CommunityPostPropType = {
   identity: string;
+  lang: string;
   communityPostData: CommunityPostResponseType;
   // communityPostCommentData: CommunityCommentResponseType;
   texts: CommunityPostTextType;
@@ -19,6 +22,7 @@ export type CommunityPostPropType = {
 
 const CommunityPostTemplate = ({
   identity,
+  lang,
   communityPostData,
   // communityPostCommentData,
   texts,
@@ -38,6 +42,28 @@ const CommunityPostTemplate = ({
     texts,
     deletePostOnClick,
   };
+  const [data, setData] = useState(commentList);
+  const [dataId, setDataId] = useState<number>(0);
+  
+  const onCreate = async (identity: string, target_type: TargetType, target: string, contents: any) => {
+    const res = await postCommentResult(identity, target_type, target, contents);
+    const results = res.data;
+    const comment_idx = results.RESULTS.DATAS.COMMENT_IDX;
+    setDataId(comment_idx);
+    
+    const getRes:CommunityCommentResponseType = await getCommunityPostCommentData(target_type, target, 'newest', lang, 0, identity, 20);
+    const comments = getRes.RESULTS.DATAS.COMMENTS;
+    const comment:any = comments.find(comment => parseInt(comment.COMMENT_IDX as string) === comment_idx);
+    setData([comment, ...data])
+  }
+
+  let getCommentParams = {
+    target_type: 'post',
+    target: parseInt(postInfo.POST_IDX as string),
+    lang: 'lang',
+    identity: identity,
+  }
+  
   return (
     <>
       <div
@@ -60,9 +86,13 @@ const CommunityPostTemplate = ({
           <CommunityPostInfo postInfo={postInfo} texts={texts} />
           <CommunityPostDetail identity={identity} postInfo={postInfo} texts={texts} />
           <CommunityPostComment
+            getCommentParams={getCommentParams}
             identity={identity}
             commentList={commentList}
             commentTotalCount={commentTotalCount}
+            testData={data}
+            data={data}
+            setData={setData}
           />
         </div>
         <CommunityPostFixedAreaWrapper
@@ -70,6 +100,7 @@ const CommunityPostTemplate = ({
           POST_IDX={postInfo.POST_IDX}
           WRITER_PROFILE_IMG={postInfo.WRITER_PROFILE_IMG}
           commentTotalCount={commentTotalCount}
+          onCreate={onCreate}
         />
       </div>
       <CommunityDeleteModal

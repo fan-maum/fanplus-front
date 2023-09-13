@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import nookies from 'nookies';
+import { TargetType } from '@/types/common';
 
 interface FormValue {
   registerValue: string | number;
@@ -13,27 +14,16 @@ type CommentRegisterProps = {
   identity: string;
   POST_IDX: string;
   WRITER_PROFILE_IMG: string;
+  onCreate: (identity: string, target_type: TargetType, target: string, contents: any) => void;
 };
 
-const CommentRegister = ({ identity, POST_IDX, WRITER_PROFILE_IMG }: CommentRegisterProps) => {
-  const RegisterOnClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('clicked');
-  };
+const CommentRegister = ({ identity, POST_IDX, WRITER_PROFILE_IMG, onCreate }: CommentRegisterProps) => {
   const { handleSubmit, register, reset } = useForm<FormValue>();
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
-    const result = await postCommentResult(identity, 'post', POST_IDX, contents);
-    // setActiveTab(texts.allCategory);
-    // router.push({
-    //   pathname: router.pathname,
-    //   query: {
-    //     category_type: 0,
-    //     searchValue: data.searchValue,
-    //   },
-    // });
-    // console.log(result);
-    reset({ registerValue: data.registerValue });
+    onCreate(identity, 'post', POST_IDX, contents);
+    // const result = await postCommentResult(identity, 'post', POST_IDX, contents);
+    reset({ registerValue: '' });
   };
 
   return (
