@@ -84,6 +84,7 @@ const CommunityPageTemplate = ({
           <CommunitySearchBoardWrapper
             boardList={boardResultList}
             activeTabState={activeTabState}
+            texts={texts}
           />
           {boardResultList.length !== 0 && (
             <CommunitySearchBoardPagination totalCount={boardResultTotalCount} itemsPerPage={20} />

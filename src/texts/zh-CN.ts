@@ -278,6 +278,9 @@ export const CommunityMainText_zh_CN: CommunityPageTextType = {
   buttonSearch: '搜索',
   allCategory: '全部',
   searchPlaceholder: '找到您想要的消息面板',
+  link: {
+    board: '/zh-CN/community/board',
+  },
 };
 export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   all: '全部',
@@ -309,6 +312,9 @@ export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   noPostTexts: ['没有帖子。', '成为第一个发表帖子的人'],
   noMyPostTexts: ['没有帖子。'],
   buttonWrite: '发帖子',
+  link: {
+    board: '/zh-CN/community/board',
+  },
 };
 
 export const CommunityPostText_zh_CN: CommunityPostTextType = {

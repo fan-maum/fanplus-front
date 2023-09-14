@@ -282,6 +282,9 @@ export const CommunityMainText_VIE: CommunityPageTextType = {
   buttonSearch: 'Tìm kiếm',
   allCategory: 'Tất cả',
   searchPlaceholder: 'Tìm kiếm một bảng bạn có thể thích.',
+  link: {
+    board: '/vi/community/board',
+  },
 };
 export const CommunityBoardText_VIE: CommunityBoardTextType = {
   all: 'Tất cả',
@@ -313,6 +316,9 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
   noPostTexts: ['Không có bài viết nào', 'Hãy là người đầu tiên để lại bài viết'],
   noMyPostTexts: ['Không có bài viết nào được viết'],
   buttonWrite: 'Viết',
+  link: {
+    board: '/vi/community/board',
+  },
 };
 
 export const CommunityPostText_VIE: CommunityPostTextType = {

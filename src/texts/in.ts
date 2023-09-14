@@ -282,6 +282,9 @@ export const CommunityMainText_IND: CommunityPageTextType = {
   buttonSearch: 'Cari',
   allCategory: 'Semua',
   searchPlaceholder: 'Cari papan yang mungkin Anda sukai.',
+  link: {
+    board: '/in/community/board',
+  },
 };
 export const CommunityBoardText_IND: CommunityBoardTextType = {
   all: 'Semua',
@@ -313,6 +316,9 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
   noPostTexts: ['Tidak ada postingan', 'Jadilah orang pertama', 'yang meninggalkan postingan'],
   noMyPostTexts: ['Tidak ada postingan yang ditulis'],
   buttonWrite: 'Tulis',
+  link: {
+    board: '/in/community/board',
+  },
 };
 
 export const CommunityPostText_IND: CommunityPostTextType = {

@@ -279,6 +279,9 @@ export const CommunityMainText_KR: CommunityPageTextType = {
   buttonSearch: '검색하기',
   allCategory: '전체',
   searchPlaceholder: '원하는 게시판을 찾아보세요.',
+  link: {
+    board: '/ko/community/board',
+  },
 };
 export const CommunityBoardText_KR: CommunityBoardTextType = {
   all: '전체',
@@ -310,6 +313,9 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
   noPostTexts: ['게시글이 없습니다.', '제일 먼저 게시글을 남겨주세요.'],
   noMyPostTexts: ['작성된 글이 없습니다.'],
   buttonWrite: '글쓰기',
+  link: {
+    board: '/ko/community/board',
+  },
 };
 
 export const CommunityPostText_KR: CommunityPostTextType = {

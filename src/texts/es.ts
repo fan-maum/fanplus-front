@@ -278,6 +278,9 @@ export const CommunityMainText_ESP: CommunityPageTextType = {
   buttonSearch: 'Buscar',
   allCategory: 'Total',
   searchPlaceholder: 'Encuentra el tablón de anuncios que deseas.',
+  link: {
+    board: '/es/community/board',
+  },
 };
 export const CommunityBoardText_ESP: CommunityBoardTextType = {
   all: 'Total',
@@ -309,6 +312,9 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
   noPostTexts: ['No hay ninguna publicación.', 'Sé el primero en dejar una publicación.'],
   noMyPostTexts: ['No hay publicaciones escritas.'],
   buttonWrite: 'Escribir',
+  link: {
+    board: '/es/community/board',
+  },
 };
 
 export const CommunityPostText_ESP: CommunityPostTextType = {

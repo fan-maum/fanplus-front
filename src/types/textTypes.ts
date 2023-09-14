@@ -170,6 +170,9 @@ export type CommunityPageTextType = {
   buttonSearch: string;
   allCategory: string;
   searchPlaceholder: string;
+  link: {
+    board: string;
+  };
 };
 export type CommunityBoardTextType = {
   all: string;
@@ -201,6 +204,9 @@ export type CommunityBoardTextType = {
   noPostTexts: string[];
   noMyPostTexts: string[];
   buttonWrite: string;
+  link: {
+    board: string;
+  };
 };
 
 export type CommunityPostTextType = {
@@ -212,9 +218,9 @@ export type CommunityPostTextType = {
   edit: string;
   delete: string;
   report: string;
-  cancelButton: string,
-  confirmButton: string,
-  reportButton: string,
+  cancelButton: string;
+  confirmButton: string;
+  reportButton: string;
 };
 
 export type TextType = {

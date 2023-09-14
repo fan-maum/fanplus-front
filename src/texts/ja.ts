@@ -278,6 +278,9 @@ export const CommunityMainText_JAP: CommunityPageTextType = {
   buttonSearch: '検索',
   allCategory: '全',
   searchPlaceholder: '希望の掲示板を見つけてください。',
+  link: {
+    board: '/ja/community/board',
+  },
 };
 export const CommunityBoardText_JAP: CommunityBoardTextType = {
   all: '全',
@@ -309,6 +312,9 @@ export const CommunityBoardText_JAP: CommunityBoardTextType = {
   noPostTexts: ['投稿はありません', '最初に投稿を残してください'],
   noMyPostTexts: ['書かれた投稿はありません'],
   buttonWrite: '書き込み',
+  link: {
+    board: '/ja/community/board',
+  },
 };
 
 export const CommunityPostText_JAP: CommunityPostTextType = {

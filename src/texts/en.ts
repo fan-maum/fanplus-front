@@ -278,6 +278,9 @@ export const CommunityMainText_ENG: CommunityPageTextType = {
   buttonSearch: 'Search',
   allCategory: 'All',
   searchPlaceholder: 'Search for a board you may like.',
+  link: {
+    board: '/en/community/board',
+  },
 };
 export const CommunityBoardText_ENG: CommunityBoardTextType = {
   all: 'All',
@@ -309,6 +312,9 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
   noPostTexts: ['There is no post.', 'Write a first post.'],
   noMyPostTexts: ['There is no post.'],
   buttonWrite: 'Write',
+  link: {
+    board: '/en/community/board',
+  },
 };
 
 export const CommunityPostText_ENG: CommunityPostTextType = {
