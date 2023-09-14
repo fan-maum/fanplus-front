@@ -73,11 +73,11 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => 
               </div>
             </div>
           </div>
-          <div style={{ height: '200px', backgroundColor: 'red' }}></div>
-          <div style={{ height: '200px', backgroundColor: 'red' }}></div>
-          <div style={{ height: '200px', backgroundColor: 'red' }}></div>
         </>
       )}
+      <button onClick={() => console.log(editorRef.current.get(editorId).getContent())}>
+        로그
+      </button>
     </>
   );
 };

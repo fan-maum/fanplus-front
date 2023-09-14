@@ -1,6 +1,7 @@
 export const tinyMCEResetCSS = `
   .mce-content-body {
-    padding: 15px !important;
+    padding: 10px !important;
+    margin: 10px !important;
     line-height: 1.4;
     font-size: 15px;
     font-family: -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;

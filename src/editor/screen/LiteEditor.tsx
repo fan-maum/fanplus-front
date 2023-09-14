@@ -63,9 +63,6 @@ const LiteEditor: React.FC<TProps> = ({
               padding: '5px',
               overflow: 'scroll',
               outline: 'none',
-              // scrollbarWidth: 'none',
-              // '::-webkit-scrollbar': { display: 'none' },
-              // msOverflowStyle: 'none',
               '.placeholder::before': { opacity: 0 },
             }}
             className="editor-wrapper"
