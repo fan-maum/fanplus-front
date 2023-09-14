@@ -30,7 +30,11 @@ const CommentRegister = ({
   const { handleSubmit, register, reset } = useForm<FormValue>();
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
-    onCreateComment(identity, createMode, POST_IDX, contents);
+    if (identity !== null) {
+      onCreateComment(identity, createMode, POST_IDX, contents);
+    } else {
+      alert('로그인해주세요.');
+    }
     reset({ registerValue: '' });
   };
 

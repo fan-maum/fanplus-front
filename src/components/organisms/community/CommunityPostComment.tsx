@@ -3,9 +3,8 @@ import { Group } from '@/components/atoms';
 import PostCommentCount from '@/components/atoms/PostCommentCount';
 import PostCommentOrders from '@/components/molecules/community/PostCommentOrders';
 import { BackLangType, OrderType, TargetType } from '@/types/common';
-import { CommunityCommentListItemType, CommunityPost_CommentListItemType } from '@/types/community';
+import { CommunityPost_CommentListItemType } from '@/types/community';
 import PostCommentList from './PostCommentList';
-import CommentRegister from './CommentRegister';
 
 type CommunityPostCommentProps = {
   getCommentParams: {

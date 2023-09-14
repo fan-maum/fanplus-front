@@ -15,12 +15,16 @@ type CommunityPostDetailProps = {
 const CommunityPostDetail = ({ identity, postInfo, texts }: CommunityPostDetailProps) => {
   const [likes, setLikes] = useState(false);
   const RecommendOnClick = async () => {
-    if (postInfo.RECOMMEND_YN === 'Y' || likes === true) {
-      const res = await deleteRecommends(identity, postInfo.POST_IDX);
-      setLikes(false);
+    if (identity !== null) {
+      if (postInfo.RECOMMEND_YN === 'Y' || likes === true) {
+        const res = await deleteRecommends(identity, postInfo.POST_IDX);
+        setLikes(false);
+      } else {
+        const res = await postRecommends(identity, postInfo.POST_IDX);
+        setLikes(true);
+      }
     } else {
-      const res = await postRecommends(identity, postInfo.POST_IDX);
-      setLikes(true);
+      alert('로그인해주세요.');
     }
   };
   return (

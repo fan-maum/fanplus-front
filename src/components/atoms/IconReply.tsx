@@ -6,7 +6,7 @@ function IconReply() {
       viewBox="0 0 12 6"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      css={{ marginLeft: 4 }}
+      css={{ marginLeft: 4, transform: 'rotate(180deg)' }}
     >
       <path
         fillRule="evenodd"

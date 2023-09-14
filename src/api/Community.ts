@@ -110,7 +110,7 @@ export const getCommunityUnAuthPostCommentData = async (
   target_type: TargetType,
   target: number,
   order_by: OrderType,
-  board_lang: BackLangType | 'ALL', // filterLang
+  board_lang: BackLangType | 'ko-en-ja-es-vi-id-zh-zhtw', // filterLang
   lang: BackLangType, // system
   page: number,
   per_page: number

@@ -44,6 +44,7 @@ const CommunityPostTemplate = ({
   };
   const [data, setData] = useState(commentList);
   const [dataId, setDataId] = useState<number>(0);
+  const [replyId, setReplyId] = useState<number>(0);
 
   const onCreateComment = async (
     identity: string,

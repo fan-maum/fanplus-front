@@ -5,7 +5,7 @@ import {
 } from '@/types/community';
 import PostCommentListItem from './PostCommentListItem';
 import { UnstyledButton } from '@/components/atoms';
-import { getCommunityPostCommentData } from '@/api/Community';
+import { getCommunityPostCommentData, getCommunityUnAuthPostCommentData } from '@/api/Community';
 import { BackLangType, TargetType } from '@/types/common';
 import { useState } from 'react';
 
@@ -39,17 +39,52 @@ const PostCommentList = ({
   const [pagingNumber, setPagingNumber] = useState(1);
   const hasNextPage = 10 * pagingNumber < Number(commentTotalCount);
 
+  // const getCommentData = async () => {
+  //   let getCommentResponse: CommunityCommentResponseType;
+  //   getCommentParams.identity !== null
+  //     ? (getCommentResponse = await getCommunityPostCommentData(
+  //         getCommentParams.target_type,
+  //         String(getCommentParams.target),
+  //         'newest',
+  //         getCommentParams.lang,
+  //         pagingNumber,
+  //         getCommentParams.identity,
+  //         10
+  //       ))
+  //     : (getCommentResponse = await getCommunityUnAuthPostCommentData(
+  //         getCommentParams.target_type,
+  //         getCommentParams.target,
+  //         'newest',
+  //         'ko-en-ja-es-vi-id-zh-zhtw',
+  //         getCommentParams.lang,
+  //         pagingNumber,
+  //         10
+  //       ));
+  //   return getCommentResponse;
+  // };
+
   const showMoreCommentOnClick = async () => {
-    const getRes: CommunityCommentResponseType = await getCommunityPostCommentData(
-      getCommentParams.target_type,
-      String(getCommentParams.target),
-      'newest',
-      getCommentParams.lang,
-      pagingNumber,
-      getCommentParams.identity,
-      10
-    );
-    const comments = getRes.RESULTS.DATAS.COMMENTS;
+    let getCommentResponse: CommunityCommentResponseType;
+    getCommentParams.identity !== null
+      ? (getCommentResponse = await getCommunityPostCommentData(
+          getCommentParams.target_type,
+          String(getCommentParams.target),
+          'newest',
+          getCommentParams.lang,
+          pagingNumber,
+          getCommentParams.identity,
+          10
+        ))
+      : (getCommentResponse = await getCommunityUnAuthPostCommentData(
+          getCommentParams.target_type,
+          getCommentParams.target,
+          'newest',
+          'ko-en-ja-es-vi-id-zh-zhtw',
+          getCommentParams.lang,
+          pagingNumber,
+          10
+        ));
+    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
     setData([...data, ...comments]);
     setPagingNumber(pagingNumber + 1);
   };

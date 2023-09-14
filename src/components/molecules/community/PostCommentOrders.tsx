@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { BackLangType, OrderType, TargetType } from '@/types/common';
 import { CommunityCommentListItemType, CommunityCommentResponseType } from '@/types/community';
-import { getCommunityPostCommentData } from '@/api/Community';
+import { getCommunityPostCommentData, getCommunityUnAuthPostCommentData } from '@/api/Community';
 
 type PostCommentOrdersProps = {
   getCommentParams: {
@@ -23,16 +23,27 @@ const PostCommentOrders = ({
 }: PostCommentOrdersProps) => {
   const OrderOnClick = async (orderType: OrderType, page: number) => {
     setCommentOrder(orderType);
-    const getRes: CommunityCommentResponseType = await getCommunityPostCommentData(
-      getCommentParams.target_type,
-      String(getCommentParams.target),
-      orderType,
-      getCommentParams.lang,
-      page,
-      getCommentParams.identity,
-      20
-    );
-    const comments = getRes.RESULTS.DATAS.COMMENTS;
+    let getCommentResponse: CommunityCommentResponseType;
+    getCommentParams.identity !== null
+      ? (getCommentResponse = await getCommunityPostCommentData(
+          getCommentParams.target_type,
+          String(getCommentParams.target),
+          orderType,
+          getCommentParams.lang,
+          page,
+          getCommentParams.identity,
+          10
+        ))
+      : (getCommentResponse = await getCommunityUnAuthPostCommentData(
+          getCommentParams.target_type,
+          getCommentParams.target,
+          orderType,
+          'ko-en-ja-es-vi-id-zh-zhtw',
+          getCommentParams.lang,
+          page,
+          10
+        ));
+    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
     return comments;
   };
   const handleNewestClick = async () => {

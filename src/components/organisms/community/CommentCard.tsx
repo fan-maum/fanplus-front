@@ -23,12 +23,16 @@ const CommentCard = ({
 }: CommentCardProps) => {
   const [likes, setLikes] = useState(false);
   const LikesOnClick = async () => {
-    if (comment.ALREADY_LIKE === 'Y' || likes === true) {
-      const res = await deleteLikes(comment.COMMENT_IDX, identity);
-      setLikes(false);
+    if (identity !== null) {
+      if (comment.ALREADY_LIKE === 'Y' || likes === true) {
+        const res = await deleteLikes(comment.COMMENT_IDX, identity);
+        setLikes(false);
+      } else {
+        const res = await postLikes(comment.COMMENT_IDX, identity);
+        setLikes(true);
+      }
     } else {
-      const res = await postLikes(comment.COMMENT_IDX, identity);
-      setLikes(true);
+      alert('로그인해주세요.');
     }
   };
 
