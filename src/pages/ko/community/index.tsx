@@ -6,7 +6,6 @@ import {
 import { GetServerSideProps } from 'next';
 import Layout from '@/components/organisms/Layout';
 import { NavBarText_KR, FooterText_KR, CommunityMainText_KR } from '@/texts/ko';
-import nookies from 'nookies';
 import type {
   CommunityBoardCategoryResponseType,
   CommunityHomeResponseType,
@@ -36,20 +35,18 @@ export const getServerSideProps: GetServerSideProps<{
   communityHomeData: CommunityHomeResponseType;
   boardCategoryData: CommunityBoardCategoryResponseType;
 }> = async (context) => {
-  // TODO: api에 userId 값이 필요없게 변경될 예정.. (feat. 소진님) + 게시판 언어 설정도..
-  const cookies = nookies.get(context);
-  // const userId = cookies['user_id'];
   const userId = '48b9edc90318e96a2863221de2470d5ae1d546081eb670d100ad320e2b22c704';
   const category_type = parseInt(context.query.category_type as string) || 0;
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) || 0;
   const per_page = 20;
+  const lang = 'ko';
   const communityHomeData = await getCommunityHomeData(userId);
-  const boardCategoryData = await getCommunityBoardCategoryData(userId);
+  const boardCategoryData = await getCommunityBoardCategoryData(lang);
   const boardResultData = await getCommunityBoardResultData(
-    userId,
     category_type,
     searchValue,
+    lang,
     page,
     per_page
   );

@@ -8,6 +8,7 @@ import {
   SignUpPageTextType,
   CommunityPageTextType,
   CommunityBoardTextType,
+  CommunityPostTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -273,6 +274,14 @@ export const CommunityMainText_IND: CommunityPageTextType = {
   search: 'Cari',
   recentlyBoards: 'Papan Baru-Baru Ini Dikunjungi',
   recommendedBoards: 'Disarankan untuk Anda',
+  noRecentBoardTexts: [
+    'Apakah ini pertama kalinya',
+    'Anda menggunakan Fan Plus?',
+    'Cari bintang favoritmu!',
+  ],
+  buttonSearch: 'Cari',
+  allCategory: 'Semua',
+  searchPlaceholder: 'Cari papan yang mungkin Anda sukai.',
 };
 export const CommunityBoardText_IND: CommunityBoardTextType = {
   all: 'Semua',
@@ -301,4 +310,21 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
     id: 'Bahasa Indonesia',
     zhtw: '中文(繁體)',
   },
+  noPostTexts: ['Tidak ada postingan', 'Jadilah orang pertama', 'yang meninggalkan postingan'],
+  noMyPostTexts: ['Tidak ada postingan yang ditulis'],
+  buttonWrite: 'Tulis',
+};
+
+export const CommunityPostText_IND: CommunityPostTextType = {
+  popular: 'Popular',
+  post: 'Post',
+  viewCount: 'Lihat',
+  recommendCount: 'Seperti',
+  recommend: 'Seperti',
+  edit: 'Edit',
+  delete: 'Hapus',
+  report: 'Laporkan',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };

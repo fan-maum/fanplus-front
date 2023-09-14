@@ -8,6 +8,7 @@ import {
   SignUpPageTextType,
   CommunityPageTextType,
   CommunityBoardTextType,
+  CommunityPostTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -274,6 +275,10 @@ export const CommunityMainText_KR: CommunityPageTextType = {
   search: '게시판 검색',
   recentlyBoards: '최근 방문한 게시판',
   recommendedBoards: '추천 게시판',
+  noRecentBoardTexts: ['팬플러스는 처음 사용하시나요?', '좋아하는 스타를 검색해 보세요!'],
+  buttonSearch: '검색하기',
+  allCategory: '전체',
+  searchPlaceholder: '원하는 게시판을 찾아보세요.',
 };
 export const CommunityBoardText_KR: CommunityBoardTextType = {
   all: '전체',
@@ -302,4 +307,21 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
     id: 'Bahasa Indonesia',
     zhtw: '中文(繁體)',
   },
+  noPostTexts: ['게시글이 없습니다.', '제일 먼저 게시글을 남겨주세요.'],
+  noMyPostTexts: ['작성된 글이 없습니다.'],
+  buttonWrite: '글쓰기',
+};
+
+export const CommunityPostText_KR: CommunityPostTextType = {
+  popular: '인기',
+  post: '글',
+  viewCount: '조회수',
+  recommendCount: '추천수',
+  recommend: '추천',
+  edit: '수정',
+  delete: '삭제',
+  report: '신고하기',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };

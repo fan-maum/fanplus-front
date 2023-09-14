@@ -3,9 +3,7 @@ import type { PostListItemType } from '@/types/community';
 import IconPopular from '../atoms/IconPopular';
 import { CommunityBoardTextType } from '@/types/textTypes';
 import { formatWrittenTime, timeType } from '@/utils/util';
-import { text } from 'stream/consumers';
-
-// TODO: 작성 시간 변환하는 로직 추가 필요~
+import TopicBubble from '../atoms/TopicBubble';
 
 type OwnPropType = {
   postItem: PostListItemType;
@@ -52,29 +50,6 @@ const CommunityBoardArticle = ({ postItem, link, texts }: OwnPropType) => {
 };
 
 export default CommunityBoardArticle;
-
-const TopicBubble = ({ name, hightlight }: { name: string; hightlight?: boolean }) => {
-  return (
-    <div
-      css={{
-        width: 'fit-content',
-        height: '24px',
-        borderRadius: '12px',
-        padding: '3px 6px',
-        marginRight: '6px',
-        backgroundColor: hightlight ? '#fcdede' : '#f2f4f5',
-        color: hightlight ? '#ff5656' : '#999999',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '12px',
-      }}
-    >
-      {hightlight && <IconPopular />}
-      {name}
-    </div>
-  );
-};
 
 const ThumbnailImage = ({ src }: { src: string }) => {
   return (

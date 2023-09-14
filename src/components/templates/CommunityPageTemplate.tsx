@@ -1,16 +1,16 @@
-import { CommunityMainText_KR } from '@/texts/ko';
-import {
+import type {
   CommunityBoardCategoryResponseType,
   CommunityBoardResultResponseType,
   CommunityHomeResponseType,
 } from '@/types/community';
+import type { CommunityPageTextType } from '@/types/textTypes';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { CommunityPageTextType } from '@/types/textTypes';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
+import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
 
 export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
@@ -28,19 +28,22 @@ const CommunityPageTemplate = ({
   texts,
 }: CommunityPropTypes) => {
   const [tabBar, setTabBar] = useState<TabBarType>('home');
-  const searchTabState = useState<string>('전체');
+  const searchTabState = useState<string>(texts.allCategory);
   const [activeTabState] = searchTabState;
 
   const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
+  const boardResultTotalCount = boardResultData.RESULTS.DATAS.TOTAL_COUNT;
   const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
+
+  const isRecentlyListExist = recentlyList.length !== 0;
 
   /**
    * searchCategoryTab : IDX - NAME
    * 0 - 전체 / 1 - 남자 가수 / 2 - 여자 가수 / 3 - 남자 배우 / 4 - 여자 배우 / 5 - 자유게시판
    */
   const searchCategoryTabDtos = boardCategoryData.RESULTS.DATAS.CATEGORY_LIST;
-  const seearchAllCategory = { CATEGORY_IDX: 0, CATEGORY_NAME: '전체' };
+  const seearchAllCategory = { CATEGORY_IDX: 0, CATEGORY_NAME: texts.allCategory };
   const searchCategoryTabs = [seearchAllCategory, ...searchCategoryTabDtos];
 
   return (
@@ -59,12 +62,21 @@ const CommunityPageTemplate = ({
       />
       {tabBar === 'home' ? (
         <>
-          <CommunityBoardWrapper title={texts.recentlyBoards} boardList={recentlyList} />
+          {isRecentlyListExist ? (
+            <CommunityBoardWrapper title={texts.recentlyBoards} boardList={recentlyList} />
+          ) : (
+            <CommunityNoRecentBoard
+              title={texts.recentlyBoards}
+              texts={texts.noRecentBoardTexts}
+              buttonText={texts.buttonSearch}
+              onClickSearch={() => setTabBar('search')}
+            />
+          )}
           <CommunityBoardWrapper title={texts.recommendedBoards} boardList={recommendList} />
         </>
       ) : (
         <>
-          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} />
+          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
           <CommunityBoardFilterTab
             searchCategoryTabs={searchCategoryTabs}
             searchTabState={searchTabState}
@@ -74,7 +86,7 @@ const CommunityPageTemplate = ({
             activeTabState={activeTabState}
           />
           {boardResultList.length !== 0 && (
-            <CommunitySearchBoardPagination totalCount={boardResultList.length} itemsPerPage={20} />
+            <CommunitySearchBoardPagination totalCount={boardResultTotalCount} itemsPerPage={20} />
           )}
         </>
       )}

@@ -8,6 +8,7 @@ import {
   SignUpPageTextType,
   CommunityPageTextType,
   CommunityBoardTextType,
+  CommunityPostTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -273,6 +274,10 @@ export const CommunityMainText_ESP: CommunityPageTextType = {
   search: 'Search',
   recentlyBoards: 'Visita reciente',
   recommendedBoards: 'Recomendación',
+  noRecentBoardTexts: ['¿Eres nuevo en FanPlus?', '¡Busca tu estrella favorita!'],
+  buttonSearch: 'Buscar',
+  allCategory: 'Total',
+  searchPlaceholder: 'Encuentra el tablón de anuncios que deseas.',
 };
 export const CommunityBoardText_ESP: CommunityBoardTextType = {
   all: 'Total',
@@ -301,4 +306,21 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
     id: 'Bahasa Indonesia',
     zhtw: '中文(繁體)',
   },
+  noPostTexts: ['No hay ninguna publicación.', 'Sé el primero en dejar una publicación.'],
+  noMyPostTexts: ['No hay publicaciones escritas.'],
+  buttonWrite: 'Escribir',
+};
+
+export const CommunityPostText_ESP: CommunityPostTextType = {
+  popular: 'Popular',
+  post: 'Texto',
+  viewCount: 'Número de búsquedas',
+  recommendCount: 'Gusta',
+  recommend: 'Gusta',
+  edit: 'Editar',
+  delete: 'Eliminar',
+  report: 'Reportar',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };
