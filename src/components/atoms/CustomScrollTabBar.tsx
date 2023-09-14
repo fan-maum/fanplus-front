@@ -32,7 +32,7 @@ export default function CustomScrollTabBar({
       );
       setActiveTab(matchCategoryQuery?.CATEGORY_NAME);
     }
-  }, [category_type, setActiveTab, tabs]);
+  }, [category_type, setActiveTab]);
 
   return (
     <TabContainer>

@@ -8,6 +8,7 @@ import {
   SignUpPageTextType,
   CommunityPageTextType,
   CommunityBoardTextType,
+  CommunityPostTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -275,6 +276,8 @@ export const CommunityMainText_JAP: CommunityPageTextType = {
   recommendedBoards: 'おすすめ掲示板',
   noRecentBoardTexts: ['ファンプラスを利用するのは初めてですか?', 'お気に入りのスターを探せ！'],
   buttonSearch: '検索',
+  allCategory: '全',
+  searchPlaceholder: '希望の掲示板を見つけてください。',
 };
 export const CommunityBoardText_JAP: CommunityBoardTextType = {
   all: '全',
@@ -306,4 +309,18 @@ export const CommunityBoardText_JAP: CommunityBoardTextType = {
   noPostTexts: ['投稿はありません', '最初に投稿を残してください'],
   noMyPostTexts: ['書かれた投稿はありません'],
   buttonWrite: '書き込み',
+};
+
+export const CommunityPostText_JAP: CommunityPostTextType = {
+  popular: '人気',
+  post: '文',
+  viewCount: 'ヒット',
+  recommendCount: 'おすすめ',
+  recommend: 'おすすめ',
+  edit: '修正',
+  delete: '削除',
+  report: '申告する',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };

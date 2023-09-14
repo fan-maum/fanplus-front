@@ -8,6 +8,7 @@ import {
   SignUpPageTextType,
   CommunityPageTextType,
   CommunityBoardTextType,
+  CommunityPostTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -279,6 +280,8 @@ export const CommunityMainText_VIE: CommunityPageTextType = {
     'Hãy tìm kiếm ngôi sao yêu thích của bạn!',
   ],
   buttonSearch: 'Tìm kiếm',
+  allCategory: 'Tất cả',
+  searchPlaceholder: 'Tìm kiếm một bảng bạn có thể thích.',
 };
 export const CommunityBoardText_VIE: CommunityBoardTextType = {
   all: 'Tất cả',
@@ -310,4 +313,18 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
   noPostTexts: ['Không có bài viết nào', 'Hãy là người đầu tiên để lại bài viết'],
   noMyPostTexts: ['Không có bài viết nào được viết'],
   buttonWrite: 'Viết',
+};
+
+export const CommunityPostText_VIE: CommunityPostTextType = {
+  popular: 'Nổi tiếng',
+  post: 'Câu chuyện',
+  viewCount: 'Xem',
+  recommendCount: 'Giống như',
+  recommend: 'Giống như',
+  edit: 'Chỉnh sửa',
+  delete: 'Xóa',
+  report: 'Khai báo',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };

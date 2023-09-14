@@ -94,7 +94,14 @@ const CommunityBoardTemplate = ({
         <>
           <ul>
             {postList.map((post, idx) => {
-              return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
+              return (
+                <CommunityBoardArticle
+                  postItem={post}
+                  link={`/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                  key={idx}
+                  texts={texts}
+                />
+              );
             })}
           </ul>
           <CommunityBoardPagination totalCount={boardInfo.POST_CNT} />

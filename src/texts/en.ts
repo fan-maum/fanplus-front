@@ -8,6 +8,7 @@ import {
   SignUpPageTextType,
   CommunityPageTextType,
   CommunityBoardTextType,
+  CommunityPostTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -275,6 +276,8 @@ export const CommunityMainText_ENG: CommunityPageTextType = {
   recommendedBoards: 'Recommended for you',
   noRecentBoardTexts: ['Are you new to FanPlus?', 'Search for your favorite star!'],
   buttonSearch: 'Search',
+  allCategory: 'All',
+  searchPlaceholder: 'Search for a board you may like.',
 };
 export const CommunityBoardText_ENG: CommunityBoardTextType = {
   all: 'All',
@@ -306,4 +309,18 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
   noPostTexts: ['There is no post.', 'Write a first post.'],
   noMyPostTexts: ['There is no post.'],
   buttonWrite: 'Write',
+};
+
+export const CommunityPostText_ENG: CommunityPostTextType = {
+  popular: 'Popular',
+  post: 'Post',
+  viewCount: 'View',
+  recommendCount: 'Like',
+  recommend: 'Like',
+  edit: 'Edit',
+  delete: 'Delete',
+  report: 'Report',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };
