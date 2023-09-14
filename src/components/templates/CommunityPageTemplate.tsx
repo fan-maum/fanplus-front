@@ -31,9 +31,9 @@ const CommunityPageTemplate = ({
 }: CommunityPropTypes) => {
   const router = useRouter();
 
-  const [tabBar, setTabBar] = useState<TabBarType>((router.query.tab as TabBarType) || 'home');
+  const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'home');
   const [recentlyList, setRecentlyList] = useState(communityHomeData.RESULTS.DATAS.RECENTLY_LIST);
-  const searchTabState = useState<string>('전체');
+  const searchTabState = useState(texts.allCategory);
   const [activeTabState] = searchTabState;
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const CommunityPageTemplate = ({
     if (!recentlyList) setRecentlyList(storageRecentlyList);
   }, []);
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
+  const boardResultTotalCount = boardResultData.RESULTS.DATAS.TOTAL_COUNT;
   const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
 
   const isRecentlyListExist = !!recentlyList && recentlyList.length !== 0;
@@ -50,7 +51,7 @@ const CommunityPageTemplate = ({
    * 0 - 전체 / 1 - 남자 가수 / 2 - 여자 가수 / 3 - 남자 배우 / 4 - 여자 배우 / 5 - 자유게시판
    */
   const searchCategoryTabDtos = boardCategoryData.RESULTS.DATAS.CATEGORY_LIST;
-  const seearchAllCategory = { CATEGORY_IDX: 0, CATEGORY_NAME: '전체' };
+  const seearchAllCategory = { CATEGORY_IDX: 0, CATEGORY_NAME: texts.allCategory };
   const searchCategoryTabs = [seearchAllCategory, ...searchCategoryTabDtos];
 
   return (
@@ -86,7 +87,7 @@ const CommunityPageTemplate = ({
         </>
       ) : (
         <>
-          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} />
+          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
           <CommunityBoardFilterTab
             searchCategoryTabs={searchCategoryTabs}
             searchTabState={searchTabState}
@@ -96,7 +97,7 @@ const CommunityPageTemplate = ({
             activeTabState={activeTabState}
           />
           {boardResultList.length !== 0 && (
-            <CommunitySearchBoardPagination totalCount={boardResultList.length} itemsPerPage={20} />
+            <CommunitySearchBoardPagination totalCount={boardResultTotalCount} itemsPerPage={20} />
           )}
         </>
       )}

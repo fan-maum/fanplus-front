@@ -44,15 +44,12 @@ export const getServerSideProps: GetServerSideProps<{
   const page = parseInt(context.query.page as string) || 0;
   const per_page = 20;
 
-  // TODO: userId 필요없는 api 나올 예정 (게시판 검색 부분: 경은님 쪽 작업)
-  const mockUserId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
-
   const communityHomeData = await getCommunityHomeData(userId, lang);
-  const boardCategoryData = await getCommunityBoardCategoryData(mockUserId);
+  const boardCategoryData = await getCommunityBoardCategoryData(lang);
   const boardResultData = await getCommunityBoardResultData(
-    mockUserId,
     category_type,
     searchValue,
+    lang,
     page,
     per_page
   );

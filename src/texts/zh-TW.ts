@@ -8,6 +8,7 @@ import {
   SignUpPageTextType,
   CommunityPageTextType,
   CommunityBoardTextType,
+  CommunityPostTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -275,6 +276,8 @@ export const CommunityMainText_zh_TW: CommunityPageTextType = {
   recommendedBoards: '推薦的消息面板',
   noRecentBoardTexts: ['您是FanPlus新手嗎？', '搜索你最喜歡的明星！'],
   buttonSearch: '搜索',
+  allCategory: '全部',
+  searchPlaceholder: '找到您想要的消息面板',
 };
 export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
   all: '全部',
@@ -306,4 +309,18 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
   noPostTexts: ['沒有帖子。', '成為第一個發表帖子的人'],
   noMyPostTexts: ['沒有帖子。'],
   buttonWrite: '發帖子',
+};
+
+export const CommunityPostText_zh_TW: CommunityPostTextType = {
+  popular: '人氣',
+  post: '帖子',
+  viewCount: '閱讀數',
+  recommendCount: '推薦',
+  recommend: '推薦',
+  edit: '修改',
+  delete: '刪除',
+  report: '舉報',
+  cancelButton: '취소',
+  confirmButton: '확인',
+  reportButton: '신고',
 };

@@ -5,7 +5,8 @@ import type {
   CommunityHomeResponseType,
   CommunityNoticeBannerResponseType,
 } from '@/types/community';
-import type { BackLangType, BoardLangType } from '@/types/common';
+
+import type { BackLangType, BoardLangType, TargetType, OrderType } from '@/types/common';
 
 export const getCommunityHomeData = async (userId: string, lang: BoardLangType) => {
   const response: AxiosResponse<CommunityHomeResponseType> = await axios.get(
@@ -40,24 +41,29 @@ export const getCommunityBoardTopics = async (boardIndex: number, lang: BackLang
   return response.data;
 };
 
-export const getCommunityBoardCategoryData = async (userId: string) => {
+/**
+ * Search Board
+ */
+/* 검색 페이지 내 중간부분 Tab response */
+export const getCommunityBoardCategoryData = async (lang: BackLangType) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
-    { params: { userId } }
+    { params: { lang } }
   );
   return response.data;
 };
 
+/* 검색 페이지 내 검색 결과 response */
 export const getCommunityBoardResultData = async (
-  userId: string,
   category_type: number,
   searchValue: any,
+  lang: BackLangType,
   page: number,
   per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
-    { params: { userId, category_type, searchValue, page, per_page } }
+    { params: { category_type, searchValue, lang, page, per_page } }
   );
   return response.data;
 };
@@ -68,4 +74,173 @@ export const getCommunityNoticeBannerData = async (boardIndex: number, lang: Bac
     { params: { boardIndex, lang } }
   );
   return response.data;
+};
+
+/**
+ * Post
+ */
+/* 게시글 불러오기 */
+export const getCommunityPostData = async (postIndex: number, identity: string) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
+    { params: { postIndex, identity } }
+  );
+  return response.data;
+};
+
+export const getCommunityUnAuthPostData = async (
+  boardIndex: number,
+  postIndex: number,
+  lang: BackLangType
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/post`,
+    { params: { boardIndex, postIndex, lang } }
+  );
+  return response.data;
+};
+
+export const getCommunityPostCommentData = async (
+  target_type: TargetType,
+  target: string,
+  order_by: OrderType,
+  lang: BackLangType, // system
+  page: number,
+  identity: string,
+  per_page: number
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/comment`,
+    { params: { target_type, target, order_by, lang, page, identity, per_page } }
+  );
+  return response.data;
+};
+
+export const getCommunityUnAuthPostCommentData = async (
+  target_type: TargetType,
+  target: number,
+  order_by: OrderType,
+  board_lang: BackLangType | 'ko-en-ja-es-vi-id-zh-zhtw', // filterLang
+  lang: BackLangType, // system
+  page: number,
+  per_page: number
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/comment`,
+    { params: { target_type, target, order_by, board_lang, lang, page, per_page } }
+  );
+  return response.data;
+};
+
+export const postCommentResult = async (
+  identity: string,
+  target_type: string,
+  target: string,
+  contents: string | number
+) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment`,
+    {
+      identity: identity,
+      target_type: target_type,
+      target: target,
+      contents: contents,
+    }
+  );
+  return response;
+};
+
+export const deleteCommentResult = async (identity: string, comment_idx: string) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment?comment_idx=${comment_idx}`,
+    {
+      data: {
+        identity: identity,
+        comment_idx: comment_idx,
+      },
+    }
+  );
+  return response;
+};
+
+export const replyUnAuthResult = async (
+  board_lang: BackLangType | 'ko-en-ja-es-vi-id-zh-zhtw',
+  lang: BackLangType,
+  comment_idx: string,
+  order_by: OrderType,
+  page: number
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/reply`,
+    { params: { board_lang, lang, comment_idx, order_by, page } }
+  );
+  return response.data;
+};
+
+export const replyResult = async (
+  lang: BackLangType,
+  comment_idx: string,
+  order_by: OrderType,
+  identity: string,
+  page: number
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reply`,
+    { params: { lang, comment_idx, order_by, identity, page } }
+  );
+  return response.data;
+};
+
+/**
+ * Likes
+ */
+/* 좋아요 */
+export const postLikes = async (commentIndex: string, identity: string) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
+    {
+      identity: identity,
+    }
+  );
+  return response;
+};
+
+export const deleteLikes = async (commentIndex: string, identity: string) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
+    {
+      data: {
+        identity: identity,
+      },
+    }
+  );
+  return response;
+};
+
+/**
+ * Recommend
+ */
+/* 추천 */
+export const postRecommends = async (identity: string, post_idx: string) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends`,
+    {
+      identity: identity,
+      post_idx: post_idx,
+    }
+  );
+  return response;
+};
+
+export const deleteRecommends = async (identity: string, post_idx: string) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends?post_idx=${post_idx}`,
+    {
+      data: {
+        identity: identity,
+        post_idx: post_idx,
+      },
+    }
+  );
+  return response;
 };
