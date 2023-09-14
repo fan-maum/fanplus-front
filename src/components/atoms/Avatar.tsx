@@ -14,7 +14,7 @@ export interface AvatarProps extends DefaultProps {
   size?: number;
 
   /** Key of theme.radius or any valid CSS value to set border-radius, "xl" by default */
-  radius?: number;
+  radius?: any;
 
   /** Key of theme.colors */
   color?: ColorProps;

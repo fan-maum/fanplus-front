@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Group, UnstyledButton } from '@/components/atoms';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import { CommunityPageTextType } from '@/types/textTypes';
 
 interface FormValue {
   searchValue: string | number;
@@ -10,16 +11,18 @@ interface FormValue {
 
 export type CommunityBoardSearchInputProps = {
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
+  texts: CommunityPageTextType;
 };
 
 const CommunityBoardSearchInputWrapper = ({
   searchTabState: [activeTab, setActiveTab],
+  texts,
 }: CommunityBoardSearchInputProps) => {
   const router = useRouter();
   const { category_type = 0, searchValue, page = 0 } = router?.query;
   const { handleSubmit, register, reset } = useForm<FormValue>();
   const handleSearchSubmit: SubmitHandler<FormValue> = (data) => {
-    setActiveTab('전체');
+    setActiveTab(texts.allCategory);
     router.push({
       pathname: router.pathname,
       query: {
@@ -45,7 +48,7 @@ const CommunityBoardSearchInputWrapper = ({
     >
       <Group h={'100%'} spacing={10} css={{ flex: 1, borderBottom: '2px solid #f1f1f1' }}>
         <Image src={'/icons/icon_search.svg'} width={32} height={32} alt="searchIcon" />
-        <SearchInput placeholder="원하는 게시판을 찾아보세요." {...register('searchValue')} />
+        <SearchInput placeholder={texts.searchPlaceholder} {...register('searchValue')} />
       </Group>
       <UnstyledButton
         type="submit"
@@ -59,7 +62,7 @@ const CommunityBoardSearchInputWrapper = ({
           fontWeight: 600,
         }}
       >
-        <span>검색</span>
+        <span>{texts.buttonSearch}</span>
       </UnstyledButton>
     </form>
   );
