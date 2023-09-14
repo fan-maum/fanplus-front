@@ -17,10 +17,8 @@ const CommunityPostDetail = ({ identity, postInfo, texts }: CommunityPostDetailP
   const RecommendOnClick = async () => {
     if (postInfo.RECOMMEND_YN === 'Y' || likes === true) {
       const res = await deleteRecommends(identity, postInfo.POST_IDX);
-      console.log(likes);
       setLikes(false);
     } else {
-      console.log(likes);
       const res = await postRecommends(identity, postInfo.POST_IDX);
       setLikes(true);
     }
