@@ -24,10 +24,10 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => 
   };
 
   useEffect(() => {
-    if ((window as any)?.tinymce) setIsJsLoading(false);
+    if (window?.tinymce) setIsJsLoading(false);
     if (isJsLoading) return;
 
-    editorRef.current = (window as any)?.tinymce;
+    editorRef.current = window?.tinymce;
     editorRef.current?.remove();
 
     editorRef.current.init({

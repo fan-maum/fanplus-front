@@ -28,10 +28,10 @@ const LiteEditor: React.FC<TProps> = ({
   };
 
   useEffect(() => {
-    if ((window as any)?.tinymce) setIsJsLoading(false);
+    if (window?.tinymce) setIsJsLoading(false);
     if (isJsLoading) return;
 
-    editorRef.current = (window as any)?.tinymce;
+    editorRef.current = window?.tinymce;
     editorRef.current?.remove();
 
     editorRef.current.init({
