@@ -1,14 +1,15 @@
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
+  CommunityNoticeBannerResponseType,
   TopicListItemType,
 } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
-import type { BackLangType } from '@/types/common';
+import type { BoardLangType } from '@/types/common';
 import { useRouter } from 'next/router';
-import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
-import CommunityBoardTopNavi from '../molecules/CommunityBoardTopNavi';
-import CommunityBoardArticle from '../molecules/CommunityBoardArticle';
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
+import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import IconWrite from '../atoms/IconWrite';
 import IconPopularBlack from '../atoms/IconPopularBlack';
@@ -16,35 +17,38 @@ import IconMyPost from '../atoms/IconMyPost';
 import IconPopular from '../atoms/IconPopular';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
-import CommunityBoardLangSelector from '../molecules/CommunityBoardLangSelector';
+import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
+import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 
 // TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
 
 export type CommunityBoardPropType = {
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
+  communityNoticeBannerData: CommunityNoticeBannerResponseType;
   texts: CommunityBoardTextType;
 };
 
 const CommunityBoardTemplate = ({
   communityBoardData,
   communityBoardTopics,
+  communityNoticeBannerData,
   texts,
 }: CommunityBoardPropType) => {
   const router = useRouter();
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
-  const [boardLang, setBoardLang] = useState<BackLangType | 'ALL'>(
-    (router.query.boardLang as BackLangType) || 'ALL'
-  );
+  const [boardLang, setBoardLang] = useState((router.query.boardLang as BoardLangType) || 'ALL');
   const [langModal, setLangModal] = useState(false);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
+  const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
 
-  const isPostExist = postList.length !== 0;
+  const isPostExist = boardInfo.POST_CNT !== 0;
+  const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
 
   const onClickWrite = () => router.push('/');
   const onClickPopular = () => {
@@ -85,19 +89,23 @@ const CommunityBoardTemplate = ({
         topicIndex={topicIndex}
         setTopicIndex={setTopicIndex}
       />
+      {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
       {isPostExist ? (
-        <ul>
-          {postList.map((post, idx) => {
-            return (
-              <CommunityBoardArticle
-                postItem={post}
-                link={`/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
-                key={idx}
-                texts={texts}
-              />
-            );
-          })}
-        </ul>
+        <>
+          <ul>
+            {postList.map((post, idx) => {
+              return (
+                <CommunityBoardArticle
+                  postItem={post}
+                  link={`/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                  key={idx}
+                  texts={texts}
+                />
+              );
+            })}
+          </ul>
+          <CommunityBoardPagination totalCount={boardInfo.POST_CNT} />
+        </>
       ) : (
         <CommunityBoardNoPost
           onClickWrite={onClickWrite}
@@ -105,7 +113,6 @@ const CommunityBoardTemplate = ({
           texts={texts.noPostTexts}
         />
       )}
-      <CommunityBoardPagination totalCount={parseInt(boardInfo.POST_CNT) || 200} />
       <BottomTabBar
         items={[
           { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
@@ -155,6 +162,11 @@ const TopicTabBar = ({
         display: 'flex',
         margin: '8px 0px 16px',
         borderBottom: '1px solid #d9d9d9',
+        overflowX: 'scroll',
+        whiteSpace: 'nowrap',
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+        '::-webkit-scrollbar': { display: 'none' },
       }}
     >
       <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => handleClick(0)} />

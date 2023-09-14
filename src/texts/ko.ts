@@ -20,11 +20,11 @@ export const NavBarText_KR: NavBarTextType = {
   business: '제휴 문의',
   language: '한국어',
   link: {
-    vote: '/votes',
-    community: '/community',
-    aboutUs: '/',
-    business: '/business',
-    faq: '/faq',
+    vote: '/ko/votes',
+    community: '/ko/community',
+    aboutUs: '/ko/',
+    business: '/ko/business',
+    faq: '/ko/faq',
   },
 };
 export const FooterText_KR: FooterTextType = {

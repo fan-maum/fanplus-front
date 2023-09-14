@@ -3,7 +3,7 @@ import { Divider } from '@/components/atoms/Divider';
 import { Stack } from '@/components/atoms/Stack';
 import VoteDetailListItem from '@/components/organisms/voteDetail/VoteDetailListItem';
 import VoteStarState from '@/components/molecules/voteDetail/VoteStarState';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { useEffect, useRef } from 'react';
@@ -24,7 +24,7 @@ function VoteDetailList({
   isRenderComplete,
   ...props
 }: VoteDetailListProps) {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const itemRef = useRef<HTMLDivElement>(null);
 

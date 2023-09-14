@@ -6,7 +6,7 @@ import { Stack } from '@/components/atoms';
 import { formatNumberWithComma } from '@/utils/util';
 import RankProfile from '@/components/atoms/RankProfile';
 import Link from 'next/link';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ export interface VoteDetailInfoProps {
 }
 
 const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const firstRankStar = voteDetailInfo.STARS.find((star) => star.RANK === '1');
   const secondRankStar = voteDetailInfo.STARS.find((star) => star.RANK === '2');

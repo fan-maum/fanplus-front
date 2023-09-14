@@ -1,4 +1,4 @@
-import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';

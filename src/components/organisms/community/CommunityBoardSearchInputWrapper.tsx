@@ -28,6 +28,7 @@ const CommunityBoardSearchInputWrapper = ({
       query: {
         category_type: 0,
         searchValue: data.searchValue,
+        tab: 'search',
       },
     });
     reset({ searchValue: data.searchValue });

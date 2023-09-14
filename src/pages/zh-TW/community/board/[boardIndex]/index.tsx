@@ -1,4 +1,8 @@
-import { getCommunityBoardData, getCommunityBoardTopics } from '@/api/Community';
+import {
+  getCommunityBoardData,
+  getCommunityBoardTopics,
+  getCommunityNoticeBannerData,
+} from '@/api/Community';
 import CommunityBoardTemplate, {
   CommunityBoardPropType,
 } from '@/components/templates/CommunityBoardTemplate';
@@ -9,12 +13,17 @@ import { CommunityBoardText_zh_TW, FooterText_zh_TW, NavBarText_zh_TW } from '@/
 import nookies from 'nookies';
 import Layout from '@/components/organisms/Layout';
 
-const Board = ({ communityBoardData, communityBoardTopics }: CommunityBoardPropType) => {
+const Board = ({
+  communityBoardData,
+  communityBoardTopics,
+  communityNoticeBannerData,
+}: CommunityBoardPropType) => {
   return (
     <Layout navBarTexts={NavBarText_zh_TW} footerTexts={FooterText_zh_TW}>
       <CommunityBoardTemplate
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
+        communityNoticeBannerData={communityNoticeBannerData}
         texts={CommunityBoardText_zh_TW}
       />
     </Layout>
@@ -24,9 +33,8 @@ const Board = ({ communityBoardData, communityBoardTopics }: CommunityBoardPropT
 export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType, 'texts'>> = async (
   context
 ) => {
-  // const cookies = nookies.get(context);
-  // const userId = cookies['user_id'];
-  const userId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
+  const cookies = nookies.get(context);
+  const userId = cookies['user_id'] || '';
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
@@ -46,10 +54,11 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
     topic,
     view_type
   );
-  const communityBoardTopics = await getCommunityBoardTopics(userId, boardIndex);
+  const communityBoardTopics = await getCommunityBoardTopics(boardIndex, lang);
+  const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, lang);
 
   return {
-    props: { communityBoardData, communityBoardTopics },
+    props: { communityBoardData, communityBoardTopics, communityNoticeBannerData },
   };
 };
 

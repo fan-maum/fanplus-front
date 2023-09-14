@@ -5,7 +5,7 @@ import VoteTitle from '../molecules/VoteTitle';
 import { VoteData } from '@/types/vote';
 import { FormatTime } from '@/utils/util';
 import Link from 'next/link';
-import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 import VoteTitleImage from '../molecules/VoteTitleImage';
 import VoteHighRankTab, { VoteHighRankTabProps } from '../molecules/VoteHighRankTab';
 import { useRecoilState } from 'recoil';
@@ -28,7 +28,7 @@ export const voteStatusTranslation: { [key in ReceivedVoteStatus]: TranslatedVot
 };
 
 const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProps) => {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteDetailLanguage = GetRouterLanguage();
   const voteDetailText = useRecoilState(voteDetailLangState(language))[0];
   const startDate = new Date(startDay);

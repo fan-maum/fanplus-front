@@ -11,7 +11,7 @@ const CommunityBoardNoPost = ({ texts, buttonText, onClickWrite }: OwnPropType) 
     <div
       css={{
         width: '100%',
-        height: '50vh',
+        height: '60vh',
         padding: '0px 15px',
         display: 'flex',
         flexDirection: 'column',

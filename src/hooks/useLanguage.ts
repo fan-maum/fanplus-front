@@ -2,7 +2,7 @@ import { BackLangType } from '@/types/common';
 import { LangCookie } from '@/utils/setLangCookie';
 import { useRouter } from 'next/router';
 
-export function GetLanguage() {
+export function useUrlLanguage() {
   const router = useRouter();
   const language = router.route.split('/')[1];
   return language;
