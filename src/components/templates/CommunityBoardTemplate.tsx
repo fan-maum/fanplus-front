@@ -39,7 +39,7 @@ const CommunityBoardTemplate = ({
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
-  const [boardLang, setBoardLang] = useState(router.query.boardLang as BoardLangType);
+  const [boardLang, setBoardLang] = useState((router.query.boardLang as BoardLangType) || 'ALL');
   const [langModal, setLangModal] = useState(false);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
@@ -78,7 +78,7 @@ const CommunityBoardTemplate = ({
         boardTitle={boardInfo.BOARD_TITLE}
         rightItem={
           <CommunityBoardLangSelector
-            language={texts.boardLang[boardLang || 'ALL']}
+            language={texts.boardLang[boardLang]}
             onClick={() => setLangModal(true)}
           />
         }

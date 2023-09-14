@@ -1,5 +1,4 @@
 import { Group, Stack, Avatar } from '@/components/atoms';
-import { GetLanguage } from '@/hooks/useLanguage';
 import { voteDetailLangState } from '@/store/voteLangState';
 import {
   CommunityCommentListItemType,
@@ -36,7 +35,9 @@ function CommentInfoState({ identity, comment, reply }: CommentInfoStateProps) {
         </div>
         <Stack fw={600} fz={17} pt={6} spacing={5}>
           <Group spacing={10}>
-            <h4 css={{ color: '#000', fontSize: 18, fontWeight: 600 }}>{comment ? comment.NICK : reply?.NICK}</h4>
+            <h4 css={{ color: '#000', fontSize: 18, fontWeight: 600 }}>
+              {comment ? comment.NICK : reply?.NICK}
+            </h4>
             <div
               css={{
                 fontSize: 16,
@@ -58,7 +59,10 @@ function CommentInfoState({ identity, comment, reply }: CommentInfoStateProps) {
           </div>
         </Stack>
       </Group>
-      <CommentPopover identity={identity} comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX} />
+      <CommentPopover
+        identity={identity}
+        comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX}
+      />
     </Group>
   );
 }
