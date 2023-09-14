@@ -4,7 +4,7 @@ import axios from 'axios';
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === 'POST') {
     // @ts-ignore
-    console.log(req.body);
+    // console.log(req.body);
     const { identity, post_idx } = req.body;
     try {
       const result = await axios({
@@ -18,10 +18,10 @@ const handler: NextApiHandler = async (req, res) => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(result.data);
+      // console.log(result.data);
       res.status(200).json(result.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       res.json(error);
     }
   }
