@@ -75,6 +75,7 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => 
           </div>
         </>
       )}
+      {/* eslint-disable-next-line no-console */}
       <button onClick={() => console.log(editorRef.current.get(editorId).getContent())}>
         로그
       </button>
