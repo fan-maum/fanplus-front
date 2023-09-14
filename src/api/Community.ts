@@ -155,7 +155,7 @@ export const deleteCommentResult = async (identity: string, comment_idx: string)
 
 export const replyUnAuthResult = async (
   board_lang: BackLangType | 'ko-en-ja-es-vi-id-zh-zhtw',
-  lang: string,
+  lang: BackLangType,
   comment_idx: string,
   order_by: OrderType,
   page: number

@@ -14,9 +14,8 @@ import { BackLangType, TargetType } from '@/types/common';
 
 export type CommunityPostPropType = {
   identity: string;
-  lang: string;
+  lang: BackLangType;
   communityPostData: CommunityPostResponseType;
-  // communityPostCommentData: CommunityCommentResponseType;
   texts: CommunityPostTextType;
 };
 
@@ -24,7 +23,6 @@ const CommunityPostTemplate = ({
   identity,
   lang,
   communityPostData,
-  // communityPostCommentData,
   texts,
 }: CommunityPostPropType) => {
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
@@ -34,6 +32,8 @@ const CommunityPostTemplate = ({
   console.log('commentListFromPost => ', communityPostData.RESULTS.DATAS.COMMENT_LIST);
   // eslint-disable-next-line no-console
   console.log('postInfo => ', postInfo);
+  // eslint-disable-next-line no-console
+  console.log('commentTotalCount => ', commentTotalCount);
   const [deleteModalBlock, setDeleteModalBlock] = useState(false);
   const deletePostOnClick = () => {
     setDeleteModalBlock(true);
@@ -44,26 +44,68 @@ const CommunityPostTemplate = ({
   };
   const [data, setData] = useState(commentList);
   const [dataId, setDataId] = useState<number>(0);
-  
-  const onCreate = async (identity: string, target_type: TargetType, target: string, contents: any) => {
+
+  const onCreateComment = async (
+    identity: string,
+    target_type: TargetType,
+    target: string,
+    contents: any
+  ) => {
     const res = await postCommentResult(identity, target_type, target, contents);
     const results = res.data;
     const comment_idx = results.RESULTS.DATAS.COMMENT_IDX;
     setDataId(comment_idx);
-    
-    const getRes:CommunityCommentResponseType = await getCommunityPostCommentData(target_type, target, 'newest', lang, 0, identity, 20);
+
+    const getRes: CommunityCommentResponseType = await getCommunityPostCommentData(
+      target_type,
+      target,
+      'newest',
+      lang,
+      0,
+      identity,
+      20
+    );
     const comments = getRes.RESULTS.DATAS.COMMENTS;
-    const comment:any = comments.find(comment => parseInt(comment.COMMENT_IDX as string) === comment_idx);
-    setData([comment, ...data])
-  }
+    const comment: any = comments.find(
+      (comment) => parseInt(comment.COMMENT_IDX as string) === comment_idx
+    );
+    setData([comment, ...data]);
+  };
+
+  const onCreateReply = async (
+    identity: string,
+    target_type: TargetType,
+    target: string,
+    contents: any
+  ) => {
+    const res = await postCommentResult(identity, target_type, target, contents);
+    const results = res.data;
+    const comment_idx = results.RESULTS.DATAS.COMMENT_IDX;
+    setDataId(comment_idx);
+
+    const getRes: CommunityCommentResponseType = await getCommunityPostCommentData(
+      target_type,
+      target,
+      'newest',
+      lang,
+      0,
+      identity,
+      20
+    );
+    const comments = getRes.RESULTS.DATAS.COMMENTS;
+    const comment: any = comments.find(
+      (comment) => parseInt(comment.COMMENT_IDX as string) === comment_idx
+    );
+    setData([comment, ...data]);
+  };
 
   let getCommentParams = {
-    target_type: 'post',
+    target_type: 'post' as TargetType,
     target: parseInt(postInfo.POST_IDX as string),
-    lang: 'lang',
+    lang: lang,
     identity: identity,
-  }
-  
+  };
+
   return (
     <>
       <div
@@ -87,12 +129,11 @@ const CommunityPostTemplate = ({
           <CommunityPostDetail identity={identity} postInfo={postInfo} texts={texts} />
           <CommunityPostComment
             getCommentParams={getCommentParams}
-            identity={identity}
             commentList={commentList}
             commentTotalCount={commentTotalCount}
-            testData={data}
             data={data}
             setData={setData}
+            onCreateComment={onCreateComment}
           />
         </div>
         <CommunityPostFixedAreaWrapper
@@ -100,7 +141,7 @@ const CommunityPostTemplate = ({
           POST_IDX={postInfo.POST_IDX}
           WRITER_PROFILE_IMG={postInfo.WRITER_PROFILE_IMG}
           commentTotalCount={commentTotalCount}
-          onCreate={onCreate}
+          onCreateComment={onCreateComment}
         />
       </div>
       <CommunityDeleteModal

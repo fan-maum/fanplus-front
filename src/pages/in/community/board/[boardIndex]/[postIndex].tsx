@@ -14,7 +14,12 @@ import CommunityPostTemplate, {
 } from '@/components/templates/CommunityPostTemplate';
 import { OrderType, TargetType } from '@/types/common';
 
-const Post = ({ identity, lang, communityPostData, communityPostCommentData }: CommunityPostPropType) => {
+const Post = ({
+  identity,
+  lang,
+  communityPostData,
+  communityPostCommentData,
+}: CommunityPostPropType) => {
   return (
     <Layout navBarTexts={NavBarText_IND} footerTexts={FooterText_IND}>
       <CommunityPostTemplate
@@ -43,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<{
   const order_by = (context.query.order_by as OrderType) || 'newest';
   const board_lang = 'ALL';
   const page = parseInt(context.query.page as string) - 1 || 0;
-  const per_page = 20;
+  const per_page = 10;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 

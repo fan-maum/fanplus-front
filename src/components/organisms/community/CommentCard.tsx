@@ -13,8 +13,14 @@ export type CommentCardProps = {
   comment: CommunityPost_CommentListItemType;
   // comment: CommunityCommentListItemType;
   ReplyOnToggle?: (comment_idx: any) => void;
+  ReplyWriteOnToggle?: () => void;
 };
-const CommentCard = ({ identity, comment, ReplyOnToggle }: CommentCardProps) => {
+const CommentCard = ({
+  identity,
+  comment,
+  ReplyOnToggle,
+  ReplyWriteOnToggle,
+}: CommentCardProps) => {
   const [likes, setLikes] = useState(false);
   const LikesOnClick = async () => {
     if (comment.ALREADY_LIKE === 'Y' || likes === true) {
@@ -45,7 +51,7 @@ const CommentCard = ({ identity, comment, ReplyOnToggle }: CommentCardProps) => 
             </>
             // <ReplyButton count={comment.RE_COMMENT_CNT} />
           )}
-          <UnstyledButton fz={16} fw={400} css={{ color: '#999' }} onClick={ReplyOnToggle}>
+          <UnstyledButton fz={16} fw={400} css={{ color: '#999' }} onClick={ReplyWriteOnToggle}>
             답글쓰기
           </UnstyledButton>
         </div>

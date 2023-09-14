@@ -1,45 +1,68 @@
-import { CommunityCommentListItemType, CommunityCommentResponseType, CommunityPost_CommentListItemType } from '@/types/community';
+import {
+  CommunityCommentListItemType,
+  CommunityCommentResponseType,
+  CommunityPost_CommentListItemType,
+} from '@/types/community';
 import PostCommentListItem from './PostCommentListItem';
-import { useRouter } from 'next/router';
 import { UnstyledButton } from '@/components/atoms';
 import { getCommunityPostCommentData } from '@/api/Community';
 import { BackLangType, TargetType } from '@/types/common';
+import { useState } from 'react';
 
 type PostCommentListProps = {
-  getCommentParams: {target_type: TargetType, target: string, lang: BackLangType, identity: string},
-  identity: string;
+  getCommentParams: {
+    target_type: TargetType;
+    target: number;
+    lang: BackLangType;
+    identity: string;
+  };
   commentTotalCount: string | number;
   commentList: Array<CommunityPost_CommentListItemType>;
-  testData: any;
-  data: any,
-  setData: any,
+  data: Array<CommunityCommentListItemType>;
+  setData: React.Dispatch<React.SetStateAction<Array<CommunityCommentListItemType>>>;
+  onCreateComment: (
+    identity: string,
+    target_type: TargetType,
+    target: string,
+    contents: any
+  ) => void;
 };
 
 const PostCommentList = ({
   getCommentParams,
-  identity,
   commentTotalCount,
   commentList,
-  testData,
   data,
   setData,
+  onCreateComment,
 }: PostCommentListProps) => {
-  const router = useRouter();
-  const page = parseInt(router.query.page as string) | 1;
-  const hasNextPage = 20 * page < Number(commentTotalCount);
- 
+  const [pagingNumber, setPagingNumber] = useState(1);
+  const hasNextPage = 10 * pagingNumber < Number(commentTotalCount);
+
   const showMoreCommentOnClick = async () => {
-    console.log(getCommentParams);
-    
-    const getRes:CommunityCommentResponseType = await getCommunityPostCommentData(getCommentParams.target_type, getCommentParams.target, 'newest', getCommentParams.lang, 0, identity, 10);
+    const getRes: CommunityCommentResponseType = await getCommunityPostCommentData(
+      getCommentParams.target_type,
+      String(getCommentParams.target),
+      'newest',
+      getCommentParams.lang,
+      pagingNumber,
+      getCommentParams.identity,
+      10
+    );
     const comments = getRes.RESULTS.DATAS.COMMENTS;
-    setData([...testData, ...comments])
+    setData([...data, ...comments]);
+    setPagingNumber(pagingNumber + 1);
   };
   return (
     <ul data-role="comments">
-      {testData.map((comment: any) => {
+      {data.map((comment: any, index) => {
         return (
-          <PostCommentListItem key={comment.COMMENT_IDX} identity={identity} comment={comment} />
+          <PostCommentListItem
+            key={`${comment.COMMENT_IDX}_${index}`}
+            getCommentParams={getCommentParams}
+            comment={comment}
+            onCreateComment={onCreateComment}
+          />
         );
       })}
       {hasNextPage && (

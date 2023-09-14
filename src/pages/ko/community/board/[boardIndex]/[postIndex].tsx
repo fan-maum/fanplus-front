@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<{
   const order_by = (context.query.order_by as OrderType) || 'newest';
   const board_lang = 'ko-en-ja-es-vi-id-zh-zhtw';
   const page = parseInt(context.query.page as string) - 1 || 0;
-  const per_page = 20;
+  const per_page = 10;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 

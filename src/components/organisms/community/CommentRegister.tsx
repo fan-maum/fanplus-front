@@ -1,9 +1,6 @@
-import { postCommentResult } from '@/api/Community';
 import { Avatar, Stack, UnstyledButton } from '@/components/atoms';
 import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useMutation } from 'react-query';
-import nookies from 'nookies';
 import { TargetType } from '@/types/common';
 
 interface FormValue {
@@ -14,15 +11,26 @@ type CommentRegisterProps = {
   identity: string;
   POST_IDX: string;
   WRITER_PROFILE_IMG: string;
-  onCreate: (identity: string, target_type: TargetType, target: string, contents: any) => void;
+  createMode: TargetType;
+  onCreateComment: (
+    identity: string,
+    target_type: TargetType,
+    target: string,
+    contents: any
+  ) => void;
 };
 
-const CommentRegister = ({ identity, POST_IDX, WRITER_PROFILE_IMG, onCreate }: CommentRegisterProps) => {
+const CommentRegister = ({
+  identity,
+  POST_IDX,
+  WRITER_PROFILE_IMG,
+  createMode,
+  onCreateComment,
+}: CommentRegisterProps) => {
   const { handleSubmit, register, reset } = useForm<FormValue>();
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
-    onCreate(identity, 'post', POST_IDX, contents);
-    // const result = await postCommentResult(identity, 'post', POST_IDX, contents);
+    onCreateComment(identity, createMode, POST_IDX, contents);
     reset({ registerValue: '' });
   };
 

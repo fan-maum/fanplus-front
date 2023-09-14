@@ -1,41 +1,49 @@
 import styled from '@emotion/styled';
-import { BackLangType, OrderType } from '@/types/common';
-import { useRouter } from 'next/router';
-import { CommunityCommentResponseType } from '@/types/community';
+import { BackLangType, OrderType, TargetType } from '@/types/common';
+import { CommunityCommentListItemType, CommunityCommentResponseType } from '@/types/community';
 import { getCommunityPostCommentData } from '@/api/Community';
 
 type PostCommentOrdersProps = {
-  getCommentParams: {target_type: string, target: string, lang: BackLangType},
+  getCommentParams: {
+    target_type: TargetType;
+    target: number;
+    lang: BackLangType;
+    identity: string;
+  };
   commentOrder: OrderType;
   setCommentOrder: React.Dispatch<React.SetStateAction<OrderType>>;
+  setData: React.Dispatch<React.SetStateAction<Array<CommunityCommentListItemType>>>;
 };
 
-const PostCommentOrders = ({ getCommentParams, commentOrder, setCommentOrder }: PostCommentOrdersProps) => {
-  const router = useRouter();
-  const handleNewestClick = async () => {
-    setCommentOrder('newest');
-    const getRes:CommunityCommentResponseType = await getCommunityPostCommentData(getCommentParams.target_type, getCommentParams.target, 'newest', getCommentParams.lang, 0, identity, 20);
-    const comments = getRes.RESULTS.DATAS.COMMENTS;
-    setData(comments);
-    // router.push(
-    //   {
-    //     pathname: router.pathname,
-    //     query: { ...router.query, order_by: 'newest' },
-    //   },
-    //   undefined,
-    //   { scroll: false }
-    // );
-  };
-  const handleOldesetClick = () => {
-    setCommentOrder('oldest');
-    router.push(
-      {
-        pathname: router.pathname,
-        query: { ...router.query, order_by: 'oldest' },
-      },
-      undefined,
-      { scroll: false }
+const PostCommentOrders = ({
+  getCommentParams,
+  commentOrder,
+  setCommentOrder,
+  setData,
+}: PostCommentOrdersProps) => {
+  const OrderOnClick = async (orderType: OrderType, page: number) => {
+    setCommentOrder(orderType);
+    const getRes: CommunityCommentResponseType = await getCommunityPostCommentData(
+      getCommentParams.target_type,
+      String(getCommentParams.target),
+      orderType,
+      getCommentParams.lang,
+      page,
+      getCommentParams.identity,
+      20
     );
+    const comments = getRes.RESULTS.DATAS.COMMENTS;
+    return comments;
+  };
+  const handleNewestClick = async () => {
+    const comments = await OrderOnClick('newest', 0);
+    // eslint-disable-next-line no-console
+    console.log(comments);
+    setData(comments);
+  };
+  const handleOldesetClick = async () => {
+    const comments = await OrderOnClick('oldest', 0);
+    setData(comments);
   };
 
   return (

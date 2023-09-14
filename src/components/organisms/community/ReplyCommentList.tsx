@@ -17,9 +17,13 @@ const ReplyCommentList = ({ identity, totalCount, replyList }: ReplyCommentListP
   const page = parseInt(router.query.page as string) | 1;
   return (
     <ul data-role="comments">
-      {replyList?.map((reply) => {
+      {replyList?.map((reply, index) => {
         return (
-          <ReplyCommentListItem key={reply.COMMENT_IDX} identity={identity} reply={reply} />
+          <ReplyCommentListItem
+            key={`${reply.COMMENT_IDX}_${index}`}
+            identity={identity}
+            reply={reply}
+          />
         );
       })}
     </ul>

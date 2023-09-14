@@ -143,24 +143,24 @@ export type CommunityPost_PostInfoItemType = {
 };
 export type CommunityPost_CommentListItemType = {
   COMMENT_IDX: string;
-  TYPE: string;
-  TARGET: string;
-  TARGET_IDX: string;
-  USER_IDX: string;
+  TYPE: string; //
+  TARGET: string; //
+  TARGET_IDX: string; //
+  USER_IDX: string; //
   COMMENT: string;
-  IS_BLIND: string;
-  IS_REMOVED: string;
+  IS_BLIND: string; //
+  IS_REMOVED: string; //
   LIKE_CNT: string;
-  SPAM_REPORT_CNT: string;
-  BAD_REPORT_CNT: string;
+  SPAM_REPORT_CNT: string; //
+  BAD_REPORT_CNT: string; //
   RE_COMMENT_CNT: string;
   INS_DATE: string;
-  UPD_DATE: string;
-  BLIND_DATE: string;
-  REMOVE_DATE: string;
-  USER_PROFILE_IMG: string;
+  UPD_DATE: string; //
+  BLIND_DATE: string; //
+  REMOVE_DATE: string; //
+  USER_PROFILE_IMG: string; // PROFILE_IMG_URL
   NICK: string;
-  USER_LANG: string;
+  USER_LANG: string; //
   IDX: string;
   COMMENT_BLIND_YN: string;
   ALREADY_LIKE: string;

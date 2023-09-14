@@ -8,7 +8,12 @@ export type CommunityPostFixedAreaWrapperProps = {
   POST_IDX: string;
   WRITER_PROFILE_IMG: string;
   commentTotalCount: string | number;
-  onCreate: (identity: string, target_type: TargetType, target: string, contents: any) => void;
+  onCreateComment: (
+    identity: string,
+    target_type: TargetType,
+    target: string,
+    contents: any
+  ) => void;
 };
 
 const CommunityPostFixedAreaWrapper = ({
@@ -16,7 +21,7 @@ const CommunityPostFixedAreaWrapper = ({
   POST_IDX,
   WRITER_PROFILE_IMG,
   commentTotalCount,
-  onCreate,
+  onCreateComment,
 }: CommunityPostFixedAreaWrapperProps) => {
   return (
     <div
@@ -33,7 +38,8 @@ const CommunityPostFixedAreaWrapper = ({
         identity={identity}
         POST_IDX={POST_IDX}
         WRITER_PROFILE_IMG={WRITER_PROFILE_IMG}
-        onCreate={onCreate}
+        createMode={'post'}
+        onCreateComment={onCreateComment}
       />
       <CommunityPostBottomNavi commentTotalCount={commentTotalCount} />
     </div>

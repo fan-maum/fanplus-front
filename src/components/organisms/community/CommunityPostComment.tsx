@@ -8,40 +8,52 @@ import PostCommentList from './PostCommentList';
 import CommentRegister from './CommentRegister';
 
 type CommunityPostCommentProps = {
-  getCommentParams: {target_type: TargetType, target: string, lang: BackLangType, identity: string},
+  getCommentParams: {
+    target_type: TargetType;
+    target: number;
+    lang: BackLangType;
+    identity: string;
+  };
   commentList: Array<CommunityPost_CommentListItemType>;
   commentTotalCount: string | number;
-  testData: any;
-  data:any
-  setData:any
+  data: any;
+  setData: any;
+  onCreateComment: (
+    identity: string,
+    target_type: TargetType,
+    target: string,
+    contents: any
+  ) => void;
 };
 
 const CommunityPostComment = ({
   getCommentParams,
   commentList,
   commentTotalCount,
-  testData,
   data,
   setData,
+  onCreateComment,
 }: CommunityPostCommentProps) => {
   const [commentOrder, setCommentOrder] = useState<OrderType>('newest');
-  // eslint-disable-next-line no-console
-  console.log('testData',testData);
-  
+
   return (
     <>
       <Group h={80} position="apart" px={24} mb={15}>
         <PostCommentCount count={commentTotalCount} />
-        <PostCommentOrders getCommentParams={getCommentParams} commentOrder={commentOrder} setCommentOrder={setCommentOrder} />
+        <PostCommentOrders
+          getCommentParams={getCommentParams}
+          commentOrder={commentOrder}
+          setCommentOrder={setCommentOrder}
+          setData={setData}
+        />
       </Group>
       <PostCommentList
-      getCommentParams={getCommentParams} 
-        identity={getCommentParams.identity}
+        getCommentParams={getCommentParams}
         commentTotalCount={commentTotalCount}
         commentList={commentList}
-        testData={testData}
         data={data}
         setData={setData}
+        onCreateComment={onCreateComment}
       />
     </>
   );

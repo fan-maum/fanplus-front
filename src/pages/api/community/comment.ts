@@ -4,7 +4,7 @@ import type { CommunityBoardResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
   const { target_type, target, order_by, lang, identity, page } = req.query;
-  const per_page = 20;
+  const per_page = 10;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
