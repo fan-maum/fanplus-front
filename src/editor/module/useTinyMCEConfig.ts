@@ -7,7 +7,7 @@ import { tinyMCEResetCSS } from '../constant/tinyMCEResetCSS';
 export const useTinyMCEConfig = () => {
   const device = userAgentOS();
   const isMobile = ['android', 'ios'].includes(device);
-  const min_height = isMobile ? 480 : 600;
+  const min_height = isMobile ? 450 : 600;
   const plugins = 'link image code table lists media autoresize';
 
   return {

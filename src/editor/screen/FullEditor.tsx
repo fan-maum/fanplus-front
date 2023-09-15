@@ -7,6 +7,7 @@ import {
   useCustomYoutubeButton,
 } from '../constant/customButtons';
 import Script from 'next/script';
+import CommunityUploadModal from '@/components/modals/CommunityUploadModal';
 
 type TProps = {
   editorRef: any;
@@ -16,6 +17,7 @@ type TProps = {
 
 const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => {
   const [isJsLoading, setIsJsLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const log: MouseEventHandler<HTMLButtonElement> = (e) => {
     // eslint-disable-next-line no-console
@@ -45,7 +47,7 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => 
       setup: (editor) => {
         useIOSIMESetting(editor);
 
-        const onCustomAction = () => {};
+        const onCustomAction = () => setModalOpen(true);
         useCustomImageButton({ editor, onCustomAction });
         useCustomVideoButton({ editor, onCustomAction });
         useCustomYoutubeButton({ editor });
@@ -78,10 +80,11 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => 
                 <div id={editorId} className="selector-editor" />
               </div>
             </div>
+            <CommunityUploadModal state={[modalOpen, setModalOpen]} />
           </div>
         </>
       )}
-      <button onClick={log}>로그</button>
+      {/* <button onClick={log}>로그</button> */}
     </>
   );
 };

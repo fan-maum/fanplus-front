@@ -20,7 +20,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           width: '100%',
           position: 'fixed',
           backgroundColor: isVoteCommunityPage ? 'rgb(255,255,255)' : 'rgba(255,255,255,0.8)',
-          zIndex: '19999',
+          zIndex: '1000',
           '@media(max-width:768px)': {
             display: isLoginSignUpPage ? 'none' : 'block',
           },

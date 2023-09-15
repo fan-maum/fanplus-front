@@ -212,9 +212,36 @@ export type CommunityPostTextType = {
   edit: string;
   delete: string;
   report: string;
-  cancelButton: string,
-  confirmButton: string,
-  reportButton: string,
+  cancelButton: string;
+  confirmButton: string;
+  reportButton: string;
+};
+
+export type EditorModalTextType = {
+  main: string;
+  sub?: string;
+  cancel: string;
+  confirm: string;
+};
+export type CommunityPostEditorTextType = {
+  pageTitle: string;
+  topic: string;
+  topicTitle: string[];
+  title: string;
+  content: string;
+  cancel: string;
+  register: string;
+  modify: string;
+
+  cancelModal: EditorModalTextType;
+  registerModal: EditorModalTextType;
+  modifyModal: EditorModalTextType;
+
+  defaultValues?: {
+    topicIndex: number;
+    title: string;
+    content: string;
+  };
 };
 
 export type TextType = {
