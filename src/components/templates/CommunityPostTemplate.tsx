@@ -32,7 +32,7 @@ const CommunityPostTemplate = ({
   const [commentList, setCommentList] = useState<Array<CommentListItemType>>([]);
   const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
   const [orderType, setOrderType] = useState<OrderType>('newest');
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const board_lang = 'ALL';
   useEffect(() => {
     const comments = async () => {
@@ -61,18 +61,19 @@ const CommunityPostTemplate = ({
     target: number,
     contents: any
   ) => {
-    const response = await postComment(identity, target_type, target, contents);
-    const comment_idx = response.RESULTS.DATAS.COMMENT_IDX;
+    setPage(1);
+    // const response = await postComment(identity, target_type, target, contents);
+    // const comment_idx = response.RESULTS.DATAS.COMMENT_IDX;
     const getCommentResponse: CommentResponseType = await getComments(
       target,
       identity,
       board_lang,
       orderType,
-      0,
+      page - 1,
       20
     );
     const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
-    setCommentList([...comments]);
+    setCommentList(comments);
   };
   console.log(commentList);
 
@@ -82,20 +83,20 @@ const CommunityPostTemplate = ({
     target: number,
     contents: any
   ) => {
-    const response = await postComment(identity, target_type, target, contents);
-    const comment_idx = response.RESULTS.DATAS.COMMENT_IDX;
+    // const response = await postComment(identity, target_type, target, contents);
+    // const comment_idx = response.RESULTS.DATAS.COMMENT_IDX;
     const getCommentResponse: CommentResponseType = await getComments(
       getCommentParams.target,
       getCommentParams.identity,
       board_lang,
-      'newest',
+      orderType,
       0,
       20
     );
-    console.log(commentList);
-    console.log(getCommentResponse);
-
     // const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
+    // setCommentList(comments);
+    // console.log(commentList);
+
     // const comment: any = commentList.find(
     //   (comment) => parseInt(comment.COMMENT_IDX as string) === comment_idx
     // );
