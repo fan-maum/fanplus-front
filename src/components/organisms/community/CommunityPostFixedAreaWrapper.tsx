@@ -11,7 +11,7 @@ export type CommunityPostFixedAreaWrapperProps = {
   onCreateComment: (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => void;
 };

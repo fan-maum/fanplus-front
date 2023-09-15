@@ -1,11 +1,11 @@
 import { Stack } from '@/components/atoms';
 import TopicBubble from '@/components/atoms/TopicBubble';
 import CommunityPostInfoState from '@/components/molecules/community/CommunityPostInfoState';
-import { CommunityPost_PostInfoItemType } from '@/types/community';
+import { PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
 
 type CommunityPostInfoProps = {
-  postInfo: CommunityPost_PostInfoItemType;
+  postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
 };
 

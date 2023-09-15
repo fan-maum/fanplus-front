@@ -15,7 +15,7 @@ type CommentRegisterProps = {
   onCreateComment: (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => void;
 };
@@ -31,7 +31,7 @@ const CommentRegister = ({
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
     if (identity !== null) {
-      onCreateComment(identity, createMode, POST_IDX, contents);
+      onCreateComment(identity, createMode, Number(POST_IDX), contents);
     } else {
       alert('로그인해주세요.');
     }

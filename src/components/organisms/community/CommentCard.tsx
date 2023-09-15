@@ -1,17 +1,14 @@
+import { useState } from 'react';
 import { deleteLikes, postLikes } from '@/api/Community';
 import { Group, Stack, UnstyledButton } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
-import ReplyButton from '@/components/atoms/IconReply';
 import CommentInfoState from '@/components/molecules/community/CommentInfoState';
-import { CommunityCommentListItemType, CommunityPost_CommentListItemType } from '@/types/community';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { CommentListItemType } from '@/types/community';
 import IconReply from '@/components/atoms/IconReply';
 
 export type CommentCardProps = {
   identity: string;
-  comment: CommunityPost_CommentListItemType;
-  // comment: CommunityCommentListItemType;
+  comment: CommentListItemType;
   ReplyOnToggle?: (comment_idx: any) => void;
   ReplyWriteOnToggle?: () => void;
 };
@@ -53,7 +50,6 @@ const CommentCard = ({
                 <IconReply />
               </UnstyledButton>
             </>
-            // <ReplyButton count={comment.RE_COMMENT_CNT} />
           )}
           <UnstyledButton fz={16} fw={400} css={{ color: '#999' }} onClick={ReplyWriteOnToggle}>
             답글쓰기

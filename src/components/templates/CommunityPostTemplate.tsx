@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import type { CommunityPostResponseType, CommunityCommentResponseType } from '@/types/community';
+import { useEffect, useState } from 'react';
+import type { PostResponseType, CommentResponseType, CommentListItemType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import CommunityPostTopNavi, {
   CommunityPostTopNaviProps,
@@ -9,31 +9,47 @@ import CommunityPostDetail from '@/components/organisms/community/CommunityPostD
 import CommunityPostComment from '@/components/organisms/community/CommunityPostComment';
 import CommunityPostFixedAreaWrapper from '@/components/organisms/community/CommunityPostFixedAreaWrapper';
 import CommunityDeleteModal from '@/components/modals/CommunityDeleteModal';
-import { getCommunityPostCommentData, postCommentResult } from '@/api/Community';
-import { BackLangType, TargetType } from '@/types/common';
+import { getComments, postComment } from '@/api/Community';
+import { BackLangType, OrderType, TargetType } from '@/types/common';
 
 export type CommunityPostPropType = {
   identity: string;
+  postIndex: number;
   lang: BackLangType;
-  communityPostData: CommunityPostResponseType;
+  communityPostData: PostResponseType;
   texts: CommunityPostTextType;
 };
 
 const CommunityPostTemplate = ({
   identity,
+  postIndex,
   lang,
   communityPostData,
   texts,
 }: CommunityPostPropType) => {
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
-  const commentList = communityPostData.RESULTS.DATAS.COMMENT_LIST;
-  const commentTotalCount = communityPostData.RESULTS.DATAS.POST_INFO.COMMENT_CNT;
+  const [commentList, setCommentList] = useState<Array<CommentListItemType>>([]);
+  const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
+  const [orderType, setOrderType] = useState<OrderType>('newest');
+  const board_lang = 'ALL';
+  useEffect(() => {
+    const comments = async () => {
+      let response: CommentResponseType = await getComments(
+        postIndex,
+        identity,
+        board_lang,
+        orderType,
+        0,
+        20
+      );
+      setCommentList(response.RESULTS.DATAS.COMMENTS);
+      setCommentTotalCount(response.RESULTS.DATAS.TOTAL_CNT);
+    };
+    comments();
+  }, [postIndex, identity, board_lang, orderType]);
+
   // eslint-disable-next-line no-console
-  console.log('commentListFromPost => ', communityPostData.RESULTS.DATAS.COMMENT_LIST);
-  // eslint-disable-next-line no-console
-  console.log('postInfo => ', postInfo);
-  // eslint-disable-next-line no-console
-  console.log('commentTotalCount => ', commentTotalCount);
+  console.log('commentList => ', commentList);
   const [deleteModalBlock, setDeleteModalBlock] = useState(false);
   const deletePostOnClick = () => {
     setDeleteModalBlock(true);
@@ -42,62 +58,61 @@ const CommunityPostTemplate = ({
     texts,
     deletePostOnClick,
   };
-  const [data, setData] = useState(commentList);
+  // const [data, setData] = useState(commentList);
   const [dataId, setDataId] = useState<number>(0);
   const [replyId, setReplyId] = useState<number>(0);
 
   const onCreateComment = async (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => {
-    const res = await postCommentResult(identity, target_type, target, contents);
+    const res = await postComment(identity, target_type, target, contents);
     const results = res.data;
     const comment_idx = results.RESULTS.DATAS.COMMENT_IDX;
     setDataId(comment_idx);
-
-    const getRes: CommunityCommentResponseType = await getCommunityPostCommentData(
-      target_type,
+    const getCommentResponse: CommentResponseType = await getComments(
       target,
-      'newest',
-      lang,
-      0,
       identity,
+      board_lang,
+      'newest',
+      0,
       20
     );
-    const comments = getRes.RESULTS.DATAS.COMMENTS;
+    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
     const comment: any = comments.find(
       (comment) => parseInt(comment.COMMENT_IDX as string) === comment_idx
     );
-    setData([comment, ...data]);
+    setCommentList([comment, ...commentList]);
   };
 
   const onCreateReply = async (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => {
-    const res = await postCommentResult(identity, target_type, target, contents);
+    const res = await postComment(identity, target_type, target, contents);
     const results = res.data;
     const comment_idx = results.RESULTS.DATAS.COMMENT_IDX;
     setDataId(comment_idx);
-
-    const getRes: CommunityCommentResponseType = await getCommunityPostCommentData(
-      target_type,
-      target,
+    const getCommentResponse: CommentResponseType = await getComments(
+      getCommentParams.target,
+      getCommentParams.identity,
+      board_lang,
       'newest',
-      lang,
       0,
-      identity,
       20
     );
-    const comments = getRes.RESULTS.DATAS.COMMENTS;
+    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
     const comment: any = comments.find(
       (comment) => parseInt(comment.COMMENT_IDX as string) === comment_idx
     );
-    setData([comment, ...data]);
+    const comment2 = { id: comment_idx, contents };
+
+    setCommentList([comment, ...commentList]);
+    setCommentList([...commentList, comment]);
   };
 
   let getCommentParams = {
@@ -132,8 +147,7 @@ const CommunityPostTemplate = ({
             getCommentParams={getCommentParams}
             commentList={commentList}
             commentTotalCount={commentTotalCount}
-            data={data}
-            setData={setData}
+            setCommentList={setCommentList}
             onCreateComment={onCreateComment}
           />
         </div>

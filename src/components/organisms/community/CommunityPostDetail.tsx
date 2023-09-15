@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 import { Center, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
-import { CommunityPost_PostInfoItemType } from '@/types/community';
+import { PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { deleteRecommends, postRecommends } from '@/api/Community';
 import { useState } from 'react';
 
 type CommunityPostDetailProps = {
   identity: string;
-  postInfo: CommunityPost_PostInfoItemType;
+  postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
 };
 

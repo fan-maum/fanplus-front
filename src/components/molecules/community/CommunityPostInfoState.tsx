@@ -1,9 +1,9 @@
 import { Avatar, Group, Stack } from '@/components/atoms';
-import { CommunityPost_PostInfoItemType } from '@/types/community';
+import { PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
 
 export interface CommunityPostInfoStateProps {
-  postInfo: CommunityPost_PostInfoItemType;
+  postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
 }
 

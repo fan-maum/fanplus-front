@@ -3,16 +3,17 @@ import nookies from 'nookies';
 import { getCommunityPostData, getCommunityUnAuthPostData } from '@/api/Community';
 import { CommunityPostText_IND, FooterText_IND, NavBarText_IND } from '@/texts/in';
 import Layout from '@/components/organisms/Layout';
-import { CommunityPostResponseType } from '@/types/community';
+import { PostResponseType } from '@/types/community';
 import CommunityPostTemplate, {
   CommunityPostPropType,
 } from '@/components/templates/CommunityPostTemplate';
 
-const Post = ({ identity, lang, communityPostData }: CommunityPostPropType) => {
+const Post = ({ identity, postIndex, lang, communityPostData }: CommunityPostPropType) => {
   return (
     <Layout navBarTexts={NavBarText_IND} footerTexts={FooterText_IND}>
       <CommunityPostTemplate
         identity={identity}
+        postIndex={postIndex}
         lang={lang}
         communityPostData={communityPostData}
         texts={CommunityPostText_IND}
@@ -22,7 +23,7 @@ const Post = ({ identity, lang, communityPostData }: CommunityPostPropType) => {
 };
 
 export const getServerSideProps: GetServerSideProps<{
-  communityPostData: CommunityPostResponseType;
+  communityPostData: PostResponseType;
 }> = async (context) => {
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
@@ -41,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   return {
-    props: { identity, lang, communityPostData },
+    props: { identity, postIndex, lang, communityPostData },
   };
 };
 

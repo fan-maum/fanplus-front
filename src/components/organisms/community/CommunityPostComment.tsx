@@ -3,7 +3,7 @@ import { Group } from '@/components/atoms';
 import PostCommentCount from '@/components/atoms/PostCommentCount';
 import PostCommentOrders from '@/components/molecules/community/PostCommentOrders';
 import { BackLangType, OrderType, TargetType } from '@/types/common';
-import { CommunityPost_CommentListItemType } from '@/types/community';
+import { CommentListItemType } from '@/types/community';
 import PostCommentList from './PostCommentList';
 
 type CommunityPostCommentProps = {
@@ -13,14 +13,13 @@ type CommunityPostCommentProps = {
     lang: BackLangType;
     identity: string;
   };
-  commentList: Array<CommunityPost_CommentListItemType>;
-  commentTotalCount: string | number;
-  data: any;
-  setData: any;
+  commentList: CommentListItemType[];
+  commentTotalCount: number;
+  setCommentList: any;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => void;
 };
@@ -29,8 +28,7 @@ const CommunityPostComment = ({
   getCommentParams,
   commentList,
   commentTotalCount,
-  data,
-  setData,
+  setCommentList,
   onCreateComment,
 }: CommunityPostCommentProps) => {
   const [commentOrder, setCommentOrder] = useState<OrderType>('newest');
@@ -43,15 +41,14 @@ const CommunityPostComment = ({
           getCommentParams={getCommentParams}
           commentOrder={commentOrder}
           setCommentOrder={setCommentOrder}
-          setData={setData}
+          setCommentList={setCommentList}
         />
       </Group>
       <PostCommentList
         getCommentParams={getCommentParams}
         commentTotalCount={commentTotalCount}
         commentList={commentList}
-        data={data}
-        setData={setData}
+        setCommentList={setCommentList}
         onCreateComment={onCreateComment}
       />
     </>

@@ -1,6 +1,6 @@
 import { Popover } from '@mantine/core';
 import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
-import { deleteCommentResult } from '@/api/Community';
+import { deleteComment } from '@/api/Community';
 
 type CommentPopoverProps = {
   identity: string;
@@ -8,7 +8,7 @@ type CommentPopoverProps = {
 };
 export default function CommentPopover({ identity, comment_idx }: CommentPopoverProps) {
   const DeleteOnClick = async () => {
-    const res = await deleteCommentResult(identity, comment_idx);
+    const res = await deleteComment(identity, comment_idx);
   };
   return (
     <Popover

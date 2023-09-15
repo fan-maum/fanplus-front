@@ -3,11 +3,11 @@ import { deleteLikes, postLikes } from '@/api/Community';
 import { Group, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
 import CommentInfoState from '@/components/molecules/community/CommentInfoState';
-import { CommunityCommentListItemType, CommunityPost_CommentListItemType } from '@/types/community';
+import { CommentListItemType } from '@/types/community';
 
 export type ReplyCardProps = {
   identity: string;
-  reply: CommunityCommentListItemType;
+  reply: CommentListItemType;
 };
 const ReplyCard = ({ identity, reply }: ReplyCardProps) => {
   const [likes, setLikes] = useState(false);

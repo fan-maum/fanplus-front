@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { CommunityPost_CommentListItemType } from '@/types/community';
+import { CommentListItemType, CommentResponseType, replyResponseType } from '@/types/community';
 import CommentCard from './CommentCard';
-import { replyResult, replyUnAuthResult } from '@/api/Community';
+import { getReplies } from '@/api/Community';
 import ReplyCommentList from './ReplyCommentList';
 import { BackLangType, TargetType } from '@/types/common';
 import CommentRegister from './CommentRegister';
@@ -13,12 +13,11 @@ type PostCommentListItemProps = {
     lang: BackLangType;
     identity: string;
   };
-  comment: CommunityPost_CommentListItemType;
-  // comment: CommunityCommentListItemType;
+  comment: CommentListItemType;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => void;
 };
@@ -29,24 +28,32 @@ const PostCommentListItem = ({
   onCreateComment,
 }: PostCommentListItemProps) => {
   const { identity } = getCommentParams;
-  const lang = getCommentParams.lang || 'ko';
   const order_by = 'newest';
-  const board_lang = 'ko-en-ja-es-vi-id-zh-zhtw';
+  const board_lang = 'ALL';
   const page = 0;
+  const per_page = 0;
   const [openToggle, setOpenToggle] = useState(false);
   const [openWriteToggle, setOpenWriteToggle] = useState(false);
-  const [replyList, setReplyList] = useState(Object);
-  const ReplyOnToggle = async (comment_idx: string) => {
+  const [replyList, setReplyList] = useState<CommentListItemType[]>([]);
+  const [replyTotalCount, setReplyTotalCount] = useState<number>(0);
+  const ReplyOnToggle = async (commentIndex: string) => {
     if (openToggle === false) {
-      const response = replyUnAuthResult(board_lang, lang, comment_idx, order_by, page).then(
-        (response) => setReplyList(response.RESULTS.DATAS)
-      );
+      const response = getReplies(
+        commentIndex,
+        identity,
+        board_lang,
+        order_by,
+        page,
+        per_page
+      ).then((response: replyResponseType) => setReplyList(response.RESULTS.DATAS.COMMENTS));
       setOpenToggle(true);
       setOpenWriteToggle(false);
     } else {
       setOpenToggle(false);
     }
   };
+  // console.log(replyList);
+
   const ReplyWriteOnToggle = async () => {
     if (openWriteToggle === false) {
       setOpenWriteToggle(true);
@@ -67,8 +74,8 @@ const PostCommentListItem = ({
         {comment.RE_COMMENT_CNT !== '0' && (
           <ReplyCommentList
             identity={identity}
-            totalCount={replyList.TOTAL_CNT}
-            replyList={replyList.COMMENTS}
+            totalCount={replyTotalCount}
+            replyList={replyList}
           />
         )}
       </div>
@@ -76,7 +83,7 @@ const PostCommentListItem = ({
         <CommentRegister
           identity={identity}
           POST_IDX={comment.COMMENT_IDX}
-          WRITER_PROFILE_IMG={comment.USER_PROFILE_IMG}
+          WRITER_PROFILE_IMG={comment.PROFILE_IMG_URL}
           createMode={'comment'}
           onCreateComment={onCreateComment}
         />

@@ -116,7 +116,7 @@ export type CommunityBoardResultResponseType = {
 /**
  * Post
  */
-export type CommunityPost_PostInfoItemType = {
+export type PostInfoItemType = {
   POST_IDX: string;
   TOPIC_NAME: string;
   POST_TITLE: string;
@@ -141,58 +141,58 @@ export type CommunityPost_PostInfoItemType = {
   RECOMMEND_YN: string;
   THUMBNAIL_IMG: string;
 };
-export type CommunityPost_CommentListItemType = {
+export type PostInfoCommentItemType = {
   COMMENT_IDX: string;
-  TYPE: string; //
-  TARGET: string; //
-  TARGET_IDX: string; //
-  USER_IDX: string; //
+  TYPE: string;
+  TARGET: string;
+  TARGET_IDX: string;
+  USER_IDX: string;
   COMMENT: string;
-  IS_BLIND: string; //
-  IS_REMOVED: string; //
+  IS_BLIND: string;
+  IS_REMOVED: string;
   LIKE_CNT: string;
-  SPAM_REPORT_CNT: string; //
-  BAD_REPORT_CNT: string; //
+  SPAM_REPORT_CNT: string;
+  BAD_REPORT_CNT: string;
   RE_COMMENT_CNT: string;
   INS_DATE: string;
-  UPD_DATE: string; //
-  BLIND_DATE: string; //
-  REMOVE_DATE: string; //
-  USER_PROFILE_IMG: string; // PROFILE_IMG_URL
+  UPD_DATE: string;
+  BLIND_DATE: string;
+  REMOVE_DATE: string;
+  USER_PROFILE_IMG: string;
   NICK: string;
-  USER_LANG: string; //
+  USER_LANG: string;
   IDX: string;
   COMMENT_BLIND_YN: string;
   ALREADY_LIKE: string;
 };
 
-export type CommunityPost_HeadListItemType = {
+export type PostInfoHeadListItemType = {
   HEAD_IDX: string;
   BOARD_IDX: string;
   LANG_TYPE: string;
   HEAD_NAME: string;
 };
 
-export type CommunityPostResponseType = {
+export type PostResponseType = {
   RESULTS: {
     ERROR: number;
     MSG: string;
     DATAS: {
-      POST_INFO: CommunityPost_PostInfoItemType;
-      COMMENT_LIST: Array<CommunityPost_CommentListItemType>;
-      HEAD_LIST: Array<CommunityPost_HeadListItemType>;
+      POST_INFO: PostInfoItemType;
+      COMMENT_LIST: Array<PostInfoCommentItemType>;
+      HEAD_LIST: Array<PostInfoHeadListItemType>;
     };
     TIMESTAMP: number;
   };
 };
 
-export type CommunityCommentListItemType = {
+export type CommentListItemType = {
   COMMENT_IDX: string;
   IS_WRITER: string;
   LIKE_CNT: string;
   RE_COMMENT_CNT: string;
   INS_DATE: string;
-  COMMENT: string;
+  COMMENT: string | boolean;
   WRITER_IDX: string;
   NICK: string;
   ALREADY_LIKE: string;
@@ -201,14 +201,14 @@ export type CommunityCommentListItemType = {
   IS_BLOCKED_USER: string;
 };
 
-export type CommunityCommentResponseType = {
+export type CommentResponseType = {
   RESULTS: {
     ERROR: number;
     MSG: string;
     DATAS: {
       TOTAL_CNT: number;
       BEST_COMMENTS: [];
-      COMMENTS: Array<CommunityCommentListItemType>;
+      COMMENTS: Array<CommentListItemType>;
       PAGE: number;
       PER_PAGE: string;
     };
@@ -222,9 +222,9 @@ export type replyResponseType = {
     MSG: string;
     DATAS: {
       TOTAL_CNT: number;
-      ORIGINAL_COMMENTS: Array<CommunityCommentListItemType>;
+      ORIGINAL_COMMENTS: CommentListItemType;
       BEST_COMMENTS: [];
-      COMMENTS: Array<CommunityCommentListItemType>;
+      COMMENTS: Array<CommentListItemType>;
       PAGE: number;
       PER_PAGE: string;
     };

@@ -3,16 +3,17 @@ import nookies from 'nookies';
 import { getCommunityPostData, getCommunityUnAuthPostData } from '@/api/Community';
 import { CommunityPostText_zh_CN, FooterText_zh_CN, NavBarText_zh_CN } from '@/texts/zh-CN';
 import Layout from '@/components/organisms/Layout';
-import { CommunityPostResponseType } from '@/types/community';
+import { PostResponseType } from '@/types/community';
 import CommunityPostTemplate, {
   CommunityPostPropType,
 } from '@/components/templates/CommunityPostTemplate';
 
-const Post = ({ identity, lang, communityPostData }: CommunityPostPropType) => {
+const Post = ({ identity, postIndex, lang, communityPostData }: CommunityPostPropType) => {
   return (
     <Layout navBarTexts={NavBarText_zh_CN} footerTexts={FooterText_zh_CN}>
       <CommunityPostTemplate
         identity={identity}
+        postIndex={postIndex}
         lang={lang}
         communityPostData={communityPostData}
         texts={CommunityPostText_zh_CN}
@@ -22,7 +23,7 @@ const Post = ({ identity, lang, communityPostData }: CommunityPostPropType) => {
 };
 
 export const getServerSideProps: GetServerSideProps<{
-  communityPostData: CommunityPostResponseType;
+  communityPostData: PostResponseType;
 }> = async (context) => {
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
@@ -34,7 +35,6 @@ export const getServerSideProps: GetServerSideProps<{
   if (!boardIndex || !postIndex) return { notFound: true };
 
   let communityPostData;
-  let communityPostCommentData;
   if (identity !== null) {
     communityPostData = await getCommunityPostData(postIndex, identity);
   } else {
@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   return {
-    props: { identity, lang, communityPostData, communityPostCommentData },
+    props: { identity, postIndex, lang, communityPostData },
   };
 };
 
