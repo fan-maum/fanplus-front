@@ -172,7 +172,7 @@ const TitleInput = ({
     <input
       css={{
         height: '40px',
-        width: 'calc(100% - 150px)',
+        width: 'calc(100% - 135px)',
         maxWidth: '480px',
         border: '1.8px solid #e6e6e6',
         borderRadius: '4px',
