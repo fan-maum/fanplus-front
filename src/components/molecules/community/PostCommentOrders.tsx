@@ -10,19 +10,19 @@ type PostCommentOrdersProps = {
     lang: BackLangType;
     identity: string;
   };
-  commentOrder: OrderType;
-  setCommentOrder: React.Dispatch<React.SetStateAction<OrderType>>;
+  orderType: OrderType;
+  setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
   setCommentList: React.Dispatch<React.SetStateAction<Array<CommentListItemType>>>;
 };
 
 const PostCommentOrders = ({
   getCommentParams,
-  commentOrder,
-  setCommentOrder,
+  orderType,
+  setOrderType,
   setCommentList,
 }: PostCommentOrdersProps) => {
   const OrderOnClick = async (orderType: OrderType, page: number) => {
-    setCommentOrder(orderType);
+    setOrderType(orderType);
     const border_lang = 'ALL';
     const getCommentResponse: CommentResponseType = await getComments(
       getCommentParams.target,
@@ -47,12 +47,12 @@ const PostCommentOrders = ({
 
   return (
     <ul css={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-      <OrderListItem $order={commentOrder === 'newest'}>
+      <OrderListItem $order={orderType === 'newest'}>
         <button type="button" onClick={handleNewestClick}>
           최신순
         </button>
       </OrderListItem>
-      <OrderListItem $order={commentOrder === 'oldest'}>
+      <OrderListItem $order={orderType === 'oldest'}>
         <button type="button" onClick={handleOldesetClick}>
           등록순
         </button>

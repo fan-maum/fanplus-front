@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
 import type { PostResponseType, CommentResponseType, CommentListItemType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
-import CommunityPostTopNavi, {
-  CommunityPostTopNaviProps,
-} from '@/components/molecules/community/CommunityPostTopNavi';
-import CommunityPostInfo from '@/components/organisms/community/CommunityPostInfo';
-import CommunityPostDetail from '@/components/organisms/community/CommunityPostDetail';
 import CommunityPostComment from '@/components/organisms/community/CommunityPostComment';
 import CommunityPostFixedAreaWrapper from '@/components/organisms/community/CommunityPostFixedAreaWrapper';
 import CommunityDeleteModal from '@/components/modals/CommunityDeleteModal';
 import { getComments, postComment } from '@/api/Community';
 import { BackLangType, OrderType, TargetType } from '@/types/common';
+import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 
 export type CommunityPostPropType = {
   identity: string;
@@ -48,17 +44,16 @@ const CommunityPostTemplate = ({
     comments();
   }, [postIndex, identity, board_lang, orderType]);
 
-  // eslint-disable-next-line no-console
-  console.log('commentList => ', commentList);
   const [deleteModalBlock, setDeleteModalBlock] = useState(false);
   const deletePostOnClick = () => {
     setDeleteModalBlock(true);
   };
-  const CommunityPostTopNaviProps: CommunityPostTopNaviProps = {
+  const PostDetailLayoutProps: PostDetailLayoutProps = {
+    identity,
+    postInfo,
     texts,
     deletePostOnClick,
   };
-  // const [data, setData] = useState(commentList);
   const [dataId, setDataId] = useState<number>(0);
   const [replyId, setReplyId] = useState<number>(0);
 
@@ -140,14 +135,14 @@ const CommunityPostTemplate = ({
             paddingBottom: 192,
           }}
         >
-          <CommunityPostTopNavi {...CommunityPostTopNaviProps} />
-          <CommunityPostInfo postInfo={postInfo} texts={texts} />
-          <CommunityPostDetail identity={identity} postInfo={postInfo} texts={texts} />
+          <PostDetailLayout {...PostDetailLayoutProps} />
           <CommunityPostComment
             getCommentParams={getCommentParams}
             commentList={commentList}
             commentTotalCount={commentTotalCount}
             setCommentList={setCommentList}
+            orderType={orderType}
+            setOrderType={setOrderType}
             onCreateComment={onCreateComment}
           />
         </div>

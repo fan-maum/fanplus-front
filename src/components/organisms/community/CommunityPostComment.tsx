@@ -16,6 +16,8 @@ type CommunityPostCommentProps = {
   commentList: CommentListItemType[];
   commentTotalCount: number;
   setCommentList: any;
+  orderType: OrderType;
+  setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -29,18 +31,18 @@ const CommunityPostComment = ({
   commentList,
   commentTotalCount,
   setCommentList,
+  orderType,
+  setOrderType,
   onCreateComment,
 }: CommunityPostCommentProps) => {
-  const [commentOrder, setCommentOrder] = useState<OrderType>('newest');
-
   return (
     <>
       <Group h={80} position="apart" px={24} mb={15}>
         <PostCommentCount count={commentTotalCount} />
         <PostCommentOrders
           getCommentParams={getCommentParams}
-          commentOrder={commentOrder}
-          setCommentOrder={setCommentOrder}
+          orderType={orderType}
+          setOrderType={setOrderType}
           setCommentList={setCommentList}
         />
       </Group>
