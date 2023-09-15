@@ -33,7 +33,7 @@ function CommunityCommonModal({
         content: {
           borderRadius: 20,
           overflow: 'hidden',
-          border: "1px solid #D9D9D9",
+          border: '1px solid #D9D9D9',
         },
         body: {
           minWidth: 328,

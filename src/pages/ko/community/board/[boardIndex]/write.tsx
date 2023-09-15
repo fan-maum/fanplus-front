@@ -1,7 +1,7 @@
 import { getCommunityBoardTopics } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
-import { FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
 import { CommunityBoardTopicResponseType } from '@/types/community';
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
@@ -13,7 +13,11 @@ type CommunityPostWritePropType = {
 const Write = ({ boardTopics }: CommunityPostWritePropType) => {
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
-      <PostEditorTemplate topics={boardTopics.RESULTS.DATAS.TOPIC_LIST} />
+      <PostEditorTemplate
+        mode="CREATE"
+        topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
+        texts={CommunityPostEditorText_KR}
+      />
     </Layout>
   );
 };
