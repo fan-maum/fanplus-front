@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
 import { useTinyMCEConfig } from '../module/useTinyMCEConfig';
 import { useIOSIMESetting } from '../module/useIOSIMESetting';
 import {
@@ -16,6 +16,12 @@ type TProps = {
 
 const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => {
   const [isJsLoading, setIsJsLoading] = useState(true);
+
+  const log: MouseEventHandler<HTMLButtonElement> = (e) => {
+    // eslint-disable-next-line no-console
+    console.log(editorRef.current.get(editorId).getContent());
+    e.preventDefault();
+  };
 
   const editorLoadedComplete = () => {
     if (defaultValue && editorRef.current) {
@@ -75,10 +81,7 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => 
           </div>
         </>
       )}
-      {/* eslint-disable-next-line no-console */}
-      <button onClick={() => console.log(editorRef.current.get(editorId).getContent())}>
-        로그
-      </button>
+      <button onClick={log}>로그</button>
     </>
   );
 };

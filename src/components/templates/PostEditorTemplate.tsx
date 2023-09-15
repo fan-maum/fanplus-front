@@ -45,7 +45,20 @@ const PostEditorTemplate = () => {
       }}
     >
       <form css={{ padding: '5px' }}>
+        <h2>글쓰기</h2>
+        <div css={{ display: 'flex' }}>
+          <h2>토픽</h2>
+        </div>
+        <div css={{ display: 'flex' }}>
+          <h2>제목</h2>
+          <input placeholder="제목을 입력해주세요." />
+        </div>
+        <h2>내용</h2>
         <FullEditor editorRef={editorRef} editorId={editorId} defaultValue="" />
+        <div css={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <button onClick={(e) => e.preventDefault()}>취소</button>
+          <button onClick={(e) => e.preventDefault()}>등록</button>
+        </div>
       </form>
     </main>
   );
