@@ -7,7 +7,7 @@ import {
   useCustomYoutubeButton,
 } from '../constant/customButtons';
 import Script from 'next/script';
-import CommunityUploadModal from '@/components/modals/CommunityUploadModal';
+import FileUploader from '../module/FileUploader';
 
 type TProps = {
   editorRef: any;
@@ -80,7 +80,7 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => 
                 <div id={editorId} className="selector-editor" />
               </div>
             </div>
-            <CommunityUploadModal state={[modalOpen, setModalOpen]} />
+            <FileUploader state={[modalOpen, setModalOpen]} />
           </div>
         </>
       )}

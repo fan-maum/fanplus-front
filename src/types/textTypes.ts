@@ -236,12 +236,6 @@ export type CommunityPostEditorTextType = {
   cancelModal: EditorModalTextType;
   registerModal: EditorModalTextType;
   modifyModal: EditorModalTextType;
-
-  defaultValues?: {
-    topicIndex: number;
-    title: string;
-    content: string;
-  };
 };
 
 export type TextType = {

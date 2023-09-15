@@ -1,6 +1,6 @@
 import FullEditor from '@/editor/screen/FullEditor';
 import { Dispatch, MouseEventHandler, ReactNode, SetStateAction, useRef, useState } from 'react';
-import { EditorModalTextType } from '@/types/textTypes';
+import { CommunityPostEditorTextType } from '@/types/textTypes';
 import { TopicListItemType } from '@/types/community';
 import IconArrowLeft from '../atoms/IconArrowLeft';
 import { useRouter } from 'next/router';
@@ -8,24 +8,8 @@ import EditorTopicSet from '../molecules/community/EditorTopicSet';
 
 type OwnPropType = {
   mode: 'CREATE' | 'MODIFY';
-
-  texts: {
-    pageTitle: string;
-    topic: string;
-    topicTitle: string[];
-    title: string;
-    content: string;
-    cancel: string;
-    register: string;
-    modify: string;
-
-    cancelModal: EditorModalTextType;
-    registerModal: EditorModalTextType;
-    modifyModal: EditorModalTextType;
-  };
-
   topics: TopicListItemType[];
-
+  texts: CommunityPostEditorTextType;
   defaultValues?: {
     topicIndex: number;
     title: string;

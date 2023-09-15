@@ -11,7 +11,7 @@ type OwnPropType = {
   state: [open: boolean, setOpen: Dispatch<SetStateAction<boolean>>];
 };
 
-const CommunityUploadModal = ({ state: [open, setOpen] }: OwnPropType) => {
+const FileUploader = ({ state: [open, setOpen] }: OwnPropType) => {
   const uppy = new Uppy({
     meta: { type: 'avatar' },
     autoProceed: true,
@@ -44,9 +44,12 @@ const CommunityUploadModal = ({ state: [open, setOpen] }: OwnPropType) => {
         onRequestClose={() => setOpen(false)}
         proudlyDisplayPoweredByUppy={false}
         disablePageScrollWhenModalOpen={false}
+        css={{
+          '.uppy-Dashboard-inner': { '@media(max-width:768px)': { height: '50%', top: '25%' } },
+        }}
       />
     </>
   );
 };
 
-export default CommunityUploadModal;
+export default FileUploader;
