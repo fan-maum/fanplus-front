@@ -22,7 +22,7 @@ const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType)
   const router = useRouter();
 
   const isCreateMode = mode === 'CREATE';
-  const isModifyMode = mode === 'EDIT';
+  const isEditMode = mode === 'EDIT';
 
   const editorRef = useRef();
   const editorId = 'postEditor';
@@ -98,7 +98,7 @@ const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType)
         <div css={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button text={texts.cancel} onClick={onClickCancel} />
           {isCreateMode && <Button text={texts.upload} onClick={onClickUpload} fancy />}
-          {isModifyMode && <Button text={texts.edit} onClick={onClickEdit} fancy />}
+          {isEditMode && <Button text={texts.edit} onClick={onClickEdit} fancy />}
         </div>
       </form>
       {isCreateMode && (
@@ -119,7 +119,7 @@ const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType)
           />
         </>
       )}
-      {isModifyMode && (
+      {isEditMode && (
         <>
           <CommunityEditorCommonModal
             texts={{ main: texts.modal.edit }}
