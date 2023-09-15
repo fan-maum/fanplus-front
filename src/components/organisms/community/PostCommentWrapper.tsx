@@ -6,7 +6,7 @@ import { BackLangType, OrderType, TargetType } from '@/types/common';
 import { CommentListItemType } from '@/types/community';
 import PostCommentList from './PostCommentList';
 
-type CommunityPostCommentProps = {
+export type PostCommentWrapperProps = {
   getCommentParams: {
     target_type: TargetType;
     target: number;
@@ -17,6 +17,8 @@ type CommunityPostCommentProps = {
   commentTotalCount: number;
   setCommentList: any;
   orderType: OrderType;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
   setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
   onCreateComment: (
     identity: string,
@@ -26,15 +28,17 @@ type CommunityPostCommentProps = {
   ) => void;
 };
 
-const CommunityPostComment = ({
+const PostCommentWrapper = ({
   getCommentParams,
   commentList,
   commentTotalCount,
   setCommentList,
   orderType,
+  page,
+  setPage,
   setOrderType,
   onCreateComment,
-}: CommunityPostCommentProps) => {
+}: PostCommentWrapperProps) => {
   return (
     <>
       <Group h={80} position="apart" px={24} mb={15}>
@@ -49,6 +53,9 @@ const CommunityPostComment = ({
       <PostCommentList
         getCommentParams={getCommentParams}
         commentTotalCount={commentTotalCount}
+        orderType={orderType}
+        page={page}
+        setPage={setPage}
         commentList={commentList}
         setCommentList={setCommentList}
         onCreateComment={onCreateComment}
@@ -57,4 +64,4 @@ const CommunityPostComment = ({
   );
 };
 
-export default CommunityPostComment;
+export default PostCommentWrapper;

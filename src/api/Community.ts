@@ -120,7 +120,7 @@ export const postComment = async (
       contents: contents,
     }
   );
-  return response;
+  return response.data;
 };
 
 export const deleteComment = async (identity: string, comment_idx: string) => {

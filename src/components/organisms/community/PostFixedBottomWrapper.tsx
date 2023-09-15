@@ -1,12 +1,11 @@
 import CommunityPostBottomNavi from '@/components/molecules/community/CommunityPostBottomNavi';
 import CommentRegister from './CommentRegister';
-import { useState } from 'react';
 import { TargetType } from '@/types/common';
+import { PostInfoItemType } from '@/types/community';
 
-export type CommunityPostFixedAreaWrapperProps = {
+export type PostFixedBottomWrapperProps = {
   identity: string;
-  POST_IDX: string;
-  WRITER_PROFILE_IMG: string;
+  postInfo: PostInfoItemType;
   commentTotalCount: string | number;
   onCreateComment: (
     identity: string,
@@ -16,13 +15,13 @@ export type CommunityPostFixedAreaWrapperProps = {
   ) => void;
 };
 
-const CommunityPostFixedAreaWrapper = ({
+const PostFixedBottomWrapper = ({
   identity,
-  POST_IDX,
-  WRITER_PROFILE_IMG,
+  postInfo,
   commentTotalCount,
   onCreateComment,
-}: CommunityPostFixedAreaWrapperProps) => {
+}: PostFixedBottomWrapperProps) => {
+  const { POST_IDX, WRITER_PROFILE_IMG } = postInfo;
   return (
     <div
       css={{
@@ -46,4 +45,4 @@ const CommunityPostFixedAreaWrapper = ({
   );
 };
 
-export default CommunityPostFixedAreaWrapper;
+export default PostFixedBottomWrapper;

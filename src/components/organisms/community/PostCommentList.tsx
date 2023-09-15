@@ -2,7 +2,7 @@ import { CommentListItemType, CommentResponseType } from '@/types/community';
 import PostCommentListItem from './PostCommentListItem';
 import { UnstyledButton } from '@/components/atoms';
 import { getComments } from '@/api/Community';
-import { BackLangType, TargetType } from '@/types/common';
+import { BackLangType, OrderType, TargetType } from '@/types/common';
 import { useState } from 'react';
 
 type PostCommentListProps = {
@@ -13,6 +13,9 @@ type PostCommentListProps = {
     identity: string;
   };
   commentTotalCount: number;
+  orderType: OrderType;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
   commentList: Array<CommentListItemType>;
   setCommentList: React.Dispatch<React.SetStateAction<Array<CommentListItemType>>>;
   onCreateComment: (
@@ -26,6 +29,9 @@ type PostCommentListProps = {
 const PostCommentList = ({
   getCommentParams,
   commentTotalCount,
+  orderType,
+  page,
+  setPage,
   commentList,
   setCommentList,
   onCreateComment,
@@ -38,10 +44,11 @@ const PostCommentList = ({
       getCommentParams.target,
       getCommentParams.identity,
       board_lang,
-      'newest',
+      orderType,
       pagingNumber,
       20
     );
+
     const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
     setCommentList([...commentList, ...comments]);
     setPagingNumber(pagingNumber + 1);

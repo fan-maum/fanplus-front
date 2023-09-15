@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
+import styled from '@emotion/styled';
 import type { PostResponseType, CommentResponseType, CommentListItemType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
-import CommunityPostComment from '@/components/organisms/community/CommunityPostComment';
-import CommunityPostFixedAreaWrapper from '@/components/organisms/community/CommunityPostFixedAreaWrapper';
+import PostFixedBottomWrapper, {
+  PostFixedBottomWrapperProps,
+} from '@/components/organisms/community/PostFixedBottomWrapper';
 import CommunityDeleteModal from '@/components/modals/CommunityDeleteModal';
 import { getComments, postComment } from '@/api/Community';
 import { BackLangType, OrderType, TargetType } from '@/types/common';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
+import PostCommentWrapper, {
+  PostCommentWrapperProps,
+} from '@/components/organisms/community/PostCommentWrapper';
 
 export type CommunityPostPropType = {
   identity: string;
@@ -27,6 +32,7 @@ const CommunityPostTemplate = ({
   const [commentList, setCommentList] = useState<Array<CommentListItemType>>([]);
   const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
   const [orderType, setOrderType] = useState<OrderType>('newest');
+  const [page, setPage] = useState(0);
   const board_lang = 'ALL';
   useEffect(() => {
     const comments = async () => {
@@ -48,14 +54,6 @@ const CommunityPostTemplate = ({
   const deletePostOnClick = () => {
     setDeleteModalBlock(true);
   };
-  const PostDetailLayoutProps: PostDetailLayoutProps = {
-    identity,
-    postInfo,
-    texts,
-    deletePostOnClick,
-  };
-  const [dataId, setDataId] = useState<number>(0);
-  const [replyId, setReplyId] = useState<number>(0);
 
   const onCreateComment = async (
     identity: string,
@@ -63,24 +61,20 @@ const CommunityPostTemplate = ({
     target: number,
     contents: any
   ) => {
-    const res = await postComment(identity, target_type, target, contents);
-    const results = res.data;
-    const comment_idx = results.RESULTS.DATAS.COMMENT_IDX;
-    setDataId(comment_idx);
+    const response = await postComment(identity, target_type, target, contents);
+    const comment_idx = response.RESULTS.DATAS.COMMENT_IDX;
     const getCommentResponse: CommentResponseType = await getComments(
       target,
       identity,
       board_lang,
-      'newest',
+      orderType,
       0,
       20
     );
     const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
-    const comment: any = comments.find(
-      (comment) => parseInt(comment.COMMENT_IDX as string) === comment_idx
-    );
-    setCommentList([comment, ...commentList]);
+    setCommentList([...comments]);
   };
+  console.log(commentList);
 
   const onCreateReply = async (
     identity: string,
@@ -88,10 +82,8 @@ const CommunityPostTemplate = ({
     target: number,
     contents: any
   ) => {
-    const res = await postComment(identity, target_type, target, contents);
-    const results = res.data;
-    const comment_idx = results.RESULTS.DATAS.COMMENT_IDX;
-    setDataId(comment_idx);
+    const response = await postComment(identity, target_type, target, contents);
+    const comment_idx = response.RESULTS.DATAS.COMMENT_IDX;
     const getCommentResponse: CommentResponseType = await getComments(
       getCommentParams.target,
       getCommentParams.identity,
@@ -100,14 +92,16 @@ const CommunityPostTemplate = ({
       0,
       20
     );
-    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
-    const comment: any = comments.find(
-      (comment) => parseInt(comment.COMMENT_IDX as string) === comment_idx
-    );
-    const comment2 = { id: comment_idx, contents };
+    console.log(commentList);
+    console.log(getCommentResponse);
 
-    setCommentList([comment, ...commentList]);
-    setCommentList([...commentList, comment]);
+    // const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
+    // const comment: any = commentList.find(
+    //   (comment) => parseInt(comment.COMMENT_IDX as string) === comment_idx
+    // );
+
+    // setCommentList([comment, ...commentList]);
+    // setCommentList([...commentList, comment]);
   };
 
   let getCommentParams = {
@@ -117,43 +111,44 @@ const CommunityPostTemplate = ({
     identity: identity,
   };
 
+  /**
+   * LayoutProps
+   */
+  const PostDetailLayoutProps: PostDetailLayoutProps = {
+    identity,
+    postInfo,
+    texts,
+    deletePostOnClick,
+  };
+
+  const PostCommentWrapperProps: PostCommentWrapperProps = {
+    getCommentParams,
+    commentList,
+    commentTotalCount,
+    setCommentList,
+    orderType,
+    page,
+    setPage,
+    setOrderType,
+    onCreateComment,
+  };
+
+  const PostFixedBottomWrapperProps: PostFixedBottomWrapperProps = {
+    identity,
+    postInfo,
+    commentTotalCount,
+    onCreateComment,
+  };
+
   return (
     <>
-      <div
-        css={{
-          position: 'relative',
-          width: '100%',
-          margin: '0px auto',
-        }}
-      >
-        <div
-          css={{
-            maxWidth: '768px',
-            margin: '0px auto',
-            position: 'relative',
-            width: '100%',
-            paddingBottom: 192,
-          }}
-        >
+      <Layout>
+        <LayoutInner>
           <PostDetailLayout {...PostDetailLayoutProps} />
-          <CommunityPostComment
-            getCommentParams={getCommentParams}
-            commentList={commentList}
-            commentTotalCount={commentTotalCount}
-            setCommentList={setCommentList}
-            orderType={orderType}
-            setOrderType={setOrderType}
-            onCreateComment={onCreateComment}
-          />
-        </div>
-        <CommunityPostFixedAreaWrapper
-          identity={identity}
-          POST_IDX={postInfo.POST_IDX}
-          WRITER_PROFILE_IMG={postInfo.WRITER_PROFILE_IMG}
-          commentTotalCount={commentTotalCount}
-          onCreateComment={onCreateComment}
-        />
-      </div>
+          <PostCommentWrapper {...PostCommentWrapperProps} />
+        </LayoutInner>
+        <PostFixedBottomWrapper {...PostFixedBottomWrapperProps} />
+      </Layout>
       <CommunityDeleteModal
         opened={deleteModalBlock}
         onClose={() => {
@@ -166,3 +161,17 @@ const CommunityPostTemplate = ({
 };
 
 export default CommunityPostTemplate;
+
+const Layout = styled.div`
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+`;
+
+const LayoutInner = styled.div`
+  width: 100%;
+  max-width: 768px;
+  position: relative;
+  margin: 0 auto;
+  padding-bottom: 192px;
+`;
