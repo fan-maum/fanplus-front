@@ -5,18 +5,23 @@ import LikesButton from '@/components/atoms/LikesButton';
 import CommentInfoState from '@/components/molecules/community/CommentInfoState';
 import { CommentListItemType } from '@/types/community';
 import IconReply from '@/components/atoms/IconReply';
+import { PurPoseType, TargetType } from '@/types/common';
 
 export type CommentCardProps = {
   identity: string;
   comment: CommentListItemType;
   ReplyOnToggle?: (comment_idx: any) => void;
   ReplyWriteOnToggle?: () => void;
+  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
 };
 const CommentCard = ({
   identity,
   comment,
   ReplyOnToggle,
   ReplyWriteOnToggle,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick
 }: CommentCardProps) => {
   const [likes, setLikes] = useState(false);
   const LikesOnClick = async () => {
@@ -35,7 +40,7 @@ const CommentCard = ({
 
   return (
     <Stack p={'26px 20px 20px 20px'} spacing={18}>
-      <CommentInfoState identity={identity} comment={comment} />
+      <CommentInfoState identity={identity} comment={comment} showModalBlockOnClick={showModalBlockOnClick} showReportModalBlockOnClick={showReportModalBlockOnClick}/>
       <Group position="apart" ml={68}>
         <div>
           {comment.RE_COMMENT_CNT !== '0' && (

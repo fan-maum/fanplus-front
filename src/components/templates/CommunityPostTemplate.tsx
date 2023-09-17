@@ -6,13 +6,15 @@ import type { CommunityPostTextType } from '@/types/textTypes';
 import PostFixedBottomWrapper, {
   PostFixedBottomWrapperProps,
 } from '@/components/organisms/community/PostFixedBottomWrapper';
-import CommunityDeleteModal from '@/components/modals/CommunityDeleteModal';
-import { getComments, postComment } from '@/api/Community';
-import { BackLangType, OrderType, TargetType } from '@/types/common';
+import { deleteComment, getComments, getReplies, postComment } from '@/api/Community';
+import { BackLangType, OrderType, TargetType, PurPoseType } from '@/types/common';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 import PostCommentWrapper, {
   PostCommentWrapperProps,
 } from '@/components/organisms/community/PostCommentWrapper';
+import CommunityBlockModal from '@/components/modals/CommunityBlockModal';
+import CommunityDoneModal from '../modals/CommunityDoneModal';
+import CommunityReportModal from '../modals/CommunityReportModal';
 
 export type CommunityPostPropType = {
   identity: string;
@@ -35,18 +37,8 @@ const CommunityPostTemplate = ({
   const board_lang = 'ALL';
   const [commentList, setCommentList] = useState<Array<CommentResponseType>>([]);
   const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
-  // const { data, isSuccess, isLoading, error, refetch } = useQuery(
-  //   ['comments', { postIndex, identity, board_lang, orderType, page, per_page: 20 }],
-  //   async () => {
-  //     const response = await getComments(postIndex, identity, board_lang, orderType, page, 20);
-  //     return response;
-  //   },
-  //   {
-  //     keepPreviousData: true,
-  //     enabled: !!{ postIndex, identity, board_lang, orderType, page, per_page: 20 }
-  //   }
-  // );
-  const fetchTest = ({ pageParam = 0 }) => {
+  const [selectInfo, setSelectInfo] = useState({purpose: '', target_type: '', idx: ''});
+  const getCommentsQuery = ({ pageParam = 0 }) => {
     const data = getComments(postIndex, identity, board_lang, orderType, pageParam, 20)
     return data;
   };
@@ -58,14 +50,16 @@ const CommunityPostTemplate = ({
     refetch,
     error,
     fetchNextPage,
-  } = useInfiniteQuery(['comments'], fetchTest, {
+  } = useInfiniteQuery(['comments'], getCommentsQuery, {
     getNextPageParam: (currentPage) => {
       const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1
       return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage
     },
   });
 
-  const [deleteModalBlock, setDeleteModalBlock] = useState(false);
+  const [modalBlock, setModalBlock] = useState(false);
+  const [reportModalBlock, setReportModalBlock] = useState(false);
+  const [doneModalBlock, setDoneModalBlock] = useState(false);
   
   useEffect(() => {
     if (isSuccess) {
@@ -77,8 +71,14 @@ const CommunityPostTemplate = ({
   if (isLoading) return 'Loading...';
   if (error) return 'An error has occurred: ' + error;
   
-  const deletePostOnClick = () => { 
-    setDeleteModalBlock(true); 
+  const showModalBlockOnClick = async (purpose: PurPoseType, target_type: TargetType, idx: string) => { 
+    setModalBlock(true); 
+    setSelectInfo({purpose: purpose, target_type: target_type, idx: idx});
+  };
+
+  const showReportModalBlockOnClick = async (purpose: PurPoseType, target_type: TargetType, idx: string) => { 
+    setReportModalBlock(true); 
+    setSelectInfo({purpose: purpose, target_type: target_type, idx: idx});
   };
 
   const onCreateComment = async (
@@ -89,22 +89,6 @@ const CommunityPostTemplate = ({
   ) => {
     await postComment(identity, target_type, target, contents);
     await refetch();
-  };
-
-  const onCreateReply = async (
-    identity: string,
-    target_type: TargetType,
-    target: number,
-    contents: any
-  ) => {
-    const getCommentResponse: CommentResponseType = await getComments(
-      getCommentParams.target,
-      getCommentParams.identity,
-      board_lang,
-      orderType,
-      0,
-      20
-    );
   };
 
   let getCommentParams = {
@@ -121,7 +105,8 @@ const CommunityPostTemplate = ({
     identity,
     postInfo,
     texts,
-    deletePostOnClick,
+    showModalBlockOnClick,
+    showReportModalBlockOnClick,
   };
 
   const PostCommentWrapperProps: PostCommentWrapperProps = {
@@ -135,6 +120,8 @@ const CommunityPostTemplate = ({
     onCreateComment,
     refetch,
     fetchNextPage,
+    showModalBlockOnClick,
+    showReportModalBlockOnClick,
   };
 
   const PostFixedBottomWrapperProps: PostFixedBottomWrapperProps = {
@@ -144,7 +131,6 @@ const CommunityPostTemplate = ({
     onCreateComment,
   };
 
-  
   return (
     <>
       <Layout>
@@ -154,10 +140,29 @@ const CommunityPostTemplate = ({
         </LayoutInner>
         <PostFixedBottomWrapper {...PostFixedBottomWrapperProps} />
       </Layout>
-      <CommunityDeleteModal
-        opened={deleteModalBlock}
+      <CommunityReportModal
+        opened={reportModalBlock}
+        texts={texts}
         onClose={() => {
-          setDeleteModalBlock(false);
+          setReportModalBlock(false);
+        }}
+      />
+      <CommunityBlockModal
+        opened={modalBlock}
+        onClose={() => {
+          setModalBlock(false);
+        }}
+        texts={texts}
+        selectInfo={selectInfo}
+        identity={identity}
+        setModalBlock={setModalBlock}
+        setDoneModalBlock={setDoneModalBlock}
+        refetch={refetch}
+      />
+      <CommunityDoneModal
+        opened={doneModalBlock}
+        onClose={() => {
+          setDoneModalBlock(false);
         }}
         texts={texts}
       />

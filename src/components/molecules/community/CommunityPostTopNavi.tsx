@@ -6,13 +6,16 @@ import { Dispatch, SetStateAction } from 'react';
 import { Popover } from '@mantine/core';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useMutation } from 'react-query';
+import { PurPoseType, TargetType } from '@/types/common';
 
 export type CommunityPostTopNaviProps = {
   texts: CommunityPostTextType;
-  deletePostOnClick: () => void;
+  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  postIndex: string;
 };
 
-const CommunityPostTopNavi = ({ texts, deletePostOnClick }: CommunityPostTopNaviProps) => {
+const CommunityPostTopNavi = ({ texts, showModalBlockOnClick, showReportModalBlockOnClick, postIndex }: CommunityPostTopNaviProps) => {
   const router = useRouter();
   // const likesMutate = useMutation();
 
@@ -106,24 +109,16 @@ const CommunityPostTopNavi = ({ texts, deletePostOnClick }: CommunityPostTopNavi
                   },
                 }}
               >
-                <li
-                  onClick={() => {
-                    // eslint-disable-next-line no-console
-                    console.log('report');
-                  }}
-                >
+                <li onClick={() => showReportModalBlockOnClick('report', 'post', postIndex)}>
                   {texts.report}
                 </li>
                 <li
-                  onClick={() => {
-                    // eslint-disable-next-line no-console
-                    console.log('edit');
-                  }}
+                  onClick={() => showModalBlockOnClick('edit', 'post', postIndex)}
                   css={{ borderBottom: '1px solid #d9d9d9' }}
                 >
                   {texts.edit}
                 </li>
-                <li onClick={deletePostOnClick}>
+                <li onClick={() => showModalBlockOnClick('delete', 'post', postIndex)}>
                   {texts.delete}
                 </li>
               </ul>

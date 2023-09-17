@@ -2,39 +2,32 @@ import { Group } from '../atoms';
 import { CommunityPostTextType } from '@/types/textTypes';
 import CommunityCommonModal, { CommunityCommonModalProps } from './CommunityCommonModal';
 import CommunityModalText from '../molecules/CommunityModalText';
+import { TargetType } from '@/types/common';
 
-export interface VoteBlockModalProps {
+export interface DialogBlockDoneProps {
   opened: boolean;
-  onClose: () => void;
   texts: CommunityPostTextType;
+  onClose: () => void;
 }
 
-function CommunityDeleteModal({ onClose, opened, texts, ...props }: VoteBlockModalProps) {
-  const voteBlockModalProps: CommunityCommonModalProps = {
-    buttonId: 'modalAppDownloadButton',
+function CommunityDoneModal({ onClose, opened, texts, ...props }: DialogBlockDoneProps) {
+  const communityDeleteDoneModalProps: CommunityCommonModalProps = {
     opened,
     onClose,
-    cancelButton: { text: texts.cancelButton, onClick: onClose },
     confirmButton: {
-      onClick: () => {
-        // if (!isWebView && onWebViewLink) {
-        //   onWebViewLink();
-        // } else {
-        //   onClose();
-        // }
-      },
+      onClick: onClose,
       text: texts.confirmButton,
     },
   };
   return (
     <>
-      <CommunityCommonModal {...voteBlockModalProps}>
-        <CommunityModalText
+      <CommunityCommonModal {...communityDeleteDoneModalProps}>
+      <CommunityModalText
           voteText={
             <>
               <Group spacing={6} position="center">
                 <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>
-                  {"게시글을 삭제하시겠어요?"}
+                  {"게시글이 삭제되었습니다."}
                 </div>
               </Group>
               {/* <div
@@ -49,4 +42,4 @@ function CommunityDeleteModal({ onClose, opened, texts, ...props }: VoteBlockMod
   );
 }
 
-export default CommunityDeleteModal;
+export default CommunityDoneModal;

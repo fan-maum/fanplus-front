@@ -1,18 +1,18 @@
 import { Popover } from '@mantine/core';
 import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
 import { deleteComment } from '@/api/Community';
+import { PurPoseType, TargetType } from '@/types/common';
 
 type CommentPopoverProps = {
   identity: string;
   comment_idx: any;
+  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
 };
-export default function CommentPopover({ identity, comment_idx }: CommentPopoverProps) {
-  const DeleteOnClick = async () => {
-    const res = await deleteComment(identity, comment_idx);
-  };
+export default function CommentPopover({ identity, comment_idx, showModalBlockOnClick, showReportModalBlockOnClick }: CommentPopoverProps) {
   return (
     <Popover
-      width={60}
+      width='auto'
       position="bottom-end"
       shadow="none"
       styles={() => ({
@@ -53,15 +53,8 @@ export default function CommentPopover({ identity, comment_idx }: CommentPopover
             },
           }}
         >
-          <li
-            onClick={() => {
-              // eslint-disable-next-line no-console
-              console.log('edit');
-            }}
-          >
-            수정
-          </li>
-          <li onClick={DeleteOnClick}>삭제</li>
+          <li onClick={() => showReportModalBlockOnClick('report', 'comment', comment_idx)}>신고하기</li>
+          <li onClick={() => showModalBlockOnClick('delete', 'comment', comment_idx)}>삭제</li>
         </ul>
       </Popover.Dropdown>
     </Popover>

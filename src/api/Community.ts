@@ -137,8 +137,8 @@ export const deleteComment = async (identity: string, comment_idx: string) => {
 };
 
 export const getReplies = async (
-  commentIndex: string,
-  identity: string,
+  commentIndex: number,
+  identity: string | null,
   board_lang: BackLangType | 'ALL',
   order_by: OrderType,
   page: number,
@@ -148,6 +148,7 @@ export const getReplies = async (
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reply`,
     { params: { commentIndex, identity, board_lang, order_by, page, per_page } }
   );
+  
   return response.data;
 };
 

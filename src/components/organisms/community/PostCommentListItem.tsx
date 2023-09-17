@@ -3,7 +3,7 @@ import { CommentListItemType, CommentResponseType, replyResponseType } from '@/t
 import CommentCard from './CommentCard';
 import { getReplies } from '@/api/Community';
 import ReplyCommentList from './ReplyCommentList';
-import { BackLangType, TargetType } from '@/types/common';
+import { BackLangType, PurPoseType, TargetType } from '@/types/common';
 import CommentRegister from './CommentRegister';
 
 type PostCommentListItemProps = {
@@ -20,12 +20,16 @@ type PostCommentListItemProps = {
     target: number,
     contents: any
   ) => void;
+  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
 };
 
 const PostCommentListItem = ({
   getCommentParams,
   item,
   onCreateComment,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick
 }: PostCommentListItemProps) => {
   const { identity } = getCommentParams;
   const order_by = 'newest';
@@ -36,24 +40,24 @@ const PostCommentListItem = ({
   const [openWriteToggle, setOpenWriteToggle] = useState(false);
   const [replyList, setReplyList] = useState<CommentListItemType[]>([]);
   const [replyTotalCount, setReplyTotalCount] = useState<number>(0);
-  const ReplyOnToggle = async (commentIndex: string) => {
+
+  const ReplyOnToggle = async (commentIndex: number) => {
     if (openToggle === false) {
-      const response = getReplies(
+      const response:replyResponseType = await getReplies(
         commentIndex,
         identity,
         board_lang,
         order_by,
         page,
         per_page
-      ).then((response: replyResponseType) => setReplyList(response.RESULTS.DATAS.COMMENTS));
+      );
+      setReplyList(response.RESULTS.DATAS.COMMENTS);
       setOpenToggle(true);
       setOpenWriteToggle(false);
     } else {
       setOpenToggle(false);
     }
   };
-  // console.log(replyList);
-
   const ReplyWriteOnToggle = async () => {
     if (openWriteToggle === false) {
       setOpenWriteToggle(true);
@@ -67,8 +71,10 @@ const PostCommentListItem = ({
       <CommentCard
         identity={identity}
         comment={item}
-        ReplyOnToggle={() => ReplyOnToggle(item.COMMENT_IDX)}
+        ReplyOnToggle={() => ReplyOnToggle(Number(item.COMMENT_IDX))}
         ReplyWriteOnToggle={ReplyWriteOnToggle}
+        showModalBlockOnClick={showModalBlockOnClick}
+        showReportModalBlockOnClick={showReportModalBlockOnClick}
       />
       <div css={{ display: openToggle ? 'block' : 'none' }}>
         {item.RE_COMMENT_CNT !== '0' && (

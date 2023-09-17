@@ -7,3 +7,4 @@ export type TargetType =
   | 'user_collection'
   | 'post';
 export type OrderType = 'oldest' | 'newest';
+export type PurPoseType = 'delete' | 'edit' | 'report';

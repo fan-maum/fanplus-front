@@ -1,7 +1,7 @@
 import { Group, UnstyledButton } from '@/components/atoms';
 import PostCommentCount from '@/components/atoms/PostCommentCount';
 import PostCommentOrders from '@/components/molecules/community/PostCommentOrders';
-import { BackLangType, OrderType, TargetType } from '@/types/common';
+import { BackLangType, OrderType, PurPoseType, TargetType } from '@/types/common';
 import { CommentResponseType } from '@/types/community';
 import PostCommentList from './PostCommentList';
 
@@ -29,6 +29,8 @@ export type PostCommentWrapperProps = {
   ) => void;
   refetch: () => void;
   fetchNextPage: () => void;
+  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
 };
 
 const PostCommentWrapper = ({
@@ -42,6 +44,8 @@ const PostCommentWrapper = ({
   onCreateComment,
   refetch,
   fetchNextPage,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick,
 }: PostCommentWrapperProps) => {
   const hasNextPage = 20 * (page + 1) < Number(commentTotalCount);
   return (
@@ -57,6 +61,8 @@ const PostCommentWrapper = ({
         getCommentParams={getCommentParams}
         comments={comments}
         onCreateComment={onCreateComment}
+        showModalBlockOnClick={showModalBlockOnClick}
+        showReportModalBlockOnClick={showReportModalBlockOnClick}
       />
       ))}
       {hasNextPage && (
