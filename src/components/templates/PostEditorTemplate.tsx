@@ -22,7 +22,6 @@ const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType)
   const router = useRouter();
 
   const isCreateMode = mode === 'CREATE';
-  const isEditMode = mode === 'EDIT';
 
   const editorRef = useRef();
   const editorId = 'postEditor';
@@ -33,7 +32,6 @@ const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType)
 
   const [cancelModal, setCancelModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
 
   const onClickCancel: MouseEventHandler = (event) => {
     event.preventDefault();
@@ -45,12 +43,6 @@ const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType)
     // @ts-ignore
     setContent(editorRef.current.get(editorId).getContent());
   };
-  const onClickEdit: MouseEventHandler = (event) => {
-    event.preventDefault();
-    setEditModal(true);
-    // @ts-ignore
-    setContent(editorRef.current.get(editorId).getContent());
-  };
 
   const onClickExit = () => {
     setCancelModal(false);
@@ -58,11 +50,6 @@ const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType)
   };
   const onClickUploadConfirm = async () => {
     setUploadModal(false);
-    // TODO: api 연결
-    // router.replace();
-  };
-  const onClickEditConfirm = async () => {
-    setEditModal(false);
     // TODO: api 연결
     // router.replace();
   };
@@ -97,46 +84,26 @@ const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType)
         <FullEditor editorRef={editorRef} editorId={editorId} defaultValue={content} />
         <div css={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button text={texts.cancel} onClick={onClickCancel} />
-          {isCreateMode && <Button text={texts.upload} onClick={onClickUpload} fancy />}
-          {isEditMode && <Button text={texts.edit} onClick={onClickEdit} fancy />}
+          <Button text={texts[isCreateMode ? 'upload' : 'edit']} onClick={onClickUpload} fancy />
         </div>
       </form>
-      {isCreateMode && (
-        <>
-          <CommunityEditorCommonModal
-            texts={{ main: texts.modal.upload }}
-            cancelButton={{ text: texts.modal.cancel, onClick: () => setUploadModal(false) }}
-            confirmButton={{ text: texts.modal.check, onClick: onClickUploadConfirm }}
-            opened={uploadModal}
-            onClose={() => setUploadModal(false)}
-          />
-          <CommunityEditorCommonModal
-            texts={{ main: texts.modal.cancelUpload, sub: texts.modal.cancelUploadSub }}
-            cancelButton={{ text: texts.modal.cancel, onClick: () => setCancelModal(false) }}
-            confirmButton={{ text: texts.modal.check, onClick: onClickExit }}
-            opened={cancelModal}
-            onClose={() => setCancelModal(false)}
-          />
-        </>
-      )}
-      {isEditMode && (
-        <>
-          <CommunityEditorCommonModal
-            texts={{ main: texts.modal.edit }}
-            cancelButton={{ text: texts.modal.cancel, onClick: () => setEditModal(false) }}
-            confirmButton={{ text: texts.modal.check, onClick: onClickEditConfirm }}
-            opened={editModal}
-            onClose={() => setEditModal(false)}
-          />
-          <CommunityEditorCommonModal
-            texts={{ main: texts.modal.cancelEdit }}
-            cancelButton={{ text: texts.modal.cancel, onClick: () => setCancelModal(false) }}
-            confirmButton={{ text: texts.modal.check, onClick: onClickExit }}
-            opened={cancelModal}
-            onClose={() => setCancelModal(false)}
-          />
-        </>
-      )}
+      <CommunityEditorCommonModal
+        texts={{ main: texts.modal[isCreateMode ? 'upload' : 'edit'] }}
+        cancelButton={{ text: texts.modal.cancel, onClick: () => setUploadModal(false) }}
+        confirmButton={{ text: texts.modal.check, onClick: onClickUploadConfirm }}
+        opened={uploadModal}
+        onClose={() => setUploadModal(false)}
+      />
+      <CommunityEditorCommonModal
+        texts={{
+          main: texts.modal[isCreateMode ? 'cancelUpload' : 'cancelEdit'],
+          sub: isCreateMode ? texts.modal.cancelUploadSub : '',
+        }}
+        cancelButton={{ text: texts.modal.cancel, onClick: () => setCancelModal(false) }}
+        confirmButton={{ text: texts.modal.check, onClick: onClickExit }}
+        opened={cancelModal}
+        onClose={() => setCancelModal(false)}
+      />
     </main>
   );
 };
