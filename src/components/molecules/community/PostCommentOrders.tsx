@@ -1,59 +1,40 @@
 import styled from '@emotion/styled';
-import { BackLangType, OrderType, TargetType } from '@/types/common';
-import { CommentListItemType, CommentResponseType } from '@/types/community';
-import { getComments } from '@/api/Community';
+import { OrderType } from '@/types/common';
+import { useQueryClient } from 'react-query';
 
 type PostCommentOrdersProps = {
-  getCommentParams: {
-    target_type: TargetType;
-    target: number;
-    lang: BackLangType;
-    identity: string;
-  };
-  orderType: OrderType;
-  setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
-  setCommentList: React.Dispatch<React.SetStateAction<Array<CommentListItemType>>>;
+  orderTypeState: {
+    orderType: OrderType;
+    setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
+  }
+  setPage: React.Dispatch<React.SetStateAction<number>>
+  refetch: () => void;
 };
 
 const PostCommentOrders = ({
-  getCommentParams,
-  orderType,
-  setOrderType,
-  setCommentList,
+  orderTypeState,
+  setPage,
+  refetch,
 }: PostCommentOrdersProps) => {
-  const OrderOnClick = async (orderType: OrderType, page: number) => {
-    setOrderType(orderType);
-    const border_lang = 'ALL';
-    const getCommentResponse: CommentResponseType = await getComments(
-      getCommentParams.target,
-      getCommentParams.identity,
-      border_lang,
-      orderType,
-      page,
-      20
-    );
-
-    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
-    return comments;
-  };
-  const handleNewestClick = async () => {
-    const comments = await OrderOnClick('newest', 0);
-    setCommentList(comments);
-  };
-  const handleOldesetClick = async () => {
-    const comments = await OrderOnClick('oldest', 0);
-    setCommentList(comments);
+  const {orderType, setOrderType} = orderTypeState;
+  const queryClient = useQueryClient();
+  const OrderOnClick = async (orderType: OrderType) => {
+    await queryClient.removeQueries("comments");
+    await setPage(0);
+    await setOrderType(orderType);
+    await refetch();
+    
   };
 
   return (
     <ul css={{ display: 'flex', alignItems: 'center', gap: 18 }}>
       <OrderListItem $order={orderType === 'newest'}>
-        <button type="button" onClick={handleNewestClick}>
+        <button type="button" onClick={() => OrderOnClick('newest')}>
           최신순
         </button>
       </OrderListItem>
       <OrderListItem $order={orderType === 'oldest'}>
-        <button type="button" onClick={handleOldesetClick}>
+        <button type="button" onClick={() => OrderOnClick('oldest')}>
           등록순
         </button>
       </OrderListItem>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useInfiniteQuery } from 'react-query';
 import styled from '@emotion/styled';
-import type { PostResponseType, CommentResponseType, CommentListItemType } from '@/types/community';
+import type { PostResponseType, CommentResponseType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import PostFixedBottomWrapper, {
   PostFixedBottomWrapperProps,
@@ -29,30 +30,55 @@ const CommunityPostTemplate = ({
   texts,
 }: CommunityPostPropType) => {
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
-  const [commentList, setCommentList] = useState<Array<CommentListItemType>>([]);
-  const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
   const [orderType, setOrderType] = useState<OrderType>('newest');
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const board_lang = 'ALL';
-  useEffect(() => {
-    const comments = async () => {
-      let response: CommentResponseType = await getComments(
-        postIndex,
-        identity,
-        board_lang,
-        orderType,
-        0,
-        20
-      );
-      setCommentList(response.RESULTS.DATAS.COMMENTS);
-      setCommentTotalCount(response.RESULTS.DATAS.TOTAL_CNT);
-    };
-    comments();
-  }, [postIndex, identity, board_lang, orderType]);
+  const [commentList, setCommentList] = useState<Array<CommentResponseType>>([]);
+  const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
+  // const { data, isSuccess, isLoading, error, refetch } = useQuery(
+  //   ['comments', { postIndex, identity, board_lang, orderType, page, per_page: 20 }],
+  //   async () => {
+  //     const response = await getComments(postIndex, identity, board_lang, orderType, page, 20);
+  //     return response;
+  //   },
+  //   {
+  //     keepPreviousData: true,
+  //     enabled: !!{ postIndex, identity, board_lang, orderType, page, per_page: 20 }
+  //   }
+  // );
+  const fetchTest = ({ pageParam = 0 }) => {
+    const data = getComments(postIndex, identity, board_lang, orderType, pageParam, 20)
+    return data;
+  };
+
+  const {
+    data,
+    isSuccess,
+    isLoading,
+    refetch,
+    error,
+    fetchNextPage,
+  } = useInfiniteQuery(['comments'], fetchTest, {
+    getNextPageParam: (currentPage) => {
+      const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1
+      return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage
+    },
+  });
 
   const [deleteModalBlock, setDeleteModalBlock] = useState(false);
-  const deletePostOnClick = () => {
-    setDeleteModalBlock(true);
+  
+  useEffect(() => {
+    if (isSuccess) {
+        setCommentList(data.pages);
+        setCommentTotalCount(data.pages[0].RESULTS.DATAS.TOTAL_CNT);
+    }
+  }, [isSuccess, data]);
+
+  if (isLoading) return 'Loading...';
+  if (error) return 'An error has occurred: ' + error;
+  
+  const deletePostOnClick = () => { 
+    setDeleteModalBlock(true); 
   };
 
   const onCreateComment = async (
@@ -61,21 +87,9 @@ const CommunityPostTemplate = ({
     target: number,
     contents: any
   ) => {
-    setPage(1);
-    // const response = await postComment(identity, target_type, target, contents);
-    // const comment_idx = response.RESULTS.DATAS.COMMENT_IDX;
-    const getCommentResponse: CommentResponseType = await getComments(
-      target,
-      identity,
-      board_lang,
-      orderType,
-      page - 1,
-      20
-    );
-    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
-    setCommentList(comments);
+    await postComment(identity, target_type, target, contents);
+    await refetch();
   };
-  console.log(commentList);
 
   const onCreateReply = async (
     identity: string,
@@ -83,8 +97,6 @@ const CommunityPostTemplate = ({
     target: number,
     contents: any
   ) => {
-    // const response = await postComment(identity, target_type, target, contents);
-    // const comment_idx = response.RESULTS.DATAS.COMMENT_IDX;
     const getCommentResponse: CommentResponseType = await getComments(
       getCommentParams.target,
       getCommentParams.identity,
@@ -93,16 +105,6 @@ const CommunityPostTemplate = ({
       0,
       20
     );
-    // const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
-    // setCommentList(comments);
-    // console.log(commentList);
-
-    // const comment: any = commentList.find(
-    //   (comment) => parseInt(comment.COMMENT_IDX as string) === comment_idx
-    // );
-
-    // setCommentList([comment, ...commentList]);
-    // setCommentList([...commentList, comment]);
   };
 
   let getCommentParams = {
@@ -127,11 +129,12 @@ const CommunityPostTemplate = ({
     commentList,
     commentTotalCount,
     setCommentList,
-    orderType,
+    orderTypeState: { orderType, setOrderType },
     page,
     setPage,
-    setOrderType,
     onCreateComment,
+    refetch,
+    fetchNextPage,
   };
 
   const PostFixedBottomWrapperProps: PostFixedBottomWrapperProps = {
@@ -141,6 +144,7 @@ const CommunityPostTemplate = ({
     onCreateComment,
   };
 
+  
   return (
     <>
       <Layout>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 export interface LikesButtonProps extends UnstyledButtonProps {
   gap?: number;
   padding?: string | number;
-  text?: string;
+  text?: string | number;
   onClick?: () => void;
 }
 

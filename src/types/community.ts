@@ -216,6 +216,19 @@ export type CommentResponseType = {
   };
 };
 
+export type PostCommentResponseType = {
+  RESULTS: {
+      ERROR: number,
+      MSG: string,
+      DATAS: {
+          COMMENT_IDX: number,
+          FANFIC_EVENT_STATUS: string,
+          FANFIC_EVENT_DESC: string
+      },
+      TIMESTAMP: number
+  }
+}
+
 export type replyResponseType = {
   RESULTS: {
     ERROR: number;

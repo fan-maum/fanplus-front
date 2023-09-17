@@ -1,9 +1,6 @@
-import { CommentListItemType, CommentResponseType } from '@/types/community';
+import { CommentResponseType } from '@/types/community';
 import PostCommentListItem from './PostCommentListItem';
-import { UnstyledButton } from '@/components/atoms';
-import { getComments } from '@/api/Community';
-import { BackLangType, OrderType, TargetType } from '@/types/common';
-import { useState } from 'react';
+import { BackLangType, TargetType } from '@/types/common';
 
 type PostCommentListProps = {
   getCommentParams: {
@@ -12,12 +9,7 @@ type PostCommentListProps = {
     lang: BackLangType;
     identity: string;
   };
-  commentTotalCount: number;
-  orderType: OrderType;
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  commentList: Array<CommentListItemType>;
-  setCommentList: React.Dispatch<React.SetStateAction<Array<CommentListItemType>>>;
+  comments: CommentResponseType;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -28,55 +20,20 @@ type PostCommentListProps = {
 
 const PostCommentList = ({
   getCommentParams,
-  commentTotalCount,
-  orderType,
-  page,
-  setPage,
-  commentList,
-  setCommentList,
+  comments,
   onCreateComment,
 }: PostCommentListProps) => {
-  const [pagingNumber, setPagingNumber] = useState(1);
-  const hasNextPage = 20 * pagingNumber < Number(commentTotalCount);
-  const showMoreCommentOnClick = async () => {
-    const board_lang = 'ALL';
-    const getCommentResponse: CommentResponseType = await getComments(
-      getCommentParams.target,
-      getCommentParams.identity,
-      board_lang,
-      orderType,
-      pagingNumber,
-      20
-    );
-
-    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
-    setCommentList([...commentList, ...comments]);
-    setPagingNumber(pagingNumber + 1);
-  };
+  const comment = comments.RESULTS.DATAS.COMMENTS;
   return (
     <ul data-role="comments">
-      {commentList.map((comment: any, index) => {
-        return (
+      {comment && comment.map((item: any, index) => (
           <PostCommentListItem
-            key={`${comment.COMMENT_IDX}_${index}`}
-            getCommentParams={getCommentParams}
-            comment={comment}
-            onCreateComment={onCreateComment}
-          />
-        );
-      })}
-      {hasNextPage && (
-        <UnstyledButton
-          type="button"
-          w={'100%'}
-          h={60}
-          fz={16}
-          fw={600}
-          onClick={showMoreCommentOnClick}
-          css={{ color: '#999' }}
-        >
-          다음 댓글 더보기
-        </UnstyledButton>
+          key={`${index}`}
+          getCommentParams={getCommentParams}
+          item={item}
+          onCreateComment={onCreateComment}
+        />
+        )
       )}
     </ul>
   );

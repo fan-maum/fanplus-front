@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import { Group } from '@/components/atoms';
+import { Group, UnstyledButton } from '@/components/atoms';
 import PostCommentCount from '@/components/atoms/PostCommentCount';
 import PostCommentOrders from '@/components/molecules/community/PostCommentOrders';
 import { BackLangType, OrderType, TargetType } from '@/types/common';
-import { CommentListItemType } from '@/types/community';
+import { CommentResponseType } from '@/types/community';
 import PostCommentList from './PostCommentList';
 
 export type PostCommentWrapperProps = {
@@ -13,19 +12,23 @@ export type PostCommentWrapperProps = {
     lang: BackLangType;
     identity: string;
   };
-  commentList: CommentListItemType[];
+  commentList: CommentResponseType[];
   commentTotalCount: number;
   setCommentList: any;
-  orderType: OrderType;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
+  orderTypeState: {
+    orderType: OrderType;
+    setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
+  };
   onCreateComment: (
     identity: string,
     target_type: TargetType,
     target: number,
     contents: any
   ) => void;
+  refetch: () => void;
+  fetchNextPage: () => void;
 };
 
 const PostCommentWrapper = ({
@@ -33,33 +36,46 @@ const PostCommentWrapper = ({
   commentList,
   commentTotalCount,
   setCommentList,
-  orderType,
   page,
   setPage,
-  setOrderType,
+  orderTypeState,
   onCreateComment,
+  refetch,
+  fetchNextPage,
 }: PostCommentWrapperProps) => {
+  const hasNextPage = 20 * (page + 1) < Number(commentTotalCount);
   return (
     <>
       <Group h={80} position="apart" px={24} mb={15}>
         <PostCommentCount count={commentTotalCount} />
-        <PostCommentOrders
-          getCommentParams={getCommentParams}
-          orderType={orderType}
-          setOrderType={setOrderType}
-          setCommentList={setCommentList}
-        />
+        <PostCommentOrders orderTypeState={orderTypeState} setPage={setPage} refetch={refetch} />
       </Group>
-      <PostCommentList
+      <>
+      {commentList.map((comments, index) => (
+        <PostCommentList
+        key={index}
         getCommentParams={getCommentParams}
-        commentTotalCount={commentTotalCount}
-        orderType={orderType}
-        page={page}
-        setPage={setPage}
-        commentList={commentList}
-        setCommentList={setCommentList}
+        comments={comments}
         onCreateComment={onCreateComment}
       />
+      ))}
+      {hasNextPage && (
+        <UnstyledButton
+          type="button"
+          w={'100%'}
+          h={60}
+          fz={16}
+          fw={600}
+          onClick={() => {
+            setPage(page + 1);
+            fetchNextPage();
+          }}
+          css={{ color: '#999' }}
+        >
+          다음 댓글 더보기
+        </UnstyledButton>
+      )}
+      </>
     </>
   );
 };

@@ -13,7 +13,7 @@ type PostCommentListItemProps = {
     lang: BackLangType;
     identity: string;
   };
-  comment: CommentListItemType;
+  item: CommentListItemType;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -24,7 +24,7 @@ type PostCommentListItemProps = {
 
 const PostCommentListItem = ({
   getCommentParams,
-  comment,
+  item,
   onCreateComment,
 }: PostCommentListItemProps) => {
   const { identity } = getCommentParams;
@@ -66,12 +66,12 @@ const PostCommentListItem = ({
     <li className="comment" css={{ borderBottom: '1px solid #f1f1f1' }}>
       <CommentCard
         identity={identity}
-        comment={comment}
-        ReplyOnToggle={() => ReplyOnToggle(comment.COMMENT_IDX)}
+        comment={item}
+        ReplyOnToggle={() => ReplyOnToggle(item.COMMENT_IDX)}
         ReplyWriteOnToggle={ReplyWriteOnToggle}
       />
       <div css={{ display: openToggle ? 'block' : 'none' }}>
-        {comment.RE_COMMENT_CNT !== '0' && (
+        {item.RE_COMMENT_CNT !== '0' && (
           <ReplyCommentList
             identity={identity}
             totalCount={replyTotalCount}
@@ -82,8 +82,8 @@ const PostCommentListItem = ({
       <div css={{ display: openWriteToggle ? 'block' : 'none' }}>
         <CommentRegister
           identity={identity}
-          POST_IDX={comment.COMMENT_IDX}
-          WRITER_PROFILE_IMG={comment.PROFILE_IMG_URL}
+          POST_IDX={item.COMMENT_IDX}
+          WRITER_PROFILE_IMG={item.PROFILE_IMG_URL}
           createMode={'comment'}
           onCreateComment={onCreateComment}
         />
