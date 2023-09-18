@@ -3,7 +3,8 @@ import { CommunityPostTextType } from '@/types/textTypes';
 import CommunityCommonModal, { CommunityCommonModalProps } from './CommunityCommonModal';
 import CommunityModalText from '../molecules/CommunityModalText';
 import { selectInfoType } from '@/types/common';
-import { deleteComment } from '@/api/Community';
+import { deleteComment, deletePost } from '@/api/Community';
+import { useRouter } from 'next/router';
 
 export interface VoteBlockModalProps {
   opened: boolean;
@@ -28,6 +29,7 @@ function CommunityBlockModal({
   ...props
 }: VoteBlockModalProps) {
   const { purpose, target_type, idx } = selectInfo;
+  const router = useRouter();
 
   const communityDeleteModalProps: CommunityCommonModalProps = {
     buttonId: 'modalAppDownloadButton',
@@ -38,9 +40,14 @@ function CommunityBlockModal({
       onClick: async () => {
         setModalBlock(false);
         setDoneModalBlock(true);
-        if (target_type === 'post') await deleteComment(identity, idx);
-        if (target_type === 'comment') await deleteComment(identity, idx);
-        await refetch();
+        if (target_type === 'post') {
+          await deletePost(identity, idx, 'remove');
+          router.push(`/community/board/${router.query.boardIndex}`);
+        }
+        if (target_type === 'comment') {
+          await deleteComment(identity, idx);
+          await refetch();
+        }
       },
       text: texts.confirmButton,
     },

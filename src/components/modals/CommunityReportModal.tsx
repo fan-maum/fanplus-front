@@ -4,22 +4,57 @@ import CommunityCommonModal, { CommunityCommonModalProps } from './CommunityComm
 import CommunityModalText from '../molecules/CommunityModalText';
 import RadioButtons from '../atoms/RadioButtons';
 import { useState } from 'react';
+import { reportComment, reportPost } from '@/api/Community';
+import { selectInfoType } from '@/types/common';
 
 export interface DialogBlockDoneProps {
   opened: boolean;
   texts: CommunityPostTextType;
   onClose: () => void;
+  selectInfo: selectInfoType;
+  identity: string;
+  setReportModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
+  setDoneModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
+  refetch: () => void;
 }
 
-function CommunityReportModal({ onClose, opened, texts, ...props }: DialogBlockDoneProps) {
+function CommunityReportModal({
+  onClose,
+  opened,
+  texts,
+  selectInfo,
+  identity,
+  setReportModalBlock,
+  setDoneModalBlock,
+  refetch,
+  ...props
+}: DialogBlockDoneProps) {
+  const { purpose, target_type, idx } = selectInfo;
+  const [selectedOption, setSelectedOption] = useState('1');
+
+  function handleChange(event: any) {
+    setSelectedOption(event.target.value);
+  }
+
   const communityDeleteDoneModalProps: CommunityCommonModalProps = {
     title: '신고하기',
     withCloseButton: true,
     opened,
     onClose,
     confirmButton: {
-      onClick: onClose,
-      //   text: texts.confirmButton,
+      onClick: async () => {
+        setReportModalBlock(false);
+        setDoneModalBlock(true);
+        if (target_type === 'post') {
+          await reportPost(identity, 0, 20, idx, 'report', Number(selectedOption));
+          // router.push(`/community/board/${router.query.boardIndex}`);
+        }
+        if (target_type === 'comment') {
+          const type = selectedOption === '1' ? 'spam' : 'bad';
+          await reportComment(identity, idx, type);
+          await refetch();
+        }
+      },
       text: '신고',
     },
     styles: (theme) => ({
@@ -29,11 +64,6 @@ function CommunityReportModal({ onClose, opened, texts, ...props }: DialogBlockD
       body: {},
     }),
   };
-  const [selectedOption, setSelectedOption] = useState('option1');
-
-  function handleChange(event) {
-    setSelectedOption(event.target.value);
-  }
 
   return (
     <>
@@ -53,7 +83,11 @@ function CommunityReportModal({ onClose, opened, texts, ...props }: DialogBlockD
                   >
                     사유선택
                   </h4>
-                  <RadioButtons selectedOption={selectedOption} handleChange={handleChange} />
+                  <RadioButtons
+                    target_type={target_type}
+                    selectedOption={selectedOption}
+                    handleChange={handleChange}
+                  />
                   {
                     <div
                       css={{

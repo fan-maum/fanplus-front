@@ -6,7 +6,7 @@ import type { CommunityPostTextType } from '@/types/textTypes';
 import PostFixedBottomWrapper, {
   PostFixedBottomWrapperProps,
 } from '@/components/organisms/community/PostFixedBottomWrapper';
-import { deleteComment, getComments, getReplies, postComment } from '@/api/Community';
+import { getComments, postComment } from '@/api/Community';
 import { BackLangType, OrderType, TargetType, PurPoseType, selectInfoType } from '@/types/common';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 import PostCommentWrapper, {
@@ -43,6 +43,7 @@ const CommunityPostTemplate = ({
     target_type: null,
     idx: '',
   });
+  const [reportType, setReportType] = useState();
 
   const getCommentsQuery = ({ pageParam = 0 }) => {
     const data = getComments(postIndex, identity, board_lang, orderType, pageParam, 20);
@@ -158,6 +159,11 @@ const CommunityPostTemplate = ({
         onClose={() => {
           setReportModalBlock(false);
         }}
+        selectInfo={selectInfo}
+        identity={identity}
+        setReportModalBlock={setReportModalBlock}
+        setDoneModalBlock={setDoneModalBlock}
+        refetch={refetch}
       />
       <CommunityBlockModal
         opened={modalBlock}

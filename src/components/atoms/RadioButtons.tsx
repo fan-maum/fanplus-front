@@ -1,63 +1,73 @@
+import { TargetType } from '@/types/common';
 import { Stack } from './Stack';
 import styled from '@emotion/styled';
 
-export default function RadioButtons(props) {
+type RadioButtonsProps = {
+  target_type: TargetType | null;
+  selectedOption: string;
+  handleChange: (event: any) => void;
+};
+
+export default function RadioButtons({
+  target_type,
+  selectedOption,
+  handleChange,
+}: RadioButtonsProps) {
+  let selectArr;
+  if (target_type === 'post') {
+    selectArr = [
+      {
+        optionIndex: 1,
+        content: '개인정보 노출',
+      },
+      {
+        optionIndex: 2,
+        content: '욕설 / 인신공격',
+      },
+      {
+        optionIndex: 3,
+        content: '음란 / 선정성',
+      },
+      {
+        optionIndex: 4,
+        content: '불법정보',
+      },
+      {
+        optionIndex: 5,
+        content: '권리침해',
+      },
+      {
+        optionIndex: 6,
+        content: '기타',
+      },
+    ];
+  }
+  if (target_type === 'comment') {
+    selectArr = [
+      {
+        optionIndex: 'spam',
+        content: '스팸',
+      },
+      {
+        optionIndex: 'bad',
+        content: '욕설 또는 악성 콘텐츠',
+      },
+    ];
+  }
+
   return (
     <Stack spacing={20}>
-      <RadioOption>
-        <input
-          type="radio"
-          value="option1"
-          checked={props.selectedOption === 'option1'}
-          onChange={props.handleChange}
-        />
-        개인정보 노출
-      </RadioOption>
-      <RadioOption>
-        <input
-          type="radio"
-          value="option2"
-          checked={props.selectedOption === 'option2'}
-          onChange={props.handleChange}
-        />
-        욕설 / 인신공격
-      </RadioOption>
-      <RadioOption>
-        <input
-          type="radio"
-          value="option3"
-          checked={props.selectedOption === 'option3'}
-          onChange={props.handleChange}
-        />
-        음란 / 선정성
-      </RadioOption>
-      <RadioOption>
-        <input
-          type="radio"
-          value="option4"
-          checked={props.selectedOption === 'option4'}
-          onChange={props.handleChange}
-        />
-        불법정보
-      </RadioOption>
-      <RadioOption>
-        <input
-          type="radio"
-          value="option5"
-          checked={props.selectedOption === 'option5'}
-          onChange={props.handleChange}
-        />
-        권리침해
-      </RadioOption>
-      <RadioOption>
-        <input
-          type="radio"
-          value="option6"
-          checked={props.selectedOption === 'option6'}
-          onChange={props.handleChange}
-        />
-        기타
-      </RadioOption>
+      {selectArr?.map((option, index) => (
+        <RadioOption key={index}>
+          <input
+            type="radio"
+            value={option.optionIndex}
+            checked={selectedOption === String(option.optionIndex)}
+            onChange={handleChange}
+          />
+          {option.content}
+        </RadioOption>
+      ))}
     </Stack>
   );
 }

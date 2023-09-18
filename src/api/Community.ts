@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { Axios, AxiosResponse } from 'axios';
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
@@ -90,6 +90,20 @@ export const getCommunityUnAuthPostData = async (
   return response.data;
 };
 
+export const deletePost = async (identity: string, post_idx: string, mode: 'reset' | 'remove') => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/deletePost?identity=${identity}&post_idx=${post_idx}&mode=${mode}`,
+    {
+      data: {
+        identity: identity,
+        post_idx: post_idx,
+        mode: mode,
+      },
+    }
+  );
+  return response;
+};
+
 export const getComments = async (
   postIndex: number,
   identity: string | null,
@@ -148,7 +162,6 @@ export const getReplies = async (
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reply`,
     { params: { commentIndex, identity, board_lang, order_by, page, per_page } }
   );
-  
   return response.data;
 };
 
@@ -201,6 +214,46 @@ export const deleteRecommends = async (identity: string, post_idx: string) => {
         identity: identity,
         post_idx: post_idx,
       },
+    }
+  );
+  return response;
+};
+
+/**
+ * Report
+ */
+/* 신고 */
+export const reportPost = async (
+  identity: string,
+  page: number,
+  per_page: number,
+  post_idx: string,
+  mode: 'recommend' | 'report',
+  report_type: number
+) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reportPost?identity=${identity}&page=${page}&per_page=${per_page}`,
+    {
+      identity: identity,
+      post_idx: post_idx,
+      mode: mode,
+      report_type: report_type,
+    }
+  );
+  return response;
+};
+
+export const reportComment = async (
+  identity: string,
+  comment_idx: string,
+  report_type: 'spam' | 'bad'
+) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reportComment`,
+    {
+      identity: identity,
+      comment_idx: comment_idx,
+      report_type: report_type,
     }
   );
   return response;
