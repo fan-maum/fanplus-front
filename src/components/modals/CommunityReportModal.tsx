@@ -24,13 +24,12 @@ function CommunityReportModal({ onClose, opened, texts, ...props }: DialogBlockD
     },
     styles: (theme) => ({
       content: {
+        padding: '30px',
       },
-      body: {
-      },
+      body: {},
     }),
   };
   const [selectedOption, setSelectedOption] = useState('option1');
-  console.log(selectedOption);
 
   function handleChange(event) {
     setSelectedOption(event.target.value);
@@ -42,21 +41,36 @@ function CommunityReportModal({ onClose, opened, texts, ...props }: DialogBlockD
         <CommunityModalText
           voteText={
             <>
-              <Group spacing={6} position="center" css={{ textAlign: "left"}}>
+              <Group spacing={6} position="center" css={{ textAlign: 'left' }}>
                 <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>
-                  <h4>사유선택</h4>
+                  <h4
+                    css={{
+                      color: '#101010',
+                      fontSize: 20,
+                      fontWeight: 600,
+                      marginBottom: 24,
+                    }}
+                  >
+                    사유선택
+                  </h4>
                   <RadioButtons selectedOption={selectedOption} handleChange={handleChange} />
                   {
-                    <>
-                      허위 신고의 경우 서비스 이용제한과 같은 <br /> 불이익을 받을실 수 있습니다.
-                    </>
+                    <div
+                      css={{
+                        marginTop: 45,
+                        textAlign: 'center',
+                        fontSize: 18,
+                        color: '#666',
+                        fontWeight: 600,
+                      }}
+                    >
+                      <p>허위 신고의 경우 서비스 이용제한과 같은</p>
+                      <p>불이익을 받을실 수 있습니다.</p>
+                    </div>
                   }
                 </div>
+                <button></button>
               </Group>
-              {/* <div
-                css={{ fontSize: 18, fontWeight: 400 }}
-              >
-              </div> */}
             </>
           }
         />

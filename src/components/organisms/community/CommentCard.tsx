@@ -6,14 +6,16 @@ import CommentInfoState from '@/components/molecules/community/CommentInfoState'
 import { CommentListItemType } from '@/types/community';
 import IconReply from '@/components/atoms/IconReply';
 import { PurPoseType, TargetType } from '@/types/common';
+import { useRouter } from 'next/router';
 
 export type CommentCardProps = {
   identity: string;
   comment: CommentListItemType;
   ReplyOnToggle?: (comment_idx: any) => void;
   ReplyWriteOnToggle?: () => void;
-  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  refetch: () => void;
 };
 const CommentCard = ({
   identity,
@@ -21,26 +23,33 @@ const CommentCard = ({
   ReplyOnToggle,
   ReplyWriteOnToggle,
   showModalBlockOnClick,
-  showReportModalBlockOnClick
+  showReportModalBlockOnClick,
+  refetch,
 }: CommentCardProps) => {
-  const [likes, setLikes] = useState(false);
+  const router = useRouter();
+
   const LikesOnClick = async () => {
     if (identity !== null) {
-      if (comment.ALREADY_LIKE === 'Y' || likes === true) {
+      if (comment.ALREADY_LIKE === 'Y') {
         const res = await deleteLikes(comment.COMMENT_IDX, identity);
-        setLikes(false);
       } else {
         const res = await postLikes(comment.COMMENT_IDX, identity);
-        setLikes(true);
       }
+      refetch();
     } else {
-      alert('로그인해주세요.');
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
 
   return (
     <Stack p={'26px 20px 20px 20px'} spacing={18}>
-      <CommentInfoState identity={identity} comment={comment} showModalBlockOnClick={showModalBlockOnClick} showReportModalBlockOnClick={showReportModalBlockOnClick}/>
+      <CommentInfoState
+        identity={identity}
+        comment={comment}
+        showModalBlockOnClick={showModalBlockOnClick}
+        showReportModalBlockOnClick={showReportModalBlockOnClick}
+      />
       <Group position="apart" ml={68}>
         <div>
           {comment.RE_COMMENT_CNT !== '0' && (
@@ -64,8 +73,7 @@ const CommentCard = ({
           buttonSize="medium"
           padding="0"
           alreadyLike={comment.ALREADY_LIKE}
-          likes={likes}
-          count={Number(comment.LIKE_CNT)}
+          likesCount={Number(comment.LIKE_CNT)}
           onClick={LikesOnClick}
         />
       </Group>

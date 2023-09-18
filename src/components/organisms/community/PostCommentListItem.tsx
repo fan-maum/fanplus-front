@@ -20,8 +20,9 @@ type PostCommentListItemProps = {
     target: number,
     contents: any
   ) => void;
-  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  refetch: () => void;
 };
 
 const PostCommentListItem = ({
@@ -29,7 +30,8 @@ const PostCommentListItem = ({
   item,
   onCreateComment,
   showModalBlockOnClick,
-  showReportModalBlockOnClick
+  showReportModalBlockOnClick,
+  refetch,
 }: PostCommentListItemProps) => {
   const { identity } = getCommentParams;
   const order_by = 'newest';
@@ -43,7 +45,7 @@ const PostCommentListItem = ({
 
   const ReplyOnToggle = async (commentIndex: number) => {
     if (openToggle === false) {
-      const response:replyResponseType = await getReplies(
+      const response: replyResponseType = await getReplies(
         commentIndex,
         identity,
         board_lang,
@@ -75,6 +77,7 @@ const PostCommentListItem = ({
         ReplyWriteOnToggle={ReplyWriteOnToggle}
         showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
+        refetch={refetch}
       />
       <div css={{ display: openToggle ? 'block' : 'none' }}>
         {item.RE_COMMENT_CNT !== '0' && (

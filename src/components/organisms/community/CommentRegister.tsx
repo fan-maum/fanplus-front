@@ -2,6 +2,7 @@ import { Avatar, Stack, UnstyledButton } from '@/components/atoms';
 import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { TargetType } from '@/types/common';
+import { useRouter } from 'next/router';
 
 interface FormValue {
   registerValue: string | number;
@@ -28,12 +29,14 @@ const CommentRegister = ({
   onCreateComment,
 }: CommentRegisterProps) => {
   const { handleSubmit, register, reset } = useForm<FormValue>();
+  const router = useRouter();
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
     if (identity !== null) {
       onCreateComment(identity, createMode, Number(POST_IDX), contents);
     } else {
-      alert('로그인해주세요.');
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
     reset({ registerValue: '' });
   };

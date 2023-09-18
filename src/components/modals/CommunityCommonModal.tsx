@@ -30,10 +30,25 @@ function CommunityCommonModal({
       size={'auto'}
       {...props}
       styles={(theme) => ({
+        header: {
+          padding: '30px 20px 30px 30px',
+          marginBottom: '-30px',
+        },
+        close: {
+          '& > svg': { width: '100% !important', height: '100% !important' },
+          width: '24px',
+          height: '24px',
+          color: '#000',
+        },
+        title: {
+          color: '#101010',
+          fontWeight: 600,
+          fontSize: 28,
+        },
         content: {
           borderRadius: 20,
           overflow: 'hidden',
-          border: "1px solid #D9D9D9",
+          border: '1px solid #D9D9D9',
         },
         body: {
           minWidth: 328,

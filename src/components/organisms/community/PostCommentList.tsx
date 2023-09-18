@@ -16,8 +16,9 @@ type PostCommentListProps = {
     target: number,
     contents: any
   ) => void;
-  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  refetch: () => void;
 };
 
 const PostCommentList = ({
@@ -25,22 +26,24 @@ const PostCommentList = ({
   comments,
   onCreateComment,
   showModalBlockOnClick,
-  showReportModalBlockOnClick
+  showReportModalBlockOnClick,
+  refetch,
 }: PostCommentListProps) => {
   const comment = comments.RESULTS.DATAS.COMMENTS;
   return (
     <ul data-role="comments">
-      {comment && comment.map((item: any, index) => (
+      {comment &&
+        comment.map((item: any, index) => (
           <PostCommentListItem
-          key={`${index}`}
-          getCommentParams={getCommentParams}
-          item={item}
-          onCreateComment={onCreateComment}
-          showModalBlockOnClick={showModalBlockOnClick}
-          showReportModalBlockOnClick={showReportModalBlockOnClick}
-        />
-        )
-      )}
+            key={`${index}`}
+            getCommentParams={getCommentParams}
+            item={item}
+            onCreateComment={onCreateComment}
+            showModalBlockOnClick={showModalBlockOnClick}
+            showReportModalBlockOnClick={showReportModalBlockOnClick}
+            refetch={refetch}
+          />
+        ))}
     </ul>
   );
 };

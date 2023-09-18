@@ -9,8 +9,8 @@ export type PostDetailLayoutProps = {
   identity: string;
   postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
-  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
 const PostDetailLayout = ({
@@ -22,7 +22,12 @@ const PostDetailLayout = ({
 }: PostDetailLayoutProps) => {
   return (
     <>
-      <CommunityPostTopNavi texts={texts} showModalBlockOnClick={showModalBlockOnClick} showReportModalBlockOnClick={showReportModalBlockOnClick} postIndex={postInfo.POST_IDX}/>
+      <CommunityPostTopNavi
+        texts={texts}
+        showModalBlockOnClick={showModalBlockOnClick}
+        showReportModalBlockOnClick={showReportModalBlockOnClick}
+        postIndex={postInfo.POST_IDX}
+      />
       <CommunityPostInfo postInfo={postInfo} texts={texts} />
       <CommunityPostDetail identity={identity} postInfo={postInfo} texts={texts} />
     </>

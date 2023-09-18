@@ -29,8 +29,8 @@ export type PostCommentWrapperProps = {
   ) => void;
   refetch: () => void;
   fetchNextPage: () => void;
-  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
 const PostCommentWrapper = ({
@@ -55,32 +55,33 @@ const PostCommentWrapper = ({
         <PostCommentOrders orderTypeState={orderTypeState} setPage={setPage} refetch={refetch} />
       </Group>
       <>
-      {commentList.map((comments, index) => (
-        <PostCommentList
-        key={index}
-        getCommentParams={getCommentParams}
-        comments={comments}
-        onCreateComment={onCreateComment}
-        showModalBlockOnClick={showModalBlockOnClick}
-        showReportModalBlockOnClick={showReportModalBlockOnClick}
-      />
-      ))}
-      {hasNextPage && (
-        <UnstyledButton
-          type="button"
-          w={'100%'}
-          h={60}
-          fz={16}
-          fw={600}
-          onClick={() => {
-            setPage(page + 1);
-            fetchNextPage();
-          }}
-          css={{ color: '#999' }}
-        >
-          다음 댓글 더보기
-        </UnstyledButton>
-      )}
+        {commentList.map((comments, index) => (
+          <PostCommentList
+            key={index}
+            getCommentParams={getCommentParams}
+            comments={comments}
+            onCreateComment={onCreateComment}
+            showModalBlockOnClick={showModalBlockOnClick}
+            showReportModalBlockOnClick={showReportModalBlockOnClick}
+            refetch={refetch}
+          />
+        ))}
+        {hasNextPage && (
+          <UnstyledButton
+            type="button"
+            w={'100%'}
+            h={60}
+            fz={16}
+            fw={600}
+            onClick={() => {
+              setPage(page + 1);
+              fetchNextPage();
+            }}
+            css={{ color: '#999' }}
+          >
+            다음 댓글 더보기
+          </UnstyledButton>
+        )}
       </>
     </>
   );

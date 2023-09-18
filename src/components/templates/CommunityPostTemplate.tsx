@@ -7,7 +7,7 @@ import PostFixedBottomWrapper, {
   PostFixedBottomWrapperProps,
 } from '@/components/organisms/community/PostFixedBottomWrapper';
 import { deleteComment, getComments, getReplies, postComment } from '@/api/Community';
-import { BackLangType, OrderType, TargetType, PurPoseType } from '@/types/common';
+import { BackLangType, OrderType, TargetType, PurPoseType, selectInfoType } from '@/types/common';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 import PostCommentWrapper, {
   PostCommentWrapperProps,
@@ -23,7 +23,6 @@ export type CommunityPostPropType = {
   communityPostData: PostResponseType;
   texts: CommunityPostTextType;
 };
-
 const CommunityPostTemplate = ({
   identity,
   postIndex,
@@ -37,48 +36,58 @@ const CommunityPostTemplate = ({
   const board_lang = 'ALL';
   const [commentList, setCommentList] = useState<Array<CommentResponseType>>([]);
   const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
-  const [selectInfo, setSelectInfo] = useState({purpose: '', target_type: '', idx: ''});
+  const [selectInfo, setSelectInfo] = useState<selectInfoType>({
+    purpose: null,
+    target_type: null,
+    idx: '',
+  });
+
   const getCommentsQuery = ({ pageParam = 0 }) => {
-    const data = getComments(postIndex, identity, board_lang, orderType, pageParam, 20)
+    const data = getComments(postIndex, identity, board_lang, orderType, pageParam, 20);
     return data;
   };
 
-  const {
-    data,
-    isSuccess,
-    isLoading,
-    refetch,
-    error,
-    fetchNextPage,
-  } = useInfiniteQuery(['comments'], getCommentsQuery, {
-    getNextPageParam: (currentPage) => {
-      const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1
-      return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage
-    },
-  });
+  const { data, isSuccess, isLoading, refetch, error, fetchNextPage } = useInfiniteQuery(
+    ['comments'],
+    getCommentsQuery,
+    {
+      getNextPageParam: (currentPage) => {
+        const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1;
+        return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage;
+      },
+    }
+  );
 
   const [modalBlock, setModalBlock] = useState(false);
   const [reportModalBlock, setReportModalBlock] = useState(false);
   const [doneModalBlock, setDoneModalBlock] = useState(false);
-  
+
   useEffect(() => {
     if (isSuccess) {
-        setCommentList(data.pages);
-        setCommentTotalCount(data.pages[0].RESULTS.DATAS.TOTAL_CNT);
+      setCommentList(data.pages);
+      setCommentTotalCount(data.pages[0].RESULTS.DATAS.TOTAL_CNT);
     }
   }, [isSuccess, data]);
 
   if (isLoading) return 'Loading...';
   if (error) return 'An error has occurred: ' + error;
-  
-  const showModalBlockOnClick = async (purpose: PurPoseType, target_type: TargetType, idx: string) => { 
-    setModalBlock(true); 
-    setSelectInfo({purpose: purpose, target_type: target_type, idx: idx});
+
+  const showModalBlockOnClick = async (
+    purpose: PurPoseType,
+    target_type: TargetType,
+    idx: string
+  ) => {
+    setModalBlock(true);
+    setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
   };
 
-  const showReportModalBlockOnClick = async (purpose: PurPoseType, target_type: TargetType, idx: string) => { 
-    setReportModalBlock(true); 
-    setSelectInfo({purpose: purpose, target_type: target_type, idx: idx});
+  const showReportModalBlockOnClick = async (
+    purpose: PurPoseType,
+    target_type: TargetType,
+    idx: string
+  ) => {
+    setReportModalBlock(true);
+    setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
   };
 
   const onCreateComment = async (
