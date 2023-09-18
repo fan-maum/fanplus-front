@@ -1,5 +1,13 @@
 import FullEditor from '@/editor/screen/FullEditor';
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction, useRef, useState } from 'react';
+import {
+  Dispatch,
+  MouseEventHandler,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { CommunityPostEditorTextType } from '@/types/textTypes';
 import { TopicListItemType } from '@/types/community';
 import IconArrowLeft from '../atoms/IconArrowLeft';
@@ -43,6 +51,17 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const [cancelModal, setCancelModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
 
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.returnValue = '';
+      return '';
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   const onClickCancel: MouseEventHandler = (event) => {
     event.preventDefault();
     setCancelModal(true);
@@ -56,7 +75,6 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
 
   const onClickUploadConfirm = async () => {
     setUploadModal(false);
-
     const response = await editBoardArticle(
       userId,
       postIndex,
@@ -66,7 +84,6 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
       content,
       topicIdx
     );
-
     if (response.RESULTS.ERROR) {
       alert('다시 시도해주세요.');
       return;
@@ -90,7 +107,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         <div css={{ display: 'flex', marginBottom: '30px', alignItems: 'center' }}>
           <IconArrowLeft
             iconCss={{ marginRight: '5px', width: '30px', height: '30px', cursor: 'pointer' }}
-            onClickBack={() => router.back()}
+            onClickBack={() => setCancelModal(true)}
           />
           <h2 css={{ lineHeight: '30px' }}>{texts.pageTitle}</h2>
         </div>
