@@ -1,14 +1,15 @@
-import { getCommunityBoardTopics, postBoardArticle } from '@/api/Community';
+import { getCommunityBoardTopics, getCommunityPostData, postBoardArticle } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
 import { BackLangType, BoardLangType } from '@/types/common';
-import { CommunityBoardTopicResponseType } from '@/types/community';
+import { CommunityBoardTopicResponseType, CommunityPostResponseType } from '@/types/community';
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
   boardTopics: CommunityBoardTopicResponseType;
+  communityPostData: CommunityPostResponseType;
   datas: {
     userId: string;
     boardIndex: number;
@@ -18,14 +19,19 @@ type CommunityPostWritePropType = {
   };
 };
 
-const Write = ({ boardTopics, datas }: CommunityPostWritePropType) => {
+const Write = ({ boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
       <PostEditorTemplate
-        mode="CREATE"
+        mode="EDIT"
         topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
         texts={CommunityPostEditorText_KR}
         datas={datas}
+        defaultValues={{
+          topicIndex: parseInt(communityPostData.RESULTS.DATAS.POST_INFO.THUMBNAIL_IMG),
+          title: communityPostData.RESULTS.DATAS.POST_INFO.POST_TITLE,
+          content: communityPostData.RESULTS.DATAS.POST_INFO.POST_CONTENTS,
+        }}
       />
     </Layout>
   );
@@ -39,16 +45,16 @@ export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> 
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
 
   const boardIndex = parseInt(context.query.boardIndex as string);
+  const postIndex = parseInt(context.query.postIndex as string);
   const lang: BackLangType = 'ko';
   const boardLang: BackLangType =
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : lang;
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, lang);
-  const initBoardArticle = await postBoardArticle(userId, boardIndex, boardLang, lang);
-  const postIndex = parseInt(initBoardArticle.RESULTS.DATAS.POST_IDX);
+  const communityPostData = await getCommunityPostData(postIndex, userId);
   const datas = { userId, boardIndex, postIndex, boardLang, lang };
   return {
-    props: { boardTopics, datas },
+    props: { boardTopics, communityPostData, datas },
   };
 };
 

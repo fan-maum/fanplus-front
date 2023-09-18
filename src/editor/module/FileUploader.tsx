@@ -35,7 +35,12 @@ const FileUploader = ({ state: [open, setOpen] }: OwnPropType) => {
       }
       return true;
     },
-  }).use(Compressor, { quality: 0.7 });
+  })
+    .use(Compressor, { quality: 0.7 })
+    .on('complete', () => {
+      console.log('upload complete');
+    });
+
   return (
     <>
       <DashboardModal

@@ -247,3 +247,29 @@ export type replyResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type PostBoardArticleResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      POST_IDX: string;
+      TOPIC_IDX: string;
+      TITLE: null;
+      CONTENTS: null;
+      IS_PUBLISH: 'Y' | 'N';
+    };
+    TIMESTAMP: number;
+  };
+};
+
+export type EditBoardArticleResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      MESSAGE: string;
+    };
+    TIMESTAMP: number;
+  };
+};

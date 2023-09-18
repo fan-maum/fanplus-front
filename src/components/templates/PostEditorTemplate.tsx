@@ -6,11 +6,20 @@ import IconArrowLeft from '../atoms/IconArrowLeft';
 import { useRouter } from 'next/router';
 import EditorTopicSet from '../molecules/community/EditorTopicSet';
 import CommunityEditorCommonModal from '../modals/CommunityEditorModal';
+import { editBoardArticle } from '@/api/Community';
+import { BackLangType } from '@/types/common';
 
 type OwnPropType = {
   mode: 'CREATE' | 'EDIT';
   topics: TopicListItemType[];
   texts: CommunityPostEditorTextType;
+  datas: {
+    userId: string;
+    boardIndex: number;
+    postIndex: number;
+    boardLang: BackLangType;
+    lang: BackLangType;
+  };
   defaultValues?: {
     topicIndex: number;
     title: string;
@@ -18,10 +27,11 @@ type OwnPropType = {
   };
 };
 
-const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType) => {
+const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPropType) => {
   const router = useRouter();
 
   const isCreateMode = mode === 'CREATE';
+  const { userId, boardIndex, postIndex, boardLang, lang } = datas;
 
   const editorRef = useRef();
   const editorId = 'postEditor';
@@ -44,14 +54,28 @@ const PostEditorTemplate = ({ mode, topics, texts, defaultValues }: OwnPropType)
     setContent(editorRef.current.get(editorId).getContent());
   };
 
+  const onClickUploadConfirm = async () => {
+    setUploadModal(false);
+
+    const response = await editBoardArticle(
+      userId,
+      postIndex,
+      boardLang,
+      lang,
+      title,
+      content,
+      topicIdx
+    );
+
+    if (response.RESULTS.ERROR) {
+      alert('다시 시도해주세요.');
+      return;
+    }
+    router.replace(`/${lang}/community/board/${boardIndex}/${postIndex}/`);
+  };
   const onClickExit = () => {
     setCancelModal(false);
     router.back();
-  };
-  const onClickUploadConfirm = async () => {
-    setUploadModal(false);
-    // TODO: api 연결
-    // router.replace();
   };
 
   return (
