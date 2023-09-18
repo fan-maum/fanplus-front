@@ -7,6 +7,7 @@ import { CommunityPostTextType } from '@/types/textTypes';
 
 export type PostDetailLayoutProps = {
   identity: string;
+  user_idx: string;
   postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
@@ -15,6 +16,7 @@ export type PostDetailLayoutProps = {
 
 const PostDetailLayout = ({
   identity,
+  user_idx,
   postInfo,
   texts,
   showModalBlockOnClick,
@@ -23,6 +25,8 @@ const PostDetailLayout = ({
   return (
     <>
       <CommunityPostTopNavi
+        user_idx={user_idx}
+        writer_idx={postInfo.WRITER_IDX}
         texts={texts}
         showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}

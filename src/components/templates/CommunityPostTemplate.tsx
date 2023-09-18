@@ -18,6 +18,7 @@ import CommunityReportModal from '../modals/CommunityReportModal';
 
 export type CommunityPostPropType = {
   identity: string;
+  user_idx: string;
   postIndex: number;
   lang: BackLangType;
   communityPostData: PostResponseType;
@@ -25,6 +26,7 @@ export type CommunityPostPropType = {
 };
 const CommunityPostTemplate = ({
   identity,
+  user_idx,
   postIndex,
   lang,
   communityPostData,
@@ -112,6 +114,7 @@ const CommunityPostTemplate = ({
    */
   const PostDetailLayoutProps: PostDetailLayoutProps = {
     identity,
+    user_idx,
     postInfo,
     texts,
     showModalBlockOnClick,

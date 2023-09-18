@@ -6,13 +6,20 @@ import { PurPoseType, TargetType } from '@/types/common';
 type CommentPopoverProps = {
   identity: string;
   comment_idx: any;
-  showModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType,target_type: TargetType, idx: string) => void;
+  isWriter: 'Y' | 'N';
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
-export default function CommentPopover({ identity, comment_idx, showModalBlockOnClick, showReportModalBlockOnClick }: CommentPopoverProps) {
+export default function CommentPopover({
+  identity,
+  comment_idx,
+  isWriter,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick,
+}: CommentPopoverProps) {
   return (
     <Popover
-      width='auto'
+      width="auto"
       position="bottom-end"
       shadow="none"
       styles={() => ({
@@ -53,8 +60,13 @@ export default function CommentPopover({ identity, comment_idx, showModalBlockOn
             },
           }}
         >
-          <li onClick={() => showReportModalBlockOnClick('report', 'comment', comment_idx)}>신고하기</li>
-          <li onClick={() => showModalBlockOnClick('delete', 'comment', comment_idx)}>삭제</li>
+          {isWriter === 'Y' ? (
+            <li onClick={() => showModalBlockOnClick('delete', 'comment', comment_idx)}>삭제</li>
+          ) : (
+            <li onClick={() => showReportModalBlockOnClick('report', 'comment', comment_idx)}>
+              신고하기
+            </li>
+          )}
         </ul>
       </Popover.Dropdown>
     </Popover>

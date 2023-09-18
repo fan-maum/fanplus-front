@@ -8,11 +8,18 @@ import CommunityPostTemplate, {
   CommunityPostPropType,
 } from '@/components/templates/CommunityPostTemplate';
 
-const Post = ({ identity, postIndex, lang, communityPostData }: CommunityPostPropType) => {
+const Post = ({
+  identity,
+  user_idx,
+  postIndex,
+  lang,
+  communityPostData,
+}: CommunityPostPropType) => {
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
       <CommunityPostTemplate
         identity={identity}
+        user_idx={user_idx}
         postIndex={postIndex}
         lang={lang}
         communityPostData={communityPostData}
@@ -31,6 +38,7 @@ export const getServerSideProps: GetServerSideProps<{
 
   const cookies = nookies.get(context);
   const identity = cookies.user_id || null;
+  const user_idx = cookies.user_idx || null;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
@@ -42,7 +50,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   return {
-    props: { identity, postIndex, lang, communityPostData },
+    props: { identity, user_idx, postIndex, lang, communityPostData },
   };
 };
 
