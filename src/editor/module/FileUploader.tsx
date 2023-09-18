@@ -38,6 +38,7 @@ const FileUploader = ({ state: [open, setOpen] }: OwnPropType) => {
   })
     .use(Compressor, { quality: 0.7 })
     .on('complete', () => {
+      // eslint-disable-next-line no-console
       console.log('upload complete');
     });
 
