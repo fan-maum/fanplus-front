@@ -88,7 +88,11 @@ const CommunityPostTopNavi = ({
                 {writer_idx === user_idx ? (
                   <>
                     <li
-                      onClick={() => showModalBlockOnClick('edit', 'post', postIndex)}
+                      onClick={() => {
+                        // eslint-disable-next-line no-console
+                        console.log("edit");
+                        // showModalBlockOnClick('edit', 'post', postIndex)
+                      }}
                       css={{ borderBottom: '1px solid #d9d9d9' }}
                     >
                       {texts.edit}

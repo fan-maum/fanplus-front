@@ -6,6 +6,7 @@ import RadioButtons from '../atoms/RadioButtons';
 import { useState } from 'react';
 import { reportComment, reportPost } from '@/api/Community';
 import { selectInfoType } from '@/types/common';
+import CommunityReportCommonModal from './CommunityReportCommonModal';
 
 export interface DialogBlockDoneProps {
   opened: boolean;
@@ -37,7 +38,7 @@ function CommunityReportModal({
   }
 
   const communityDeleteDoneModalProps: CommunityCommonModalProps = {
-    title: '신고하기',
+    title: texts.report,
     withCloseButton: true,
     opened,
     onClose,
@@ -55,7 +56,7 @@ function CommunityReportModal({
           await refetch();
         }
       },
-      text: '신고',
+      text: texts.reportButton,
     },
     styles: (theme) => ({
       content: {
@@ -67,12 +68,12 @@ function CommunityReportModal({
 
   return (
     <>
-      <CommunityCommonModal {...communityDeleteDoneModalProps}>
+      <CommunityReportCommonModal {...communityDeleteDoneModalProps}>
         <CommunityModalText
           voteText={
             <>
               <Group spacing={6} position="center" css={{ textAlign: 'left' }}>
-                <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>
+                <div css={{ fontSize: 18, fontWeight: 400, color: '#475357', flex: 1 }}>
                   <h4
                     css={{
                       color: '#101010',
@@ -81,34 +82,34 @@ function CommunityReportModal({
                       marginBottom: 24,
                     }}
                   >
-                    사유선택
+                    {texts.reportReason}
                   </h4>
                   <RadioButtons
                     target_type={target_type}
                     selectedOption={selectedOption}
                     handleChange={handleChange}
                   />
-                  {
-                    <div
-                      css={{
-                        marginTop: 45,
-                        textAlign: 'center',
-                        fontSize: 18,
-                        color: '#666',
-                        fontWeight: 600,
-                      }}
-                    >
-                      <p>허위 신고의 경우 서비스 이용제한과 같은</p>
-                      <p>불이익을 받을실 수 있습니다.</p>
-                    </div>
-                  }
+                  <div
+                    css={{
+                      marginTop: 45,
+                      textAlign: 'center',
+                      fontSize: 18,
+                      color: '#666',
+                      fontWeight: 600,
+                      maxWidth: 390,
+                      padding: '30px 0 0 0 !important',
+                      margin: '0 auto !important'
+                    }}
+                  >
+                    <p>{texts.reportWarning[0]}</p>
+                    <p>{texts.reportWarning[1]}</p>
+                  </div>
                 </div>
-                <button></button>
               </Group>
             </>
           }
         />
-      </CommunityCommonModal>
+      </CommunityReportCommonModal>
     </>
   );
 }

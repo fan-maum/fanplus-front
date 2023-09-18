@@ -37,8 +37,8 @@ export const getServerSideProps: GetServerSideProps<{
   const lang = 'zh';
 
   const cookies = nookies.get(context);
-  const identity = cookies.user_id;
-  const user_idx = cookies.user_idx;
+  const identity = cookies.user_id || null;
+  const user_idx = cookies.user_idx || null;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 

@@ -1,6 +1,7 @@
 import { CommentResponseType } from '@/types/community';
 import PostCommentListItem from './PostCommentListItem';
 import { BackLangType, PurPoseType, TargetType } from '@/types/common';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 type PostCommentListProps = {
   getCommentParams: {
@@ -10,6 +11,7 @@ type PostCommentListProps = {
     identity: string;
   };
   comments: CommentResponseType;
+  texts: CommunityPostTextType;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -24,6 +26,7 @@ type PostCommentListProps = {
 const PostCommentList = ({
   getCommentParams,
   comments,
+  texts,
   onCreateComment,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
@@ -38,6 +41,7 @@ const PostCommentList = ({
             key={`${index}`}
             getCommentParams={getCommentParams}
             item={item}
+            texts={texts}
             onCreateComment={onCreateComment}
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}

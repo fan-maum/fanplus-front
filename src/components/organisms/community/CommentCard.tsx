@@ -7,10 +7,12 @@ import { CommentListItemType } from '@/types/community';
 import IconReply from '@/components/atoms/IconReply';
 import { PurPoseType, TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 export type CommentCardProps = {
   identity: string;
   comment: CommentListItemType;
+  texts: CommunityPostTextType;
   ReplyOnToggle?: (comment_idx: any) => void;
   ReplyWriteOnToggle?: () => void;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
@@ -20,6 +22,7 @@ export type CommentCardProps = {
 const CommentCard = ({
   identity,
   comment,
+  texts,
   ReplyOnToggle,
   ReplyWriteOnToggle,
   showModalBlockOnClick,
@@ -47,6 +50,7 @@ const CommentCard = ({
       <CommentInfoState
         identity={identity}
         comment={comment}
+        texts={texts}
         showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
       />
@@ -66,7 +70,7 @@ const CommentCard = ({
             </>
           )}
           <UnstyledButton fz={16} fw={400} css={{ color: '#999' }} onClick={ReplyWriteOnToggle}>
-            답글쓰기
+            {texts.writeReply}
           </UnstyledButton>
         </div>
         <LikesButton

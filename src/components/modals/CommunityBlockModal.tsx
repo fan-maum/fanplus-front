@@ -29,6 +29,8 @@ function CommunityBlockModal({
   ...props
 }: VoteBlockModalProps) {
   const { purpose, target_type, idx } = selectInfo;
+  const modalText = (purpose === 'delete' ? (target_type === 'post' ? texts.askPostDelete : texts.askCommentDelete) : '')
+  
   const router = useRouter();
 
   const communityDeleteModalProps: CommunityCommonModalProps = {
@@ -61,7 +63,7 @@ function CommunityBlockModal({
             <>
               <Group spacing={6} position="center">
                 <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>
-                  {'게시글을 삭제하시겠어요?'}
+                  {modalText}
                 </div>
               </Group>
             </>

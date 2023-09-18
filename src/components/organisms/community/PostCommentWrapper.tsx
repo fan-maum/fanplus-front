@@ -4,6 +4,7 @@ import PostCommentOrders from '@/components/molecules/community/PostCommentOrder
 import { BackLangType, OrderType, PurPoseType, TargetType } from '@/types/common';
 import { CommentResponseType } from '@/types/community';
 import PostCommentList from './PostCommentList';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 export type PostCommentWrapperProps = {
   getCommentParams: {
@@ -13,6 +14,7 @@ export type PostCommentWrapperProps = {
     identity: string;
   };
   commentList: CommentResponseType[];
+  texts: CommunityPostTextType;
   commentTotalCount: number;
   setCommentList: any;
   page: number;
@@ -36,6 +38,7 @@ export type PostCommentWrapperProps = {
 const PostCommentWrapper = ({
   getCommentParams,
   commentList,
+  texts,
   commentTotalCount,
   setCommentList,
   page,
@@ -52,7 +55,7 @@ const PostCommentWrapper = ({
     <>
       <Group h={80} position="apart" px={24} mb={15}>
         <PostCommentCount count={commentTotalCount} />
-        <PostCommentOrders orderTypeState={orderTypeState} setPage={setPage} refetch={refetch} />
+        <PostCommentOrders orderTypeState={orderTypeState} texts={texts} setPage={setPage} refetch={refetch} />
       </Group>
       <>
         {commentList.map((comments, index) => (
@@ -60,6 +63,7 @@ const PostCommentWrapper = ({
             key={index}
             getCommentParams={getCommentParams}
             comments={comments}
+            texts={texts}
             onCreateComment={onCreateComment}
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}

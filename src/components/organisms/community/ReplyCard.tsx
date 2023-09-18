@@ -6,16 +6,19 @@ import CommentInfoState from '@/components/molecules/community/CommentInfoState'
 import { CommentListItemType } from '@/types/community';
 import { PurPoseType, TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 export type ReplyCardProps = {
   identity: string;
   reply: CommentListItemType;
+  texts: CommunityPostTextType;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 const ReplyCard = ({
   identity,
   reply,
+  texts,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: ReplyCardProps) => {
@@ -44,6 +47,7 @@ const ReplyCard = ({
       <CommentInfoState
         identity={identity}
         reply={reply}
+        texts={texts}
         showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
       />

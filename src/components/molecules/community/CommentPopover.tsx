@@ -2,11 +2,13 @@ import { Popover } from '@mantine/core';
 import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
 import { deleteComment } from '@/api/Community';
 import { PurPoseType, TargetType } from '@/types/common';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 type CommentPopoverProps = {
   identity: string;
   comment_idx: any;
   isWriter: string | undefined;
+  texts: CommunityPostTextType;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
@@ -14,6 +16,7 @@ export default function CommentPopover({
   identity,
   comment_idx,
   isWriter,
+  texts,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: CommentPopoverProps) {
@@ -61,10 +64,12 @@ export default function CommentPopover({
           }}
         >
           {isWriter === 'Y' ? (
-            <li onClick={() => showModalBlockOnClick('delete', 'comment', comment_idx)}>삭제</li>
+            <li onClick={() => showModalBlockOnClick('delete', 'comment', comment_idx)}>
+              {texts.delete}
+            </li>
           ) : (
             <li onClick={() => showReportModalBlockOnClick('report', 'comment', comment_idx)}>
-              신고하기
+              {texts.report}
             </li>
           )}
         </ul>

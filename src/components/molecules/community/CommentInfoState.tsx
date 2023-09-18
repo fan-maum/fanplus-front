@@ -2,11 +2,13 @@ import { Group, Stack, Avatar } from '@/components/atoms';
 import { CommentListItemType } from '@/types/community';
 import CommentPopover from './CommentPopover';
 import { PurPoseType, TargetType } from '@/types/common';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 type CommentInfoStateProps = {
   identity: string;
   comment?: CommentListItemType;
   reply?: CommentListItemType;
+  texts: CommunityPostTextType;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
@@ -15,11 +17,12 @@ function CommentInfoState({
   identity,
   comment,
   reply,
+  texts,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: CommentInfoStateProps) {
-  const commentContent = comment?.COMMENT === false ? '삭제된 댓글입니다.' : comment?.COMMENT;
-  const replyContent = reply?.COMMENT === false ? '삭제된 댓글입니다.' : reply?.COMMENT;
+  const commentContent = comment?.COMMENT === false ? texts.alreadyDeleted : comment?.COMMENT;
+  const replyContent = reply?.COMMENT === false ? texts.alreadyDeleted : reply?.COMMENT;
   return (
     <Group position="apart" spacing={30} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
       <Group spacing={10} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
@@ -66,6 +69,7 @@ function CommentInfoState({
         identity={identity}
         isWriter={comment?.IS_WRITER}
         comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX}
+        texts={texts}
         showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
       />

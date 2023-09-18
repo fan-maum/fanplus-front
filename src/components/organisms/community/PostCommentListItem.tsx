@@ -5,6 +5,7 @@ import { getReplies } from '@/api/Community';
 import ReplyCommentList from './ReplyCommentList';
 import { BackLangType, PurPoseType, TargetType } from '@/types/common';
 import CommentRegister from './CommentRegister';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 type PostCommentListItemProps = {
   getCommentParams: {
@@ -14,6 +15,7 @@ type PostCommentListItemProps = {
     identity: string;
   };
   item: CommentListItemType;
+  texts: CommunityPostTextType;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -28,6 +30,7 @@ type PostCommentListItemProps = {
 const PostCommentListItem = ({
   getCommentParams,
   item,
+  texts,
   onCreateComment,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
@@ -73,6 +76,7 @@ const PostCommentListItem = ({
       <CommentCard
         identity={identity}
         comment={item}
+        texts={texts}
         ReplyOnToggle={() => ReplyOnToggle(Number(item.COMMENT_IDX))}
         ReplyWriteOnToggle={ReplyWriteOnToggle}
         showModalBlockOnClick={showModalBlockOnClick}
@@ -85,12 +89,16 @@ const PostCommentListItem = ({
             identity={identity}
             totalCount={replyTotalCount}
             replyList={replyList}
+            texts={texts}
+            showModalBlockOnClick={showModalBlockOnClick}
+            showReportModalBlockOnClick={showReportModalBlockOnClick}
           />
         )}
       </div>
       <div css={{ display: openWriteToggle ? 'block' : 'none' }}>
         <CommentRegister
           identity={identity}
+          texts={texts}
           POST_IDX={item.COMMENT_IDX}
           WRITER_PROFILE_IMG={item.PROFILE_IMG_URL}
           createMode={'comment'}

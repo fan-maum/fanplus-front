@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 interface FormValue {
   registerValue: string | number;
@@ -10,6 +11,7 @@ interface FormValue {
 
 type CommentRegisterProps = {
   identity: string;
+  texts: CommunityPostTextType;
   POST_IDX: string;
   WRITER_PROFILE_IMG: string;
   createMode: TargetType;
@@ -23,6 +25,7 @@ type CommentRegisterProps = {
 
 const CommentRegister = ({
   identity,
+  texts,
   POST_IDX,
   WRITER_PROFILE_IMG,
   createMode,
@@ -75,7 +78,7 @@ const CommentRegister = ({
         css={{ flexDirection: 'row', flex: 1 }}
       >
         <RegisterInput
-          placeholder="댓글을 남겨주세요. (200자)"
+          placeholder={texts.commentRegisterPlaceholder}
           {...register('registerValue', { maxLength: 200 })}
         />
         <UnstyledButton
@@ -94,7 +97,7 @@ const CommentRegister = ({
             fontWeight: 600,
           }}
         >
-          <span>등록</span>
+          <span>{texts.register}</span>
         </UnstyledButton>
       </Stack>
     </form>

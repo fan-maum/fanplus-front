@@ -2,9 +2,11 @@ import CommunityPostBottomNavi from '@/components/molecules/community/CommunityP
 import CommentRegister from './CommentRegister';
 import { TargetType } from '@/types/common';
 import { PostInfoItemType } from '@/types/community';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 export type PostFixedBottomWrapperProps = {
   identity: string;
+  texts: CommunityPostTextType;
   postInfo: PostInfoItemType;
   commentTotalCount: string | number;
   onCreateComment: (
@@ -17,6 +19,7 @@ export type PostFixedBottomWrapperProps = {
 
 const PostFixedBottomWrapper = ({
   identity,
+  texts,
   postInfo,
   commentTotalCount,
   onCreateComment,
@@ -35,6 +38,7 @@ const PostFixedBottomWrapper = ({
     >
       <CommentRegister
         identity={identity}
+        texts={texts}
         POST_IDX={POST_IDX}
         WRITER_PROFILE_IMG={WRITER_PROFILE_IMG}
         createMode={'post'}

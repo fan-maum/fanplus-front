@@ -1,18 +1,21 @@
 import styled from '@emotion/styled';
 import { OrderType } from '@/types/common';
 import { useQueryClient } from 'react-query';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 type PostCommentOrdersProps = {
   orderTypeState: {
     orderType: OrderType;
     setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
   }
+  texts: CommunityPostTextType;
   setPage: React.Dispatch<React.SetStateAction<number>>
   refetch: () => void;
 };
 
 const PostCommentOrders = ({
   orderTypeState,
+  texts,
   setPage,
   refetch,
 }: PostCommentOrdersProps) => {
@@ -30,12 +33,12 @@ const PostCommentOrders = ({
     <ul css={{ display: 'flex', alignItems: 'center', gap: 18 }}>
       <OrderListItem $order={orderType === 'newest'}>
         <button type="button" onClick={() => OrderOnClick('newest')}>
-          최신순
+          {texts.orderNewest}
         </button>
       </OrderListItem>
       <OrderListItem $order={orderType === 'oldest'}>
         <button type="button" onClick={() => OrderOnClick('oldest')}>
-          등록순
+          {texts.orderOldest}
         </button>
       </OrderListItem>
     </ul>

@@ -125,6 +125,7 @@ const CommunityPostTemplate = ({
   const PostCommentWrapperProps: PostCommentWrapperProps = {
     getCommentParams,
     commentList,
+    texts,
     commentTotalCount,
     setCommentList,
     orderTypeState: { orderType, setOrderType },
@@ -139,6 +140,7 @@ const CommunityPostTemplate = ({
 
   const PostFixedBottomWrapperProps: PostFixedBottomWrapperProps = {
     identity,
+    texts,
     postInfo,
     commentTotalCount,
     onCreateComment,
@@ -179,6 +181,7 @@ const CommunityPostTemplate = ({
       />
       <CommunityDoneModal
         opened={doneModalBlock}
+        selectInfo={selectInfo}
         onClose={() => {
           setDoneModalBlock(false);
         }}
