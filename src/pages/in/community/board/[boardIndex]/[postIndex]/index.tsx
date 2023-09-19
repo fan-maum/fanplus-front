@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 import { getCommunityPostData, getCommunityUnAuthPostData } from '@/api/Community';
-import { CommunityPostText_JAP, FooterText_JAP, NavBarText_JAP } from '@/texts/ja';
+import { CommunityPostText_IND, FooterText_IND, NavBarText_IND } from '@/texts/in';
 import Layout from '@/components/organisms/Layout';
 import { CommunityPostResponseType } from '@/types/community';
 import CommunityPostTemplate, {
@@ -10,12 +10,12 @@ import CommunityPostTemplate, {
 
 const Post = ({ identity, lang, communityPostData }: CommunityPostPropType) => {
   return (
-    <Layout navBarTexts={NavBarText_JAP} footerTexts={FooterText_JAP}>
+    <Layout navBarTexts={NavBarText_IND} footerTexts={FooterText_IND}>
       <CommunityPostTemplate
         identity={identity}
         lang={lang}
         communityPostData={communityPostData}
-        texts={CommunityPostText_JAP}
+        texts={CommunityPostText_IND}
       />
     </Layout>
   );
@@ -26,10 +26,10 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
-  const lang = 'ja';
+  const lang = 'id';
 
   const cookies = nookies.get(context);
-  const identity = cookies.user_id;
+  const identity = cookies.user_id || null;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 

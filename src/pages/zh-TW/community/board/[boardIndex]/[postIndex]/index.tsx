@@ -29,12 +29,11 @@ export const getServerSideProps: GetServerSideProps<{
   const lang = 'zhtw';
 
   const cookies = nookies.get(context);
-  const identity = cookies.user_id;
+  const identity = cookies.user_id || null;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
   let communityPostData;
-  let communityPostCommentData;
   if (identity !== null) {
     communityPostData = await getCommunityPostData(postIndex, identity);
   } else {
@@ -42,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   return {
-    props: { identity, lang, communityPostData, communityPostCommentData },
+    props: { identity, lang, communityPostData },
   };
 };
 

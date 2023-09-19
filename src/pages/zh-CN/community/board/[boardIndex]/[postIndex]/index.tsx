@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 import { getCommunityPostData, getCommunityUnAuthPostData } from '@/api/Community';
-import { CommunityPostText_ESP, FooterText_ESP, NavBarText_ESP } from '@/texts/es';
+import { CommunityPostText_zh_CN, FooterText_zh_CN, NavBarText_zh_CN } from '@/texts/zh-CN';
 import Layout from '@/components/organisms/Layout';
 import { CommunityPostResponseType } from '@/types/community';
 import CommunityPostTemplate, {
@@ -10,12 +10,12 @@ import CommunityPostTemplate, {
 
 const Post = ({ identity, lang, communityPostData }: CommunityPostPropType) => {
   return (
-    <Layout navBarTexts={NavBarText_ESP} footerTexts={FooterText_ESP}>
+    <Layout navBarTexts={NavBarText_zh_CN} footerTexts={FooterText_zh_CN}>
       <CommunityPostTemplate
         identity={identity}
         lang={lang}
         communityPostData={communityPostData}
-        texts={CommunityPostText_ESP}
+        texts={CommunityPostText_zh_CN}
       />
     </Layout>
   );
@@ -26,10 +26,10 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
-  const lang = 'es';
+  const lang = 'zh';
 
   const cookies = nookies.get(context);
-  const identity = cookies.user_id;
+  const identity = cookies.user_id || null;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 

@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<{
   const lang = 'en';
 
   const cookies = nookies.get(context);
-  const identity = cookies.user_id;
+  const identity = cookies.user_id || null;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
