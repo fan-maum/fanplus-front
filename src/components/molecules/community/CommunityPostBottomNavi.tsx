@@ -4,22 +4,13 @@ import CommentCountButton from '@/components/atoms/CommentCountButton';
 
 type CommunityPostBottomNaviProps = {
   commentTotalCount: string | number;
+  shareOnClick: () => void;
 };
 
-const CommunityPostBottomNavi = ({ commentTotalCount }: CommunityPostBottomNaviProps) => {
-  const ShareOnClick = () => {
-    // if (canShare) {
-    //   window.navigator?.share({
-    //     title: '팬플러스 투표 공유',
-    //     text,
-    //     url,
-    //   });
-    // } else {
-    //   confirmModalOpened();
-    // }
-    // eslint-disable-next-line no-console
-    console.log('clicked');
-  };
+const CommunityPostBottomNavi = ({
+  commentTotalCount,
+  shareOnClick,
+}: CommunityPostBottomNaviProps) => {
   return (
     <div
       css={{
@@ -36,7 +27,7 @@ const CommunityPostBottomNavi = ({ commentTotalCount }: CommunityPostBottomNaviP
         css={{ margin: '0 auto' }}
       >
         <CommentCountButton text={commentTotalCount} />
-        <ShareButton onClick={ShareOnClick} css={{ background: 'none', width: 34, height: 34 }} />
+        <ShareButton onClick={shareOnClick} css={{ background: 'none', width: 34, height: 34 }} />
       </Group>
     </div>
   );

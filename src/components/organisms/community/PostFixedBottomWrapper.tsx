@@ -16,6 +16,7 @@ export type PostFixedBottomWrapperProps = {
     target: number,
     contents: any
   ) => void;
+  shareOnClick: () => void;
 };
 
 const PostFixedBottomWrapper = ({
@@ -25,6 +26,7 @@ const PostFixedBottomWrapper = ({
   profileInfo,
   commentTotalCount,
   onCreateComment,
+  shareOnClick,
 }: PostFixedBottomWrapperProps) => {
   const { POST_IDX } = postInfo;
   return (
@@ -46,7 +48,7 @@ const PostFixedBottomWrapper = ({
         createMode={'post'}
         onCreateComment={onCreateComment}
       />
-      <CommunityPostBottomNavi commentTotalCount={commentTotalCount} />
+      <CommunityPostBottomNavi commentTotalCount={commentTotalCount} shareOnClick={shareOnClick} />
     </div>
   );
 };

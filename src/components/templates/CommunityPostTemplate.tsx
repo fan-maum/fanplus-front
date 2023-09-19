@@ -15,6 +15,9 @@ import PostCommentWrapper, {
 import CommunityBlockModal from '@/components/modals/CommunityBlockModal';
 import CommunityDoneModal from '../modals/CommunityDoneModal';
 import CommunityReportModal from '../modals/CommunityReportModal';
+import VoteDetailShareModal, { VoteDetailShareModalProps } from '../modals/VoteDetailShareModal';
+import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
+import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
 
 export type CommunityPostPropType = {
   identity: string;
@@ -72,6 +75,8 @@ const CommunityPostTemplate = ({
   const [modalBlock, setModalBlock] = useState(false);
   const [reportModalBlock, setReportModalBlock] = useState(false);
   const [doneModalBlock, setDoneModalBlock] = useState(false);
+  const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
+  const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
 
   const fetchGetUser = async () => {
     if (identity !== null) {
@@ -133,6 +138,10 @@ const CommunityPostTemplate = ({
     setSelectedValue: setSelectedValue,
   };
 
+  const shareOnClick = () => {
+    setShareModalIsOpened(true);
+  };
+
   /**
    * LayoutProps
    */
@@ -169,6 +178,19 @@ const CommunityPostTemplate = ({
     commentTotalCount,
     onCreateComment,
     profileInfo,
+    shareOnClick,
+  };
+
+  const communityShareModalProps: CommunityShareModalProps = {
+    onClose: () => setShareModalIsOpened(false),
+    opened: shareModalIsOpened,
+    confirmModalOpened: () => setCompletedShareModalIsOpen(true),
+    postTitle: postInfo.POST_TITLE,
+  };
+
+  const completedShareModalProps: CompletedShareModalProps = {
+    onClose: () => setCompletedShareModalIsOpen(false),
+    opened: completedShareModalIsOpen,
   };
 
   return (
@@ -217,6 +239,8 @@ const CommunityPostTemplate = ({
         }}
         texts={texts}
       />
+      <CommunityShareModal {...communityShareModalProps} />
+      <CompletedShareModal {...completedShareModalProps} />
     </>
   );
 };
