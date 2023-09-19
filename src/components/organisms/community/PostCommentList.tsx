@@ -12,7 +12,7 @@ type PostCommentListProps = {
   };
   comments: CommentResponseType;
   texts: CommunityPostTextType;
-  profileImg: string;
+  profileInfo: { profileImg: string; profileNick: string };
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -28,7 +28,7 @@ const PostCommentList = ({
   getCommentParams,
   comments,
   texts,
-  profileImg,
+  profileInfo,
   onCreateComment,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
@@ -44,7 +44,7 @@ const PostCommentList = ({
             getCommentParams={getCommentParams}
             item={item}
             texts={texts}
-            profileImg={profileImg}
+            profileInfo={profileInfo}
             onCreateComment={onCreateComment}
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}

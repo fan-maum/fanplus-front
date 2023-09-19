@@ -331,6 +331,7 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   confirmButton: '확인',
   reportButton: '신고',
   commentRegisterPlaceholder: '댓글을 남겨주세요. (200자)',
+  replyRegisterPlaceholder: '답글을 입력해 주세요. (200자)',
   askPostDelete: '게시글을 삭제하시겠어요?',
   askCommentDelete: '댓글을 삭제하시겠어요?',
   postDeleted: '게시물이 삭제되었습니다',
@@ -341,7 +342,6 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   register: '등록',
   orderOldest: '등록순',
   orderNewest: '최신순',
-  commentTotalCount: '최신댓글 *개',
   showMoreComments: '다음 댓글 더보기',
   deleted: '삭제된 댓글입니다.',
   alreadyDeleted: '이미 삭제된 댓글입니다.',
@@ -361,4 +361,9 @@ export const CommunityPostText_KR: CommunityPostTextType = {
     option2: '욕설 또는 악성 콘텐츠',
   },
   reportWarning: ['허위 신고의 경우 서비스 이용제한과 같은', '불이익을 받을 수 있습니다.'],
+};
+
+export const postCommentTotalCount_KR = (totalCount: number) => {
+  let result = `최신댓글 ${totalCount}개`;
+  return result;
 };

@@ -47,6 +47,8 @@ const CommunityPostTemplate = ({
   const profileImg = user
     ? user?.RESULTS.DATAS.PROFILE_IMG_URL
     : 'http://cdnetphoto.appphotocard.com/profile_images/profile_image_default.png';
+  const profileNick = user ? user?.RESULTS.DATAS.NICK : '';
+  const profileInfo = { profileImg, profileNick };
 
   const [reportType, setReportType] = useState();
   const [selectedOption, setSelectedOption] = useState('1');
@@ -149,7 +151,7 @@ const CommunityPostTemplate = ({
     getCommentParams,
     commentList,
     texts,
-    profileImg,
+    profileInfo,
     commentTotalCount,
     setCommentList,
     orderTypeState: { orderType, setOrderType },
@@ -168,7 +170,7 @@ const CommunityPostTemplate = ({
     postInfo,
     commentTotalCount,
     onCreateComment,
-    profileImg,
+    profileInfo,
   };
 
   return (

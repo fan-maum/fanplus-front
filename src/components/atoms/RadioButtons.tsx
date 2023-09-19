@@ -1,16 +1,19 @@
 import { TargetType } from '@/types/common';
 import { Stack } from './Stack';
 import styled from '@emotion/styled';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 type RadioButtonsProps = {
   target_type: TargetType | null;
   selectedOption: string;
+  texts: CommunityPostTextType;
   handleChange: (event: any) => void;
 };
 
 export default function RadioButtons({
   target_type,
   selectedOption,
+  texts,
   handleChange,
 }: RadioButtonsProps) {
   let selectArr;
@@ -19,32 +22,32 @@ export default function RadioButtons({
       {
         index: 1,
         optionIndex: 1,
-        content: '개인정보 노출',
+        content: texts.reportPostOptions.option1,
       },
       {
         index: 2,
         optionIndex: 2,
-        content: '욕설 / 인신공격',
+        content: texts.reportPostOptions.option2,
       },
       {
         index: 3,
         optionIndex: 3,
-        content: '음란 / 선정성',
+        content: texts.reportPostOptions.option3,
       },
       {
         index: 4,
         optionIndex: 4,
-        content: '불법정보',
+        content: texts.reportPostOptions.option4,
       },
       {
         index: 5,
         optionIndex: 5,
-        content: '권리침해',
+        content: texts.reportPostOptions.option5,
       },
       {
         index: 6,
         optionIndex: 6,
-        content: '기타',
+        content: texts.reportPostOptions.option6,
       },
     ];
   }
@@ -53,12 +56,12 @@ export default function RadioButtons({
       {
         index: 1,
         optionIndex: 'spam',
-        content: '스팸',
+        content: texts.reportCommentOptions.option1,
       },
       {
         index: 2,
         optionIndex: 'bad',
-        content: '욕설 또는 악성 콘텐츠',
+        content: texts.reportCommentOptions.option2,
       },
     ];
   }

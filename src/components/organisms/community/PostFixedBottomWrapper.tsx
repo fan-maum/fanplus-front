@@ -9,7 +9,7 @@ export type PostFixedBottomWrapperProps = {
   texts: CommunityPostTextType;
   postInfo: PostInfoItemType;
   commentTotalCount: string | number;
-  profileImg: string;
+  profileInfo: { profileImg: string; profileNick: string };
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -22,7 +22,7 @@ const PostFixedBottomWrapper = ({
   identity,
   texts,
   postInfo,
-  profileImg,
+  profileInfo,
   commentTotalCount,
   onCreateComment,
 }: PostFixedBottomWrapperProps) => {
@@ -42,7 +42,7 @@ const PostFixedBottomWrapper = ({
         identity={identity}
         texts={texts}
         POST_IDX={POST_IDX}
-        profileImg={profileImg}
+        profileInfo={profileInfo}
         createMode={'post'}
         onCreateComment={onCreateComment}
       />

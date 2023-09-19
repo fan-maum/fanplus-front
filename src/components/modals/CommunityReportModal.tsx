@@ -48,7 +48,7 @@ function CommunityReportModal({
     setSelectedValue(option.optionIndex);
   }
 
-  const communityDeleteDoneModalProps: CommunityCommonModalProps = {
+  const CommunityReportCommonModalProps: CommunityCommonModalProps = {
     title: texts.report,
     withCloseButton: true,
     opened,
@@ -60,14 +60,16 @@ function CommunityReportModal({
         if (target_type === 'post') {
           let response = await reportPost(identity, 0, 20, idx, 'report', selectedValue);
           let modalMessage =
-            response?.data?.RESULTS?.MSG === 'success' ? texts.reported : '이미 신고한 댓글입니다.';
+            response?.data?.RESULTS?.MSG === 'success' ? texts.reported : texts.alreadyReportedPost;
           await setDoneModalMessage(modalMessage);
           await setDoneModalBlock(true);
         }
         if (target_type === 'comment') {
           const response = await reportComment(identity, idx, selectedValue);
           let modalMessage =
-            response?.data?.RESULTS?.MSG === 'success' ? texts.reported : '이미 신고한 댓글입니다.';
+            response?.data?.RESULTS?.MSG === 'success'
+              ? texts.reported
+              : texts.alreadyReportedComment;
           await setDoneModalMessage(modalMessage);
           await setDoneModalBlock(true);
           await refetch();
@@ -85,7 +87,7 @@ function CommunityReportModal({
 
   return (
     <>
-      <CommunityReportCommonModal {...communityDeleteDoneModalProps}>
+      <CommunityReportCommonModal {...CommunityReportCommonModalProps}>
         <CommunityModalText
           voteText={
             <>
@@ -104,6 +106,7 @@ function CommunityReportModal({
                   <RadioButtons
                     target_type={target_type}
                     selectedOption={selectedOption}
+                    texts={texts}
                     handleChange={handleChange}
                   />
                   <div

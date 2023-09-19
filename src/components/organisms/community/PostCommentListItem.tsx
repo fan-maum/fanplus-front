@@ -6,6 +6,7 @@ import ReplyCommentList from './ReplyCommentList';
 import { BackLangType, PurPoseType, TargetType } from '@/types/common';
 import CommentRegister from './CommentRegister';
 import { CommunityPostTextType } from '@/types/textTypes';
+import ReplyRegister from './ReplyRegister';
 
 type PostCommentListItemProps = {
   getCommentParams: {
@@ -16,7 +17,7 @@ type PostCommentListItemProps = {
   };
   item: CommentListItemType;
   texts: CommunityPostTextType;
-  profileImg: string;
+  profileInfo: { profileImg: string; profileNick: string };
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -32,7 +33,7 @@ const PostCommentListItem = ({
   getCommentParams,
   item,
   texts,
-  profileImg,
+  profileInfo,
   onCreateComment,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
@@ -99,11 +100,11 @@ const PostCommentListItem = ({
         )}
       </div>
       <div css={{ display: openWriteToggle ? 'block' : 'none' }}>
-        <CommentRegister
+        <ReplyRegister
           identity={identity}
           texts={texts}
           POST_IDX={item.COMMENT_IDX}
-          profileImg={profileImg}
+          profileInfo={profileInfo}
           createMode={'comment'}
           onCreateComment={onCreateComment}
         />

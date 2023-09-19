@@ -15,7 +15,7 @@ export type PostCommentWrapperProps = {
   };
   commentList: CommentResponseType[];
   texts: CommunityPostTextType;
-  profileImg: string;
+  profileInfo: { profileImg: string; profileNick: string };
   commentTotalCount: number;
   setCommentList: any;
   page: number;
@@ -40,7 +40,7 @@ const PostCommentWrapper = ({
   getCommentParams,
   commentList,
   texts,
-  profileImg,
+  profileInfo,
   commentTotalCount,
   setCommentList,
   page,
@@ -71,7 +71,7 @@ const PostCommentWrapper = ({
             getCommentParams={getCommentParams}
             comments={comments}
             texts={texts}
-            profileImg={profileImg}
+            profileInfo={profileInfo}
             onCreateComment={onCreateComment}
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}
@@ -91,7 +91,7 @@ const PostCommentWrapper = ({
             }}
             css={{ color: '#999' }}
           >
-            다음 댓글 더보기
+            {texts.showMoreComments}
           </UnstyledButton>
         )}
       </>

@@ -222,6 +222,7 @@ export type CommunityPostTextType = {
   confirmButton: string;
   reportButton: string;
   commentRegisterPlaceholder: string;
+  replyRegisterPlaceholder: string;
   askPostDelete: string;
   askCommentDelete: string;
   postDeleted: string;
@@ -232,7 +233,6 @@ export type CommunityPostTextType = {
   register: string;
   orderOldest: string;
   orderNewest: string;
-  commentTotalCount: string;
   showMoreComments: string;
   deleted: string;
   alreadyDeleted: string;

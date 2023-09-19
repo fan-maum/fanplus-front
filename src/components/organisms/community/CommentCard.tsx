@@ -64,7 +64,7 @@ const CommentCard = ({
                 css={{ color: '#999', marginRight: 22 }}
                 onClick={ReplyOnToggle}
               >
-                답글 {comment.RE_COMMENT_CNT}
+                {texts.reply} {comment.RE_COMMENT_CNT}
                 <IconReply />
               </UnstyledButton>
             </>
