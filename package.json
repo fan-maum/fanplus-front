@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "export PORT=3020 && next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "export PORT=3020 && next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "react-responsive": "^9.0.2",
     "react-router-dom": "^6.14.1",
     "recoil": "^0.7.7",
+    "swiper": "^10.2.0",
     "typescript": "5.1.6"
   },
   "devDependencies": {

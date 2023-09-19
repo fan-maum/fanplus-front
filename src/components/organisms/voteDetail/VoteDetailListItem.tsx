@@ -2,7 +2,7 @@ import ShareButton from '@/components/atoms/ShareButton';
 import { Button, Divider, Group, Stack } from '@/components/atoms';
 import { VoteDetailStars } from '@/types/vote';
 import { VoteButton } from '@/components/atoms/VoteButton';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { Cookies } from 'react-cookie';
@@ -23,7 +23,7 @@ function VoteDetailListItem({
   clickEvent,
   ...props
 }: PromotionRankListItemProps) {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   return (
     <div ref={targetRef} className={targetRef ? 'highlight' : undefined}>

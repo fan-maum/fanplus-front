@@ -2,12 +2,12 @@ import { Modal, ModalProps } from '@mantine/core';
 import { UnstyledButton } from '../atoms';
 import { useRecoilState } from 'recoil';
 import { shareModalState } from '@/store/voteLangState';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 
 export interface CompletedShareModalProps extends ModalProps {}
 
 export default function CompletedShareModal({ ...props }: CompletedShareModalProps) {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const shareModalLanguage = useRecoilState(shareModalState(language))[0];
   const modalProps: ModalProps = {
     size: 328,

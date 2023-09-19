@@ -3,13 +3,15 @@ import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityHomeResponseType,
+  CommunityNoticeBannerResponseType,
 } from '@/types/community';
-import type { BackLangType, TargetType, OrderType } from '@/types/common';
 
-export const getCommunityHomeData = async (userId: string) => {
+import type { BackLangType, BoardLangType, TargetType, OrderType } from '@/types/common';
+
+export const getCommunityHomeData = async (userId: string, lang: BoardLangType) => {
   const response: AxiosResponse<CommunityHomeResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId } }
+    { params: { userId, lang } }
   );
   return response.data;
 };
@@ -19,7 +21,7 @@ export const getCommunityBoardData = async (
   boardIndex: number,
   page: number,
   lang: BackLangType,
-  boardLang: BackLangType | 'ALL',
+  boardLang: BoardLangType,
   topic: number | '',
   view_type: string
 ) => {
@@ -31,10 +33,10 @@ export const getCommunityBoardData = async (
   return response.data;
 };
 
-export const getCommunityBoardTopics = async (userId: string, boardIndex: number) => {
+export const getCommunityBoardTopics = async (boardIndex: number, lang: BackLangType) => {
   const response: AxiosResponse<CommunityBoardTopicResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/boardTopic`,
-    { params: { userId, boardIndex } }
+    { params: { boardIndex, lang } }
   );
   return response.data;
 };
@@ -43,7 +45,7 @@ export const getCommunityBoardTopics = async (userId: string, boardIndex: number
  * Search Board
  */
 /* 검색 페이지 내 중간부분 Tab response */
-export const getCommunityBoardCategoryData = async (lang: string) => {
+export const getCommunityBoardCategoryData = async (lang: BackLangType) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
     { params: { lang } }
@@ -55,13 +57,21 @@ export const getCommunityBoardCategoryData = async (lang: string) => {
 export const getCommunityBoardResultData = async (
   category_type: number,
   searchValue: any,
-  lang: string,
+  lang: BackLangType,
   page: number,
   per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
     { params: { category_type, searchValue, lang, page, per_page } }
+  );
+  return response.data;
+};
+
+export const getCommunityNoticeBannerData = async (boardIndex: number, lang: BackLangType) => {
+  const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/noticeBanner`,
+    { params: { boardIndex, lang } }
   );
   return response.data;
 };

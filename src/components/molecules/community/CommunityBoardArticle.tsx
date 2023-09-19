@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import type { PostListItemType } from '@/types/community';
-import IconPopular from '../atoms/IconPopular';
 import { CommunityBoardTextType } from '@/types/textTypes';
 import { formatWrittenTime, timeType } from '@/utils/util';
-import TopicBubble from '../atoms/TopicBubble';
+import TopicBubble from '@/components/atoms/TopicBubble';
 
 type OwnPropType = {
   postItem: PostListItemType;

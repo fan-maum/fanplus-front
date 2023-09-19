@@ -4,13 +4,15 @@ import type {
   CommunityHomeResponseType,
 } from '@/types/community';
 import type { CommunityPageTextType } from '@/types/textTypes';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
+import { getStorageRecentBoardDatas } from '@/utils/recentBoard';
+import { useRouter } from 'next/router';
 
 export type CommunityPropTypes = {
   communityHomeData: CommunityHomeResponseType;
@@ -27,16 +29,22 @@ const CommunityPageTemplate = ({
   boardResultData,
   texts,
 }: CommunityPropTypes) => {
-  const [tabBar, setTabBar] = useState<TabBarType>('home');
-  const searchTabState = useState<string>(texts.allCategory);
+  const router = useRouter();
+
+  const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'home');
+  const [recentlyList, setRecentlyList] = useState(communityHomeData.RESULTS.DATAS.RECENTLY_LIST);
+  const searchTabState = useState(texts.allCategory);
   const [activeTabState] = searchTabState;
 
-  const recentlyList = communityHomeData.RESULTS.DATAS.RECENTLY_LIST;
+  useEffect(() => {
+    const storageRecentlyList = getStorageRecentBoardDatas();
+    if (!recentlyList) setRecentlyList(storageRecentlyList);
+  }, []);
   const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
   const boardResultTotalCount = boardResultData.RESULTS.DATAS.TOTAL_COUNT;
   const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
 
-  const isRecentlyListExist = recentlyList.length !== 0;
+  const isRecentlyListExist = !!recentlyList && recentlyList.length !== 0;
 
   /**
    * searchCategoryTab : IDX - NAME
@@ -69,7 +77,10 @@ const CommunityPageTemplate = ({
               title={texts.recentlyBoards}
               texts={texts.noRecentBoardTexts}
               buttonText={texts.buttonSearch}
-              onClickSearch={() => setTabBar('search')}
+              onClickSearch={() => {
+                setTabBar('search');
+                router.push({ pathname: router.pathname, query: { tab: 'search' } });
+              }}
             />
           )}
           <CommunityBoardWrapper title={texts.recommendedBoards} boardList={recommendList} />
@@ -107,7 +118,11 @@ type TabBarPropTypes = {
 };
 
 const TabBar = ({ tabTitles, tabBar, setTabBar }: TabBarPropTypes) => {
-  const handleClick = (tabBar: TabBarType) => setTabBar(tabBar);
+  const router = useRouter();
+  const handleClick = (tabBar: TabBarType) => {
+    setTabBar(tabBar);
+    router.push({ pathname: router.pathname, query: { tab: tabBar } });
+  };
   return (
     <ul css={{ width: '100%', display: 'flex', margin: '8px 0px' }}>
       <TabBarItem

@@ -1,7 +1,7 @@
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import PaginationBase from '../molecules/PaginationBase';
-import { GetLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 
 export interface VotePaginationProps {
   totalCount: number;
@@ -12,7 +12,7 @@ export interface VotePaginationProps {
 const VotePagination = ({ totalCount, itemsPerPage, isMobile }: VotePaginationProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const routerLang = GetRouterLanguage();
   const { vote_type, page, per_page, lang } = router.query;
   const forcePage = Number(page) || 1;

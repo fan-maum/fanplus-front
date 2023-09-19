@@ -2,11 +2,11 @@ import { reportComment } from './../api/Community';
 export type BoardListItemType = {
   BOARD_IDX: string;
   BOARD_TITLE: string;
-  HEAD_IMG: string | null;
+  HEAD_IMG: string;
   BOARD_ICON: string;
-  POST_CNT: string;
-  STAR_IDX: string | null;
-  STAR_GROUP_IDX: string | null;
+  POST_CNT: number;
+  STAR_IDX: string;
+  STAR_GROUP_IDX: string;
 };
 export type CommunityHomeResponseType = {
   RESULTS: {
@@ -68,6 +68,7 @@ export type CommunityBoardTopicResponseType = {
     MSG: string;
     DATAS: {
       TOPIC_LIST: Array<TopicListItemType>;
+      DATE: string;
     };
     TIMESTAMP: number;
   };
@@ -92,15 +93,7 @@ export type CommunityBoardCategoryResponseType = {
   };
 };
 
-export type BoardResultItemType = {
-  BOARD_IDX: number;
-  BOARD_TITLE: string;
-  HEAD_IMG: string;
-  BOARD_ICON: string;
-  POST_CNT: number;
-  STAR_IDX: number | null;
-  STAR_GROUP_IDX: number | null;
-};
+export type BoardResultItemType = BoardListItemType;
 
 export type CommunityBoardResultResponseType = {
   RESULTS: {
@@ -109,6 +102,29 @@ export type CommunityBoardResultResponseType = {
     DATAS: {
       TOTAL_COUNT: number;
       BOARD_LIST: Array<BoardResultItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};
+
+export type CommunityNoticeBannerItemType = {
+  ORDER: number;
+  BOARD_IDX: number;
+  POST_IDX: number;
+  TITLE: string;
+  SUB_TITLE: string;
+  BG_HEX: string;
+  TITLE_HEX: string;
+  SUBTITLE_HEX: string;
+  BANNER_IDX: number;
+};
+export type CommunityNoticeBannerResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      COUNT: number;
+      LIST: Array<CommunityNoticeBannerItemType>;
     };
     TIMESTAMP: number;
   };

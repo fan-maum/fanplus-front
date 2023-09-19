@@ -1,6 +1,6 @@
 import { BoardResultItemType } from '@/types/community';
 import CommunityBoardItem from '@/components/molecules/community/CommunityBoardItem';
-import { CommunityPageTextType } from '@/types/textTypes';
+import { updateStorageRecentBoardList } from '@/utils/recentBoard';
 
 type CommunityBoardWrapperType = {
   title?: string;
@@ -22,6 +22,7 @@ const CommunitySearchBoardWrapper = ({ title, boardList, texts }: CommunityBoard
                 title={boardItem.BOARD_TITLE}
                 link={`${texts.link.board}/${boardItem.BOARD_IDX}/`}
                 key={boardItem.BOARD_IDX}
+                onClickLocalStore={() => updateStorageRecentBoardList(boardItem)}
               />
             );
           })}
