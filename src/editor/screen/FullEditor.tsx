@@ -8,14 +8,22 @@ import {
 } from '../constant/customButtons';
 import Script from 'next/script';
 import FileUploader from '../module/FileUploader';
+import { BackLangType } from '@/types/common';
 
 type TProps = {
   editorRef: any;
   editorId: string;
+  datas: {
+    userId: string;
+    boardIndex: number;
+    postIndex: number;
+    boardLang: BackLangType;
+    lang: BackLangType;
+  };
   defaultValue?: string;
 };
 
-const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => {
+const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue }) => {
   const [isJsLoading, setIsJsLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -80,7 +88,7 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, defaultValue }) => 
                 <div id={editorId} className="selector-editor" />
               </div>
             </div>
-            <FileUploader state={[modalOpen, setModalOpen]} />
+            <FileUploader editorRef={editorRef} state={[modalOpen, setModalOpen]} datas={datas} />
           </div>
         </>
       )}

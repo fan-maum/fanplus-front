@@ -5,6 +5,8 @@ import type {
   CommunityHomeResponseType,
   CommunityNoticeBannerResponseType,
   EditBoardArticleResponseType,
+  EditorImageUploadResponseType,
+  EditorImageUrlResponseType,
   PostBoardArticleResponseType,
 } from '@/types/community';
 
@@ -276,6 +278,27 @@ export const editBoardArticle = async (
   const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editBoardArticle`,
     { userId, postIndex, boardLang, lang, title, contents, topicIndex }
+  );
+  return response.data;
+};
+
+export const getFileUploadUrl = async () => {
+  const response: AxiosResponse<EditorImageUrlResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUploadUrl`
+  );
+  return response.data;
+};
+
+export const uploadEditorFile = async (
+  userId: string,
+  postIndex: number,
+  fileName: string,
+  fileType: string,
+  uploadKey: string
+) => {
+  const response: AxiosResponse<EditorImageUploadResponseType> = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUpload`,
+    { userId, postIndex, fileName, fileType, uploadKey }
   );
   return response.data;
 };

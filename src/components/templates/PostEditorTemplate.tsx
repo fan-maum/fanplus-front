@@ -122,7 +122,12 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         <StyledBar>
           <h2>{texts.content}</h2>
         </StyledBar>
-        <FullEditor editorRef={editorRef} editorId={editorId} defaultValue={content} />
+        <FullEditor
+          editorRef={editorRef}
+          editorId={editorId}
+          defaultValue={content}
+          datas={datas}
+        />
         <div css={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button text={texts.cancel} onClick={onClickCancel} />
           <Button text={texts[isCreateMode ? 'upload' : 'edit']} onClick={onClickUpload} fancy />

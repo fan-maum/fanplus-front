@@ -273,3 +273,25 @@ export type EditBoardArticleResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type EditorImageUrlResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      SIGNED_URL: string;
+      IMG_URL: string;
+    };
+    TIMESTAMP: number;
+  };
+};
+export type EditorImageUploadResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      IMG_URL: string;
+    };
+    TIMESTAMP: number;
+  };
+};

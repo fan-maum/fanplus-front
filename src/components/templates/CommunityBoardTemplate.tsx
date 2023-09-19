@@ -101,7 +101,7 @@ const CommunityBoardTemplate = ({
               return (
                 <CommunityBoardArticle
                   postItem={post}
-                  link={`/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                  link={`/${language}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
                   key={idx}
                   texts={texts}
                 />
