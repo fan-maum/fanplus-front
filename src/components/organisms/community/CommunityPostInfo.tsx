@@ -7,9 +7,10 @@ import { CommunityPostTextType } from '@/types/textTypes';
 type CommunityPostInfoProps = {
   postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
+  postLikeState: number;
 };
 
-const CommunityPostInfo = ({ postInfo, texts }: CommunityPostInfoProps) => {
+const CommunityPostInfo = ({ postInfo, texts, postLikeState }: CommunityPostInfoProps) => {
   return (
     <Stack spacing={12} p={20} css={{ borderBottom: '2px solid #f1f1f1' }}>
       <div css={{ display: 'flex' }}>
@@ -28,7 +29,7 @@ const CommunityPostInfo = ({ postInfo, texts }: CommunityPostInfoProps) => {
       >
         {postInfo.POST_TITLE}
       </div>
-      <CommunityPostInfoState postInfo={postInfo} texts={texts} />
+      <CommunityPostInfoState postInfo={postInfo} texts={texts} postLikeState={postLikeState} />
     </Stack>
   );
 };

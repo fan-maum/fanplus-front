@@ -94,7 +94,7 @@ const ReplyRegister = ({
             width: 'auto',
             height: 80,
             margin: 0,
-            padding: '6px 14px',
+            padding: '6px 20px',
             borderRadius: '6px',
             color: '#fff',
             fontSize: 20,

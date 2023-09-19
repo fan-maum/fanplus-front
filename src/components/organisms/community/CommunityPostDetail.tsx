@@ -11,9 +11,15 @@ type CommunityPostDetailProps = {
   identity: string;
   postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
+  setPostLikeState: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const CommunityPostDetail = ({ identity, postInfo, texts }: CommunityPostDetailProps) => {
+const CommunityPostDetail = ({
+  identity,
+  postInfo,
+  texts,
+  setPostLikeState,
+}: CommunityPostDetailProps) => {
   const router = useRouter();
   const [recommended, setRecommended] = useState(postInfo.RECOMMEND_YN);
   const [recommendedCount, setRecommendedCount] = useState<number>(
@@ -25,10 +31,12 @@ const CommunityPostDetail = ({ identity, postInfo, texts }: CommunityPostDetailP
         await deleteRecommends(identity, postInfo.POST_IDX);
         setRecommended('N');
         setRecommendedCount((prev) => prev - 1);
+        setPostLikeState((prev) => prev - 1);
       } else {
         await postRecommends(identity, postInfo.POST_IDX);
         setRecommended('Y');
         setRecommendedCount((prev) => prev + 1);
+        setPostLikeState((prev) => prev + 1);
       }
     } else {
       const path = router.asPath;

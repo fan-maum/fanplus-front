@@ -4,6 +4,7 @@ import CommunityPostInfo from '@/components/organisms/community/CommunityPostInf
 import { PurPoseType, TargetType } from '@/types/common';
 import { PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { useState } from 'react';
 
 export type PostDetailLayoutProps = {
   identity: string;
@@ -22,6 +23,9 @@ const PostDetailLayout = ({
   showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: PostDetailLayoutProps) => {
+  const [postLikeState, setPostLikeState] = useState<number>(
+    parseInt(postInfo.RECOMMEND_CNT as string)
+  );
   return (
     <>
       <CommunityPostTopNavi
@@ -33,8 +37,13 @@ const PostDetailLayout = ({
         showReportModalBlockOnClick={showReportModalBlockOnClick}
         postIndex={postInfo.POST_IDX}
       />
-      <CommunityPostInfo postInfo={postInfo} texts={texts} />
-      <CommunityPostDetail identity={identity} postInfo={postInfo} texts={texts} />
+      <CommunityPostInfo postInfo={postInfo} texts={texts} postLikeState={postLikeState} />
+      <CommunityPostDetail
+        identity={identity}
+        postInfo={postInfo}
+        texts={texts}
+        setPostLikeState={setPostLikeState}
+      />
     </>
   );
 };

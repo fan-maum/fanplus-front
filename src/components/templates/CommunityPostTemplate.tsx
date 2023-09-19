@@ -49,8 +49,6 @@ const CommunityPostTemplate = ({
     : 'http://cdnetphoto.appphotocard.com/profile_images/profile_image_default.png';
   const profileNick = user ? user?.RESULTS.DATAS.NICK : '';
   const profileInfo = { profileImg, profileNick };
-
-  const [reportType, setReportType] = useState();
   const [selectedOption, setSelectedOption] = useState('1');
   const [selectedValue, setSelectedValue] = useState<any>();
   const [doneModalMessage, setDoneModalMessage] = useState<any>();
@@ -236,5 +234,5 @@ const LayoutInner = styled.div`
   max-width: 768px;
   position: relative;
   margin: 0 auto;
-  padding-bottom: 192px;
+  padding-bottom: 120px;
 `;

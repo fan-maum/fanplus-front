@@ -54,14 +54,14 @@ const CommentRegister = ({
         width: '100%',
         margin: '0 auto',
         maxWidth: '768px',
-        height: '90px',
+        height: '60px',
         padding: '14px 20px 14px 20px',
       }}
     >
       <Avatar
         imageProps={{ style: { borderRadius: '50%' } }}
-        w={60}
-        h={60}
+        w={40}
+        h={40}
         radius={'50%'}
         css={{
           border: '1px solid #F8F8F9',
@@ -84,17 +84,17 @@ const CommentRegister = ({
         <UnstyledButton
           type="submit"
           bg="#FF5656"
-          h={36}
+          h={32}
           px={16}
           css={{
             width: 'auto',
             height: 38,
             margin: 0,
-            padding: '6px 14px',
+            padding: '4px 14px',
             borderRadius: '6px',
             color: '#fff',
-            fontSize: 20,
-            fontWeight: 600,
+            fontSize: 16,
+            fontWeight: 500,
           }}
         >
           <span>{texts.register}</span>
@@ -112,7 +112,7 @@ const RegisterInput = styled.input`
   flex: 1;
   border: none;
   outline: none;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
   &::placeholder {
     color: '#ABAFB7';

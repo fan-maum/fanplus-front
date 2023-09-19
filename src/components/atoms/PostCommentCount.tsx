@@ -14,7 +14,7 @@ export default function PostCommentCount({ count }: PostCommentCountProps) {
     <span
       css={{
         color: '#000',
-        fontSize: 26,
+        fontSize: 24,
         fontWeight: 600,
       }}
     >

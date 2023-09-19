@@ -24,12 +24,19 @@ const CommunityPostBottomNavi = ({ commentTotalCount }: CommunityPostBottomNaviP
     <div
       css={{
         background: '#FAFBFE',
-        height: ' 100px',
+        height: '60px',
       }}
     >
-      <Group position="apart" maw={768} p={'30px 20px'} css={{ margin: '0 auto' }}>
+      <Group
+        position="apart"
+        align="center"
+        maw={768}
+        p={'0 20px'}
+        h={'100%'}
+        css={{ margin: '0 auto' }}
+      >
         <CommentCountButton text={commentTotalCount} />
-        <ShareButton onClick={ShareOnClick} css={{ background: 'none', width: 38, height: 38 }} />
+        <ShareButton onClick={ShareOnClick} css={{ background: 'none', width: 34, height: 34 }} />
       </Group>
     </div>
   );
