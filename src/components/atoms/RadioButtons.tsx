@@ -17,26 +17,32 @@ export default function RadioButtons({
   if (target_type === 'post') {
     selectArr = [
       {
+        index: 1,
         optionIndex: 1,
         content: '개인정보 노출',
       },
       {
+        index: 2,
         optionIndex: 2,
         content: '욕설 / 인신공격',
       },
       {
+        index: 3,
         optionIndex: 3,
         content: '음란 / 선정성',
       },
       {
+        index: 4,
         optionIndex: 4,
         content: '불법정보',
       },
       {
+        index: 5,
         optionIndex: 5,
         content: '권리침해',
       },
       {
+        index: 6,
         optionIndex: 6,
         content: '기타',
       },
@@ -45,10 +51,12 @@ export default function RadioButtons({
   if (target_type === 'comment') {
     selectArr = [
       {
+        index: 1,
         optionIndex: 'spam',
         content: '스팸',
       },
       {
+        index: 2,
         optionIndex: 'bad',
         content: '욕설 또는 악성 콘텐츠',
       },
@@ -62,8 +70,8 @@ export default function RadioButtons({
           <input
             type="radio"
             value={option.optionIndex}
-            checked={selectedOption === String(option.optionIndex)}
-            onChange={handleChange}
+            checked={selectedOption === String(option.index)}
+            onChange={() => handleChange(option)}
           />
           {option.content}
         </RadioOption>

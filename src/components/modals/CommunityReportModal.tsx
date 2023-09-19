@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { reportComment, reportPost } from '@/api/Community';
 import { selectInfoType } from '@/types/common';
 import CommunityReportCommonModal from './CommunityReportCommonModal';
+import { reportCommentResponseType } from '@/types/community';
 
 export interface DialogBlockDoneProps {
   opened: boolean;
@@ -17,6 +18,13 @@ export interface DialogBlockDoneProps {
   setReportModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   setDoneModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   refetch: () => void;
+  setDoneModalMessage: React.Dispatch<React.SetStateAction<any>>;
+  selectedtate: {
+    selectedOption: any;
+    setSelectedOption: React.Dispatch<React.SetStateAction<any>>;
+    selectedValue: any;
+    setSelectedValue: React.Dispatch<React.SetStateAction<any>>;
+  };
 }
 
 function CommunityReportModal({
@@ -28,13 +36,16 @@ function CommunityReportModal({
   setReportModalBlock,
   setDoneModalBlock,
   refetch,
+  setDoneModalMessage,
+  selectedtate,
   ...props
 }: DialogBlockDoneProps) {
   const { purpose, target_type, idx } = selectInfo;
-  const [selectedOption, setSelectedOption] = useState('1');
+  const { selectedOption, setSelectedOption, selectedValue, setSelectedValue } = selectedtate;
 
-  function handleChange(event: any) {
-    setSelectedOption(event.target.value);
+  function handleChange(option: { index: number; optionIndex: string; content: string }) {
+    setSelectedOption(String(option.index));
+    setSelectedValue(option.optionIndex);
   }
 
   const communityDeleteDoneModalProps: CommunityCommonModalProps = {
@@ -45,14 +56,20 @@ function CommunityReportModal({
     confirmButton: {
       onClick: async () => {
         setReportModalBlock(false);
-        setDoneModalBlock(true);
+
         if (target_type === 'post') {
-          await reportPost(identity, 0, 20, idx, 'report', Number(selectedOption));
-          // router.push(`/community/board/${router.query.boardIndex}`);
+          let response = await reportPost(identity, 0, 20, idx, 'report', selectedValue);
+          let modalMessage =
+            response?.data?.RESULTS?.MSG === 'success' ? texts.reported : '이미 신고한 댓글입니다.';
+          await setDoneModalMessage(modalMessage);
+          await setDoneModalBlock(true);
         }
         if (target_type === 'comment') {
-          const type = selectedOption === '1' ? 'spam' : 'bad';
-          await reportComment(identity, idx, type);
+          const response = await reportComment(identity, idx, selectedValue);
+          let modalMessage =
+            response?.data?.RESULTS?.MSG === 'success' ? texts.reported : '이미 신고한 댓글입니다.';
+          await setDoneModalMessage(modalMessage);
+          await setDoneModalBlock(true);
           await refetch();
         }
       },
@@ -98,7 +115,7 @@ function CommunityReportModal({
                       fontWeight: 600,
                       maxWidth: 390,
                       padding: '30px 0 0 0 !important',
-                      margin: '0 auto !important'
+                      margin: '0 auto !important',
                     }}
                   >
                     <p>{texts.reportWarning[0]}</p>

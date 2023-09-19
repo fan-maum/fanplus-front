@@ -226,27 +226,28 @@ export type CommunityPostTextType = {
   askCommentDelete: string;
   postDeleted: string;
   commentDeleted: string;
+  reported: string;
   reply: string;
   writeReply: string;
   register: string;
   orderOldest: string;
   orderNewest: string;
-  commentTotalCount: string,
-  showMoreComments: string,
-  alreadyDeleted: string,
-  reportReason: string,
+  commentTotalCount: string;
+  showMoreComments: string;
+  alreadyDeleted: string;
+  reportReason: string;
   reportPostOptions: {
-    option1: string,
-    option2: string,
-    option3: string,
-    option4: string,
-    option5: string,
-    option6: string,
-  },
+    option1: string;
+    option2: string;
+    option3: string;
+    option4: string;
+    option5: string;
+    option6: string;
+  };
   reportCommentOptions: {
-    option1: string,
-    option2: string,
-  },
+    option1: string;
+    option2: string;
+  };
   reportWarning: [string, string];
 };
 

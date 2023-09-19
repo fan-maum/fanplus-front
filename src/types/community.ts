@@ -1,3 +1,4 @@
+import { reportComment } from './../api/Community';
 export type BoardListItemType = {
   BOARD_IDX: string;
   BOARD_TITLE: string;
@@ -218,16 +219,16 @@ export type CommentResponseType = {
 
 export type PostCommentResponseType = {
   RESULTS: {
-      ERROR: number,
-      MSG: string,
-      DATAS: {
-          COMMENT_IDX: number,
-          FANFIC_EVENT_STATUS: string,
-          FANFIC_EVENT_DESC: string
-      },
-      TIMESTAMP: number
-  }
-}
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      COMMENT_IDX: number;
+      FANFIC_EVENT_STATUS: string;
+      FANFIC_EVENT_DESC: string;
+    };
+    TIMESTAMP: number;
+  };
+};
 
 export type replyResponseType = {
   RESULTS: {
@@ -242,5 +243,14 @@ export type replyResponseType = {
       PER_PAGE: string;
     };
     TIMESTAMP: number;
+  };
+};
+
+export type reportCommentResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {};
+    TIMESTAMP: string;
   };
 };

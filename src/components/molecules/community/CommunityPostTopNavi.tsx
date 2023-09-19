@@ -6,6 +6,7 @@ import { CommunityPostTextType } from '@/types/textTypes';
 import { PurPoseType, TargetType } from '@/types/common';
 
 export type CommunityPostTopNaviProps = {
+  identity: string;
   user_idx: string;
   writer_idx: string;
   texts: CommunityPostTextType;
@@ -14,6 +15,7 @@ export type CommunityPostTopNaviProps = {
   postIndex: string;
 };
 const CommunityPostTopNavi = ({
+  identity,
   user_idx,
   writer_idx,
   texts,
@@ -22,6 +24,15 @@ const CommunityPostTopNavi = ({
   postIndex,
 }: CommunityPostTopNaviProps) => {
   const router = useRouter();
+  const ReportOnClick = () => {
+    if (identity !== null) {
+      showReportModalBlockOnClick('report', 'post', postIndex);
+    } else {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+    }
+  };
+
   return (
     <>
       <div
@@ -90,8 +101,7 @@ const CommunityPostTopNavi = ({
                     <li
                       onClick={() => {
                         // eslint-disable-next-line no-console
-                        console.log("edit");
-                        // showModalBlockOnClick('edit', 'post', postIndex)
+                        console.log('edit');
                       }}
                       css={{ borderBottom: '1px solid #d9d9d9' }}
                     >
@@ -102,9 +112,7 @@ const CommunityPostTopNavi = ({
                     </li>
                   </>
                 ) : (
-                  <li onClick={() => showReportModalBlockOnClick('report', 'post', postIndex)}>
-                    {texts.report}
-                  </li>
+                  <li onClick={ReportOnClick}>{texts.report}</li>
                 )}
               </ul>
             </Popover.Dropdown>

@@ -25,6 +25,7 @@ const PostDetailLayout = ({
   return (
     <>
       <CommunityPostTopNavi
+        identity={identity}
         user_idx={user_idx}
         writer_idx={postInfo.WRITER_IDX}
         texts={texts}

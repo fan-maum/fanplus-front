@@ -147,6 +147,7 @@ export const deleteComment = async (identity: string, comment_idx: string) => {
       },
     }
   );
+
   return response;
 };
 
@@ -240,6 +241,7 @@ export const reportPost = async (
       report_type: report_type,
     }
   );
+
   return response;
 };
 
@@ -256,5 +258,6 @@ export const reportComment = async (
       report_type: report_type,
     }
   );
+
   return response;
 };

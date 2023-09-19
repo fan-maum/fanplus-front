@@ -67,7 +67,7 @@ function CommentInfoState({
       </Group>
       <CommentPopover
         identity={identity}
-        isWriter={comment?.IS_WRITER}
+        isWriter={comment ? comment?.IS_WRITER : reply?.IS_WRITER}
         comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX}
         texts={texts}
         showModalBlockOnClick={showModalBlockOnClick}

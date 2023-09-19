@@ -3,6 +3,7 @@ import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
 import { deleteComment } from '@/api/Community';
 import { PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { useRouter } from 'next/router';
 
 type CommentPopoverProps = {
   identity: string;
@@ -20,6 +21,16 @@ export default function CommentPopover({
   showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: CommentPopoverProps) {
+  const router = useRouter();
+  const ReportOnClick = () => {
+    if (identity !== null) {
+      showReportModalBlockOnClick('report', 'comment', comment_idx);
+    } else {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+    }
+  };
+
   return (
     <Popover
       width="auto"
@@ -68,9 +79,7 @@ export default function CommentPopover({
               {texts.delete}
             </li>
           ) : (
-            <li onClick={() => showReportModalBlockOnClick('report', 'comment', comment_idx)}>
-              {texts.report}
-            </li>
+            <li onClick={ReportOnClick}>{texts.report}</li>
           )}
         </ul>
       </Popover.Dropdown>

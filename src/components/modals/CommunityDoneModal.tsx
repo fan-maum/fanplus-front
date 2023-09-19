@@ -7,11 +7,19 @@ import { TargetType, selectInfoType } from '@/types/common';
 export interface DialogBlockDoneProps {
   opened: boolean;
   selectInfo: selectInfoType;
+  doneModalMessage?: any;
   texts: CommunityPostTextType;
   onClose: () => void;
 }
 
-function CommunityDoneModal({ onClose, opened, selectInfo, texts, ...props }: DialogBlockDoneProps) {
+function CommunityDoneModal({
+  onClose,
+  opened,
+  selectInfo,
+  doneModalMessage,
+  texts,
+  ...props
+}: DialogBlockDoneProps) {
   const communityDeleteDoneModalProps: CommunityCommonModalProps = {
     opened,
     onClose,
@@ -20,25 +28,17 @@ function CommunityDoneModal({ onClose, opened, selectInfo, texts, ...props }: Di
       text: texts.confirmButton,
     },
   };
-  const { purpose, target_type, idx } = selectInfo;
-  
-  const modalText = (purpose === 'delete' ? (target_type === 'post' ? texts.postDeleted : texts.commentDeleted) : '')
+
   return (
     <>
       <CommunityCommonModal {...communityDeleteDoneModalProps}>
-      <CommunityModalText
+        <CommunityModalText
           voteText={
-            <>
-              <Group spacing={6} position="center">
-                <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>
-                  {modalText}
-                </div>
-              </Group>
-              {/* <div
-                css={{ fontSize: 18, fontWeight: 400 }}
-              >
-              </div> */}
-            </>
+            <Group spacing={6} position="center">
+              <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>
+                {doneModalMessage}
+              </div>
+            </Group>
           }
         />
       </CommunityCommonModal>

@@ -14,6 +14,7 @@ export interface VoteBlockModalProps {
   identity: string;
   setModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   setDoneModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
+  setDoneModalMessage: React.Dispatch<React.SetStateAction<any>>;
   refetch: () => void;
 }
 
@@ -25,12 +26,18 @@ function CommunityBlockModal({
   identity,
   setModalBlock,
   setDoneModalBlock,
+  setDoneModalMessage,
   refetch,
   ...props
 }: VoteBlockModalProps) {
   const { purpose, target_type, idx } = selectInfo;
-  const modalText = (purpose === 'delete' ? (target_type === 'post' ? texts.askPostDelete : texts.askCommentDelete) : '')
-  
+  const modalText =
+    purpose === 'delete'
+      ? target_type === 'post'
+        ? texts.askPostDelete
+        : texts.askCommentDelete
+      : '';
+
   const router = useRouter();
 
   const communityDeleteModalProps: CommunityCommonModalProps = {
@@ -43,11 +50,19 @@ function CommunityBlockModal({
         setModalBlock(false);
         setDoneModalBlock(true);
         if (target_type === 'post') {
-          await deletePost(identity, idx, 'remove');
+          let response = await deletePost(identity, idx, 'remove');
+          let modalMessage =
+            response?.data?.RESULTS?.MSG === 'success' ? texts.postDeleted : texts.alreadyDeleted;
+          setDoneModalMessage(modalMessage);
           router.push(`/community/board/${router.query.boardIndex}`);
         }
         if (target_type === 'comment') {
-          await deleteComment(identity, idx);
+          let response = await deleteComment(identity, idx);
+          let modalMessage =
+            response?.data?.RESULTS?.MSG === 'success'
+              ? texts.commentDeleted
+              : texts.alreadyDeleted;
+          setDoneModalMessage(modalMessage);
           await refetch();
         }
       },
@@ -62,9 +77,7 @@ function CommunityBlockModal({
           voteText={
             <>
               <Group spacing={6} position="center">
-                <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>
-                  {modalText}
-                </div>
+                <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>{modalText}</div>
               </Group>
             </>
           }

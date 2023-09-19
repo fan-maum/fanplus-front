@@ -56,6 +56,7 @@ const PostCommentListItem = ({
         page,
         per_page
       );
+
       setReplyList(response.RESULTS.DATAS.COMMENTS);
       setOpenToggle(true);
       setOpenWriteToggle(false);

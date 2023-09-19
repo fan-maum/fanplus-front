@@ -44,6 +44,9 @@ const CommunityPostTemplate = ({
     idx: '',
   });
   const [reportType, setReportType] = useState();
+  const [selectedOption, setSelectedOption] = useState('1');
+  const [selectedValue, setSelectedValue] = useState<any>();
+  const [doneModalMessage, setDoneModalMessage] = useState<any>();
 
   const getCommentsQuery = ({ pageParam = 0 }) => {
     const data = getComments(postIndex, identity, board_lang, orderType, pageParam, 20);
@@ -110,6 +113,13 @@ const CommunityPostTemplate = ({
     identity: identity,
   };
 
+  const selecteState = {
+    selectedOption: selectedOption,
+    setSelectedOption: setSelectedOption,
+    selectedValue: selectedValue,
+    setSelectedValue: setSelectedValue,
+  };
+
   /**
    * LayoutProps
    */
@@ -158,6 +168,7 @@ const CommunityPostTemplate = ({
       <CommunityReportModal
         opened={reportModalBlock}
         texts={texts}
+        setDoneModalMessage={setDoneModalMessage}
         onClose={() => {
           setReportModalBlock(false);
         }}
@@ -166,6 +177,7 @@ const CommunityPostTemplate = ({
         setReportModalBlock={setReportModalBlock}
         setDoneModalBlock={setDoneModalBlock}
         refetch={refetch}
+        selectedtate={selecteState}
       />
       <CommunityBlockModal
         opened={modalBlock}
@@ -177,12 +189,15 @@ const CommunityPostTemplate = ({
         identity={identity}
         setModalBlock={setModalBlock}
         setDoneModalBlock={setDoneModalBlock}
+        setDoneModalMessage={setDoneModalMessage}
         refetch={refetch}
       />
       <CommunityDoneModal
         opened={doneModalBlock}
         selectInfo={selectInfo}
-        onClose={() => {
+        doneModalMessage={doneModalMessage}
+        onClose={async () => {
+          setDoneModalMessage(null);
           setDoneModalBlock(false);
         }}
         texts={texts}
