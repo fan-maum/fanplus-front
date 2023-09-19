@@ -21,8 +21,8 @@ function CommentInfoState({
   showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: CommentInfoStateProps) {
-  const commentContent = comment?.COMMENT === false ? texts.alreadyDeleted : comment?.COMMENT;
-  const replyContent = reply?.COMMENT === false ? texts.alreadyDeleted : reply?.COMMENT;
+  const commentContent = comment?.COMMENT === false ? texts.deleted : comment?.COMMENT;
+  const replyContent = reply?.COMMENT === false ? texts.deleted : reply?.COMMENT;
   return (
     <Group position="apart" spacing={30} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
       <Group spacing={10} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>

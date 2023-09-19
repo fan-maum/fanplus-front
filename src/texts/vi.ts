@@ -338,7 +338,7 @@ export const CommunityPostText_VIE: CommunityPostTextType = {
   askCommentDelete: 'Bạn muốn xóa bình luận?',
   postDeleted: 'Bạn đã xóa câu chuyện của mình',
   commentDeleted: 'Bình luận đã được xóa',
-  reported: '신고되었습니다.',
+  reported: 'Vấn đề này đã được báo cáo thành công.',
   reply: '답글',
   writeReply: 'Nhận xét',
   register: 'Tải lên',

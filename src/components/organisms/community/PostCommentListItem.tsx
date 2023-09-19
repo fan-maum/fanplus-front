@@ -16,6 +16,7 @@ type PostCommentListItemProps = {
   };
   item: CommentListItemType;
   texts: CommunityPostTextType;
+  profileImg: string;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -31,6 +32,7 @@ const PostCommentListItem = ({
   getCommentParams,
   item,
   texts,
+  profileImg,
   onCreateComment,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
@@ -101,7 +103,7 @@ const PostCommentListItem = ({
           identity={identity}
           texts={texts}
           POST_IDX={item.COMMENT_IDX}
-          WRITER_PROFILE_IMG={item.PROFILE_IMG_URL}
+          profileImg={profileImg}
           createMode={'comment'}
           onCreateComment={onCreateComment}
         />

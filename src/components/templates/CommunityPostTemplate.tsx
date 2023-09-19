@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import styled from '@emotion/styled';
-import type { PostResponseType, CommentResponseType } from '@/types/community';
+import type { PostResponseType, CommentResponseType, userResponseType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import PostFixedBottomWrapper, {
   PostFixedBottomWrapperProps,
 } from '@/components/organisms/community/PostFixedBottomWrapper';
-import { getComments, postComment } from '@/api/Community';
+import { getComments, getUser, postComment } from '@/api/Community';
 import { BackLangType, OrderType, TargetType, PurPoseType, selectInfoType } from '@/types/common';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 import PostCommentWrapper, {
@@ -37,19 +37,24 @@ const CommunityPostTemplate = ({
   const [page, setPage] = useState(0);
   const board_lang = 'ALL';
   const [commentList, setCommentList] = useState<Array<CommentResponseType>>([]);
+  const [user, setUser] = useState<userResponseType>();
   const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
   const [selectInfo, setSelectInfo] = useState<selectInfoType>({
     purpose: null,
     target_type: null,
     idx: '',
   });
+  const profileImg = user
+    ? user?.RESULTS.DATAS.PROFILE_IMG_URL
+    : 'http://cdnetphoto.appphotocard.com/profile_images/profile_image_default.png';
+
   const [reportType, setReportType] = useState();
   const [selectedOption, setSelectedOption] = useState('1');
   const [selectedValue, setSelectedValue] = useState<any>();
   const [doneModalMessage, setDoneModalMessage] = useState<any>();
 
-  const getCommentsQuery = ({ pageParam = 0 }) => {
-    const data = getComments(postIndex, identity, board_lang, orderType, pageParam, 20);
+  const getCommentsQuery = async ({ pageParam = 0 }) => {
+    const data = await getComments(postIndex, identity, board_lang, orderType, pageParam, 20);
     return data;
   };
 
@@ -68,8 +73,16 @@ const CommunityPostTemplate = ({
   const [reportModalBlock, setReportModalBlock] = useState(false);
   const [doneModalBlock, setDoneModalBlock] = useState(false);
 
+  const fetchGetUser = async () => {
+    if (identity !== null) {
+      const response: userResponseType = await getUser(user_idx, identity);
+      setUser(response);
+    }
+  };
+
   useEffect(() => {
     if (isSuccess) {
+      fetchGetUser();
       setCommentList(data.pages);
       setCommentTotalCount(data.pages[0].RESULTS.DATAS.TOTAL_CNT);
     }
@@ -136,6 +149,7 @@ const CommunityPostTemplate = ({
     getCommentParams,
     commentList,
     texts,
+    profileImg,
     commentTotalCount,
     setCommentList,
     orderTypeState: { orderType, setOrderType },
@@ -154,6 +168,7 @@ const CommunityPostTemplate = ({
     postInfo,
     commentTotalCount,
     onCreateComment,
+    profileImg,
   };
 
   return (

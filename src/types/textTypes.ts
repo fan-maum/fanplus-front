@@ -234,7 +234,10 @@ export type CommunityPostTextType = {
   orderNewest: string;
   commentTotalCount: string;
   showMoreComments: string;
+  deleted: string;
   alreadyDeleted: string;
+  alreadyReportedPost: string;
+  alreadyReportedComment: string;
   reportReason: string;
   reportPostOptions: {
     option1: string;

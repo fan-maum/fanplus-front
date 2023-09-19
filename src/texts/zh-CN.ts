@@ -334,7 +334,7 @@ export const CommunityPostText_zh_CN: CommunityPostTextType = {
   askCommentDelete: '确认删除评论吗?',
   postDeleted: '帖子已删除',
   commentDeleted: '评论已删除',
-  reported: '신고되었습니다.',
+  reported: '已经举报。',
   reply: '답글',
   writeReply: '回复',
   register: '上传',

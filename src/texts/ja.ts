@@ -334,7 +334,7 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
   askCommentDelete: 'コメントを削除しますか？',
   postDeleted: '文が削除されました。',
   commentDeleted: 'コメントが削除されました。',
-  reported: '신고되었습니다.',
+  reported: '問題が正常に報告されています。',
   reply: '답글',
   writeReply: 'コメント',
   register: '登録',

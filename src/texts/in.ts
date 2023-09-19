@@ -338,7 +338,7 @@ export const CommunityPostText_IND: CommunityPostTextType = {
   askCommentDelete: 'Anda mau menghapus komentar?',
   postDeleted: 'Anda telah menghapus kisah Anda',
   commentDeleted: 'Komentar sudah dihapus.',
-  reported: '신고되었습니다.',
+  reported: 'Masalah ini telah berhasil dilaporkan.',
   reply: '답글',
   writeReply: 'Komentar',
   register: 'Unggah',

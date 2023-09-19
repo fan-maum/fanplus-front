@@ -1,4 +1,5 @@
 import { reportComment } from './../api/Community';
+import { BackLangType } from './common';
 export type BoardListItemType = {
   BOARD_IDX: string;
   BOARD_TITLE: string;
@@ -267,6 +268,71 @@ export type reportCommentResponseType = {
     ERROR: number;
     MSG: string;
     DATAS: {};
-    TIMESTAMP: string;
+    TIMESTAMP: number;
+  };
+};
+
+export type userResponseType = {
+  RESULTS: {
+    DATAS: {
+      USER_IDX: number;
+      NICK: string;
+      EMAIL: string;
+      SELF_INTRODCUTION: null;
+      PROFILE_IMG_URL: string;
+      USER_LANG: BackLangType;
+      SUBSCRIPTION_STARS: {
+        COUNT: number;
+        LIST: [];
+      };
+      HAVE_CASH: number;
+      HAVE_VOTETICKET: number;
+      REMOVE_ADS_YN: string;
+      ADDED_RECOMMENDER_YN: string;
+      NEW_VOTE_TODAY_YN: string;
+      UNREAD_ALERT_CNT: number;
+      COMMENT_BLIND_YN: string;
+      EXCHANGE_VOTE_TICKET_SALE_YN: string;
+      NEW_EVENT_CHECK: null;
+      NEW_NOTICE_CHECK: null;
+      VOTE_TICKET_HISTORY_CNT: number;
+      FRIENDS_CNT: number;
+      MY_FRIENDS_CNT: number;
+      MAX_FRIENDS_COUNT: number;
+      FRIENDS_STATUS: string;
+      PHONENUMBER_VERIFIED: false;
+      MY_PHONENUMBER_VERIFIED: false;
+      LIKE_ALERT_YN: string;
+      COMMENT_ALERT_YN: string;
+      CAN_GET_POST_CNT: {
+        FRIENDS: number;
+        SYSTEM: number;
+        SUM: number;
+      };
+      FRIEND_REQUEST_CNT: string;
+      BIAS_STAR: {
+        STAR_IDX: number;
+        STAR_NAME: string;
+        INS_DATE: string;
+      };
+      BIRTHDAY: null;
+      GENDER: string;
+      PROFILE_COMPLETION_RATE: {
+        NOW: number;
+        MAX: number;
+      };
+      COUNTRY: {
+        CODE: null;
+        NAME: null;
+      };
+      ONBOARDING_FINISHED_YN: string;
+      DISPLAY_RECOMMEND_FRIENDS: string;
+      RECEIVE_FRIENDS_REQUEST: string;
+      REFERRAL_CODE: string;
+      BLOCK_STATUS: boolean;
+    };
+    ERROR: number;
+    MSG: string;
+    TIMESTAMP: number;
   };
 };

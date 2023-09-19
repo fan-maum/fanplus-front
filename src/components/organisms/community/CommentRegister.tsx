@@ -13,7 +13,7 @@ type CommentRegisterProps = {
   identity: string;
   texts: CommunityPostTextType;
   POST_IDX: string;
-  WRITER_PROFILE_IMG: string;
+  profileImg: string;
   createMode: TargetType;
   onCreateComment: (
     identity: string,
@@ -27,7 +27,7 @@ const CommentRegister = ({
   identity,
   texts,
   POST_IDX,
-  WRITER_PROFILE_IMG,
+  profileImg,
   createMode,
   onCreateComment,
 }: CommentRegisterProps) => {
@@ -66,7 +66,7 @@ const CommentRegister = ({
         css={{
           border: '1px solid #F8F8F9',
         }}
-        src={WRITER_PROFILE_IMG}
+        src={profileImg}
         alt="Avatar"
       />
       <Stack

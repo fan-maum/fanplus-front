@@ -343,7 +343,10 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   orderNewest: '최신순',
   commentTotalCount: '최신댓글 *개',
   showMoreComments: '다음 댓글 더보기',
-  alreadyDeleted: '삭제된 댓글입니다.',
+  deleted: '삭제된 댓글입니다.',
+  alreadyDeleted: '이미 삭제된 댓글입니다.',
+  alreadyReportedPost: '이미 신고한 게시글입니다.',
+  alreadyReportedComment: '이미 신고한 댓글입니다.',
   reportReason: '사유 선택',
   reportPostOptions: {
     option1: '개인정보 노출',

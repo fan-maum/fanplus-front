@@ -15,6 +15,7 @@ export type PostCommentWrapperProps = {
   };
   commentList: CommentResponseType[];
   texts: CommunityPostTextType;
+  profileImg: string;
   commentTotalCount: number;
   setCommentList: any;
   page: number;
@@ -39,6 +40,7 @@ const PostCommentWrapper = ({
   getCommentParams,
   commentList,
   texts,
+  profileImg,
   commentTotalCount,
   setCommentList,
   page,
@@ -55,7 +57,12 @@ const PostCommentWrapper = ({
     <>
       <Group h={80} position="apart" px={24} mb={15}>
         <PostCommentCount count={commentTotalCount} />
-        <PostCommentOrders orderTypeState={orderTypeState} texts={texts} setPage={setPage} refetch={refetch} />
+        <PostCommentOrders
+          orderTypeState={orderTypeState}
+          texts={texts}
+          setPage={setPage}
+          refetch={refetch}
+        />
       </Group>
       <>
         {commentList.map((comments, index) => (
@@ -64,6 +71,7 @@ const PostCommentWrapper = ({
             getCommentParams={getCommentParams}
             comments={comments}
             texts={texts}
+            profileImg={profileImg}
             onCreateComment={onCreateComment}
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}

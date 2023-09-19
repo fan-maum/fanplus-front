@@ -69,9 +69,6 @@ export default function CommentPopover({
               fontWeight: 400,
               cursor: 'pointer',
             },
-            '& > li:nth-of-type(1)': {
-              borderBottom: '1px solid #d9d9d9',
-            },
           }}
         >
           {isWriter === 'Y' ? (
