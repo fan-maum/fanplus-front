@@ -1,6 +1,7 @@
 import { BoardResultItemType } from '@/types/community';
 import CommunityBoardItem from '@/components/molecules/community/CommunityBoardItem';
 import { updateStorageRecentBoardList } from '@/utils/recentBoard';
+import { CommunityPageTextType } from '@/types/textTypes';
 
 type CommunityBoardWrapperType = {
   title?: string;
