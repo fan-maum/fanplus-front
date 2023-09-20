@@ -48,7 +48,6 @@ const PostCommentList = ({
             onCreateComment={onCreateComment}
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}
-            refetch={refetch}
           />
         ))}
     </ul>
