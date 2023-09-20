@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTinyMCEConfig } from '../module/useTinyMCEConfig';
 import { useIOSIMESetting } from '../module/useIOSIMESetting';
 import {
@@ -27,12 +27,6 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue
   const [isJsLoading, setIsJsLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const log: MouseEventHandler<HTMLButtonElement> = (e) => {
-    // eslint-disable-next-line no-console
-    console.log(editorRef.current.get(editorId).getContent());
-    e.preventDefault();
-  };
-
   const editorLoadedComplete = () => {
     if (defaultValue && editorRef.current) {
       editorRef.current.get(editorId).setContent(defaultValue);
@@ -49,7 +43,6 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue
     editorRef.current.init({
       ...useTinyMCEConfig(),
       selector: `#${editorId}`,
-      // images_upload_handler: imagesUploadHandler, // TODO: Uppy와 연결시..
       init_instance_callback: () => editorLoadedComplete(),
       // @ts-ignore
       setup: (editor) => {
@@ -92,7 +85,6 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue
           </div>
         </>
       )}
-      {/* <button onClick={log}>로그</button> */}
     </>
   );
 };

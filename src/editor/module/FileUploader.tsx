@@ -62,7 +62,6 @@ const FileUploader = ({ editorRef, state: [open, setOpen], datas }: OwnPropType)
       },
     })
     .on('complete', (result) => {
-      console.log(result.successful);
       result.successful.map(async (file) => {
         const uploadKey = (file.meta.uploadUrl as string).split('/').pop();
         const fileName = file.name.split('.')[0];
