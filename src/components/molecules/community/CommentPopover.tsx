@@ -1,18 +1,39 @@
 import { Popover } from '@mantine/core';
 import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
-import { deleteCommentResult } from '@/api/Community';
+import { deleteComment } from '@/api/Community';
+import { PurPoseType, TargetType } from '@/types/common';
+import { CommunityPostTextType } from '@/types/textTypes';
+import { useRouter } from 'next/router';
 
 type CommentPopoverProps = {
   identity: string;
   comment_idx: any;
+  isWriter: string | undefined;
+  texts: CommunityPostTextType;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
-export default function CommentPopover({ identity, comment_idx }: CommentPopoverProps) {
-  const DeleteOnClick = async () => {
-    const res = await deleteCommentResult(identity, comment_idx);
+export default function CommentPopover({
+  identity,
+  comment_idx,
+  isWriter,
+  texts,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick,
+}: CommentPopoverProps) {
+  const router = useRouter();
+  const ReportOnClick = () => {
+    if (identity !== null) {
+      showReportModalBlockOnClick('report', 'comment', comment_idx);
+    } else {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+    }
   };
+
   return (
     <Popover
-      width={60}
+      width="auto"
       position="bottom-end"
       shadow="none"
       styles={() => ({
@@ -48,20 +69,15 @@ export default function CommentPopover({ identity, comment_idx }: CommentPopover
               fontWeight: 400,
               cursor: 'pointer',
             },
-            '& > li:nth-of-type(1)': {
-              borderBottom: '1px solid #d9d9d9',
-            },
           }}
         >
-          <li
-            onClick={() => {
-              // eslint-disable-next-line no-console
-              console.log('edit');
-            }}
-          >
-            수정
-          </li>
-          <li onClick={DeleteOnClick}>삭제</li>
+          {isWriter === 'Y' ? (
+            <li onClick={() => showModalBlockOnClick('delete', 'comment', comment_idx)}>
+              {texts.delete}
+            </li>
+          ) : (
+            <li onClick={ReportOnClick}>{texts.report}</li>
+          )}
         </ul>
       </Popover.Dropdown>
     </Popover>

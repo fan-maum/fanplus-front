@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { CommunityPost_CommentListItemType } from '@/types/community';
+import { CommentListItemType, CommentResponseType, replyResponseType } from '@/types/community';
 import CommentCard from './CommentCard';
-import { replyResult, replyUnAuthResult } from '@/api/Community';
+import { getReplies } from '@/api/Community';
 import ReplyCommentList from './ReplyCommentList';
-import { BackLangType, TargetType } from '@/types/common';
-import CommentRegister from './CommentRegister';
+import { BackLangType, PurPoseType, TargetType } from '@/types/common';
+import { CommunityPostTextType } from '@/types/textTypes';
+import ReplyRegister from './ReplyRegister';
+import { useInfiniteQuery } from 'react-query';
 
 type PostCommentListItemProps = {
   getCommentParams: {
@@ -13,34 +15,72 @@ type PostCommentListItemProps = {
     lang: BackLangType;
     identity: string;
   };
-  comment: CommunityPost_CommentListItemType;
-  // comment: CommunityCommentListItemType;
+  item: CommentListItemType;
+  texts: CommunityPostTextType;
+  profileInfo: { profileImg: string; profileNick: string };
   onCreateComment: (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => void;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
 const PostCommentListItem = ({
   getCommentParams,
-  comment,
+  item,
+  texts,
+  profileInfo,
   onCreateComment,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick,
 }: PostCommentListItemProps) => {
   const { identity } = getCommentParams;
-  const lang = getCommentParams.lang || 'ko';
   const order_by = 'newest';
-  const board_lang = 'ko-en-ja-es-vi-id-zh-zhtw';
+  const board_lang = 'ALL';
   const page = 0;
+  const per_page = 0;
   const [openToggle, setOpenToggle] = useState(false);
   const [openWriteToggle, setOpenWriteToggle] = useState(false);
-  const [replyList, setReplyList] = useState(Object);
-  const ReplyOnToggle = async (comment_idx: string) => {
+  const [replyList, setReplyList] = useState<CommentListItemType[]>([]);
+  const [replyTotalCount, setReplyTotalCount] = useState<number>(0);
+  let index: any = 0;
+
+  const getRepliesQuery = async ({ pageParam = 0 }: any) => {
+    const data = await getReplies(index, identity, board_lang, order_by, pageParam, 20);
+    return data;
+  };
+
+  // const {
+  //   data: replies,
+  //   refetch,
+  //   fetchNextPage,
+  // } = useInfiniteQuery(['replies'], getRepliesQuery, {
+  //   getNextPageParam: (currentPage) => {
+  //     const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1;
+  //     return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage;
+  //   },
+  // });
+
+  const ReplyOnToggle = async (commentIndex: number) => {
+    // await refetch();
+
     if (openToggle === false) {
-      const response = replyUnAuthResult(board_lang, lang, comment_idx, order_by, page).then(
-        (response) => setReplyList(response.RESULTS.DATAS)
+      // index = commentIndex;
+
+      // await refetch();
+      const response: replyResponseType = await getReplies(
+        commentIndex,
+        identity,
+        board_lang,
+        order_by,
+        page,
+        per_page
       );
+
+      setReplyList(response.RESULTS.DATAS.COMMENTS);
       setOpenToggle(true);
       setOpenWriteToggle(false);
     } else {
@@ -56,27 +96,43 @@ const PostCommentListItem = ({
     }
   };
   return (
-    <li className="comment" css={{ borderBottom: '1px solid #f1f1f1' }}>
+    <li
+      className="comment"
+      css={{
+        borderBottom: '1px solid #f1f1f1',
+        '&:last-child': {
+          borderBottom: 'none',
+        },
+      }}
+    >
       <CommentCard
         identity={identity}
-        comment={comment}
-        ReplyOnToggle={() => ReplyOnToggle(comment.COMMENT_IDX)}
+        comment={item}
+        texts={texts}
+        ReplyOnToggle={() => ReplyOnToggle(Number(item.COMMENT_IDX))}
         ReplyWriteOnToggle={ReplyWriteOnToggle}
+        showModalBlockOnClick={showModalBlockOnClick}
+        showReportModalBlockOnClick={showReportModalBlockOnClick}
+        // refetch={refetch}
       />
       <div css={{ display: openToggle ? 'block' : 'none' }}>
-        {comment.RE_COMMENT_CNT !== '0' && (
+        {item.RE_COMMENT_CNT !== '0' && (
           <ReplyCommentList
             identity={identity}
-            totalCount={replyList.TOTAL_CNT}
-            replyList={replyList.COMMENTS}
+            totalCount={replyTotalCount}
+            replyList={replyList}
+            texts={texts}
+            showModalBlockOnClick={showModalBlockOnClick}
+            showReportModalBlockOnClick={showReportModalBlockOnClick}
           />
         )}
       </div>
       <div css={{ display: openWriteToggle ? 'block' : 'none' }}>
-        <CommentRegister
+        <ReplyRegister
           identity={identity}
-          POST_IDX={comment.COMMENT_IDX}
-          WRITER_PROFILE_IMG={comment.USER_PROFILE_IMG}
+          texts={texts}
+          POST_IDX={item.COMMENT_IDX}
+          profileInfo={profileInfo}
           createMode={'comment'}
           onCreateComment={onCreateComment}
         />

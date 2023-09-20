@@ -1,13 +1,16 @@
 import { BoardResultItemType } from '@/types/community';
 import CommunityBoardItem from '@/components/molecules/community/CommunityBoardItem';
+import { updateStorageRecentBoardList } from '@/utils/recentBoard';
+import { CommunityPageTextType } from '@/types/textTypes';
 
 type CommunityBoardWrapperType = {
   title?: string;
   boardList: BoardResultItemType[];
   activeTabState: string;
+  texts: CommunityPageTextType;
 };
 
-const CommunitySearchBoardWrapper = ({ title, boardList }: CommunityBoardWrapperType) => {
+const CommunitySearchBoardWrapper = ({ title, boardList, texts }: CommunityBoardWrapperType) => {
   return (
     <section css={{ marginBottom: '30px' }}>
       {title && <h4 css={{ margin: '15px 5px' }}>{title}</h4>}
@@ -18,8 +21,9 @@ const CommunitySearchBoardWrapper = ({ title, boardList }: CommunityBoardWrapper
               <CommunityBoardItem
                 icon={boardItem.BOARD_ICON}
                 title={boardItem.BOARD_TITLE}
-                link={`/community/board/${boardItem.BOARD_IDX}/`}
+                link={`${texts.link.board}/${boardItem.BOARD_IDX}/`}
                 key={boardItem.BOARD_IDX}
+                onClickLocalStore={() => updateStorageRecentBoardList(boardItem)}
               />
             );
           })}

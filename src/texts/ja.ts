@@ -9,6 +9,7 @@ import {
   CommunityPageTextType,
   CommunityBoardTextType,
   CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -278,6 +279,9 @@ export const CommunityMainText_JAP: CommunityPageTextType = {
   buttonSearch: '検索',
   allCategory: '全',
   searchPlaceholder: '希望の掲示板を見つけてください。',
+  link: {
+    board: '/ja/community/board',
+  },
 };
 export const CommunityBoardText_JAP: CommunityBoardTextType = {
   all: '全',
@@ -309,6 +313,9 @@ export const CommunityBoardText_JAP: CommunityBoardTextType = {
   noPostTexts: ['投稿はありません', '最初に投稿を残してください'],
   noMyPostTexts: ['書かれた投稿はありません'],
   buttonWrite: '書き込み',
+  link: {
+    board: '/ja/community/board',
+  },
 };
 
 export const CommunityPostText_JAP: CommunityPostTextType = {
@@ -320,7 +327,68 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
   edit: '修正',
   delete: '削除',
   report: '申告する',
-  cancelButton: '취소',
-  confirmButton: '확인',
-  reportButton: '신고',
+  cancelButton: 'キャンセル',
+  confirmButton: '確認',
+  reportButton: '申告する',
+  commentRegisterPlaceholder: 'コメントを残す（最大200文字)',
+  replyRegisterPlaceholder: 'コメントを入力してください。（最大200文字)',
+  askPostDelete: '文を削除しますか？',
+  askCommentDelete: 'コメントを削除しますか？',
+  postDeleted: '文が削除されました。',
+  commentDeleted: 'コメントが削除されました。',
+  reported: '問題が正常に報告されています。',
+  reply: '返信',
+  writeReply: '返事を書く',
+  register: '登録',
+  orderOldest: '最も早い',
+  orderNewest: '最近',
+  showMoreComments: 'コメントをもっと読む',
+  deleted: '削除されたコメントです。',
+  alreadyDeleted: '既に削除されたコメントです。',
+  alreadyReportedPost: '既に申告したスレッドです。',
+  alreadyReportedComment: 'コメントを報告しました。',
+  reportReason: '理由を選択してください。',
+  reportPostOptions: {
+    option1: '個人情報の露出',
+    option2: '悪口/人身攻撃',
+    option3: 'エッチ/扇情性',
+    option4: '不法情報',
+    option5: '権利侵害申告',
+    option6: 'その他',
+  },
+  reportCommentOptions: {
+    option1: 'スパム',
+    option2: '悪口または悪意のあるコンテンツ',
+  },
+  reportWarning: [
+    '報告されたコンテンツは、運用ポリシーと利用規約に従って処理されます。虚偽の報告である場合、',
+    'If it is a false report, 記者によるFanPlusサービスの使用が制限される場合があります。',
+  ],
+};
+
+export const postCommentTotalCount_JAP = (totalCount: number) => {
+  let result = `${totalCount} コメント`;
+  return result;
+};
+
+export const CommunityPostEditorText_JAP: CommunityPostEditorTextType = {
+  pageTitle: '書き込み',
+  topic: 'トピック',
+  title: 'タイトル',
+  content: '内容',
+  cancel: 'キャンセル',
+  upload: '登録',
+  edit: '修正',
+  titlePlaceholder: 'タイトルを入力してください',
+
+  modal: {
+    upload: '文を登録しますか？',
+    cancelUpload: '書き込みを終了しますか？',
+    cancelUploadSub: '終了時に作成されている文章は削除されます。',
+    edit: '文を修正しますか？',
+    cancelEdit: '修正を取り消しますか？',
+
+    cancel: 'キャンセル',
+    check: '確認',
+  },
 };

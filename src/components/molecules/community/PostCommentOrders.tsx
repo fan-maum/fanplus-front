@@ -1,72 +1,44 @@
 import styled from '@emotion/styled';
-import { BackLangType, OrderType, TargetType } from '@/types/common';
-import { CommunityCommentListItemType, CommunityCommentResponseType } from '@/types/community';
-import { getCommunityPostCommentData, getCommunityUnAuthPostCommentData } from '@/api/Community';
+import { OrderType } from '@/types/common';
+import { useQueryClient } from 'react-query';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 type PostCommentOrdersProps = {
-  getCommentParams: {
-    target_type: TargetType;
-    target: number;
-    lang: BackLangType;
-    identity: string;
-  };
-  commentOrder: OrderType;
-  setCommentOrder: React.Dispatch<React.SetStateAction<OrderType>>;
-  setData: React.Dispatch<React.SetStateAction<Array<CommunityCommentListItemType>>>;
+  orderTypeState: {
+    orderType: OrderType;
+    setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
+  }
+  texts: CommunityPostTextType;
+  setPage: React.Dispatch<React.SetStateAction<number>>
+  refetch: () => void;
 };
 
 const PostCommentOrders = ({
-  getCommentParams,
-  commentOrder,
-  setCommentOrder,
-  setData,
+  orderTypeState,
+  texts,
+  setPage,
+  refetch,
 }: PostCommentOrdersProps) => {
-  const OrderOnClick = async (orderType: OrderType, page: number) => {
-    setCommentOrder(orderType);
-    let getCommentResponse: CommunityCommentResponseType;
-    getCommentParams.identity !== null
-      ? (getCommentResponse = await getCommunityPostCommentData(
-          getCommentParams.target_type,
-          String(getCommentParams.target),
-          orderType,
-          getCommentParams.lang,
-          page,
-          getCommentParams.identity,
-          10
-        ))
-      : (getCommentResponse = await getCommunityUnAuthPostCommentData(
-          getCommentParams.target_type,
-          getCommentParams.target,
-          orderType,
-          'ko-en-ja-es-vi-id-zh-zhtw',
-          getCommentParams.lang,
-          page,
-          10
-        ));
-    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
-    return comments;
-  };
-  const handleNewestClick = async () => {
-    const comments = await OrderOnClick('newest', 0);
-    // eslint-disable-next-line no-console
-    console.log(comments);
-    setData(comments);
-  };
-  const handleOldesetClick = async () => {
-    const comments = await OrderOnClick('oldest', 0);
-    setData(comments);
+  const {orderType, setOrderType} = orderTypeState;
+  const queryClient = useQueryClient();
+  const OrderOnClick = async (orderType: OrderType) => {
+    await queryClient.removeQueries("comments");
+    await setPage(0);
+    await setOrderType(orderType);
+    await refetch();
+    
   };
 
   return (
     <ul css={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-      <OrderListItem $order={commentOrder === 'newest'}>
-        <button type="button" onClick={handleNewestClick}>
-          최신순
+      <OrderListItem $order={orderType === 'newest'}>
+        <button type="button" onClick={() => OrderOnClick('newest')}>
+          {texts.orderNewest}
         </button>
       </OrderListItem>
-      <OrderListItem $order={commentOrder === 'oldest'}>
-        <button type="button" onClick={handleOldesetClick}>
-          등록순
+      <OrderListItem $order={orderType === 'oldest'}>
+        <button type="button" onClick={() => OrderOnClick('oldest')}>
+          {texts.orderOldest}
         </button>
       </OrderListItem>
     </ul>

@@ -9,6 +9,7 @@ import {
   CommunityPageTextType,
   CommunityBoardTextType,
   CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -278,6 +279,9 @@ export const CommunityMainText_ENG: CommunityPageTextType = {
   buttonSearch: 'Search',
   allCategory: 'All',
   searchPlaceholder: 'Search for a board you may like.',
+  link: {
+    board: '/en/community/board',
+  },
 };
 export const CommunityBoardText_ENG: CommunityBoardTextType = {
   all: 'All',
@@ -309,6 +313,9 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
   noPostTexts: ['There is no post.', 'Write a first post.'],
   noMyPostTexts: ['There is no post.'],
   buttonWrite: 'Write',
+  link: {
+    board: '/en/community/board',
+  },
 };
 
 export const CommunityPostText_ENG: CommunityPostTextType = {
@@ -320,7 +327,68 @@ export const CommunityPostText_ENG: CommunityPostTextType = {
   edit: 'Edit',
   delete: 'Delete',
   report: 'Report',
-  cancelButton: '취소',
-  confirmButton: '확인',
-  reportButton: '신고',
+  cancelButton: 'Cancel',
+  confirmButton: 'Check',
+  reportButton: 'Report',
+  commentRegisterPlaceholder: 'Leave a comment (max. 200 characters)',
+  replyRegisterPlaceholder: 'Add a comment (max. 200 characters)',
+  askPostDelete: 'Do you want to delete your post?',
+  askCommentDelete: 'Do you want to delete your comment?',
+  postDeleted: 'You’ve deleted your post.',
+  commentDeleted: 'Comment deleted',
+  reported: 'The issue has been successfully reported.',
+  reply: 'replies',
+  writeReply: 'leave a reply',
+  register: 'Upload',
+  orderOldest: 'Earliest',
+  orderNewest: 'Recent',
+  showMoreComments: 'More comments',
+  deleted: 'This comment has been deleted',
+  alreadyDeleted: 'The comment has been deleted.',
+  alreadyReportedPost: "You've already reported post",
+  alreadyReportedComment: "You've already reported comment",
+  reportReason: 'Select the reason.',
+  reportPostOptions: {
+    option1: 'Privacy violation',
+    option2: 'Insult/Personal abuse',
+    option3: 'Pornography/Sexual activity',
+    option4: 'Illegal information',
+    option5: 'An infringement report',
+    option6: 'Other',
+  },
+  reportCommentOptions: {
+    option1: 'Spam',
+    option2: 'Insulting or inappropriate contents',
+  },
+  reportWarning: [
+    'Reported content will be processed according to the operating policy and terms of use.',
+    "If it is a false report, the reporter's use of FanPlus service may be restricted.",
+  ],
+};
+
+export const postCommentTotalCount_ENG = (totalCount: number) => {
+  let result = `${totalCount} comment(s)`;
+  return result;
+};
+
+export const CommunityPostEditorText_ENG: CommunityPostEditorTextType = {
+  pageTitle: 'Write',
+  topic: 'Topic',
+  title: 'Title',
+  content: 'Contents',
+  cancel: 'Cancel',
+  upload: 'Upload',
+  edit: 'Edit',
+  titlePlaceholder: 'Please enter the title',
+
+  modal: {
+    upload: 'Do you want to upload a post?',
+    cancelUpload: 'Do you want to leave writing a post?',
+    cancelUploadSub: 'Your post will be deleted when you leave writing it',
+    edit: 'Do you want to edit your post?',
+    cancelEdit: 'Do you want to cancel editing your post?',
+
+    cancel: 'Cancel',
+    check: 'Check',
+  },
 };

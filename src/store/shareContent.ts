@@ -1,11 +1,11 @@
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { shareModalState } from './voteLangState';
 import { useRecoilState } from 'recoil';
 import { getKoreaTime } from '@/utils/util';
 import { VoteDetailStars } from '@/types/vote';
 
 export function useTitleText(voteTitle: string, starNameText: string | null) {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const koreaTime = getKoreaTime();
   const shareModalLanguage = useRecoilState(shareModalState(language))[0];
   const modalTitleText = shareModalLanguage?.shareTitleText;
@@ -27,7 +27,7 @@ export function useMiddleText(
   rankText: string | null,
   diffPrevText: string | null
 ) {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const shareModalLanguage = useRecoilState(shareModalState(language))[0];
   const modalMiddleText = shareModalLanguage?.shareMiddleText;
   const middleTextStandard = [
@@ -48,7 +48,7 @@ export function useMiddleText(
 }
 
 export function useEndText(starNameText: string | null) {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const shareModalLanguage = useRecoilState(shareModalState(language))[0];
   const modalEndText = shareModalLanguage?.shareEndText;
 

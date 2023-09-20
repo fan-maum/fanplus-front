@@ -170,6 +170,9 @@ export type CommunityPageTextType = {
   buttonSearch: string;
   allCategory: string;
   searchPlaceholder: string;
+  link: {
+    board: string;
+  };
 };
 export type CommunityBoardTextType = {
   all: string;
@@ -201,6 +204,9 @@ export type CommunityBoardTextType = {
   noPostTexts: string[];
   noMyPostTexts: string[];
   buttonWrite: string;
+  link: {
+    board: string;
+  };
 };
 
 export type CommunityPostTextType = {
@@ -212,9 +218,62 @@ export type CommunityPostTextType = {
   edit: string;
   delete: string;
   report: string;
-  cancelButton: string,
-  confirmButton: string,
-  reportButton: string,
+  cancelButton: string;
+  confirmButton: string;
+  reportButton: string;
+  commentRegisterPlaceholder: string;
+  replyRegisterPlaceholder: string;
+  askPostDelete: string;
+  askCommentDelete: string;
+  postDeleted: string;
+  commentDeleted: string;
+  reported: string;
+  reply: string;
+  writeReply: string;
+  register: string;
+  orderOldest: string;
+  orderNewest: string;
+  showMoreComments: string;
+  deleted: string;
+  alreadyDeleted: string;
+  alreadyReportedPost: string;
+  alreadyReportedComment: string;
+  reportReason: string;
+  reportPostOptions: {
+    option1: string;
+    option2: string;
+    option3: string;
+    option4: string;
+    option5: string;
+    option6: string;
+  };
+  reportCommentOptions: {
+    option1: string;
+    option2: string;
+  };
+  reportWarning: [string, string];
+};
+
+export type CommunityPostEditorTextType = {
+  pageTitle: string;
+  topic: string;
+  title: string;
+  content: string;
+  cancel: string;
+  upload: string;
+  edit: string;
+  titlePlaceholder: string;
+
+  modal: {
+    upload: string;
+    cancelUpload: string;
+    cancelUploadSub: string;
+    edit: string;
+    cancelEdit: string;
+
+    cancel: string;
+    check: string;
+  };
 };
 
 export type TextType = {

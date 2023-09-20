@@ -6,6 +6,7 @@ import {
 import { GetServerSideProps } from 'next';
 import Layout from '@/components/organisms/Layout';
 import { NavBarText_zh_TW, FooterText_zh_TW, CommunityMainText_zh_TW } from '@/texts/zh-TW';
+import nookies from 'nookies';
 import type {
   CommunityBoardCategoryResponseType,
   CommunityHomeResponseType,
@@ -35,13 +36,15 @@ export const getServerSideProps: GetServerSideProps<{
   communityHomeData: CommunityHomeResponseType;
   boardCategoryData: CommunityBoardCategoryResponseType;
 }> = async (context) => {
-  const userId = '1a11a56286d1c02c5eb4f38b6d6fa0f5d2db490e0783d70f1b0db7746c96d1cc';
+  const cookies = nookies.get(context);
+  const userId = cookies['user_id'] || '';
+  const lang = 'zhtw';
   const category_type = parseInt(context.query.category_type as string) || 0;
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) || 0;
   const per_page = 20;
-  const lang = 'zhtw';
-  const communityHomeData = await getCommunityHomeData(userId);
+
+  const communityHomeData = await getCommunityHomeData(userId, lang);
   const boardCategoryData = await getCommunityBoardCategoryData(lang);
   const boardResultData = await getCommunityBoardResultData(
     category_type,

@@ -1,23 +1,28 @@
 import { Group, Stack, Avatar } from '@/components/atoms';
-import { GetLanguage } from '@/hooks/useLanguage';
-import { voteDetailLangState } from '@/store/voteLangState';
-import {
-  CommunityCommentListItemType,
-  CommunityPost_CommentListItemType,
-  CommunityPost_PostInfoItemType,
-} from '@/types/community';
-import Image from 'next/image';
-import { useRecoilState } from 'recoil';
+import { CommentListItemType } from '@/types/community';
 import CommentPopover from './CommentPopover';
+import { PurPoseType, TargetType } from '@/types/common';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 type CommentInfoStateProps = {
   identity: string;
-  comment?: CommunityPost_CommentListItemType;
-  reply?: CommunityCommentListItemType;
-  // comment: CommunityCommentListItemType;
+  comment?: CommentListItemType;
+  reply?: CommentListItemType;
+  texts: CommunityPostTextType;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
-function CommentInfoState({ identity, comment, reply }: CommentInfoStateProps) {
+function CommentInfoState({
+  identity,
+  comment,
+  reply,
+  texts,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick,
+}: CommentInfoStateProps) {
+  const commentContent = comment?.COMMENT === false ? texts.deleted : comment?.COMMENT;
+  const replyContent = reply?.COMMENT === false ? texts.deleted : reply?.COMMENT;
   return (
     <Group position="apart" spacing={30} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
       <Group spacing={10} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
@@ -30,13 +35,15 @@ function CommentInfoState({ identity, comment, reply }: CommentInfoStateProps) {
             css={{
               border: '1px solid #F8F8F9',
             }}
-            src={comment ? comment?.USER_PROFILE_IMG : reply?.PROFILE_IMG_URL}
+            src={comment ? comment?.PROFILE_IMG_URL : reply?.PROFILE_IMG_URL}
             alt="Avatar"
           />
         </div>
         <Stack fw={600} fz={17} pt={6} spacing={5}>
           <Group spacing={10}>
-            <h4 css={{ color: '#000', fontSize: 18, fontWeight: 600 }}>{comment ? comment.NICK : reply?.NICK}</h4>
+            <h4 css={{ color: '#000', fontSize: 18, fontWeight: 600 }}>
+              {comment ? comment.NICK : reply?.NICK}
+            </h4>
             <div
               css={{
                 fontSize: 16,
@@ -54,11 +61,18 @@ function CommentInfoState({ identity, comment, reply }: CommentInfoStateProps) {
               fontWeight: 400,
             }}
           >
-            {comment ? comment.COMMENT : reply?.COMMENT}
+            {comment ? commentContent : replyContent}
           </div>
         </Stack>
       </Group>
-      <CommentPopover identity={identity} comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX} />
+      <CommentPopover
+        identity={identity}
+        isWriter={comment ? comment?.IS_WRITER : reply?.IS_WRITER}
+        comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX}
+        texts={texts}
+        showModalBlockOnClick={showModalBlockOnClick}
+        showReportModalBlockOnClick={showReportModalBlockOnClick}
+      />
     </Group>
   );
 }

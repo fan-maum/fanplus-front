@@ -2,6 +2,8 @@ import { Avatar, Stack, UnstyledButton } from '@/components/atoms';
 import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { TargetType } from '@/types/common';
+import { useRouter } from 'next/router';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 interface FormValue {
   registerValue: string | number;
@@ -9,31 +11,35 @@ interface FormValue {
 
 type CommentRegisterProps = {
   identity: string;
+  texts: CommunityPostTextType;
   POST_IDX: string;
-  WRITER_PROFILE_IMG: string;
+  profileInfo: { profileImg: string; profileNick: string };
   createMode: TargetType;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => void;
 };
 
 const CommentRegister = ({
   identity,
+  texts,
   POST_IDX,
-  WRITER_PROFILE_IMG,
+  profileInfo,
   createMode,
   onCreateComment,
 }: CommentRegisterProps) => {
   const { handleSubmit, register, reset } = useForm<FormValue>();
+  const router = useRouter();
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
     if (identity !== null) {
-      onCreateComment(identity, createMode, POST_IDX, contents);
+      onCreateComment(identity, createMode, Number(POST_IDX), contents);
     } else {
-      alert('로그인해주세요.');
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
     reset({ registerValue: '' });
   };
@@ -48,19 +54,19 @@ const CommentRegister = ({
         width: '100%',
         margin: '0 auto',
         maxWidth: '768px',
-        height: '90px',
+        height: '60px',
         padding: '14px 20px 14px 20px',
       }}
     >
       <Avatar
         imageProps={{ style: { borderRadius: '50%' } }}
-        w={60}
-        h={60}
+        w={40}
+        h={40}
         radius={'50%'}
         css={{
           border: '1px solid #F8F8F9',
         }}
-        src={WRITER_PROFILE_IMG}
+        src={profileInfo.profileImg}
         alt="Avatar"
       />
       <Stack
@@ -72,26 +78,26 @@ const CommentRegister = ({
         css={{ flexDirection: 'row', flex: 1 }}
       >
         <RegisterInput
-          placeholder="댓글을 남겨주세요. (200자)"
+          placeholder={texts.commentRegisterPlaceholder}
           {...register('registerValue', { maxLength: 200 })}
         />
         <UnstyledButton
           type="submit"
           bg="#FF5656"
-          h={36}
+          h={32}
           px={16}
           css={{
             width: 'auto',
             height: 38,
             margin: 0,
-            padding: '6px 14px',
+            padding: '4px 14px',
             borderRadius: '6px',
             color: '#fff',
-            fontSize: 20,
-            fontWeight: 600,
+            fontSize: 16,
+            fontWeight: 500,
           }}
         >
-          <span>등록</span>
+          <span>{texts.register}</span>
         </UnstyledButton>
       </Stack>
     </form>
@@ -106,7 +112,7 @@ const RegisterInput = styled.input`
   flex: 1;
   border: none;
   outline: none;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
   &::placeholder {
     color: '#ABAFB7';

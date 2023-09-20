@@ -1,15 +1,21 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { Axios, AxiosResponse } from 'axios';
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityHomeResponseType,
+  CommunityNoticeBannerResponseType,
+  EditBoardArticleResponseType,
+  EditorImageUploadResponseType,
+  EditorImageUrlResponseType,
+  PostBoardArticleResponseType,
 } from '@/types/community';
-import type { BackLangType, TargetType, OrderType } from '@/types/common';
 
-export const getCommunityHomeData = async (userId: string) => {
+import type { BackLangType, BoardLangType, TargetType, OrderType } from '@/types/common';
+
+export const getCommunityHomeData = async (userId: string, lang: BoardLangType) => {
   const response: AxiosResponse<CommunityHomeResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId } }
+    { params: { userId, lang } }
   );
   return response.data;
 };
@@ -19,7 +25,7 @@ export const getCommunityBoardData = async (
   boardIndex: number,
   page: number,
   lang: BackLangType,
-  boardLang: BackLangType | 'ALL',
+  boardLang: BoardLangType,
   topic: number | '',
   view_type: string
 ) => {
@@ -31,10 +37,10 @@ export const getCommunityBoardData = async (
   return response.data;
 };
 
-export const getCommunityBoardTopics = async (userId: string, boardIndex: number) => {
+export const getCommunityBoardTopics = async (boardIndex: number, lang: BackLangType) => {
   const response: AxiosResponse<CommunityBoardTopicResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/boardTopic`,
-    { params: { userId, boardIndex } }
+    { params: { boardIndex, lang } }
   );
   return response.data;
 };
@@ -43,7 +49,7 @@ export const getCommunityBoardTopics = async (userId: string, boardIndex: number
  * Search Board
  */
 /* 검색 페이지 내 중간부분 Tab response */
-export const getCommunityBoardCategoryData = async (lang: string) => {
+export const getCommunityBoardCategoryData = async (lang: BackLangType) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
     { params: { lang } }
@@ -55,13 +61,21 @@ export const getCommunityBoardCategoryData = async (lang: string) => {
 export const getCommunityBoardResultData = async (
   category_type: number,
   searchValue: any,
-  lang: string,
+  lang: BackLangType,
   page: number,
   per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
     { params: { category_type, searchValue, lang, page, per_page } }
+  );
+  return response.data;
+};
+
+export const getCommunityNoticeBannerData = async (boardIndex: number, lang: BackLangType) => {
+  const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/noticeBanner`,
+    { params: { boardIndex, lang } }
   );
   return response.data;
 };
@@ -90,42 +104,39 @@ export const getCommunityUnAuthPostData = async (
   return response.data;
 };
 
-export const getCommunityPostCommentData = async (
-  target_type: TargetType,
-  target: string,
+export const deletePost = async (identity: string, post_idx: string, mode: 'reset' | 'remove') => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/deletePost?identity=${identity}&post_idx=${post_idx}&mode=${mode}`,
+    {
+      data: {
+        identity: identity,
+        post_idx: post_idx,
+        mode: mode,
+      },
+    }
+  );
+  return response;
+};
+
+export const getComments = async (
+  postIndex: number,
+  identity: string | null,
+  lang: BackLangType | 'ALL',
   order_by: OrderType,
-  lang: BackLangType, // system
   page: number,
-  identity: string,
   per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/comment`,
-    { params: { target_type, target, order_by, lang, page, identity, per_page } }
+    { params: { postIndex, identity, lang, order_by, page, per_page } }
   );
   return response.data;
 };
 
-export const getCommunityUnAuthPostCommentData = async (
-  target_type: TargetType,
-  target: number,
-  order_by: OrderType,
-  board_lang: BackLangType | 'ko-en-ja-es-vi-id-zh-zhtw', // filterLang
-  lang: BackLangType, // system
-  page: number,
-  per_page: number
-) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/comment`,
-    { params: { target_type, target, order_by, board_lang, lang, page, per_page } }
-  );
-  return response.data;
-};
-
-export const postCommentResult = async (
+export const postComment = async (
   identity: string,
   target_type: string,
-  target: string,
+  target: number,
   contents: string | number
 ) => {
   const response: AxiosResponse = await axios.post(
@@ -137,10 +148,10 @@ export const postCommentResult = async (
       contents: contents,
     }
   );
-  return response;
+  return response.data;
 };
 
-export const deleteCommentResult = async (identity: string, comment_idx: string) => {
+export const deleteComment = async (identity: string, comment_idx: string) => {
   const response: AxiosResponse = await axios.delete(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment?comment_idx=${comment_idx}`,
     {
@@ -150,33 +161,21 @@ export const deleteCommentResult = async (identity: string, comment_idx: string)
       },
     }
   );
+
   return response;
 };
 
-export const replyUnAuthResult = async (
-  board_lang: BackLangType | 'ko-en-ja-es-vi-id-zh-zhtw',
-  lang: BackLangType,
-  comment_idx: string,
+export const getReplies = async (
+  commentIndex: number,
+  identity: string | null,
+  board_lang: BackLangType | 'ALL',
   order_by: OrderType,
-  page: number
-) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/reply`,
-    { params: { board_lang, lang, comment_idx, order_by, page } }
-  );
-  return response.data;
-};
-
-export const replyResult = async (
-  lang: BackLangType,
-  comment_idx: string,
-  order_by: OrderType,
-  identity: string,
-  page: number
+  page: number,
+  per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reply`,
-    { params: { lang, comment_idx, order_by, identity, page } }
+    { params: { commentIndex, identity, board_lang, order_by, page, per_page } }
   );
   return response.data;
 };
@@ -233,4 +232,113 @@ export const deleteRecommends = async (identity: string, post_idx: string) => {
     }
   );
   return response;
+};
+
+/**
+ * Editor
+ */
+/* board article posting 하기 */
+export const postBoardArticle = async (
+  userId: string,
+  boardIndex: number,
+  boardLang: BackLangType,
+  lang: BackLangType
+) => {
+  const resposne: AxiosResponse<PostBoardArticleResponseType> = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postBoardArticle`,
+    { userId, boardIndex, boardLang, lang }
+  );
+  return resposne.data;
+};
+
+export const editBoardArticle = async (
+  userId: string,
+  postIndex: number,
+  boardLang: BackLangType,
+  lang: BackLangType,
+  title: string,
+  contents: string,
+  topicIndex: number
+) => {
+  const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editBoardArticle`,
+    { userId, postIndex, boardLang, lang, title, contents, topicIndex }
+  );
+  return response.data;
+};
+
+export const getFileUploadUrl = async () => {
+  const response: AxiosResponse<EditorImageUrlResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUploadUrl`
+  );
+  return response.data;
+};
+
+export const uploadEditorFile = async (
+  userId: string,
+  postIndex: number,
+  fileName: string,
+  fileType: string,
+  uploadKey: string
+) => {
+  const response: AxiosResponse<EditorImageUploadResponseType> = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUpload`,
+    { userId, postIndex, fileName, fileType, uploadKey }
+  );
+  return response.data;
+};
+
+/**
+ * Report
+ */
+/* 신고 */
+export const reportPost = async (
+  identity: string,
+  page: number,
+  per_page: number,
+  post_idx: string,
+  mode: 'recommend' | 'report',
+  report_type: number
+) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reportPost?identity=${identity}&page=${page}&per_page=${per_page}`,
+    {
+      identity: identity,
+      post_idx: post_idx,
+      mode: mode,
+      report_type: report_type,
+    }
+  );
+
+  return response;
+};
+
+export const reportComment = async (
+  identity: string,
+  comment_idx: string,
+  report_type: 'spam' | 'bad'
+) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reportComment`,
+    {
+      identity: identity,
+      comment_idx: comment_idx,
+      report_type: report_type,
+    }
+  );
+
+  return response;
+};
+
+/**
+ * User
+ */
+/* 유저정보 */
+export const getUser = async (user_idx: string, identity: string | null) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/user`,
+    { params: { user_idx, identity } }
+  );
+
+  return response.data;
 };
