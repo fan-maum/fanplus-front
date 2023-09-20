@@ -9,6 +9,7 @@ import {
   CommunityPageTextType,
   CommunityBoardTextType,
   CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -372,4 +373,26 @@ export const CommunityPostText_VIE: CommunityPostTextType = {
 export const postCommentTotalCount_VIE = (totalCount: number) => {
   let result = `${totalCount} bình luận`;
   return result;
+};
+
+export const CommunityPostEditorText_VIE: CommunityPostEditorTextType = {
+  pageTitle: 'Viết',
+  topic: 'Chủ đề',
+  title: 'Đề mục',
+  content: 'Nội dung',
+  cancel: 'Hủy bỏ',
+  upload: 'Tải lên',
+  edit: 'Chỉnh sửa',
+  titlePlaceholder: 'Vui lòng nhập tiêu đề',
+
+  modal: {
+    upload: 'Bạn có muốn tải lên một câu chuyện không?',
+    cancelUpload: 'Bạn có muốn viết câu chuyện không?',
+    cancelUploadSub: 'Câu chuyện của bạn sẽ bị xóa khi bạn viết nó',
+    edit: 'Bạn có muốn chỉnh sửa câu chuyện của mình không?',
+    cancelEdit: 'Bạn có muốn hủy chỉnh sửa câu chuyện của mình không?',
+
+    cancel: 'Hủy bỏ',
+    check: 'Xác nhận',
+  },
 };

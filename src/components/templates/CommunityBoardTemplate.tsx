@@ -19,8 +19,7 @@ import CommunityLanguageModal from '../modals/CommunityLanguageModal';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
-
-// TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
+import { useUrlLanguage } from '@/hooks/useLanguage';
 
 export type CommunityBoardPropType = {
   communityBoardData: CommunityBoardResponseType;
@@ -36,6 +35,7 @@ const CommunityBoardTemplate = ({
   texts,
 }: CommunityBoardPropType) => {
   const router = useRouter();
+  const language = useUrlLanguage();
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
@@ -50,7 +50,9 @@ const CommunityBoardTemplate = ({
   const isPostExist = boardInfo.POST_CNT !== 0;
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
 
-  const onClickWrite = () => router.push('/');
+  const onClickWrite = () => {
+    router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);
+  };
   const onClickPopular = () => {
     if (viewType !== 'best_post') {
       setViewType('best_post');
@@ -97,7 +99,7 @@ const CommunityBoardTemplate = ({
               return (
                 <CommunityBoardArticle
                   postItem={post}
-                  link={`/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                  link={`/${language}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
                   key={idx}
                   texts={texts}
                 />

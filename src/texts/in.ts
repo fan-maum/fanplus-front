@@ -9,6 +9,7 @@ import {
   CommunityPageTextType,
   CommunityBoardTextType,
   CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -372,4 +373,26 @@ export const CommunityPostText_IND: CommunityPostTextType = {
 export const postCommentTotalCount_IND = (totalCount: number) => {
   let result = `${totalCount} komentar`;
   return result;
+};
+
+export const CommunityPostEditorText_IND: CommunityPostEditorTextType = {
+  pageTitle: 'Tulis',
+  topic: 'Topik',
+  title: 'Judul',
+  content: 'Konten',
+  cancel: 'Batal',
+  upload: 'Unggah',
+  edit: 'Edit',
+  titlePlaceholder: 'Silakan masukkan judul',
+
+  modal: {
+    upload: 'Apakah Anda ingin mengunggah sebuah cerita?',
+    cancelUpload: 'Apakah Anda ingin berhenti menulis cerita?',
+    cancelUploadSub: 'Cerita Anda akan dihapus ketika Anda meninggalkan menulisnya',
+    edit: 'Apakah Anda ingin mengedit cerita Anda?',
+    cancelEdit: 'Apakah Anda ingin membatalkan mengedit cerita Anda?',
+
+    cancel: 'Batal',
+    check: 'Memeriksa',
+  },
 };

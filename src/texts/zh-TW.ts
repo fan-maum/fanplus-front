@@ -9,6 +9,7 @@ import {
   CommunityPageTextType,
   CommunityBoardTextType,
   CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -368,4 +369,26 @@ export const CommunityPostText_zh_TW: CommunityPostTextType = {
 export const postCommentTotalCount_zh_TW = (totalCount: number) => {
   let result = `${totalCount} 條最新評論`;
   return result;
+};
+
+export const CommunityPostEditorText_zh_TW: CommunityPostEditorTextType = {
+  pageTitle: '發帖',
+  topic: '話題',
+  title: '標題',
+  content: '內容',
+  cancel: '取消',
+  upload: '上傳',
+  edit: '修改',
+  titlePlaceholder: '請輸入標題',
+
+  modal: {
+    upload: '您要上傳帖子嗎？',
+    cancelUpload: '您確定要退出寫作嗎？',
+    cancelUploadSub: '編寫結束時，正在編寫的文章將被刪除。',
+    edit: '您確定要編輯帖子嗎？',
+    cancelEdit: '您確定要取消編輯嗎？',
+
+    cancel: '取消',
+    check: '確認',
+  },
 };

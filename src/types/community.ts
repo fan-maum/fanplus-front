@@ -263,11 +263,59 @@ export type replyResponseType = {
   };
 };
 
+export type PostBoardArticleResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      POST_IDX: string;
+      TOPIC_IDX: string;
+      TITLE: null;
+      CONTENTS: null;
+      IS_PUBLISH: 'Y' | 'N';
+    };
+    TIMESTAMP: number;
+  };
+};
+
 export type reportCommentResponseType = {
   RESULTS: {
     ERROR: number;
     MSG: string;
     DATAS: {};
+    TIMESTAMP: number;
+  };
+};
+
+export type EditBoardArticleResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      MESSAGE: string;
+    };
+    TIMESTAMP: number;
+  };
+};
+
+export type EditorImageUrlResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      SIGNED_URL: string;
+      IMG_URL: string;
+    };
+    TIMESTAMP: number;
+  };
+};
+export type EditorImageUploadResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      IMG_URL: string;
+    };
     TIMESTAMP: number;
   };
 };

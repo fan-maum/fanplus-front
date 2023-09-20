@@ -100,8 +100,7 @@ const CommunityPostTopNavi = ({
                   <>
                     <li
                       onClick={() => {
-                        // eslint-disable-next-line no-console
-                        console.log('edit');
+                        router.push(router.asPath + 'edit/');
                       }}
                       css={{ borderBottom: '1px solid #d9d9d9' }}
                     >

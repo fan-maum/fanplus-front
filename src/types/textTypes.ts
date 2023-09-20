@@ -254,6 +254,28 @@ export type CommunityPostTextType = {
   reportWarning: [string, string];
 };
 
+export type CommunityPostEditorTextType = {
+  pageTitle: string;
+  topic: string;
+  title: string;
+  content: string;
+  cancel: string;
+  upload: string;
+  edit: string;
+  titlePlaceholder: string;
+
+  modal: {
+    upload: string;
+    cancelUpload: string;
+    cancelUploadSub: string;
+    edit: string;
+    cancelEdit: string;
+
+    cancel: string;
+    check: string;
+  };
+};
+
 export type TextType = {
   NavBar: NavBarTextType;
   Footer: FooterTextType;

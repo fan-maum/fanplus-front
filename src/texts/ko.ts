@@ -9,6 +9,7 @@ import {
   CommunityPageTextType,
   CommunityBoardTextType,
   CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -366,4 +367,26 @@ export const CommunityPostText_KR: CommunityPostTextType = {
 export const postCommentTotalCount_KR = (totalCount: number) => {
   let result = `최신댓글 ${totalCount}개`;
   return result;
+};
+
+export const CommunityPostEditorText_KR: CommunityPostEditorTextType = {
+  pageTitle: '글쓰기',
+  topic: '토픽',
+  title: '제목',
+  content: '내용',
+  cancel: '취소',
+  upload: '등록',
+  edit: '수정',
+  titlePlaceholder: '제목을 입력해 주세요',
+
+  modal: {
+    upload: '게시물을 등록하시겠어요?',
+    cancelUpload: '글쓰기를 종료하시겠어요?',
+    cancelUploadSub: '글쓰기 종료 시 작성 중인 글은 삭제 됩니다.',
+    edit: '게시물을 수정하시겠어요?',
+    cancelEdit: '수정을 취소하시겠어요?',
+
+    cancel: '취소',
+    check: '확인',
+  },
 };

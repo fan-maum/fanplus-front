@@ -4,6 +4,10 @@ import type {
   CommunityBoardTopicResponseType,
   CommunityHomeResponseType,
   CommunityNoticeBannerResponseType,
+  EditBoardArticleResponseType,
+  EditorImageUploadResponseType,
+  EditorImageUrlResponseType,
+  PostBoardArticleResponseType,
 } from '@/types/community';
 
 import type { BackLangType, BoardLangType, TargetType, OrderType } from '@/types/common';
@@ -228,6 +232,60 @@ export const deleteRecommends = async (identity: string, post_idx: string) => {
     }
   );
   return response;
+};
+
+/**
+ * Editor
+ */
+/* board article posting 하기 */
+export const postBoardArticle = async (
+  userId: string,
+  boardIndex: number,
+  boardLang: BackLangType,
+  lang: BackLangType
+) => {
+  const resposne: AxiosResponse<PostBoardArticleResponseType> = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postBoardArticle`,
+    { userId, boardIndex, boardLang, lang }
+  );
+  return resposne.data;
+};
+
+export const editBoardArticle = async (
+  userId: string,
+  postIndex: number,
+  boardLang: BackLangType,
+  lang: BackLangType,
+  title: string,
+  contents: string,
+  topicIndex: number
+) => {
+  const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editBoardArticle`,
+    { userId, postIndex, boardLang, lang, title, contents, topicIndex }
+  );
+  return response.data;
+};
+
+export const getFileUploadUrl = async () => {
+  const response: AxiosResponse<EditorImageUrlResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUploadUrl`
+  );
+  return response.data;
+};
+
+export const uploadEditorFile = async (
+  userId: string,
+  postIndex: number,
+  fileName: string,
+  fileType: string,
+  uploadKey: string
+) => {
+  const response: AxiosResponse<EditorImageUploadResponseType> = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUpload`,
+    { userId, postIndex, fileName, fileType, uploadKey }
+  );
+  return response.data;
 };
 
 /**
