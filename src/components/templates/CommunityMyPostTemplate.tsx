@@ -23,7 +23,9 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
 
   const isPostExist = boardInfo.POST_CNT !== 0;
 
-  const onClickWrite = () => router.push('/');
+  const onClickWrite = () => {
+    router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);
+  };
 
   return (
     <div
