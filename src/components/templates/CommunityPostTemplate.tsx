@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useInfiniteQuery } from 'react-query';
 import styled from '@emotion/styled';
 import type { PostResponseType, CommentResponseType, userResponseType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import PostFixedBottomWrapper, {
   PostFixedBottomWrapperProps,
 } from '@/components/organisms/community/PostFixedBottomWrapper';
-import { getComments, getUser, postComment } from '@/api/Community';
+import { getUser, postComment } from '@/api/Community';
 import { BackLangType, OrderType, TargetType, PurPoseType, selectInfoType } from '@/types/common';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 import PostCommentWrapper, {
@@ -17,6 +16,7 @@ import CommunityDoneModal from '../modals/CommunityDoneModal';
 import CommunityReportModal from '../modals/CommunityReportModal';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
+import { useGetCommentQuery, useGetReplyQuery } from '@/server/useGetCommentsQuery';
 
 export type CommunityPostPropType = {
   identity: string;
@@ -26,6 +26,7 @@ export type CommunityPostPropType = {
   communityPostData: PostResponseType;
   texts: CommunityPostTextType;
 };
+
 const CommunityPostTemplate = ({
   identity,
   user_idx,
@@ -54,22 +55,17 @@ const CommunityPostTemplate = ({
   const [selectedOption, setSelectedOption] = useState('1');
   const [selectedValue, setSelectedValue] = useState<any>();
   const [doneModalMessage, setDoneModalMessage] = useState<any>();
+  const [commentIndex, setCommentIndex] = useState<number | null>(null);
 
-  const getCommentsQuery = async ({ pageParam = 0 }) => {
-    const data = await getComments(postIndex, identity, board_lang, orderType, pageParam, 20);
-    return data;
+  const { data: replyData, refetch: replyRefetch } = useGetReplyQuery(commentIndex, identity);
+  const useGetCommentQueryProps = { postIndex, identity, board_lang, orderType };
+  const { data, isSuccess, isLoading, refetch, error, fetchNextPage } =
+    useGetCommentQuery(useGetCommentQueryProps);
+
+  const refetchReplyOnToggle = async (commentIndex: number | null) => {
+    await setCommentIndex(commentIndex);
+    await replyRefetch();
   };
-
-  const { data, isSuccess, isLoading, refetch, error, fetchNextPage } = useInfiniteQuery(
-    ['comments'],
-    getCommentsQuery,
-    {
-      getNextPageParam: (currentPage) => {
-        const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1;
-        return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage;
-      },
-    }
-  );
 
   const [modalBlock, setModalBlock] = useState(false);
   const [reportModalBlock, setReportModalBlock] = useState(false);
@@ -168,6 +164,8 @@ const CommunityPostTemplate = ({
     fetchNextPage,
     showModalBlockOnClick,
     showReportModalBlockOnClick,
+    refetchReplyOnToggle,
+    replyData,
   };
 
   const PostFixedBottomWrapperProps: PostFixedBottomWrapperProps = {
@@ -227,6 +225,7 @@ const CommunityPostTemplate = ({
         setDoneModalBlock={setDoneModalBlock}
         setDoneModalMessage={setDoneModalMessage}
         refetch={refetch}
+        replyRefetch={replyRefetch}
       />
       <CommunityDoneModal
         opened={doneModalBlock}

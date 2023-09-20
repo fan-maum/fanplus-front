@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { CommentListItemType, CommentResponseType, replyResponseType } from '@/types/community';
+import { CommentListItemType } from '@/types/community';
 import CommentCard from './CommentCard';
-import { getReplies } from '@/api/Community';
 import ReplyCommentList from './ReplyCommentList';
 import { BackLangType, PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
 import ReplyRegister from './ReplyRegister';
-import { useInfiniteQuery } from 'react-query';
 
 type PostCommentListItemProps = {
   getCommentParams: {
@@ -26,6 +24,8 @@ type PostCommentListItemProps = {
   ) => void;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  refetchReplyOnToggle: (commentIndex: number) => void;
+  replyData: any;
 };
 
 const PostCommentListItem = ({
@@ -36,57 +36,23 @@ const PostCommentListItem = ({
   onCreateComment,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
+  refetchReplyOnToggle,
+  replyData,
 }: PostCommentListItemProps) => {
   const { identity } = getCommentParams;
-  const order_by = 'newest';
-  const board_lang = 'ALL';
-  const page = 0;
-  const per_page = 0;
   const [openToggle, setOpenToggle] = useState(false);
   const [openWriteToggle, setOpenWriteToggle] = useState(false);
-  const [replyList, setReplyList] = useState<CommentListItemType[]>([]);
-  const [replyTotalCount, setReplyTotalCount] = useState<number>(0);
-  let index: any = 0;
-
-  const getRepliesQuery = async ({ pageParam = 0 }: any) => {
-    const data = await getReplies(index, identity, board_lang, order_by, pageParam, 20);
-    return data;
-  };
-
-  // const {
-  //   data: replies,
-  //   refetch,
-  //   fetchNextPage,
-  // } = useInfiniteQuery(['replies'], getRepliesQuery, {
-  //   getNextPageParam: (currentPage) => {
-  //     const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1;
-  //     return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage;
-  //   },
-  // });
 
   const ReplyOnToggle = async (commentIndex: number) => {
-    // await refetch();
-
     if (openToggle === false) {
-      // index = commentIndex;
-
-      // await refetch();
-      const response: replyResponseType = await getReplies(
-        commentIndex,
-        identity,
-        board_lang,
-        order_by,
-        page,
-        per_page
-      );
-
-      setReplyList(response.RESULTS.DATAS.COMMENTS);
+      refetchReplyOnToggle(commentIndex);
       setOpenToggle(true);
       setOpenWriteToggle(false);
     } else {
       setOpenToggle(false);
     }
   };
+
   const ReplyWriteOnToggle = async () => {
     if (openWriteToggle === false) {
       setOpenWriteToggle(true);
@@ -95,6 +61,7 @@ const PostCommentListItem = ({
       setOpenWriteToggle(false);
     }
   };
+
   return (
     <li
       className="comment"
@@ -113,14 +80,12 @@ const PostCommentListItem = ({
         ReplyWriteOnToggle={ReplyWriteOnToggle}
         showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
-        // refetch={refetch}
       />
       <div css={{ display: openToggle ? 'block' : 'none' }}>
         {item.RE_COMMENT_CNT !== '0' && (
           <ReplyCommentList
             identity={identity}
-            totalCount={replyTotalCount}
-            replyList={replyList}
+            replyList={replyData?.pages}
             texts={texts}
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}

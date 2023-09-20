@@ -34,6 +34,8 @@ export type PostCommentWrapperProps = {
   fetchNextPage: () => void;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  refetchReplyOnToggle: (commentIndex: number) => void;
+  replyData: any;
 };
 
 const PostCommentWrapper = ({
@@ -51,6 +53,8 @@ const PostCommentWrapper = ({
   fetchNextPage,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
+  refetchReplyOnToggle,
+  replyData,
 }: PostCommentWrapperProps) => {
   const hasNextPage = 20 * (page + 1) < Number(commentTotalCount);
   return (
@@ -76,6 +80,8 @@ const PostCommentWrapper = ({
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}
             refetch={refetch}
+            refetchReplyOnToggle={refetchReplyOnToggle}
+            replyData={replyData}
           />
         ))}
         {hasNextPage && (

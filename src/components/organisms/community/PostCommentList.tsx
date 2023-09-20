@@ -22,6 +22,8 @@ type PostCommentListProps = {
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   refetch: () => void;
+  refetchReplyOnToggle: (commentIndex: number) => void;
+  replyData: any;
 };
 
 const PostCommentList = ({
@@ -33,6 +35,8 @@ const PostCommentList = ({
   showModalBlockOnClick,
   showReportModalBlockOnClick,
   refetch,
+  refetchReplyOnToggle,
+  replyData,
 }: PostCommentListProps) => {
   const comment = comments.RESULTS.DATAS.COMMENTS;
   return (
@@ -48,6 +52,8 @@ const PostCommentList = ({
             onCreateComment={onCreateComment}
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}
+            refetchReplyOnToggle={refetchReplyOnToggle}
+            replyData={replyData}
           />
         ))}
     </ul>

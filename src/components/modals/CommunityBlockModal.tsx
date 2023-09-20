@@ -16,6 +16,7 @@ export interface VoteBlockModalProps {
   setDoneModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   setDoneModalMessage: React.Dispatch<React.SetStateAction<any>>;
   refetch: () => void;
+  replyRefetch: () => void;
 }
 
 function CommunityBlockModal({
@@ -28,6 +29,7 @@ function CommunityBlockModal({
   setDoneModalBlock,
   setDoneModalMessage,
   refetch,
+  replyRefetch,
   ...props
 }: VoteBlockModalProps) {
   const { purpose, target_type, idx } = selectInfo;
@@ -64,6 +66,7 @@ function CommunityBlockModal({
               : texts.alreadyDeleted;
           setDoneModalMessage(modalMessage);
           await refetch();
+          await replyRefetch();
         }
       },
       text: texts.confirmButton,
