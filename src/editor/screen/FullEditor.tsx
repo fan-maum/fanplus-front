@@ -9,6 +9,7 @@ import {
 import Script from 'next/script';
 import FileUploader from '../module/FileUploader';
 import { BackLangType } from '@/types/common';
+import { Editor } from '../../../public/tinymce/tinymce';
 
 type TProps = {
   editorRef: any;
@@ -44,8 +45,7 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue
       ...useTinyMCEConfig(),
       selector: `#${editorId}`,
       init_instance_callback: () => editorLoadedComplete(),
-      // @ts-ignore
-      setup: (editor) => {
+      setup: (editor: Editor) => {
         useIOSIMESetting(editor);
 
         const onCustomAction = () => setModalOpen(true);

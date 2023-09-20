@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSimpleTinyMCEConfig } from '../module/useSimpleTinyMCEConfig';
 import { useIOSIMESetting } from '../module/useIOSIMESetting';
 import Script from 'next/script';
+import { Editor } from '../../../public/tinymce/tinymce';
 
 type TProps = {
   editorRef: any;
@@ -40,8 +41,7 @@ const LiteEditor: React.FC<TProps> = ({
       placeholder: texts.placeholder,
       init_instance_callback: () => editorLoadedComplete(),
       valid_elements: 'b,strong,i,em,u,strike,sup,sub,p,br,ol,ul,li',
-      //@ts-ignore
-      setup: (editor) => {
+      setup: (editor: Editor) => {
         useIOSIMESetting(editor);
 
         editor.on('focus', () => editor.getBody().classList.add('placeholder'));

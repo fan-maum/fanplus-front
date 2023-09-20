@@ -16,6 +16,7 @@ import EditorTopicSet from '../molecules/community/EditorTopicSet';
 import CommunityEditorCommonModal from '../modals/CommunityEditorModal';
 import { editBoardArticle } from '@/api/Community';
 import { BackLangType } from '@/types/common';
+import { TinyMCE } from '../../../public/tinymce/tinymce';
 
 type OwnPropType = {
   mode: 'CREATE' | 'EDIT';
@@ -41,7 +42,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const isCreateMode = mode === 'CREATE';
   const { userId, boardIndex, postIndex, boardLang, lang } = datas;
 
-  const editorRef = useRef();
+  const editorRef = useRef<TinyMCE>();
   const editorId = 'postEditor';
 
   const [topicIdx, setTopicIdx] = useState(defaultValues?.topicIndex || topics[0].IDX);
@@ -69,8 +70,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const onClickUpload: MouseEventHandler = (event) => {
     event.preventDefault();
     setUploadModal(true);
-    // @ts-ignore
-    setContent(editorRef.current.get(editorId).getContent());
+    setContent(editorRef.current?.get(editorId)?.getContent() as string);
   };
 
   const onClickUploadConfirm = async () => {
