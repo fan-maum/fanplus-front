@@ -1,48 +1,38 @@
 import { useRouter } from 'next/router';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import IconVerticalMore from '@/components/atoms/IconVerticalMore';
-import IconFilter from '@/components/atoms/IconFilter';
-import { Dispatch, SetStateAction } from 'react';
 import { Popover } from '@mantine/core';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { useMutation } from 'react-query';
+import { PurPoseType, TargetType } from '@/types/common';
 
 export type CommunityPostTopNaviProps = {
+  identity: string;
+  user_idx: string;
+  writer_idx: string;
   texts: CommunityPostTextType;
-  deletePostOnClick: () => void;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  postIndex: string;
 };
-
-const CommunityPostTopNavi = ({ texts, deletePostOnClick }: CommunityPostTopNaviProps) => {
+const CommunityPostTopNavi = ({
+  identity,
+  user_idx,
+  writer_idx,
+  texts,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick,
+  postIndex,
+}: CommunityPostTopNaviProps) => {
   const router = useRouter();
-  // const likesMutate = useMutation();
-
-  //   const { mutate, isLoading, isError, error, isSuccess } = useMutation(newTodo => {
-  //     return axios.post<TodoType>('/todos', newTodo);
-  //   });
-
-  //   const mutation = useMutation({
-  //     mutationFn: (newTodo) => {
-  //       return axios.post('/todos', newTodo)
-  //     },
-  //   })
-
-  //   const { mutate } = useMutation((post) => createPost(post), {
-  //     onSuccess: () => { 	// mutate가 정상적으로 실행되면, 함수를 실행합니다.
-  // 		console.log("createPost success");
-  //     },
-  //     onError: () => { 	// mutate가 실패하면, 함수를 실행합니다.
-  //     	console.log("createPost error");
-  //     }
-  // });
-
-  const handleClickMore = () => {
-    // eslint-disable-next-line no-console
-    // console.log('popup open');
-    // const res = await axios.post(`http://localhost:302/api/community/${comment.COMMENT_IDX}`, {
-    //   identity: identity,
-    // });
-    // console.log(res);
+  const ReportOnClick = () => {
+    if (identity !== null) {
+      showReportModalBlockOnClick('report', 'post', postIndex);
+    } else {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+    }
   };
+
   return (
     <>
       <div
@@ -106,26 +96,24 @@ const CommunityPostTopNavi = ({ texts, deletePostOnClick }: CommunityPostTopNavi
                   },
                 }}
               >
-                <li
-                  onClick={() => {
-                    // eslint-disable-next-line no-console
-                    console.log('report');
-                  }}
-                >
-                  {texts.report}
-                </li>
-                <li
-                  onClick={() => {
-                    // eslint-disable-next-line no-console
-                    console.log('edit');
-                  }}
-                  css={{ borderBottom: '1px solid #d9d9d9' }}
-                >
-                  {texts.edit}
-                </li>
-                <li onClick={deletePostOnClick}>
-                  {texts.delete}
-                </li>
+                {writer_idx === user_idx ? (
+                  <>
+                    <li
+                      onClick={() => {
+                        // eslint-disable-next-line no-console
+                        console.log('edit');
+                      }}
+                      css={{ borderBottom: '1px solid #d9d9d9' }}
+                    >
+                      {texts.edit}
+                    </li>
+                    <li onClick={() => showModalBlockOnClick('delete', 'post', postIndex)}>
+                      {texts.delete}
+                    </li>
+                  </>
+                ) : (
+                  <li onClick={ReportOnClick}>{texts.report}</li>
+                )}
               </ul>
             </Popover.Dropdown>
           </Popover>

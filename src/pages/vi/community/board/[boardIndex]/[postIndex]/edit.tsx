@@ -1,15 +1,15 @@
-import { getCommunityBoardTopics, getCommunityPostData, postBoardArticle } from '@/api/Community';
+import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { CommunityPostEditorText_VIE, FooterText_VIE, NavBarText_VIE } from '@/texts/vi';
 import { BackLangType, BoardLangType } from '@/types/common';
-import { CommunityBoardTopicResponseType, CommunityPostResponseType } from '@/types/community';
+import { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
   boardTopics: CommunityBoardTopicResponseType;
-  communityPostData: CommunityPostResponseType;
+  communityPostData: PostResponseType;
   datas: {
     userId: string;
     boardIndex: number;

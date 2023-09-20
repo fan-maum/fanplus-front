@@ -279,6 +279,9 @@ export const CommunityMainText_zh_TW: CommunityPageTextType = {
   buttonSearch: '搜索',
   allCategory: '全部',
   searchPlaceholder: '找到您想要的消息面板',
+  link: {
+    board: '/zh-TW/community/board',
+  },
 };
 export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
   all: '全部',
@@ -310,6 +313,9 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
   noPostTexts: ['沒有帖子。', '成為第一個發表帖子的人'],
   noMyPostTexts: ['沒有帖子。'],
   buttonWrite: '發帖子',
+  link: {
+    board: '/zh-TW/community/board',
+  },
 };
 
 export const CommunityPostText_zh_TW: CommunityPostTextType = {
@@ -321,9 +327,48 @@ export const CommunityPostText_zh_TW: CommunityPostTextType = {
   edit: '修改',
   delete: '刪除',
   report: '舉報',
-  cancelButton: '취소',
-  confirmButton: '확인',
-  reportButton: '신고',
+  cancelButton: '取消',
+  confirmButton: '確認',
+  reportButton: '舉報',
+  commentRegisterPlaceholder: '請發表評論。（200字）',
+  replyRegisterPlaceholder: '請輸入評論。（200字）',
+  askPostDelete: '您要刪除該帖子嗎？',
+  askCommentDelete: '確認刪除評論嗎?',
+  postDeleted: '帖子已刪除',
+  commentDeleted: '評論已刪除',
+  reported: '已經舉報。',
+  reply: '回覆',
+  writeReply: '寫回覆',
+  register: '上傳',
+  orderOldest: '登錄順序',
+  orderNewest: '最新順序',
+  showMoreComments: '閱讀更多評論',
+  deleted: '已被刪除的評論',
+  alreadyDeleted: '已被刪除的評論。',
+  alreadyReportedPost: '這篇文章已被舉報。',
+  alreadyReportedComment: '您已經報告了一個評論',
+  reportReason: '請選擇舉報原因。',
+  reportPostOptions: {
+    option1: '個人信息曝光',
+    option2: '褻瀆/人身攻擊',
+    option3: '淫穢/煽情性',
+    option4: '非法信息',
+    option5: '侵權投訴',
+    option6: '其他',
+  },
+  reportCommentOptions: {
+    option1: '垃圾信息',
+    option2: '淫穢或惡意內容',
+  },
+  reportWarning: [
+    '舉報內容將根據運營政策和使用條款進行處理。',
+    '如果是虛假舉報，則可能會限制舉報人對服務的使用。',
+  ],
+};
+
+export const postCommentTotalCount_zh_TW = (totalCount: number) => {
+  let result = `${totalCount} 條最新評論`;
+  return result;
 };
 
 export const CommunityPostEditorText_zh_TW: CommunityPostEditorTextType = {

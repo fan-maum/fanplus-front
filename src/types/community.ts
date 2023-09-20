@@ -1,3 +1,5 @@
+import { reportComment } from './../api/Community';
+import { BackLangType } from './common';
 export type BoardListItemType = {
   BOARD_IDX: string;
   BOARD_TITLE: string;
@@ -132,7 +134,7 @@ export type CommunityNoticeBannerResponseType = {
 /**
  * Post
  */
-export type CommunityPost_PostInfoItemType = {
+export type PostInfoItemType = {
   POST_IDX: string;
   TOPIC_NAME: string;
   POST_TITLE: string;
@@ -157,58 +159,58 @@ export type CommunityPost_PostInfoItemType = {
   RECOMMEND_YN: string;
   THUMBNAIL_IMG: string;
 };
-export type CommunityPost_CommentListItemType = {
+export type PostInfoCommentItemType = {
   COMMENT_IDX: string;
-  TYPE: string; //
-  TARGET: string; //
-  TARGET_IDX: string; //
-  USER_IDX: string; //
+  TYPE: string;
+  TARGET: string;
+  TARGET_IDX: string;
+  USER_IDX: string;
   COMMENT: string;
-  IS_BLIND: string; //
-  IS_REMOVED: string; //
+  IS_BLIND: string;
+  IS_REMOVED: string;
   LIKE_CNT: string;
-  SPAM_REPORT_CNT: string; //
-  BAD_REPORT_CNT: string; //
+  SPAM_REPORT_CNT: string;
+  BAD_REPORT_CNT: string;
   RE_COMMENT_CNT: string;
   INS_DATE: string;
-  UPD_DATE: string; //
-  BLIND_DATE: string; //
-  REMOVE_DATE: string; //
-  USER_PROFILE_IMG: string; // PROFILE_IMG_URL
+  UPD_DATE: string;
+  BLIND_DATE: string;
+  REMOVE_DATE: string;
+  USER_PROFILE_IMG: string;
   NICK: string;
-  USER_LANG: string; //
+  USER_LANG: string;
   IDX: string;
   COMMENT_BLIND_YN: string;
   ALREADY_LIKE: string;
 };
 
-export type CommunityPost_HeadListItemType = {
+export type PostInfoHeadListItemType = {
   HEAD_IDX: string;
   BOARD_IDX: string;
   LANG_TYPE: string;
   HEAD_NAME: string;
 };
 
-export type CommunityPostResponseType = {
+export type PostResponseType = {
   RESULTS: {
     ERROR: number;
     MSG: string;
     DATAS: {
-      POST_INFO: CommunityPost_PostInfoItemType;
-      COMMENT_LIST: Array<CommunityPost_CommentListItemType>;
-      HEAD_LIST: Array<CommunityPost_HeadListItemType>;
+      POST_INFO: PostInfoItemType;
+      COMMENT_LIST: Array<PostInfoCommentItemType>;
+      HEAD_LIST: Array<PostInfoHeadListItemType>;
     };
     TIMESTAMP: number;
   };
 };
 
-export type CommunityCommentListItemType = {
+export type CommentListItemType = {
   COMMENT_IDX: string;
   IS_WRITER: string;
   LIKE_CNT: string;
   RE_COMMENT_CNT: string;
   INS_DATE: string;
-  COMMENT: string;
+  COMMENT: string | boolean;
   WRITER_IDX: string;
   NICK: string;
   ALREADY_LIKE: string;
@@ -217,16 +219,29 @@ export type CommunityCommentListItemType = {
   IS_BLOCKED_USER: string;
 };
 
-export type CommunityCommentResponseType = {
+export type CommentResponseType = {
   RESULTS: {
     ERROR: number;
     MSG: string;
     DATAS: {
       TOTAL_CNT: number;
       BEST_COMMENTS: [];
-      COMMENTS: Array<CommunityCommentListItemType>;
+      COMMENTS: Array<CommentListItemType>;
       PAGE: number;
       PER_PAGE: string;
+    };
+    TIMESTAMP: number;
+  };
+};
+
+export type PostCommentResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      COMMENT_IDX: number;
+      FANFIC_EVENT_STATUS: string;
+      FANFIC_EVENT_DESC: string;
     };
     TIMESTAMP: number;
   };
@@ -238,9 +253,9 @@ export type replyResponseType = {
     MSG: string;
     DATAS: {
       TOTAL_CNT: number;
-      ORIGINAL_COMMENTS: Array<CommunityCommentListItemType>;
+      ORIGINAL_COMMENTS: CommentListItemType;
       BEST_COMMENTS: [];
-      COMMENTS: Array<CommunityCommentListItemType>;
+      COMMENTS: Array<CommentListItemType>;
       PAGE: number;
       PER_PAGE: string;
     };
@@ -259,6 +274,15 @@ export type PostBoardArticleResponseType = {
       CONTENTS: null;
       IS_PUBLISH: 'Y' | 'N';
     };
+    TIMESTAMP: number;
+  };
+};
+
+export type reportCommentResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {};
     TIMESTAMP: number;
   };
 };
@@ -292,6 +316,71 @@ export type EditorImageUploadResponseType = {
     DATAS: {
       IMG_URL: string;
     };
+    TIMESTAMP: number;
+  };
+};
+
+export type userResponseType = {
+  RESULTS: {
+    DATAS: {
+      USER_IDX: number;
+      NICK: string;
+      EMAIL: string;
+      SELF_INTRODCUTION: null;
+      PROFILE_IMG_URL: string;
+      USER_LANG: BackLangType;
+      SUBSCRIPTION_STARS: {
+        COUNT: number;
+        LIST: [];
+      };
+      HAVE_CASH: number;
+      HAVE_VOTETICKET: number;
+      REMOVE_ADS_YN: string;
+      ADDED_RECOMMENDER_YN: string;
+      NEW_VOTE_TODAY_YN: string;
+      UNREAD_ALERT_CNT: number;
+      COMMENT_BLIND_YN: string;
+      EXCHANGE_VOTE_TICKET_SALE_YN: string;
+      NEW_EVENT_CHECK: null;
+      NEW_NOTICE_CHECK: null;
+      VOTE_TICKET_HISTORY_CNT: number;
+      FRIENDS_CNT: number;
+      MY_FRIENDS_CNT: number;
+      MAX_FRIENDS_COUNT: number;
+      FRIENDS_STATUS: string;
+      PHONENUMBER_VERIFIED: false;
+      MY_PHONENUMBER_VERIFIED: false;
+      LIKE_ALERT_YN: string;
+      COMMENT_ALERT_YN: string;
+      CAN_GET_POST_CNT: {
+        FRIENDS: number;
+        SYSTEM: number;
+        SUM: number;
+      };
+      FRIEND_REQUEST_CNT: string;
+      BIAS_STAR: {
+        STAR_IDX: number;
+        STAR_NAME: string;
+        INS_DATE: string;
+      };
+      BIRTHDAY: null;
+      GENDER: string;
+      PROFILE_COMPLETION_RATE: {
+        NOW: number;
+        MAX: number;
+      };
+      COUNTRY: {
+        CODE: null;
+        NAME: null;
+      };
+      ONBOARDING_FINISHED_YN: string;
+      DISPLAY_RECOMMEND_FRIENDS: string;
+      RECEIVE_FRIENDS_REQUEST: string;
+      REFERRAL_CODE: string;
+      BLOCK_STATUS: boolean;
+    };
+    ERROR: number;
+    MSG: string;
     TIMESTAMP: number;
   };
 };

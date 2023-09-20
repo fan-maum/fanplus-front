@@ -6,26 +6,26 @@ export interface LikesButtonProps extends UnstyledButtonProps {
   gap?: number;
   padding?: string | number;
   text?: string;
-  count?: number;
   alreadyLike?: string;
-  likes?: boolean;
-  recommendYN?: string;
+  likesCount?: number;
+  recommended?: string;
+  recommendedCount?: number;
   onClick?: () => void;
 }
 
 export default function LikesButton({
   buttonSize = 'large',
   text,
-  count,
   gap,
   padding,
   alreadyLike,
-  recommendYN,
-  likes,
+  likesCount,
+  recommended,
+  recommendedCount,
   ...props
 }: LikesButtonProps) {
-  const active = alreadyLike === 'Y' || recommendYN === 'Y' || likes === true;
-  const recommend = recommendYN && likes === true;
+  const active = alreadyLike === 'Y' || recommended === 'Y';
+
   return (
     <div>
       <UnstyledButton
@@ -37,7 +37,7 @@ export default function LikesButton({
           borderRadius: 5,
           border:
             buttonSize === 'large'
-              ? recommend
+              ? recommended === 'Y'
                 ? '2px solid #FF5656'
                 : '2px solid #D9D9D9'
               : 'none',
@@ -61,7 +61,7 @@ export default function LikesButton({
           }}
         >
           {text} &nbsp;
-          <>{likes ? Number(count) + 1 : count}</>
+          <>{alreadyLike ? likesCount : recommendedCount}</>
         </div>
       </UnstyledButton>
     </div>

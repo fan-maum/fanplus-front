@@ -279,6 +279,9 @@ export const CommunityMainText_ESP: CommunityPageTextType = {
   buttonSearch: 'Buscar',
   allCategory: 'Total',
   searchPlaceholder: 'Encuentra el tablón de anuncios que deseas.',
+  link: {
+    board: '/es/community/board',
+  },
 };
 export const CommunityBoardText_ESP: CommunityBoardTextType = {
   all: 'Total',
@@ -310,6 +313,9 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
   noPostTexts: ['No hay ninguna publicación.', 'Sé el primero en dejar una publicación.'],
   noMyPostTexts: ['No hay publicaciones escritas.'],
   buttonWrite: 'Escribir',
+  link: {
+    board: '/es/community/board',
+  },
 };
 
 export const CommunityPostText_ESP: CommunityPostTextType = {
@@ -321,9 +327,48 @@ export const CommunityPostText_ESP: CommunityPostTextType = {
   edit: 'Editar',
   delete: 'Eliminar',
   report: 'Reportar',
-  cancelButton: '취소',
-  confirmButton: '확인',
-  reportButton: '신고',
+  cancelButton: 'Cancelar',
+  confirmButton: 'Confirmar',
+  reportButton: 'Reportar',
+  commentRegisterPlaceholder: 'Dejar un comentario (200 caracteres)',
+  replyRegisterPlaceholder: 'Ingresa un comentario (200 caracteres)',
+  askPostDelete: '¿Te gustaría eliminar la publicación?',
+  askCommentDelete: '¿Desea eliminar el comentario?',
+  postDeleted: 'La publicación ha sido eliminada',
+  commentDeleted: 'El comentario ha sido eliminado.',
+  reported: 'Ha sido reportado.',
+  reply: 'respuestas',
+  writeReply: 'Escribe una respuesta',
+  register: 'Registrar',
+  orderOldest: 'Orden de registro',
+  orderNewest: 'El más reciente',
+  showMoreComments: 'leer más comentarios',
+  deleted: 'Es un comentario eliminado.',
+  alreadyDeleted: 'Es un comentario eliminado.',
+  alreadyReportedPost: 'Es una publicación ya reportada.',
+  alreadyReportedComment: 'Usted ha reportado una revisión',
+  reportReason: 'Selecciona la razón de reporte.',
+  reportPostOptions: {
+    option1: 'Exposición de información personal',
+    option2: 'Insultos/Ataque personal',
+    option3: 'Acto obsceno/sexual',
+    option4: 'Información ilegal',
+    option5: 'Reporte de violación a los derechos',
+    option6: 'Otros',
+  },
+  reportCommentOptions: {
+    option1: 'Correo basura',
+    option2: 'Insultos o contenido malicioso',
+  },
+  reportWarning: [
+    'Se procederá el contenido denunciado según las políticas de operación y términos de uso. Si es una denuncia falsa,',
+    'se podría restringir el uso del servicio de FanPlus por parte del denunciante.',
+  ],
+};
+
+export const postCommentTotalCount_ESP = (totalCount: number) => {
+  let result = `Comentario más reciente ${totalCount}`;
+  return result;
 };
 
 export const CommunityPostEditorText_ESP: CommunityPostEditorTextType = {

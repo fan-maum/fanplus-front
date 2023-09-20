@@ -23,7 +23,7 @@ type CommentRegisterProps = {
   ) => void;
 };
 
-const CommentRegister = ({
+const ReplyRegister = ({
   identity,
   texts,
   POST_IDX,
@@ -54,14 +54,15 @@ const CommentRegister = ({
         width: '100%',
         margin: '0 auto',
         maxWidth: '768px',
-        height: '60px',
-        padding: '14px 20px 14px 20px',
+        height: '120px',
+        padding: '20px 20px 20px 30px',
+        borderTop: '1px solid #f1f1f1',
       }}
     >
       <Avatar
         imageProps={{ style: { borderRadius: '50%' } }}
-        w={40}
-        h={40}
+        w={46}
+        h={46}
         radius={'50%'}
         css={{
           border: '1px solid #F8F8F9',
@@ -74,27 +75,30 @@ const CommentRegister = ({
         fz={17}
         align="center"
         h="100%"
-        spacing={5}
+        spacing={10}
         css={{ flexDirection: 'row', flex: 1 }}
       >
-        <RegisterInput
-          placeholder={texts.commentRegisterPlaceholder}
-          {...register('registerValue', { maxLength: 200 })}
-        />
+        <RegisterInputWrapper>
+          <label>{profileInfo.profileNick}</label>
+          <RegisterInput
+            placeholder={texts.replyRegisterPlaceholder}
+            {...register('registerValue', { maxLength: 200 })}
+          />
+        </RegisterInputWrapper>
         <UnstyledButton
           type="submit"
           bg="#FF5656"
-          h={32}
+          h={80}
           px={16}
           css={{
             width: 'auto',
-            height: 38,
+            height: 80,
             margin: 0,
-            padding: '4px 14px',
+            padding: '6px 20px',
             borderRadius: '6px',
             color: '#fff',
-            fontSize: 16,
-            fontWeight: 500,
+            fontSize: 20,
+            fontWeight: 600,
           }}
         >
           <span>{texts.register}</span>
@@ -104,7 +108,25 @@ const CommentRegister = ({
   );
 };
 
-export default CommentRegister;
+export default ReplyRegister;
+
+const RegisterInputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  outline: none;
+  padding: 20px 10px 10px 10px;
+  border: 1px solid #f1f1f1;
+  border-radius: 10px;
+  & > label {
+    position: absolute;
+    top: 10px;
+    color: #101010;
+    font-size: 16px;
+    font-weight: 500;
+  }
+`;
 
 const RegisterInput = styled.input`
   width: 100%;
@@ -113,8 +135,11 @@ const RegisterInput = styled.input`
   border: none;
   outline: none;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
+  padding: 20px 0 0 0;
   &::placeholder {
-    color: '#ABAFB7';
+    color: '#D9D9D9';
+    font-size: 14px;
+    font-weight: 400;
   }
 `;

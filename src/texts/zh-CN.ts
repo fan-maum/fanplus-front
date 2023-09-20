@@ -279,6 +279,9 @@ export const CommunityMainText_zh_CN: CommunityPageTextType = {
   buttonSearch: '搜索',
   allCategory: '全部',
   searchPlaceholder: '找到您想要的消息面板',
+  link: {
+    board: '/zh-CN/community/board',
+  },
 };
 export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   all: '全部',
@@ -310,6 +313,9 @@ export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   noPostTexts: ['没有帖子。', '成为第一个发表帖子的人'],
   noMyPostTexts: ['没有帖子。'],
   buttonWrite: '发帖子',
+  link: {
+    board: '/zh-CN/community/board',
+  },
 };
 
 export const CommunityPostText_zh_CN: CommunityPostTextType = {
@@ -321,9 +327,48 @@ export const CommunityPostText_zh_CN: CommunityPostTextType = {
   edit: '修改',
   delete: '删除',
   report: '举报',
-  cancelButton: '취소',
-  confirmButton: '확인',
-  reportButton: '신고',
+  cancelButton: '取消',
+  confirmButton: '确认',
+  reportButton: '举报',
+  commentRegisterPlaceholder: '请发表评论。（200字）',
+  replyRegisterPlaceholder: '请输入评论。（200字）',
+  askPostDelete: '您要删除该帖子吗？',
+  askCommentDelete: '确认删除评论吗?',
+  postDeleted: '帖子已删除',
+  commentDeleted: '评论已删除',
+  reported: '已经举报。',
+  reply: '回复',
+  writeReply: '写回复',
+  register: '上传',
+  orderOldest: '登录顺序',
+  orderNewest: '最新顺序',
+  showMoreComments: '阅读更多评论',
+  deleted: '已被删除的评论',
+  alreadyDeleted: '已被删除的评论。',
+  alreadyReportedPost: '这篇文章已被举报。',
+  alreadyReportedComment: '您已经报告了一个评论',
+  reportReason: '请选择举报原因。',
+  reportPostOptions: {
+    option1: '个人信息曝光',
+    option2: '亵渎/人身攻击',
+    option3: '淫秽/煽情性',
+    option4: '非法信息',
+    option5: '侵权投诉',
+    option6: '其他',
+  },
+  reportCommentOptions: {
+    option1: '垃圾信息',
+    option2: '淫秽或恶意内容',
+  },
+  reportWarning: [
+    '举报内容将根据运营政策和使用条款进行处理。',
+    '如果是虚假举报，则可能会限制举报人对服务的使用。',
+  ],
+};
+
+export const postCommentTotalCount_zh_CN = (totalCount: number) => {
+  let result = `${totalCount} 条最新评论`;
+  return result;
 };
 
 export const CommunityPostEditorText_zh_CN: CommunityPostEditorTextType = {

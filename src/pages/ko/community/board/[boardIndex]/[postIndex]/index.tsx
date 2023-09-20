@@ -3,16 +3,24 @@ import nookies from 'nookies';
 import { getCommunityPostData, getCommunityUnAuthPostData } from '@/api/Community';
 import { CommunityPostText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
 import Layout from '@/components/organisms/Layout';
-import { CommunityPostResponseType } from '@/types/community';
+import { PostResponseType } from '@/types/community';
 import CommunityPostTemplate, {
   CommunityPostPropType,
 } from '@/components/templates/CommunityPostTemplate';
 
-const Post = ({ identity, lang, communityPostData }: CommunityPostPropType) => {
+const Post = ({
+  identity,
+  user_idx,
+  postIndex,
+  lang,
+  communityPostData,
+}: CommunityPostPropType) => {
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
       <CommunityPostTemplate
         identity={identity}
+        user_idx={user_idx}
+        postIndex={postIndex}
         lang={lang}
         communityPostData={communityPostData}
         texts={CommunityPostText_KR}
@@ -22,7 +30,7 @@ const Post = ({ identity, lang, communityPostData }: CommunityPostPropType) => {
 };
 
 export const getServerSideProps: GetServerSideProps<{
-  communityPostData: CommunityPostResponseType;
+  communityPostData: PostResponseType;
 }> = async (context) => {
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
@@ -30,6 +38,7 @@ export const getServerSideProps: GetServerSideProps<{
 
   const cookies = nookies.get(context);
   const identity = cookies.user_id || null;
+  const user_idx = cookies.user_idx || null;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
@@ -41,7 +50,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   return {
-    props: { identity, lang, communityPostData },
+    props: { identity, user_idx, postIndex, lang, communityPostData },
   };
 };
 

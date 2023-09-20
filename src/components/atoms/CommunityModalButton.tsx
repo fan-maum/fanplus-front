@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, useEffect } from 'react';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonId?: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'report';
 }
 
 export function CommunityModalButton({ buttonId, variant = 'secondary', ...props }: Props) {
@@ -43,6 +43,13 @@ const TYPE_VARIANTS = {
   tertiary: {
     color: '#23A3FF',
     border: '1px solid #D9D9D9',
+    fontWeight: 600,
+  },
+  report: {
+    color: '#fff',
+    border: '1px solid #ff5656',
+    background: "#ff5656",
+    borderRadius: '10px',
     fontWeight: 600,
   },
 };
