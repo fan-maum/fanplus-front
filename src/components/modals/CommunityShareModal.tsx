@@ -82,7 +82,6 @@ function CommunityShareModal({
         fanplusLogo: 'https://fanplus.co.kr/wp-content/uploads/2020/04/fanplus_metatag.png',
       },
     };
-    console.log(template);
 
     if (isWebView) {
       if (phoneModel === 'android') {

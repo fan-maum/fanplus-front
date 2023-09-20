@@ -17,7 +17,6 @@ export type CommentCardProps = {
   ReplyWriteOnToggle?: () => void;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
-  refetch: () => void;
 };
 const CommentCard = ({
   identity,
@@ -27,7 +26,6 @@ const CommentCard = ({
   ReplyWriteOnToggle,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
-  refetch,
 }: CommentCardProps) => {
   const router = useRouter();
 
@@ -38,7 +36,6 @@ const CommentCard = ({
       } else {
         const res = await postLikes(comment.COMMENT_IDX, identity);
       }
-      refetch();
     } else {
       const path = router.asPath;
       router.push({ pathname: '/login', query: { nextUrl: path } });

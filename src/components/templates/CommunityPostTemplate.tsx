@@ -15,7 +15,6 @@ import PostCommentWrapper, {
 import CommunityBlockModal from '@/components/modals/CommunityBlockModal';
 import CommunityDoneModal from '../modals/CommunityDoneModal';
 import CommunityReportModal from '../modals/CommunityReportModal';
-import VoteDetailShareModal, { VoteDetailShareModalProps } from '../modals/VoteDetailShareModal';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
 
@@ -93,7 +92,7 @@ const CommunityPostTemplate = ({
     }
   }, [isSuccess, data]);
 
-  if (isLoading) return 'Loading...';
+  if (isLoading) return '';
   if (error) return 'An error has occurred: ' + error;
 
   const showModalBlockOnClick = async (

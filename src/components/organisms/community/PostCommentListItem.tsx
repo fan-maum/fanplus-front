@@ -4,9 +4,9 @@ import CommentCard from './CommentCard';
 import { getReplies } from '@/api/Community';
 import ReplyCommentList from './ReplyCommentList';
 import { BackLangType, PurPoseType, TargetType } from '@/types/common';
-import CommentRegister from './CommentRegister';
 import { CommunityPostTextType } from '@/types/textTypes';
 import ReplyRegister from './ReplyRegister';
+import { useInfiniteQuery } from 'react-query';
 
 type PostCommentListItemProps = {
   getCommentParams: {
@@ -26,7 +26,6 @@ type PostCommentListItemProps = {
   ) => void;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
-  refetch: () => void;
 };
 
 const PostCommentListItem = ({
@@ -37,7 +36,6 @@ const PostCommentListItem = ({
   onCreateComment,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
-  refetch,
 }: PostCommentListItemProps) => {
   const { identity } = getCommentParams;
   const order_by = 'newest';
@@ -48,9 +46,31 @@ const PostCommentListItem = ({
   const [openWriteToggle, setOpenWriteToggle] = useState(false);
   const [replyList, setReplyList] = useState<CommentListItemType[]>([]);
   const [replyTotalCount, setReplyTotalCount] = useState<number>(0);
+  let index: any = 0;
+
+  const getRepliesQuery = async ({ pageParam = 0 }: any) => {
+    const data = await getReplies(index, identity, board_lang, order_by, pageParam, 20);
+    return data;
+  };
+
+  // const {
+  //   data: replies,
+  //   refetch,
+  //   fetchNextPage,
+  // } = useInfiniteQuery(['replies'], getRepliesQuery, {
+  //   getNextPageParam: (currentPage) => {
+  //     const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1;
+  //     return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage;
+  //   },
+  // });
 
   const ReplyOnToggle = async (commentIndex: number) => {
+    // await refetch();
+
     if (openToggle === false) {
+      // index = commentIndex;
+
+      // await refetch();
       const response: replyResponseType = await getReplies(
         commentIndex,
         identity,
@@ -76,7 +96,15 @@ const PostCommentListItem = ({
     }
   };
   return (
-    <li className="comment" css={{ borderBottom: '1px solid #f1f1f1' }}>
+    <li
+      className="comment"
+      css={{
+        borderBottom: '1px solid #f1f1f1',
+        '&:last-child': {
+          borderBottom: 'none',
+        },
+      }}
+    >
       <CommentCard
         identity={identity}
         comment={item}
@@ -85,7 +113,7 @@ const PostCommentListItem = ({
         ReplyWriteOnToggle={ReplyWriteOnToggle}
         showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
-        refetch={refetch}
+        // refetch={refetch}
       />
       <div css={{ display: openToggle ? 'block' : 'none' }}>
         {item.RE_COMMENT_CNT !== '0' && (

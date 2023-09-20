@@ -13,9 +13,19 @@ type ReplyCommentListProps = {
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
-const ReplyCommentList = ({ identity, totalCount, replyList, texts, showModalBlockOnClick, showReportModalBlockOnClick }: ReplyCommentListProps) => {
+const ReplyCommentList = ({
+  identity,
+  totalCount,
+  replyList,
+  texts,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick,
+}: ReplyCommentListProps) => {
   const router = useRouter();
   const page = parseInt(router.query.page as string) | 1;
+
+  // eslint-disable-next-line no-console
+  // console.log(replyList);
 
   return (
     <ul data-role="comments">
