@@ -8,3 +8,9 @@ export type TargetType =
   | 'user_collection'
   | 'post';
 export type OrderType = 'oldest' | 'newest';
+export type PurPoseType = 'delete' | 'edit' | 'report';
+export type selectInfoType = {
+  purpose: PurPoseType | null;
+  target_type: TargetType | null;
+  idx: string;
+};

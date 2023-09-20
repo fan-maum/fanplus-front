@@ -1,30 +1,46 @@
 import styled from '@emotion/styled';
 import { Center, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
-import { CommunityPost_PostInfoItemType } from '@/types/community';
+import { PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { deleteRecommends, postRecommends } from '@/api/Community';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 type CommunityPostDetailProps = {
   identity: string;
-  postInfo: CommunityPost_PostInfoItemType;
+  postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
+  setPostLikeState: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const CommunityPostDetail = ({ identity, postInfo, texts }: CommunityPostDetailProps) => {
-  const [likes, setLikes] = useState(false);
+const CommunityPostDetail = ({
+  identity,
+  postInfo,
+  texts,
+  setPostLikeState,
+}: CommunityPostDetailProps) => {
+  const router = useRouter();
+  const [recommended, setRecommended] = useState(postInfo.RECOMMEND_YN);
+  const [recommendedCount, setRecommendedCount] = useState<number>(
+    parseInt(postInfo.RECOMMEND_CNT as string)
+  );
   const RecommendOnClick = async () => {
     if (identity !== null) {
-      if (postInfo.RECOMMEND_YN === 'Y' || likes === true) {
-        const res = await deleteRecommends(identity, postInfo.POST_IDX);
-        setLikes(false);
+      if (recommended === 'Y') {
+        await deleteRecommends(identity, postInfo.POST_IDX);
+        setRecommended('N');
+        setRecommendedCount((prev) => prev - 1);
+        setPostLikeState((prev) => prev - 1);
       } else {
-        const res = await postRecommends(identity, postInfo.POST_IDX);
-        setLikes(true);
+        await postRecommends(identity, postInfo.POST_IDX);
+        setRecommended('Y');
+        setRecommendedCount((prev) => prev + 1);
+        setPostLikeState((prev) => prev + 1);
       }
     } else {
-      alert('로그인해주세요.');
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
   return (
@@ -33,9 +49,8 @@ const CommunityPostDetail = ({ identity, postInfo, texts }: CommunityPostDetailP
       <Center mb={8}>
         <LikesButton
           text={texts.recommend}
-          likes={likes}
-          count={Number(postInfo.RECOMMEND_CNT)}
-          recommendYN={postInfo.RECOMMEND_YN}
+          recommended={recommended}
+          recommendedCount={recommendedCount}
           onClick={RecommendOnClick}
         />
       </Center>

@@ -279,6 +279,9 @@ export const CommunityMainText_KR: CommunityPageTextType = {
   buttonSearch: '검색하기',
   allCategory: '전체',
   searchPlaceholder: '원하는 게시판을 찾아보세요.',
+  link: {
+    board: '/ko/community/board',
+  },
 };
 export const CommunityBoardText_KR: CommunityBoardTextType = {
   all: '전체',
@@ -310,6 +313,9 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
   noPostTexts: ['게시글이 없습니다.', '제일 먼저 게시글을 남겨주세요.'],
   noMyPostTexts: ['작성된 글이 없습니다.'],
   buttonWrite: '글쓰기',
+  link: {
+    board: '/ko/community/board',
+  },
 };
 
 export const CommunityPostText_KR: CommunityPostTextType = {
@@ -324,4 +330,40 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   cancelButton: '취소',
   confirmButton: '확인',
   reportButton: '신고',
+  commentRegisterPlaceholder: '댓글을 남겨주세요. (200자)',
+  replyRegisterPlaceholder: '답글을 입력해 주세요. (200자)',
+  askPostDelete: '게시글을 삭제하시겠어요?',
+  askCommentDelete: '댓글을 삭제하시겠어요?',
+  postDeleted: '게시물이 삭제되었습니다',
+  commentDeleted: '댓글이 삭제되었습니다.',
+  reported: '신고되었습니다.',
+  reply: '답글',
+  writeReply: '답글쓰기',
+  register: '등록',
+  orderOldest: '등록순',
+  orderNewest: '최신순',
+  showMoreComments: '다음 댓글 더보기',
+  deleted: '삭제된 댓글입니다.',
+  alreadyDeleted: '이미 삭제된 댓글입니다.',
+  alreadyReportedPost: '이미 신고한 게시글입니다.',
+  alreadyReportedComment: '이미 신고한 댓글입니다.',
+  reportReason: '사유 선택',
+  reportPostOptions: {
+    option1: '개인정보 노출',
+    option2: '욕설/인신공격',
+    option3: '음란/선정성',
+    option4: '불법정보',
+    option5: '권리침해',
+    option6: '기타',
+  },
+  reportCommentOptions: {
+    option1: '스팸',
+    option2: '욕설 또는 악성 콘텐츠',
+  },
+  reportWarning: ['허위 신고의 경우 서비스 이용제한과 같은', '불이익을 받을 수 있습니다.'],
+};
+
+export const postCommentTotalCount_KR = (totalCount: number) => {
+  let result = `최신댓글 ${totalCount}개`;
+  return result;
 };

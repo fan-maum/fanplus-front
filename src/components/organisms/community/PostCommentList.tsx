@@ -1,13 +1,7 @@
-import {
-  CommunityCommentListItemType,
-  CommunityCommentResponseType,
-  CommunityPost_CommentListItemType,
-} from '@/types/community';
+import { CommentResponseType } from '@/types/community';
 import PostCommentListItem from './PostCommentListItem';
-import { UnstyledButton } from '@/components/atoms';
-import { getCommunityPostCommentData, getCommunityUnAuthPostCommentData } from '@/api/Community';
-import { BackLangType, TargetType } from '@/types/common';
-import { useState } from 'react';
+import { BackLangType, PurPoseType, TargetType } from '@/types/common';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 type PostCommentListProps = {
   getCommentParams: {
@@ -16,103 +10,46 @@ type PostCommentListProps = {
     lang: BackLangType;
     identity: string;
   };
-  commentTotalCount: string | number;
-  commentList: Array<CommunityPost_CommentListItemType>;
-  data: Array<CommunityCommentListItemType>;
-  setData: React.Dispatch<React.SetStateAction<Array<CommunityCommentListItemType>>>;
+  comments: CommentResponseType;
+  texts: CommunityPostTextType;
+  profileInfo: { profileImg: string; profileNick: string };
   onCreateComment: (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => void;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  refetch: () => void;
 };
 
 const PostCommentList = ({
   getCommentParams,
-  commentTotalCount,
-  commentList,
-  data,
-  setData,
+  comments,
+  texts,
+  profileInfo,
   onCreateComment,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick,
+  refetch,
 }: PostCommentListProps) => {
-  const [pagingNumber, setPagingNumber] = useState(1);
-  const hasNextPage = 10 * pagingNumber < Number(commentTotalCount);
-
-  // const getCommentData = async () => {
-  //   let getCommentResponse: CommunityCommentResponseType;
-  //   getCommentParams.identity !== null
-  //     ? (getCommentResponse = await getCommunityPostCommentData(
-  //         getCommentParams.target_type,
-  //         String(getCommentParams.target),
-  //         'newest',
-  //         getCommentParams.lang,
-  //         pagingNumber,
-  //         getCommentParams.identity,
-  //         10
-  //       ))
-  //     : (getCommentResponse = await getCommunityUnAuthPostCommentData(
-  //         getCommentParams.target_type,
-  //         getCommentParams.target,
-  //         'newest',
-  //         'ko-en-ja-es-vi-id-zh-zhtw',
-  //         getCommentParams.lang,
-  //         pagingNumber,
-  //         10
-  //       ));
-  //   return getCommentResponse;
-  // };
-
-  const showMoreCommentOnClick = async () => {
-    let getCommentResponse: CommunityCommentResponseType;
-    getCommentParams.identity !== null
-      ? (getCommentResponse = await getCommunityPostCommentData(
-          getCommentParams.target_type,
-          String(getCommentParams.target),
-          'newest',
-          getCommentParams.lang,
-          pagingNumber,
-          getCommentParams.identity,
-          10
-        ))
-      : (getCommentResponse = await getCommunityUnAuthPostCommentData(
-          getCommentParams.target_type,
-          getCommentParams.target,
-          'newest',
-          'ko-en-ja-es-vi-id-zh-zhtw',
-          getCommentParams.lang,
-          pagingNumber,
-          10
-        ));
-    const comments = getCommentResponse.RESULTS.DATAS.COMMENTS;
-    setData([...data, ...comments]);
-    setPagingNumber(pagingNumber + 1);
-  };
+  const comment = comments.RESULTS.DATAS.COMMENTS;
   return (
     <ul data-role="comments">
-      {data.map((comment: any, index) => {
-        return (
+      {comment &&
+        comment.map((item: any, index) => (
           <PostCommentListItem
-            key={`${comment.COMMENT_IDX}_${index}`}
+            key={`${index}`}
             getCommentParams={getCommentParams}
-            comment={comment}
+            item={item}
+            texts={texts}
+            profileInfo={profileInfo}
             onCreateComment={onCreateComment}
+            showModalBlockOnClick={showModalBlockOnClick}
+            showReportModalBlockOnClick={showReportModalBlockOnClick}
           />
-        );
-      })}
-      {hasNextPage && (
-        <UnstyledButton
-          type="button"
-          w={'100%'}
-          h={60}
-          fz={16}
-          fw={600}
-          onClick={showMoreCommentOnClick}
-          css={{ color: '#999' }}
-        >
-          다음 댓글 더보기
-        </UnstyledButton>
-      )}
+        ))}
     </ul>
   );
 };

@@ -282,6 +282,9 @@ export const CommunityMainText_IND: CommunityPageTextType = {
   buttonSearch: 'Cari',
   allCategory: 'Semua',
   searchPlaceholder: 'Cari papan yang mungkin Anda sukai.',
+  link: {
+    board: '/in/community/board',
+  },
 };
 export const CommunityBoardText_IND: CommunityBoardTextType = {
   all: 'Semua',
@@ -313,6 +316,9 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
   noPostTexts: ['Tidak ada postingan', 'Jadilah orang pertama', 'yang meninggalkan postingan'],
   noMyPostTexts: ['Tidak ada postingan yang ditulis'],
   buttonWrite: 'Tulis',
+  link: {
+    board: '/in/community/board',
+  },
 };
 
 export const CommunityPostText_IND: CommunityPostTextType = {
@@ -324,7 +330,46 @@ export const CommunityPostText_IND: CommunityPostTextType = {
   edit: 'Edit',
   delete: 'Hapus',
   report: 'Laporkan',
-  cancelButton: '취소',
-  confirmButton: '확인',
-  reportButton: '신고',
+  cancelButton: 'Batal',
+  confirmButton: 'Memeriksa',
+  reportButton: 'Laporkan',
+  commentRegisterPlaceholder: 'Tinggalkan komentar (maksimal 200 karakter)',
+  replyRegisterPlaceholder: 'Tulis komentar (maksimal 200 karakter)',
+  askPostDelete: 'Apakah Anda ingin menghapus cerita Anda?',
+  askCommentDelete: 'Anda mau menghapus komentar?',
+  postDeleted: 'Anda telah menghapus kisah Anda',
+  commentDeleted: 'Komentar sudah dihapus.',
+  reported: 'Masalah ini telah berhasil dilaporkan.',
+  reply: 'balasan',
+  writeReply: 'Menulis balasan',
+  register: 'Unggah',
+  orderOldest: 'Paling awal',
+  orderNewest: 'Baru',
+  showMoreComments: 'lebih banyak komentar',
+  deleted: 'Komentar telah dihapus.',
+  alreadyDeleted: 'Komentar sudah dihapus',
+  alreadyReportedPost: 'Anda sudah melaporkan pos',
+  alreadyReportedComment: 'Anda sudah melaporkan komentar',
+  reportReason: 'Pilih alasannya.',
+  reportPostOptions: {
+    option1: 'Pengungkapan informasi pribadi',
+    option2: 'Penghinaan / penyalahgunaan Pribadi',
+    option3: 'Pornografi / Sensasi seksual',
+    option4: 'Informasi ilegal',
+    option5: 'Laporan pelanggaran',
+    option6: 'Lainnya',
+  },
+  reportCommentOptions: {
+    option1: 'Spam',
+    option2: 'Konten yang menghina atau tidak pantas',
+  },
+  reportWarning: [
+    'Konten yang dilaporkan akan diproses sesuai dengan kebijakan pengoperasian dan persyaratan penggunaan. Jika ini adalah laporan palsu,',
+    'penggunaan layanan FanPlus oleh pelapor dapat dibatasi.',
+  ],
+};
+
+export const postCommentTotalCount_IND = (totalCount: number) => {
+  let result = `${totalCount} komentar`;
+  return result;
 };

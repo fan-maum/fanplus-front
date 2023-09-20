@@ -4,7 +4,7 @@ import Image from 'next/image';
 export interface LikesButtonProps extends UnstyledButtonProps {
   gap?: number;
   padding?: string | number;
-  text?: string;
+  text?: string | number;
   onClick?: () => void;
 }
 
@@ -19,17 +19,17 @@ export default function CommentCountButton({ text, gap, padding, ...props }: Lik
           gap: gap || 6,
           padding: padding || '0',
           borderRadius: 5,
-          cursor: "default"
+          cursor: 'default',
         }}
         {...props}
       >
-        <Image src={'/icons/icon_comment.svg'} width={35} height={35} alt="comment" />
+        <Image src={'/icons/icon_comment.svg'} width={26} height={26} alt="comment" />
         <div
           css={{
             textAlign: 'center',
             whiteSpace: 'nowrap',
             color: '#101010',
-            fontSize: 24,
+            fontSize: 16,
             fontWeight: 500,
           }}
         >

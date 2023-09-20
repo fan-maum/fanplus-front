@@ -3,7 +3,7 @@ import { colors } from '@/styles/Colors';
 import { VoteModalButton } from '../atoms/VoteModalButton';
 import { CommunityModalButton } from '../atoms/CommunityModalButton';
 
-export interface CommunityCommonModalProps extends ModalProps {
+export interface CommunityReportCommonModalProps extends ModalProps {
   buttonId?: string;
   confirmButton?: { onClick?: () => void; text?: string; loading?: boolean };
   cancelButton?: { onClick?: () => void; text?: string } | boolean;
@@ -11,14 +11,14 @@ export interface CommunityCommonModalProps extends ModalProps {
   overridestyle?: { header?: CSSObject; title?: CSSObject };
 }
 
-function CommunityCommonModal({
+function CommunityReportCommonModal({
   buttonId,
   confirmButton,
   cancelButton,
   withCancelButton,
   children,
   ...props
-}: CommunityCommonModalProps) {
+}: CommunityReportCommonModalProps) {
   return (
     <Modal
       withCloseButton={false}
@@ -31,8 +31,8 @@ function CommunityCommonModal({
       {...props}
       styles={(theme) => ({
         header: {
-          padding: '30px 20px 30px 30px',
-          marginBottom: '-30px',
+          marginBottom: '30px',
+          padding: '20px 0 0 0 !important'
         },
         close: {
           '& > svg': { width: '100% !important', height: '100% !important' },
@@ -49,6 +49,7 @@ function CommunityCommonModal({
           borderRadius: 20,
           overflow: 'hidden',
           border: '1px solid #D9D9D9',
+          padding: 25,
         },
         body: {
           minWidth: 328,
@@ -59,7 +60,7 @@ function CommunityCommonModal({
           textAlign: 'center',
           letterSpacing: -0.3,
           paddingLeft: '0 !important',
-          padding: '44px 0 0 0 !important',
+          padding: '0 !important',
           color: colors.gray[props?.title ? 700 : 750],
         },
       })}
@@ -83,7 +84,7 @@ function CommunityCommonModal({
         )}
         <CommunityModalButton
           buttonId={buttonId}
-          variant="primary"
+          variant="report"
           css={{ flex: 1 }}
           onClick={confirmButton?.onClick}
         >
@@ -94,4 +95,4 @@ function CommunityCommonModal({
   );
 }
 
-export default CommunityCommonModal;
+export default CommunityReportCommonModal;

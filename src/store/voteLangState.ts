@@ -5,6 +5,7 @@ import {
   ShareModal_Text_ko,
   VoteModal_Text_ko,
   VoteModalButton_Text_ko,
+  postCommentTotalCount_KR,
 } from '@/texts/ko';
 import {
   Votes_Text_en,
@@ -12,6 +13,7 @@ import {
   ShareModal_Text_en,
   VoteModal_Text_en,
   VoteModalButton_Text_en,
+  postCommentTotalCount_ENG,
 } from '@/texts/en';
 import {
   Votes_Text_es,
@@ -19,6 +21,7 @@ import {
   ShareModal_Text_es,
   VoteModal_Text_es,
   VoteModalButton_Text_es,
+  postCommentTotalCount_ESP,
 } from '@/texts/es';
 import {
   Votes_Text_in,
@@ -26,6 +29,7 @@ import {
   ShareModal_Text_in,
   VoteModal_Text_in,
   VoteModalButton_Text_in,
+  postCommentTotalCount_IND,
 } from '@/texts/in';
 import {
   Votes_Text_ja,
@@ -33,6 +37,7 @@ import {
   ShareModal_Text_ja,
   VoteModal_Text_ja,
   VoteModalButton_Text_ja,
+  postCommentTotalCount_JAP,
 } from '@/texts/ja';
 import {
   Votes_Text_vi,
@@ -40,6 +45,7 @@ import {
   ShareModal_Text_vi,
   VoteModal_Text_vi,
   VoteModalButton_Text_vi,
+  postCommentTotalCount_VIE,
 } from '@/texts/vi';
 import {
   Votes_Text_zh,
@@ -47,6 +53,7 @@ import {
   ShareModal_Text_zh,
   VoteModal_Text_zh,
   VoteModalButton_Text_zh,
+  postCommentTotalCount_zh_CN,
 } from '@/texts/zh-CN';
 import {
   Votes_Text_zhtw,
@@ -54,6 +61,7 @@ import {
   ShareModal_Text_zhtw,
   VoteModal_Text_zhtw,
   VoteModalButton_Text_zhtw,
+  postCommentTotalCount_zh_TW,
 } from '@/texts/zh-TW';
 
 const randomNumber = Math.floor(Math.random() * 100);
@@ -124,5 +132,19 @@ export const voteModalButtonState = atomFamily({
     if (id === 'vi') return VoteModalButton_Text_vi;
     if (id === 'zh-CN') return VoteModalButton_Text_zh;
     if (id === 'zh-TW') return VoteModalButton_Text_zhtw;
+  },
+});
+
+export const commentTotalCountState = atomFamily({
+  key: `commentTotalCountState/${randomNumber}`,
+  default: (id: string) => {
+    if (id === 'ko') return postCommentTotalCount_KR;
+    if (id === 'en') return postCommentTotalCount_ENG;
+    if (id === 'es') return postCommentTotalCount_ESP;
+    if (id === 'in') return postCommentTotalCount_IND;
+    if (id === 'ja') return postCommentTotalCount_JAP;
+    if (id === 'vi') return postCommentTotalCount_VIE;
+    if (id === 'zh-CN') return postCommentTotalCount_zh_CN;
+    if (id === 'zh-TW') return postCommentTotalCount_zh_TW;
   },
 });

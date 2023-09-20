@@ -1,13 +1,18 @@
 import { Avatar, Group, Stack } from '@/components/atoms';
-import { CommunityPost_PostInfoItemType } from '@/types/community';
+import { PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
 
 export interface CommunityPostInfoStateProps {
-  postInfo: CommunityPost_PostInfoItemType;
+  postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
+  postLikeState: number;
 }
 
-const CommunityPostInfoState = ({ postInfo, texts }: CommunityPostInfoStateProps) => {
+const CommunityPostInfoState = ({
+  postInfo,
+  texts,
+  postLikeState,
+}: CommunityPostInfoStateProps) => {
   return (
     <Group spacing={10} align={'flex-start'}>
       <div css={{ position: 'relative' }}>
@@ -40,7 +45,7 @@ const CommunityPostInfoState = ({ postInfo, texts }: CommunityPostInfoStateProps
             {texts.viewCount} {postInfo.VIEW_CNT}
           </div>
           <span>
-            {texts.recommendCount} {postInfo.RECOMMEND_CNT}
+            {texts.recommendCount} {postLikeState}
           </span>
         </Group>
       </Stack>

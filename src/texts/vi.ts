@@ -282,6 +282,9 @@ export const CommunityMainText_VIE: CommunityPageTextType = {
   buttonSearch: 'Tìm kiếm',
   allCategory: 'Tất cả',
   searchPlaceholder: 'Tìm kiếm một bảng bạn có thể thích.',
+  link: {
+    board: '/vi/community/board',
+  },
 };
 export const CommunityBoardText_VIE: CommunityBoardTextType = {
   all: 'Tất cả',
@@ -313,6 +316,9 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
   noPostTexts: ['Không có bài viết nào', 'Hãy là người đầu tiên để lại bài viết'],
   noMyPostTexts: ['Không có bài viết nào được viết'],
   buttonWrite: 'Viết',
+  link: {
+    board: '/vi/community/board',
+  },
 };
 
 export const CommunityPostText_VIE: CommunityPostTextType = {
@@ -324,7 +330,46 @@ export const CommunityPostText_VIE: CommunityPostTextType = {
   edit: 'Chỉnh sửa',
   delete: 'Xóa',
   report: 'Khai báo',
-  cancelButton: '취소',
-  confirmButton: '확인',
-  reportButton: '신고',
+  cancelButton: 'Hủy bỏ',
+  confirmButton: 'Xác nhận',
+  reportButton: 'Khai báo',
+  commentRegisterPlaceholder: 'Để lại một bình luận (tối đa 200 ký tự)',
+  replyRegisterPlaceholder: 'Vui lòng nhập bình luận (tối đa 200 ký tự)',
+  askPostDelete: 'Bạn có muốn xóa câu chuyện của mình không?',
+  askCommentDelete: 'Bạn muốn xóa bình luận?',
+  postDeleted: 'Bạn đã xóa câu chuyện của mình',
+  commentDeleted: 'Bình luận đã được xóa',
+  reported: 'Vấn đề này đã được báo cáo thành công.',
+  reply: 'câu trả lời',
+  writeReply: 'Viết thư trả lời',
+  register: 'Tải lên',
+  orderOldest: 'Sớm nhất',
+  orderNewest: 'Gần đây',
+  showMoreComments: 'Xem thêm bình luận',
+  deleted: 'Bình luận đã bị xóa',
+  alreadyDeleted: 'Đã xóa nhận xét',
+  alreadyReportedPost: 'Bạn đã báo cáo bài đăng',
+  alreadyReportedComment: 'Đây là bình luận đã báo cáo rồi.',
+  reportReason: 'Chọn lý do.',
+  reportPostOptions: {
+    option1: 'Tiết lộ thông tin cá nhân',
+    option2: 'Xúc phạm / lạm dụng cá nhân',
+    option3: 'Nội dung khiêu dâm / Cảm giác tình dục',
+    option4: 'Thông tin bất hợp pháp',
+    option5: 'Báo cáo vi phạm',
+    option6: 'Khác',
+  },
+  reportCommentOptions: {
+    option1: 'Spam',
+    option2: 'Nội dung xúc phạm hoặc không phù hợp',
+  },
+  reportWarning: [
+    'Nội dung được báo cáo sẽ được xử lý theo chính sách hoạt động và điều khoản sử dụng. Nếu đó là một báo cáo sai sự thật,',
+    'việc sử dụng dịch vụ FanPlus của phóng viên có thể bị hạn chế. ',
+  ],
+};
+
+export const postCommentTotalCount_VIE = (totalCount: number) => {
+  let result = `${totalCount} bình luận`;
+  return result;
 };

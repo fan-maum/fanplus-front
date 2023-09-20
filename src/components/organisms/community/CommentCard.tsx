@@ -1,44 +1,56 @@
+import { useState } from 'react';
 import { deleteLikes, postLikes } from '@/api/Community';
 import { Group, Stack, UnstyledButton } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
-import ReplyButton from '@/components/atoms/IconReply';
 import CommentInfoState from '@/components/molecules/community/CommentInfoState';
-import { CommunityCommentListItemType, CommunityPost_CommentListItemType } from '@/types/community';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { CommentListItemType } from '@/types/community';
 import IconReply from '@/components/atoms/IconReply';
+import { PurPoseType, TargetType } from '@/types/common';
+import { useRouter } from 'next/router';
+import { CommunityPostTextType } from '@/types/textTypes';
 
 export type CommentCardProps = {
   identity: string;
-  comment: CommunityPost_CommentListItemType;
-  // comment: CommunityCommentListItemType;
+  comment: CommentListItemType;
+  texts: CommunityPostTextType;
   ReplyOnToggle?: (comment_idx: any) => void;
   ReplyWriteOnToggle?: () => void;
+  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 const CommentCard = ({
   identity,
   comment,
+  texts,
   ReplyOnToggle,
   ReplyWriteOnToggle,
+  showModalBlockOnClick,
+  showReportModalBlockOnClick,
 }: CommentCardProps) => {
-  const [likes, setLikes] = useState(false);
+  const router = useRouter();
+
   const LikesOnClick = async () => {
     if (identity !== null) {
-      if (comment.ALREADY_LIKE === 'Y' || likes === true) {
+      if (comment.ALREADY_LIKE === 'Y') {
         const res = await deleteLikes(comment.COMMENT_IDX, identity);
-        setLikes(false);
       } else {
         const res = await postLikes(comment.COMMENT_IDX, identity);
-        setLikes(true);
       }
     } else {
-      alert('로그인해주세요.');
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
 
   return (
     <Stack p={'26px 20px 20px 20px'} spacing={18}>
-      <CommentInfoState identity={identity} comment={comment} />
+      <CommentInfoState
+        identity={identity}
+        comment={comment}
+        texts={texts}
+        showModalBlockOnClick={showModalBlockOnClick}
+        showReportModalBlockOnClick={showReportModalBlockOnClick}
+      />
       <Group position="apart" ml={68}>
         <div>
           {comment.RE_COMMENT_CNT !== '0' && (
@@ -49,22 +61,20 @@ const CommentCard = ({
                 css={{ color: '#999', marginRight: 22 }}
                 onClick={ReplyOnToggle}
               >
-                답글 {comment.RE_COMMENT_CNT}
+                {texts.reply} {comment.RE_COMMENT_CNT}
                 <IconReply />
               </UnstyledButton>
             </>
-            // <ReplyButton count={comment.RE_COMMENT_CNT} />
           )}
           <UnstyledButton fz={16} fw={400} css={{ color: '#999' }} onClick={ReplyWriteOnToggle}>
-            답글쓰기
+            {texts.writeReply}
           </UnstyledButton>
         </div>
         <LikesButton
           buttonSize="medium"
           padding="0"
           alreadyLike={comment.ALREADY_LIKE}
-          likes={likes}
-          count={Number(comment.LIKE_CNT)}
+          likesCount={Number(comment.LIKE_CNT)}
           onClick={LikesOnClick}
         />
       </Group>

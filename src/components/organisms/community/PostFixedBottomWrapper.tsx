@@ -1,28 +1,34 @@
 import CommunityPostBottomNavi from '@/components/molecules/community/CommunityPostBottomNavi';
 import CommentRegister from './CommentRegister';
-import { useState } from 'react';
 import { TargetType } from '@/types/common';
+import { PostInfoItemType } from '@/types/community';
+import { CommunityPostTextType } from '@/types/textTypes';
 
-export type CommunityPostFixedAreaWrapperProps = {
+export type PostFixedBottomWrapperProps = {
   identity: string;
-  POST_IDX: string;
-  WRITER_PROFILE_IMG: string;
+  texts: CommunityPostTextType;
+  postInfo: PostInfoItemType;
   commentTotalCount: string | number;
+  profileInfo: { profileImg: string; profileNick: string };
   onCreateComment: (
     identity: string,
     target_type: TargetType,
-    target: string,
+    target: number,
     contents: any
   ) => void;
+  shareOnClick: () => void;
 };
 
-const CommunityPostFixedAreaWrapper = ({
+const PostFixedBottomWrapper = ({
   identity,
-  POST_IDX,
-  WRITER_PROFILE_IMG,
+  texts,
+  postInfo,
+  profileInfo,
   commentTotalCount,
   onCreateComment,
-}: CommunityPostFixedAreaWrapperProps) => {
+  shareOnClick,
+}: PostFixedBottomWrapperProps) => {
+  const { POST_IDX } = postInfo;
   return (
     <div
       css={{
@@ -36,14 +42,15 @@ const CommunityPostFixedAreaWrapper = ({
     >
       <CommentRegister
         identity={identity}
+        texts={texts}
         POST_IDX={POST_IDX}
-        WRITER_PROFILE_IMG={WRITER_PROFILE_IMG}
+        profileInfo={profileInfo}
         createMode={'post'}
         onCreateComment={onCreateComment}
       />
-      <CommunityPostBottomNavi commentTotalCount={commentTotalCount} />
+      <CommunityPostBottomNavi commentTotalCount={commentTotalCount} shareOnClick={shareOnClick} />
     </div>
   );
 };
 
-export default CommunityPostFixedAreaWrapper;
+export default PostFixedBottomWrapper;

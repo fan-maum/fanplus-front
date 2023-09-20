@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { Axios, AxiosResponse } from 'axios';
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
@@ -100,42 +100,39 @@ export const getCommunityUnAuthPostData = async (
   return response.data;
 };
 
-export const getCommunityPostCommentData = async (
-  target_type: TargetType,
-  target: string,
+export const deletePost = async (identity: string, post_idx: string, mode: 'reset' | 'remove') => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/deletePost?identity=${identity}&post_idx=${post_idx}&mode=${mode}`,
+    {
+      data: {
+        identity: identity,
+        post_idx: post_idx,
+        mode: mode,
+      },
+    }
+  );
+  return response;
+};
+
+export const getComments = async (
+  postIndex: number,
+  identity: string | null,
+  lang: BackLangType | 'ALL',
   order_by: OrderType,
-  lang: BackLangType, // system
   page: number,
-  identity: string,
   per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/comment`,
-    { params: { target_type, target, order_by, lang, page, identity, per_page } }
+    { params: { postIndex, identity, lang, order_by, page, per_page } }
   );
   return response.data;
 };
 
-export const getCommunityUnAuthPostCommentData = async (
-  target_type: TargetType,
-  target: number,
-  order_by: OrderType,
-  board_lang: BackLangType | 'ko-en-ja-es-vi-id-zh-zhtw', // filterLang
-  lang: BackLangType, // system
-  page: number,
-  per_page: number
-) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/comment`,
-    { params: { target_type, target, order_by, board_lang, lang, page, per_page } }
-  );
-  return response.data;
-};
-
-export const postCommentResult = async (
+export const postComment = async (
   identity: string,
   target_type: string,
-  target: string,
+  target: number,
   contents: string | number
 ) => {
   const response: AxiosResponse = await axios.post(
@@ -147,10 +144,10 @@ export const postCommentResult = async (
       contents: contents,
     }
   );
-  return response;
+  return response.data;
 };
 
-export const deleteCommentResult = async (identity: string, comment_idx: string) => {
+export const deleteComment = async (identity: string, comment_idx: string) => {
   const response: AxiosResponse = await axios.delete(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment?comment_idx=${comment_idx}`,
     {
@@ -160,33 +157,21 @@ export const deleteCommentResult = async (identity: string, comment_idx: string)
       },
     }
   );
+
   return response;
 };
 
-export const replyUnAuthResult = async (
-  board_lang: BackLangType | 'ko-en-ja-es-vi-id-zh-zhtw',
-  lang: BackLangType,
-  comment_idx: string,
+export const getReplies = async (
+  commentIndex: number,
+  identity: string | null,
+  board_lang: BackLangType | 'ALL',
   order_by: OrderType,
-  page: number
-) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/reply`,
-    { params: { board_lang, lang, comment_idx, order_by, page } }
-  );
-  return response.data;
-};
-
-export const replyResult = async (
-  lang: BackLangType,
-  comment_idx: string,
-  order_by: OrderType,
-  identity: string,
-  page: number
+  page: number,
+  per_page: number
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reply`,
-    { params: { lang, comment_idx, order_by, identity, page } }
+    { params: { commentIndex, identity, board_lang, order_by, page, per_page } }
   );
   return response.data;
 };
@@ -243,4 +228,59 @@ export const deleteRecommends = async (identity: string, post_idx: string) => {
     }
   );
   return response;
+};
+
+/**
+ * Report
+ */
+/* 신고 */
+export const reportPost = async (
+  identity: string,
+  page: number,
+  per_page: number,
+  post_idx: string,
+  mode: 'recommend' | 'report',
+  report_type: number
+) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reportPost?identity=${identity}&page=${page}&per_page=${per_page}`,
+    {
+      identity: identity,
+      post_idx: post_idx,
+      mode: mode,
+      report_type: report_type,
+    }
+  );
+
+  return response;
+};
+
+export const reportComment = async (
+  identity: string,
+  comment_idx: string,
+  report_type: 'spam' | 'bad'
+) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reportComment`,
+    {
+      identity: identity,
+      comment_idx: comment_idx,
+      report_type: report_type,
+    }
+  );
+
+  return response;
+};
+
+/**
+ * User
+ */
+/* 유저정보 */
+export const getUser = async (user_idx: string, identity: string | null) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/user`,
+    { params: { user_idx, identity } }
+  );
+
+  return response.data;
 };
