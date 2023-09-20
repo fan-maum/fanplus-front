@@ -3,6 +3,7 @@ import { Divider, Modal, ModalProps } from '@mantine/core';
 import { Dispatch, SetStateAction } from 'react';
 import { Stack } from '../atoms';
 import { useRouter } from 'next/router';
+import { setBoardLangCookie } from '@/utils/setLangCookie';
 
 type textType = {
   modalHeader: string;
@@ -60,6 +61,7 @@ const CommunityLanguageModal = ({
   const router = useRouter();
   const onClickLanguageBox = (language: BoardLangType) => {
     setBoardLanguage(language);
+    setBoardLangCookie(language);
     router.replace({
       pathname: router.pathname,
       query: { ...router.query, boardLang: language, page: 1 },

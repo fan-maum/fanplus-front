@@ -18,7 +18,7 @@ const handler: NextApiHandler = async (req, res) => {
     );
     res.status(200).json(response.data);
   } catch (error) {
-    res.status(500).json('failed to load Notice Banner');
+    res.status(502).json('failed to load Notice Banner');
   }
 };
 

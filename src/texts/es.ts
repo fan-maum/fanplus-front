@@ -9,6 +9,7 @@ import {
   CommunityPageTextType,
   CommunityBoardTextType,
   CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -323,4 +324,26 @@ export const CommunityPostText_ESP: CommunityPostTextType = {
   cancelButton: '취소',
   confirmButton: '확인',
   reportButton: '신고',
+};
+
+export const CommunityPostEditorText_ESP: CommunityPostEditorTextType = {
+  pageTitle: 'Escribir',
+  topic: 'Tema',
+  title: 'Título',
+  content: 'Contenido',
+  cancel: 'Cancelar',
+  upload: 'Registrar',
+  edit: 'Editar',
+  titlePlaceholder: 'Ingresa el título',
+
+  modal: {
+    upload: '¿Te gustaría registrar la publicación?',
+    cancelUpload: '¿Te gustaría dejar de escribir?',
+    cancelUploadSub: 'Al dejar de escribir, el texto escrito se elimina.',
+    edit: '¿Te gustaría editar la publicación?',
+    cancelEdit: '¿Te gustaría cancelar la edición?',
+
+    cancel: 'Cancelar',
+    check: 'Confirmar',
+  },
 };

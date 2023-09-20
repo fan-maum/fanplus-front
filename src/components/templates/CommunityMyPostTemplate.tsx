@@ -5,6 +5,7 @@ import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi'
 import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 
 // TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
 
@@ -15,6 +16,7 @@ export type CommunityMyPostPropType = {
 
 const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostPropType) => {
   const router = useRouter();
+  const language = useUrlLanguage();
 
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
@@ -37,7 +39,14 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
         <>
           <ul>
             {postList.map((post, idx) => {
-              return <CommunityBoardArticle postItem={post} link="/" key={idx} texts={texts} />;
+              return (
+                <CommunityBoardArticle
+                  postItem={post}
+                  link={`/${language}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                  key={idx}
+                  texts={texts}
+                />
+              );
             })}
           </ul>
           <CommunityBoardPagination totalCount={boardInfo.POST_CNT} />

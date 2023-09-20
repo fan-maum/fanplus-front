@@ -212,9 +212,31 @@ export type CommunityPostTextType = {
   edit: string;
   delete: string;
   report: string;
-  cancelButton: string,
-  confirmButton: string,
-  reportButton: string,
+  cancelButton: string;
+  confirmButton: string;
+  reportButton: string;
+};
+
+export type CommunityPostEditorTextType = {
+  pageTitle: string;
+  topic: string;
+  title: string;
+  content: string;
+  cancel: string;
+  upload: string;
+  edit: string;
+  titlePlaceholder: string;
+
+  modal: {
+    upload: string;
+    cancelUpload: string;
+    cancelUploadSub: string;
+    edit: string;
+    cancelEdit: string;
+
+    cancel: string;
+    check: string;
+  };
 };
 
 export type TextType = {

@@ -9,6 +9,7 @@ import {
   CommunityPageTextType,
   CommunityBoardTextType,
   CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -323,4 +324,26 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
   cancelButton: '취소',
   confirmButton: '확인',
   reportButton: '신고',
+};
+
+export const CommunityPostEditorText_JAP: CommunityPostEditorTextType = {
+  pageTitle: '書き込み',
+  topic: 'トピック',
+  title: 'タイトル',
+  content: '内容',
+  cancel: 'キャンセル',
+  upload: '登録',
+  edit: '修正',
+  titlePlaceholder: 'タイトルを入力してください',
+
+  modal: {
+    upload: '文を登録しますか？',
+    cancelUpload: '書き込みを終了しますか？',
+    cancelUploadSub: '終了時に作成されている文章は削除されます。',
+    edit: '文を修正しますか？',
+    cancelEdit: '修正を取り消しますか？',
+
+    cancel: 'キャンセル',
+    check: '確認',
+  },
 };
