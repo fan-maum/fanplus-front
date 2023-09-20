@@ -24,6 +24,7 @@ type PostCommentListProps = {
   refetch: () => void;
   refetchReplyOnToggle: (commentIndex: number) => void;
   replyData: any;
+  replyRefetch: () => void;
 };
 
 const PostCommentList = ({
@@ -37,6 +38,7 @@ const PostCommentList = ({
   refetch,
   refetchReplyOnToggle,
   replyData,
+  replyRefetch,
 }: PostCommentListProps) => {
   const comment = comments.RESULTS.DATAS.COMMENTS;
   return (
@@ -49,6 +51,8 @@ const PostCommentList = ({
             item={item}
             texts={texts}
             profileInfo={profileInfo}
+            refetch={refetch}
+            replyRefetch={replyRefetch}
             onCreateComment={onCreateComment}
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}

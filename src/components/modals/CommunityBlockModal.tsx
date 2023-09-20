@@ -1,16 +1,16 @@
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { selectInfoState } from '@/store/community';
 import { Group } from '../atoms';
 import { CommunityPostTextType } from '@/types/textTypes';
 import CommunityCommonModal, { CommunityCommonModalProps } from './CommunityCommonModal';
 import CommunityModalText from '../molecules/CommunityModalText';
-import { selectInfoType } from '@/types/common';
 import { deleteComment, deletePost } from '@/api/Community';
-import { useRouter } from 'next/router';
 
 export interface VoteBlockModalProps {
   opened: boolean;
   onClose: () => void;
   texts: CommunityPostTextType;
-  selectInfo: selectInfoType;
   identity: string;
   setModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   setDoneModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,7 +23,6 @@ function CommunityBlockModal({
   onClose,
   opened,
   texts,
-  selectInfo,
   identity,
   setModalBlock,
   setDoneModalBlock,
@@ -32,6 +31,7 @@ function CommunityBlockModal({
   replyRefetch,
   ...props
 }: VoteBlockModalProps) {
+  const selectInfo = useRecoilValue(selectInfoState);
   const { purpose, target_type, idx } = selectInfo;
   const modalText =
     purpose === 'delete'
@@ -61,7 +61,7 @@ function CommunityBlockModal({
         if (target_type === 'comment') {
           let response = await deleteComment(identity, idx);
           let modalMessage =
-            response?.data?.RESULTS?.MSG === 'success'
+            response?.data?.RESULTS?.MSG === '삭제 성공'
               ? texts.commentDeleted
               : texts.alreadyDeleted;
           setDoneModalMessage(modalMessage);

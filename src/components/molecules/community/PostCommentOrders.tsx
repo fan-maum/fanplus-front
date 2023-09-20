@@ -1,32 +1,24 @@
 import styled from '@emotion/styled';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { OrderType } from '@/types/common';
 import { useQueryClient } from 'react-query';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { orderTypeState, pageState } from '@/store/community';
 
 type PostCommentOrdersProps = {
-  orderTypeState: {
-    orderType: OrderType;
-    setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
-  }
   texts: CommunityPostTextType;
-  setPage: React.Dispatch<React.SetStateAction<number>>
   refetch: () => void;
 };
 
-const PostCommentOrders = ({
-  orderTypeState,
-  texts,
-  setPage,
-  refetch,
-}: PostCommentOrdersProps) => {
-  const {orderType, setOrderType} = orderTypeState;
+const PostCommentOrders = ({ texts, refetch }: PostCommentOrdersProps) => {
+  const setPage = useSetRecoilState(pageState);
+  const [orderType, setOrderType] = useRecoilState(orderTypeState);
   const queryClient = useQueryClient();
   const OrderOnClick = async (orderType: OrderType) => {
-    await queryClient.removeQueries("comments");
+    await queryClient.removeQueries('comments');
     await setPage(0);
     await setOrderType(orderType);
     await refetch();
-    
   };
 
   return (

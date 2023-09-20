@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { deleteLikes, postLikes } from '@/api/Community';
 import { Group, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
 import CommentInfoState from '@/components/molecules/community/CommentInfoState';
@@ -7,11 +5,13 @@ import { CommentListItemType } from '@/types/community';
 import { PurPoseType, TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { useLikesButtonOnClick } from '@/hooks/useLikesButtonOnClick';
 
 export type ReplyCardProps = {
   identity: string;
   reply: CommentListItemType;
   texts: CommunityPostTextType;
+  replyRefetch: () => void;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
@@ -19,29 +19,18 @@ const ReplyCard = ({
   identity,
   reply,
   texts,
+  replyRefetch,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: ReplyCardProps) => {
   const router = useRouter();
-  const [likes, setLikes] = useState(reply.ALREADY_LIKE);
-  const [count, setCount] = useState<number>(parseInt(reply.LIKE_CNT as string));
+  const LikesOnClick = async () => await useLikesButtonOnClick({
+    identity,
+    comment: reply,
+    refetchFunc: replyRefetch,
+    router,
+  });
 
-  const LikesOnClick = async () => {
-    if (identity !== null) {
-      if (likes === 'Y') {
-        await deleteLikes(reply.COMMENT_IDX, identity);
-        setLikes('N');
-        setCount((prev) => prev - 1);
-      } else {
-        await postLikes(reply.COMMENT_IDX, identity);
-        setLikes('Y');
-        setCount((prev) => prev + 1);
-      }
-    } else {
-      const path = router.asPath;
-      router.push({ pathname: '/login', query: { nextUrl: path } });
-    }
-  };
   return (
     <Stack p={'26px 20px 20px 20px'} spacing={18}>
       <CommentInfoState
@@ -56,8 +45,8 @@ const ReplyCard = ({
         <LikesButton
           buttonSize="medium"
           padding="0"
-          alreadyLike={likes}
-          likesCount={count}
+          alreadyLike={reply.ALREADY_LIKE}
+          likesCount={Number(reply.LIKE_CNT)}
           onClick={LikesOnClick}
         />
       </Group>

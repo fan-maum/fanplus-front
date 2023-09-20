@@ -1,9 +1,14 @@
 import { getComments, getReplies } from '@/api/Community';
 
-export const getRepliesQuery = async ({ commentIndex, identity, pageParam = 0 }: any) => {
-  const board_lang = 'ALL';
-  const order_by = 'newest';
-  const data = await getReplies(commentIndex, identity, board_lang, order_by, pageParam, 20);
+export const getRepliesQuery = async ({
+  commentIndex,
+  identity,
+  board_lang,
+  orderType,
+  pageParam = 0,
+  per_page,
+}: any) => {
+  const data = await getReplies(commentIndex, identity, board_lang, orderType, pageParam, per_page);
   return data;
 };
 
@@ -13,7 +18,8 @@ export const getCommentsQuery = async ({
   board_lang,
   orderType,
   pageParam = 0,
+  per_page,
 }: any) => {
-  const data = await getComments(postIndex, identity, board_lang, orderType, pageParam, 20);
+  const data = await getComments(postIndex, identity, board_lang, orderType, pageParam, per_page);
   return data;
 };

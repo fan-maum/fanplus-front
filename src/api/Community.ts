@@ -157,7 +157,6 @@ export const deleteComment = async (identity: string, comment_idx: string) => {
       },
     }
   );
-
   return response;
 };
 

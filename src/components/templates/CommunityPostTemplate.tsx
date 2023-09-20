@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import type { PostResponseType, CommentResponseType, userResponseType } from '@/types/community';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { commentListState, orderTypeState, selectInfoState } from '@/store/community';
+import type { PostResponseType, userResponseType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import PostFixedBottomWrapper, {
   PostFixedBottomWrapperProps,
 } from '@/components/organisms/community/PostFixedBottomWrapper';
 import { getUser, postComment } from '@/api/Community';
-import { BackLangType, OrderType, TargetType, PurPoseType, selectInfoType } from '@/types/common';
+import { BackLangType, TargetType, PurPoseType } from '@/types/common';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 import PostCommentWrapper, {
   PostCommentWrapperProps,
@@ -16,16 +18,12 @@ import CommunityDoneModal from '../modals/CommunityDoneModal';
 import CommunityReportModal from '../modals/CommunityReportModal';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
-import { useGetCommentQuery, useGetReplyQuery } from '@/server/useGetCommentsQuery';
-
-export type CommunityPostPropType = {
-  identity: string;
-  user_idx: string;
-  postIndex: number;
-  lang: BackLangType;
-  communityPostData: PostResponseType;
-  texts: CommunityPostTextType;
-};
+import {
+  useGetCommentQuery,
+  useGetCommentQueryProps,
+  useGetReplyQuery,
+  useGetReplyQueryProps,
+} from '@/server/useGetCommentsQuery';
 
 const CommunityPostTemplate = ({
   identity,
@@ -35,30 +33,38 @@ const CommunityPostTemplate = ({
   communityPostData,
   texts,
 }: CommunityPostPropType) => {
-  const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
-  const [orderType, setOrderType] = useState<OrderType>('newest');
-  const [page, setPage] = useState(0);
   const board_lang = 'ALL';
-  const [commentList, setCommentList] = useState<Array<CommentResponseType>>([]);
+  const per_page = 20;
+  const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
+  const orderType = useRecoilValue(orderTypeState);
+  const setCommentList = useSetRecoilState(commentListState);
+  const setSelectInfo = useSetRecoilState(selectInfoState);
   const [user, setUser] = useState<userResponseType>();
   const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
-  const [selectInfo, setSelectInfo] = useState<selectInfoType>({
-    purpose: null,
-    target_type: null,
-    idx: '',
-  });
   const profileImg = user
     ? user?.RESULTS.DATAS.PROFILE_IMG_URL
     : 'http://cdnetphoto.appphotocard.com/profile_images/profile_image_default.png';
   const profileNick = user ? user?.RESULTS.DATAS.NICK : '';
   const profileInfo = { profileImg, profileNick };
-  const [selectedOption, setSelectedOption] = useState('1');
-  const [selectedValue, setSelectedValue] = useState<any>();
   const [doneModalMessage, setDoneModalMessage] = useState<any>();
   const [commentIndex, setCommentIndex] = useState<number | null>(null);
 
-  const { data: replyData, refetch: replyRefetch } = useGetReplyQuery(commentIndex, identity);
-  const useGetCommentQueryProps = { postIndex, identity, board_lang, orderType };
+  const useGetReplyQueryProps: useGetReplyQueryProps = {
+    commentIndex,
+    identity,
+    board_lang,
+    orderType,
+    per_page,
+  };
+
+  const { data: replyData, refetch: replyRefetch } = useGetReplyQuery(useGetReplyQueryProps);
+  const useGetCommentQueryProps: useGetCommentQueryProps = {
+    postIndex,
+    identity,
+    board_lang,
+    orderType,
+    per_page,
+  };
   const { data, isSuccess, isLoading, refetch, error, fetchNextPage } =
     useGetCommentQuery(useGetCommentQueryProps);
 
@@ -126,17 +132,6 @@ const CommunityPostTemplate = ({
     identity: identity,
   };
 
-  const selecteState = {
-    selectedOption: selectedOption,
-    setSelectedOption: setSelectedOption,
-    selectedValue: selectedValue,
-    setSelectedValue: setSelectedValue,
-  };
-
-  const shareOnClick = () => {
-    setShareModalIsOpened(true);
-  };
-
   /**
    * LayoutProps
    */
@@ -151,21 +146,17 @@ const CommunityPostTemplate = ({
 
   const PostCommentWrapperProps: PostCommentWrapperProps = {
     getCommentParams,
-    commentList,
     texts,
     profileInfo,
     commentTotalCount,
-    setCommentList,
-    orderTypeState: { orderType, setOrderType },
-    page,
-    setPage,
+    replyData,
     onCreateComment,
     refetch,
+    replyRefetch,
     fetchNextPage,
     showModalBlockOnClick,
     showReportModalBlockOnClick,
     refetchReplyOnToggle,
-    replyData,
   };
 
   const PostFixedBottomWrapperProps: PostFixedBottomWrapperProps = {
@@ -173,21 +164,21 @@ const CommunityPostTemplate = ({
     texts,
     postInfo,
     commentTotalCount,
-    onCreateComment,
     profileInfo,
-    shareOnClick,
+    onCreateComment,
+    shareOnClick: () => setShareModalIsOpened(true),
   };
 
   const communityShareModalProps: CommunityShareModalProps = {
-    onClose: () => setShareModalIsOpened(false),
     opened: shareModalIsOpened,
-    confirmModalOpened: () => setCompletedShareModalIsOpen(true),
     postTitle: postInfo.POST_TITLE,
+    onClose: () => setShareModalIsOpened(false),
+    confirmModalOpened: () => setCompletedShareModalIsOpen(true),
   };
 
   const completedShareModalProps: CompletedShareModalProps = {
-    onClose: () => setCompletedShareModalIsOpen(false),
     opened: completedShareModalIsOpen,
+    onClose: () => setCompletedShareModalIsOpen(false),
   };
 
   return (
@@ -206,12 +197,10 @@ const CommunityPostTemplate = ({
         onClose={() => {
           setReportModalBlock(false);
         }}
-        selectInfo={selectInfo}
         identity={identity}
         setReportModalBlock={setReportModalBlock}
         setDoneModalBlock={setDoneModalBlock}
         refetch={refetch}
-        selectedtate={selecteState}
       />
       <CommunityBlockModal
         opened={modalBlock}
@@ -219,7 +208,6 @@ const CommunityPostTemplate = ({
           setModalBlock(false);
         }}
         texts={texts}
-        selectInfo={selectInfo}
         identity={identity}
         setModalBlock={setModalBlock}
         setDoneModalBlock={setDoneModalBlock}
@@ -229,7 +217,6 @@ const CommunityPostTemplate = ({
       />
       <CommunityDoneModal
         opened={doneModalBlock}
-        selectInfo={selectInfo}
         doneModalMessage={doneModalMessage}
         onClose={async () => {
           setDoneModalMessage(null);
@@ -258,3 +245,12 @@ const LayoutInner = styled.div`
   margin: 0 auto;
   padding-bottom: 120px;
 `;
+
+export type CommunityPostPropType = {
+  identity: string;
+  user_idx: string;
+  postIndex: number;
+  lang: BackLangType;
+  communityPostData: PostResponseType;
+  texts: CommunityPostTextType;
+};

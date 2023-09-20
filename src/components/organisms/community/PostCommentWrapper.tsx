@@ -1,8 +1,9 @@
 import { Group, UnstyledButton } from '@/components/atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { commentListState, pageState } from '@/store/community';
 import PostCommentCount from '@/components/atoms/PostCommentCount';
 import PostCommentOrders from '@/components/molecules/community/PostCommentOrders';
-import { BackLangType, OrderType, PurPoseType, TargetType } from '@/types/common';
-import { CommentResponseType } from '@/types/community';
+import { BackLangType, PurPoseType, TargetType } from '@/types/common';
 import PostCommentList from './PostCommentList';
 import { CommunityPostTextType } from '@/types/textTypes';
 
@@ -13,17 +14,9 @@ export type PostCommentWrapperProps = {
     lang: BackLangType;
     identity: string;
   };
-  commentList: CommentResponseType[];
   texts: CommunityPostTextType;
   profileInfo: { profileImg: string; profileNick: string };
   commentTotalCount: number;
-  setCommentList: any;
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  orderTypeState: {
-    orderType: OrderType;
-    setOrderType: React.Dispatch<React.SetStateAction<OrderType>>;
-  };
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -31,6 +24,7 @@ export type PostCommentWrapperProps = {
     contents: any
   ) => void;
   refetch: () => void;
+  replyRefetch: () => void;
   fetchNextPage: () => void;
   showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
@@ -40,33 +34,27 @@ export type PostCommentWrapperProps = {
 
 const PostCommentWrapper = ({
   getCommentParams,
-  commentList,
   texts,
   profileInfo,
   commentTotalCount,
-  setCommentList,
-  page,
-  setPage,
-  orderTypeState,
   onCreateComment,
   refetch,
+  replyRefetch,
   fetchNextPage,
   showModalBlockOnClick,
   showReportModalBlockOnClick,
   refetchReplyOnToggle,
   replyData,
 }: PostCommentWrapperProps) => {
+  const commentList = useRecoilValue(commentListState);
+  const [page, setPage] = useRecoilState(pageState);
   const hasNextPage = 20 * (page + 1) < Number(commentTotalCount);
+  
   return (
     <>
       <Group h={80} position="apart" px={24} mb={15}>
         <PostCommentCount count={commentTotalCount} />
-        <PostCommentOrders
-          orderTypeState={orderTypeState}
-          texts={texts}
-          setPage={setPage}
-          refetch={refetch}
-        />
+        <PostCommentOrders texts={texts} refetch={refetch} />
       </Group>
       <>
         {commentList.map((comments, index) => (
@@ -80,6 +68,7 @@ const PostCommentWrapper = ({
             showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}
             refetch={refetch}
+            replyRefetch={replyRefetch}
             refetchReplyOnToggle={refetchReplyOnToggle}
             replyData={replyData}
           />

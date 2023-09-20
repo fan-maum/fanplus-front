@@ -1,47 +1,40 @@
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { selectInfoState } from '@/store/community';
 import { Group } from '../atoms';
 import { CommunityPostTextType } from '@/types/textTypes';
-import CommunityCommonModal, { CommunityCommonModalProps } from './CommunityCommonModal';
+import { CommunityCommonModalProps } from './CommunityCommonModal';
 import CommunityModalText from '../molecules/CommunityModalText';
 import RadioButtons from '../atoms/RadioButtons';
-import { useState } from 'react';
 import { reportComment, reportPost } from '@/api/Community';
-import { selectInfoType } from '@/types/common';
 import CommunityReportCommonModal from './CommunityReportCommonModal';
-import { reportCommentResponseType } from '@/types/community';
 
 export interface DialogBlockDoneProps {
   opened: boolean;
   texts: CommunityPostTextType;
   onClose: () => void;
-  selectInfo: selectInfoType;
   identity: string;
   setReportModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   setDoneModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   refetch: () => void;
   setDoneModalMessage: React.Dispatch<React.SetStateAction<any>>;
-  selectedtate: {
-    selectedOption: any;
-    setSelectedOption: React.Dispatch<React.SetStateAction<any>>;
-    selectedValue: any;
-    setSelectedValue: React.Dispatch<React.SetStateAction<any>>;
-  };
 }
 
 function CommunityReportModal({
   onClose,
   opened,
   texts,
-  selectInfo,
   identity,
   setReportModalBlock,
   setDoneModalBlock,
   refetch,
   setDoneModalMessage,
-  selectedtate,
   ...props
 }: DialogBlockDoneProps) {
+  const selectInfo = useRecoilValue(selectInfoState);
+  const [selectedOption, setSelectedOption] = useState('1');
+  const [selectedValue, setSelectedValue] = useState<any>();
   const { purpose, target_type, idx } = selectInfo;
-  const { selectedOption, setSelectedOption, selectedValue, setSelectedValue } = selectedtate;
 
   function handleChange(option: { index: number; optionIndex: string; content: string }) {
     setSelectedOption(String(option.index));
