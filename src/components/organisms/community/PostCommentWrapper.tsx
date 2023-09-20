@@ -26,7 +26,6 @@ export type PostCommentWrapperProps = {
   refetch: () => void;
   replyRefetch: () => void;
   fetchNextPage: () => void;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   refetchReplyOnToggle: (commentIndex: number) => void;
   replyData: any;
@@ -41,7 +40,6 @@ const PostCommentWrapper = ({
   refetch,
   replyRefetch,
   fetchNextPage,
-  showModalBlockOnClick,
   showReportModalBlockOnClick,
   refetchReplyOnToggle,
   replyData,
@@ -65,7 +63,6 @@ const PostCommentWrapper = ({
             texts={texts}
             profileInfo={profileInfo}
             onCreateComment={onCreateComment}
-            showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}
             refetch={refetch}
             replyRefetch={replyRefetch}

@@ -8,7 +8,6 @@ type ReplyCommentListProps = {
   replyList: Array<replyResponseType>;
   texts: CommunityPostTextType;
   replyRefetch: () => void;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
@@ -17,7 +16,6 @@ const ReplyCommentList = ({
   replyList,
   texts,
   replyRefetch,
-  showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: ReplyCommentListProps) => {
   return (
@@ -30,7 +28,6 @@ const ReplyCommentList = ({
             replies={replies}
             texts={texts}
             replyRefetch={replyRefetch}
-            showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}
           />
         );

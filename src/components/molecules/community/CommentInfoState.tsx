@@ -9,7 +9,6 @@ type CommentInfoStateProps = {
   comment?: CommentListItemType;
   reply?: CommentListItemType;
   texts: CommunityPostTextType;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
@@ -18,7 +17,6 @@ function CommentInfoState({
   comment,
   reply,
   texts,
-  showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: CommentInfoStateProps) {
   const commentContent = comment?.COMMENT === false ? texts.deleted : comment?.COMMENT;
@@ -70,7 +68,6 @@ function CommentInfoState({
         isWriter={comment ? comment?.IS_WRITER : reply?.IS_WRITER}
         comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX}
         texts={texts}
-        showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
       />
     </Group>

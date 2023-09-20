@@ -26,6 +26,11 @@ export const selectInfoState = atom<selectInfoType>({
   },
 });
 
+export const modalBlockState = atom<boolean>({
+  key: 'modalBlockState',
+  default: false
+})
+
 //   const [cookies, setCookies] = useRecoilState(cookieState);
 //   const cookies = useRecoilValue(cookieState);
 //   const setCookies = useSetRecoilState(cookieState);

@@ -19,7 +19,6 @@ type PostCommentListProps = {
     target: number,
     contents: any
   ) => void;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   refetch: () => void;
   refetchReplyOnToggle: (commentIndex: number) => void;
@@ -33,7 +32,6 @@ const PostCommentList = ({
   texts,
   profileInfo,
   onCreateComment,
-  showModalBlockOnClick,
   showReportModalBlockOnClick,
   refetch,
   refetchReplyOnToggle,
@@ -54,7 +52,6 @@ const PostCommentList = ({
             refetch={refetch}
             replyRefetch={replyRefetch}
             onCreateComment={onCreateComment}
-            showModalBlockOnClick={showModalBlockOnClick}
             showReportModalBlockOnClick={showReportModalBlockOnClick}
             refetchReplyOnToggle={refetchReplyOnToggle}
             replyData={replyData}

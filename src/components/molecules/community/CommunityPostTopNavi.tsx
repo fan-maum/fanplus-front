@@ -4,13 +4,15 @@ import IconVerticalMore from '@/components/atoms/IconVerticalMore';
 import { Popover } from '@mantine/core';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { PurPoseType, TargetType } from '@/types/common';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { modalBlockState, selectInfoState } from '@/store/community';
+import { showModalOnClick } from '@/utils/communityUtil';
 
 export type CommunityPostTopNaviProps = {
   identity: string;
   user_idx: string;
   writer_idx: string;
   texts: CommunityPostTextType;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   postIndex: string;
 };
@@ -19,11 +21,21 @@ const CommunityPostTopNavi = ({
   user_idx,
   writer_idx,
   texts,
-  showModalBlockOnClick,
   showReportModalBlockOnClick,
   postIndex,
 }: CommunityPostTopNaviProps) => {
   const router = useRouter();
+  const setModalBlock = useSetRecoilState(modalBlockState);
+  const setSelectInfo = useSetRecoilState(selectInfoState);
+  const showModalBlockOnClick = async () =>
+    await showModalOnClick({
+      purpose: 'delete',
+      target_type: 'post',
+      idx: postIndex,
+      setModalBlock,
+      setSelectInfo,
+    });
+
   const ReportOnClick = () => {
     if (identity !== null) {
       showReportModalBlockOnClick('report', 'post', postIndex);
@@ -107,9 +119,7 @@ const CommunityPostTopNavi = ({
                     >
                       {texts.edit}
                     </li>
-                    <li onClick={() => showModalBlockOnClick('delete', 'post', postIndex)}>
-                      {texts.delete}
-                    </li>
+                    <li onClick={showModalBlockOnClick}>{texts.delete}</li>
                   </>
                 ) : (
                   <li onClick={ReportOnClick}>{texts.report}</li>

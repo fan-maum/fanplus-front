@@ -15,7 +15,6 @@ export type CommentCardProps = {
   refetch: () => void;
   ReplyOnToggle?: (comment_idx: any) => void;
   ReplyWriteOnToggle?: () => void;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 const CommentCard = ({
@@ -25,7 +24,6 @@ const CommentCard = ({
   refetch,
   ReplyOnToggle,
   ReplyWriteOnToggle,
-  showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: CommentCardProps) => {
   const router = useRouter();
@@ -42,7 +40,6 @@ const CommentCard = ({
         identity={identity}
         comment={comment}
         texts={texts}
-        showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
       />
       <Group position="apart" ml={68}>

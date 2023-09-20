@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { commentListState, orderTypeState, selectInfoState } from '@/store/community';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { commentListState, modalBlockState, orderTypeState, selectInfoState } from '@/store/community';
 import type { PostResponseType, userResponseType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import PostFixedBottomWrapper, {
@@ -73,7 +73,7 @@ const CommunityPostTemplate = ({
     await replyRefetch();
   };
 
-  const [modalBlock, setModalBlock] = useState(false);
+  const [modalBlock, setModalBlock] = useRecoilState(modalBlockState);
   const [reportModalBlock, setReportModalBlock] = useState(false);
   const [doneModalBlock, setDoneModalBlock] = useState(false);
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
@@ -96,15 +96,6 @@ const CommunityPostTemplate = ({
 
   if (isLoading) return '';
   if (error) return 'An error has occurred: ' + error;
-
-  const showModalBlockOnClick = async (
-    purpose: PurPoseType,
-    target_type: TargetType,
-    idx: string
-  ) => {
-    setModalBlock(true);
-    setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
-  };
 
   const showReportModalBlockOnClick = async (
     purpose: PurPoseType,
@@ -140,7 +131,6 @@ const CommunityPostTemplate = ({
     user_idx,
     postInfo,
     texts,
-    showModalBlockOnClick,
     showReportModalBlockOnClick,
   };
 
@@ -154,7 +144,6 @@ const CommunityPostTemplate = ({
     refetch,
     replyRefetch,
     fetchNextPage,
-    showModalBlockOnClick,
     showReportModalBlockOnClick,
     refetchReplyOnToggle,
   };

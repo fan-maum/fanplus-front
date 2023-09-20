@@ -11,7 +11,6 @@ export type PostDetailLayoutProps = {
   user_idx: string;
   postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
@@ -20,7 +19,6 @@ const PostDetailLayout = ({
   user_idx,
   postInfo,
   texts,
-  showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: PostDetailLayoutProps) => {
   const [postLikeState, setPostLikeState] = useState<number>(
@@ -33,7 +31,6 @@ const PostDetailLayout = ({
         user_idx={user_idx}
         writer_idx={postInfo.WRITER_IDX}
         texts={texts}
-        showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
         postIndex={postInfo.POST_IDX}
       />

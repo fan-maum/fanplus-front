@@ -12,7 +12,6 @@ export type ReplyCardProps = {
   reply: CommentListItemType;
   texts: CommunityPostTextType;
   replyRefetch: () => void;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 const ReplyCard = ({
@@ -20,7 +19,6 @@ const ReplyCard = ({
   reply,
   texts,
   replyRefetch,
-  showModalBlockOnClick,
   showReportModalBlockOnClick,
 }: ReplyCardProps) => {
   const router = useRouter();
@@ -37,7 +35,6 @@ const ReplyCard = ({
         identity={identity}
         reply={reply}
         texts={texts}
-        showModalBlockOnClick={showModalBlockOnClick}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
       />
       <Group position="apart" ml={68}>
