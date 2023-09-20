@@ -1,10 +1,10 @@
 import Uppy from '@uppy/core';
 import { DashboardModal } from '@uppy/react';
 import Compressor from '@uppy/compressor';
+import { AwsS3 } from 'uppy';
 import '@uppy/core/dist/style.css';
 import '@uppy/dashboard/dist/style.css';
 import { Dispatch, SetStateAction } from 'react';
-import { AwsS3 } from 'uppy';
 import { getFileUploadUrl, uploadEditorFile } from '@/api/Community';
 import { BackLangType } from '@/types/common';
 
@@ -49,7 +49,7 @@ const FileUploader = ({ editorRef, state: [open, setOpen], datas }: OwnPropType)
       return true;
     },
   })
-    .use(Compressor, { quality: 0.7 })
+    .use(Compressor, { quality: 0.75 })
     .use(AwsS3, {
       async getUploadParameters(file) {
         const { SIGNED_URL, IMG_URL } = (await getFileUploadUrl()).RESULTS.DATAS;
@@ -65,19 +65,20 @@ const FileUploader = ({ editorRef, state: [open, setOpen], datas }: OwnPropType)
       console.log(result.successful);
       result.successful.map(async (file) => {
         const uploadKey = (file.meta.uploadUrl as string).split('/').pop();
+        const fileName = file.name.split('.')[0];
+        const fileType = '.' + (file.type as string).split('/')[1];
+
         const response = await uploadEditorFile(
           userId,
           postIndex,
-          file.name,
-          file.type as string,
+          fileName,
+          fileType,
           uploadKey as string
         );
         editorRef.current.activeEditor.insertContent(
           `<img src="${response.RESULTS.DATAS.IMG_URL}" />`
         );
       });
-      // eslint-disable-next-line no-console
-      console.log('upload complete');
     });
 
   return (
