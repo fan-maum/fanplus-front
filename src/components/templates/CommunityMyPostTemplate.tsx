@@ -7,8 +7,6 @@ import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 
-// TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
-
 export type CommunityMyPostPropType = {
   communityBoardData: CommunityBoardResponseType;
   texts: CommunityBoardTextType;

@@ -21,8 +21,6 @@ import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLan
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 
-// TODO 1. 각 게시글 실제 link 연결 (경은님과 함께 해야함) (하단 탭바의 글쓰기 링크도 연결해야함)
-
 export type CommunityBoardPropType = {
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
