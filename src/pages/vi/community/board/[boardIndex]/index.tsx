@@ -12,8 +12,10 @@ import { GetServerSideProps } from 'next';
 import { CommunityBoardText_VIE, FooterText_VIE, NavBarText_VIE } from '@/texts/vi';
 import nookies from 'nookies';
 import Layout from '@/components/organisms/Layout';
+import { BoardLangType } from '@/types/common';
 
 const Board = ({
+  cookieBoardLang,
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
@@ -21,6 +23,7 @@ const Board = ({
   return (
     <Layout navBarTexts={NavBarText_VIE} footerTexts={FooterText_VIE}>
       <CommunityBoardTemplate
+        cookieBoardLang={cookieBoardLang}
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
         communityNoticeBannerData={communityNoticeBannerData}
@@ -35,6 +38,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
 ) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
+  const cookieBoardLang = (cookies['boardLang'] as BoardLangType) || 'ALL';
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
@@ -58,7 +62,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
   const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, lang);
 
   return {
-    props: { communityBoardData, communityBoardTopics, communityNoticeBannerData },
+    props: { cookieBoardLang, communityBoardData, communityBoardTopics, communityNoticeBannerData },
   };
 };
 
