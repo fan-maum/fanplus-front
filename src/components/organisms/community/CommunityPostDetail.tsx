@@ -65,4 +65,9 @@ const PostContents = styled.div`
   img {
     max-width: 100%;
   }
+  iframe {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+  }
 `;
