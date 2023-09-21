@@ -8,7 +8,6 @@ import {
 } from '../constant/customButtons';
 import Script from 'next/script';
 import FileUploader from '../module/FileUploader';
-import { BackLangType } from '@/types/common';
 import { Editor } from '../../../public/tinymce/tinymce';
 
 type TProps = {
