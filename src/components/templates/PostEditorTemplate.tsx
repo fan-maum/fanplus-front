@@ -14,9 +14,10 @@ import IconArrowLeft from '../atoms/IconArrowLeft';
 import { useRouter } from 'next/router';
 import EditorTopicSet from '../molecules/community/EditorTopicSet';
 import CommunityEditorCommonModal from '../modals/CommunityEditorModal';
-import { editBoardArticle } from '@/api/Community';
+import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
 import { BackLangType } from '@/types/common';
 import { TinyMCE } from '../../../public/tinymce/tinymce';
+import { UploadedUppyFile } from '@uppy/core';
 
 type OwnPropType = {
   mode: 'CREATE' | 'EDIT';
@@ -25,7 +26,7 @@ type OwnPropType = {
   datas: {
     userId: string;
     boardIndex: number;
-    postIndex: number;
+    postIndex?: number;
     boardLang: BackLangType;
     lang: BackLangType;
   };
@@ -48,11 +49,42 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const [topicIdx, setTopicIdx] = useState(defaultValues?.topicIndex || topics[0].IDX);
   const [title, setTitle] = useState(defaultValues?.title || '');
   const [content, setContent] = useState(defaultValues?.content || '');
+  const [postId, setPostId] = useState(postIndex);
 
   const [cancelModal, setCancelModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
 
+  const getAndSetPostId = async () => {
+    const response = await postBoardArticle(userId, boardIndex, boardLang, lang);
+    const postIndex = parseInt(response.RESULTS.DATAS.POST_IDX);
+    setPostId(postIndex);
+    router.replace({ pathname: router.asPath, query: { postId: postIndex } }, undefined, {
+      shallow: true,
+    });
+    return postIndex;
+  };
+
+  const fileUploadHandler = async (
+    file: UploadedUppyFile<Record<string, unknown>, Record<string, unknown>>
+  ) => {
+    const uploadKey = (file.meta.uploadUrl as string).split('/').pop();
+    const fileName = file.name.split('.')[0];
+    const fileType = '.' + (file.type as string).split('/')[1];
+    const response = await uploadEditorFile(
+      userId,
+      postId ?? (await getAndSetPostId()),
+      fileName,
+      fileType,
+      uploadKey as string
+    );
+    editorRef.current?.activeEditor?.insertContent(
+      `<img src="${response.RESULTS.DATAS.IMG_URL}" />`
+    );
+  };
+
   useEffect(() => {
+    if (!postId) (async () => await getAndSetPostId())();
+
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.returnValue = '';
       return '';
@@ -74,21 +106,10 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   };
 
   const onClickUploadConfirm = async () => {
+    const postIndex = postId ?? (await getAndSetPostId());
     setUploadModal(false);
-    const response = await editBoardArticle(
-      userId,
-      postIndex,
-      boardLang,
-      lang,
-      title,
-      content,
-      topicIdx
-    );
-    if (response.RESULTS.ERROR) {
-      alert('다시 시도해주세요.');
-      return;
-    }
-    router.replace(`/${lang}/community/board/${boardIndex}/${postIndex}/`);
+    await editBoardArticle(userId, postIndex, boardLang, lang, title, content, topicIdx);
+    router.replace(`/${lang}/community/board/${boardIndex}/${postId}/`);
   };
   const onClickExit = () => {
     setCancelModal(false);
@@ -126,7 +147,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
           editorRef={editorRef}
           editorId={editorId}
           defaultValue={content}
-          datas={datas}
+          fileUploadCallback={fileUploadHandler}
         />
         <div css={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button text={texts.cancel} onClick={onClickCancel} />

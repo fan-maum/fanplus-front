@@ -14,17 +14,16 @@ import { Editor } from '../../../public/tinymce/tinymce';
 type TProps = {
   editorRef: any;
   editorId: string;
-  datas: {
-    userId: string;
-    boardIndex: number;
-    postIndex: number;
-    boardLang: BackLangType;
-    lang: BackLangType;
-  };
   defaultValue?: string;
+  fileUploadCallback: (file: any) => Promise<void>;
 };
 
-const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue }) => {
+const FullEditor: React.FC<TProps> = ({
+  editorRef,
+  editorId,
+  defaultValue,
+  fileUploadCallback,
+}) => {
   const [isJsLoading, setIsJsLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -81,7 +80,7 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue
                 <div id={editorId} className="selector-editor" />
               </div>
             </div>
-            <FileUploader editorRef={editorRef} state={[modalOpen, setModalOpen]} datas={datas} />
+            <FileUploader state={[modalOpen, setModalOpen]} uploadCallback={fileUploadCallback} />
           </div>
         </>
       )}

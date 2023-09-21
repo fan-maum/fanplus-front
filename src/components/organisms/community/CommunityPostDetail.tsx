@@ -63,6 +63,6 @@ export default CommunityPostDetail;
 const PostContents = styled.div`
   position: 'relative';
   img {
-    width: 100%;
+    max-width: 100%;
   }
 `;
