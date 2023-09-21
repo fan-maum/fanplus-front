@@ -24,6 +24,7 @@ const PostDetailLayout = ({
   const [postLikeState, setPostLikeState] = useState<number>(
     parseInt(postInfo.RECOMMEND_CNT as string)
   );
+
   return (
     <>
       <CommunityPostTopNavi

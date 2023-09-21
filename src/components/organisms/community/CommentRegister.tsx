@@ -4,6 +4,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/community';
+import { getProfileData } from '@/utils/communityUtil';
 
 interface FormValue {
   registerValue: string | number;
@@ -13,7 +16,6 @@ type CommentRegisterProps = {
   identity: string;
   texts: CommunityPostTextType;
   POST_IDX: string;
-  profileInfo: { profileImg: string; profileNick: string };
   createMode: TargetType;
   onCreateComment: (
     identity: string,
@@ -27,12 +29,13 @@ const CommentRegister = ({
   identity,
   texts,
   POST_IDX,
-  profileInfo,
   createMode,
   onCreateComment,
 }: CommentRegisterProps) => {
   const { handleSubmit, register, reset } = useForm<FormValue>();
   const router = useRouter();
+  const user = useRecoilValue(userState);
+  const profile = getProfileData(user);
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
     if (identity !== null) {
@@ -66,7 +69,7 @@ const CommentRegister = ({
         css={{
           border: '1px solid #F8F8F9',
         }}
-        src={profileInfo.profileImg}
+        src={profile.profileImg}
         alt="Avatar"
       />
       <Stack

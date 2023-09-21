@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
-import { selectInfoState } from '@/store/community';
+import { checkCommentState, selectInfoState } from '@/store/community';
 import { Group } from '../atoms';
 import { CommunityPostTextType } from '@/types/textTypes';
 import CommunityCommonModal, { CommunityCommonModalProps } from './CommunityCommonModal';
@@ -41,6 +41,7 @@ function CommunityBlockModal({
       : '';
 
   const router = useRouter();
+  const checkComment = useRecoilValue(checkCommentState);
 
   const communityDeleteModalProps: CommunityCommonModalProps = {
     buttonId: 'modalAppDownloadButton',
@@ -65,8 +66,7 @@ function CommunityBlockModal({
               ? texts.commentDeleted
               : texts.alreadyDeleted;
           setDoneModalMessage(modalMessage);
-          await refetch();
-          await replyRefetch();
+          checkComment ? refetch() : replyRefetch();
         }
       },
       text: texts.confirmButton,

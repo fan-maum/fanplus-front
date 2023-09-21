@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { OrderType, selectInfoType } from '@/types/common';
-import { CommentResponseType } from '@/types/community';
+import { CommentResponseType, userResponseType } from '@/types/community';
 
 export const orderTypeState = atom<OrderType>({
   key: 'orderTypeState',
@@ -26,10 +26,20 @@ export const selectInfoState = atom<selectInfoType>({
   },
 });
 
+export const checkCommentState = atom<boolean>({
+  key: 'checkCommentState',
+  default: false,
+});
+
 export const modalBlockState = atom<boolean>({
   key: 'modalBlockState',
-  default: false
-})
+  default: false,
+});
+
+export const userState = atom<userResponseType | null>({
+  key: 'userState',
+  default: null,
+});
 
 //   const [cookies, setCookies] = useRecoilState(cookieState);
 //   const cookies = useRecoilValue(cookieState);

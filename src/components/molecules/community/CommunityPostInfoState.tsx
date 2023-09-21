@@ -1,6 +1,7 @@
 import { Avatar, Group, Stack } from '@/components/atoms';
 import { PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { getStandardTimeDate } from '@/utils/communityUtil';
 
 export interface CommunityPostInfoStateProps {
   postInfo: PostInfoItemType;
@@ -13,6 +14,7 @@ const CommunityPostInfoState = ({
   texts,
   postLikeState,
 }: CommunityPostInfoStateProps) => {
+  const getTimeDate = getStandardTimeDate(postInfo.PUBLISH_DATE, texts);
   return (
     <Group spacing={10} align={'flex-start'}>
       <div css={{ position: 'relative' }}>
@@ -38,7 +40,7 @@ const CommunityPostInfoState = ({
             paddingTop: 2,
           }}
         >
-          {postInfo.PUBLISH_DATE}
+          {getTimeDate}
         </div>
         <Group spacing={10} fw={500} fz={16} mt={4} css={{ color: '#999' }}>
           <div>

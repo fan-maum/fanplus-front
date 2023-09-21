@@ -363,6 +363,9 @@ export const CommunityPostText_zh_CN: CommunityPostTextType = {
     '举报内容将根据运营政策和使用条款进行处理。',
     '如果是虚假举报，则可能会限制举报人对服务的使用。',
   ],
+  daysAgo: '日 前',
+  hoursAgo: '小时 前',
+  minsAgo: '分钟 前',
 };
 
 export const postCommentTotalCount_zh_CN = (totalCount: number) => {

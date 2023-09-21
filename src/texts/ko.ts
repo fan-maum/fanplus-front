@@ -361,6 +361,9 @@ export const CommunityPostText_KR: CommunityPostTextType = {
     option2: '욕설 또는 악성 콘텐츠',
   },
   reportWarning: ['허위 신고의 경우 서비스 이용제한과 같은', '불이익을 받을 수 있습니다.'],
+  daysAgo: '일 전',
+  hoursAgo: '시간 전',
+  minsAgo: '분 전',
 };
 
 export const postCommentTotalCount_KR = (totalCount: number) => {

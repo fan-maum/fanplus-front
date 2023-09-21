@@ -33,7 +33,7 @@ export default function LikesButton({
           display: 'flex',
           flexDirection: 'row',
           gap: gap || 6,
-          padding: padding || '16px 30px',
+          padding: padding || '10px',
           borderRadius: 5,
           border:
             buttonSize === 'large'
@@ -47,8 +47,8 @@ export default function LikesButton({
       >
         <IconLikes
           iconCss={{
-            width: buttonSize === 'large' ? 20 : 16,
-            height: buttonSize === 'large' ? 20 : 16,
+            width: buttonSize === 'large' ? 14 : 16,
+            height: buttonSize === 'large' ? 14 : 16,
           }}
           active={active}
         />
@@ -70,7 +70,7 @@ export default function LikesButton({
 
 const SIZE_VARIANTS = {
   large: {
-    fontSize: '20px',
+    fontSize: '14px',
     fontWeight: '600',
   },
   medium: {

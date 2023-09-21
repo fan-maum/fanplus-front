@@ -3,6 +3,7 @@ import { CommentListItemType } from '@/types/community';
 import CommentPopover from './CommentPopover';
 import { PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { getStandardTimeDate } from '@/utils/communityUtil';
 
 type CommentInfoStateProps = {
   identity: string;
@@ -21,6 +22,10 @@ function CommentInfoState({
 }: CommentInfoStateProps) {
   const commentContent = comment?.COMMENT === false ? texts.deleted : comment?.COMMENT;
   const replyContent = reply?.COMMENT === false ? texts.deleted : reply?.COMMENT;
+  const isComment = comment ? true : false;
+  const getCommentTimeDate = comment && getStandardTimeDate(comment.INS_DATE, texts);
+  const getReplyTimeDate = reply && getStandardTimeDate(reply.INS_DATE, texts);
+
   return (
     <Group position="apart" spacing={30} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
       <Group spacing={10} align={'flex-start'} css={{ flexWrap: 'nowrap' }}>
@@ -49,7 +54,7 @@ function CommentInfoState({
                 fontWeight: 400,
               }}
             >
-              {comment ? comment.INS_DATE : reply?.INS_DATE}
+              {isComment ? getCommentTimeDate : getReplyTimeDate}
             </div>
           </Group>
           <div
@@ -68,6 +73,7 @@ function CommentInfoState({
         isWriter={comment ? comment?.IS_WRITER : reply?.IS_WRITER}
         comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX}
         texts={texts}
+        isComment={isComment}
         showReportModalBlockOnClick={showReportModalBlockOnClick}
       />
     </Group>

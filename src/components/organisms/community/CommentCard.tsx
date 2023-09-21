@@ -27,12 +27,13 @@ const CommentCard = ({
   showReportModalBlockOnClick,
 }: CommentCardProps) => {
   const router = useRouter();
-  const LikesOnClick = async () => await useLikesButtonOnClick({
-    identity,
-    comment: comment,
-    refetchFunc: refetch,
-    router,
-  });
+  const LikesOnClick = async () =>
+    await useLikesButtonOnClick({
+      identity,
+      comment: comment,
+      refetchFunc: refetch,
+      router,
+    });
 
   return (
     <Stack p={'26px 20px 20px 20px'} spacing={18}>

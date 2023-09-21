@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { commentListState, modalBlockState, orderTypeState, selectInfoState } from '@/store/community';
+import {
+  commentListState,
+  modalBlockState,
+  orderTypeState,
+  selectInfoState,
+  userState,
+} from '@/store/community';
 import type { PostResponseType, userResponseType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import PostFixedBottomWrapper, {
@@ -39,13 +45,8 @@ const CommunityPostTemplate = ({
   const orderType = useRecoilValue(orderTypeState);
   const setCommentList = useSetRecoilState(commentListState);
   const setSelectInfo = useSetRecoilState(selectInfoState);
-  const [user, setUser] = useState<userResponseType>();
+  const setUser = useSetRecoilState(userState);
   const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
-  const profileImg = user
-    ? user?.RESULTS.DATAS.PROFILE_IMG_URL
-    : 'http://cdnetphoto.appphotocard.com/profile_images/profile_image_default.png';
-  const profileNick = user ? user?.RESULTS.DATAS.NICK : '';
-  const profileInfo = { profileImg, profileNick };
   const [doneModalMessage, setDoneModalMessage] = useState<any>();
   const [commentIndex, setCommentIndex] = useState<number | null>(null);
 
@@ -137,7 +138,6 @@ const CommunityPostTemplate = ({
   const PostCommentWrapperProps: PostCommentWrapperProps = {
     getCommentParams,
     texts,
-    profileInfo,
     commentTotalCount,
     replyData,
     onCreateComment,
@@ -153,7 +153,6 @@ const CommunityPostTemplate = ({
     texts,
     postInfo,
     commentTotalCount,
-    profileInfo,
     onCreateComment,
     shareOnClick: () => setShareModalIsOpened(true),
   };

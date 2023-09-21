@@ -363,6 +363,9 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
     '報告されたコンテンツは、運用ポリシーと利用規約に従って処理されます。虚偽の報告である場合、',
     'If it is a false report, 記者によるFanPlusサービスの使用が制限される場合があります。',
   ],
+  daysAgo: '日 前',
+  hoursAgo: '時間 前',
+  minsAgo: '分 前',
 };
 
 export const postCommentTotalCount_JAP = (totalCount: number) => {

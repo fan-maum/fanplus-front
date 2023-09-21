@@ -1,17 +1,19 @@
 import { Popover } from '@mantine/core';
 import { useSetRecoilState } from 'recoil';
-import { modalBlockState, selectInfoState } from '@/store/community';
+import { checkCommentState, modalBlockState, selectInfoState } from '@/store/community';
 import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
 import { PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 import { showModalOnClick } from '@/utils/communityUtil';
+import { useState } from 'react';
 
 type CommentPopoverProps = {
   identity: string;
   comment_idx: any;
   isWriter: string | undefined;
   texts: CommunityPostTextType;
+  isComment: boolean;
   showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 export default function CommentPopover({
@@ -19,18 +21,23 @@ export default function CommentPopover({
   comment_idx,
   isWriter,
   texts,
+  isComment,
   showReportModalBlockOnClick,
 }: CommentPopoverProps) {
   const setModalBlock = useSetRecoilState(modalBlockState);
   const setSelectInfo = useSetRecoilState(selectInfoState);
-  const showModalBlockOnClick = async () =>
+  const setCheckComment = useSetRecoilState(checkCommentState);
+  const showModalBlockOnClick = async () => {
     await showModalOnClick({
       purpose: 'delete',
       target_type: 'comment',
       idx: comment_idx,
+      isComment,
+      setCheckComment,
       setModalBlock,
       setSelectInfo,
     });
+  };
 
   const router = useRouter();
   const ReportOnClick = () => {
@@ -83,9 +90,7 @@ export default function CommentPopover({
           }}
         >
           {isWriter === 'Y' ? (
-            <li onClick={showModalBlockOnClick}>
-              {texts.delete}
-            </li>
+            <li onClick={showModalBlockOnClick}>{texts.delete}</li>
           ) : (
             <li onClick={ReportOnClick}>{texts.report}</li>
           )}

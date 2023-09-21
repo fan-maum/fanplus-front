@@ -15,7 +15,6 @@ export type PostCommentWrapperProps = {
     identity: string;
   };
   texts: CommunityPostTextType;
-  profileInfo: { profileImg: string; profileNick: string };
   commentTotalCount: number;
   onCreateComment: (
     identity: string,
@@ -34,7 +33,6 @@ export type PostCommentWrapperProps = {
 const PostCommentWrapper = ({
   getCommentParams,
   texts,
-  profileInfo,
   commentTotalCount,
   onCreateComment,
   refetch,
@@ -47,7 +45,7 @@ const PostCommentWrapper = ({
   const commentList = useRecoilValue(commentListState);
   const [page, setPage] = useRecoilState(pageState);
   const hasNextPage = 20 * (page + 1) < Number(commentTotalCount);
-  
+
   return (
     <>
       <Group h={80} position="apart" px={24} mb={15}>
@@ -61,7 +59,6 @@ const PostCommentWrapper = ({
             getCommentParams={getCommentParams}
             comments={comments}
             texts={texts}
-            profileInfo={profileInfo}
             onCreateComment={onCreateComment}
             showReportModalBlockOnClick={showReportModalBlockOnClick}
             refetch={refetch}

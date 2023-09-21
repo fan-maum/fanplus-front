@@ -252,6 +252,9 @@ export type CommunityPostTextType = {
     option2: string;
   };
   reportWarning: [string, string];
+  daysAgo: string;
+  hoursAgo: string;
+  minsAgo: string;
 };
 
 export type TextType = {

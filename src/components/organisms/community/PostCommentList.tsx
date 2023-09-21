@@ -12,7 +12,6 @@ type PostCommentListProps = {
   };
   comments: CommentResponseType;
   texts: CommunityPostTextType;
-  profileInfo: { profileImg: string; profileNick: string };
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -30,7 +29,6 @@ const PostCommentList = ({
   getCommentParams,
   comments,
   texts,
-  profileInfo,
   onCreateComment,
   showReportModalBlockOnClick,
   refetch,
@@ -48,7 +46,6 @@ const PostCommentList = ({
             getCommentParams={getCommentParams}
             item={item}
             texts={texts}
-            profileInfo={profileInfo}
             refetch={refetch}
             replyRefetch={replyRefetch}
             onCreateComment={onCreateComment}

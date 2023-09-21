@@ -363,6 +363,9 @@ export const CommunityPostText_zh_TW: CommunityPostTextType = {
     '舉報內容將根據運營政策和使用條款進行處理。',
     '如果是虛假舉報，則可能會限制舉報人對服務的使用。',
   ],
+  daysAgo: '日 前',
+  hoursAgo: '小時 前',
+  minsAgo: '分鐘 前',
 };
 
 export const postCommentTotalCount_zh_TW = (totalCount: number) => {

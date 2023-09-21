@@ -363,6 +363,9 @@ export const CommunityPostText_ESP: CommunityPostTextType = {
     'Se procederá el contenido denunciado según las políticas de operación y términos de uso. Si es una denuncia falsa,',
     'se podría restringir el uso del servicio de FanPlus por parte del denunciante.',
   ],
+  daysAgo: 'Día(s) antes',
+  hoursAgo: 'Hora(s) antes',
+  minsAgo: 'Minuto(s) antes',
 };
 
 export const postCommentTotalCount_ESP = (totalCount: number) => {

@@ -367,6 +367,9 @@ export const CommunityPostText_IND: CommunityPostTextType = {
     'Konten yang dilaporkan akan diproses sesuai dengan kebijakan pengoperasian dan persyaratan penggunaan. Jika ini adalah laporan palsu,',
     'penggunaan layanan FanPlus oleh pelapor dapat dibatasi.',
   ],
+  daysAgo: 'hari sebelumnya',
+  hoursAgo: 'jam sebelumnya',
+  minsAgo: 'menit sebelumnya',
 };
 
 export const postCommentTotalCount_IND = (totalCount: number) => {

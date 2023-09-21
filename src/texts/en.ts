@@ -363,6 +363,9 @@ export const CommunityPostText_ENG: CommunityPostTextType = {
     'Reported content will be processed according to the operating policy and terms of use.',
     "If it is a false report, the reporter's use of FanPlus service may be restricted.",
   ],
+  daysAgo: 'days ago',
+  hoursAgo: 'hours ago',
+  minsAgo: 'mins ago',
 };
 
 export const postCommentTotalCount_ENG = (totalCount: number) => {
