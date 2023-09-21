@@ -29,7 +29,7 @@ const CommunityBoardArticle = ({ postItem, link, texts }: OwnPropType) => {
         </div>
         <div css={{ display: 'flex', justifyContent: 'space-between' }}>
           <div css={{ margin: '3px 3px 6px', lineHeight: '1.5' }}>
-            <h4 css={{ wordBreak: 'keep-all', fontWeight: '400' }}>
+            <h4 css={{ wordBreak: 'break-word', fontWeight: '400' }}>
               {postItem.POST_TITLE}
               <span css={{ color: '#ff5656' }}> [{postItem.COMMENT_CNT}]</span>
             </h4>

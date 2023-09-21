@@ -21,6 +21,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
           position: 'fixed',
           backgroundColor: isVoteCommunityPage ? 'rgb(255,255,255)' : 'rgba(255,255,255,0.8)',
           zIndex: '1000',
+          borderBottom: '1px solid #d9d9d9',
           '@media(max-width:768px)': {
             display: isLoginSignUpPage ? 'none' : 'block',
           },
@@ -60,7 +61,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
       {/* background용 div */}
       {!isLoginSignUpPage && (
         <div
-          css={{ width: '100%', height: '85px', '@media(max-width:991px)': { height: '70px' } }}
+          css={{ width: '100%', height: '100px', '@media(max-width:991px)': { height: '80px' } }}
         />
       )}
     </>

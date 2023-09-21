@@ -22,6 +22,7 @@ import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNot
 import { useUrlLanguage } from '@/hooks/useLanguage';
 
 export type CommunityBoardPropType = {
+  cookieBoardLang: BoardLangType;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   communityNoticeBannerData: CommunityNoticeBannerResponseType;
@@ -29,6 +30,7 @@ export type CommunityBoardPropType = {
 };
 
 const CommunityBoardTemplate = ({
+  cookieBoardLang,
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
@@ -39,7 +41,7 @@ const CommunityBoardTemplate = ({
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
-  const [boardLang, setBoardLang] = useState((router.query.boardLang as BoardLangType) || 'ALL');
+  const [boardLang, setBoardLang] = useState(cookieBoardLang || 'ALL');
   const [langModal, setLangModal] = useState(false);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
@@ -172,16 +174,17 @@ const TopicTabBar = ({
       }}
     >
       <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => handleClick(0)} />
-      {topicList.map((topic, idx) => {
-        return (
-          <Topic
-            title={topic.NAME}
-            selected={topicIndex === topic.IDX}
-            onClick={() => handleClick(topic.IDX)}
-            key={idx}
-          />
-        );
-      })}
+      {topicList.length > 1 &&
+        topicList.map((topic, idx) => {
+          return (
+            <Topic
+              title={topic.NAME}
+              selected={topicIndex === topic.IDX}
+              onClick={() => handleClick(topic.IDX)}
+              key={idx}
+            />
+          );
+        })}
     </ul>
   );
 };

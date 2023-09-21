@@ -298,8 +298,8 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
     myPost: '내가 쓴 글',
   },
   boardLang: {
-    modalHeader: '게시물 언어 설정',
-    modalExplain: '선택한 언어로 작성된 게시물만 보입니다!',
+    modalHeader: '게시글 언어 선택',
+    modalExplain: '선택한 언어로 작성된 게시글만 보입니다!',
     current: '현재 사용 중인 언어필터',
     ALL: '모든 언어',
     ko: '한국어',
