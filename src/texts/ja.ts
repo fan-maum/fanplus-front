@@ -332,6 +332,7 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
   commentRegisterPlaceholder: 'コメントを残す（最大200文字)',
   replyRegisterPlaceholder: 'コメントを入力してください。（最大200文字)',
   askPostDelete: '文を削除しますか？',
+  askPostDeleteMsg: '文削除時の内容とコメントがすべて削除されます。',
   askCommentDelete: 'コメントを削除しますか？',
   postDeleted: '文が削除されました。',
   commentDeleted: 'コメントが削除されました。',

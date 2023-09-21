@@ -2,17 +2,13 @@ import { useState } from 'react';
 import { CommentListItemType } from '@/types/community';
 import CommentCard from './CommentCard';
 import ReplyCommentList from './ReplyCommentList';
-import { BackLangType, PurPoseType, TargetType } from '@/types/common';
+import { TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
 import ReplyRegister from './ReplyRegister';
+import { useRecoilValue } from 'recoil';
+import { postParamState } from '@/store/community';
 
 type PostCommentListItemProps = {
-  getCommentParams: {
-    target_type: TargetType;
-    target: number;
-    lang: BackLangType;
-    identity: string;
-  };
   item: CommentListItemType;
   texts: CommunityPostTextType;
   onCreateComment: (
@@ -21,7 +17,6 @@ type PostCommentListItemProps = {
     target: number,
     contents: any
   ) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   refetch: () => void;
   replyRefetch: () => void;
   refetchReplyOnToggle: (commentIndex: number) => void;
@@ -29,31 +24,34 @@ type PostCommentListItemProps = {
 };
 
 const PostCommentListItem = ({
-  getCommentParams,
   item,
   texts,
   refetch,
   onCreateComment,
-  showReportModalBlockOnClick,
   replyRefetch,
   refetchReplyOnToggle,
   replyData,
 }: PostCommentListItemProps) => {
-  const { identity } = getCommentParams;
+  const postParam = useRecoilValue(postParamState);
+  const identity = postParam.identity;
   const [openToggle, setOpenToggle] = useState(false);
   const [openWriteToggle, setOpenWriteToggle] = useState(false);
+  const [closeReply, setCloseReply] = useState(false);
 
   const ReplyOnToggle = async (commentIndex: number) => {
     if (openToggle === false) {
       refetchReplyOnToggle(commentIndex);
       setOpenToggle(true);
       setOpenWriteToggle(false);
+      setCloseReply(true);
     } else {
       setOpenToggle(false);
+      setCloseReply(false);
     }
   };
 
   const ReplyWriteOnToggle = async () => {
+    setCloseReply(false);
     if (openWriteToggle === false) {
       setOpenWriteToggle(true);
       setOpenToggle(false);
@@ -76,10 +74,10 @@ const PostCommentListItem = ({
         identity={identity}
         comment={item}
         texts={texts}
+        closeReply={closeReply}
         refetch={refetch}
         ReplyOnToggle={() => ReplyOnToggle(Number(item.COMMENT_IDX))}
         ReplyWriteOnToggle={ReplyWriteOnToggle}
-        showReportModalBlockOnClick={showReportModalBlockOnClick}
       />
       <div css={{ display: openToggle ? 'block' : 'none' }}>
         {item.RE_COMMENT_CNT !== '0' && (
@@ -88,7 +86,6 @@ const PostCommentListItem = ({
             replyList={replyData?.pages}
             texts={texts}
             replyRefetch={replyRefetch}
-            showReportModalBlockOnClick={showReportModalBlockOnClick}
           />
         )}
       </div>

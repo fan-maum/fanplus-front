@@ -332,6 +332,7 @@ export const CommunityPostText_ENG: CommunityPostTextType = {
   commentRegisterPlaceholder: 'Leave a comment (max. 200 characters)',
   replyRegisterPlaceholder: 'Add a comment (max. 200 characters)',
   askPostDelete: 'Do you want to delete your post?',
+  askPostDeleteMsg: 'If you delete your post, then your post and comments will also be deleted',
   askCommentDelete: 'Do you want to delete your comment?',
   postDeleted: 'You’ve deleted your post.',
   commentDeleted: 'Comment deleted',

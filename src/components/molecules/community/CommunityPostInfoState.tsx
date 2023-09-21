@@ -30,14 +30,14 @@ const CommunityPostInfoState = ({
           alt="Avatar"
         />
       </div>
-      <Stack fw={600} fz={17} pt={6}>
+      <Stack fw={600} fz={17}>
         <h4 css={{ color: '#000', fontSize: 18, fontWeight: 600 }}>{postInfo.WRITER_NAME}</h4>
         <div
           css={{
             fontSize: 16,
             color: '#999',
             fontWeight: 400,
-            paddingTop: 2,
+            paddingTop: 4,
           }}
         >
           {getTimeDate}

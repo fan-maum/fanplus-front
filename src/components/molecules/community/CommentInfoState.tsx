@@ -1,7 +1,6 @@
 import { Group, Stack, Avatar } from '@/components/atoms';
 import { CommentListItemType } from '@/types/community';
 import CommentPopover from './CommentPopover';
-import { PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { getStandardTimeDate } from '@/utils/communityUtil';
 
@@ -10,16 +9,9 @@ type CommentInfoStateProps = {
   comment?: CommentListItemType;
   reply?: CommentListItemType;
   texts: CommunityPostTextType;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
-function CommentInfoState({
-  identity,
-  comment,
-  reply,
-  texts,
-  showReportModalBlockOnClick,
-}: CommentInfoStateProps) {
+function CommentInfoState({ identity, comment, reply, texts }: CommentInfoStateProps) {
   const commentContent = comment?.COMMENT === false ? texts.deleted : comment?.COMMENT;
   const replyContent = reply?.COMMENT === false ? texts.deleted : reply?.COMMENT;
   const isComment = comment ? true : false;
@@ -74,7 +66,6 @@ function CommentInfoState({
         comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX}
         texts={texts}
         isComment={isComment}
-        showReportModalBlockOnClick={showReportModalBlockOnClick}
       />
     </Group>
   );

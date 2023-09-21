@@ -224,6 +224,7 @@ export type CommunityPostTextType = {
   commentRegisterPlaceholder: string;
   replyRegisterPlaceholder: string;
   askPostDelete: string;
+  askPostDeleteMsg: string;
   askCommentDelete: string;
   postDeleted: string;
   commentDeleted: string;

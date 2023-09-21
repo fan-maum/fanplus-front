@@ -3,10 +3,15 @@ import { userResponseType } from '@/types/community';
 import { SetterOrUpdater } from 'recoil';
 import { formatWrittenTime, timeType } from './util';
 
-interface useShowModalOnClickProps extends selectInfoType {
+interface showModalOnClickProps extends selectInfoType {
   isComment?: boolean;
   setCheckComment?: SetterOrUpdater<boolean>;
   setModalBlock: SetterOrUpdater<boolean>;
+  setSelectInfo: SetterOrUpdater<selectInfoType>;
+}
+
+interface showReportModalBlockOnClickProps extends selectInfoType {
+  setReportModalBlock: SetterOrUpdater<boolean>;
   setSelectInfo: SetterOrUpdater<selectInfoType>;
 }
 
@@ -17,11 +22,22 @@ export const showModalOnClick = async ({
   setModalBlock,
   setSelectInfo,
   ...props
-}: useShowModalOnClickProps) => {
+}: showModalOnClickProps) => {
   const { isComment, setCheckComment } = props;
   await setModalBlock(true);
   await setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
   await (isComment && setCheckComment && setCheckComment(isComment));
+};
+
+export const showReportModalBlockOnClick = async ({
+  purpose,
+  target_type,
+  idx,
+  setReportModalBlock,
+  setSelectInfo,
+}: showReportModalBlockOnClickProps) => {
+  await setReportModalBlock(true);
+  await setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
 };
 
 export const getProfileData = (user: userResponseType | null) => {

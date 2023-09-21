@@ -1,4 +1,4 @@
-function IconReply() {
+function IconReply(props: any) {
   return (
     <svg
       width="12"
@@ -6,7 +6,7 @@ function IconReply() {
       viewBox="0 0 12 6"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      css={{ marginLeft: 4, transform: 'rotate(180deg)' }}
+      css={{ marginLeft: 4, transform: props.closeReply ? 'none' : 'rotate(180deg)' }}
     >
       <path
         fillRule="evenodd"

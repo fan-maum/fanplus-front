@@ -1,12 +1,15 @@
 import { Popover } from '@mantine/core';
 import { useSetRecoilState } from 'recoil';
-import { checkCommentState, modalBlockState, selectInfoState } from '@/store/community';
+import {
+  checkCommentState,
+  modalBlockState,
+  reportModalBlockState,
+  selectInfoState,
+} from '@/store/community';
 import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
-import { PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
-import { showModalOnClick } from '@/utils/communityUtil';
-import { useState } from 'react';
+import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
 
 type CommentPopoverProps = {
   identity: string;
@@ -14,7 +17,6 @@ type CommentPopoverProps = {
   isWriter: string | undefined;
   texts: CommunityPostTextType;
   isComment: boolean;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 export default function CommentPopover({
   identity,
@@ -22,9 +24,9 @@ export default function CommentPopover({
   isWriter,
   texts,
   isComment,
-  showReportModalBlockOnClick,
 }: CommentPopoverProps) {
   const setModalBlock = useSetRecoilState(modalBlockState);
+  const setReportModalBlock = useSetRecoilState(reportModalBlockState);
   const setSelectInfo = useSetRecoilState(selectInfoState);
   const setCheckComment = useSetRecoilState(checkCommentState);
   const showModalBlockOnClick = async () => {
@@ -40,9 +42,15 @@ export default function CommentPopover({
   };
 
   const router = useRouter();
-  const ReportOnClick = () => {
+  const ReportOnClick = async () => {
     if (identity !== null) {
-      showReportModalBlockOnClick('report', 'comment', comment_idx);
+      await showReportModalBlockOnClick({
+        purpose: 'report',
+        target_type: 'comment',
+        idx: comment_idx,
+        setReportModalBlock,
+        setSelectInfo,
+      });
     } else {
       const path = router.asPath;
       router.push({ pathname: '/login', query: { nextUrl: path } });

@@ -12,31 +12,20 @@ export type ReplyCardProps = {
   reply: CommentListItemType;
   texts: CommunityPostTextType;
   replyRefetch: () => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
-const ReplyCard = ({
-  identity,
-  reply,
-  texts,
-  replyRefetch,
-  showReportModalBlockOnClick,
-}: ReplyCardProps) => {
+const ReplyCard = ({ identity, reply, texts, replyRefetch }: ReplyCardProps) => {
   const router = useRouter();
-  const LikesOnClick = async () => await useLikesButtonOnClick({
-    identity,
-    comment: reply,
-    refetchFunc: replyRefetch,
-    router,
-  });
+  const LikesOnClick = async () =>
+    await useLikesButtonOnClick({
+      identity,
+      comment: reply,
+      refetchFunc: replyRefetch,
+      router,
+    });
 
   return (
     <Stack p={'26px 20px 20px 20px'} spacing={18}>
-      <CommentInfoState
-        identity={identity}
-        reply={reply}
-        texts={texts}
-        showReportModalBlockOnClick={showReportModalBlockOnClick}
-      />
+      <CommentInfoState identity={identity} reply={reply} texts={texts} />
       <Group position="apart" ml={68}>
         <div></div>
         <LikesButton

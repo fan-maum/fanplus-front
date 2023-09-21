@@ -51,12 +51,12 @@ function CommunityBlockModal({
     confirmButton: {
       onClick: async () => {
         setModalBlock(false);
-        setDoneModalBlock(true);
         if (target_type === 'post') {
           let response = await deletePost(identity, idx, 'remove');
           let modalMessage =
             response?.data?.RESULTS?.MSG === 'success' ? texts.postDeleted : texts.alreadyDeleted;
           setDoneModalMessage(modalMessage);
+          setDoneModalBlock(true);
           router.push(`/community/board/${router.query.boardIndex}`);
         }
         if (target_type === 'comment') {
@@ -66,6 +66,7 @@ function CommunityBlockModal({
               ? texts.commentDeleted
               : texts.alreadyDeleted;
           setDoneModalMessage(modalMessage);
+          setDoneModalBlock(true);
           checkComment ? refetch() : replyRefetch();
         }
       },
@@ -79,8 +80,11 @@ function CommunityBlockModal({
         <CommunityModalText
           voteText={
             <>
-              <Group spacing={6} position="center">
+              <Group spacing={6} position="center" css={{ flexDirection: 'column' }}>
                 <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>{modalText}</div>
+                <div css={{ fontSize: 14, fontWeight: 500, color: '#999' }}>
+                  {purpose === 'delete' && target_type === 'post' && texts.askPostDeleteMsg}
+                </div>
               </Group>
             </>
           }

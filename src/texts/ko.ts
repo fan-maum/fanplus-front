@@ -333,6 +333,7 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   commentRegisterPlaceholder: '댓글을 남겨주세요. (200자)',
   replyRegisterPlaceholder: '답글을 입력해 주세요. (200자)',
   askPostDelete: '게시글을 삭제하시겠어요?',
+  askPostDeleteMsg: '게시글 삭제 시 글과 댓글이 모두 삭제됩니다',
   askCommentDelete: '댓글을 삭제하시겠어요?',
   postDeleted: '게시물이 삭제되었습니다',
   commentDeleted: '댓글이 삭제되었습니다.',

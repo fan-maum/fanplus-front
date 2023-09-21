@@ -332,6 +332,8 @@ export const CommunityPostText_ESP: CommunityPostTextType = {
   commentRegisterPlaceholder: 'Dejar un comentario (200 caracteres)',
   replyRegisterPlaceholder: 'Ingresa un comentario (200 caracteres)',
   askPostDelete: '¿Te gustaría eliminar la publicación?',
+  askPostDeleteMsg:
+    'Al eliminar una publicación, tanto los textos como los comentarios son eliminados.',
   askCommentDelete: '¿Desea eliminar el comentario?',
   postDeleted: 'La publicación ha sido eliminada',
   commentDeleted: 'El comentario ha sido eliminado.',

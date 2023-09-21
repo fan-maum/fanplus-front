@@ -332,6 +332,7 @@ export const CommunityPostText_zh_CN: CommunityPostTextType = {
   commentRegisterPlaceholder: '请发表评论。（200字）',
   replyRegisterPlaceholder: '请输入评论。（200字）',
   askPostDelete: '您要删除该帖子吗？',
+  askPostDeleteMsg: '删除帖子时，帖子内容和评论都将被删除。',
   askCommentDelete: '确认删除评论吗?',
   postDeleted: '帖子已删除',
   commentDeleted: '评论已删除',

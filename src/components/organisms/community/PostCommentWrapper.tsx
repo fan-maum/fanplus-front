@@ -8,12 +8,6 @@ import PostCommentList from './PostCommentList';
 import { CommunityPostTextType } from '@/types/textTypes';
 
 export type PostCommentWrapperProps = {
-  getCommentParams: {
-    target_type: TargetType;
-    target: number;
-    lang: BackLangType;
-    identity: string;
-  };
   texts: CommunityPostTextType;
   commentTotalCount: number;
   onCreateComment: (
@@ -25,20 +19,17 @@ export type PostCommentWrapperProps = {
   refetch: () => void;
   replyRefetch: () => void;
   fetchNextPage: () => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   refetchReplyOnToggle: (commentIndex: number) => void;
   replyData: any;
 };
 
 const PostCommentWrapper = ({
-  getCommentParams,
   texts,
   commentTotalCount,
   onCreateComment,
   refetch,
   replyRefetch,
   fetchNextPage,
-  showReportModalBlockOnClick,
   refetchReplyOnToggle,
   replyData,
 }: PostCommentWrapperProps) => {
@@ -56,11 +47,9 @@ const PostCommentWrapper = ({
         {commentList.map((comments, index) => (
           <PostCommentList
             key={index}
-            getCommentParams={getCommentParams}
             comments={comments}
             texts={texts}
             onCreateComment={onCreateComment}
-            showReportModalBlockOnClick={showReportModalBlockOnClick}
             refetch={refetch}
             replyRefetch={replyRefetch}
             refetchReplyOnToggle={refetchReplyOnToggle}

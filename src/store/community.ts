@@ -1,5 +1,5 @@
-import { atom } from 'recoil';
-import { OrderType, selectInfoType } from '@/types/common';
+import { atom, atomFamily } from 'recoil';
+import { BoardLangType, OrderType, TargetType, selectInfoType } from '@/types/common';
 import { CommentResponseType, userResponseType } from '@/types/community';
 
 export const orderTypeState = atom<OrderType>({
@@ -36,9 +36,31 @@ export const modalBlockState = atom<boolean>({
   default: false,
 });
 
+export const reportModalBlockState = atom<boolean>({
+  key: 'reportModalBlockState',
+  default: false,
+});
+
 export const userState = atom<userResponseType | null>({
   key: 'userState',
   default: null,
+});
+
+export type postParamStateType = {
+  target_type: TargetType;
+  target: number;
+  lang: BoardLangType;
+  identity: string;
+};
+
+export const postParamState = atom<postParamStateType>({
+  key: 'postParamState',
+  default: {
+    target_type: 'post',
+    target: 0,
+    lang: 'ko',
+    identity: '0',
+  },
 });
 
 //   const [cookies, setCookies] = useRecoilState(cookieState);

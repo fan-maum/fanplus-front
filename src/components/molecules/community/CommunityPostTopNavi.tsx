@@ -3,17 +3,15 @@ import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import IconVerticalMore from '@/components/atoms/IconVerticalMore';
 import { Popover } from '@mantine/core';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { PurPoseType, TargetType } from '@/types/common';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { modalBlockState, selectInfoState } from '@/store/community';
-import { showModalOnClick } from '@/utils/communityUtil';
+import { useSetRecoilState } from 'recoil';
+import { modalBlockState, reportModalBlockState, selectInfoState } from '@/store/community';
+import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
 
 export type CommunityPostTopNaviProps = {
   identity: string;
   user_idx: string;
   writer_idx: string;
   texts: CommunityPostTextType;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   postIndex: string;
 };
 const CommunityPostTopNavi = ({
@@ -21,11 +19,11 @@ const CommunityPostTopNavi = ({
   user_idx,
   writer_idx,
   texts,
-  showReportModalBlockOnClick,
   postIndex,
 }: CommunityPostTopNaviProps) => {
   const router = useRouter();
   const setModalBlock = useSetRecoilState(modalBlockState);
+  const setReportModalBlock = useSetRecoilState(reportModalBlockState);
   const setSelectInfo = useSetRecoilState(selectInfoState);
   const showModalBlockOnClick = async () =>
     await showModalOnClick({
@@ -36,9 +34,15 @@ const CommunityPostTopNavi = ({
       setSelectInfo,
     });
 
-  const ReportOnClick = () => {
+  const ReportOnClick = async () => {
     if (identity !== null) {
-      showReportModalBlockOnClick('report', 'post', postIndex);
+      await showReportModalBlockOnClick({
+        purpose: 'report',
+        target_type: 'post',
+        idx: postIndex,
+        setReportModalBlock,
+        setSelectInfo,
+      });
     } else {
       const path = router.asPath;
       router.push({ pathname: '/login', query: { nextUrl: path } });

@@ -8,7 +8,6 @@ type PostCommentListItemProps = {
   replies: replyResponseType;
   texts: CommunityPostTextType;
   replyRefetch: () => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
 const ReplyCommentListItem = ({
@@ -16,7 +15,6 @@ const ReplyCommentListItem = ({
   replies,
   texts,
   replyRefetch,
-  showReportModalBlockOnClick,
 }: PostCommentListItemProps) => {
   const repiesData = replies.RESULTS.DATAS.COMMENTS;
 
@@ -38,7 +36,6 @@ const ReplyCommentListItem = ({
               reply={reply}
               texts={texts}
               replyRefetch={replyRefetch}
-              showReportModalBlockOnClick={showReportModalBlockOnClick}
             />
           </li>
         ))}

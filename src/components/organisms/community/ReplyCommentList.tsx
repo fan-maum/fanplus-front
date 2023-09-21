@@ -8,16 +8,9 @@ type ReplyCommentListProps = {
   replyList: Array<replyResponseType>;
   texts: CommunityPostTextType;
   replyRefetch: () => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
 };
 
-const ReplyCommentList = ({
-  identity,
-  replyList,
-  texts,
-  replyRefetch,
-  showReportModalBlockOnClick,
-}: ReplyCommentListProps) => {
+const ReplyCommentList = ({ identity, replyList, texts, replyRefetch }: ReplyCommentListProps) => {
   return (
     <ul data-role="comments">
       {replyList?.map((replies, index) => {
@@ -28,7 +21,6 @@ const ReplyCommentList = ({
             replies={replies}
             texts={texts}
             replyRefetch={replyRefetch}
-            showReportModalBlockOnClick={showReportModalBlockOnClick}
           />
         );
       })}

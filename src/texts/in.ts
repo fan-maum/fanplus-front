@@ -336,6 +336,8 @@ export const CommunityPostText_IND: CommunityPostTextType = {
   commentRegisterPlaceholder: 'Tinggalkan komentar (maksimal 200 karakter)',
   replyRegisterPlaceholder: 'Tulis komentar (maksimal 200 karakter)',
   askPostDelete: 'Apakah Anda ingin menghapus cerita Anda?',
+  askPostDeleteMsg:
+    'Jika Anda menghapus cerita Anda, maka cerita dan komentar Anda juga akan dihapus',
   askCommentDelete: 'Anda mau menghapus komentar?',
   postDeleted: 'Anda telah menghapus kisah Anda',
   commentDeleted: 'Komentar sudah dihapus.',

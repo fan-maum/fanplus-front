@@ -5,7 +5,9 @@ import {
   commentListState,
   modalBlockState,
   orderTypeState,
-  selectInfoState,
+  postParamState,
+  postParamStateType,
+  reportModalBlockState,
   userState,
 } from '@/store/community';
 import type { PostResponseType, userResponseType } from '@/types/community';
@@ -14,7 +16,7 @@ import PostFixedBottomWrapper, {
   PostFixedBottomWrapperProps,
 } from '@/components/organisms/community/PostFixedBottomWrapper';
 import { getUser, postComment } from '@/api/Community';
-import { BackLangType, TargetType, PurPoseType } from '@/types/common';
+import { BackLangType, TargetType } from '@/types/common';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 import PostCommentWrapper, {
   PostCommentWrapperProps,
@@ -44,11 +46,23 @@ const CommunityPostTemplate = ({
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
   const orderType = useRecoilValue(orderTypeState);
   const setCommentList = useSetRecoilState(commentListState);
-  const setSelectInfo = useSetRecoilState(selectInfoState);
   const setUser = useSetRecoilState(userState);
   const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
   const [doneModalMessage, setDoneModalMessage] = useState<any>();
   const [commentIndex, setCommentIndex] = useState<number | null>(null);
+  const [modalBlock, setModalBlock] = useRecoilState(modalBlockState);
+  const [reportModalBlock, setReportModalBlock] = useRecoilState(reportModalBlockState);
+  const [doneModalBlock, setDoneModalBlock] = useState(false);
+  const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
+  const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
+  const setPostParam = useSetRecoilState(postParamState);
+
+  let postParamObject: postParamStateType = {
+    target_type: 'post',
+    target: parseInt(postInfo.POST_IDX as string),
+    lang: lang,
+    identity: identity,
+  };
 
   const useGetReplyQueryProps: useGetReplyQueryProps = {
     commentIndex,
@@ -74,12 +88,6 @@ const CommunityPostTemplate = ({
     await replyRefetch();
   };
 
-  const [modalBlock, setModalBlock] = useRecoilState(modalBlockState);
-  const [reportModalBlock, setReportModalBlock] = useState(false);
-  const [doneModalBlock, setDoneModalBlock] = useState(false);
-  const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
-  const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
-
   const fetchGetUser = async () => {
     if (identity !== null) {
       const response: userResponseType = await getUser(user_idx, identity);
@@ -92,20 +100,12 @@ const CommunityPostTemplate = ({
       fetchGetUser();
       setCommentList(data.pages);
       setCommentTotalCount(data.pages[0].RESULTS.DATAS.TOTAL_CNT);
+      setPostParam(postParamObject);
     }
   }, [isSuccess, data]);
 
   if (isLoading) return '';
   if (error) return 'An error has occurred: ' + error;
-
-  const showReportModalBlockOnClick = async (
-    purpose: PurPoseType,
-    target_type: TargetType,
-    idx: string
-  ) => {
-    setReportModalBlock(true);
-    setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
-  };
 
   const onCreateComment = async (
     identity: string,
@@ -117,13 +117,6 @@ const CommunityPostTemplate = ({
     await refetch();
   };
 
-  let getCommentParams = {
-    target_type: 'post' as TargetType,
-    target: parseInt(postInfo.POST_IDX as string),
-    lang: lang,
-    identity: identity,
-  };
-
   /**
    * LayoutProps
    */
@@ -132,11 +125,9 @@ const CommunityPostTemplate = ({
     user_idx,
     postInfo,
     texts,
-    showReportModalBlockOnClick,
   };
 
   const PostCommentWrapperProps: PostCommentWrapperProps = {
-    getCommentParams,
     texts,
     commentTotalCount,
     replyData,
@@ -144,7 +135,6 @@ const CommunityPostTemplate = ({
     refetch,
     replyRefetch,
     fetchNextPage,
-    showReportModalBlockOnClick,
     refetchReplyOnToggle,
   };
 
