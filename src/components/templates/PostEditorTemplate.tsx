@@ -57,10 +57,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const [dataLackModal, setDataLackModal] = useState(false);
 
   useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.returnValue = '';
-      return '';
-    };
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => (e.returnValue = '');
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
