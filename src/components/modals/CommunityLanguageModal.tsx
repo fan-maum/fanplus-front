@@ -64,7 +64,7 @@ const CommunityLanguageModal = ({
     setBoardLangCookie(language);
     router.replace({
       pathname: router.pathname,
-      query: { ...router.query, page: 1 },
+      query: { ...router.query, page: 1, boardLang: language },
     });
     setModal(false);
   };
