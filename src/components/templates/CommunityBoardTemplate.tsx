@@ -20,8 +20,10 @@ import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import { useUrlLanguage } from '@/hooks/useLanguage';
+import CommunityCommonModal from '../modals/CommunityCommonModal';
 
 export type CommunityBoardPropType = {
+  boardLangCookie: BoardLangType;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   communityNoticeBannerData: CommunityNoticeBannerResponseType;
@@ -29,6 +31,7 @@ export type CommunityBoardPropType = {
 };
 
 const CommunityBoardTemplate = ({
+  boardLangCookie,
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
@@ -39,8 +42,9 @@ const CommunityBoardTemplate = ({
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
-  const [boardLang, setBoardLang] = useState((router.query.boardLang as BoardLangType) || 'ALL');
+  const [boardLang, setBoardLang] = useState(boardLangCookie);
   const [langModal, setLangModal] = useState(false);
+  const [permissionModal, setPermissionModal] = useState(false);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
@@ -51,6 +55,12 @@ const CommunityBoardTemplate = ({
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
 
   const onClickWrite = () => {
+    const writeBanBoard = ['139', '192', '220'];
+    const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX);
+    if (writeBanned) {
+      setPermissionModal(true);
+      return;
+    }
     router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);
   };
   const onClickPopular = () => {
@@ -82,6 +92,7 @@ const CommunityBoardTemplate = ({
           <CommunityBoardLangSelector
             language={texts.boardLang[boardLang]}
             onClick={() => setLangModal(true)}
+            tooltipText={texts.langSelectorToolTip}
           />
         }
       />
@@ -133,6 +144,16 @@ const CommunityBoardTemplate = ({
         boardLang={boardLang}
         setBoardLanguage={setBoardLang}
       />
+      <CommunityCommonModal
+        opened={permissionModal}
+        onClose={() => setPermissionModal(false)}
+        confirmButton={{
+          onClick: () => setPermissionModal(false),
+          text: texts.permissionModal.check,
+        }}
+      >
+        {texts.permissionModal.noPermission}
+      </CommunityCommonModal>
     </div>
   );
 };
@@ -172,16 +193,17 @@ const TopicTabBar = ({
       }}
     >
       <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => handleClick(0)} />
-      {topicList.map((topic, idx) => {
-        return (
-          <Topic
-            title={topic.NAME}
-            selected={topicIndex === topic.IDX}
-            onClick={() => handleClick(topic.IDX)}
-            key={idx}
-          />
-        );
-      })}
+      {topicList.length > 1 &&
+        topicList.map((topic, idx) => {
+          return (
+            <Topic
+              title={topic.NAME}
+              selected={topicIndex === topic.IDX}
+              onClick={() => handleClick(topic.IDX)}
+              key={idx}
+            />
+          );
+        })}
     </ul>
   );
 };

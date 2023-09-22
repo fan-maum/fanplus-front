@@ -298,8 +298,8 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
     myPost: '내가 쓴 글',
   },
   boardLang: {
-    modalHeader: '게시물 언어 설정',
-    modalExplain: '선택한 언어로 작성된 게시물만 보입니다!',
+    modalHeader: '게시글 언어 선택',
+    modalExplain: '선택한 언어로 작성된 게시글만 보입니다!',
     current: '현재 사용 중인 언어필터',
     ALL: '모든 언어',
     ko: '한국어',
@@ -317,6 +317,11 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
   link: {
     board: '/ko/community/board',
   },
+  permissionModal: {
+    noPermission: '게시글 작성 권한이 없습니다.',
+    check: '확인',
+  },
+  langSelectorToolTip: '게시글 언어를 선택해 주세요',
 };
 
 export const CommunityPostText_KR: CommunityPostTextType = {
@@ -389,6 +394,8 @@ export const CommunityPostEditorText_KR: CommunityPostEditorTextType = {
     cancelUploadSub: '글쓰기 종료 시 작성 중인 글은 삭제 됩니다.',
     edit: '게시물을 수정하시겠어요?',
     cancelEdit: '수정을 취소하시겠어요?',
+    enterTitle: '제목을 입력해 주세요',
+    enterContent: '내용을 입력해 주세요',
 
     cancel: '취소',
     check: '확인',

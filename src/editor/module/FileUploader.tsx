@@ -1,30 +1,22 @@
-import Uppy from '@uppy/core';
+import Uppy, { UploadedUppyFile } from '@uppy/core';
 import { DashboardModal } from '@uppy/react';
 import Compressor from '@uppy/compressor';
 import { AwsS3 } from 'uppy';
 import '@uppy/core/dist/style.css';
 import '@uppy/dashboard/dist/style.css';
 import { Dispatch, SetStateAction } from 'react';
-import { getFileUploadUrl, uploadEditorFile } from '@/api/Community';
-import { BackLangType } from '@/types/common';
+import { getFileUploadUrl } from '@/api/Community';
 
 const grandTotalFileSizeLimit = 10 * 1000 * 1000; // 10MB
 
 type OwnPropType = {
-  editorRef: any;
   state: [open: boolean, setOpen: Dispatch<SetStateAction<boolean>>];
-  datas: {
-    userId: string;
-    boardIndex: number;
-    postIndex: number;
-    boardLang: BackLangType;
-    lang: BackLangType;
-  };
+  uploadCallback: (
+    file: UploadedUppyFile<Record<string, unknown>, Record<string, unknown>>
+  ) => Promise<void>;
 };
 
-const FileUploader = ({ editorRef, state: [open, setOpen], datas }: OwnPropType) => {
-  const { userId, boardIndex, postIndex, boardLang, lang } = datas;
-
+const FileUploader = ({ state: [open, setOpen], uploadCallback }: OwnPropType) => {
   const uppy = new Uppy({
     meta: { type: 'avatar' },
     autoProceed: true,
@@ -63,20 +55,7 @@ const FileUploader = ({ editorRef, state: [open, setOpen], datas }: OwnPropType)
     })
     .on('complete', (result) => {
       result.successful.map(async (file) => {
-        const uploadKey = (file.meta.uploadUrl as string).split('/').pop();
-        const fileName = file.name.split('.')[0];
-        const fileType = '.' + (file.type as string).split('/')[1];
-
-        const response = await uploadEditorFile(
-          userId,
-          postIndex,
-          fileName,
-          fileType,
-          uploadKey as string
-        );
-        editorRef.current.activeEditor.insertContent(
-          `<img src="${response.RESULTS.DATAS.IMG_URL}" />`
-        );
+        await uploadCallback(file);
       });
     });
 
@@ -88,6 +67,7 @@ const FileUploader = ({ editorRef, state: [open, setOpen], datas }: OwnPropType)
         onRequestClose={() => setOpen(false)}
         proudlyDisplayPoweredByUppy={false}
         disablePageScrollWhenModalOpen={false}
+        closeAfterFinish={true}
         css={{
           '.uppy-Dashboard-inner': { '@media(max-width:768px)': { height: '50%', top: '25%' } },
         }}

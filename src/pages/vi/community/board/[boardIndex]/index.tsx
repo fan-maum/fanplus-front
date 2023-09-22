@@ -6,14 +6,14 @@ import {
 import CommunityBoardTemplate, {
   CommunityBoardPropType,
 } from '@/components/templates/CommunityBoardTemplate';
-import { translateFrontLangToBackLang } from '@/hooks/useLanguage';
-import { LangCookie } from '@/utils/setLangCookie';
 import { GetServerSideProps } from 'next';
 import { CommunityBoardText_VIE, FooterText_VIE, NavBarText_VIE } from '@/texts/vi';
 import nookies from 'nookies';
 import Layout from '@/components/organisms/Layout';
+import { BoardLangType } from '@/types/common';
 
 const Board = ({
+  boardLangCookie,
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
@@ -21,6 +21,7 @@ const Board = ({
   return (
     <Layout navBarTexts={NavBarText_VIE} footerTexts={FooterText_VIE}>
       <CommunityBoardTemplate
+        boardLangCookie={boardLangCookie}
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
         communityNoticeBannerData={communityNoticeBannerData}
@@ -39,7 +40,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
   const lang = 'vi';
-  const boardLang = translateFrontLangToBackLang(context.query.boardLang as LangCookie) || 'ALL';
+  const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const topic = parseInt(context.query.topic as string) || '';
   const view_type = (context.query.view as string) || 'all';
 
@@ -50,7 +51,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
     boardIndex,
     page,
     lang,
-    boardLang,
+    boardLangCookie,
     topic,
     view_type
   );
@@ -58,7 +59,12 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
   const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, lang);
 
   return {
-    props: { communityBoardData, communityBoardTopics, communityNoticeBannerData },
+    props: {
+      boardLangCookie,
+      communityBoardData,
+      communityBoardTopics,
+      communityNoticeBannerData,
+    },
   };
 };
 

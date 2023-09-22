@@ -320,6 +320,11 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
   link: {
     board: '/in/community/board',
   },
+  permissionModal: {
+    noPermission: 'Anda tidak memiliki izin untuk memposting.',
+    check: 'Memeriksa',
+  },
+  langSelectorToolTip: 'Silakan pilih bahasa',
 };
 
 export const CommunityPostText_IND: CommunityPostTextType = {
@@ -396,6 +401,8 @@ export const CommunityPostEditorText_IND: CommunityPostEditorTextType = {
     cancelUploadSub: 'Cerita Anda akan dihapus ketika Anda meninggalkan menulisnya',
     edit: 'Apakah Anda ingin mengedit cerita Anda?',
     cancelEdit: 'Apakah Anda ingin membatalkan mengedit cerita Anda?',
+    enterTitle: 'Silakan masukkan judul',
+    enterContent: 'masukkan garis',
 
     cancel: 'Batal',
     check: 'Memeriksa',

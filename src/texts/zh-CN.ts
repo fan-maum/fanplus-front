@@ -316,6 +316,11 @@ export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   link: {
     board: '/zh-CN/community/board',
   },
+  permissionModal: {
+    noPermission: '您没有发帖权限',
+    check: '确认',
+  },
+  langSelectorToolTip: '请选择语言',
 };
 
 export const CommunityPostText_zh_CN: CommunityPostTextType = {
@@ -391,6 +396,8 @@ export const CommunityPostEditorText_zh_CN: CommunityPostEditorTextType = {
     cancelUploadSub: '编写结束时，正在编写的文章将被删除。',
     edit: '您确定要编辑帖子吗？',
     cancelEdit: '您确定要取消编辑吗？',
+    enterTitle: '请输入标题',
+    enterContent: '请填写内容',
 
     cancel: '取消',
     check: '确认',

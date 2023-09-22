@@ -207,6 +207,11 @@ export type CommunityBoardTextType = {
   link: {
     board: string;
   };
+  permissionModal: {
+    noPermission: string;
+    check: string;
+  };
+  langSelectorToolTip: string;
 };
 
 export type CommunityPostTextType = {
@@ -274,6 +279,8 @@ export type CommunityPostEditorTextType = {
     cancelUploadSub: string;
     edit: string;
     cancelEdit: string;
+    enterTitle: string;
+    enterContent: string;
 
     cancel: string;
     check: string;

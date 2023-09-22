@@ -316,6 +316,11 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
   link: {
     board: '/es/community/board',
   },
+  permissionModal: {
+    noPermission: 'No tienes permiso para publicar.',
+    check: 'Confirmar',
+  },
+  langSelectorToolTip: 'Por favor, seleccione un idioma',
 };
 
 export const CommunityPostText_ESP: CommunityPostTextType = {
@@ -392,6 +397,8 @@ export const CommunityPostEditorText_ESP: CommunityPostEditorTextType = {
     cancelUploadSub: 'Al dejar de escribir, el texto escrito se elimina.',
     edit: '¿Te gustaría editar la publicación?',
     cancelEdit: '¿Te gustaría cancelar la edición?',
+    enterTitle: 'Ingresa el título',
+    enterContent: 'Escribe el contenido',
 
     cancel: 'Cancelar',
     check: 'Confirmar',

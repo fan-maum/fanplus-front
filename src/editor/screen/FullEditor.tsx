@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useTinyMCEConfig } from '../module/useTinyMCEConfig';
 import { useIOSIMESetting } from '../module/useIOSIMESetting';
 import {
@@ -8,23 +8,23 @@ import {
 } from '../constant/customButtons';
 import Script from 'next/script';
 import FileUploader from '../module/FileUploader';
-import { BackLangType } from '@/types/common';
 import { Editor } from '../../../public/tinymce/tinymce';
 
 type TProps = {
   editorRef: any;
   editorId: string;
-  datas: {
-    userId: string;
-    boardIndex: number;
-    postIndex: number;
-    boardLang: BackLangType;
-    lang: BackLangType;
-  };
+  setContent: Dispatch<SetStateAction<any>>;
   defaultValue?: string;
+  fileUploadCallback: (file: any) => Promise<void>;
 };
 
-const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue }) => {
+const FullEditor: React.FC<TProps> = ({
+  editorRef,
+  editorId,
+  setContent,
+  defaultValue,
+  fileUploadCallback,
+}) => {
   const [isJsLoading, setIsJsLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -46,6 +46,7 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue
       selector: `#${editorId}`,
       init_instance_callback: () => editorLoadedComplete(),
       setup: (editor: Editor) => {
+        editor.on('change', () => setContent(editor.getContent()));
         useIOSIMESetting(editor);
 
         const onCustomAction = () => setModalOpen(true);
@@ -81,7 +82,7 @@ const FullEditor: React.FC<TProps> = ({ editorRef, editorId, datas, defaultValue
                 <div id={editorId} className="selector-editor" />
               </div>
             </div>
-            <FileUploader editorRef={editorRef} state={[modalOpen, setModalOpen]} datas={datas} />
+            <FileUploader state={[modalOpen, setModalOpen]} uploadCallback={fileUploadCallback} />
           </div>
         </>
       )}
