@@ -17,7 +17,7 @@ const handler: NextApiHandler = async (req, res) => {
         topic_idx: topicIndex,
         title,
         contents,
-        attachment_ids: JSON.stringify(attachmentIds),
+        attachment_ids: attachmentIds.toString(),
       },
       {
         headers: {
