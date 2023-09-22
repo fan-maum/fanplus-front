@@ -32,7 +32,7 @@ function CommunityReportCommonModal({
       styles={(theme) => ({
         header: {
           marginBottom: '30px',
-          padding: '20px 0 0 0 !important'
+          padding: '20px 0 0 0 !important',
         },
         close: {
           '& > svg': { width: '100% !important', height: '100% !important' },
@@ -52,7 +52,7 @@ function CommunityReportCommonModal({
           padding: 25,
         },
         body: {
-          minWidth: 328,
+          minWidth: 280,
           fontFamily: 'Pretendard',
           fontStyle: 'normal',
           fontWeight: 500,

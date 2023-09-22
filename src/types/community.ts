@@ -268,11 +268,8 @@ export type PostBoardArticleResponseType = {
     ERROR: number;
     MSG: string;
     DATAS: {
-      POST_IDX: string;
-      TOPIC_IDX: string;
-      TITLE: null;
-      CONTENTS: null;
-      IS_PUBLISH: 'Y' | 'N';
+      POST_IDX: number;
+      MESSAGE: string;
     };
     TIMESTAMP: number;
   };

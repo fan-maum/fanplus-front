@@ -3,15 +3,15 @@ import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import IconVerticalMore from '@/components/atoms/IconVerticalMore';
 import { Popover } from '@mantine/core';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { PurPoseType, TargetType } from '@/types/common';
+import { useSetRecoilState } from 'recoil';
+import { modalBlockState, reportModalBlockState, selectInfoState } from '@/store/community';
+import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
 
 export type CommunityPostTopNaviProps = {
   identity: string;
   user_idx: string;
   writer_idx: string;
   texts: CommunityPostTextType;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
   postIndex: string;
 };
 const CommunityPostTopNavi = ({
@@ -19,14 +19,30 @@ const CommunityPostTopNavi = ({
   user_idx,
   writer_idx,
   texts,
-  showModalBlockOnClick,
-  showReportModalBlockOnClick,
   postIndex,
 }: CommunityPostTopNaviProps) => {
   const router = useRouter();
-  const ReportOnClick = () => {
+  const setModalBlock = useSetRecoilState(modalBlockState);
+  const setReportModalBlock = useSetRecoilState(reportModalBlockState);
+  const setSelectInfo = useSetRecoilState(selectInfoState);
+  const showModalBlockOnClick = async () =>
+    await showModalOnClick({
+      purpose: 'delete',
+      target_type: 'post',
+      idx: postIndex,
+      setModalBlock,
+      setSelectInfo,
+    });
+
+  const ReportOnClick = async () => {
     if (identity !== null) {
-      showReportModalBlockOnClick('report', 'post', postIndex);
+      await showReportModalBlockOnClick({
+        purpose: 'report',
+        target_type: 'post',
+        idx: postIndex,
+        setReportModalBlock,
+        setSelectInfo,
+      });
     } else {
       const path = router.asPath;
       router.push({ pathname: '/login', query: { nextUrl: path } });
@@ -45,10 +61,10 @@ const CommunityPostTopNavi = ({
       >
         <div css={{ display: 'flex', alignItems: 'center' }}>
           <IconArrowLeft
-            iconCss={{ margin: '3px', width: '30px', height: '30px', cursor: 'pointer' }}
+            iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
             onClickBack={() => router.back()}
           />
-          <h2>{texts.post}</h2>
+          <h2 css={{ fontSize: 28, fontWeight: 600, color: ' #000' }}>{texts.post}</h2>
         </div>
         <div
           css={{
@@ -106,9 +122,7 @@ const CommunityPostTopNavi = ({
                     >
                       {texts.edit}
                     </li>
-                    <li onClick={() => showModalBlockOnClick('delete', 'post', postIndex)}>
-                      {texts.delete}
-                    </li>
+                    <li onClick={showModalBlockOnClick}>{texts.delete}</li>
                   </>
                 ) : (
                   <li onClick={ReportOnClick}>{texts.report}</li>

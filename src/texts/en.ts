@@ -316,6 +316,11 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
   link: {
     board: '/en/community/board',
   },
+  permissionModal: {
+    noPermission: 'You do not have permission to post.',
+    check: 'Check',
+  },
+  langSelectorToolTip: 'Please select a language',
 };
 
 export const CommunityPostText_ENG: CommunityPostTextType = {
@@ -333,6 +338,7 @@ export const CommunityPostText_ENG: CommunityPostTextType = {
   commentRegisterPlaceholder: 'Leave a comment (max. 200 characters)',
   replyRegisterPlaceholder: 'Add a comment (max. 200 characters)',
   askPostDelete: 'Do you want to delete your post?',
+  askPostDeleteMsg: 'If you delete your post, then your post and comments will also be deleted',
   askCommentDelete: 'Do you want to delete your comment?',
   postDeleted: 'You’ve deleted your post.',
   commentDeleted: 'Comment deleted',
@@ -364,6 +370,9 @@ export const CommunityPostText_ENG: CommunityPostTextType = {
     'Reported content will be processed according to the operating policy and terms of use.',
     "If it is a false report, the reporter's use of FanPlus service may be restricted.",
   ],
+  daysAgo: 'days ago',
+  hoursAgo: 'hours ago',
+  minsAgo: 'mins ago',
 };
 
 export const postCommentTotalCount_ENG = (totalCount: number) => {
@@ -387,6 +396,8 @@ export const CommunityPostEditorText_ENG: CommunityPostEditorTextType = {
     cancelUploadSub: 'Your post will be deleted when you leave writing it',
     edit: 'Do you want to edit your post?',
     cancelEdit: 'Do you want to cancel editing your post?',
+    enterTitle: 'Please enter the title',
+    enterContent: 'Please enter text',
 
     cancel: 'Cancel',
     check: 'Check',

@@ -63,6 +63,11 @@ export default CommunityPostDetail;
 const PostContents = styled.div`
   position: 'relative';
   img {
-    width: 100%;
+    max-width: 100%;
+  }
+  iframe {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
   }
 `;

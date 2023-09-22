@@ -320,6 +320,11 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
   link: {
     board: '/in/community/board',
   },
+  permissionModal: {
+    noPermission: 'Anda tidak memiliki izin untuk memposting.',
+    check: 'Memeriksa',
+  },
+  langSelectorToolTip: 'Silakan pilih bahasa',
 };
 
 export const CommunityPostText_IND: CommunityPostTextType = {
@@ -337,6 +342,8 @@ export const CommunityPostText_IND: CommunityPostTextType = {
   commentRegisterPlaceholder: 'Tinggalkan komentar (maksimal 200 karakter)',
   replyRegisterPlaceholder: 'Tulis komentar (maksimal 200 karakter)',
   askPostDelete: 'Apakah Anda ingin menghapus cerita Anda?',
+  askPostDeleteMsg:
+    'Jika Anda menghapus cerita Anda, maka cerita dan komentar Anda juga akan dihapus',
   askCommentDelete: 'Anda mau menghapus komentar?',
   postDeleted: 'Anda telah menghapus kisah Anda',
   commentDeleted: 'Komentar sudah dihapus.',
@@ -368,6 +375,9 @@ export const CommunityPostText_IND: CommunityPostTextType = {
     'Konten yang dilaporkan akan diproses sesuai dengan kebijakan pengoperasian dan persyaratan penggunaan. Jika ini adalah laporan palsu,',
     'penggunaan layanan FanPlus oleh pelapor dapat dibatasi.',
   ],
+  daysAgo: 'hari sebelumnya',
+  hoursAgo: 'jam sebelumnya',
+  minsAgo: 'menit sebelumnya',
 };
 
 export const postCommentTotalCount_IND = (totalCount: number) => {
@@ -391,6 +401,8 @@ export const CommunityPostEditorText_IND: CommunityPostEditorTextType = {
     cancelUploadSub: 'Cerita Anda akan dihapus ketika Anda meninggalkan menulisnya',
     edit: 'Apakah Anda ingin mengedit cerita Anda?',
     cancelEdit: 'Apakah Anda ingin membatalkan mengedit cerita Anda?',
+    enterTitle: 'Silakan masukkan judul',
+    enterContent: 'masukkan garis',
 
     cancel: 'Batal',
     check: 'Memeriksa',

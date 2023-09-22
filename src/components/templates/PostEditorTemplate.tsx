@@ -8,15 +8,17 @@ import {
   useRef,
   useState,
 } from 'react';
-import { CommunityPostEditorTextType } from '@/types/textTypes';
-import { TopicListItemType } from '@/types/community';
+import type { CommunityPostEditorTextType } from '@/types/textTypes';
+import type { TopicListItemType } from '@/types/community';
+import type { BackLangType } from '@/types/common';
 import IconArrowLeft from '../atoms/IconArrowLeft';
 import { useRouter } from 'next/router';
 import EditorTopicSet from '../molecules/community/EditorTopicSet';
 import CommunityEditorCommonModal from '../modals/CommunityEditorModal';
-import { editBoardArticle } from '@/api/Community';
-import { BackLangType } from '@/types/common';
+import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
 import { TinyMCE } from '../../../public/tinymce/tinymce';
+import { UploadedUppyFile } from '@uppy/core';
+import CommunityCommonModal from '../modals/CommunityCommonModal';
 
 type OwnPropType = {
   mode: 'CREATE' | 'EDIT';
@@ -25,7 +27,7 @@ type OwnPropType = {
   datas: {
     userId: string;
     boardIndex: number;
-    postIndex: number;
+    postIndex?: number;
     boardLang: BackLangType;
     lang: BackLangType;
   };
@@ -45,18 +47,17 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const editorRef = useRef<TinyMCE>();
   const editorId = 'postEditor';
 
-  const [topicIdx, setTopicIdx] = useState(defaultValues?.topicIndex || topics[0].IDX);
+  const [topicIndex, setTopicIndex] = useState(defaultValues?.topicIndex || topics[0].IDX);
   const [title, setTitle] = useState(defaultValues?.title || '');
   const [content, setContent] = useState(defaultValues?.content || '');
+  const [attachmentIds, setAttachmentIds] = useState<Array<string>>([]);
 
   const [cancelModal, setCancelModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
+  const [dataLackModal, setDataLackModal] = useState(false);
 
   useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.returnValue = '';
-      return '';
-    };
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => (e.returnValue = '');
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
@@ -69,30 +70,51 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   };
   const onClickUpload: MouseEventHandler = (event) => {
     event.preventDefault();
+    if (!title || !content) {
+      setDataLackModal(true);
+      return;
+    }
     setUploadModal(true);
-    setContent(editorRef.current?.get(editorId)?.getContent() as string);
   };
 
   const onClickUploadConfirm = async () => {
-    setUploadModal(false);
-    const response = await editBoardArticle(
-      userId,
-      postIndex,
-      boardLang,
-      lang,
-      title,
-      content,
-      topicIdx
-    );
-    if (response.RESULTS.ERROR) {
-      alert('다시 시도해주세요.');
-      return;
+    const postId = isCreateMode
+      ? (
+          await postBoardArticle(
+            userId,
+            boardIndex,
+            boardLang,
+            lang,
+            topicIndex,
+            title,
+            content,
+            attachmentIds
+          )
+        ).RESULTS.DATAS.POST_IDX
+      : (postIndex as number);
+    if (!isCreateMode) {
+      await editBoardArticle(userId, postId, boardLang, lang, topicIndex, title, content);
     }
-    router.replace(`/${lang}/community/board/${boardIndex}/${postIndex}/`);
+    setUploadModal(false);
+    router.replace(`/${lang}/community/board/${boardIndex}/${postId}/`);
   };
   const onClickExit = () => {
     setCancelModal(false);
     router.back();
+  };
+
+  const fileUploadHandler = async (
+    file: UploadedUppyFile<Record<string, unknown>, Record<string, unknown>>
+  ) => {
+    const uploadKey = (file.meta.uploadUrl as string).split('/').pop() as string;
+    const fileName = file.name.split('.')[0];
+    const fileType = '.' + (file.type as string).split('/')[1];
+
+    setAttachmentIds((prev) => [...prev, uploadKey]);
+    const response = await uploadEditorFile(userId, fileName, fileType, uploadKey, postIndex);
+    editorRef.current?.activeEditor?.insertContent(
+      `<img src="${response.RESULTS.DATAS.IMG_URL}" />`
+    );
   };
 
   return (
@@ -113,7 +135,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         </div>
         <StyledBar>
           <h2>{texts.topic}</h2>
-          <EditorTopicSet topics={topics} topicIdx={topicIdx} setTopicIdx={setTopicIdx} />
+          <EditorTopicSet topics={topics} topicIndex={topicIndex} setTopicIndex={setTopicIndex} />
         </StyledBar>
         <StyledBar>
           <h2>{texts.title}</h2>
@@ -125,8 +147,9 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         <FullEditor
           editorRef={editorRef}
           editorId={editorId}
+          setContent={setContent}
           defaultValue={content}
-          datas={datas}
+          fileUploadCallback={fileUploadHandler}
         />
         <div css={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button text={texts.cancel} onClick={onClickCancel} />
@@ -150,6 +173,13 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         opened={cancelModal}
         onClose={() => setCancelModal(false)}
       />
+      <CommunityCommonModal
+        opened={dataLackModal}
+        onClose={() => setDataLackModal(false)}
+        confirmButton={{ onClick: () => setDataLackModal(false), text: texts.modal.check }}
+      >
+        {!title ? texts.modal.enterTitle : texts.modal.enterContent}
+      </CommunityCommonModal>
     </main>
   );
 };

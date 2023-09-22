@@ -277,7 +277,7 @@ export const CommunityMainText_KR: CommunityPageTextType = {
   recentlyBoards: '최근 방문한 게시판',
   recommendedBoards: '추천 게시판',
   noRecentBoardTexts: ['팬플러스는 처음 사용하시나요?', '좋아하는 스타를 검색해 보세요!'],
-  buttonSearch: '검색하기',
+  buttonSearch: '검색',
   allCategory: '전체',
   searchPlaceholder: '원하는 게시판을 찾아보세요.',
   link: {
@@ -298,8 +298,8 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
     myPost: '내가 쓴 글',
   },
   boardLang: {
-    modalHeader: '게시물 언어 설정',
-    modalExplain: '선택한 언어로 작성된 게시물만 보입니다!',
+    modalHeader: '게시글 언어 선택',
+    modalExplain: '선택한 언어로 작성된 게시글만 보입니다!',
     current: '현재 사용 중인 언어필터',
     ALL: '모든 언어',
     ko: '한국어',
@@ -317,6 +317,11 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
   link: {
     board: '/ko/community/board',
   },
+  permissionModal: {
+    noPermission: '게시글 작성 권한이 없습니다.',
+    check: '확인',
+  },
+  langSelectorToolTip: '게시글 언어를 선택해 주세요',
 };
 
 export const CommunityPostText_KR: CommunityPostTextType = {
@@ -334,6 +339,7 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   commentRegisterPlaceholder: '댓글을 남겨주세요. (200자)',
   replyRegisterPlaceholder: '답글을 입력해 주세요. (200자)',
   askPostDelete: '게시글을 삭제하시겠어요?',
+  askPostDeleteMsg: '게시글 삭제 시 글과 댓글이 모두 삭제됩니다',
   askCommentDelete: '댓글을 삭제하시겠어요?',
   postDeleted: '게시물이 삭제되었습니다',
   commentDeleted: '댓글이 삭제되었습니다.',
@@ -362,6 +368,9 @@ export const CommunityPostText_KR: CommunityPostTextType = {
     option2: '욕설 또는 악성 콘텐츠',
   },
   reportWarning: ['허위 신고의 경우 서비스 이용제한과 같은', '불이익을 받을 수 있습니다.'],
+  daysAgo: '일 전',
+  hoursAgo: '시간 전',
+  minsAgo: '분 전',
 };
 
 export const postCommentTotalCount_KR = (totalCount: number) => {
@@ -385,6 +394,8 @@ export const CommunityPostEditorText_KR: CommunityPostEditorTextType = {
     cancelUploadSub: '글쓰기 종료 시 작성 중인 글은 삭제 됩니다.',
     edit: '게시물을 수정하시겠어요?',
     cancelEdit: '수정을 취소하시겠어요?',
+    enterTitle: '제목을 입력해 주세요',
+    enterContent: '내용을 입력해 주세요',
 
     cancel: '취소',
     check: '확인',

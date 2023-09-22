@@ -1,4 +1,4 @@
-import { getCommunityBoardTopics, postBoardArticle } from '@/api/Community';
+import { getCommunityBoardTopics } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
@@ -12,7 +12,6 @@ type CommunityPostWritePropType = {
   datas: {
     userId: string;
     boardIndex: number;
-    postIndex: number;
     boardLang: BackLangType;
     lang: BackLangType;
   };
@@ -44,9 +43,7 @@ export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> 
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : lang;
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, lang);
-  const initBoardArticle = await postBoardArticle(userId, boardIndex, boardLang, lang);
-  const postIndex = parseInt(initBoardArticle.RESULTS.DATAS.POST_IDX);
-  const datas = { userId, boardIndex, postIndex, boardLang, lang };
+  const datas = { userId, boardIndex, boardLang, lang };
   return {
     props: { boardTopics, datas },
   };

@@ -1,25 +1,29 @@
 import { NextApiHandler } from 'next';
 import axios, { AxiosResponse } from 'axios';
-import type { CommunityBoardResponseType } from '@/types/community';
+import type { PostBoardArticleResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { userId, boardIndex, boardLang, lang } = req.body;
+  const { userId, boardIndex, boardLang, lang, topicIndex, title, contents, attachmentIds } =
+    req.body;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
-    const response: AxiosResponse<CommunityBoardResponseType> = await axios.post(
-      'https://napi.appphotocard.com/v2/boards/posts',
+    const response: AxiosResponse<PostBoardArticleResponseType> = await axios.post(
+      `https://napi.appphotocard.com/voteWeb/boards/${boardIndex}/posts/0`,
       {
         identity: userId,
-        board_idx: boardIndex,
         lang: boardLang,
         app_lang: lang,
+        topic_idx: topicIndex,
+        title,
+        contents,
+        attachment_ids: attachmentIds.toString(),
       },
       {
         headers: {
           Origin: origin,
           'Cache-Control': 'no-cache',
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       }
     );

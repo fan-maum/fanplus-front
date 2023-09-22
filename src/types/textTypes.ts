@@ -207,6 +207,11 @@ export type CommunityBoardTextType = {
   link: {
     board: string;
   };
+  permissionModal: {
+    noPermission: string;
+    check: string;
+  };
+  langSelectorToolTip: string;
 };
 
 export type CommunityPostTextType = {
@@ -224,6 +229,7 @@ export type CommunityPostTextType = {
   commentRegisterPlaceholder: string;
   replyRegisterPlaceholder: string;
   askPostDelete: string;
+  askPostDeleteMsg: string;
   askCommentDelete: string;
   postDeleted: string;
   commentDeleted: string;
@@ -252,6 +258,9 @@ export type CommunityPostTextType = {
     option2: string;
   };
   reportWarning: [string, string];
+  daysAgo: string;
+  hoursAgo: string;
+  minsAgo: string;
 };
 
 export type CommunityPostEditorTextType = {
@@ -270,6 +279,8 @@ export type CommunityPostEditorTextType = {
     cancelUploadSub: string;
     edit: string;
     cancelEdit: string;
+    enterTitle: string;
+    enterContent: string;
 
     cancel: string;
     check: string;

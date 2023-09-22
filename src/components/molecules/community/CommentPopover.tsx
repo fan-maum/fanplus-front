@@ -1,30 +1,56 @@
 import { Popover } from '@mantine/core';
+import { useSetRecoilState } from 'recoil';
+import {
+  checkCommentState,
+  modalBlockState,
+  reportModalBlockState,
+  selectInfoState,
+} from '@/store/community';
 import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
-import { deleteComment } from '@/api/Community';
-import { PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
+import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
 
 type CommentPopoverProps = {
   identity: string;
   comment_idx: any;
   isWriter: string | undefined;
   texts: CommunityPostTextType;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  isComment: boolean;
 };
 export default function CommentPopover({
   identity,
   comment_idx,
   isWriter,
   texts,
-  showModalBlockOnClick,
-  showReportModalBlockOnClick,
+  isComment,
 }: CommentPopoverProps) {
+  const setModalBlock = useSetRecoilState(modalBlockState);
+  const setReportModalBlock = useSetRecoilState(reportModalBlockState);
+  const setSelectInfo = useSetRecoilState(selectInfoState);
+  const setCheckComment = useSetRecoilState(checkCommentState);
+  const showModalBlockOnClick = async () => {
+    await showModalOnClick({
+      purpose: 'delete',
+      target_type: 'comment',
+      idx: comment_idx,
+      isComment,
+      setCheckComment,
+      setModalBlock,
+      setSelectInfo,
+    });
+  };
+
   const router = useRouter();
-  const ReportOnClick = () => {
+  const ReportOnClick = async () => {
     if (identity !== null) {
-      showReportModalBlockOnClick('report', 'comment', comment_idx);
+      await showReportModalBlockOnClick({
+        purpose: 'report',
+        target_type: 'comment',
+        idx: comment_idx,
+        setReportModalBlock,
+        setSelectInfo,
+      });
     } else {
       const path = router.asPath;
       router.push({ pathname: '/login', query: { nextUrl: path } });
@@ -72,9 +98,7 @@ export default function CommentPopover({
           }}
         >
           {isWriter === 'Y' ? (
-            <li onClick={() => showModalBlockOnClick('delete', 'comment', comment_idx)}>
-              {texts.delete}
-            </li>
+            <li onClick={showModalBlockOnClick}>{texts.delete}</li>
           ) : (
             <li onClick={ReportOnClick}>{texts.report}</li>
           )}

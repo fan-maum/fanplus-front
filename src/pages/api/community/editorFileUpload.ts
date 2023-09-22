@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import { EditorImageUploadResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { userId, postIndex, fileName, fileType, uploadKey } = req.body;
+  const { userId, fileName, fileType, uploadKey, postIndex } = req.body;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
@@ -11,10 +11,10 @@ const handler: NextApiHandler = async (req, res) => {
       'https://napi.appphotocard.com/voteWeb/imgs',
       {
         identity: userId,
-        post_idx: postIndex,
         origin_name: fileName,
         file_ext: fileType,
         upload_key: uploadKey,
+        post_idx: postIndex || 0,
       },
       {
         headers: {

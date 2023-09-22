@@ -1,13 +1,13 @@
 import { NextApiHandler } from 'next';
 import axios, { AxiosResponse } from 'axios';
-import type { CommunityBoardResponseType } from '@/types/community';
+import type { EditBoardArticleResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
   const { userId, postIndex, boardLang, lang, title, contents, topicIndex } = req.body;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
-    const response: AxiosResponse<CommunityBoardResponseType> = await axios.put(
+    const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(
       'https://napi.appphotocard.com/v2/boards/posts',
       {
         identity: userId,

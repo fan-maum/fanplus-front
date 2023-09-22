@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
@@ -10,7 +10,7 @@ import type {
   PostBoardArticleResponseType,
 } from '@/types/community';
 
-import type { BackLangType, BoardLangType, TargetType, OrderType } from '@/types/common';
+import type { BackLangType, BoardLangType, OrderType } from '@/types/common';
 
 export const getCommunityHomeData = async (userId: string, lang: BoardLangType) => {
   const response: AxiosResponse<CommunityHomeResponseType> = await axios.get(
@@ -126,10 +126,9 @@ export const getComments = async (
   page: number,
   per_page: number
 ) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/comment`,
-    { params: { postIndex, identity, lang, order_by, page, per_page } }
-  );
+  const response: AxiosResponse = await axios.get(`/api/community/comment`, {
+    params: { postIndex, identity, lang, order_by, page, per_page },
+  });
   return response.data;
 };
 
@@ -161,7 +160,6 @@ export const deleteComment = async (identity: string, comment_idx: string) => {
       },
     }
   );
-
   return response;
 };
 
@@ -173,10 +171,9 @@ export const getReplies = async (
   page: number,
   per_page: number
 ) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reply`,
-    { params: { commentIndex, identity, board_lang, order_by, page, per_page } }
-  );
+  const response: AxiosResponse = await axios.get(`/api/community/reply`, {
+    params: { commentIndex, identity, board_lang, order_by, page, per_page },
+  });
   return response.data;
 };
 
@@ -242,11 +239,15 @@ export const postBoardArticle = async (
   userId: string,
   boardIndex: number,
   boardLang: BackLangType,
-  lang: BackLangType
+  lang: BackLangType,
+  topicIndex: number,
+  title: string,
+  contents: string,
+  attachmentIds: string[]
 ) => {
   const resposne: AxiosResponse<PostBoardArticleResponseType> = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postBoardArticle`,
-    { userId, boardIndex, boardLang, lang }
+    { userId, boardIndex, boardLang, lang, topicIndex, title, contents, attachmentIds }
   );
   return resposne.data;
 };
@@ -256,9 +257,9 @@ export const editBoardArticle = async (
   postIndex: number,
   boardLang: BackLangType,
   lang: BackLangType,
+  topicIndex: number,
   title: string,
-  contents: string,
-  topicIndex: number
+  contents: string
 ) => {
   const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editBoardArticle`,
@@ -276,14 +277,14 @@ export const getFileUploadUrl = async () => {
 
 export const uploadEditorFile = async (
   userId: string,
-  postIndex: number,
   fileName: string,
   fileType: string,
-  uploadKey: string
+  uploadKey: string,
+  postIndex?: number
 ) => {
   const response: AxiosResponse<EditorImageUploadResponseType> = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUpload`,
-    { userId, postIndex, fileName, fileType, uploadKey }
+    { userId, fileName, fileType, uploadKey, postIndex }
   );
   return response.data;
 };

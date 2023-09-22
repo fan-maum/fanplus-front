@@ -316,6 +316,11 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
   link: {
     board: '/zh-TW/community/board',
   },
+  permissionModal: {
+    noPermission: '您沒有發帖權限',
+    check: '確認',
+  },
+  langSelectorToolTip: '請選擇語言',
 };
 
 export const CommunityPostText_zh_TW: CommunityPostTextType = {
@@ -333,6 +338,7 @@ export const CommunityPostText_zh_TW: CommunityPostTextType = {
   commentRegisterPlaceholder: '請發表評論。（200字）',
   replyRegisterPlaceholder: '請輸入評論。（200字）',
   askPostDelete: '您要刪除該帖子嗎？',
+  askPostDeleteMsg: '刪除帖子時，帖子內容和評論都將被刪除。',
   askCommentDelete: '確認刪除評論嗎?',
   postDeleted: '帖子已刪除',
   commentDeleted: '評論已刪除',
@@ -364,6 +370,9 @@ export const CommunityPostText_zh_TW: CommunityPostTextType = {
     '舉報內容將根據運營政策和使用條款進行處理。',
     '如果是虛假舉報，則可能會限制舉報人對服務的使用。',
   ],
+  daysAgo: '日 前',
+  hoursAgo: '小時 前',
+  minsAgo: '分鐘 前',
 };
 
 export const postCommentTotalCount_zh_TW = (totalCount: number) => {
@@ -387,6 +396,8 @@ export const CommunityPostEditorText_zh_TW: CommunityPostEditorTextType = {
     cancelUploadSub: '編寫結束時，正在編寫的文章將被刪除。',
     edit: '您確定要編輯帖子嗎？',
     cancelEdit: '您確定要取消編輯嗎？',
+    enterTitle: '請輸入標題',
+    enterContent: '請填寫內容',
 
     cancel: '取消',
     check: '確認',
