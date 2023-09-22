@@ -8,14 +8,14 @@ import {
   useRef,
   useState,
 } from 'react';
-import { CommunityPostEditorTextType } from '@/types/textTypes';
-import { TopicListItemType } from '@/types/community';
+import type { CommunityPostEditorTextType } from '@/types/textTypes';
+import type { TopicListItemType } from '@/types/community';
+import type { BackLangType } from '@/types/common';
 import IconArrowLeft from '../atoms/IconArrowLeft';
 import { useRouter } from 'next/router';
 import EditorTopicSet from '../molecules/community/EditorTopicSet';
 import CommunityEditorCommonModal from '../modals/CommunityEditorModal';
 import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
-import { BackLangType } from '@/types/common';
 import { TinyMCE } from '../../../public/tinymce/tinymce';
 import { UploadedUppyFile } from '@uppy/core';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
@@ -47,42 +47,14 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const editorRef = useRef<TinyMCE>();
   const editorId = 'postEditor';
 
-  const [topicIdx, setTopicIdx] = useState(defaultValues?.topicIndex || topics[0].IDX);
+  const [topicIndex, setTopicIndex] = useState(defaultValues?.topicIndex || topics[0].IDX);
   const [title, setTitle] = useState(defaultValues?.title || '');
   const [content, setContent] = useState(defaultValues?.content || '');
-  const [postId, setPostId] = useState(postIndex || parseInt(router.query.postId as string));
+  const [attachmentIds, setAttachmentIds] = useState<Array<string>>([]);
 
   const [cancelModal, setCancelModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [dataLackModal, setDataLackModal] = useState(false);
-
-  const getAndSetPostId = async () => {
-    const response = await postBoardArticle(userId, boardIndex, boardLang, lang);
-    const postIndex = parseInt(response.RESULTS.DATAS.POST_IDX);
-    setPostId(postIndex);
-    router.replace({ pathname: router.asPath, query: { postId: postIndex } }, undefined, {
-      shallow: true,
-    });
-    return postIndex;
-  };
-
-  const fileUploadHandler = async (
-    file: UploadedUppyFile<Record<string, unknown>, Record<string, unknown>>
-  ) => {
-    const uploadKey = (file.meta.uploadUrl as string).split('/').pop();
-    const fileName = file.name.split('.')[0];
-    const fileType = '.' + (file.type as string).split('/')[1];
-    const response = await uploadEditorFile(
-      userId,
-      postId ?? (await getAndSetPostId()),
-      fileName,
-      fileType,
-      uploadKey as string
-    );
-    editorRef.current?.activeEditor?.insertContent(
-      `<img src="${response.RESULTS.DATAS.IMG_URL}" />`
-    );
-  };
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
@@ -109,14 +81,43 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   };
 
   const onClickUploadConfirm = async () => {
-    const postIndex = postId ?? (await getAndSetPostId());
+    const postId = isCreateMode
+      ? (
+          await postBoardArticle(
+            userId,
+            boardIndex,
+            boardLang,
+            lang,
+            topicIndex,
+            title,
+            content,
+            attachmentIds
+          )
+        ).RESULTS.DATAS.POST_IDX
+      : (postIndex as number);
+    if (!isCreateMode) {
+      await editBoardArticle(userId, postId, boardLang, lang, topicIndex, title, content);
+    }
     setUploadModal(false);
-    await editBoardArticle(userId, postIndex, boardLang, lang, title, content, topicIdx);
     router.replace(`/${lang}/community/board/${boardIndex}/${postId}/`);
   };
   const onClickExit = () => {
     setCancelModal(false);
     router.back();
+  };
+
+  const fileUploadHandler = async (
+    file: UploadedUppyFile<Record<string, unknown>, Record<string, unknown>>
+  ) => {
+    const uploadKey = (file.meta.uploadUrl as string).split('/').pop() as string;
+    const fileName = file.name.split('.')[0];
+    const fileType = '.' + (file.type as string).split('/')[1];
+
+    setAttachmentIds((prev) => [...prev, uploadKey]);
+    const response = await uploadEditorFile(userId, fileName, fileType, uploadKey, postIndex);
+    editorRef.current?.activeEditor?.insertContent(
+      `<img src="${response.RESULTS.DATAS.IMG_URL}" />`
+    );
   };
 
   return (
@@ -137,7 +138,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         </div>
         <StyledBar>
           <h2>{texts.topic}</h2>
-          <EditorTopicSet topics={topics} topicIdx={topicIdx} setTopicIdx={setTopicIdx} />
+          <EditorTopicSet topics={topics} topicIndex={topicIndex} setTopicIndex={setTopicIndex} />
         </StyledBar>
         <StyledBar>
           <h2>{texts.title}</h2>

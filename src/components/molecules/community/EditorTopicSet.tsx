@@ -4,12 +4,12 @@ import { Dispatch, SetStateAction } from 'react';
 
 const EditorTopicSet = ({
   topics,
-  topicIdx,
-  setTopicIdx,
+  topicIndex,
+  setTopicIndex,
 }: {
   topics: TopicListItemType[];
-  topicIdx: number;
-  setTopicIdx: Dispatch<SetStateAction<number>>;
+  topicIndex: number;
+  setTopicIndex: Dispatch<SetStateAction<number>>;
 }) => {
   return (
     <div
@@ -26,9 +26,9 @@ const EditorTopicSet = ({
         return (
           <EditorTopicBubble
             key={idx}
-            selected={topic.IDX === topicIdx}
+            selected={topic.IDX === topicIndex}
             topicData={topic}
-            onClick={() => setTopicIdx(topic.IDX)}
+            onClick={() => setTopicIndex(topic.IDX)}
           />
         );
       })}
