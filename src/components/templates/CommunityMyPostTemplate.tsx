@@ -29,7 +29,6 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
     const writeBanBoard = ['139', '192', '220'];
     const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX);
     if (writeBanned) {
-      console.log('banned!');
       setPermissionModal(true);
       return;
     }
