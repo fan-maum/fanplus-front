@@ -320,6 +320,7 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
     noPermission: '您沒有發帖權限',
     check: '確認',
   },
+  langSelectorToolTip: '請選擇語言',
 };
 
 export const CommunityPostText_zh_TW: CommunityPostTextType = {

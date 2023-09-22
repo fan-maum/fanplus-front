@@ -324,6 +324,7 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
     noPermission: 'Anda tidak memiliki izin untuk memposting.',
     check: 'Memeriksa',
   },
+  langSelectorToolTip: 'Silakan pilih bahasa',
 };
 
 export const CommunityPostText_IND: CommunityPostTextType = {

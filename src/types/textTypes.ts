@@ -211,6 +211,7 @@ export type CommunityBoardTextType = {
     noPermission: string;
     check: string;
   };
+  langSelectorToolTip: string;
 };
 
 export type CommunityPostTextType = {

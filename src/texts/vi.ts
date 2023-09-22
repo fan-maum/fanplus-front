@@ -324,6 +324,7 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
     noPermission: 'Bạn không có quyền đăng bài',
     check: 'Xác nhận',
   },
+  langSelectorToolTip: 'Vui lòng chọn một ngôn ngữ',
 };
 
 export const CommunityPostText_VIE: CommunityPostTextType = {

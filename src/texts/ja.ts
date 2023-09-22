@@ -320,6 +320,7 @@ export const CommunityBoardText_JAP: CommunityBoardTextType = {
     noPermission: '投稿する許可がありません。',
     check: '確認',
   },
+  langSelectorToolTip: '言語を選択してください',
 };
 
 export const CommunityPostText_JAP: CommunityPostTextType = {

@@ -321,6 +321,7 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
     noPermission: '게시글 작성 권한이 없습니다.',
     check: '확인',
   },
+  langSelectorToolTip: '게시글 언어를 선택해 주세요',
 };
 
 export const CommunityPostText_KR: CommunityPostTextType = {

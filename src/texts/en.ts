@@ -320,6 +320,7 @@ export const CommunityBoardText_ENG: CommunityBoardTextType = {
     noPermission: 'You do not have permission to post.',
     check: 'Check',
   },
+  langSelectorToolTip: 'Please select a language',
 };
 
 export const CommunityPostText_ENG: CommunityPostTextType = {

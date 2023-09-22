@@ -320,6 +320,7 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
     noPermission: 'No tienes permiso para publicar.',
     check: 'Confirmar',
   },
+  langSelectorToolTip: 'Por favor, seleccione un idioma',
 };
 
 export const CommunityPostText_ESP: CommunityPostTextType = {
