@@ -320,6 +320,10 @@ export const CommunityBoardText_VIE: CommunityBoardTextType = {
   link: {
     board: '/vi/community/board',
   },
+  permissionModal: {
+    noPermission: 'Bạn không có quyền đăng bài',
+    check: 'Xác nhận',
+  },
 };
 
 export const CommunityPostText_VIE: CommunityPostTextType = {

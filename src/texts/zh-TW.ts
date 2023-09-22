@@ -316,6 +316,10 @@ export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
   link: {
     board: '/zh-TW/community/board',
   },
+  permissionModal: {
+    noPermission: '您沒有發帖權限',
+    check: '確認',
+  },
 };
 
 export const CommunityPostText_zh_TW: CommunityPostTextType = {

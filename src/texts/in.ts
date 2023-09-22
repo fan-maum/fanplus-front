@@ -320,6 +320,10 @@ export const CommunityBoardText_IND: CommunityBoardTextType = {
   link: {
     board: '/in/community/board',
   },
+  permissionModal: {
+    noPermission: 'Anda tidak memiliki izin untuk memposting.',
+    check: 'Memeriksa',
+  },
 };
 
 export const CommunityPostText_IND: CommunityPostTextType = {

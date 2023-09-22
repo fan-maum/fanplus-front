@@ -316,6 +316,10 @@ export const CommunityBoardText_ESP: CommunityBoardTextType = {
   link: {
     board: '/es/community/board',
   },
+  permissionModal: {
+    noPermission: 'No tienes permiso para publicar.',
+    check: 'Confirmar',
+  },
 };
 
 export const CommunityPostText_ESP: CommunityPostTextType = {

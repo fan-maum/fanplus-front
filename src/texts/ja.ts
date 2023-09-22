@@ -316,6 +316,10 @@ export const CommunityBoardText_JAP: CommunityBoardTextType = {
   link: {
     board: '/ja/community/board',
   },
+  permissionModal: {
+    noPermission: '投稿する許可がありません。',
+    check: '確認',
+  },
 };
 
 export const CommunityPostText_JAP: CommunityPostTextType = {

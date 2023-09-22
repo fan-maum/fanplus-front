@@ -316,6 +316,10 @@ export const CommunityBoardText_zh_CN: CommunityBoardTextType = {
   link: {
     board: '/zh-CN/community/board',
   },
+  permissionModal: {
+    noPermission: '您没有发帖权限',
+    check: '确认',
+  },
 };
 
 export const CommunityPostText_zh_CN: CommunityPostTextType = {

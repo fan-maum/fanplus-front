@@ -20,6 +20,7 @@ import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import { useUrlLanguage } from '@/hooks/useLanguage';
+import CommunityCommonModal from '../modals/CommunityCommonModal';
 
 export type CommunityBoardPropType = {
   cookieBoardLang: BoardLangType;
@@ -43,6 +44,7 @@ const CommunityBoardTemplate = ({
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
   const [boardLang, setBoardLang] = useState(cookieBoardLang || 'ALL');
   const [langModal, setLangModal] = useState(false);
+  const [permissionModal, setPermissionModal] = useState(false);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
@@ -53,6 +55,13 @@ const CommunityBoardTemplate = ({
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
 
   const onClickWrite = () => {
+    const writeBanBoard = ['139', '192', '220'];
+    const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX);
+    if (writeBanned) {
+      console.log('banned!');
+      setPermissionModal(true);
+      return;
+    }
     router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);
   };
   const onClickPopular = () => {
@@ -135,6 +144,16 @@ const CommunityBoardTemplate = ({
         boardLang={boardLang}
         setBoardLanguage={setBoardLang}
       />
+      <CommunityCommonModal
+        opened={permissionModal}
+        onClose={() => setPermissionModal(false)}
+        confirmButton={{
+          onClick: () => setPermissionModal(false),
+          text: texts.permissionModal.check,
+        }}
+      >
+        {texts.permissionModal.noPermission}
+      </CommunityCommonModal>
     </div>
   );
 };

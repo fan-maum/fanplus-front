@@ -317,6 +317,10 @@ export const CommunityBoardText_KR: CommunityBoardTextType = {
   link: {
     board: '/ko/community/board',
   },
+  permissionModal: {
+    noPermission: '게시글 작성 권한이 없습니다.',
+    check: '확인',
+  },
 };
 
 export const CommunityPostText_KR: CommunityPostTextType = {

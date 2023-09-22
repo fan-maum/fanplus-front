@@ -207,6 +207,10 @@ export type CommunityBoardTextType = {
   link: {
     board: string;
   };
+  permissionModal: {
+    noPermission: string;
+    check: string;
+  };
 };
 
 export type CommunityPostTextType = {
