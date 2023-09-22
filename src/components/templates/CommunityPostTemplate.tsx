@@ -48,8 +48,8 @@ const CommunityPostTemplate = ({
   const setCommentList = useSetRecoilState(commentListState);
   const setUser = useSetRecoilState(userState);
   const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
-  const [doneModalMessage, setDoneModalMessage] = useState<any>();
   const [commentIndex, setCommentIndex] = useState<number | null>(null);
+  const [doneModalMessage, setDoneModalMessage] = useState<any>();
   const [modalBlock, setModalBlock] = useRecoilState(modalBlockState);
   const [reportModalBlock, setReportModalBlock] = useRecoilState(reportModalBlockState);
   const [doneModalBlock, setDoneModalBlock] = useState(false);
@@ -102,10 +102,10 @@ const CommunityPostTemplate = ({
       setCommentTotalCount(data.pages[0].RESULTS.DATAS.TOTAL_CNT);
       setPostParam(postParamObject);
     }
-  }, [isSuccess, data]);
+  }, [isSuccess, data, postParamObject]);
 
   if (isLoading) return '';
-  if (error) return 'An error has occurred: ' + error;
+  // if (error) return 'An error has occurred: ' + error;
 
   const onCreateComment = async (
     identity: string,

@@ -1,7 +1,6 @@
 import { replyResponseType } from '@/types/community';
 import ReplyCommentListItem from './ReplyCommentListItem';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { PurPoseType, TargetType } from '@/types/common';
 
 type ReplyCommentListProps = {
   identity: string;

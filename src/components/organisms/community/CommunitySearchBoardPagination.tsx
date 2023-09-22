@@ -10,6 +10,7 @@ const CommunitySearchBoardPagination = ({ totalCount, itemsPerPage }: VotePagina
   const router = useRouter();
   const { category_type, searchValue, page } = router?.query;
   const forcePage = Number(page) || 1;
+
   let pageCount = Math.ceil(totalCount / itemsPerPage);
 
   const onPageChange = (event: { selected: number }) => {

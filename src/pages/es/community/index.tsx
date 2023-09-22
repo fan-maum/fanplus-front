@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<{
   const lang = 'es';
   const category_type = parseInt(context.query.category_type as string) || 0;
   const searchValue = context.query.searchValue || '';
-  const page = parseInt(context.query.page as string) || 0;
+  const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
 
   const communityHomeData = await getCommunityHomeData(userId, lang);
