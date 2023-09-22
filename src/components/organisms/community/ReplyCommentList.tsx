@@ -1,43 +1,25 @@
-import { CommentListItemType } from '@/types/community';
-import { useRouter } from 'next/router';
+import { replyResponseType } from '@/types/community';
 import ReplyCommentListItem from './ReplyCommentListItem';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { PurPoseType, TargetType } from '@/types/common';
 
 type ReplyCommentListProps = {
   identity: string;
-  totalCount?: string | number;
-  replyList: Array<CommentListItemType>;
+  replyList: Array<replyResponseType>;
   texts: CommunityPostTextType;
-  showModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
-  showReportModalBlockOnClick: (purpose: PurPoseType, target_type: TargetType, idx: string) => void;
+  replyRefetch: () => void;
 };
 
-const ReplyCommentList = ({
-  identity,
-  totalCount,
-  replyList,
-  texts,
-  showModalBlockOnClick,
-  showReportModalBlockOnClick,
-}: ReplyCommentListProps) => {
-  const router = useRouter();
-  const page = parseInt(router.query.page as string) | 1;
-
-  // eslint-disable-next-line no-console
-  // console.log(replyList);
-
+const ReplyCommentList = ({ identity, replyList, texts, replyRefetch }: ReplyCommentListProps) => {
   return (
     <ul data-role="comments">
-      {replyList?.map((reply, index) => {
+      {replyList?.map((replies, index) => {
         return (
           <ReplyCommentListItem
-            key={`${reply.COMMENT_IDX}_${index}`}
+            key={`${index}`}
             identity={identity}
-            reply={reply}
+            replies={replies}
             texts={texts}
-            showModalBlockOnClick={showModalBlockOnClick}
-            showReportModalBlockOnClick={showReportModalBlockOnClick}
+            replyRefetch={replyRefetch}
           />
         );
       })}

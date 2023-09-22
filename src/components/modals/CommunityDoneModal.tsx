@@ -2,11 +2,9 @@ import { Group } from '../atoms';
 import { CommunityPostTextType } from '@/types/textTypes';
 import CommunityCommonModal, { CommunityCommonModalProps } from './CommunityCommonModal';
 import CommunityModalText from '../molecules/CommunityModalText';
-import { TargetType, selectInfoType } from '@/types/common';
 
 export interface DialogBlockDoneProps {
   opened: boolean;
-  selectInfo: selectInfoType;
   doneModalMessage?: any;
   texts: CommunityPostTextType;
   onClose: () => void;
@@ -15,7 +13,6 @@ export interface DialogBlockDoneProps {
 function CommunityDoneModal({
   onClose,
   opened,
-  selectInfo,
   doneModalMessage,
   texts,
   ...props

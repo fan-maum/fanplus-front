@@ -333,6 +333,8 @@ export const CommunityPostText_ESP: CommunityPostTextType = {
   commentRegisterPlaceholder: 'Dejar un comentario (200 caracteres)',
   replyRegisterPlaceholder: 'Ingresa un comentario (200 caracteres)',
   askPostDelete: '¿Te gustaría eliminar la publicación?',
+  askPostDeleteMsg:
+    'Al eliminar una publicación, tanto los textos como los comentarios son eliminados.',
   askCommentDelete: '¿Desea eliminar el comentario?',
   postDeleted: 'La publicación ha sido eliminada',
   commentDeleted: 'El comentario ha sido eliminado.',
@@ -364,6 +366,9 @@ export const CommunityPostText_ESP: CommunityPostTextType = {
     'Se procederá el contenido denunciado según las políticas de operación y términos de uso. Si es una denuncia falsa,',
     'se podría restringir el uso del servicio de FanPlus por parte del denunciante.',
   ],
+  daysAgo: 'Día(s) antes',
+  hoursAgo: 'Hora(s) antes',
+  minsAgo: 'Minuto(s) antes',
 };
 
 export const postCommentTotalCount_ESP = (totalCount: number) => {

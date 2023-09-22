@@ -277,7 +277,7 @@ export const CommunityMainText_KR: CommunityPageTextType = {
   recentlyBoards: '최근 방문한 게시판',
   recommendedBoards: '추천 게시판',
   noRecentBoardTexts: ['팬플러스는 처음 사용하시나요?', '좋아하는 스타를 검색해 보세요!'],
-  buttonSearch: '검색하기',
+  buttonSearch: '검색',
   allCategory: '전체',
   searchPlaceholder: '원하는 게시판을 찾아보세요.',
   link: {
@@ -334,6 +334,7 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   commentRegisterPlaceholder: '댓글을 남겨주세요. (200자)',
   replyRegisterPlaceholder: '답글을 입력해 주세요. (200자)',
   askPostDelete: '게시글을 삭제하시겠어요?',
+  askPostDeleteMsg: '게시글 삭제 시 글과 댓글이 모두 삭제됩니다',
   askCommentDelete: '댓글을 삭제하시겠어요?',
   postDeleted: '게시물이 삭제되었습니다',
   commentDeleted: '댓글이 삭제되었습니다.',
@@ -362,6 +363,9 @@ export const CommunityPostText_KR: CommunityPostTextType = {
     option2: '욕설 또는 악성 콘텐츠',
   },
   reportWarning: ['허위 신고의 경우 서비스 이용제한과 같은', '불이익을 받을 수 있습니다.'],
+  daysAgo: '일 전',
+  hoursAgo: '시간 전',
+  minsAgo: '분 전',
 };
 
 export const postCommentTotalCount_KR = (totalCount: number) => {

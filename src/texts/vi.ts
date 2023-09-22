@@ -337,6 +337,7 @@ export const CommunityPostText_VIE: CommunityPostTextType = {
   commentRegisterPlaceholder: 'Để lại một bình luận (tối đa 200 ký tự)',
   replyRegisterPlaceholder: 'Vui lòng nhập bình luận (tối đa 200 ký tự)',
   askPostDelete: 'Bạn có muốn xóa câu chuyện của mình không?',
+  askPostDeleteMsg: 'Nếu bạn xóa câu chuyện, câu chuyện và nhận xét của bạn cũng sẽ bị xóa',
   askCommentDelete: 'Bạn muốn xóa bình luận?',
   postDeleted: 'Bạn đã xóa câu chuyện của mình',
   commentDeleted: 'Bình luận đã được xóa',
@@ -368,6 +369,9 @@ export const CommunityPostText_VIE: CommunityPostTextType = {
     'Nội dung được báo cáo sẽ được xử lý theo chính sách hoạt động và điều khoản sử dụng. Nếu đó là một báo cáo sai sự thật,',
     'việc sử dụng dịch vụ FanPlus của phóng viên có thể bị hạn chế. ',
   ],
+  daysAgo: 'Ngày trước',
+  hoursAgo: 'Giờ trước',
+  minsAgo: 'Phút trước',
 };
 
 export const postCommentTotalCount_VIE = (totalCount: number) => {
