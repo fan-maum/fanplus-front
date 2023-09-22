@@ -11,40 +11,39 @@ type OwnPropType = {
 
 const CommunityBoardNoticeBanner = ({ bannerList }: OwnPropType) => {
   return (
-    <section>
-      <Swiper
-        pagination={{ type: 'bullets', bulletElement: 'span', clickable: true }}
-        loop={true}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
-        modules={[Autoplay, Pagination]}
-        slidesPerView={1}
-        touchMoveStopPropagation
-        css={{
-          '.swiper-pagination': {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          '.swiper-pagination-bullet': {
-            margin: '0px 4px',
-            width: '8px',
-            height: '8px',
-            borderRadius: '50%',
-            backgroundColor: '#d9d9d9',
-            cursor: 'pointer',
-          },
-          '.swiper-pagination-bullet-active': { backgroundColor: '#ff5656' },
-        }}
-      >
-        {bannerList.map((banner, idx) => {
-          return (
-            <SwiperSlide key={idx}>
-              <NoticeBanner bannerData={banner} />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-    </section>
+    <Swiper
+      pagination={{ type: 'bullets', bulletElement: 'span', clickable: true }}
+      loop={true}
+      autoplay={{ delay: 3000, disableOnInteraction: false }}
+      modules={[Autoplay, Pagination]}
+      slidesPerView={1}
+      height={108}
+      touchMoveStopPropagation
+      css={{
+        '.swiper-pagination': {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        '.swiper-pagination-bullet': {
+          margin: '0px 4px',
+          width: '8px',
+          height: '8px',
+          borderRadius: '50%',
+          backgroundColor: '#d9d9d9',
+          cursor: 'pointer',
+        },
+        '.swiper-pagination-bullet-active': { backgroundColor: '#ff5656' },
+      }}
+    >
+      {bannerList.map((banner, idx) => {
+        return (
+          <SwiperSlide key={idx}>
+            <NoticeBanner bannerData={banner} />
+          </SwiperSlide>
+        );
+      })}
+    </Swiper>
   );
 };
 
