@@ -23,7 +23,7 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
 
 export type CommunityBoardPropType = {
-  cookieBoardLang: BoardLangType;
+  boardLangCookie: BoardLangType;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   communityNoticeBannerData: CommunityNoticeBannerResponseType;
@@ -31,7 +31,7 @@ export type CommunityBoardPropType = {
 };
 
 const CommunityBoardTemplate = ({
-  cookieBoardLang,
+  boardLangCookie,
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
@@ -42,7 +42,7 @@ const CommunityBoardTemplate = ({
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
-  const [boardLang, setBoardLang] = useState(cookieBoardLang || 'ALL');
+  const [boardLang, setBoardLang] = useState(boardLangCookie);
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
 
