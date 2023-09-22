@@ -395,6 +395,8 @@ export const CommunityPostEditorText_IND: CommunityPostEditorTextType = {
     cancelUploadSub: 'Cerita Anda akan dihapus ketika Anda meninggalkan menulisnya',
     edit: 'Apakah Anda ingin mengedit cerita Anda?',
     cancelEdit: 'Apakah Anda ingin membatalkan mengedit cerita Anda?',
+    enterTitle: 'Silakan masukkan judul',
+    enterContent: 'masukkan garis',
 
     cancel: 'Batal',
     check: 'Memeriksa',

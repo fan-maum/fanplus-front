@@ -391,6 +391,8 @@ export const CommunityPostEditorText_ENG: CommunityPostEditorTextType = {
     cancelUploadSub: 'Your post will be deleted when you leave writing it',
     edit: 'Do you want to edit your post?',
     cancelEdit: 'Do you want to cancel editing your post?',
+    enterTitle: 'Please enter the title',
+    enterContent: 'Please enter text',
 
     cancel: 'Cancel',
     check: 'Check',

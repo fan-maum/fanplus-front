@@ -67,6 +67,7 @@ const FileUploader = ({ state: [open, setOpen], uploadCallback }: OwnPropType) =
         onRequestClose={() => setOpen(false)}
         proudlyDisplayPoweredByUppy={false}
         disablePageScrollWhenModalOpen={false}
+        closeAfterFinish={true}
         css={{
           '.uppy-Dashboard-inner': { '@media(max-width:768px)': { height: '50%', top: '25%' } },
         }}

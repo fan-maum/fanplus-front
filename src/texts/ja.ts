@@ -391,6 +391,8 @@ export const CommunityPostEditorText_JAP: CommunityPostEditorTextType = {
     cancelUploadSub: '終了時に作成されている文章は削除されます。',
     edit: '文を修正しますか？',
     cancelEdit: '修正を取り消しますか？',
+    enterTitle: 'タイトルを入力してください',
+    enterContent: '内容を入力してください',
 
     cancel: 'キャンセル',
     check: '確認',

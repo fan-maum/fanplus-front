@@ -395,6 +395,8 @@ export const CommunityPostEditorText_VIE: CommunityPostEditorTextType = {
     cancelUploadSub: 'Câu chuyện của bạn sẽ bị xóa khi bạn viết nó',
     edit: 'Bạn có muốn chỉnh sửa câu chuyện của mình không?',
     cancelEdit: 'Bạn có muốn hủy chỉnh sửa câu chuyện của mình không?',
+    enterTitle: 'Vui lòng nhập tiêu đề',
+    enterContent: 'nhập các dòng',
 
     cancel: 'Hủy bỏ',
     check: 'Xác nhận',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useTinyMCEConfig } from '../module/useTinyMCEConfig';
 import { useIOSIMESetting } from '../module/useIOSIMESetting';
 import {
@@ -13,6 +13,7 @@ import { Editor } from '../../../public/tinymce/tinymce';
 type TProps = {
   editorRef: any;
   editorId: string;
+  setContent: Dispatch<SetStateAction<any>>;
   defaultValue?: string;
   fileUploadCallback: (file: any) => Promise<void>;
 };
@@ -20,6 +21,7 @@ type TProps = {
 const FullEditor: React.FC<TProps> = ({
   editorRef,
   editorId,
+  setContent,
   defaultValue,
   fileUploadCallback,
 }) => {
@@ -44,6 +46,7 @@ const FullEditor: React.FC<TProps> = ({
       selector: `#${editorId}`,
       init_instance_callback: () => editorLoadedComplete(),
       setup: (editor: Editor) => {
+        editor.on('change', () => setContent(editor.getContent()));
         useIOSIMESetting(editor);
 
         const onCustomAction = () => setModalOpen(true);

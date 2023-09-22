@@ -389,6 +389,8 @@ export const CommunityPostEditorText_KR: CommunityPostEditorTextType = {
     cancelUploadSub: '글쓰기 종료 시 작성 중인 글은 삭제 됩니다.',
     edit: '게시물을 수정하시겠어요?',
     cancelEdit: '수정을 취소하시겠어요?',
+    enterTitle: '제목을 입력해 주세요',
+    enterContent: '내용을 입력해 주세요',
 
     cancel: '취소',
     check: '확인',

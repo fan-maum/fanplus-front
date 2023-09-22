@@ -391,6 +391,8 @@ export const CommunityPostEditorText_zh_CN: CommunityPostEditorTextType = {
     cancelUploadSub: '编写结束时，正在编写的文章将被删除。',
     edit: '您确定要编辑帖子吗？',
     cancelEdit: '您确定要取消编辑吗？',
+    enterTitle: '请输入标题',
+    enterContent: '请填写内容',
 
     cancel: '取消',
     check: '确认',

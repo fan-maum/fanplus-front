@@ -274,6 +274,8 @@ export type CommunityPostEditorTextType = {
     cancelUploadSub: string;
     edit: string;
     cancelEdit: string;
+    enterTitle: string;
+    enterContent: string;
 
     cancel: string;
     check: string;

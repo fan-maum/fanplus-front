@@ -18,6 +18,7 @@ import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Comm
 import { BackLangType } from '@/types/common';
 import { TinyMCE } from '../../../public/tinymce/tinymce';
 import { UploadedUppyFile } from '@uppy/core';
+import CommunityCommonModal from '../modals/CommunityCommonModal';
 
 type OwnPropType = {
   mode: 'CREATE' | 'EDIT';
@@ -49,10 +50,11 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const [topicIdx, setTopicIdx] = useState(defaultValues?.topicIndex || topics[0].IDX);
   const [title, setTitle] = useState(defaultValues?.title || '');
   const [content, setContent] = useState(defaultValues?.content || '');
-  const [postId, setPostId] = useState(postIndex);
+  const [postId, setPostId] = useState(postIndex || parseInt(router.query.postId as string));
 
   const [cancelModal, setCancelModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
+  const [dataLackModal, setDataLackModal] = useState(false);
 
   const getAndSetPostId = async () => {
     const response = await postBoardArticle(userId, boardIndex, boardLang, lang);
@@ -83,8 +85,6 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   };
 
   useEffect(() => {
-    if (!postId) (async () => await getAndSetPostId())();
-
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.returnValue = '';
       return '';
@@ -101,8 +101,11 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   };
   const onClickUpload: MouseEventHandler = (event) => {
     event.preventDefault();
+    if (!title || !content) {
+      setDataLackModal(true);
+      return;
+    }
     setUploadModal(true);
-    setContent(editorRef.current?.get(editorId)?.getContent() as string);
   };
 
   const onClickUploadConfirm = async () => {
@@ -146,6 +149,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         <FullEditor
           editorRef={editorRef}
           editorId={editorId}
+          setContent={setContent}
           defaultValue={content}
           fileUploadCallback={fileUploadHandler}
         />
@@ -171,6 +175,13 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         opened={cancelModal}
         onClose={() => setCancelModal(false)}
       />
+      <CommunityCommonModal
+        opened={dataLackModal}
+        onClose={() => setDataLackModal(false)}
+        confirmButton={{ onClick: () => setDataLackModal(false), text: texts.modal.check }}
+      >
+        {!title ? texts.modal.enterTitle : texts.modal.enterContent}
+      </CommunityCommonModal>
     </main>
   );
 };
