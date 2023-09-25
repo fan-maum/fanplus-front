@@ -8,13 +8,19 @@ import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { useState } from 'react';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
+import { gotoLogin } from '@/utils/gotoLogin';
 
 export type CommunityMyPostPropType = {
+  userId: string | null;
   communityBoardData: CommunityBoardResponseType;
   texts: CommunityBoardTextType;
 };
 
-const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostPropType) => {
+const CommunityMyPostTemplate = ({
+  userId,
+  communityBoardData,
+  texts,
+}: CommunityMyPostPropType) => {
   const router = useRouter();
   const language = useUrlLanguage();
 
@@ -30,6 +36,10 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
     const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX);
     if (writeBanned) {
       setPermissionModal(true);
+      return;
+    }
+    if (!userId) {
+      gotoLogin(router);
       return;
     }
     router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);
