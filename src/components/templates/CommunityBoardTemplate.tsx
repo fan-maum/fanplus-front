@@ -21,10 +21,8 @@ import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLan
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
-import { gotoLogin } from '@/utils/gotoLogin';
 
 export type CommunityBoardPropType = {
-  userId: string | null;
   boardLangCookie: BoardLangType;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
@@ -33,7 +31,6 @@ export type CommunityBoardPropType = {
 };
 
 const CommunityBoardTemplate = ({
-  userId,
   boardLangCookie,
   communityBoardData,
   communityBoardTopics,
@@ -62,10 +59,6 @@ const CommunityBoardTemplate = ({
     const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX);
     if (writeBanned) {
       setPermissionModal(true);
-      return;
-    }
-    if (!userId) {
-      gotoLogin(router);
       return;
     }
     router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);

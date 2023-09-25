@@ -8,7 +8,6 @@ import IconReply from '@/components/atoms/IconReply';
 import { PurPoseType, TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { gotoLogin } from '@/utils/gotoLogin';
 
 export type CommentCardProps = {
   identity: string;
@@ -38,7 +37,8 @@ const CommentCard = ({
         const res = await postLikes(comment.COMMENT_IDX, identity);
       }
     } else {
-      gotoLogin(router);
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
 
