@@ -4,6 +4,7 @@ import IconVerticalMore from '@/components/atoms/IconVerticalMore';
 import { Popover } from '@mantine/core';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { PurPoseType, TargetType } from '@/types/common';
+import { gotoLogin } from '@/utils/gotoLogin';
 
 export type CommunityPostTopNaviProps = {
   identity: string;
@@ -25,12 +26,11 @@ const CommunityPostTopNavi = ({
 }: CommunityPostTopNaviProps) => {
   const router = useRouter();
   const ReportOnClick = () => {
-    if (identity !== null) {
-      showReportModalBlockOnClick('report', 'post', postIndex);
-    } else {
-      const path = router.asPath;
-      router.push({ pathname: '/login', query: { nextUrl: path } });
+    if (!identity) {
+      gotoLogin(router);
+      return;
     }
+    showReportModalBlockOnClick('report', 'post', postIndex);
   };
 
   return (

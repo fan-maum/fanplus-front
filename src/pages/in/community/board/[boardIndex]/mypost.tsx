@@ -7,10 +7,11 @@ import CommunityMyPostTemplate, {
   CommunityMyPostPropType,
 } from '@/components/templates/CommunityMyPostTemplate';
 
-const MyPost = ({ communityBoardData }: CommunityMyPostPropType) => {
+const MyPost = ({ userId, communityBoardData }: CommunityMyPostPropType) => {
   return (
     <Layout navBarTexts={NavBarText_IND} footerTexts={FooterText_IND}>
       <CommunityMyPostTemplate
+        userId={userId}
         communityBoardData={communityBoardData}
         texts={CommunityBoardText_IND}
       />
@@ -43,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<
     view_type
   );
 
-  return { props: { communityBoardData } };
+  return { props: { userId, communityBoardData } };
 };
 
 export default MyPost;

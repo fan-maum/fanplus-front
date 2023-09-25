@@ -6,6 +6,7 @@ import { CommunityPostTextType } from '@/types/textTypes';
 import { deleteRecommends, postRecommends } from '@/api/Community';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { gotoLogin } from '@/utils/gotoLogin';
 
 type CommunityPostDetailProps = {
   identity: string;
@@ -39,8 +40,7 @@ const CommunityPostDetail = ({
         setPostLikeState((prev) => prev + 1);
       }
     } else {
-      const path = router.asPath;
-      router.push({ pathname: '/login', query: { nextUrl: path } });
+      gotoLogin(router);
     }
   };
   return (

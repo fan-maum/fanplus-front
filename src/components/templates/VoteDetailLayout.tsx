@@ -27,6 +27,7 @@ import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
 import { useMutation } from 'react-query';
 import { getVoteDetail, postVotes } from '@/api/Vote';
+import { gotoLogin } from '@/utils/gotoLogin';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -226,13 +227,11 @@ const VoteDetailLayout = ({
     await router.push({ query: { ...router.query, id: newId } }, undefined, {
       shallow: true,
     });
-    if (authCookie) {
-      setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
-    } else {
-      const nextPath = router.pathname;
-      const nextQuery = setNextQueryWithId(id);
-      router.push({ pathname: '/login', query: { nextUrl: nextPath + nextQuery } });
+    if (!authCookie) {
+      gotoLogin(router, { id: id });
+      return;
     }
+    setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
   };
 
   const voteDetailHeaderProps: VoteDetailHeaderProps = {
