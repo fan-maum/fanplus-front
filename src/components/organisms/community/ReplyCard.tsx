@@ -7,7 +7,6 @@ import { CommentListItemType } from '@/types/community';
 import { PurPoseType, TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { gotoLogin } from '@/utils/gotoLogin';
 
 export type ReplyCardProps = {
   identity: string;
@@ -39,7 +38,8 @@ const ReplyCard = ({
         setCount((prev) => prev + 1);
       }
     } else {
-      gotoLogin(router);
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
   return (

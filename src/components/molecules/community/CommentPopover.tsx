@@ -4,7 +4,6 @@ import { deleteComment } from '@/api/Community';
 import { PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
-import { gotoLogin } from '@/utils/gotoLogin';
 
 type CommentPopoverProps = {
   identity: string;
@@ -27,7 +26,8 @@ export default function CommentPopover({
     if (identity !== null) {
       showReportModalBlockOnClick('report', 'comment', comment_idx);
     } else {
-      gotoLogin(router);
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
 

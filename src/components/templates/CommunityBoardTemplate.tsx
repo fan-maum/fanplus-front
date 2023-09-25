@@ -21,7 +21,6 @@ import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLan
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
-import { gotoLogin } from '@/utils/gotoLogin';
 
 export type CommunityBoardPropType = {
   userId: string | null;
@@ -65,7 +64,8 @@ const CommunityBoardTemplate = ({
       return;
     }
     if (!userId) {
-      gotoLogin(router);
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
     router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);

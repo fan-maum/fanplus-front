@@ -4,7 +4,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { gotoLogin } from '@/utils/gotoLogin';
 
 interface FormValue {
   registerValue: string | number;
@@ -39,7 +38,8 @@ const CommentRegister = ({
     if (identity !== null) {
       onCreateComment(identity, createMode, Number(POST_IDX), contents);
     } else {
-      gotoLogin(router);
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
     reset({ registerValue: '' });
   };

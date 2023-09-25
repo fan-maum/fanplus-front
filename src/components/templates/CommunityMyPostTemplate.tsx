@@ -8,7 +8,6 @@ import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { useState } from 'react';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
-import { gotoLogin } from '@/utils/gotoLogin';
 
 export type CommunityMyPostPropType = {
   userId: string | null;
@@ -39,7 +38,8 @@ const CommunityMyPostTemplate = ({
       return;
     }
     if (!userId) {
-      gotoLogin(router);
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
     router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);
