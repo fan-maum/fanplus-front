@@ -1,5 +1,5 @@
 import { NextApiHandler } from 'next';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import type { PostResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
@@ -8,7 +8,8 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<PostResponseType> = await axios.get(
-      `https://napi.appphotocard.com/v1/boards/posts/${postIndex}?identity=${identity}&page=0&per_page=10&referer=newest`,
+      `https://napi.appphotocard.com/v1/boards/posts/${postIndex}?page=0&per_page=10&referer=newest` +
+        `$identity=${identity}`,
       {
         headers: {
           Origin: origin,
@@ -18,7 +19,10 @@ const handler: NextApiHandler = async (req, res) => {
     );
     res.status(200).json(response.data);
   } catch (error) {
-    res.status(500).json('Failed to load Community-Board data');
+    if (error instanceof AxiosError) {
+      res.status(error.response?.status as number).json(error);
+    }
+    // res.status(500).json('Failed to load Community-Board data');
   }
 };
 
