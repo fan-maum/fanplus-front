@@ -10,11 +10,16 @@ import { useState } from 'react';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
 
 export type CommunityMyPostPropType = {
+  userId: string | null;
   communityBoardData: CommunityBoardResponseType;
   texts: CommunityBoardTextType;
 };
 
-const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostPropType) => {
+const CommunityMyPostTemplate = ({
+  userId,
+  communityBoardData,
+  texts,
+}: CommunityMyPostPropType) => {
   const router = useRouter();
   const language = useUrlLanguage();
 
@@ -30,6 +35,11 @@ const CommunityMyPostTemplate = ({ communityBoardData, texts }: CommunityMyPostP
     const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX);
     if (writeBanned) {
       setPermissionModal(true);
+      return;
+    }
+    if (!userId) {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
     router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);

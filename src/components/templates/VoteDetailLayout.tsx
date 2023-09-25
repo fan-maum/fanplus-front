@@ -233,6 +233,7 @@ const VoteDetailLayout = ({
       const nextQuery = setNextQueryWithId(id);
       router.push({ pathname: '/login', query: { nextUrl: nextPath + nextQuery } });
     }
+    setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
   };
 
   const voteDetailHeaderProps: VoteDetailHeaderProps = {

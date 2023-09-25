@@ -23,6 +23,7 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
 
 export type CommunityBoardPropType = {
+  userId: string | null;
   boardLangCookie: BoardLangType;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
@@ -31,6 +32,7 @@ export type CommunityBoardPropType = {
 };
 
 const CommunityBoardTemplate = ({
+  userId,
   boardLangCookie,
   communityBoardData,
   communityBoardTopics,
@@ -59,6 +61,11 @@ const CommunityBoardTemplate = ({
     const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX);
     if (writeBanned) {
       setPermissionModal(true);
+      return;
+    }
+    if (!userId) {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
     router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);
