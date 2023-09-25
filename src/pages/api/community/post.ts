@@ -8,8 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<PostResponseType> = await axios.get(
-      `https://napi.appphotocard.com/v1/boards/posts/${postIndex}?page=0&per_page=10&referer=newest` +
-        `$identity=${identity}`,
+      `https://napi.appphotocard.com/v1/boards/posts/${postIndex}?identity=${identity ?? ''}`,
       {
         headers: {
           Origin: origin,
