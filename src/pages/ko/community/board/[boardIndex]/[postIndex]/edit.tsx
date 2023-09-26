@@ -4,7 +4,7 @@ import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
 import { BackLangType, BoardLangType } from '@/types/common';
 import { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
-import { AxiosError } from 'axios';
+import { loginErrorHandler } from '@/utils/loginErrorHandler';
 import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
@@ -20,7 +20,7 @@ type CommunityPostWritePropType = {
   };
 };
 
-const Write = ({ boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
+const Edit = ({ boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
       <PostEditorTemplate
@@ -54,15 +54,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   try {
     communityPostData = await getCommunityPostData(postIndex, userId);
   } catch (error) {
-    if (error instanceof AxiosError) {
-      if (error.response?.status === 406) {
-        return {
-          redirect: {
-            destination: `/login/?nextUrl=/ko/community/board/${boardIndex}/${postIndex}/edit/`,
-          },
-        };
-      }
-    }
+    return loginErrorHandler(error, 'ko', `/community/board/${boardIndex}/${postIndex}/edit/`);
   }
   const datas = { userId, boardIndex, postIndex, boardLang, lang };
   return {
@@ -70,4 +62,4 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   };
 };
 
-export default Write;
+export default Edit;
