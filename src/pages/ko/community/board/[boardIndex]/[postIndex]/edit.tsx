@@ -55,13 +55,13 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     communityPostData = await getCommunityPostData(postIndex, userId);
   } catch (error) {
     if (error instanceof AxiosError) {
-      if (error.response?.status === 406) {
-        return {
-          redirect: {
-            destination: `/login/?nextUrl=/ko/community/board/${boardIndex}/${postIndex}/edit/`,
-          },
-        };
-      }
+      // if (error.response?.status === 406) {
+      return {
+        redirect: {
+          destination: `/login/?nextUrl=/ko/community/board/${boardIndex}/${postIndex}/edit/`,
+        },
+      };
+      // }
     }
   }
   const datas = { userId, boardIndex, postIndex, boardLang, lang };
