@@ -1,5 +1,4 @@
 import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
-import Image from 'next/image';
 
 const PaginationBase = ({
   pageRangeDisplayed,
@@ -22,15 +21,13 @@ const PaginationBase = ({
           fontSize: '12px',
         }}
         previousLabel={
-          <Image width={11} height={11} src="/icons/icon_paginationArrow.png" alt="arrow" />
+          <img src="/icons/icon_paginationArrow.png" alt="arrow" css={{ width: 11, height: 11 }} />
         }
         nextLabel={
-          <Image
-            width={11}
-            height={11}
+          <img
             src="/icons/icon_paginationArrow.png"
             alt="arrow"
-            css={{ transform: 'scaleX(-1)' }}
+            css={{ width: 11, height: 11, transform: 'scaleX(-1)' }}
           />
         }
         pageRangeDisplayed={pageRangeDisplayed || 5}

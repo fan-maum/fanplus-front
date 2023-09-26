@@ -1,5 +1,5 @@
 import { NextApiHandler } from 'next';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import type { PostResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<PostResponseType> = await axios.get(
-      `https://napi.appphotocard.com/v1/boards/posts/${postIndex}?identity=${identity ?? ''}`,
+      `https://napi.appphotocard.com/v1/boards/posts/${postIndex}?identity=${identity}&page=0&per_page=10&referer=newest`,
       {
         headers: {
           Origin: origin,

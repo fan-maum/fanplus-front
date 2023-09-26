@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import type { TranslatedVoteStatus } from '../organisms/VoteListItem';
 
 export interface VoteTitleImageProps {
@@ -38,8 +37,7 @@ export default function VoteTitleImage({ voteStatus, voteDataImage }: VoteTitleI
           },
         ]}
       >
-        <Image
-          fill
+        <img
           src={voteDataImage}
           alt="vote_thumbnail"
           css={{

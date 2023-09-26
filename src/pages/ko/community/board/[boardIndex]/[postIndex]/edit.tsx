@@ -38,7 +38,9 @@ const Edit = ({ boardTopics, communityPostData, datas }: CommunityPostWritePropT
   );
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> = async (
+  context
+) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'];
   const boardLangCookie = cookies['boardLang'] as BoardLangType;

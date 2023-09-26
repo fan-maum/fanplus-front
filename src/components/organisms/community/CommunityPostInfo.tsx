@@ -15,7 +15,7 @@ const CommunityPostInfo = ({ postInfo, texts, postLikeState }: CommunityPostInfo
     <Stack spacing={12} p={20} css={{ borderBottom: '2px solid #f1f1f1' }}>
       <div css={{ display: 'flex' }}>
         <TopicBubble height={32} p={8} radius={20} name={postInfo.TOPIC_NAME} />
-        {postInfo.HAS_POPULAR_BADGE && (
+        {postInfo.HAS_POPULAR_BADGE === '1' && (
           <TopicBubble height={32} p={8} radius={20} hightlight={true} name={texts.popular} />
         )}
       </div>

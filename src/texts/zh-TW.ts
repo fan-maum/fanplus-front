@@ -338,6 +338,7 @@ export const CommunityPostText_zh_TW: CommunityPostTextType = {
   commentRegisterPlaceholder: '請發表評論。（200字）',
   replyRegisterPlaceholder: '請輸入評論。（200字）',
   askPostDelete: '您要刪除該帖子嗎？',
+  askPostDeleteMsg: '刪除帖子時，帖子內容和評論都將被刪除。',
   askCommentDelete: '確認刪除評論嗎?',
   postDeleted: '帖子已刪除',
   commentDeleted: '評論已刪除',
@@ -369,6 +370,9 @@ export const CommunityPostText_zh_TW: CommunityPostTextType = {
     '舉報內容將根據運營政策和使用條款進行處理。',
     '如果是虛假舉報，則可能會限制舉報人對服務的使用。',
   ],
+  daysAgo: '日 前',
+  hoursAgo: '小時 前',
+  minsAgo: '分鐘 前',
 };
 
 export const postCommentTotalCount_zh_TW = (totalCount: number) => {

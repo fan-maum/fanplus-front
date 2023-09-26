@@ -1,5 +1,5 @@
 import { BoardCategoryItemType } from '@/types/community';
-import CustomScrollTabBar from '@/components/atoms/CustomScrollTabBar';
+import SearchScrollTabBar from './SearchScrollTabBar';
 
 export type CommunityBoardFilterTabProps = {
   searchCategoryTabs: BoardCategoryItemType[];
@@ -12,7 +12,7 @@ const CommunityBoardFilterTab = ({
 }: CommunityBoardFilterTabProps) => {
   return (
     <>
-      <CustomScrollTabBar tabs={searchCategoryTabs} searchTabState={searchTabState} />
+      <SearchScrollTabBar tabs={searchCategoryTabs} searchTabState={searchTabState} />
     </>
   );
 };

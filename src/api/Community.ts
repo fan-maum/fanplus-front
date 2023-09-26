@@ -126,10 +126,9 @@ export const getComments = async (
   page: number,
   per_page: number
 ) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/comment`,
-    { params: { postIndex, identity, lang, order_by, page, per_page } }
-  );
+  const response: AxiosResponse = await axios.get(`/api/community/comment`, {
+    params: { postIndex, identity, lang, order_by, page, per_page },
+  });
   return response.data;
 };
 
@@ -161,7 +160,6 @@ export const deleteComment = async (identity: string, comment_idx: string) => {
       },
     }
   );
-
   return response;
 };
 
@@ -173,10 +171,9 @@ export const getReplies = async (
   page: number,
   per_page: number
 ) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reply`,
-    { params: { commentIndex, identity, board_lang, order_by, page, per_page } }
-  );
+  const response: AxiosResponse = await axios.get(`/api/community/reply`, {
+    params: { commentIndex, identity, board_lang, order_by, page, per_page },
+  });
   return response.data;
 };
 

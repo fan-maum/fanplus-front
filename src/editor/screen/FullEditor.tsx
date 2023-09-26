@@ -9,12 +9,14 @@ import {
 import Script from 'next/script';
 import FileUploader from '../module/FileUploader';
 import { Editor } from '../../../public/tinymce/tinymce';
+import { LangCookie } from '@/utils/setLangCookie';
 
 type TProps = {
   editorRef: any;
   editorId: string;
   setContent: Dispatch<SetStateAction<any>>;
   defaultValue?: string;
+  language: LangCookie;
   fileUploadCallback: (file: any) => Promise<void>;
 };
 
@@ -23,6 +25,7 @@ const FullEditor: React.FC<TProps> = ({
   editorId,
   setContent,
   defaultValue,
+  language,
   fileUploadCallback,
 }) => {
   const [isJsLoading, setIsJsLoading] = useState(true);
@@ -42,7 +45,7 @@ const FullEditor: React.FC<TProps> = ({
     editorRef.current?.remove();
 
     editorRef.current.init({
-      ...useTinyMCEConfig(),
+      ...useTinyMCEConfig(language),
       selector: `#${editorId}`,
       init_instance_callback: () => editorLoadedComplete(),
       setup: (editor: Editor) => {
@@ -74,6 +77,9 @@ const FullEditor: React.FC<TProps> = ({
               '.tox-toolbar': {
                 borderBottom: '1px solid #d9d9d9',
                 padding: '2px 0px !important',
+                '::-webkit-scrollbar': { display: 'none' },
+                msOverflowStyle: 'none',
+                scrollbarWidth: 'none',
               },
             }}
             className="editor-wrap"

@@ -229,6 +229,7 @@ export type CommunityPostTextType = {
   commentRegisterPlaceholder: string;
   replyRegisterPlaceholder: string;
   askPostDelete: string;
+  askPostDeleteMsg: string;
   askCommentDelete: string;
   postDeleted: string;
   commentDeleted: string;
@@ -257,6 +258,9 @@ export type CommunityPostTextType = {
     option2: string;
   };
   reportWarning: [string, string];
+  daysAgo: string;
+  hoursAgo: string;
+  minsAgo: string;
 };
 
 export type CommunityPostEditorTextType = {

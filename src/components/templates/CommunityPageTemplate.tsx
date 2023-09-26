@@ -66,7 +66,9 @@ const CommunityPageTemplate = ({
       <TabBar
         tabTitles={{ home: texts.home, search: texts.search }}
         tabBar={tabBar}
+        texts={texts}
         setTabBar={setTabBar}
+        searchTabState={searchTabState}
       />
       {tabBar === 'home' ? (
         <>
@@ -114,10 +116,18 @@ type TabBarPropTypes = {
     search: string;
   };
   tabBar: TabBarType;
+  texts: CommunityPageTextType;
   setTabBar: Dispatch<SetStateAction<TabBarType>>;
+  searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
 };
 
-const TabBar = ({ tabTitles, tabBar, setTabBar }: TabBarPropTypes) => {
+const TabBar = ({
+  tabTitles,
+  tabBar,
+  texts,
+  setTabBar,
+  searchTabState: [activeTab, setActiveTab],
+}: TabBarPropTypes) => {
   const router = useRouter();
   const handleClick = (tabBar: TabBarType) => {
     setTabBar(tabBar);
@@ -133,7 +143,19 @@ const TabBar = ({ tabTitles, tabBar, setTabBar }: TabBarPropTypes) => {
       <TabBarItem
         title={tabTitles.search}
         selected={tabBar === 'search'}
-        onClick={() => handleClick('search')}
+        onClick={() => {
+          handleClick('search');
+          setActiveTab(texts.allCategory);
+          router.push({
+            pathname: router.pathname,
+            query: {
+              category_type: 0,
+              searchValue: '',
+              page: 0,
+              tab: 'search',
+            },
+          });
+        }}
       />
     </ul>
   );

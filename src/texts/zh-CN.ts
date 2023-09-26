@@ -338,6 +338,7 @@ export const CommunityPostText_zh_CN: CommunityPostTextType = {
   commentRegisterPlaceholder: '请发表评论。（200字）',
   replyRegisterPlaceholder: '请输入评论。（200字）',
   askPostDelete: '您要删除该帖子吗？',
+  askPostDeleteMsg: '删除帖子时，帖子内容和评论都将被删除。',
   askCommentDelete: '确认删除评论吗?',
   postDeleted: '帖子已删除',
   commentDeleted: '评论已删除',
@@ -369,6 +370,9 @@ export const CommunityPostText_zh_CN: CommunityPostTextType = {
     '举报内容将根据运营政策和使用条款进行处理。',
     '如果是虚假举报，则可能会限制举报人对服务的使用。',
   ],
+  daysAgo: '日 前',
+  hoursAgo: '小时 前',
+  minsAgo: '分钟 前',
 };
 
 export const postCommentTotalCount_zh_CN = (totalCount: number) => {

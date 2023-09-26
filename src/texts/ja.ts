@@ -338,6 +338,7 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
   commentRegisterPlaceholder: 'コメントを残す（最大200文字)',
   replyRegisterPlaceholder: 'コメントを入力してください。（最大200文字)',
   askPostDelete: '文を削除しますか？',
+  askPostDeleteMsg: '文削除時の内容とコメントがすべて削除されます。',
   askCommentDelete: 'コメントを削除しますか？',
   postDeleted: '文が削除されました。',
   commentDeleted: 'コメントが削除されました。',
@@ -369,6 +370,9 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
     '報告されたコンテンツは、運用ポリシーと利用規約に従って処理されます。虚偽の報告である場合、',
     'If it is a false report, 記者によるFanPlusサービスの使用が制限される場合があります。',
   ],
+  daysAgo: '日 前',
+  hoursAgo: '時間 前',
+  minsAgo: '分 前',
 };
 
 export const postCommentTotalCount_JAP = (totalCount: number) => {

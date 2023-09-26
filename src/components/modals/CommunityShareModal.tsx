@@ -106,6 +106,7 @@ function CommunityShareModal({
     if (canShare) {
       window.navigator?.share({
         title: text,
+        text,
         url,
       });
     } else {
