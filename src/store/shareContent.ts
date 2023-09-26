@@ -43,7 +43,7 @@ export function useMiddleText(
     `${modalMiddleText?.middlePageFront}\n\n${modalMiddleText?.middlePageBack}`,
   ];
 
-  const standardLanguage = language === 'ko' || language === 'zh-rCN' || language === 'zh-rTW';
+  const standardLanguage = language === 'ko' || language === 'zh-CN' || language === 'zh-TW';
   return standardLanguage ? middleTextStandard : middleTextMulti;
 }
 

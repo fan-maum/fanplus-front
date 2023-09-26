@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 export function useUrlLanguage() {
   const router = useRouter();
   const language = router.route.split('/')[1];
-  return language;
+  return language as LangCookie;
 }
 
 export function GetRouterLanguage() {
