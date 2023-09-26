@@ -4,7 +4,8 @@ import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
 import { BackLangType, BoardLangType } from '@/types/common';
 import { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
-import { GetServerSideProps } from 'next';
+import { loginErrorHandler } from '@/utils/loginErrorHandler';
+import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
@@ -19,7 +20,7 @@ type CommunityPostWritePropType = {
   };
 };
 
-const Write = ({ boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
+const Edit = ({ boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
   return (
     <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
       <PostEditorTemplate
@@ -37,9 +38,7 @@ const Write = ({ boardTopics, communityPostData, datas }: CommunityPostWriteProp
   );
 };
 
-export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> = async (
-  context
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'];
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
@@ -51,11 +50,16 @@ export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> 
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : lang;
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, lang);
-  const communityPostData = await getCommunityPostData(postIndex, userId);
+  let communityPostData;
+  try {
+    communityPostData = await getCommunityPostData(postIndex, userId);
+  } catch (error) {
+    return loginErrorHandler(error, 'ko', `/community/board/${boardIndex}/${postIndex}/edit/`);
+  }
   const datas = { userId, boardIndex, postIndex, boardLang, lang };
   return {
     props: { boardTopics, communityPostData, datas },
   };
 };
 
-export default Write;
+export default Edit;

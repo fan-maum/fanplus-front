@@ -29,10 +29,10 @@ const TYPE_VARIANTS = {
   primary: {
     color: '#FF5656',
     border: '1px solid #D9D9D9',
-    borderRight: "0 solid transparent",
-    borderLeft: "1px solid #D9D9D9",
-    borderBottom: "1px solid #D9D9D9",
-    borderTop: "1px solid #D9D9D9",
+    borderRight: '0 solid transparent',
+    borderLeft: '1px solid #D9D9D9',
+    borderBottom: '1px solid #D9D9D9',
+    borderTop: '1px solid #D9D9D9',
     fontWeight: 600,
   },
   secondary: {
@@ -48,7 +48,7 @@ const TYPE_VARIANTS = {
   report: {
     color: '#fff',
     border: '1px solid #ff5656',
-    background: "#ff5656",
+    background: '#ff5656',
     borderRadius: '10px',
     fontWeight: 600,
   },
