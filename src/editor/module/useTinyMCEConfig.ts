@@ -5,7 +5,7 @@ import { font_family_formats, font_size_formats } from '../constant/tinyMCEFont'
 import { tinyMCEResetCSS } from '../constant/tinyMCEResetCSS';
 import { LangCookie } from '@/utils/setLangCookie';
 
-export const useTinyMCEConfig = (language?: LangCookie) => {
+export const useTinyMCEConfig = (language: LangCookie) => {
   const device = userAgentOS();
   const isMobile = ['android', 'ios'].includes(device);
   const min_height = isMobile ? 450 : 600;
@@ -23,7 +23,7 @@ export const useTinyMCEConfig = (language?: LangCookie) => {
     promotion: false,
     statusbar: false,
     font_size_formats,
-    font_family_formats,
+    font_family_formats: font_family_formats(language),
     toolbar_sticky: true,
     toolbar_sticky_offset: 85, // * 툴바 고정 위치 조정
     content_style: tinyMCEResetCSS,

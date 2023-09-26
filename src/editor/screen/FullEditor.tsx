@@ -16,7 +16,7 @@ type TProps = {
   editorId: string;
   setContent: Dispatch<SetStateAction<any>>;
   defaultValue?: string;
-  language?: LangCookie;
+  language: LangCookie;
   fileUploadCallback: (file: any) => Promise<void>;
 };
 
