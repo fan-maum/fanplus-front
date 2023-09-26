@@ -4,7 +4,8 @@ import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
 import { BackLangType, BoardLangType } from '@/types/common';
 import { CommunityBoardTopicResponseType } from '@/types/community';
-import { GetServerSideProps } from 'next';
+import { noUserIdHandler } from '@/utils/loginErrorHandler';
+import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
@@ -30,9 +31,7 @@ const Write = ({ boardTopics, datas }: CommunityPostWritePropType) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> = async (
-  context
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'];
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
@@ -41,6 +40,8 @@ export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> 
   const lang: BackLangType = 'ko';
   const boardLang: BackLangType =
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : lang;
+
+  if (!userId) return noUserIdHandler('ko', `/community/board/${boardIndex}/write/`);
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, lang);
   const datas = { userId, boardIndex, boardLang, lang };

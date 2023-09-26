@@ -1,10 +1,11 @@
-import { getCommunityBoardTopics, postBoardArticle } from '@/api/Community';
+import { getCommunityBoardTopics } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { CommunityPostEditorText_IND, FooterText_IND, NavBarText_IND } from '@/texts/in';
 import { BackLangType, BoardLangType } from '@/types/common';
 import { CommunityBoardTopicResponseType } from '@/types/community';
-import { GetServerSideProps } from 'next';
+import { noUserIdHandler } from '@/utils/loginErrorHandler';
+import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
@@ -30,9 +31,7 @@ const Write = ({ boardTopics, datas }: CommunityPostWritePropType) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> = async (
-  context
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'];
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
@@ -41,6 +40,8 @@ export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> 
   const lang: BackLangType = 'id';
   const boardLang: BackLangType =
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : lang;
+
+  if (!userId) return noUserIdHandler('in', `/community/board/${boardIndex}/write/`);
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, lang);
   const datas = { userId, boardIndex, boardLang, lang };

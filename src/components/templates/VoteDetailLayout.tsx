@@ -22,11 +22,11 @@ import VoteDetailShareModal, {
 } from '@/components/modals/VoteDetailShareModal';
 import { useRouter } from 'next/router';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
-import VoteProcessModal, { VoteProcessModalProps } from '../modals/VoteProcessModal';
+import VoteProcessModal from '../modals/VoteProcessModal';
 import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
 import { useMutation } from 'react-query';
-import { getVoteDetail, postVotes } from '@/api/Vote';
+import { postVotes } from '@/api/Vote';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -233,7 +233,6 @@ const VoteDetailLayout = ({
       const nextQuery = setNextQueryWithId(id);
       router.push({ pathname: '/login', query: { nextUrl: nextPath + nextQuery } });
     }
-    setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
   };
 
   const voteDetailHeaderProps: VoteDetailHeaderProps = {
