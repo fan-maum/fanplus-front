@@ -5,7 +5,7 @@ import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/text
 import { BackLangType, BoardLangType } from '@/types/common';
 import { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
 import { AxiosError } from 'axios';
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
@@ -55,13 +55,13 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     communityPostData = await getCommunityPostData(postIndex, userId);
   } catch (error) {
     if (error instanceof AxiosError) {
-      // if (error.response?.status === 406) {
-      return {
-        redirect: {
-          destination: `/login/?nextUrl=/ko/community/board/${boardIndex}/${postIndex}/edit/`,
-        },
-      };
-      // }
+      if (error.response?.status === 406) {
+        return {
+          redirect: {
+            destination: '/',
+          },
+        };
+      }
     }
   }
   const datas = { userId, boardIndex, postIndex, boardLang, lang };
