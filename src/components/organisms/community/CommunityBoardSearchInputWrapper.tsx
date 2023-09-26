@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Group, UnstyledButton } from '@/components/atoms';
 import styled from '@emotion/styled';
-import Image from 'next/image';
 import { CommunityPageTextType } from '@/types/textTypes';
 
 interface FormValue {
@@ -52,12 +51,10 @@ const CommunityBoardSearchInputWrapper = ({
         spacing={10}
         css={{ position: 'relative', flex: 1, borderBottom: '2px solid #f1f1f1' }}
       >
-        <Image
-          src={'/icons/icon_search.svg'}
-          width={32}
-          height={32}
+        <img
+          src="/icons/icon_search.svg"
           alt="searchIcon"
-          css={{ position: 'absolute', left: 0 }}
+          css={{ width: 32, height: 32, position: 'absolute', left: 0 }}
         />
         <SearchInput placeholder={texts.searchPlaceholder} {...register('searchValue')} />
       </Group>

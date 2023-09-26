@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Center, Divider, Group, Stack } from '@/components/atoms';
 import IconArrowDown from '@/components/atoms/IconArrowDown';
 import { prizeTabContentsItemsProps } from '@/components/organisms/voteDetail/VoteDetailPrizeList';
-import Image from 'next/image';
 
 const VoteDetailPrizeBox = ({
   id,
@@ -41,7 +40,7 @@ const VoteDetailPrizeBox = ({
               marginRight: '5px',
             }}
           >
-            <Image width={26} height={26} src={titleImage} alt="icon" />
+            <img src={titleImage} alt="icon" css={{ width: 26, height: 26 }} />
             {question}
           </Center>
           <IconArrowDown width="16" height="16" isReverse={isOpen} />

@@ -120,14 +120,14 @@ const CommunityPostTemplate = ({
   /**
    * LayoutProps
    */
-  const PostDetailLayoutProps: PostDetailLayoutProps = {
+  const layoutProps: PostDetailLayoutProps = {
     identity,
     user_idx,
     postInfo,
     texts,
   };
 
-  const PostCommentWrapperProps: PostCommentWrapperProps = {
+  const commentProps: PostCommentWrapperProps = {
     texts,
     commentTotalCount,
     replyData,
@@ -138,7 +138,7 @@ const CommunityPostTemplate = ({
     refetchReplyOnToggle,
   };
 
-  const PostFixedBottomWrapperProps: PostFixedBottomWrapperProps = {
+  const fixedBottomProps: PostFixedBottomWrapperProps = {
     identity,
     texts,
     postInfo,
@@ -147,7 +147,7 @@ const CommunityPostTemplate = ({
     shareOnClick: () => setShareModalIsOpened(true),
   };
 
-  const communityShareModalProps: CommunityShareModalProps = {
+  const shareModalProps: CommunityShareModalProps = {
     opened: shareModalIsOpened,
     postTitle: postInfo.POST_TITLE,
     onClose: () => setShareModalIsOpened(false),
@@ -163,10 +163,10 @@ const CommunityPostTemplate = ({
     <>
       <Layout>
         <LayoutInner>
-          <PostDetailLayout {...PostDetailLayoutProps} />
-          <PostCommentWrapper {...PostCommentWrapperProps} />
+          <PostDetailLayout {...layoutProps} />
+          <PostCommentWrapper {...commentProps} />
         </LayoutInner>
-        <PostFixedBottomWrapper {...PostFixedBottomWrapperProps} />
+        <PostFixedBottomWrapper {...fixedBottomProps} />
       </Layout>
       <CommunityReportModal
         opened={reportModalBlock}
@@ -202,7 +202,7 @@ const CommunityPostTemplate = ({
         }}
         texts={texts}
       />
-      <CommunityShareModal {...communityShareModalProps} />
+      <CommunityShareModal {...shareModalProps} />
       <CompletedShareModal {...completedShareModalProps} />
     </>
   );

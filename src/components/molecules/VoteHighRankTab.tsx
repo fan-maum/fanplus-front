@@ -1,6 +1,5 @@
 import { Stack } from '../atoms';
 import RankProfile from '../atoms/RankProfile';
-import Image from 'next/image';
 import { formatNumberWithComma } from '@/utils/util';
 import type { TranslatedVoteStatus } from '../organisms/VoteListItem';
 
@@ -23,7 +22,7 @@ const VoteHighRankTab = ({ status, stars, votes }: VoteHighRankTabProps) => {
     return (
       <Stack spacing={20} mih={65} justify="center" align="center" direct="row" m={'0 auto'}>
         <RankProfile align="end">
-          <Image width={36} height={36} src={'/icons/icon_medal1.png'} alt="icon_medal" />
+          <img src="/icons/icon_medal1.png" alt="icon_medal" css={{ width: 36, height: 36 }} />
           {stars.firstRankStarName}
         </RankProfile>
         <RankProfile maxWidth={'50%'} fontSize={18} fontWeight={700} color="#FF5656" flex={'none'}>
@@ -35,7 +34,7 @@ const VoteHighRankTab = ({ status, stars, votes }: VoteHighRankTabProps) => {
           </div>
         </RankProfile>
         <RankProfile align="start">
-          <Image width={36} height={36} src={'/icons/icon_medal2.png'} alt="icon_medal" />
+          <img src="/icons/icon_medal2.png" alt="icon_medal" css={{ width: 36, height: 36 }} />
           {stars.secondRankStarName}
         </RankProfile>
       </Stack>
@@ -48,7 +47,7 @@ const VoteHighRankTab = ({ status, stars, votes }: VoteHighRankTabProps) => {
           <div>[ {votes.voteResult} ]</div>
         </RankProfile>
         <RankProfile flexDirection="row" align="center" maxHeight="36px">
-          <Image width={36} height={36} src={'/icons/icon_medal1.png'} alt="icon_medal" />
+          <img src="/icons/icon_medal1.png" alt="icon_medal" css={{ width: 36, height: 36 }} />
           {stars.firstRankStarName}
         </RankProfile>
       </Stack>
