@@ -21,7 +21,6 @@ const handler: NextApiHandler = async (req, res) => {
     if (error instanceof AxiosError) {
       res.status(error.response?.status as number).json(error);
     }
-    // res.status(500).json('Failed to load Community-Board data');
   }
 };
 
