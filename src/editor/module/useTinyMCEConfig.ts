@@ -3,8 +3,9 @@ import { userAgentOS } from '../util/userAgentOS';
 
 import { font_family_formats, font_size_formats } from '../constant/tinyMCEFont';
 import { tinyMCEResetCSS } from '../constant/tinyMCEResetCSS';
+import { LangCookie } from '@/utils/setLangCookie';
 
-export const useTinyMCEConfig = () => {
+export const useTinyMCEConfig = (language?: LangCookie) => {
   const device = userAgentOS();
   const isMobile = ['android', 'ios'].includes(device);
   const min_height = isMobile ? 450 : 600;
@@ -16,7 +17,7 @@ export const useTinyMCEConfig = () => {
     plugins,
     min_height,
     skin: 'oxide',
-    language: 'ko_KR',
+    language: language,
     menubar: false,
     branding: false,
     promotion: false,

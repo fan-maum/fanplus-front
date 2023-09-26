@@ -19,6 +19,7 @@ import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Comm
 import { TinyMCE } from '../../../public/tinymce/tinymce';
 import { UploadedUppyFile } from '@uppy/core';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 
 type OwnPropType = {
   mode: 'CREATE' | 'EDIT';
@@ -40,6 +41,7 @@ type OwnPropType = {
 
 const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPropType) => {
   const router = useRouter();
+  const language = useUrlLanguage();
 
   const isCreateMode = mode === 'CREATE';
   const { userId, boardIndex, postIndex, boardLang, lang } = datas;
@@ -149,6 +151,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
           editorId={editorId}
           setContent={setContent}
           defaultValue={content}
+          language={language}
           fileUploadCallback={fileUploadHandler}
         />
         <div css={{ display: 'flex', justifyContent: 'flex-end' }}>
