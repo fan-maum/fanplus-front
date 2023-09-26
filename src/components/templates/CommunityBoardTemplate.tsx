@@ -98,8 +98,9 @@ const CommunityBoardTemplate = ({
         rightItem={
           <CommunityBoardLangSelector
             language={texts.boardLang[boardLang]}
-            onClick={() => setLangModal(true)}
+            onClickOpenModal={() => setLangModal(true)}
             tooltipText={texts.langSelectorToolTip}
+            boardLang={boardLang}
           />
         }
       />
