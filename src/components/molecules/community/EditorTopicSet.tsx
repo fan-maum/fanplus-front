@@ -56,10 +56,10 @@ const EditorTopicBubble = ({
         color: selected ? '#fff' : '#666',
         marginRight: '5px',
         padding: '0px 10px',
-        height: '32px',
+        height: '30px',
         borderRadius: '16px',
         cursor: 'pointer',
-        p: { fontWeight: 500, fontSize: '18px' },
+        p: { fontWeight: 500, fontSize: '15px' },
         svg: { marginRight: '5px' },
       }}
       onClick={onClick}

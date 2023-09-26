@@ -133,7 +133,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
             iconCss={{ marginRight: '5px', width: '30px', height: '30px', cursor: 'pointer' }}
             onClickBack={() => setCancelModal(true)}
           />
-          <h2 css={{ lineHeight: '30px' }}>{texts.pageTitle}</h2>
+          <h2 css={{ lineHeight: '30px', fontSize: '22px' }}>{texts.pageTitle}</h2>
         </div>
         <StyledBar>
           <h2>{texts.topic}</h2>
@@ -197,7 +197,7 @@ const StyledBar = ({ children }: { children: ReactNode }) => {
         alignItems: 'center',
         margin: '8px 4px',
         height: '40px',
-        h2: { marginRight: '30px', fontWeight: '600' },
+        h2: { marginRight: '30px', fontWeight: '600', fontSize: '18px' },
       }}
     >
       {children}
@@ -246,14 +246,15 @@ const Button = ({
   return (
     <button
       css={{
-        padding: '7px 21px',
-        fontSize: '16px',
+        padding: '6px 21px',
+        fontSize: '15px',
         fontWeight: '500',
         margin: '10px 5px 60px',
         borderRadius: '7px',
         border: fancy ? 'transparent' : '1.5px solid #e6e6e6',
         backgroundColor: fancy ? '#ff5656' : '#fff',
         color: fancy ? '#fff' : '#101010',
+        cursor: 'pointer',
         ':active': { backgroundColor: fancy ? '#e64d4d' : '#f2f4f5' },
       }}
       onClick={onClick}
