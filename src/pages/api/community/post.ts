@@ -1,5 +1,5 @@
 import { NextApiHandler } from 'next';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import type { PostResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
