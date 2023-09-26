@@ -4,8 +4,7 @@ import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
 import { BackLangType, BoardLangType } from '@/types/common';
 import { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
-import { AxiosError } from 'axios';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
@@ -38,7 +37,9 @@ const Write = ({ boardTopics, communityPostData, datas }: CommunityPostWriteProp
   );
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps<CommunityPostWritePropType> = async (
+  context
+) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'];
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
@@ -50,20 +51,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : lang;
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, lang);
-  let communityPostData;
-  try {
-    communityPostData = await getCommunityPostData(postIndex, userId);
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      if (error.response?.status === 406) {
-        return {
-          redirect: {
-            destination: '/',
-          },
-        };
-      }
-    }
-  }
+  const communityPostData = await getCommunityPostData(postIndex, userId);
   const datas = { userId, boardIndex, postIndex, boardLang, lang };
   return {
     props: { boardTopics, communityPostData, datas },
