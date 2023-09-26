@@ -7,18 +7,24 @@ const handler: NextApiHandler = async (req, res) => {
     req.body;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
+  const baseBodyData = {
+    identity: userId,
+    lang: boardLang,
+    app_lang: lang,
+    topic_idx: topicIndex,
+    title,
+    contents,
+  };
+
+  const isAttatchments = attachmentIds.length !== 0;
+  const finalBodyData = isAttatchments
+    ? { ...baseBodyData, attachment_ids: attachmentIds.toString() }
+    : baseBodyData;
+
   try {
     const response: AxiosResponse<PostBoardArticleResponseType> = await axios.post(
       `https://napi.appphotocard.com/voteWeb/boards/${boardIndex}/posts/0`,
-      {
-        identity: userId,
-        lang: boardLang,
-        app_lang: lang,
-        topic_idx: topicIndex,
-        title,
-        contents,
-        attachment_ids: attachmentIds.toString(),
-      },
+      finalBodyData,
       {
         headers: {
           Origin: origin,
@@ -29,7 +35,7 @@ const handler: NextApiHandler = async (req, res) => {
     );
     res.status(200).json(response.data);
   } catch (error) {
-    res.status(500).json('Failed to initiate board article posting');
+    res.status(500).json('Failed to post board article');
   }
 };
 

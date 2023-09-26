@@ -13,6 +13,7 @@ import Layout from '@/components/organisms/Layout';
 import { BoardLangType } from '@/types/common';
 
 const Board = ({
+  userId,
   boardLangCookie,
   communityBoardData,
   communityBoardTopics,
@@ -21,6 +22,7 @@ const Board = ({
   return (
     <Layout navBarTexts={NavBarText_zh_TW} footerTexts={FooterText_zh_TW}>
       <CommunityBoardTemplate
+        userId={userId}
         boardLangCookie={boardLangCookie}
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
@@ -60,6 +62,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
 
   return {
     props: {
+      userId,
       boardLangCookie,
       communityBoardData,
       communityBoardTopics,

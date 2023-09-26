@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Stack } from '../atoms/Stack';
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';

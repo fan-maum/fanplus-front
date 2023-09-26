@@ -1,5 +1,4 @@
 import { FooterTextType } from '@/types/textTypes';
-import Image from 'next/image';
 
 const Footer = ({ texts }: { texts: FooterTextType }) => {
   return (
@@ -93,18 +92,21 @@ const Footer = ({ texts }: { texts: FooterTextType }) => {
             href="https://play.google.com/store/apps/details?id=com.photocard.allstar"
             target="_blank"
           >
-            <Image
+            <img
               src="/images/google_play_badge.png"
               alt="google-play-link"
-              width={142}
-              height={48}
+              css={{ width: 142, height: 48 }}
             />
           </a>
           <a
             href="https://apps.apple.com/kr/app/%ED%8C%AC%ED%94%8C%EB%9F%AC%EC%8A%A4/id1448805815"
             target="_blank"
           >
-            <Image src="/images/app_store_badge.png" alt="app-store-link" width={142} height={48} />
+            <img
+              src="/images/app_store_badge.png"
+              alt="app-store-link"
+              css={{ width: 142, height: 48 }}
+            />
           </a>
         </div>
       </div>

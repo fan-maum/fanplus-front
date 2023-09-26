@@ -1,5 +1,4 @@
 import { UnstyledButton, UnstyledButtonProps } from '@/components/atoms';
-import Image from 'next/image';
 
 export interface LikesButtonProps extends UnstyledButtonProps {
   gap?: number;
@@ -23,7 +22,7 @@ export default function CommentCountButton({ text, gap, padding, ...props }: Lik
         }}
         {...props}
       >
-        <Image src={'/icons/icon_comment.svg'} width={26} height={26} alt="comment" />
+        <img src="/icons/icon_comment.svg" alt="comment" css={{ width: 26, height: 26 }} />
         <div
           css={{
             textAlign: 'center',
