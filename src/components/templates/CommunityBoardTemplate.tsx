@@ -82,7 +82,14 @@ const CommunityBoardTemplate = ({
     setViewType('all');
     router.replace({ pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } });
   };
-  const onClickMyPost = () => router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
+  const onClickMyPost = () => {
+    if (!userId) {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+      return;
+    }
+    router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
+  };
 
   return (
     <div
