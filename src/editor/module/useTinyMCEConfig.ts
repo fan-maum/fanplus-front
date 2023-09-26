@@ -31,7 +31,6 @@ export const useTinyMCEConfig = (language: LangCookie) => {
       toolbar: mobileToolbar,
       toolbar_sticky: false,
       toolbar_location: 'top',
-      toolbar_mode: 'wrap',
       content_style: `
         html {
           max-height: 67vh;

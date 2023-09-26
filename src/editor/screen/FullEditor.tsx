@@ -77,6 +77,9 @@ const FullEditor: React.FC<TProps> = ({
               '.tox-toolbar': {
                 borderBottom: '1px solid #d9d9d9',
                 padding: '2px 0px !important',
+                '::-webkit-scrollbar': { display: 'none' },
+                msOverflowStyle: 'none',
+                scrollbarWidth: 'none',
               },
             }}
             className="editor-wrap"
