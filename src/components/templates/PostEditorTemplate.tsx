@@ -247,10 +247,10 @@ const Button = ({
     <button
       css={{
         padding: '6px 21px',
-        fontSize: '15px',
+        fontSize: '16px',
         fontWeight: '500',
         margin: '10px 5px 60px',
-        borderRadius: '7px',
+        borderRadius: '6px',
         border: fancy ? 'transparent' : '1.5px solid #e6e6e6',
         backgroundColor: fancy ? '#ff5656' : '#fff',
         color: fancy ? '#fff' : '#101010',
