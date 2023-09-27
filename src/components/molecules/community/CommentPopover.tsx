@@ -10,6 +10,7 @@ import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
+import IconVerticalMore from '@/components/atoms/IconVerticalMore';
 
 type CommentPopoverProps = {
   identity: string;
@@ -79,7 +80,7 @@ export default function CommentPopover({
             background: 'none',
           }}
         >
-          <IconHorizontalMore />
+          <IconVerticalMore />
         </button>
       </Popover.Target>
       <Popover.Dropdown>

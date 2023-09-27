@@ -31,10 +31,10 @@ const CommunityPostInfoState = ({
         />
       </div>
       <Stack fw={600} fz={17}>
-        <h4 css={{ color: '#000', fontSize: 18, fontWeight: 600 }}>{postInfo.WRITER_NAME}</h4>
+        <h4 css={{ color: '#000', fontSize: 16, fontWeight: 600 }}>{postInfo.WRITER_NAME}</h4>
         <div
           css={{
-            fontSize: 16,
+            fontSize: 14,
             color: '#999',
             fontWeight: 400,
             paddingTop: 4,
@@ -42,7 +42,7 @@ const CommunityPostInfoState = ({
         >
           {getTimeDate}
         </div>
-        <Group spacing={10} fw={500} fz={16} mt={4} css={{ color: '#999' }}>
+        <Group spacing={10} fw={500} fz={14} mt={4} css={{ color: '#999' }}>
           <div>
             {texts.viewCount} {postInfo.VIEW_CNT}
           </div>
