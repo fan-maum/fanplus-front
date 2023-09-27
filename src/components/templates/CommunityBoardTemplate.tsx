@@ -304,7 +304,7 @@ const BottomTabBarItem = ({ icon, title, onClick }: BottomTabBarItemPropType) =>
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '90px',
+        width: '120px',
         margin: '3px 0px',
         textAlign: 'center',
         cursor: 'pointer',
