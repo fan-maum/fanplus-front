@@ -64,7 +64,7 @@ const CommunityPostTopNavi = ({
             iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
             onClickBack={() => router.back()}
           />
-          <h2 css={{ fontSize: 28, fontWeight: 600, color: ' #000' }}>{texts.post}</h2>
+          <h2 css={{ fontSize: 22, fontWeight: 600, color: ' #000' }}>{texts.post}</h2>
         </div>
         <div
           css={{

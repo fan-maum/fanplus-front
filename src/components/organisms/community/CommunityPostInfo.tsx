@@ -25,6 +25,9 @@ const CommunityPostInfo = ({ postInfo, texts, postLikeState }: CommunityPostInfo
           color: '#000',
           fontSize: 24,
           fontWeight: 600,
+          '@media(max-width: 768px)': {
+            fontSize: 22,
+          },
         }}
       >
         {postInfo.POST_TITLE}
