@@ -76,7 +76,7 @@ const TabContainer = styled.div`
   width: 100%;
   height: 60px;
   .swiper {
-    width: 90%;
+    width: 100%;
     height: 100%;
   }
   .swiper-wrapper {
@@ -85,10 +85,9 @@ const TabContainer = styled.div`
     background: #fff;
   }
   .swiper-slide {
-    width: 80%;
+    width: max-content;
     cursor: pointer;
-    max-width: 100px;
-    padding: 14px 0;
+    padding: 14px;
     & > span {
       flex-shrink: 0;
       width: auto;
@@ -120,12 +119,6 @@ const TabContainer = styled.div`
     cursor: pointer;
   }
   @media (min-width: 768px) {
-    .swiper {
-      width: 100%;
-    }
-    .swiper-slide {
-      width: 100%;
-    }
     .prev {
       display: none;
     }
