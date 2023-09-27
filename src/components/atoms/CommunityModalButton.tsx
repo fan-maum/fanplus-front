@@ -19,6 +19,7 @@ export function CommunityModalButton({ buttonId, variant = 'secondary', ...props
         padding: '19px 6%',
         background: '#fff',
         ...TYPE_VARIANTS[variant],
+        ':active': { backgroundColor: '#f1f1f1' },
       }}
       {...props}
     />
