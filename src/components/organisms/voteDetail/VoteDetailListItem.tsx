@@ -6,13 +6,14 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { Cookies } from 'react-cookie';
+import { CommunityButton } from '@/components/atoms/CommunityButton';
 
 const cookies = new Cookies();
 
 export interface PromotionRankListItemProps {
   starData: VoteDetailStars;
   starState: React.ReactNode;
-  clickEvent: { shareOnClick: () => void; voteOnClick: () => void };
+  clickEvent: { communityOnClick: () => void; shareOnClick: () => void; voteOnClick: () => void };
   targetRef?: React.RefObject<HTMLDivElement>;
 }
 
@@ -32,6 +33,9 @@ function VoteDetailListItem({
         {starState}
         <Group spacing={8} position="right">
           <ShareButton onClick={clickEvent.shareOnClick} />
+          <CommunityButton onClick={clickEvent.communityOnClick}>
+            {voteDetailLanguage?.board}
+          </CommunityButton>
           <VoteButton onClick={clickEvent.voteOnClick}>{voteDetailLanguage?.voting}</VoteButton>
         </Group>
       </Stack>
