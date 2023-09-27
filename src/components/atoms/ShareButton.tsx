@@ -15,7 +15,7 @@ function ShareButton({ ...props }: Props) {
       <img
         src="/icons/icon_share.svg"
         alt="icon_share"
-        css={{ padding: 8, verticalAlign: 'middle' }}
+        css={{ padding: 6, verticalAlign: 'middle' }}
       />
     </UnstyledButton>
   );
