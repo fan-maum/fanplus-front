@@ -4,7 +4,7 @@ import { Center } from '@/components/atoms/Center';
 import { isMobile } from 'react-device-detect';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useCopiedText } from '@/hooks/useCopyText';
 import { useEndText, useMiddleText, useTitleText } from '@/store/shareContent';
@@ -18,7 +18,7 @@ export interface VoteDetailHeaderProps {
 
 function VoteDetailHeader({ voteTitle, confirmModalOpened, ...props }: VoteDetailHeaderProps) {
   const router = useRouter();
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const canShare = isMobile && navigator.share;
   const titleText = useTitleText(voteTitle, null);

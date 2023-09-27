@@ -6,6 +6,10 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
+  CommunityBoardTextType,
+  CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
@@ -263,4 +267,139 @@ export const VoteModalButton_Text_en = {
   voteModalCancel: 'Cancel',
   voteModalComplete: 'Done',
   voteModalInstall: 'Install the app',
+};
+
+export const CommunityMainText_ENG: CommunityPageTextType = {
+  community: 'Community',
+  home: 'Home',
+  search: 'Search',
+  recentlyBoards: 'Recently Visited Board',
+  recommendedBoards: 'Recommended for you',
+  noRecentBoardTexts: ['Are you new to FanPlus?', 'Search for your favorite star!'],
+  buttonSearch: 'Search',
+  allCategory: 'All',
+  searchPlaceholder: 'Search for a board you may like.',
+  link: {
+    board: '/en/community/board',
+  },
+};
+export const CommunityBoardText_ENG: CommunityBoardTextType = {
+  all: 'All',
+  recommendCount: 'Like',
+  viewCount: 'View',
+  popular: 'Popular',
+  daysAgo: 'days ago',
+  hoursAgo: 'hours ago',
+  minsAgo: 'mins ago',
+  bottomTabBar: {
+    write: 'Write',
+    popular: 'Trending',
+    myPost: 'My Posts',
+  },
+  boardLang: {
+    modalHeader: 'Posts Language Settings',
+    modalExplain: 'You can only see the post written in the selected language.',
+    current: 'The current language',
+    ALL: 'All languages',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
+  noPostTexts: ['There is no post.', 'Write a first post.'],
+  noMyPostTexts: ['There is no post.'],
+  buttonWrite: 'Write',
+  link: {
+    board: '/en/community/board',
+  },
+  permissionModal: {
+    noPermission: 'You do not have permission to post.',
+    check: 'Check',
+  },
+  langSelectorToolTip: 'Please select a language',
+};
+
+export const CommunityPostText_ENG: CommunityPostTextType = {
+  popular: 'Popular',
+  post: 'Post',
+  viewCount: 'View',
+  recommendCount: 'Like',
+  recommend: 'Like',
+  edit: 'Edit',
+  delete: 'Delete',
+  report: 'Report',
+  cancelButton: 'Cancel',
+  confirmButton: 'Check',
+  reportButton: 'Report',
+  commentRegisterPlaceholder: 'Leave a comment (max. 200 characters)',
+  replyRegisterPlaceholder: 'Add a comment (max. 200 characters)',
+  askPostDelete: 'Do you want to delete your post?',
+  askPostDeleteMsg: 'If you delete your post, then your post and comments will also be deleted',
+  askCommentDelete: 'Do you want to delete your comment?',
+  postDeleted: 'You’ve deleted your post.',
+  commentDeleted: 'Comment deleted',
+  reported: 'The issue has been successfully reported.',
+  reply: 'replies',
+  writeReply: 'leave a reply',
+  register: 'Upload',
+  orderOldest: 'Earliest',
+  orderNewest: 'Recent',
+  showMoreComments: 'More comments',
+  deleted: 'This comment has been deleted',
+  alreadyDeleted: 'The comment has been deleted.',
+  alreadyReportedPost: "You've already reported post",
+  alreadyReportedComment: "You've already reported comment",
+  reportReason: 'Select the reason.',
+  reportPostOptions: {
+    option1: 'Privacy violation',
+    option2: 'Insult/Personal abuse',
+    option3: 'Pornography/Sexual activity',
+    option4: 'Illegal information',
+    option5: 'An infringement report',
+    option6: 'Other',
+  },
+  reportCommentOptions: {
+    option1: 'Spam',
+    option2: 'Insulting or inappropriate contents',
+  },
+  reportWarning: [
+    'Reported content will be processed according to the operating policy and terms of use.',
+    "If it is a false report, the reporter's use of FanPlus service may be restricted.",
+  ],
+  daysAgo: 'days ago',
+  hoursAgo: 'hours ago',
+  minsAgo: 'mins ago',
+};
+
+export const postCommentTotalCount_ENG = (totalCount: number) => {
+  let result = `${totalCount} comment(s)`;
+  return result;
+};
+
+export const CommunityPostEditorText_ENG: CommunityPostEditorTextType = {
+  pageTitle: 'Write',
+  topic: 'Topic',
+  title: 'Title',
+  content: 'Contents',
+  cancel: 'Cancel',
+  upload: 'Upload',
+  edit: 'Edit',
+  titlePlaceholder: 'Please enter the title',
+
+  modal: {
+    upload: 'Do you want to upload a post?',
+    cancelUpload: 'Do you want to leave writing a post?',
+    cancelUploadSub: 'Your post will be deleted when you leave writing it',
+    edit: 'Do you want to edit your post?',
+    cancelEdit: 'Do you want to cancel editing your post?',
+    enterTitle: 'Please enter the title',
+    enterContent: 'Please enter text',
+
+    cancel: 'Cancel',
+    check: 'Check',
+  },
 };

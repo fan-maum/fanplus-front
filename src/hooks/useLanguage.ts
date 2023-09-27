@@ -1,9 +1,11 @@
+import { BackLangType } from '@/types/common';
+import { LangCookie } from '@/utils/setLangCookie';
 import { useRouter } from 'next/router';
 
-export function GetLanguage() {
+export function useUrlLanguage() {
   const router = useRouter();
   const language = router.route.split('/')[1];
-  return language;
+  return language as LangCookie;
 }
 
 export function GetRouterLanguage() {
@@ -29,4 +31,18 @@ export function getVoteDetailLanguage() {
   if (language === 'es') return 'en';
   if (language === 'zh-TW') return 'en';
   return 'en';
+}
+
+export function translateFrontLangToBackLang(lang: LangCookie) {
+  const translator = {
+    ko: 'ko',
+    en: 'en',
+    ja: 'ja',
+    vi: 'vi',
+    es: 'es',
+    in: 'id',
+    'zh-CN': 'zh',
+    'zh-TW': 'zhtw',
+  };
+  return translator[lang] as BackLangType;
 }

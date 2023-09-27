@@ -6,12 +6,16 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
+  CommunityBoardTextType,
+  CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_IND: NavBarTextType = {
-  vote: 'Pemungutan suara',
-  community: 'Community',
+  vote: 'Vote',
+  community: 'Komunitas',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +267,144 @@ export const VoteModalButton_Text_in = {
   voteModalCancel: 'Batal',
   voteModalComplete: 'Selesai',
   voteModalInstall: 'Pasang aplikasi',
+};
+
+export const CommunityMainText_IND: CommunityPageTextType = {
+  community: 'Komunitas',
+  home: 'Beranda',
+  search: 'Cari',
+  recentlyBoards: 'Papan Baru-Baru Ini Dikunjungi',
+  recommendedBoards: 'Disarankan untuk Anda',
+  noRecentBoardTexts: [
+    'Apakah ini pertama kalinya',
+    'Anda menggunakan Fan Plus?',
+    'Cari bintang favoritmu!',
+  ],
+  buttonSearch: 'Cari',
+  allCategory: 'Semua',
+  searchPlaceholder: 'Cari papan yang mungkin Anda sukai.',
+  link: {
+    board: '/in/community/board',
+  },
+};
+export const CommunityBoardText_IND: CommunityBoardTextType = {
+  all: 'Semua',
+  recommendCount: 'Seperti',
+  viewCount: 'Lihat',
+  popular: 'Populer',
+  daysAgo: 'hari sebelumnya',
+  hoursAgo: 'jam sebelumnya',
+  minsAgo: 'menit sebelumnya',
+  bottomTabBar: {
+    write: 'Tulis',
+    popular: 'Populer',
+    myPost: 'Cerita Saya',
+  },
+  boardLang: {
+    modalHeader: 'Posts Pengaturan Bahasa',
+    modalExplain: 'Anda dapat melihat teks yang ditulis dalam bahasa yang dipilih',
+    current: 'Filter bahasa yang kini dipakai',
+    ALL: 'Semua bahasa',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
+  noPostTexts: ['Tidak ada postingan', 'Jadilah orang pertama', 'yang meninggalkan postingan'],
+  noMyPostTexts: ['Tidak ada postingan yang ditulis'],
+  buttonWrite: 'Tulis',
+  link: {
+    board: '/in/community/board',
+  },
+  permissionModal: {
+    noPermission: 'Anda tidak memiliki izin untuk memposting.',
+    check: 'Memeriksa',
+  },
+  langSelectorToolTip: 'Silakan pilih bahasa',
+};
+
+export const CommunityPostText_IND: CommunityPostTextType = {
+  popular: 'Popular',
+  post: 'Post',
+  viewCount: 'Lihat',
+  recommendCount: 'Seperti',
+  recommend: 'Seperti',
+  edit: 'Edit',
+  delete: 'Hapus',
+  report: 'Laporkan',
+  cancelButton: 'Batal',
+  confirmButton: 'Memeriksa',
+  reportButton: 'Laporkan',
+  commentRegisterPlaceholder: 'Tinggalkan komentar (maksimal 200 karakter)',
+  replyRegisterPlaceholder: 'Tulis komentar (maksimal 200 karakter)',
+  askPostDelete: 'Apakah Anda ingin menghapus cerita Anda?',
+  askPostDeleteMsg:
+    'Jika Anda menghapus cerita Anda, maka cerita dan komentar Anda juga akan dihapus',
+  askCommentDelete: 'Anda mau menghapus komentar?',
+  postDeleted: 'Anda telah menghapus kisah Anda',
+  commentDeleted: 'Komentar sudah dihapus.',
+  reported: 'Masalah ini telah berhasil dilaporkan.',
+  reply: 'balasan',
+  writeReply: 'Menulis balasan',
+  register: 'Unggah',
+  orderOldest: 'Paling awal',
+  orderNewest: 'Baru',
+  showMoreComments: 'lebih banyak komentar',
+  deleted: 'Komentar telah dihapus.',
+  alreadyDeleted: 'Komentar sudah dihapus',
+  alreadyReportedPost: 'Anda sudah melaporkan pos',
+  alreadyReportedComment: 'Anda sudah melaporkan komentar',
+  reportReason: 'Pilih alasannya.',
+  reportPostOptions: {
+    option1: 'Pengungkapan informasi pribadi',
+    option2: 'Penghinaan / penyalahgunaan Pribadi',
+    option3: 'Pornografi / Sensasi seksual',
+    option4: 'Informasi ilegal',
+    option5: 'Laporan pelanggaran',
+    option6: 'Lainnya',
+  },
+  reportCommentOptions: {
+    option1: 'Spam',
+    option2: 'Konten yang menghina atau tidak pantas',
+  },
+  reportWarning: [
+    'Konten yang dilaporkan akan diproses sesuai dengan kebijakan pengoperasian dan persyaratan penggunaan. Jika ini adalah laporan palsu,',
+    'penggunaan layanan FanPlus oleh pelapor dapat dibatasi.',
+  ],
+  daysAgo: 'hari sebelumnya',
+  hoursAgo: 'jam sebelumnya',
+  minsAgo: 'menit sebelumnya',
+};
+
+export const postCommentTotalCount_IND = (totalCount: number) => {
+  let result = `${totalCount} komentar`;
+  return result;
+};
+
+export const CommunityPostEditorText_IND: CommunityPostEditorTextType = {
+  pageTitle: 'Tulis',
+  topic: 'Topik',
+  title: 'Judul',
+  content: 'Konten',
+  cancel: 'Batal',
+  upload: 'Unggah',
+  edit: 'Edit',
+  titlePlaceholder: 'Silakan masukkan judul',
+
+  modal: {
+    upload: 'Apakah Anda ingin mengunggah sebuah cerita?',
+    cancelUpload: 'Apakah Anda ingin berhenti menulis cerita?',
+    cancelUploadSub: 'Cerita Anda akan dihapus ketika Anda meninggalkan menulisnya',
+    edit: 'Apakah Anda ingin mengedit cerita Anda?',
+    cancelEdit: 'Apakah Anda ingin membatalkan mengedit cerita Anda?',
+    enterTitle: 'Silakan masukkan judul',
+    enterContent: 'masukkan garis',
+
+    cancel: 'Batal',
+    check: 'Memeriksa',
+  },
 };

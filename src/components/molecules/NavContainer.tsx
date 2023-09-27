@@ -2,7 +2,13 @@ import NavBox from '../atoms/NavBox';
 import LanguageBox from '../molecules/LanguageBox';
 import { NavBarTextType } from '@/types/textTypes';
 
-const NavContainer = ({ texts, isVotePage }: { texts: NavBarTextType; isVotePage: boolean }) => {
+const NavContainer = ({
+  texts,
+  isVoteCommunityPage,
+}: {
+  texts: NavBarTextType;
+  isVoteCommunityPage: boolean;
+}) => {
   return (
     <div
       css={{
@@ -13,11 +19,11 @@ const NavContainer = ({ texts, isVotePage }: { texts: NavBarTextType; isVotePage
         flexShrink: '1',
       }}
     >
-      <ul css={{ padding: '10px', '@media(max-width:991px)': { padding: '5px' } }}>
+      <ul css={{ padding: '10px', '@media(max-width:768px)': { padding: '2px' } }}>
         <NavBox title={texts.vote} link={texts.link.vote} />
-        {/* <PageBox title={texts.community} link={texts.link.community} /> */}
+        <NavBox title={texts.community} link={texts.link.community} />
       </ul>
-      {isVotePage ? (
+      {isVoteCommunityPage ? (
         <ul
           css={{
             padding: '10px',
@@ -26,7 +32,7 @@ const NavContainer = ({ texts, isVotePage }: { texts: NavBarTextType; isVotePage
             '@media(max-width:991px)': { padding: '5px' },
           }}
         >
-          <LanguageBox language={texts.language} isVotePage={true} />
+          <LanguageBox language={texts.language} isVoteCommunityPage={true} />
         </ul>
       ) : (
         <ul
@@ -47,7 +53,7 @@ const NavContainer = ({ texts, isVotePage }: { texts: NavBarTextType; isVotePage
           )}
           <NavBox title={texts.business} link={texts.link.business} isSide />
           <NavBox title="FAQ" link={texts.link.faq} isSide />
-          <LanguageBox language={texts.language} isVotePage={false} />
+          <LanguageBox language={texts.language} isVoteCommunityPage={false} />
         </ul>
       )}
     </div>

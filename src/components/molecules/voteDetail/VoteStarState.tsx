@@ -1,9 +1,8 @@
 import { Group, Stack, Avatar } from '@/components/atoms';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { VoteDetailStars } from '@/types/vote';
 import { formatNumberWithComma } from '@/utils/util';
-import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 
 export interface VoteStarStateProps {
@@ -20,16 +19,15 @@ function VoteStarState({ starData, ...props }: VoteStarStateProps) {
   const rank = Number(starData.RANK);
   const Top3 = rank < 4;
   const imageURl = `/icons/icon_medalTop${rank}.png`;
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   return (
     <Group spacing={16} align={'center'} style={{ flexWrap: 'nowrap' }}>
       {Top3 ? (
-        <Image
-          width={50}
-          height={50}
+        <img
           src={`/icons/icon_medal${starData.RANK}.png`}
           alt="icon_medal"
+          css={{ width: 50, height: 50 }}
         />
       ) : (
         <div css={{ width: 50, textAlign: 'center', fontWeight: 600, fontSize: 22, color: '#666' }}>
@@ -41,7 +39,7 @@ function VoteStarState({ starData, ...props }: VoteStarStateProps) {
           <span
             css={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)' }}
           >
-            <Image src={imageURl} width={16} height={10} alt={'medalTop'} />
+            <img src={imageURl} alt="medalTop" css={{ width: 16, height: 10 }} />
           </span>
         ) : (
           <></>

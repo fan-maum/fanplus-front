@@ -13,7 +13,7 @@ import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
 import { VoteDetailResponse, VoteDetailStars, VoteMutateParam } from '@/types/vote';
-import { GetLanguage, getVoteDetailLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage, getVoteDetailLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { useEffect, useState } from 'react';
@@ -22,11 +22,11 @@ import VoteDetailShareModal, {
 } from '@/components/modals/VoteDetailShareModal';
 import { useRouter } from 'next/router';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
-import VoteProcessModal, { VoteProcessModalProps } from '../modals/VoteProcessModal';
+import VoteProcessModal from '../modals/VoteProcessModal';
 import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
 import { useMutation } from 'react-query';
-import { getVoteDetail, postVotes } from '@/api/Vote';
+import { postVotes } from '@/api/Vote';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -58,7 +58,7 @@ const VoteDetailLayout = ({
 }: VotesLayoutProps) => {
   const endDay = new Date(propsVoteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteLanguage = getVoteDetailLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);

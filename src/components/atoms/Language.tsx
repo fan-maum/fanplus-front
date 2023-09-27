@@ -1,5 +1,4 @@
 import { LangCookie, setLangCookie } from '@/utils/setLangCookie';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 type PropType = {
@@ -51,7 +50,7 @@ const Language = ({ language, langCookie }: PropType) => {
         }}
         onClick={() => {
           setLangCookie(langCookie);
-          router.push(href);
+          router.replace(href);
         }}
       >
         {language}

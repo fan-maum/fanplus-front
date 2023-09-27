@@ -160,6 +160,132 @@ export type SignUpPageTextType = {
   agree3Link: string;
   agree4Link: string;
 };
+export type CommunityPageTextType = {
+  community: string;
+  home: string;
+  search: string;
+  recentlyBoards: string;
+  recommendedBoards: string;
+  noRecentBoardTexts: string[];
+  buttonSearch: string;
+  allCategory: string;
+  searchPlaceholder: string;
+  link: {
+    board: string;
+  };
+};
+export type CommunityBoardTextType = {
+  all: string;
+  viewCount: string;
+  recommendCount: string;
+  popular: string;
+  daysAgo: string;
+  hoursAgo: string;
+  minsAgo: string;
+  bottomTabBar: {
+    write: string;
+    popular: string;
+    myPost: string;
+  };
+  boardLang: {
+    modalHeader: string;
+    modalExplain: string;
+    current: string;
+    ALL: string;
+    ko: string;
+    en: string;
+    ja: string;
+    zh: string;
+    es: string;
+    vi: string;
+    id: string;
+    zhtw: string;
+  };
+  noPostTexts: string[];
+  noMyPostTexts: string[];
+  buttonWrite: string;
+  link: {
+    board: string;
+  };
+  permissionModal: {
+    noPermission: string;
+    check: string;
+  };
+  langSelectorToolTip: string;
+};
+
+export type CommunityPostTextType = {
+  popular: string;
+  post: string;
+  viewCount: string;
+  recommendCount: string;
+  recommend: string;
+  edit: string;
+  delete: string;
+  report: string;
+  cancelButton: string;
+  confirmButton: string;
+  reportButton: string;
+  commentRegisterPlaceholder: string;
+  replyRegisterPlaceholder: string;
+  askPostDelete: string;
+  askPostDeleteMsg: string;
+  askCommentDelete: string;
+  postDeleted: string;
+  commentDeleted: string;
+  reported: string;
+  reply: string;
+  writeReply: string;
+  register: string;
+  orderOldest: string;
+  orderNewest: string;
+  showMoreComments: string;
+  deleted: string;
+  alreadyDeleted: string;
+  alreadyReportedPost: string;
+  alreadyReportedComment: string;
+  reportReason: string;
+  reportPostOptions: {
+    option1: string;
+    option2: string;
+    option3: string;
+    option4: string;
+    option5: string;
+    option6: string;
+  };
+  reportCommentOptions: {
+    option1: string;
+    option2: string;
+  };
+  reportWarning: [string, string];
+  daysAgo: string;
+  hoursAgo: string;
+  minsAgo: string;
+};
+
+export type CommunityPostEditorTextType = {
+  pageTitle: string;
+  topic: string;
+  title: string;
+  content: string;
+  cancel: string;
+  upload: string;
+  edit: string;
+  titlePlaceholder: string;
+
+  modal: {
+    upload: string;
+    cancelUpload: string;
+    cancelUploadSub: string;
+    edit: string;
+    cancelEdit: string;
+    enterTitle: string;
+    enterContent: string;
+
+    cancel: string;
+    check: string;
+  };
+};
 
 export type TextType = {
   NavBar: NavBarTextType;

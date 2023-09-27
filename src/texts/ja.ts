@@ -6,12 +6,16 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
+  CommunityBoardTextType,
+  CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_JAP: NavBarTextType = {
   vote: '投票',
-  community: 'Community',
+  community: 'コミュニティ',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +267,139 @@ export const VoteModalButton_Text_ja = {
   voteModalCancel: 'キャンセル',
   voteModalComplete: '完了',
   voteModalInstall: 'アプリをインストールする',
+};
+
+export const CommunityMainText_JAP: CommunityPageTextType = {
+  community: 'コミュニティ',
+  home: '掲示板ホーム',
+  search: '掲示板検索',
+  recentlyBoards: '最近訪れた掲示板',
+  recommendedBoards: 'おすすめ掲示板',
+  noRecentBoardTexts: ['ファンプラスを利用するのは初めてですか?', 'お気に入りのスターを探せ！'],
+  buttonSearch: '検索',
+  allCategory: '全',
+  searchPlaceholder: '希望の掲示板を見つけてください。',
+  link: {
+    board: '/ja/community/board',
+  },
+};
+export const CommunityBoardText_JAP: CommunityBoardTextType = {
+  all: '全',
+  recommendCount: 'おすすめ',
+  viewCount: 'ヒット',
+  popular: '人気',
+  daysAgo: '日 前',
+  hoursAgo: '時間 前',
+  minsAgo: '分 前',
+  bottomTabBar: {
+    write: '書き込み',
+    popular: '人気',
+    myPost: '私が書いた記事',
+  },
+  boardLang: {
+    modalHeader: '話 設定言語',
+    modalExplain: '選択した言語で書かれたテキストを見ることができます!',
+    current: 'すべての言語',
+    ALL: 'すべての言語',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
+  noPostTexts: ['投稿はありません', '最初に投稿を残してください'],
+  noMyPostTexts: ['書かれた投稿はありません'],
+  buttonWrite: '書き込み',
+  link: {
+    board: '/ja/community/board',
+  },
+  permissionModal: {
+    noPermission: '投稿する許可がありません。',
+    check: '確認',
+  },
+  langSelectorToolTip: '言語を選択してください',
+};
+
+export const CommunityPostText_JAP: CommunityPostTextType = {
+  popular: '人気',
+  post: '文',
+  viewCount: 'ヒット',
+  recommendCount: 'おすすめ',
+  recommend: 'おすすめ',
+  edit: '修正',
+  delete: '削除',
+  report: '申告する',
+  cancelButton: 'キャンセル',
+  confirmButton: '確認',
+  reportButton: '申告する',
+  commentRegisterPlaceholder: 'コメントを残す（最大200文字)',
+  replyRegisterPlaceholder: 'コメントを入力してください。（最大200文字)',
+  askPostDelete: '文を削除しますか？',
+  askPostDeleteMsg: '文削除時の内容とコメントがすべて削除されます。',
+  askCommentDelete: 'コメントを削除しますか？',
+  postDeleted: '文が削除されました。',
+  commentDeleted: 'コメントが削除されました。',
+  reported: '問題が正常に報告されています。',
+  reply: '返信',
+  writeReply: '返事を書く',
+  register: '登録',
+  orderOldest: '最も早い',
+  orderNewest: '最近',
+  showMoreComments: 'コメントをもっと読む',
+  deleted: '削除されたコメントです。',
+  alreadyDeleted: '既に削除されたコメントです。',
+  alreadyReportedPost: '既に申告したスレッドです。',
+  alreadyReportedComment: 'コメントを報告しました。',
+  reportReason: '理由を選択してください。',
+  reportPostOptions: {
+    option1: '個人情報の露出',
+    option2: '悪口/人身攻撃',
+    option3: 'エッチ/扇情性',
+    option4: '不法情報',
+    option5: '権利侵害申告',
+    option6: 'その他',
+  },
+  reportCommentOptions: {
+    option1: 'スパム',
+    option2: '悪口または悪意のあるコンテンツ',
+  },
+  reportWarning: [
+    '報告されたコンテンツは、運用ポリシーと利用規約に従って処理されます。虚偽の報告である場合、',
+    'If it is a false report, 記者によるFanPlusサービスの使用が制限される場合があります。',
+  ],
+  daysAgo: '日 前',
+  hoursAgo: '時間 前',
+  minsAgo: '分 前',
+};
+
+export const postCommentTotalCount_JAP = (totalCount: number) => {
+  let result = `${totalCount} コメント`;
+  return result;
+};
+
+export const CommunityPostEditorText_JAP: CommunityPostEditorTextType = {
+  pageTitle: '書き込み',
+  topic: 'トピック',
+  title: 'タイトル',
+  content: '内容',
+  cancel: 'キャンセル',
+  upload: '登録',
+  edit: '修正',
+  titlePlaceholder: 'タイトルを入力してください',
+
+  modal: {
+    upload: '文を登録しますか？',
+    cancelUpload: '書き込みを終了しますか？',
+    cancelUploadSub: '終了時に作成されている文章は削除されます。',
+    edit: '文を修正しますか？',
+    cancelEdit: '修正を取り消しますか？',
+    enterTitle: 'タイトルを入力してください',
+    enterContent: '内容を入力してください',
+
+    cancel: 'キャンセル',
+    check: '確認',
+  },
 };

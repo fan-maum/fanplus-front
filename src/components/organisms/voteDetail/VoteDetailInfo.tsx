@@ -6,25 +6,27 @@ import { Stack } from '@/components/atoms';
 import { formatNumberWithComma } from '@/utils/util';
 import RankProfile from '@/components/atoms/RankProfile';
 import Link from 'next/link';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
-import Image from 'next/image';
-import { VoteStatus } from '@/components/molecules/VoteHighRankTab';
+import type { ReceivedVoteStatus } from '../VoteListItem';
+import { voteStatusTranslation } from '../VoteListItem';
 
 export interface VoteDetailInfoProps {
   voteDetailInfo: VoteDetailVoteInfo;
 }
 
 const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const firstRankStar = voteDetailInfo.STARS.find((star) => star.RANK === '1');
   const secondRankStar = voteDetailInfo.STARS.find((star) => star.RANK === '2');
+  const voteStatus = voteStatusTranslation[voteDetailInfo.STATUS as ReceivedVoteStatus];
+
   return (
     <div css={{ padding: '0 16px' }}>
       <VoteDetailItem
-        voteStatus={voteDetailInfo.STATUS as VoteStatus}
+        voteStatus={voteStatus}
         startDay={voteDetailInfo.START_DATE}
         endDay={voteDetailInfo.END_DATE}
         voteDetailInfo={voteDetailInfo}
@@ -32,7 +34,7 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
       />
       <Stack spacing={20} h={100} justify="center" align="center" direct="row" m={'0 auto'}>
         <RankProfile align="end">
-          <Image width={36} height={36} src={'/icons/icon_medal1.png'} alt="icon_medal" />
+          <img src="/icons/icon_medal1.png" alt="icon_medal" css={{ width: 36, height: 36 }} />
           {firstRankStar?.STAR_NAME}
         </RankProfile>
         <RankProfile maxWidth="50%" fontSize={18} fontWeight={700} color="#FF5656" flex={'none'}>
@@ -46,7 +48,7 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
           </div>
         </RankProfile>
         <RankProfile align="start">
-          <Image width={36} height={36} src={'/icons/icon_medal2.png'} alt="icon_medal" />
+          <img src="/icons/icon_medal2.png" alt="icon_medal" css={{ width: 36, height: 36 }} />
           {secondRankStar?.STAR_NAME}
         </RankProfile>
       </Stack>
@@ -84,7 +86,7 @@ const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
               }}
             >
               {voteDetailInfo.LINK_TXT} {voteDetailLanguage?.seeMore}
-              <Image width={24} height={24} src="/icons/icon_pinkArrow.svg" alt="arrow" />
+              <img src="/icons/icon_pinkArrow.svg" alt="arrow" css={{ width: 24, height: 24 }} />
             </Center>
           </Link>
         </UnstyledButton>

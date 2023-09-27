@@ -6,12 +6,16 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
+  CommunityBoardTextType,
+  CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_ESP: NavBarTextType = {
   vote: 'Votación',
-  community: 'Community',
+  community: 'Comunidad',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +267,140 @@ export const VoteModalButton_Text_es = {
   voteModalCancel: 'Cancelar',
   voteModalComplete: 'Completado',
   voteModalInstall: 'Instala la aplicación',
+};
+
+export const CommunityMainText_ESP: CommunityPageTextType = {
+  community: 'Comunidad',
+  home: 'Home',
+  search: 'Search',
+  recentlyBoards: 'Visita reciente',
+  recommendedBoards: 'Recomendación',
+  noRecentBoardTexts: ['¿Eres nuevo en FanPlus?', '¡Busca tu estrella favorita!'],
+  buttonSearch: 'Buscar',
+  allCategory: 'Total',
+  searchPlaceholder: 'Encuentra el tablón de anuncios que deseas.',
+  link: {
+    board: '/es/community/board',
+  },
+};
+export const CommunityBoardText_ESP: CommunityBoardTextType = {
+  all: 'Total',
+  recommendCount: 'Gusta',
+  viewCount: 'Número de búsquedas',
+  popular: 'Popular',
+  daysAgo: 'Día(s) antes',
+  hoursAgo: 'Hora(s) antes',
+  minsAgo: 'Minuto(s) antes',
+  bottomTabBar: {
+    write: 'Escribir',
+    popular: 'Popular',
+    myPost: 'El texto que escribí',
+  },
+  boardLang: {
+    modalHeader: 'Publicación Idioma configurado',
+    modalExplain: 'Pueden ver texto escrito en la lengua seleccionada!',
+    current: 'Filtro lingüístico actualmente en uso',
+    ALL: 'Todos los idiomas',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
+  noPostTexts: ['No hay ninguna publicación.', 'Sé el primero en dejar una publicación.'],
+  noMyPostTexts: ['No hay publicaciones escritas.'],
+  buttonWrite: 'Escribir',
+  link: {
+    board: '/es/community/board',
+  },
+  permissionModal: {
+    noPermission: 'No tienes permiso para publicar.',
+    check: 'Confirmar',
+  },
+  langSelectorToolTip: 'Por favor, seleccione un idioma',
+};
+
+export const CommunityPostText_ESP: CommunityPostTextType = {
+  popular: 'Popular',
+  post: 'Texto',
+  viewCount: 'Número de búsquedas',
+  recommendCount: 'Gusta',
+  recommend: 'Gusta',
+  edit: 'Editar',
+  delete: 'Eliminar',
+  report: 'Reportar',
+  cancelButton: 'Cancelar',
+  confirmButton: 'Confirmar',
+  reportButton: 'Reportar',
+  commentRegisterPlaceholder: 'Dejar un comentario (200 caracteres)',
+  replyRegisterPlaceholder: 'Ingresa un comentario (200 caracteres)',
+  askPostDelete: '¿Te gustaría eliminar la publicación?',
+  askPostDeleteMsg:
+    'Al eliminar una publicación, tanto los textos como los comentarios son eliminados.',
+  askCommentDelete: '¿Desea eliminar el comentario?',
+  postDeleted: 'La publicación ha sido eliminada',
+  commentDeleted: 'El comentario ha sido eliminado.',
+  reported: 'Ha sido reportado.',
+  reply: 'respuestas',
+  writeReply: 'Escribe una respuesta',
+  register: 'Registrar',
+  orderOldest: 'Orden de registro',
+  orderNewest: 'El más reciente',
+  showMoreComments: 'leer más comentarios',
+  deleted: 'Es un comentario eliminado.',
+  alreadyDeleted: 'Es un comentario eliminado.',
+  alreadyReportedPost: 'Es una publicación ya reportada.',
+  alreadyReportedComment: 'Usted ha reportado una revisión',
+  reportReason: 'Selecciona la razón de reporte.',
+  reportPostOptions: {
+    option1: 'Exposición de información personal',
+    option2: 'Insultos/Ataque personal',
+    option3: 'Acto obsceno/sexual',
+    option4: 'Información ilegal',
+    option5: 'Reporte de violación a los derechos',
+    option6: 'Otros',
+  },
+  reportCommentOptions: {
+    option1: 'Correo basura',
+    option2: 'Insultos o contenido malicioso',
+  },
+  reportWarning: [
+    'Se procederá el contenido denunciado según las políticas de operación y términos de uso. Si es una denuncia falsa,',
+    'se podría restringir el uso del servicio de FanPlus por parte del denunciante.',
+  ],
+  daysAgo: 'Día(s) antes',
+  hoursAgo: 'Hora(s) antes',
+  minsAgo: 'Minuto(s) antes',
+};
+
+export const postCommentTotalCount_ESP = (totalCount: number) => {
+  let result = `Comentario más reciente ${totalCount}`;
+  return result;
+};
+
+export const CommunityPostEditorText_ESP: CommunityPostEditorTextType = {
+  pageTitle: 'Escribir',
+  topic: 'Tema',
+  title: 'Título',
+  content: 'Contenido',
+  cancel: 'Cancelar',
+  upload: 'Registrar',
+  edit: 'Editar',
+  titlePlaceholder: 'Ingresa el título',
+
+  modal: {
+    upload: '¿Te gustaría registrar la publicación?',
+    cancelUpload: '¿Te gustaría dejar de escribir?',
+    cancelUploadSub: 'Al dejar de escribir, el texto escrito se elimina.',
+    edit: '¿Te gustaría editar la publicación?',
+    cancelEdit: '¿Te gustaría cancelar la edición?',
+    enterTitle: 'Ingresa el título',
+    enterContent: 'Escribe el contenido',
+
+    cancel: 'Cancelar',
+    check: 'Confirmar',
+  },
 };

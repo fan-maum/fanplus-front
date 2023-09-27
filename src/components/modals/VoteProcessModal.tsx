@@ -2,7 +2,7 @@ import { VoteDetailStars } from '@/types/vote';
 import VoteModalText from '../molecules/VoteModalText';
 import CommonModal, { CommonModalProps } from './CommonModal';
 import { Group } from '../atoms';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
 import useHtmlElement from '@/hooks/useHtmlElement';
@@ -24,7 +24,7 @@ const VoteProcessModal = ({
   star,
   ...props
 }: VoteProcessModalProps) => {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteModalLang = useRecoilState(voteModalState(language))[0];
   const voteModalButton = useRecoilState(voteModalButtonState(language))[0];
   const text = voteModalLang({

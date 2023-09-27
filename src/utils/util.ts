@@ -1,10 +1,10 @@
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
-import { GetLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { VoteDetailStars } from '@/types/vote';
 
 export const FormatTime = (time: number | undefined) => {
-  const language = GetLanguage();
+  const language = useUrlLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
 
   if (time === undefined) return undefined;
@@ -52,4 +52,26 @@ export const getIndexByVotes = (star: VoteDetailStars | null) => {
   else if (star?.RANK === undefined) return 3;
   else if (star?.RANK === '100') return 2;
   else return 1;
+};
+
+export type timeType = 'Full' | 'Date' | 'Hour' | 'Minute';
+export const formatWrittenTime = (prevTimeExpression: string) => {
+  const writtenTime = new Date(prevTimeExpression.replace(' ', 'T'));
+  const today = new Date();
+  const today00am = new Date();
+  today00am.setHours(0, 0, 0, 0);
+
+  const elapsedTimeInDate = Math.ceil(
+    (today00am.getTime() - writtenTime.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  if (elapsedTimeInDate > 6) return { timeType: 'Full' as timeType, time: prevTimeExpression };
+  if (elapsedTimeInDate > 0) return { timeType: 'Date' as timeType, time: elapsedTimeInDate };
+
+  const elapsedTimeInSecond = Math.floor((today.getTime() - writtenTime.getTime()) / 1000);
+  const elpasedTimeInMinute = Math.floor(elapsedTimeInSecond / 60);
+  const elpasedTimeInHour = Math.floor(elpasedTimeInMinute / 60);
+
+  if (elpasedTimeInHour > 0) return { timeType: 'Hour' as timeType, time: elpasedTimeInHour };
+  return { timeType: 'Minute' as timeType, time: elpasedTimeInMinute };
 };

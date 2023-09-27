@@ -16,14 +16,14 @@ const Layout: React.FC<{
   children: ReactNode;
 }> = ({ navBarTexts, footerTexts, children }) => {
   const page = useRouter().pathname.split('/')[2];
-  const isLoginSignUpPage = page === 'login' || page === 'signUp';
+  const noFooterPages = page === 'login' || page === 'signUp' || page === 'community';
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   return (
     <SideBarContext.Provider value={{ isSideBarOpen, setIsSideBarOpen }}>
       {isSideBarOpen && <SideBar texts={navBarTexts} />}
       <NavBar texts={navBarTexts} />
       {children}
-      {!isLoginSignUpPage && <Footer texts={footerTexts} />}
+      {!noFooterPages && <Footer texts={footerTexts} />}
     </SideBarContext.Provider>
   );
 };

@@ -6,12 +6,16 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
+  CommunityBoardTextType,
+  CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_VIE: NavBarTextType = {
   vote: 'Bỏ phiếu',
-  community: 'Community',
+  community: 'Cộng đồng',
   aboutUs: 'About Us',
   recruit: '',
   business: 'Business Inquiry',
@@ -263,4 +267,143 @@ export const VoteModalButton_Text_vi = {
   voteModalCancel: 'Hủy bỏ',
   voteModalComplete: 'Hoàn thành',
   voteModalInstall: 'Cài đặt ứng dụng',
+};
+
+export const CommunityMainText_VIE: CommunityPageTextType = {
+  community: 'Cộng đồng',
+  home: 'Trang chủ',
+  search: 'Tìm kiếm',
+  recentlyBoards: 'Ban đã ghé thăm gần đây',
+  recommendedBoards: 'Được đề xuất cho của bạn',
+  noRecentBoardTexts: [
+    'Đây có phải là lần đầu tiên',
+    'bạn sử dụng Fan Plus?',
+    'Hãy tìm kiếm ngôi sao yêu thích của bạn!',
+  ],
+  buttonSearch: 'Tìm kiếm',
+  allCategory: 'Tất cả',
+  searchPlaceholder: 'Tìm kiếm một bảng bạn có thể thích.',
+  link: {
+    board: '/vi/community/board',
+  },
+};
+export const CommunityBoardText_VIE: CommunityBoardTextType = {
+  all: 'Tất cả',
+  recommendCount: 'Giống như',
+  viewCount: 'Xem',
+  popular: 'Nổi tiếng',
+  daysAgo: 'Ngày trước',
+  hoursAgo: 'Giờ trước',
+  minsAgo: 'Phút trước',
+  bottomTabBar: {
+    write: 'Viết',
+    popular: 'Nổi tiếng',
+    myPost: 'Câu chuyện của tôi',
+  },
+  boardLang: {
+    modalHeader: 'Câu chuyện Thiết lập ngôn ngữ',
+    modalExplain: 'Bạn có thể thấy văn bản được viết bằng ngôn ngữ đã chọn!',
+    current: 'Bộ lọc ngôn ngữ hiện đang được sử dụng',
+    ALL: 'Tất cả các ngôn ngữ',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
+  noPostTexts: ['Không có bài viết nào', 'Hãy là người đầu tiên để lại bài viết'],
+  noMyPostTexts: ['Không có bài viết nào được viết'],
+  buttonWrite: 'Viết',
+  link: {
+    board: '/vi/community/board',
+  },
+  permissionModal: {
+    noPermission: 'Bạn không có quyền đăng bài',
+    check: 'Xác nhận',
+  },
+  langSelectorToolTip: 'Vui lòng chọn một ngôn ngữ',
+};
+
+export const CommunityPostText_VIE: CommunityPostTextType = {
+  popular: 'Nổi tiếng',
+  post: 'Câu chuyện',
+  viewCount: 'Xem',
+  recommendCount: 'Giống như',
+  recommend: 'Giống như',
+  edit: 'Chỉnh sửa',
+  delete: 'Xóa',
+  report: 'Khai báo',
+  cancelButton: 'Hủy bỏ',
+  confirmButton: 'Xác nhận',
+  reportButton: 'Khai báo',
+  commentRegisterPlaceholder: 'Để lại một bình luận (tối đa 200 ký tự)',
+  replyRegisterPlaceholder: 'Vui lòng nhập bình luận (tối đa 200 ký tự)',
+  askPostDelete: 'Bạn có muốn xóa câu chuyện của mình không?',
+  askPostDeleteMsg: 'Nếu bạn xóa câu chuyện, câu chuyện và nhận xét của bạn cũng sẽ bị xóa',
+  askCommentDelete: 'Bạn muốn xóa bình luận?',
+  postDeleted: 'Bạn đã xóa câu chuyện của mình',
+  commentDeleted: 'Bình luận đã được xóa',
+  reported: 'Vấn đề này đã được báo cáo thành công.',
+  reply: 'câu trả lời',
+  writeReply: 'Viết thư trả lời',
+  register: 'Tải lên',
+  orderOldest: 'Sớm nhất',
+  orderNewest: 'Gần đây',
+  showMoreComments: 'Xem thêm bình luận',
+  deleted: 'Bình luận đã bị xóa',
+  alreadyDeleted: 'Đã xóa nhận xét',
+  alreadyReportedPost: 'Bạn đã báo cáo bài đăng',
+  alreadyReportedComment: 'Đây là bình luận đã báo cáo rồi.',
+  reportReason: 'Chọn lý do.',
+  reportPostOptions: {
+    option1: 'Tiết lộ thông tin cá nhân',
+    option2: 'Xúc phạm / lạm dụng cá nhân',
+    option3: 'Nội dung khiêu dâm / Cảm giác tình dục',
+    option4: 'Thông tin bất hợp pháp',
+    option5: 'Báo cáo vi phạm',
+    option6: 'Khác',
+  },
+  reportCommentOptions: {
+    option1: 'Spam',
+    option2: 'Nội dung xúc phạm hoặc không phù hợp',
+  },
+  reportWarning: [
+    'Nội dung được báo cáo sẽ được xử lý theo chính sách hoạt động và điều khoản sử dụng. Nếu đó là một báo cáo sai sự thật,',
+    'việc sử dụng dịch vụ FanPlus của phóng viên có thể bị hạn chế. ',
+  ],
+  daysAgo: 'Ngày trước',
+  hoursAgo: 'Giờ trước',
+  minsAgo: 'Phút trước',
+};
+
+export const postCommentTotalCount_VIE = (totalCount: number) => {
+  let result = `${totalCount} bình luận`;
+  return result;
+};
+
+export const CommunityPostEditorText_VIE: CommunityPostEditorTextType = {
+  pageTitle: 'Viết',
+  topic: 'Chủ đề',
+  title: 'Đề mục',
+  content: 'Nội dung',
+  cancel: 'Hủy bỏ',
+  upload: 'Tải lên',
+  edit: 'Chỉnh sửa',
+  titlePlaceholder: 'Vui lòng nhập tiêu đề',
+
+  modal: {
+    upload: 'Bạn có muốn tải lên một câu chuyện không?',
+    cancelUpload: 'Bạn có muốn viết câu chuyện không?',
+    cancelUploadSub: 'Câu chuyện của bạn sẽ bị xóa khi bạn viết nó',
+    edit: 'Bạn có muốn chỉnh sửa câu chuyện của mình không?',
+    cancelEdit: 'Bạn có muốn hủy chỉnh sửa câu chuyện của mình không?',
+    enterTitle: 'Vui lòng nhập tiêu đề',
+    enterContent: 'nhập các dòng',
+
+    cancel: 'Hủy bỏ',
+    check: 'Xác nhận',
+  },
 };

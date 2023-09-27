@@ -6,12 +6,16 @@ import {
   FAQPageTextType,
   LoginPageTextType,
   SignUpPageTextType,
+  CommunityPageTextType,
+  CommunityBoardTextType,
+  CommunityPostTextType,
+  CommunityPostEditorTextType,
 } from '@/types/textTypes';
 import { voteModalTextProps } from '@/types/vote';
 
 export const NavBarText_zh_TW: NavBarTextType = {
   vote: '投票',
-  community: 'Community',
+  community: '社區',
   aboutUs: '服務介紹',
   recruit: '',
   business: '商務諮詢',
@@ -263,4 +267,139 @@ export const VoteModalButton_Text_zhtw = {
   voteModalCancel: '取消',
   voteModalComplete: '完成',
   voteModalInstall: '下載APP',
+};
+
+export const CommunityMainText_zh_TW: CommunityPageTextType = {
+  community: '社區',
+  home: '消息面板主頁',
+  search: '搜索消息面板',
+  recentlyBoards: '最近瀏覽的消息面板',
+  recommendedBoards: '推薦的消息面板',
+  noRecentBoardTexts: ['您是FanPlus新手嗎？', '搜索你最喜歡的明星！'],
+  buttonSearch: '搜索',
+  allCategory: '全部',
+  searchPlaceholder: '找到您想要的消息面板',
+  link: {
+    board: '/zh-TW/community/board',
+  },
+};
+export const CommunityBoardText_zh_TW: CommunityBoardTextType = {
+  all: '全部',
+  recommendCount: '推薦',
+  viewCount: '閱讀數',
+  popular: '人氣',
+  daysAgo: '日 前',
+  hoursAgo: '小時 前',
+  minsAgo: '分鐘 前',
+  bottomTabBar: {
+    write: '發帖子',
+    popular: '熱門文章',
+    myPost: '我發的貼子',
+  },
+  boardLang: {
+    modalHeader: '帖子 語言設定',
+    modalExplain: '您只能看到以所選語言撰寫的帖子',
+    current: '当前使用的语言',
+    ALL: '全部語言',
+    ko: '한국어',
+    en: 'English',
+    ja: '日本語',
+    zh: '中文(简体)',
+    es: 'Español',
+    vi: 'Tiếng việt',
+    id: 'Bahasa Indonesia',
+    zhtw: '中文(繁體)',
+  },
+  noPostTexts: ['沒有帖子。', '成為第一個發表帖子的人'],
+  noMyPostTexts: ['沒有帖子。'],
+  buttonWrite: '發帖子',
+  link: {
+    board: '/zh-TW/community/board',
+  },
+  permissionModal: {
+    noPermission: '您沒有發帖權限',
+    check: '確認',
+  },
+  langSelectorToolTip: '請選擇語言',
+};
+
+export const CommunityPostText_zh_TW: CommunityPostTextType = {
+  popular: '人氣',
+  post: '帖子',
+  viewCount: '閱讀數',
+  recommendCount: '推薦',
+  recommend: '推薦',
+  edit: '修改',
+  delete: '刪除',
+  report: '舉報',
+  cancelButton: '取消',
+  confirmButton: '確認',
+  reportButton: '舉報',
+  commentRegisterPlaceholder: '請發表評論。（200字）',
+  replyRegisterPlaceholder: '請輸入評論。（200字）',
+  askPostDelete: '您要刪除該帖子嗎？',
+  askPostDeleteMsg: '刪除帖子時，帖子內容和評論都將被刪除。',
+  askCommentDelete: '確認刪除評論嗎?',
+  postDeleted: '帖子已刪除',
+  commentDeleted: '評論已刪除',
+  reported: '已經舉報。',
+  reply: '回覆',
+  writeReply: '寫回覆',
+  register: '上傳',
+  orderOldest: '登錄順序',
+  orderNewest: '最新順序',
+  showMoreComments: '閱讀更多評論',
+  deleted: '已被刪除的評論',
+  alreadyDeleted: '已被刪除的評論。',
+  alreadyReportedPost: '這篇文章已被舉報。',
+  alreadyReportedComment: '您已經報告了一個評論',
+  reportReason: '請選擇舉報原因。',
+  reportPostOptions: {
+    option1: '個人信息曝光',
+    option2: '褻瀆/人身攻擊',
+    option3: '淫穢/煽情性',
+    option4: '非法信息',
+    option5: '侵權投訴',
+    option6: '其他',
+  },
+  reportCommentOptions: {
+    option1: '垃圾信息',
+    option2: '淫穢或惡意內容',
+  },
+  reportWarning: [
+    '舉報內容將根據運營政策和使用條款進行處理。',
+    '如果是虛假舉報，則可能會限制舉報人對服務的使用。',
+  ],
+  daysAgo: '日 前',
+  hoursAgo: '小時 前',
+  minsAgo: '分鐘 前',
+};
+
+export const postCommentTotalCount_zh_TW = (totalCount: number) => {
+  let result = `${totalCount} 條最新評論`;
+  return result;
+};
+
+export const CommunityPostEditorText_zh_TW: CommunityPostEditorTextType = {
+  pageTitle: '發帖',
+  topic: '話題',
+  title: '標題',
+  content: '內容',
+  cancel: '取消',
+  upload: '上傳',
+  edit: '修改',
+  titlePlaceholder: '請輸入標題',
+
+  modal: {
+    upload: '您要上傳帖子嗎？',
+    cancelUpload: '您確定要退出寫作嗎？',
+    cancelUploadSub: '編寫結束時，正在編寫的文章將被刪除。',
+    edit: '您確定要編輯帖子嗎？',
+    cancelEdit: '您確定要取消編輯嗎？',
+    enterTitle: '請輸入標題',
+    enterContent: '請填寫內容',
+
+    cancel: '取消',
+    check: '確認',
+  },
 };
