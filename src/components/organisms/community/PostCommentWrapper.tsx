@@ -1,11 +1,12 @@
 import { Group, UnstyledButton } from '@/components/atoms';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { commentListState, pageState } from '@/store/community';
+import { useRecoilState } from 'recoil';
+import { pageState } from '@/store/community';
 import PostCommentCount from '@/components/atoms/PostCommentCount';
 import PostCommentOrders from '@/components/molecules/community/PostCommentOrders';
-import { BackLangType, PurPoseType, TargetType } from '@/types/common';
+import { TargetType } from '@/types/common';
 import PostCommentList from './PostCommentList';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { CommentResponseType } from '@/types/community';
 
 export type PostCommentWrapperProps = {
   texts: CommunityPostTextType;
@@ -20,6 +21,7 @@ export type PostCommentWrapperProps = {
   replyRefetch: () => void;
   fetchNextPage: () => void;
   refetchReplyOnToggle: (commentIndex: number) => void;
+  commentData: any;
   replyData: any;
 };
 
@@ -31,9 +33,11 @@ const PostCommentWrapper = ({
   replyRefetch,
   fetchNextPage,
   refetchReplyOnToggle,
+  commentData,
   replyData,
 }: PostCommentWrapperProps) => {
-  const commentList = useRecoilValue(commentListState);
+  const commentList: Array<CommentResponseType> = commentData.pages;
+
   const [page, setPage] = useRecoilState(pageState);
   const hasNextPage = 20 * (page + 1) < Number(commentTotalCount);
 
