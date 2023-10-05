@@ -98,7 +98,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
       await editBoardArticle(userId, postId, boardLang, lang, topicIndex, title, content);
     }
     setUploadModal(false);
-    router.replace(`/${lang}/community/board/${boardIndex}/${postId}/`);
+    router.replace(`/${language}/community/board/${boardIndex}/${postId}/`);
   };
   const onClickExit = () => {
     setCancelModal(false);
