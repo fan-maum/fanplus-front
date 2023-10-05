@@ -13,7 +13,7 @@ export const useGetCommentQuery = (props: useGetCommentQueryProps) => {
       const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1;
       return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage;
     },
-    enabled: Boolean(postIndex),
+    enabled: postIndex !== null,
   });
 
   return res;
