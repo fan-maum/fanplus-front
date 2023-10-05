@@ -28,7 +28,7 @@ const CommunityMyPostTemplate = ({
   const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
 
-  const isPostExist = boardInfo.POST_CNT !== 0;
+  const isPostExist = !(postList.length === 0 && (!router.query.page || router.query.page === '1'));
 
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];

@@ -238,7 +238,6 @@ export const deleteRecommends = async (identity: string, post_idx: string) => {
 export const postBoardArticle = async (
   userId: string,
   boardIndex: number,
-  boardLang: BackLangType,
   lang: BackLangType,
   topicIndex: number,
   title: string,
@@ -247,7 +246,7 @@ export const postBoardArticle = async (
 ) => {
   const resposne: AxiosResponse<PostBoardArticleResponseType> = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postBoardArticle`,
-    { userId, boardIndex, boardLang, lang, topicIndex, title, contents, attachmentIds }
+    { userId, boardIndex, lang, topicIndex, title, contents, attachmentIds }
   );
   return resposne.data;
 };
@@ -255,7 +254,6 @@ export const postBoardArticle = async (
 export const editBoardArticle = async (
   userId: string,
   postIndex: number,
-  boardLang: BackLangType,
   lang: BackLangType,
   topicIndex: number,
   title: string,
@@ -263,7 +261,7 @@ export const editBoardArticle = async (
 ) => {
   const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editBoardArticle`,
-    { userId, postIndex, boardLang, lang, title, contents, topicIndex }
+    { userId, postIndex, lang, title, contents, topicIndex }
   );
   return response.data;
 };
