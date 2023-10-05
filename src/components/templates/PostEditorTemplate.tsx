@@ -58,6 +58,8 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const [uploadModal, setUploadModal] = useState(false);
   const [dataLackModal, setDataLackModal] = useState(false);
 
+  const [uploadClicked, setUploadClicked] = useState(false);
+
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => (e.returnValue = '');
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -80,6 +82,8 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   };
 
   const onClickUploadConfirm = async () => {
+    if (uploadClicked) return;
+    setUploadClicked(true);
     const postId = isCreateMode
       ? (
           await postBoardArticle(
