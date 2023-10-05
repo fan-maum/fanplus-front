@@ -27,6 +27,7 @@ import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
 import { useMutation } from 'react-query';
 import { postVotes } from '@/api/Vote';
+import { AxiosError } from 'axios';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -189,6 +190,10 @@ const VoteDetailLayout = ({
         } else {
           setVoteModalBlock(true);
         }
+      },
+      onError: (error: AxiosError) => {
+        const responseData: any = error.response?.data;
+        alert(responseData?.RESULTS.MSG);
       },
     }
   );
