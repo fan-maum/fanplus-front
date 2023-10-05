@@ -218,7 +218,7 @@ const VoteDetailLayout = ({
     setShareModalIsOpened(true);
   };
 
-  const communityOnClick = (boardIndex: number) => {
+  const communityOnClick = (boardIndex: string) => {
     router.push(`/${language}/community/board/${boardIndex}/`);
   };
 

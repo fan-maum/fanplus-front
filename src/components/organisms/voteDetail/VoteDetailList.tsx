@@ -10,7 +10,7 @@ import { useEffect, useRef } from 'react';
 
 export interface VoteDetailListProps {
   voteDetailStars: VoteDetailStars[];
-  communityOnClick: (boardIndex: number) => void;
+  communityOnClick: (boardIndex: string) => void;
   shareOnClick: (id: string) => void;
   voteOnClick: (id: string) => void;
   scrollTargetId?: string;
@@ -47,13 +47,18 @@ function VoteDetailList({
       </Stack>
       <Stack spacing={0} justify="flex-start" css={{ backgroundColor: '#fff' }}>
         {voteDetailStars.map((item, index) => {
+          const board_IDX =
+            item.BOARD_LIST.length === 1
+              ? item.BOARD_LIST[0].BOARD_IDX
+              : item.BOARD_LIST[1].BOARD_IDX;
+
           return (
             <div key={item.STAR_IDX}>
               <VoteDetailListItem
                 starData={item}
                 starState={<VoteStarState starData={item} />}
                 clickEvent={{
-                  communityOnClick: () => communityOnClick(91), // TODO: 해당 게시판으로 이동 해주시면 됩니당 (현재 getVoteDetail api의 리스폰스에 board Index 값이 없음)
+                  communityOnClick: () => communityOnClick(board_IDX),
                   shareOnClick: () => shareOnClick(item.STAR_IDX),
                   voteOnClick: () => voteOnClick(item.STAR_IDX),
                 }}
