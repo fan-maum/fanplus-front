@@ -89,7 +89,6 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
           await postBoardArticle(
             userId,
             boardIndex,
-            boardLang,
             lang,
             topicIndex,
             title,
@@ -99,7 +98,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         ).RESULTS.DATAS.POST_IDX
       : (postIndex as number);
     if (!isCreateMode) {
-      await editBoardArticle(userId, postId, boardLang, lang, topicIndex, title, content);
+      await editBoardArticle(userId, postId, lang, topicIndex, title, content);
     }
     setUploadModal(false);
     router.replace(`/${language}/community/board/${boardIndex}/${postId}/`);
