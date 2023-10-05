@@ -1,6 +1,7 @@
-import { atom, atomFamily } from 'recoil';
+import { atom, RecoilEnv } from 'recoil';
 import { BoardLangType, OrderType, TargetType, selectInfoType } from '@/types/common';
-import { CommentResponseType, userResponseType } from '@/types/community';
+import { userResponseType } from '@/types/community';
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 export const orderTypeState = atom<OrderType>({
   key: 'orderTypeState',
@@ -10,11 +11,6 @@ export const orderTypeState = atom<OrderType>({
 export const pageState = atom<number>({
   key: 'pageStatae',
   default: 0,
-});
-
-export const commentListState = atom<Array<CommentResponseType>>({
-  key: 'commentListState',
-  default: [],
 });
 
 export const selectInfoState = atom<selectInfoType>({
@@ -62,7 +58,3 @@ export const postParamState = atom<postParamStateType>({
     identity: '0',
   },
 });
-
-//   const [cookies, setCookies] = useRecoilState(cookieState);
-//   const cookies = useRecoilValue(cookieState);
-//   const setCookies = useSetRecoilState(cookieState);

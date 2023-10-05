@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
-  commentListState,
   modalBlockState,
   orderTypeState,
   postParamState,
@@ -15,7 +14,7 @@ import type { CommunityPostTextType } from '@/types/textTypes';
 import PostFixedBottomWrapper, {
   PostFixedBottomWrapperProps,
 } from '@/components/organisms/community/PostFixedBottomWrapper';
-import { getUser, postComment } from '@/api/Community';
+import { postComment } from '@/api/Community';
 import { BackLangType, TargetType } from '@/types/common';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 import PostCommentWrapper, {
@@ -31,6 +30,8 @@ import {
   useGetCommentQueryProps,
   useGetReplyQuery,
   useGetReplyQueryProps,
+  useGetUserQuery,
+  useGetUserQueryProps,
 } from '@/server/useGetCommentsQuery';
 
 const CommunityPostTemplate = ({
@@ -45,9 +46,7 @@ const CommunityPostTemplate = ({
   const per_page = 20;
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
   const orderType = useRecoilValue(orderTypeState);
-  const setCommentList = useSetRecoilState(commentListState);
   const setUser = useSetRecoilState(userState);
-  const [commentTotalCount, setCommentTotalCount] = useState<number>(0);
   const [commentIndex, setCommentIndex] = useState<number | null>(null);
   const [doneModalMessage, setDoneModalMessage] = useState<any>();
   const [modalBlock, setModalBlock] = useRecoilState(modalBlockState);
@@ -80,29 +79,34 @@ const CommunityPostTemplate = ({
     orderType,
     per_page,
   };
-  const { data, isSuccess, isLoading, refetch, error, fetchNextPage } =
-    useGetCommentQuery(useGetCommentQueryProps);
+  const {
+    data: commentData,
+    isSuccess,
+    isLoading,
+    refetch,
+    error,
+    fetchNextPage,
+  } = useGetCommentQuery(useGetCommentQueryProps);
+
+  const commentTotalCount = commentData?.pages[0].RESULTS.DATAS.TOTAL_CNT;
 
   const refetchReplyOnToggle = async (commentIndex: number | null) => {
     await setCommentIndex(commentIndex);
     await replyRefetch();
   };
 
-  const fetchGetUser = async () => {
-    if (identity !== null) {
-      const response: userResponseType = await getUser(user_idx, identity);
-      setUser(response);
-    }
+  const useGetUserQueryProps: useGetUserQueryProps = {
+    user_idx,
+    identity,
   };
+  const { data: userInfo, isFetched } = useGetUserQuery(useGetUserQueryProps);
 
   useEffect(() => {
+    isFetched && setUser(userInfo);
     if (isSuccess) {
-      fetchGetUser();
-      setCommentList(data.pages);
-      setCommentTotalCount(data.pages[0].RESULTS.DATAS.TOTAL_CNT);
       setPostParam(postParamObject);
     }
-  }, [isSuccess, data, postParamObject]);
+  }, [isSuccess, isFetched, postParamObject]);
 
   if (isLoading) return '';
   // if (error) return 'An error has occurred: ' + error;
@@ -130,6 +134,7 @@ const CommunityPostTemplate = ({
   const commentProps: PostCommentWrapperProps = {
     texts,
     commentTotalCount,
+    commentData,
     replyData,
     onCreateComment,
     refetch,
