@@ -1,5 +1,5 @@
 import { NextApiHandler } from 'next';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
@@ -28,7 +28,17 @@ const handler: NextApiHandler = async (req, res) => {
     );
     res.status(200).json(response.data);
   } catch (error) {
-    res.status(500).json('failed to vote');
+    if (error instanceof AxiosError) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `Error: vote API 
+        vote_id: ${voteId}, 
+        identity: ${userId}, 
+        target_star_idx: ${starId}, 
+        response_error_msg: ${error.response?.data.RESULTS.MSG}`
+      );
+      res.status(500).json(error.response?.data);
+    }
   }
 };
 
