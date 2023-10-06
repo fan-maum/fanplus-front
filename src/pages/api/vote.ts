@@ -29,6 +29,13 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(200).json(response.data);
   } catch (error) {
     if (error instanceof AxiosError) {
+      console.error(
+        `Error: vote API 
+        vote_id: ${voteId}, 
+        identity: ${userId}, 
+        target_star_idx: ${starId}, 
+        response_error_msg: ${error.response?.data.RESULTS.MSG}`
+      );
       res.status(500).json(error.response?.data);
     }
   }
