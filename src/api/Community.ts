@@ -84,22 +84,15 @@ export const getCommunityNoticeBannerData = async (boardIndex: number, lang: Bac
  * Post
  */
 /* 게시글 불러오기 */
-export const getCommunityPostData = async (postIndex: number, identity: string) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
-    { params: { postIndex, identity } }
-  );
-  return response.data;
-};
-
-export const getCommunityUnAuthPostData = async (
+export const getCommunityPostData = async (
   boardIndex: number,
   postIndex: number,
+  identity: string,
   lang: BackLangType
 ) => {
   const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/post`,
-    { params: { boardIndex, postIndex, lang } }
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
+    { params: { boardIndex, postIndex, identity, lang } }
   );
   return response.data;
 };
