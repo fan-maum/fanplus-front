@@ -13,6 +13,7 @@ const cookies = new Cookies();
 export interface PromotionRankListItemProps {
   starData: VoteDetailStars;
   starState: React.ReactNode;
+  isBoard: boolean;
   clickEvent: { communityOnClick: () => void; shareOnClick: () => void; voteOnClick: () => void };
   targetRef?: React.RefObject<HTMLDivElement>;
 }
@@ -21,11 +22,13 @@ function VoteDetailListItem({
   starData,
   starState,
   targetRef,
+  isBoard,
   clickEvent,
   ...props
 }: PromotionRankListItemProps) {
   const language = useUrlLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
+
   return (
     <div ref={targetRef} className={targetRef ? 'highlight' : undefined}>
       <Divider size={2} />
@@ -33,9 +36,11 @@ function VoteDetailListItem({
         {starState}
         <Group spacing={8} position="right">
           <ShareButton onClick={clickEvent.shareOnClick} />
-          <CommunityButton onClick={clickEvent.communityOnClick}>
-            {voteDetailLanguage?.board}
-          </CommunityButton>
+          {isBoard && (
+            <CommunityButton onClick={clickEvent.communityOnClick}>
+              {voteDetailLanguage?.board}
+            </CommunityButton>
+          )}
           <VoteButton onClick={clickEvent.voteOnClick}>{voteDetailLanguage?.voting}</VoteButton>
         </Group>
       </Stack>

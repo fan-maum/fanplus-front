@@ -224,8 +224,10 @@ const VoteDetailLayout = ({
     setShareModalIsOpened(true);
   };
 
-  const communityOnClick = (boardIndex: string) => {
-    router.push(`/${language}/community/board/${boardIndex}/`);
+  const communityOnClick = (boardIndex: string | null) => {
+    if (boardIndex !== null) {
+      router.push(`/${language}/community/board/${boardIndex}/`);
+    }
   };
 
   const voteOnClick = async (id: string) => {
