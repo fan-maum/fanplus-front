@@ -195,6 +195,7 @@ export const Votes_Text_ko = {
 export const VoteDetail_Text_ko = {
   vote: '투표',
   voting: '투표하기',
+  board: '게시판',
   voteResult: '투표 결과',
   voteDifference: {
     front: null,

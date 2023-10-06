@@ -58,6 +58,8 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   const [uploadModal, setUploadModal] = useState(false);
   const [dataLackModal, setDataLackModal] = useState(false);
 
+  const [uploadClicked, setUploadClicked] = useState(false);
+
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => (e.returnValue = '');
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -80,12 +82,13 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
   };
 
   const onClickUploadConfirm = async () => {
+    if (uploadClicked) return;
+    setUploadClicked(true);
     const postId = isCreateMode
       ? (
           await postBoardArticle(
             userId,
             boardIndex,
-            boardLang,
             lang,
             topicIndex,
             title,
@@ -95,10 +98,10 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
         ).RESULTS.DATAS.POST_IDX
       : (postIndex as number);
     if (!isCreateMode) {
-      await editBoardArticle(userId, postId, boardLang, lang, topicIndex, title, content);
+      await editBoardArticle(userId, postId, lang, topicIndex, title, content);
     }
     setUploadModal(false);
-    router.replace(`/${lang}/community/board/${boardIndex}/${postId}/`);
+    router.replace(`/${language}/community/board/${boardIndex}/${postId}/`);
   };
   const onClickExit = () => {
     setCancelModal(false);

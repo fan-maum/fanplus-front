@@ -3,19 +3,24 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import type { PostResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { postIndex, identity } = req.query;
+  const { boardIndex, postIndex, identity, lang } = req.query;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+  const url = `https://napi.appphotocard.com/voteWeb/boards/${boardIndex}/posts/${postIndex}/detail`;
 
   try {
-    const response: AxiosResponse<PostResponseType> = await axios.get(
-      `https://napi.appphotocard.com/v1/boards/posts/${postIndex}?identity=${identity}&page=0&per_page=10&referer=newest`,
-      {
-        headers: {
-          Origin: origin,
-          'Cache-Control': 'no-cache',
-        },
-      }
-    );
+    const response: AxiosResponse<PostResponseType> = await axios.get(url, {
+      headers: {
+        Origin: origin,
+        'Cache-Control': 'no-cache',
+      },
+      params:
+        identity === undefined
+          ? {
+              identity,
+              lang,
+            }
+          : { lang },
+    });
     res.status(200).json(response.data);
   } catch (error) {
     if (error instanceof AxiosError) {

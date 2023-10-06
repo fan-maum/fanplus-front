@@ -52,7 +52,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const boardTopics = await getCommunityBoardTopics(boardIndex, lang);
   let communityPostData;
   try {
-    communityPostData = await getCommunityPostData(postIndex, userId);
+    communityPostData = await getCommunityPostData(boardIndex, postIndex, userId, lang);
   } catch (error) {
     return loginErrorHandler(error, 'zh-CN', `/community/board/${boardIndex}/${postIndex}/edit/`);
   }

@@ -10,6 +10,7 @@ import { useEffect, useRef } from 'react';
 
 export interface VoteDetailListProps {
   voteDetailStars: VoteDetailStars[];
+  communityOnClick: (boardIndex: string) => void;
   shareOnClick: (id: string) => void;
   voteOnClick: (id: string) => void;
   scrollTargetId?: string;
@@ -18,6 +19,7 @@ export interface VoteDetailListProps {
 
 function VoteDetailList({
   voteDetailStars,
+  communityOnClick,
   shareOnClick,
   voteOnClick,
   scrollTargetId,
@@ -45,12 +47,18 @@ function VoteDetailList({
       </Stack>
       <Stack spacing={0} justify="flex-start" css={{ backgroundColor: '#fff' }}>
         {voteDetailStars.map((item, index) => {
+          const board_IDX =
+            item.BOARD_LIST.length === 1
+              ? item.BOARD_LIST[0].BOARD_IDX
+              : item.BOARD_LIST[1].BOARD_IDX;
+
           return (
             <div key={item.STAR_IDX}>
               <VoteDetailListItem
                 starData={item}
                 starState={<VoteStarState starData={item} />}
                 clickEvent={{
+                  communityOnClick: () => communityOnClick(board_IDX),
                   shareOnClick: () => shareOnClick(item.STAR_IDX),
                   voteOnClick: () => voteOnClick(item.STAR_IDX),
                 }}

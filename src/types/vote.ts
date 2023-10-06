@@ -73,6 +73,11 @@ export interface VoteDetailStars {
   STAR_NAME: string;
   STAR_DEFAULT_PHOTO: string;
   STAR_GROUP_NAME: string;
+  BOARD_LIST: VoteDetailStarBoardList[];
+}
+
+export interface VoteDetailStarBoardList {
+  BOARD_IDX: string;
 }
 
 export interface VoteDetailResponse {
