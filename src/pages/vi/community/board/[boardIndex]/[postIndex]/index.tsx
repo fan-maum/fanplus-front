@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
-import { getCommunityPostData, getCommunityUnAuthPostData } from '@/api/Community';
+import { getCommunityPostData } from '@/api/Community';
 import { CommunityPostText_VIE, FooterText_VIE, NavBarText_VIE } from '@/texts/vi';
 import Layout from '@/components/organisms/Layout';
 import { PostResponseType } from '@/types/community';
@@ -37,17 +37,12 @@ export const getServerSideProps: GetServerSideProps<{
   const lang = 'vi';
 
   const cookies = nookies.get(context);
-  const identity = cookies.user_id || null;
+  const identity: any = cookies.user_id || null;
   const user_idx = cookies.user_idx || null;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
-  let communityPostData;
-  if (identity !== null) {
-    communityPostData = await getCommunityPostData(postIndex, identity);
-  } else {
-    communityPostData = await getCommunityUnAuthPostData(boardIndex, postIndex, lang);
-  }
+  const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, lang);
 
   return {
     props: { identity, user_idx, postIndex, lang, communityPostData },
