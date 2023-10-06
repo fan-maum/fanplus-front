@@ -7,11 +7,9 @@ import { GetServerSideProps } from 'next';
 import Layout from '@/components/organisms/Layout';
 import { NavBarText_ENG, FooterText_ENG, CommunityMainText_ENG } from '@/texts/en';
 import nookies from 'nookies';
-import type {
-  CommunityBoardCategoryResponseType,
-  CommunityHomeResponseType,
-} from '@/types/community';
+import type { CommunityBoardCategoryResponseType } from '@/types/community';
 import CommunityPageTemplate, {
+  CommunityHomeDataType,
   CommunityPropTypes,
 } from '@/components/templates/CommunityPageTemplate';
 
@@ -33,7 +31,7 @@ const Community = ({
 };
 
 export const getServerSideProps: GetServerSideProps<{
-  communityHomeData: CommunityHomeResponseType;
+  communityHomeData: CommunityHomeDataType;
   boardCategoryData: CommunityBoardCategoryResponseType;
 }> = async (context) => {
   const cookies = nookies.get(context);
