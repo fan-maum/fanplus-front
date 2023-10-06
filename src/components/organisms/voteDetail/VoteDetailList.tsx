@@ -39,7 +39,6 @@ function VoteDetailList({
       });
     }
   }, [itemRef, voteDetailStars, isRenderComplete]);
-  console.log(voteDetailStars);
 
   return (
     <>
@@ -48,12 +47,7 @@ function VoteDetailList({
       </Stack>
       <Stack spacing={0} justify="flex-start" css={{ backgroundColor: '#fff' }}>
         {voteDetailStars.map((item, index) => {
-          const board_IDX: any =
-            item.BOARD_LIST.length === 0
-              ? null
-              : item.BOARD_LIST.length === 1
-              ? item.BOARD_LIST[0].BOARD_IDX
-              : item.BOARD_LIST[1].BOARD_IDX;
+          const board_IDX: any = item.BOARD_LIST.length === 0 ? null : item.BOARD_LIST[0].BOARD_IDX;
 
           return (
             <div key={item.STAR_IDX}>
