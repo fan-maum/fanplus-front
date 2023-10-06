@@ -6,6 +6,7 @@ import { CommunityPostTextType } from '@/types/textTypes';
 import { deleteRecommends, postRecommends } from '@/api/Community';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import PostDetailCopyUrl from '@/components/molecules/community/PostDetailCopyUrl';
 
 type CommunityPostDetailProps = {
   identity: string;
@@ -44,17 +45,20 @@ const CommunityPostDetail = ({
     }
   };
   return (
-    <Stack p={'24px 22px'} spacing={140} css={{ borderBottom: '6px solid #f1f1f1' }}>
-      <PostContents dangerouslySetInnerHTML={{ __html: postInfo.POST_CONTENTS }} />
-      <Center mb={8}>
-        <LikesButton
-          text={texts.recommend}
-          recommended={recommended}
-          recommendedCount={recommendedCount}
-          onClick={RecommendOnClick}
-        />
-      </Center>
-    </Stack>
+    <>
+      <PostDetailCopyUrl />
+      <Stack p={'24px 22px'} spacing={140} css={{ borderBottom: '6px solid #f1f1f1' }}>
+        <PostContents dangerouslySetInnerHTML={{ __html: postInfo.POST_CONTENTS }} />
+        <Center mb={8}>
+          <LikesButton
+            text={texts.recommend}
+            recommended={recommended}
+            recommendedCount={recommendedCount}
+            onClick={RecommendOnClick}
+          />
+        </Center>
+      </Stack>
+    </>
   );
 };
 
