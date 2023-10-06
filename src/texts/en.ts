@@ -194,6 +194,7 @@ export const Votes_Text_en = {
 export const VoteDetail_Text_en = {
   vote: 'Vote',
   voting: 'Vote',
+  board: 'Board',
   voteResult: 'Result',
   voteDifference: {
     front: 'Winning by',

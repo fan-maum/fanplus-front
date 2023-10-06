@@ -194,6 +194,7 @@ export const Votes_Text_zh = {
 export const VoteDetail_Text_zh = {
   vote: '投票',
   voting: '投票',
+  board: '消息面板',
   voteResult: '投票结果',
   voteDifference: {
     front: null,

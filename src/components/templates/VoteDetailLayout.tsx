@@ -224,6 +224,10 @@ const VoteDetailLayout = ({
     setShareModalIsOpened(true);
   };
 
+  const communityOnClick = (boardIndex: string) => {
+    router.push(`/${language}/community/board/${boardIndex}/`);
+  };
+
   const voteOnClick = async (id: string) => {
     const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
     const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
@@ -266,6 +270,7 @@ const VoteDetailLayout = ({
 
   const voteDetailListProps: VoteDetailListProps = {
     voteDetailStars: voteDetails.RESULTS.DATAS.VOTE_INFO.STARS,
+    communityOnClick,
     shareOnClick,
     voteOnClick,
     scrollTargetId: typeof router.query.id === 'string' ? router.query.id : '',
