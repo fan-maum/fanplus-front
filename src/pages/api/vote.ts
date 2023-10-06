@@ -29,6 +29,7 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(200).json(response.data);
   } catch (error) {
     if (error instanceof AxiosError) {
+      // eslint-disable-next-line no-console
       console.error(
         `Error: vote API 
         vote_id: ${voteId}, 
