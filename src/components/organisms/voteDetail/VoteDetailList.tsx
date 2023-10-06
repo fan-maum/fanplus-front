@@ -54,6 +54,7 @@ function VoteDetailList({
               <VoteDetailListItem
                 starData={item}
                 starState={<VoteStarState starData={item} />}
+                isBoard={board_IDX !== null}
                 clickEvent={{
                   communityOnClick: () => communityOnClick(board_IDX),
                   shareOnClick: () => shareOnClick(item.STAR_IDX),
