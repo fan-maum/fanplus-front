@@ -32,10 +32,11 @@ const handler: NextApiHandler = async (req, res) => {
       // eslint-disable-next-line no-console
       console.error(
         `Error: vote API 
-        vote_id: ${voteId}, 
-        identity: ${userId}, 
-        target_star_idx: ${starId}, 
-        response_error_msg: ${error.response?.data.RESULTS.MSG}`
+vote_id: ${voteId}, 
+identity: ${userId}, 
+target_star_idx: ${starId}, 
+response_error_code: ${error.response?.data.RESULTS.ERROR}, 
+response_error_msg: ${error.response?.data.RESULTS.MSG}`
       );
       res.status(500).json(error.response?.data);
     }
