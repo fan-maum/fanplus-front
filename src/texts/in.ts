@@ -194,6 +194,7 @@ export const Votes_Text_in = {
 export const VoteDetail_Text_in = {
   vote: 'Pemungutan suara',
   voting: 'Beri suara',
+  board: 'Papan',
   voteResult: 'Hasil',
   voteDifference: {
     front: 'Beda',

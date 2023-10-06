@@ -53,7 +53,7 @@ const CommunityBoardTemplate = ({
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
   const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
 
-  const isPostExist = boardInfo.POST_CNT !== 0;
+  const isPostExist = !(postList.length === 0 && (!router.query.page || router.query.page === '1'));
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
 
   const onClickWrite = () => {
@@ -191,7 +191,10 @@ const TopicTabBar = ({
   const router = useRouter();
   const handleClick = (topicIndex: number) => {
     setTopicIndex(topicIndex);
-    router.replace({ pathname: router.pathname, query: { ...router.query, topic: topicIndex } });
+    router.replace({
+      pathname: router.pathname,
+      query: { ...router.query, topic: topicIndex, page: 1 },
+    });
   };
   return (
     <ul
@@ -304,7 +307,8 @@ const BottomTabBarItem = ({ icon, title, onClick }: BottomTabBarItemPropType) =>
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '120px',
+        flex: '1 1 30%',
+        whiteSpace: 'nowrap',
         margin: '3px 0px',
         textAlign: 'center',
         cursor: 'pointer',

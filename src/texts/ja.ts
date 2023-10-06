@@ -194,6 +194,7 @@ export const Votes_Text_ja = {
 export const VoteDetail_Text_ja = {
   vote: '投票',
   voting: '投票する',
+  board: '掲示板',
   voteResult: '投票結果',
   voteDifference: {
     front: null,

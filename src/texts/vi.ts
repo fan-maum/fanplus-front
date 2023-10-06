@@ -194,6 +194,7 @@ export const Votes_Text_vi = {
 export const VoteDetail_Text_vi = {
   vote: 'Bỏ phiếu',
   voting: 'Bỏ phiếu',
+  board: 'Board',
   voteResult: 'Kết quả',
   voteDifference: {
     front: null,

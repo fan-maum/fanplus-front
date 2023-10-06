@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import type { EditBoardArticleResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { userId, postIndex, boardLang, lang, title, contents, topicIndex } = req.body;
+  const { userId, postIndex, lang, title, contents, topicIndex } = req.body;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
@@ -12,7 +12,7 @@ const handler: NextApiHandler = async (req, res) => {
       {
         identity: userId,
         post_idx: postIndex,
-        lang: boardLang,
+        lang: lang,
         app_lang: lang,
         title,
         contents,

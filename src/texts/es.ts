@@ -194,6 +194,7 @@ export const Votes_Text_es = {
 export const VoteDetail_Text_es = {
   vote: 'Votación',
   voting: 'Votar',
+  board: 'Tablero',
   voteResult: 'Resultado',
   voteDifference: {
     front: '¡Diferencia de',
