@@ -84,22 +84,15 @@ export const getCommunityNoticeBannerData = async (boardIndex: number, lang: Bac
  * Post
  */
 /* 게시글 불러오기 */
-export const getCommunityPostData = async (postIndex: number, identity: string) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
-    { params: { postIndex, identity } }
-  );
-  return response.data;
-};
-
-export const getCommunityUnAuthPostData = async (
+export const getCommunityPostData = async (
   boardIndex: number,
   postIndex: number,
+  identity: string,
   lang: BackLangType
 ) => {
   const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/unAuth/post`,
-    { params: { boardIndex, postIndex, lang } }
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
+    { params: { boardIndex, postIndex, identity, lang } }
   );
   return response.data;
 };
@@ -238,7 +231,6 @@ export const deleteRecommends = async (identity: string, post_idx: string) => {
 export const postBoardArticle = async (
   userId: string,
   boardIndex: number,
-  boardLang: BackLangType,
   lang: BackLangType,
   topicIndex: number,
   title: string,
@@ -247,7 +239,7 @@ export const postBoardArticle = async (
 ) => {
   const resposne: AxiosResponse<PostBoardArticleResponseType> = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postBoardArticle`,
-    { userId, boardIndex, boardLang, lang, topicIndex, title, contents, attachmentIds }
+    { userId, boardIndex, lang, topicIndex, title, contents, attachmentIds }
   );
   return resposne.data;
 };
@@ -255,7 +247,6 @@ export const postBoardArticle = async (
 export const editBoardArticle = async (
   userId: string,
   postIndex: number,
-  boardLang: BackLangType,
   lang: BackLangType,
   topicIndex: number,
   title: string,
@@ -263,7 +254,7 @@ export const editBoardArticle = async (
 ) => {
   const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editBoardArticle`,
-    { userId, postIndex, boardLang, lang, title, contents, topicIndex }
+    { userId, postIndex, lang, title, contents, topicIndex }
   );
   return response.data;
 };

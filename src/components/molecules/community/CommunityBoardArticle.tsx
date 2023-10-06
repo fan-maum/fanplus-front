@@ -34,7 +34,10 @@ const CommunityBoardArticle = ({ postItem, link, texts }: OwnPropType) => {
               <span css={{ color: '#ff5656' }}> [{postItem.COMMENT_CNT}]</span>
             </h4>
             <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>
-              <p>{postItem.WRITER_NAME + ' | ' + timeExpression}</p>
+              <p>
+                <span css={{ color: '#000' }}>{postItem.WRITER_NAME}</span>
+                {' | ' + timeExpression}
+              </p>
               <p>
                 <span>{texts.viewCount + ' ' + postItem.VIEW_CNT} </span>
                 <span>{texts.recommendCount + ' ' + postItem.RECOMMEND_CNT}</span>

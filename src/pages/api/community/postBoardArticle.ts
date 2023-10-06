@@ -3,13 +3,12 @@ import axios, { AxiosResponse } from 'axios';
 import type { PostBoardArticleResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { userId, boardIndex, boardLang, lang, topicIndex, title, contents, attachmentIds } =
-    req.body;
+  const { userId, boardIndex, lang, topicIndex, title, contents, attachmentIds } = req.body;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   const baseBodyData = {
     identity: userId,
-    lang: boardLang,
+    lang: lang,
     app_lang: lang,
     topic_idx: topicIndex,
     title,
