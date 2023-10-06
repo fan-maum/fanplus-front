@@ -195,6 +195,7 @@ export const VoteDetail_Text_ja = {
   vote: '投票',
   voting: '投票する',
   voteResult: '投票結果',
+  voteEnded: '投票が締め切られました。',
   voteDifference: {
     front: null,
     back: '票の得票差!',

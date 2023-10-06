@@ -195,6 +195,7 @@ export const VoteDetail_Text_zhtw = {
   vote: '投票',
   voting: '投票',
   voteResult: '投票結果',
+  voteEnded: '投票已結束',
   voteDifference: {
     front: null,
     back: '票差距!',

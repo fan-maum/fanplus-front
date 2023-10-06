@@ -195,6 +195,7 @@ export const VoteDetail_Text_en = {
   vote: 'Vote',
   voting: 'Vote',
   voteResult: 'Result',
+  voteEnded: 'The vote has been closed',
   voteDifference: {
     front: 'Winning by',
     back: 'vote(s)',

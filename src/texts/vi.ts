@@ -195,6 +195,7 @@ export const VoteDetail_Text_vi = {
   vote: 'Bỏ phiếu',
   voting: 'Bỏ phiếu',
   voteResult: 'Kết quả',
+  voteEnded: 'Hết hạn bỏ phiếu',
   voteDifference: {
     front: null,
     back: 'phiếu chênh lệch',

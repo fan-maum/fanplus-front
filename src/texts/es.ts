@@ -195,6 +195,7 @@ export const VoteDetail_Text_es = {
   vote: 'Votación',
   voting: 'Votar',
   voteResult: 'Resultado',
+  voteEnded: 'La votación está cerrada.',
   voteDifference: {
     front: '¡Diferencia de',
     back: 'votos!',

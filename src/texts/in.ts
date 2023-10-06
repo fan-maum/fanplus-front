@@ -195,6 +195,7 @@ export const VoteDetail_Text_in = {
   vote: 'Pemungutan suara',
   voting: 'Beri suara',
   voteResult: 'Hasil',
+  voteEnded: 'Pemungutan suara sudah selesai.',
   voteDifference: {
     front: 'Beda',
     back: 'suara!',

@@ -196,6 +196,7 @@ export const VoteDetail_Text_ko = {
   vote: '투표',
   voting: '투표하기',
   voteResult: '투표 결과',
+  voteEnded: '투표가 마감되었습니다.',
   voteDifference: {
     front: null,
     back: '표 차이',

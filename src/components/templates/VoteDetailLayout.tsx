@@ -193,8 +193,10 @@ const VoteDetailLayout = ({
       },
       onError: (error: AxiosError) => {
         const responseData: any = error.response?.data;
-        // TODO: error message를 어떻게 보여줄지 결정. string 작업도..
-        // alert(responseData?.RESULTS.MSG);
+        if (responseData?.RESULTS.ERROR === 4) {
+          // TODO: error message를 어떻게 보여줄지 결정. string 작업도..
+          // alert(voteDetailLanguage?.voteEnded);
+        }
       },
     }
   );
