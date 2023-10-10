@@ -8,7 +8,7 @@ export const getStorageRecentBoardDatas = () => {
 export const updateStorageRecentBoardList = (boardItem: BoardListItemType) => {
   const storageBoardDataObject = getStorageRecentBoardDatas();
   for (let i = 0; i < storageBoardDataObject.length; i++) {
-    if (storageBoardDataObject[i].BOARD_IDX === boardItem.BOARD_IDX) {
+    if (storageBoardDataObject[i].BOARD_IDX == boardItem.BOARD_IDX) {
       storageBoardDataObject.splice(i, 1);
       break;
     }

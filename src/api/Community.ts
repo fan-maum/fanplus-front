@@ -2,7 +2,9 @@ import axios, { AxiosResponse } from 'axios';
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
-  CommunityHomeResponseType,
+  RecommendListResponseType,
+  RecentlyListResponseType,
+  SubscriptionListResponseType,
   CommunityNoticeBannerResponseType,
   EditBoardArticleResponseType,
   EditorImageUploadResponseType,
@@ -12,12 +14,18 @@ import type {
 
 import type { BackLangType, BoardLangType, OrderType } from '@/types/common';
 
-export const getCommunityHomeData = async (userId: string, lang: BoardLangType) => {
-  const response: AxiosResponse<CommunityHomeResponseType> = await axios.get(
+export const getCommunityHomeData = async (userId: string, lang: BackLangType) => {
+  const recommendListResponse: AxiosResponse<RecommendListResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId, lang } }
+    { params: { userId, lang, viewType: 'recommend' } }
   );
-  return response.data;
+  const recentlyListResponse: AxiosResponse<RecentlyListResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
+    { params: { userId, lang, viewType: 'recently' } }
+  );
+  const recommendList = recommendListResponse.data.RESULTS.DATAS.RECOMMEND_LIST;
+  const recentlyList = recentlyListResponse.data.RESULTS.DATAS.RECENTLY_LIST;
+  return { recommendList, recentlyList };
 };
 
 export const getCommunityBoardData = async (
