@@ -374,6 +374,8 @@ export const CommunityPostText_KR: CommunityPostTextType = {
   daysAgo: '일 전',
   hoursAgo: '시간 전',
   minsAgo: '분 전',
+  copyUrlButton: '주소복사',
+  copyUrlMessage: '게시글 주소를 복사하였습니다.',
 };
 
 export const postCommentTotalCount_KR = (totalCount: number) => {

@@ -261,6 +261,8 @@ export type CommunityPostTextType = {
   daysAgo: string;
   hoursAgo: string;
   minsAgo: string;
+  copyUrlButton: string;
+  copyUrlMessage: string;
 };
 
 export type CommunityPostEditorTextType = {
