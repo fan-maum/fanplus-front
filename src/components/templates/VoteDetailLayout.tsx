@@ -28,6 +28,7 @@ import VoteBlockModal from '../modals/VoteBlockModal';
 import { useMutation } from 'react-query';
 import { postVotes } from '@/api/Vote';
 import VoteEndModal from '../modals/VoteEndModal';
+import { AxiosError } from 'axios';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -190,6 +191,12 @@ const VoteDetailLayout = ({
           setVoteModalDone(moreVoteCount); // TODO: 여기도 (n 표 더 투표하시겠습니까? (앱링크로))
         } else {
           setVoteModalBlock(true);
+        }
+      },
+      onError: (error: AxiosError) => {
+        const responseData: any = error.response?.data;
+        if (responseData?.RESULTS.ERROR === 4) {
+          setVoteModalEnd(true);
         }
       },
     }
