@@ -46,7 +46,7 @@ const CommunityPostDetail = ({
   };
   return (
     <>
-      <PostDetailCopyUrl />
+      <PostDetailCopyUrl texts={texts} />
       <Stack p={'24px 22px'} spacing={140} css={{ borderBottom: '6px solid #f1f1f1' }}>
         <PostContents dangerouslySetInnerHTML={{ __html: postInfo.POST_CONTENTS }} />
         <Center mb={8}>

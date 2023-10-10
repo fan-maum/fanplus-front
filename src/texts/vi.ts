@@ -378,6 +378,8 @@ export const CommunityPostText_VIE: CommunityPostTextType = {
   daysAgo: 'Ngày trước',
   hoursAgo: 'Giờ trước',
   minsAgo: 'Phút trước',
+  copyUrlButton: 'Sao chép URL',
+  copyUrlMessage: 'URL của bài viết được sao chép.',
 };
 
 export const postCommentTotalCount_VIE = (totalCount: number) => {

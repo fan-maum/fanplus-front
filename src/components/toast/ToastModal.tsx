@@ -1,9 +1,9 @@
-import ReactDOM, { createRoot } from 'react-dom/client';
-import SnackbarAlert from './toastMessage';
+import { Root, createRoot } from 'react-dom/client';
+import ToastMessage from './ToastMessage';
 
 const TOAST_CONTAINER_ID = 'toast-container';
 
-const getContainer = (id) => {
+const getContainer = (id: string) => {
   let container = document.getElementById(id);
 
   if (!container) {
@@ -17,15 +17,12 @@ const getContainer = (id) => {
   return container;
 };
 
-const renderToast = (component, container) => {
-  //   ReactDOM.createRoot(component, container);
-  const root = createRoot(container);
-  root.render(component);
+const renderToast = (children: any, root: Root) => {
+  root.render(children);
 };
 
-const unmountToast = (container, ms = 3000) => {
+const unmountToast = (container: HTMLElement, root: Root, ms = 3000) => {
   setTimeout(() => {
-    const root = createRoot(container);
     root.unmount();
     container.remove();
   }, ms);
@@ -34,8 +31,9 @@ const unmountToast = (container, ms = 3000) => {
 const ToastModal = {
   alert: (message: string) => {
     const container = getContainer(TOAST_CONTAINER_ID);
-    renderToast(<SnackbarAlert message={message} />, container);
-    unmountToast(container);
+    const root = createRoot(container);
+    renderToast(<ToastMessage message={message} />, root);
+    unmountToast(container, root);
   },
 };
 

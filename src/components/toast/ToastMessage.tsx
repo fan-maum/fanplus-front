@@ -6,8 +6,10 @@ type ToastMessageProps = {
   message: string;
 };
 
-const ToastMessage: React.FC<ToastMessageProps> = ({ message }) => (
-  <ToastWrapper>{message}</ToastWrapper>
+const ToastMessage = ({ message }: ToastMessageProps) => (
+  <ToastWrapper>
+    <span>{message}</span>
+  </ToastWrapper>
 );
 
 export default ToastMessage;

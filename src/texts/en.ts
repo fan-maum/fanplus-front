@@ -374,6 +374,8 @@ export const CommunityPostText_ENG: CommunityPostTextType = {
   daysAgo: 'days ago',
   hoursAgo: 'hours ago',
   minsAgo: 'mins ago',
+  copyUrlButton: 'Copy URL',
+  copyUrlMessage: 'The URL of the post is copied.',
 };
 
 export const postCommentTotalCount_ENG = (totalCount: number) => {
