@@ -196,6 +196,7 @@ export const VoteDetail_Text_ja = {
   voting: '投票する',
   board: '掲示板',
   voteResult: '投票結果',
+  voteEnded: '投票が締め切られました。',
   voteDifference: {
     front: null,
     back: '票の得票差!',
@@ -268,6 +269,7 @@ export const VoteModalButton_Text_ja = {
   voteModalCancel: 'キャンセル',
   voteModalComplete: '完了',
   voteModalInstall: 'アプリをインストールする',
+  voteModalConfirm: '確認',
 };
 
 export const CommunityMainText_JAP: CommunityPageTextType = {

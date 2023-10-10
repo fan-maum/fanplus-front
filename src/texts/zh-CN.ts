@@ -196,6 +196,7 @@ export const VoteDetail_Text_zh = {
   voting: '投票',
   board: '消息面板',
   voteResult: '投票结果',
+  voteEnded: '投票已结束',
   voteDifference: {
     front: null,
     back: '票差距!',
@@ -268,6 +269,7 @@ export const VoteModalButton_Text_zh = {
   voteModalCancel: '取消',
   voteModalComplete: '完成',
   voteModalInstall: '下载APP',
+  voteModalConfirm: '确认',
 };
 
 export const CommunityMainText_zh_CN: CommunityPageTextType = {

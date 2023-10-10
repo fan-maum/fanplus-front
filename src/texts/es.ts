@@ -196,6 +196,7 @@ export const VoteDetail_Text_es = {
   voting: 'Votar',
   board: 'Tablero',
   voteResult: 'Resultado',
+  voteEnded: 'La votación está cerrada.',
   voteDifference: {
     front: '¡Diferencia de',
     back: 'votos!',
@@ -268,6 +269,7 @@ export const VoteModalButton_Text_es = {
   voteModalCancel: 'Cancelar',
   voteModalComplete: 'Completado',
   voteModalInstall: 'Instala la aplicación',
+  voteModalConfirm: 'Confirmar',
 };
 
 export const CommunityMainText_ESP: CommunityPageTextType = {

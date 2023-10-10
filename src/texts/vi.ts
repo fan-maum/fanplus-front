@@ -196,6 +196,7 @@ export const VoteDetail_Text_vi = {
   voting: 'Bỏ phiếu',
   board: 'Board',
   voteResult: 'Kết quả',
+  voteEnded: 'Hết hạn bỏ phiếu',
   voteDifference: {
     front: null,
     back: 'phiếu chênh lệch',
@@ -268,6 +269,7 @@ export const VoteModalButton_Text_vi = {
   voteModalCancel: 'Hủy bỏ',
   voteModalComplete: 'Hoàn thành',
   voteModalInstall: 'Cài đặt ứng dụng',
+  voteModalConfirm: 'Xác nhận',
 };
 
 export const CommunityMainText_VIE: CommunityPageTextType = {

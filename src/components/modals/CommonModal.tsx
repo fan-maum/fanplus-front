@@ -4,7 +4,12 @@ import { VoteModalButton } from '../atoms/VoteModalButton';
 
 export interface CommonModalProps extends ModalProps {
   buttonId?: string;
-  confirmButton?: { onClick?: () => void; text?: string; loading?: boolean };
+  confirmButton?: {
+    onClick?: () => void;
+    text?: string;
+    loading?: boolean;
+    variant?: 'primary' | 'secondary';
+  };
   cancelButton?: { onClick?: () => void; text?: string } | boolean;
   withCancelButton?: boolean;
   overridestyle?: { header?: CSSObject; title?: CSSObject };
@@ -65,7 +70,7 @@ function CommonModal({
         )}
         <VoteModalButton
           buttonId={buttonId}
-          variant="primary"
+          variant={confirmButton?.variant || 'primary'}
           css={{ flex: 1 }}
           onClick={confirmButton?.onClick}
         >
