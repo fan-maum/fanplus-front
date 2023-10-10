@@ -269,6 +269,7 @@ export const VoteModalButton_Text_ko = {
   voteModalCancel: '취소하기',
   voteModalComplete: '완료',
   voteModalInstall: '앱 설치하기',
+  voteModalConfirm: '확인',
 };
 
 export const CommunityMainText_KR: CommunityPageTextType = {

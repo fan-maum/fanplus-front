@@ -268,6 +268,7 @@ export const VoteModalButton_Text_ja = {
   voteModalCancel: 'キャンセル',
   voteModalComplete: '完了',
   voteModalInstall: 'アプリをインストールする',
+  voteModalConfirm: '確認',
 };
 
 export const CommunityMainText_JAP: CommunityPageTextType = {

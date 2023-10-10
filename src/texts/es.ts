@@ -268,6 +268,7 @@ export const VoteModalButton_Text_es = {
   voteModalCancel: 'Cancelar',
   voteModalComplete: 'Completado',
   voteModalInstall: 'Instala la aplicación',
+  voteModalConfirm: 'Confirmar',
 };
 
 export const CommunityMainText_ESP: CommunityPageTextType = {

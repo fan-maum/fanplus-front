@@ -268,6 +268,7 @@ export const VoteModalButton_Text_in = {
   voteModalCancel: 'Batal',
   voteModalComplete: 'Selesai',
   voteModalInstall: 'Pasang aplikasi',
+  voteModalConfirm: 'Memeriksa',
 };
 
 export const CommunityMainText_IND: CommunityPageTextType = {

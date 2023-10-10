@@ -268,6 +268,7 @@ export const VoteModalButton_Text_zh = {
   voteModalCancel: '取消',
   voteModalComplete: '完成',
   voteModalInstall: '下载APP',
+  voteModalConfirm: '确认',
 };
 
 export const CommunityMainText_zh_CN: CommunityPageTextType = {

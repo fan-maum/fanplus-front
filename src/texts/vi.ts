@@ -268,6 +268,7 @@ export const VoteModalButton_Text_vi = {
   voteModalCancel: 'Hủy bỏ',
   voteModalComplete: 'Hoàn thành',
   voteModalInstall: 'Cài đặt ứng dụng',
+  voteModalConfirm: 'Xác nhận',
 };
 
 export const CommunityMainText_VIE: CommunityPageTextType = {
