@@ -47,16 +47,14 @@ function VoteDetailList({
       </Stack>
       <Stack spacing={0} justify="flex-start" css={{ backgroundColor: '#fff' }}>
         {voteDetailStars.map((item, index) => {
-          const board_IDX =
-            item.BOARD_LIST.length === 1
-              ? item.BOARD_LIST[0].BOARD_IDX
-              : item.BOARD_LIST[1].BOARD_IDX;
+          const board_IDX: any = item.BOARD_LIST.length === 0 ? null : item.BOARD_LIST[0].BOARD_IDX;
 
           return (
             <div key={item.STAR_IDX}>
               <VoteDetailListItem
                 starData={item}
                 starState={<VoteStarState starData={item} />}
+                isBoard={board_IDX !== null}
                 clickEvent={{
                   communityOnClick: () => communityOnClick(board_IDX),
                   shareOnClick: () => shareOnClick(item.STAR_IDX),
