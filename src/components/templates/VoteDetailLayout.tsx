@@ -27,6 +27,7 @@ import VoteDoneModal from '../modals/VoteDoneModal';
 import VoteBlockModal from '../modals/VoteBlockModal';
 import { useMutation } from 'react-query';
 import { postVotes } from '@/api/Vote';
+import VoteEndModal from '../modals/VoteEndModal';
 import { AxiosError } from 'axios';
 
 export interface VotesLayoutProps {
@@ -70,6 +71,7 @@ const VoteDetailLayout = ({
   const [voteModalBlock, setVoteModalBlock] = useState(false);
   const [voteModal, setVoteModal] = useState(false);
   const [voteModalDone, setVoteModalDone] = useState(0);
+  const [voteModalEnd, setVoteModalEnd] = useState(false);
 
   const freeVoteCount = 15;
   const moreVoteCount = 1650;
@@ -193,8 +195,9 @@ const VoteDetailLayout = ({
       },
       onError: (error: AxiosError) => {
         const responseData: any = error.response?.data;
-        // TODO: error message를 어떻게 보여줄지 결정. string 작업도..
-        // alert(responseData?.RESULTS.MSG);
+        if (responseData?.RESULTS.ERROR === 4) {
+          setVoteModalEnd(true);
+        }
       },
     }
   );
@@ -231,6 +234,10 @@ const VoteDetailLayout = ({
   };
 
   const voteOnClick = async (id: string) => {
+    if (voteDetails.RESULTS.DATAS.VOTE_INFO.STATUS === 'E') {
+      setVoteModalEnd(true);
+      return;
+    }
     const stars = voteDetails.RESULTS.DATAS.VOTE_INFO.STARS;
     const starIndex = stars.findIndex((star) => star.STAR_IDX === id);
     setStarWithIndex(starIndex);
@@ -325,6 +332,7 @@ const VoteDetailLayout = ({
         moreVoteCount={moreVoteCount}
         onWebViewLink={() => router.push(webViewLink)}
       />
+      <VoteEndModal opened={voteModalEnd} onClose={() => setVoteModalEnd(false)} />
     </div>
   );
 };

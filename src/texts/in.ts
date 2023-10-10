@@ -196,6 +196,7 @@ export const VoteDetail_Text_in = {
   voting: 'Beri suara',
   board: 'Papan',
   voteResult: 'Hasil',
+  voteEnded: 'Pemungutan suara sudah selesai.',
   voteDifference: {
     front: 'Beda',
     back: 'suara!',
@@ -268,6 +269,7 @@ export const VoteModalButton_Text_in = {
   voteModalCancel: 'Batal',
   voteModalComplete: 'Selesai',
   voteModalInstall: 'Pasang aplikasi',
+  voteModalConfirm: 'Memeriksa',
 };
 
 export const CommunityMainText_IND: CommunityPageTextType = {

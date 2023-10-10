@@ -197,6 +197,7 @@ export const VoteDetail_Text_ko = {
   voting: '투표하기',
   board: '게시판',
   voteResult: '투표 결과',
+  voteEnded: '투표가 마감되었습니다.',
   voteDifference: {
     front: null,
     back: '표 차이',
@@ -269,6 +270,7 @@ export const VoteModalButton_Text_ko = {
   voteModalCancel: '취소하기',
   voteModalComplete: '완료',
   voteModalInstall: '앱 설치하기',
+  voteModalConfirm: '확인',
 };
 
 export const CommunityMainText_KR: CommunityPageTextType = {
