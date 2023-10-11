@@ -142,8 +142,7 @@ const VoteDetailLayout = ({
   };
 
   const setNextQueryWithId = (starId: string) => {
-    const query = { ...router.query };
-    query.id = starId;
+    const query = Object.assign({ ...router.query }, { id: starId });
     let nextQuery = '?';
     for (const key in query) nextQuery += key + '=' + query[key] + ';';
     return nextQuery.slice(0, nextQuery.length - 1);
@@ -248,7 +247,7 @@ const VoteDetailLayout = ({
     if (authCookie) {
       setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
     } else {
-      const nextPath = pathOnly(router.pathname);
+      const nextPath = pathOnly(router.asPath);
       const nextQuery = setNextQueryWithId(id);
       router.push({ pathname: '/login', query: { nextUrl: nextPath + nextQuery } });
     }
