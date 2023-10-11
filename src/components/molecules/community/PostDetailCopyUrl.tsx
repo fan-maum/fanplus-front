@@ -29,8 +29,8 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
     <Stack direct="row" justify="flex-end" align="center" pt={10} spacing={10}>
       <span
         css={{
-          color: '#000',
-          fontSize: 16,
+          color: '#58555c',
+          fontSize: 14,
           fontWeight: 400,
         }}
       >
@@ -39,9 +39,15 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
       <CopyToClipboard text={href} onCopy={() => handleCopyClipBoard(href)}>
         <UnstyledButton
           h={26}
-          p={'4px 18px'}
+          p={'1px 8px'}
           bg="#f1f1f1"
-          css={{ borderRadius: 6, color: '#000', fontSize: 12, fontWeight: 600 }}
+          css={{
+            borderRadius: 6,
+            color: '#101010',
+            fontSize: 12,
+            fontWeight: 600,
+            lineHeight: '14px',
+          }}
         >
           {texts.copyUrlButton}
         </UnstyledButton>
