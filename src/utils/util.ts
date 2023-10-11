@@ -2,6 +2,8 @@ import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { VoteDetailStars } from '@/types/vote';
+import { LangCookie } from './setLangCookie';
+import { BackLangType } from '@/types/common';
 
 export const FormatTime = (time: number | undefined) => {
   const language = useUrlLanguage();
@@ -74,4 +76,8 @@ export const formatWrittenTime = (prevTimeExpression: string) => {
 
   if (elpasedTimeInHour > 0) return { timeType: 'Hour' as timeType, time: elpasedTimeInHour };
   return { timeType: 'Minute' as timeType, time: elpasedTimeInMinute };
+};
+
+export const pathOnly = (url: string) => {
+  return url.split('?')[0];
 };

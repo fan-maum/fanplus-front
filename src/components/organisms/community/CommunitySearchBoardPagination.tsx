@@ -20,6 +20,7 @@ const CommunitySearchBoardPagination = ({ totalCount, itemsPerPage }: VotePagina
         category_type: category_type,
         searchValue: searchValue,
         page: event.selected + 1,
+        locale: router.query.locale,
       },
     });
   };

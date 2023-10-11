@@ -13,7 +13,7 @@ import VoteDetailList, {
   VoteDetailListProps,
 } from '@/components/organisms/voteDetail/VoteDetailList';
 import { VoteDetailResponse, VoteDetailStars, VoteMutateParam } from '@/types/vote';
-import { useUrlLanguage, getVoteDetailLanguage } from '@/hooks/useLanguage';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { useRecoilState } from 'recoil';
 import { voteDetailLangState } from '@/store/voteLangState';
 import { useEffect, useState } from 'react';
@@ -29,6 +29,7 @@ import { useMutation } from 'react-query';
 import { postVotes } from '@/api/Vote';
 import VoteEndModal from '../modals/VoteEndModal';
 import { AxiosError } from 'axios';
+import { pathOnly } from '@/utils/util';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -61,7 +62,6 @@ const VoteDetailLayout = ({
   const endDay = new Date(propsVoteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
   const language = useUrlLanguage();
-  const voteLanguage = getVoteDetailLanguage();
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
@@ -248,7 +248,7 @@ const VoteDetailLayout = ({
     if (authCookie) {
       setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
     } else {
-      const nextPath = router.pathname;
+      const nextPath = pathOnly(router.pathname);
       const nextQuery = setNextQueryWithId(id);
       router.push({ pathname: '/login', query: { nextUrl: nextPath + nextQuery } });
     }
