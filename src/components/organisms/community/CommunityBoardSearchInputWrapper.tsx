@@ -28,6 +28,7 @@ const CommunityBoardSearchInputWrapper = ({
         category_type: 0,
         searchValue: data.searchValue,
         tab: 'search',
+        locale: router.query.locale,
       },
     });
     reset({ searchValue: data.searchValue });

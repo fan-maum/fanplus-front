@@ -86,7 +86,10 @@ const CommunityPageTemplate = ({
               buttonText={texts.buttonSearch}
               onClickSearch={() => {
                 setTabBar('search');
-                router.push({ pathname: router.pathname, query: { tab: 'search' } });
+                router.push({
+                  pathname: router.pathname,
+                  query: { tab: 'search', locale: router.query.locale },
+                });
               }}
             />
           )}
@@ -136,7 +139,7 @@ const TabBar = ({
   const router = useRouter();
   const handleClick = (tabBar: TabBarType) => {
     setTabBar(tabBar);
-    router.push({ pathname: router.pathname, query: { tab: tabBar } });
+    router.push({ pathname: router.pathname, query: { tab: tabBar, locale: router.query.locale } });
   };
   return (
     <ul css={{ width: '100%', display: 'flex', margin: '8px 0px' }}>
@@ -149,8 +152,8 @@ const TabBar = ({
         title={tabTitles.search}
         selected={tabBar === 'search'}
         onClick={() => {
-          handleClick('search');
           setActiveTab(texts.allCategory);
+          setTabBar('search');
           router.push({
             pathname: router.pathname,
             query: {
@@ -158,6 +161,7 @@ const TabBar = ({
               searchValue: '',
               page: 0,
               tab: 'search',
+              locale: router.query.locale,
             },
           });
         }}

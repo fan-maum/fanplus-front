@@ -5,7 +5,7 @@ import VoteTitle from '../molecules/VoteTitle';
 import { VoteData } from '@/types/vote';
 import { FormatTime } from '@/utils/util';
 import Link from 'next/link';
-import { useUrlLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
+import { urlLangToBackLang, useUrlLanguage } from '@/hooks/useLanguage';
 import VoteTitleImage from '../molecules/VoteTitleImage';
 import VoteHighRankTab, { VoteHighRankTabProps } from '../molecules/VoteHighRankTab';
 import { useRecoilState } from 'recoil';
@@ -29,7 +29,7 @@ export const voteStatusTranslation: { [key in ReceivedVoteStatus]: TranslatedVot
 
 const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProps) => {
   const language = useUrlLanguage();
-  const voteDetailLanguage = GetRouterLanguage();
+  const voteDetailLanguage = urlLangToBackLang(language);
   const voteDetailText = useRecoilState(voteDetailLangState(language))[0];
   const startDate = new Date(startDay);
   const endDate = new Date(endDay);
@@ -86,7 +86,7 @@ const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProp
         <Link
           href={{
             pathname: `/${language}/voteDetail`,
-            query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage },
+            query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage, locale: language },
           }}
         >
           <VoteTitleImage voteStatus={voteStatus} voteDataImage={voteData.TITLE_IMG} />
@@ -112,7 +112,7 @@ const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProp
         <Link
           href={{
             pathname: `/${language}/voteDetail`,
-            query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage },
+            query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage, locale: language },
           }}
         >
           <VoteHighRankTab {...VoteHighRankTabProps} />

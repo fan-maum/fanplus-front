@@ -24,6 +24,7 @@ const SearchScrollTabBar = ({
       query: {
         category_type: tabs[index].CATEGORY_IDX,
         searchValue: searchValue,
+        locale: router.query.locale,
       },
     });
   };
