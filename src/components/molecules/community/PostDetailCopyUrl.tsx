@@ -26,7 +26,14 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
   }, [isCopy]);
 
   return (
-    <Stack direct="row" justify="flex-end" align="center" pt={10} spacing={10}>
+    <Stack
+      direct="row"
+      justify="flex-end"
+      align="center"
+      pt={10}
+      spacing={10}
+      css={{ '@media(max-width:768px)': { display: 'none' } }}
+    >
       <span
         css={{
           color: '#58555c',
