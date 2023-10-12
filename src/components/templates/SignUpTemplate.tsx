@@ -1,22 +1,24 @@
+import { setUserOnboard } from '@/api/User';
+import { signupPageTexts } from '@/texts/signupPageTexts';
+import type { UrlLangType } from '@/types/common';
+import { useRouter } from 'next/router';
 import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
-import IconFanPlus from '../atoms/IconFanPlus';
+import { Cookies } from 'react-cookie';
 import IconBack from '../atoms/IconBack';
 import IconCheckButton from '../atoms/IconCheckButton';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { Cookies } from 'react-cookie';
-import { SignUpPageTextType } from '@/types/textTypes';
-import { setUserOnboard } from '@/api/User';
+import IconFanPlus from '../atoms/IconFanPlus';
 
 const cookies = new Cookies();
 
-const SignUpTemplate = ({ texts }: { texts: SignUpPageTextType }) => {
+const SignUpTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
   const router = useRouter();
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
   const [check3, setCheck3] = useState(false);
   const [check4, setCheck4] = useState(false);
   const [start, setStart] = useState(false);
+
+  const texts = signupPageTexts[urlLang];
 
   const handleClickStart = () => {
     if (check1 && check2 && check3 && check4) setStart(true);

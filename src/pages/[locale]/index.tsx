@@ -1,6 +1,6 @@
 import Layout from '@/components/organisms/Layout';
 import MainPageTemplate from '@/components/templates/MainPageTemplate';
-import { MainPageText_KR } from '@/texts/ko';
+import { mainPageTexts } from '@/texts/mainpageTexts';
 import type { UrlLangType } from '@/types/common';
 import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
@@ -34,7 +34,7 @@ export default function Home({ urlLang }: { urlLang: UrlLangType }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout urlLang={urlLang}>
-        <MainPageTemplate texts={MainPageText_KR} />
+        <MainPageTemplate urlLang={urlLang} />
       </Layout>
     </>
   );

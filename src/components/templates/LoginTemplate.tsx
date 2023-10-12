@@ -1,19 +1,22 @@
-import GoogleLoginButton from '../atoms/LoginButtons/GoogleLoginButton';
-import AppleLoginButton from '../atoms/LoginButtons/AppleLoginButton';
-import IconFanPlus from '../atoms/IconFanPlus';
-import IconArrowLeft from '../atoms/IconArrowLeft';
+import { loginPageTexts } from '@/texts/loginPageTexts';
+import type { UrlLangType } from '@/types/common';
 import { useRouter } from 'next/router';
-import { LoginPageTextType } from '@/types/textTypes';
 import { useState } from 'react';
-import OtherBrowserModal from '../modals/OtherBrowserModal';
 import { isAndroid } from 'react-device-detect';
+import IconArrowLeft from '../atoms/IconArrowLeft';
+import IconFanPlus from '../atoms/IconFanPlus';
+import AppleLoginButton from '../atoms/LoginButtons/AppleLoginButton';
+import GoogleLoginButton from '../atoms/LoginButtons/GoogleLoginButton';
 import CompletedShareModal from '../modals/CompletedShareModal';
+import OtherBrowserModal from '../modals/OtherBrowserModal';
 
-const LoginTemplate = ({ texts }: { texts: LoginPageTextType }) => {
+const LoginTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
   const router = useRouter();
   const nextUrl = router.query['nextUrl'] as string;
   const [otherBrowserModalOpen, setOtherBrowserModalOpen] = useState(false);
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
+
+  const texts = loginPageTexts[urlLang];
 
   const handleAppleLoginClick = () => {
     window.location.href = `/api/auth/login/apple?nextUrl=${nextUrl}`;
