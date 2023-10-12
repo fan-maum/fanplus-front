@@ -376,6 +376,8 @@ export const CommunityPostText_JAP: CommunityPostTextType = {
   daysAgo: '日 前',
   hoursAgo: '時間 前',
   minsAgo: '分 前',
+  copyUrlButton: 'URLコピー',
+  copyUrlMessage: '投稿のURLがコピーされます。',
 };
 
 export const postCommentTotalCount_JAP = (totalCount: number) => {

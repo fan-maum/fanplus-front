@@ -376,6 +376,8 @@ export const CommunityPostText_zh_TW: CommunityPostTextType = {
   daysAgo: '日 前',
   hoursAgo: '小時 前',
   minsAgo: '分鐘 前',
+  copyUrlButton: '複製URL',
+  copyUrlMessage: '貼文的 URL 已複製。',
 };
 
 export const postCommentTotalCount_zh_TW = (totalCount: number) => {

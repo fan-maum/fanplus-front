@@ -1,7 +1,7 @@
 import type {
+  BoardListItemType,
   CommunityBoardCategoryResponseType,
   CommunityBoardResultResponseType,
-  CommunityHomeResponseType,
 } from '@/types/community';
 import type { CommunityPageTextType } from '@/types/textTypes';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -14,8 +14,13 @@ import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoar
 import { getStorageRecentBoardDatas } from '@/utils/recentBoard';
 import { useRouter } from 'next/router';
 
+export type CommunityHomeDataType = {
+  recommendList: BoardListItemType[];
+  recentlyList: BoardListItemType[];
+};
+
 export type CommunityPropTypes = {
-  communityHomeData: CommunityHomeResponseType;
+  communityHomeData: CommunityHomeDataType;
   boardCategoryData: CommunityBoardCategoryResponseType;
   boardResultData: CommunityBoardResultResponseType;
   texts: CommunityPageTextType;
@@ -32,15 +37,15 @@ const CommunityPageTemplate = ({
   const router = useRouter();
 
   const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'home');
-  const [recentlyList, setRecentlyList] = useState(communityHomeData.RESULTS.DATAS.RECENTLY_LIST);
+  const [recentlyList, setRecentlyList] = useState(communityHomeData.recentlyList);
   const searchTabState = useState(texts.allCategory);
   const [activeTabState] = searchTabState;
 
   useEffect(() => {
     const storageRecentlyList = getStorageRecentBoardDatas();
-    if (!recentlyList) setRecentlyList(storageRecentlyList);
+    if (recentlyList.length === 0) setRecentlyList(storageRecentlyList);
   }, []);
-  const recommendList = communityHomeData.RESULTS.DATAS.RECOMMEND_LIST;
+  const recommendList = communityHomeData.recommendList;
   const boardResultTotalCount = boardResultData.RESULTS.DATAS.TOTAL_COUNT;
   const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
 

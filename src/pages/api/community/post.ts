@@ -14,7 +14,7 @@ const handler: NextApiHandler = async (req, res) => {
         'Cache-Control': 'no-cache',
       },
       params:
-        identity === undefined
+        identity !== undefined
           ? {
               identity,
               lang,

@@ -381,6 +381,8 @@ export const CommunityPostText_IND: CommunityPostTextType = {
   daysAgo: 'hari sebelumnya',
   hoursAgo: 'jam sebelumnya',
   minsAgo: 'menit sebelumnya',
+  copyUrlButton: 'Salin URL',
+  copyUrlMessage: 'URL postingan disalin.',
 };
 
 export const postCommentTotalCount_IND = (totalCount: number) => {

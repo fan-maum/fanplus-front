@@ -1,4 +1,3 @@
-import { reportComment } from './../api/Community';
 import { BackLangType } from './common';
 export type BoardListItemType = {
   BOARD_IDX: string;
@@ -9,15 +8,27 @@ export type BoardListItemType = {
   STAR_IDX: string;
   STAR_GROUP_IDX: string;
 };
-export type CommunityHomeResponseType = {
+export type RecommendListResponseType = {
   RESULTS: {
     ERROR: number;
     MSG: string;
-    DATAS: {
-      RECOMMEND_LIST: Array<BoardListItemType>;
-      RECENTLY_LIST: Array<BoardListItemType>;
-      SUBSCRIPTION_LIST: Array<BoardListItemType | null>;
-    };
+    DATAS: { RECOMMEND_LIST: Array<BoardListItemType> };
+    TIMESTAMP: number;
+  };
+};
+export type RecentlyListResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: { RECENTLY_LIST: Array<BoardListItemType> };
+    TIMESTAMP: number;
+  };
+};
+export type SubscriptionListResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: { SUBSCRIPTION_LIST: Array<BoardListItemType> };
     TIMESTAMP: number;
   };
 };
