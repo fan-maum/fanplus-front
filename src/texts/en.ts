@@ -282,6 +282,7 @@ export const CommunityMainText_ENG: CommunityPageTextType = {
   buttonSearch: 'Search',
   allCategory: 'All',
   searchPlaceholder: 'Search for a board you may like.',
+  postCount: 'Posts',
   link: {
     board: '/en/community/board',
   },

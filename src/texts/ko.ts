@@ -283,6 +283,7 @@ export const CommunityMainText_KR: CommunityPageTextType = {
   buttonSearch: '검색',
   allCategory: '전체',
   searchPlaceholder: '원하는 게시판을 찾아보세요.',
+  postCount: '게시글 수',
   link: {
     board: '/ko/community/board',
   },
