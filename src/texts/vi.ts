@@ -286,6 +286,7 @@ export const CommunityMainText_VIE: CommunityPageTextType = {
   buttonSearch: 'Tìm kiếm',
   allCategory: 'Tất cả',
   searchPlaceholder: 'Tìm kiếm một bảng bạn có thể thích.',
+  postCount: 'Câu chuyện',
   link: {
     board: '/vi/community/board',
   },

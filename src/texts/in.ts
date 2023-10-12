@@ -286,6 +286,7 @@ export const CommunityMainText_IND: CommunityPageTextType = {
   buttonSearch: 'Cari',
   allCategory: 'Semua',
   searchPlaceholder: 'Cari papan yang mungkin Anda sukai.',
+  postCount: 'Posts',
   link: {
     board: '/in/community/board',
   },
