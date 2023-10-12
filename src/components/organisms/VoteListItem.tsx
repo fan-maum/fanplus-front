@@ -86,7 +86,7 @@ const VoteListItem = ({ startDay, endDay, voteData, ...props }: VoteListItemProp
         <Link
           href={{
             pathname: `/${language}/voteDetail`,
-            query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage, locale: language },
+            query: { vote_IDX: voteData.VOTE_IDX, lang: voteDetailLanguage },
           }}
         >
           <VoteTitleImage voteStatus={voteStatus} voteDataImage={voteData.TITLE_IMG} />
