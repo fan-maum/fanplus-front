@@ -282,6 +282,7 @@ export const CommunityMainText_JAP: CommunityPageTextType = {
   buttonSearch: '検索',
   allCategory: '全',
   searchPlaceholder: '希望の掲示板を見つけてください。',
+  postCount: '話',
   link: {
     board: '/ja/community/board',
   },

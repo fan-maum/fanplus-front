@@ -4,10 +4,11 @@ export type BoardItemType = {
   icon: string;
   title: string;
   link: string;
+  postCount: string;
   onClickLocalStore: () => void;
 };
 
-const CommunityBoardItem = ({ icon, title, link, onClickLocalStore }: BoardItemType) => {
+const CommunityBoardItem = ({ icon, title, link, postCount, onClickLocalStore }: BoardItemType) => {
   return (
     <Link
       href={link}
@@ -20,7 +21,10 @@ const CommunityBoardItem = ({ icon, title, link, onClickLocalStore }: BoardItemT
       onClick={onClickLocalStore}
     >
       <img src={icon} css={{ width: '84px', height: '84px' }} alt={title} />
-      <p css={{ margin: 'auto 5px', fontWeight: '500' }}>{title}</p>
+      <div css={{ margin: 'auto 5px', fontWeight: '600', lineHeight: '24px' }}>
+        <p css={{ color: '#101010', letterSpacing: '0.18px', fontSize: '18px' }}> {title} </p>
+        <p css={{ color: '#999', letterSpacing: '0.16px', fontSize: '16px' }}>{postCount}</p>
+      </div>
     </Link>
   );
 };
