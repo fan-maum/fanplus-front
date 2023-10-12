@@ -14,7 +14,7 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
   const [isCopy, onCopy] = useCopyUrl();
 
   const clientURL = process.env.NEXT_PUBLIC_CLIENT_URL;
-  const path = router.asPath.slice(1);
+  const path = router.asPath;
   const href = `${clientURL}${path}`;
 
   const handleCopyClipBoard = async (href: string) => {
