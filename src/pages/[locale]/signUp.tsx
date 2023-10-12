@@ -1,13 +1,20 @@
 import Layout from '@/components/organisms/Layout';
-import { NavBarText_KR, FooterText_KR, SignUpPageText_KR } from '@/texts/ko';
 import SignUpTemplate from '@/components/templates/SignUpTemplate';
+import { SignUpPageText_KR } from '@/texts/ko';
+import type { UrlLangType } from '@/types/common';
+import type { GetServerSideProps } from 'next';
 
-const signUp = () => {
+const signUp = ({ urlLang }: { urlLang: UrlLangType }) => {
   return (
-    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+    <Layout urlLang={urlLang}>
       <SignUpTemplate texts={SignUpPageText_KR} />
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const urlLang = context.query.locale;
+  return { props: { urlLang } };
 };
 
 export default signUp;

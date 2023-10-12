@@ -1,18 +1,26 @@
 import { getCommunityBoardData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
-import CommunityMyPostTemplate, {
-  CommunityMyPostPropType,
-} from '@/components/templates/CommunityMyPostTemplate';
+import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityBoardText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import { CommunityBoardText_KR } from '@/texts/ko';
 import type { UrlLangType } from '@/types/common';
-import { GetServerSideProps } from 'next';
+import type { CommunityBoardResponseType } from '@/types/community';
+import type { CommunityBoardTextType } from '@/types/textTypes';
+import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
-const MyPost = ({ userId, communityBoardData }: CommunityMyPostPropType) => {
+export type CommunityMyPostPropType = {
+  urlLang: UrlLangType;
+  userId: string | null;
+  communityBoardData: CommunityBoardResponseType;
+  texts: CommunityBoardTextType;
+};
+
+const MyPost = ({ urlLang, userId, communityBoardData }: CommunityMyPostPropType) => {
   return (
-    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+    <Layout urlLang={urlLang}>
       <CommunityMyPostTemplate
+        urlLang={urlLang}
         userId={userId}
         communityBoardData={communityBoardData}
         texts={CommunityBoardText_KR}
@@ -27,7 +35,7 @@ export const getServerSideProps: GetServerSideProps<
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
 
-  const urlLang = (context.query.locale || 'en') as UrlLangType;
+  const urlLang = context.query.locale as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
@@ -47,7 +55,7 @@ export const getServerSideProps: GetServerSideProps<
     view_type
   );
 
-  return { props: { userId, communityBoardData } };
+  return { props: { urlLang, userId, communityBoardData } };
 };
 
 export default MyPost;

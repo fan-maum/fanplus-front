@@ -1,24 +1,33 @@
 import { getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
-import CommunityPostTemplate, {
-  CommunityPostPropType,
-} from '@/components/templates/CommunityPostTemplate';
+import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityPostText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
-import type { UrlLangType } from '@/types/common';
+import { CommunityPostText_KR } from '@/texts/ko';
+import type { BackLangType, UrlLangType } from '@/types/common';
 import type { PostResponseType } from '@/types/community';
-import { GetServerSideProps } from 'next';
+import type { CommunityPostTextType } from '@/types/textTypes';
+import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
+export type CommunityPostPropType = {
+  identity: string;
+  user_idx: string;
+  postIndex: number;
+  lang: BackLangType;
+  communityPostData: PostResponseType;
+  texts: CommunityPostTextType;
+};
+
 const Post = ({
+  urlLang,
   identity,
   user_idx,
   postIndex,
   lang,
   communityPostData,
-}: CommunityPostPropType) => {
+}: CommunityPostPropType & { urlLang: UrlLangType }) => {
   return (
-    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+    <Layout urlLang={urlLang}>
       <CommunityPostTemplate
         identity={identity}
         user_idx={user_idx}
@@ -31,10 +40,8 @@ const Post = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps<{
-  communityPostData: PostResponseType;
-}> = async (context) => {
-  const urlLang = (context.query.locale || 'en') as UrlLangType;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const urlLang = context.query.locale as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
@@ -48,7 +55,7 @@ export const getServerSideProps: GetServerSideProps<{
   const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, backLang);
 
   return {
-    props: { identity, user_idx, postIndex, lang: backLang, communityPostData },
+    props: { urlLang, identity, user_idx, postIndex, lang: backLang, communityPostData },
   };
 };
 

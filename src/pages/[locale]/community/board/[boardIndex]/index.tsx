@@ -4,16 +4,31 @@ import {
   getCommunityNoticeBannerData,
 } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
-import CommunityBoardTemplate, {
-  CommunityBoardPropType,
-} from '@/components/templates/CommunityBoardTemplate';
+import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityBoardText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import { CommunityBoardText_KR } from '@/texts/ko';
 import type { BoardLangType, UrlLangType } from '@/types/common';
-import { GetServerSideProps } from 'next';
+import type {
+  CommunityBoardResponseType,
+  CommunityBoardTopicResponseType,
+  CommunityNoticeBannerResponseType,
+} from '@/types/community';
+import type { CommunityBoardTextType } from '@/types/textTypes';
+import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
+export type CommunityBoardPropType = {
+  urlLang: UrlLangType;
+  userId: string | null;
+  boardLangCookie: BoardLangType;
+  communityBoardData: CommunityBoardResponseType;
+  communityBoardTopics: CommunityBoardTopicResponseType;
+  communityNoticeBannerData: CommunityNoticeBannerResponseType;
+  texts: CommunityBoardTextType;
+};
+
 const Board = ({
+  urlLang,
   userId,
   boardLangCookie,
   communityBoardData,
@@ -21,8 +36,9 @@ const Board = ({
   communityNoticeBannerData,
 }: CommunityBoardPropType) => {
   return (
-    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+    <Layout urlLang={urlLang}>
       <CommunityBoardTemplate
+        urlLang={urlLang}
         userId={userId}
         boardLangCookie={boardLangCookie}
         communityBoardData={communityBoardData}
@@ -34,15 +50,13 @@ const Board = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType, 'texts'>> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
-  const urlLang = (context.query.locale || 'en') as UrlLangType;
+  const urlLang = context.query.locale as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const topic = parseInt(context.query.topic as string) || '';
@@ -64,6 +78,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
 
   return {
     props: {
+      urlLang,
       userId,
       boardLangCookie,
       communityBoardData,

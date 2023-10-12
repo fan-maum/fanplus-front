@@ -2,14 +2,15 @@ import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import { CommunityPostEditorText_KR } from '@/texts/ko';
 import type { BackLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
 import { loginErrorHandler } from '@/utils/loginError';
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
+  urlLang: UrlLangType;
   boardTopics: CommunityBoardTopicResponseType;
   communityPostData: PostResponseType;
   datas: {
@@ -21,9 +22,9 @@ type CommunityPostWritePropType = {
   };
 };
 
-const Edit = ({ boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
+const Edit = ({ urlLang, boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
   return (
-    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+    <Layout urlLang={urlLang}>
       <PostEditorTemplate
         mode="EDIT"
         topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
@@ -44,7 +45,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const userId = cookies['user_id'];
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
 
-  const urlLang = (context.query.locale || 'en') as UrlLangType;
+  const urlLang = context.query.locale as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
@@ -60,7 +61,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   }
   const datas = { userId, boardIndex, postIndex, boardLang, lang: backLang };
   return {
-    props: { boardTopics, communityPostData, datas },
+    props: { urlLang, boardTopics, communityPostData, datas },
   };
 };
 

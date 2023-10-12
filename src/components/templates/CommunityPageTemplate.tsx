@@ -1,30 +1,14 @@
-import type {
-  BoardListItemType,
-  CommunityBoardCategoryResponseType,
-  CommunityBoardResultResponseType,
-} from '@/types/community';
-import type { CommunityPageTextType } from '@/types/textTypes';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
-import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
-import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
+import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
+import type { CommunityPageTextType } from '@/types/textTypes';
 import { getStorageRecentBoardDatas } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
-
-export type CommunityHomeDataType = {
-  recommendList: BoardListItemType[];
-  recentlyList: BoardListItemType[];
-};
-
-export type CommunityPropTypes = {
-  communityHomeData: CommunityHomeDataType;
-  boardCategoryData: CommunityBoardCategoryResponseType;
-  boardResultData: CommunityBoardResultResponseType;
-  texts: CommunityPageTextType;
-};
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
+import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
+import type { CommunityPropTypes } from '@/pages/[locale]/community';
 
 type TabBarType = 'home' | 'search';
 
