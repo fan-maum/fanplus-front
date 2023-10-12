@@ -1,9 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import { VoteDetailStars } from '@/types/vote';
-import { LangCookie } from './setLangCookie';
-import { BackLangType } from '@/types/common';
+import type { VoteDetailStars } from '@/types/vote';
 
 export const FormatTime = (time: number | undefined) => {
   const language = useUrlLanguage();

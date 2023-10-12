@@ -1,7 +1,6 @@
-import { NextResponse } from 'next/server';
-import { NextRequest } from 'next/server';
-import { LangCookie } from './utils/setLangCookie';
 import Negotiator from 'negotiator';
+import { NextRequest, NextResponse } from 'next/server';
+import type { UrlLangType } from './types/common';
 
 const PUBLIC_FILE = /\.(.*)$/;
 export const AVAIL_PAGE = [
@@ -14,7 +13,7 @@ export const AVAIL_PAGE = [
   'voteDetail',
   'votes',
 ];
-export const SUPPORT_LANGUAGE: LangCookie[] = [
+export const SUPPORT_LANGUAGE: UrlLangType[] = [
   'ko',
   'en',
   'es',
@@ -49,7 +48,7 @@ export function middleware(request: NextRequest) {
   if (urlFirstPath === userLang) return NextResponse.next();
 
   // * url에 locale 값이 존재하지만 쿠키와 (혹은 browser의 locale과) 일치하지 않을 경우: lang 값만 바꿔서 redirect.
-  if (SUPPORT_LANGUAGE.includes(urlFirstPath as LangCookie)) {
+  if (SUPPORT_LANGUAGE.includes(urlFirstPath as UrlLangType)) {
     const path = urlPaths.split('/');
     const newPath = [userLang, ...path.slice(1)].join('/');
     return NextResponse.redirect(new URL(`/${newPath}/${urlQueries}`, request.url));

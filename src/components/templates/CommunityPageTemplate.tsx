@@ -11,7 +11,7 @@ import CommunitySearchBoardWrapper from '@/components/organisms/community/Commun
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
-import { getStorageRecentBoardDatas } from '@/utils/recentBoard';
+import { getStorageRecentBoardDatas } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
 
 export type CommunityHomeDataType = {

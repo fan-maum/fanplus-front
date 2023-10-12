@@ -1,15 +1,14 @@
-import { BackLangType } from '@/types/common';
-import { LangCookie } from '@/utils/setLangCookie';
+import type { UrlLangType, BackLangType } from '@/types/common';
 import { useRouter } from 'next/router';
 
 export function useUrlLanguage() {
   const router = useRouter();
   const language = router.asPath.split('/')[1];
-  return language as LangCookie;
+  return language as UrlLangType;
 }
 
-export function urlLangToBackLang(lang: LangCookie) {
-  const translator: Record<LangCookie, BackLangType> = {
+export function urlLangToBackLang(lang: UrlLangType) {
+  const translator: Record<UrlLangType, BackLangType> = {
     ko: 'ko',
     en: 'en',
     ja: 'ja',

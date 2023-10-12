@@ -1,22 +1,22 @@
+import type { UrlLangType } from '@/types/common';
+import Script from 'next/script';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useTinyMCEConfig } from '../module/useTinyMCEConfig';
-import { useIOSIMESetting } from '../module/useIOSIMESetting';
+import { Editor } from '../../../public/tinymce/tinymce';
 import {
   useCustomImageButton,
   useCustomVideoButton,
   useCustomYoutubeButton,
 } from '../constant/customButtons';
-import Script from 'next/script';
 import FileUploader from '../module/FileUploader';
-import { Editor } from '../../../public/tinymce/tinymce';
-import { LangCookie } from '@/utils/setLangCookie';
+import { useIOSIMESetting } from '../module/useIOSIMESetting';
+import { useTinyMCEConfig } from '../module/useTinyMCEConfig';
 
 type TProps = {
   editorRef: any;
   editorId: string;
   setContent: Dispatch<SetStateAction<any>>;
   defaultValue?: string;
-  language: LangCookie;
+  language: UrlLangType;
   fileUploadCallback: (file: any) => Promise<void>;
 };
 

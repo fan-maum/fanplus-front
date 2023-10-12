@@ -3,17 +3,17 @@ import {
   getCommunityBoardResultData,
   getCommunityHomeData,
 } from '@/api/Community';
-import { GetServerSideProps } from 'next';
 import Layout from '@/components/organisms/Layout';
-import { NavBarText_KR, FooterText_KR, CommunityMainText_KR } from '@/texts/ko';
-import nookies from 'nookies';
-import type { CommunityBoardCategoryResponseType } from '@/types/community';
 import CommunityPageTemplate, {
   CommunityHomeDataType,
   CommunityPropTypes,
 } from '@/components/templates/CommunityPageTemplate';
-import { LangCookie } from '@/utils/setLangCookie';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
+import { CommunityMainText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import type { UrlLangType } from '@/types/common';
+import type { CommunityBoardCategoryResponseType } from '@/types/community';
+import { GetServerSideProps } from 'next';
+import nookies from 'nookies';
 
 const Community = ({
   communityHomeData,
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
-  const urlLang = (context.query.locale || 'en') as LangCookie;
+  const urlLang = (context.query.locale || 'en') as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const category_type = parseInt(context.query.category_type as string) || 0;
   const searchValue = context.query.searchValue || '';

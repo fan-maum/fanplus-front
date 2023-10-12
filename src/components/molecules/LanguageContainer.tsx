@@ -22,14 +22,14 @@ const LanguageContainer = ({ isVoteCommunityPage }: { isVoteCommunityPage: boole
         },
       }}
     >
-      <Language language="한국어" langCookie="ko" />
-      <Language language="English" langCookie="en" />
-      <Language language="Español" langCookie="es" />
-      <Language language="日本語" langCookie="ja" />
-      <Language language="中文 (简体)" langCookie="zh-CN" />
-      <Language language="中文 (繁體)" langCookie="zh-TW" />
-      <Language language="Bahasa Indonesia" langCookie="in" />
-      <Language language="Tiếng việt" langCookie="vi" />
+      <Language language="한국어" urlLang="ko" />
+      <Language language="English" urlLang="en" />
+      <Language language="Español" urlLang="es" />
+      <Language language="日本語" urlLang="ja" />
+      <Language language="中文 (简体)" urlLang="zh-CN" />
+      <Language language="中文 (繁體)" urlLang="zh-TW" />
+      <Language language="Bahasa Indonesia" urlLang="in" />
+      <Language language="Tiếng việt" urlLang="vi" />
     </div>
   );
 };

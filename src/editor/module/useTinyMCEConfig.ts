@@ -1,11 +1,11 @@
 import { mobileToolbar, pcToolbar } from '../constant/toolbarOption';
 import { userAgentOS } from '../util/userAgentOS';
 
+import type { UrlLangType } from '@/types/common';
 import { font_family_formats, font_size_formats } from '../constant/tinyMCEFont';
 import { tinyMCEResetCSS } from '../constant/tinyMCEResetCSS';
-import { LangCookie } from '@/utils/setLangCookie';
 
-export const useTinyMCEConfig = (language: LangCookie) => {
+export const useTinyMCEConfig = (language: UrlLangType) => {
   const device = userAgentOS();
   const isMobile = ['android', 'ios'].includes(device);
   const min_height = isMobile ? 450 : 600;

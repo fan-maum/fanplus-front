@@ -3,7 +3,7 @@ import { Divider, Modal, ModalProps } from '@mantine/core';
 import { Dispatch, SetStateAction } from 'react';
 import { Stack } from '../atoms';
 import { useRouter } from 'next/router';
-import { setBoardLangCookie } from '@/utils/setLangCookie';
+import { setBoardLangCookie } from '@/utils/langCookie';
 
 type textType = {
   modalHeader: string;

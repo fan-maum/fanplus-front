@@ -1,13 +1,13 @@
 import { getCommunityBoardData } from '@/api/Community';
-import { GetServerSideProps } from 'next';
-import { CommunityBoardText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
-import nookies from 'nookies';
 import Layout from '@/components/organisms/Layout';
 import CommunityMyPostTemplate, {
   CommunityMyPostPropType,
 } from '@/components/templates/CommunityMyPostTemplate';
-import { LangCookie } from '@/utils/setLangCookie';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
+import { CommunityBoardText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import type { UrlLangType } from '@/types/common';
+import { GetServerSideProps } from 'next';
+import nookies from 'nookies';
 
 const MyPost = ({ userId, communityBoardData }: CommunityMyPostPropType) => {
   return (
@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
 
-  const urlLang = (context.query.locale || 'en') as LangCookie;
+  const urlLang = (context.query.locale || 'en') as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
