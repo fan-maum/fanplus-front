@@ -1,6 +1,6 @@
 import { BoardListItemType } from '@/types/community';
 import CommunityBoardItem from '@/components/molecules/community/CommunityBoardItem';
-import { updateStorageRecentBoardList } from '@/utils/recentBoard';
+import { updateStorageRecentBoardList } from '@/utils/localStorage';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 
 type CommunityBoardWrapperType = {

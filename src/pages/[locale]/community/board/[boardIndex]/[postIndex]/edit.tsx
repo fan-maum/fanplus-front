@@ -3,10 +3,9 @@ import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
 import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
-import { BackLangType, BoardLangType } from '@/types/common';
-import { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
-import { loginErrorHandler } from '@/utils/loginErrorHandler';
-import { LangCookie } from '@/utils/setLangCookie';
+import type { BackLangType, BoardLangType, UrlLangType } from '@/types/common';
+import type { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
+import { loginErrorHandler } from '@/utils/loginError';
 import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
@@ -45,7 +44,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const userId = cookies['user_id'];
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
 
-  const urlLang = (context.query.locale || 'en') as LangCookie;
+  const urlLang = (context.query.locale || 'en') as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);

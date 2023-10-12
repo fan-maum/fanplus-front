@@ -3,16 +3,15 @@ import {
   getCommunityBoardTopics,
   getCommunityNoticeBannerData,
 } from '@/api/Community';
+import Layout from '@/components/organisms/Layout';
 import CommunityBoardTemplate, {
   CommunityBoardPropType,
 } from '@/components/templates/CommunityBoardTemplate';
-import { GetServerSideProps } from 'next';
-import { CommunityBoardText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
-import nookies from 'nookies';
-import Layout from '@/components/organisms/Layout';
-import { BoardLangType } from '@/types/common';
-import { LangCookie } from '@/utils/setLangCookie';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
+import { CommunityBoardText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import type { BoardLangType, UrlLangType } from '@/types/common';
+import { GetServerSideProps } from 'next';
+import nookies from 'nookies';
 
 const Board = ({
   userId,
@@ -43,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<Omit<CommunityBoardPropType,
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
-  const urlLang = (context.query.locale || 'en') as LangCookie;
+  const urlLang = (context.query.locale || 'en') as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const topic = parseInt(context.query.topic as string) || '';

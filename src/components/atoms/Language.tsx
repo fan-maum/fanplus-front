@@ -1,15 +1,16 @@
-import { LangCookie, setLangCookie } from '@/utils/setLangCookie';
+import type { UrlLangType } from '@/types/common';
+import { setLangCookie } from '@/utils/langCookie';
 import { useRouter } from 'next/router';
 
 type PropType = {
   language: string;
-  langCookie: LangCookie;
+  urlLang: UrlLangType;
 };
 
-const Language = ({ language, langCookie }: PropType) => {
+const Language = ({ language, urlLang }: PropType) => {
   const router = useRouter();
   const path = router.asPath.split('/');
-  path[1] = langCookie;
+  path[1] = urlLang;
   const href = path.join('/');
   return (
     <div
@@ -49,7 +50,7 @@ const Language = ({ language, langCookie }: PropType) => {
           },
         }}
         onClick={() => {
-          setLangCookie(langCookie);
+          setLangCookie(urlLang);
           router.replace(href);
         }}
       >
