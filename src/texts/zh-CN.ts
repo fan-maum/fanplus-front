@@ -282,6 +282,7 @@ export const CommunityMainText_zh_CN: CommunityPageTextType = {
   buttonSearch: '搜索',
   allCategory: '全部',
   searchPlaceholder: '找到您想要的消息面板',
+  postCount: '帖子',
   link: {
     board: '/zh-CN/community/board',
   },

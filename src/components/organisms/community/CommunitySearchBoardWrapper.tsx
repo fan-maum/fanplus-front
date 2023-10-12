@@ -22,6 +22,7 @@ const CommunitySearchBoardWrapper = ({ title, boardList, texts }: CommunityBoard
                 icon={boardItem.BOARD_ICON}
                 title={boardItem.BOARD_TITLE}
                 link={`${texts.link.board}/${boardItem.BOARD_IDX}/`}
+                postCount={texts.postCount + ' ' + boardItem.POST_CNT}
                 key={boardItem.BOARD_IDX}
                 onClickLocalStore={() => updateStorageRecentBoardList(boardItem)}
               />

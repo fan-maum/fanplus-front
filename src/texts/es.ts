@@ -282,6 +282,7 @@ export const CommunityMainText_ESP: CommunityPageTextType = {
   buttonSearch: 'Buscar',
   allCategory: 'Total',
   searchPlaceholder: 'Encuentra el tablón de anuncios que deseas.',
+  postCount: 'Publicación',
   link: {
     board: '/es/community/board',
   },
