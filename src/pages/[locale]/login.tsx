@@ -1,13 +1,20 @@
 import Layout from '@/components/organisms/Layout';
-import { NavBarText_KR, FooterText_KR, LoginPageText_KR } from '@/texts/ko';
 import LoginTemplate from '@/components/templates/LoginTemplate';
+import { LoginPageText_KR } from '@/texts/ko';
+import type { UrlLangType } from '@/types/common';
+import type { GetServerSideProps } from 'next';
 
-const login = () => {
+const login = ({ urlLang }: { urlLang: UrlLangType }) => {
   return (
-    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+    <Layout urlLang={urlLang}>
       <LoginTemplate texts={LoginPageText_KR} />
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const urlLang = context.query.locale;
+  return { props: { urlLang } };
 };
 
 export default login;

@@ -1,27 +1,20 @@
-import type { CommunityBoardResponseType } from '@/types/community';
-import type { CommunityBoardTextType } from '@/types/textTypes';
-import { useRouter } from 'next/router';
-import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
-import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
-import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
-import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import { useUrlLanguage } from '@/hooks/useLanguage';
+import type { CommunityMyPostPropType } from '@/pages/[locale]/community/board/[boardIndex]/mypost';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
-
-export type CommunityMyPostPropType = {
-  userId: string | null;
-  communityBoardData: CommunityBoardResponseType;
-  texts: CommunityBoardTextType;
-};
+import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
+import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
+import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
+import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 
 const CommunityMyPostTemplate = ({
+  urlLang,
   userId,
   communityBoardData,
   texts,
 }: CommunityMyPostPropType) => {
   const router = useRouter();
-  const language = useUrlLanguage();
 
   const [permissionModal, setPermissionModal] = useState(false);
 
@@ -42,7 +35,7 @@ const CommunityMyPostTemplate = ({
       router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
-    router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);
+    router.push(`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`);
   };
 
   return (
@@ -62,7 +55,7 @@ const CommunityMyPostTemplate = ({
               return (
                 <CommunityBoardArticle
                   postItem={post}
-                  link={`/${language}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                  link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
                   key={idx}
                   texts={texts}
                 />

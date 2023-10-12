@@ -21,15 +21,7 @@ import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLan
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
-
-export type CommunityBoardPropType = {
-  userId: string | null;
-  boardLangCookie: BoardLangType;
-  communityBoardData: CommunityBoardResponseType;
-  communityBoardTopics: CommunityBoardTopicResponseType;
-  communityNoticeBannerData: CommunityNoticeBannerResponseType;
-  texts: CommunityBoardTextType;
-};
+import type { CommunityBoardPropType } from '@/pages/[locale]/community/board/[boardIndex]';
 
 const CommunityBoardTemplate = ({
   userId,

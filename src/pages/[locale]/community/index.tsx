@@ -4,25 +4,42 @@ import {
   getCommunityHomeData,
 } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
-import CommunityPageTemplate, {
-  CommunityHomeDataType,
-  CommunityPropTypes,
-} from '@/components/templates/CommunityPageTemplate';
+import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityMainText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import { CommunityMainText_KR } from '@/texts/ko';
 import type { UrlLangType } from '@/types/common';
-import type { CommunityBoardCategoryResponseType } from '@/types/community';
+import type {
+  BoardListItemType,
+  CommunityBoardCategoryResponseType,
+  CommunityBoardResultResponseType,
+} from '@/types/community';
+import { CommunityPageTextType } from '@/types/textTypes';
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
+type CommunityHomeDataType = {
+  recommendList: BoardListItemType[];
+  recentlyList: BoardListItemType[];
+};
+
+export type CommunityPropTypes = {
+  urlLang: UrlLangType;
+  communityHomeData: CommunityHomeDataType;
+  boardCategoryData: CommunityBoardCategoryResponseType;
+  boardResultData: CommunityBoardResultResponseType;
+  texts: CommunityPageTextType;
+};
+
 const Community = ({
+  urlLang,
   communityHomeData,
   boardCategoryData,
   boardResultData,
 }: CommunityPropTypes) => {
   return (
-    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+    <Layout urlLang={urlLang}>
       <CommunityPageTemplate
+        urlLang={urlLang}
         communityHomeData={communityHomeData}
         boardCategoryData={boardCategoryData}
         boardResultData={boardResultData}
@@ -55,7 +72,7 @@ export const getServerSideProps: GetServerSideProps<{
     per_page
   );
   return {
-    props: { communityHomeData, boardCategoryData, boardResultData },
+    props: { urlLang, communityHomeData, boardCategoryData, boardResultData },
   };
 };
 

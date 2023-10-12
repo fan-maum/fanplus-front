@@ -1,9 +1,11 @@
-import Head from 'next/head';
-import MainPageTemplate from '@/components/templates/MainPageTemplate';
 import Layout from '@/components/organisms/Layout';
-import { NavBarText_KR, MainPageText_KR, FooterText_KR } from '@/texts/ko';
+import MainPageTemplate from '@/components/templates/MainPageTemplate';
+import { MainPageText_KR } from '@/texts/ko';
+import type { UrlLangType } from '@/types/common';
+import type { GetServerSideProps } from 'next';
+import Head from 'next/head';
 
-export default function Home() {
+export default function Home({ urlLang }: { urlLang: UrlLangType }) {
   return (
     <>
       <Head>
@@ -31,9 +33,14 @@ export default function Home() {
         ></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+      <Layout urlLang={urlLang}>
         <MainPageTemplate texts={MainPageText_KR} />
       </Layout>
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const urlLang = context.query.locale;
+  return { props: { urlLang } };
+};

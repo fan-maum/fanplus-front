@@ -2,7 +2,7 @@ import { getCommunityBoardTopics } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityPostEditorText_KR, FooterText_KR, NavBarText_KR } from '@/texts/ko';
+import { CommunityPostEditorText_KR } from '@/texts/ko';
 import type { BackLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
@@ -10,6 +10,7 @@ import { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
+  urlLang: UrlLangType;
   boardTopics: CommunityBoardTopicResponseType;
   datas: {
     userId: string;
@@ -19,9 +20,9 @@ type CommunityPostWritePropType = {
   };
 };
 
-const Write = ({ boardTopics, datas }: CommunityPostWritePropType) => {
+const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
   return (
-    <Layout navBarTexts={NavBarText_KR} footerTexts={FooterText_KR}>
+    <Layout urlLang={urlLang}>
       <PostEditorTemplate
         mode="CREATE"
         topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
@@ -37,7 +38,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const userId = cookies['user_id'];
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
 
-  const urlLang = (context.query.locale || 'en') as UrlLangType;
+  const urlLang = context.query.locale as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const boardLang: BackLangType =
@@ -48,7 +49,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const boardTopics = await getCommunityBoardTopics(boardIndex, backLang);
   const datas = { userId, boardIndex, boardLang, lang: backLang };
   return {
-    props: { boardTopics, datas },
+    props: { urlLang, boardTopics, datas },
   };
 };
 
