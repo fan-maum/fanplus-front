@@ -2,7 +2,6 @@ import { getCommunityBoardTopics } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityPostEditorText_KR } from '@/texts/ko';
 import type { BackLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
@@ -25,8 +24,8 @@ const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
     <Layout urlLang={urlLang}>
       <PostEditorTemplate
         mode="CREATE"
+        urlLang={urlLang}
         topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
-        texts={CommunityPostEditorText_KR}
         datas={datas}
       />
     </Layout>

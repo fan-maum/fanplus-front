@@ -6,15 +6,13 @@ import {
 import Layout from '@/components/organisms/Layout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityMainText_KR } from '@/texts/ko';
 import type { UrlLangType } from '@/types/common';
 import type {
   BoardListItemType,
   CommunityBoardCategoryResponseType,
   CommunityBoardResultResponseType,
 } from '@/types/community';
-import { CommunityPageTextType } from '@/types/textTypes';
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
 type CommunityHomeDataType = {
@@ -27,10 +25,9 @@ export type CommunityPropTypes = {
   communityHomeData: CommunityHomeDataType;
   boardCategoryData: CommunityBoardCategoryResponseType;
   boardResultData: CommunityBoardResultResponseType;
-  texts: CommunityPageTextType;
 };
 
-const Community = ({
+const CommunityHomePage = ({
   urlLang,
   communityHomeData,
   boardCategoryData,
@@ -43,16 +40,12 @@ const Community = ({
         communityHomeData={communityHomeData}
         boardCategoryData={boardCategoryData}
         boardResultData={boardResultData}
-        texts={CommunityMainText_KR}
       />
     </Layout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<{
-  communityHomeData: CommunityHomeDataType;
-  boardCategoryData: CommunityBoardCategoryResponseType;
-}> = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
   const urlLang = (context.query.locale || 'en') as UrlLangType;
@@ -76,4 +69,4 @@ export const getServerSideProps: GetServerSideProps<{
   };
 };
 
-export default Community;
+export default CommunityHomePage;

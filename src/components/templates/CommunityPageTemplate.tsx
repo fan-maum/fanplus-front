@@ -2,23 +2,25 @@ import CommunityBoardFilterTab from '@/components/organisms/community/CommunityB
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
+import type { CommunityPropTypes } from '@/pages/[locale]/community';
+import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import type { CommunityPageTextType } from '@/types/textTypes';
 import { getStorageRecentBoardDatas } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
-import type { CommunityPropTypes } from '@/pages/[locale]/community';
 
 type TabBarType = 'home' | 'search';
 
 const CommunityPageTemplate = ({
+  urlLang,
   communityHomeData,
   boardCategoryData,
   boardResultData,
-  texts,
 }: CommunityPropTypes) => {
   const router = useRouter();
+  const texts = communityMainPageTexts[urlLang];
 
   const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'home');
   const [recentlyList, setRecentlyList] = useState(communityHomeData.recentlyList);

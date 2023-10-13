@@ -6,14 +6,12 @@ import {
 import Layout from '@/components/organisms/Layout';
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityBoardText_KR } from '@/texts/ko';
 import type { BoardLangType, UrlLangType } from '@/types/common';
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
 } from '@/types/community';
-import type { CommunityBoardTextType } from '@/types/textTypes';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
@@ -24,7 +22,6 @@ export type CommunityBoardPropType = {
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   communityNoticeBannerData: CommunityNoticeBannerResponseType;
-  texts: CommunityBoardTextType;
 };
 
 const Board = ({
@@ -44,7 +41,6 @@ const Board = ({
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
         communityNoticeBannerData={communityNoticeBannerData}
-        texts={CommunityBoardText_KR}
       />
     </Layout>
   );

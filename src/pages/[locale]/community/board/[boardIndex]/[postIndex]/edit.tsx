@@ -2,7 +2,6 @@ import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityPostEditorText_KR } from '@/texts/ko';
 import type { BackLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
 import { loginErrorHandler } from '@/utils/loginError';
@@ -27,8 +26,8 @@ const Edit = ({ urlLang, boardTopics, communityPostData, datas }: CommunityPostW
     <Layout urlLang={urlLang}>
       <PostEditorTemplate
         mode="EDIT"
+        urlLang={urlLang}
         topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
-        texts={CommunityPostEditorText_KR}
         datas={datas}
         defaultValues={{
           topicIndex: parseInt(communityPostData.RESULTS.DATAS.POST_INFO.THUMBNAIL_IMG),
