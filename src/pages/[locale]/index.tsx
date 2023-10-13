@@ -1,6 +1,6 @@
 import Layout from '@/components/organisms/Layout';
 import MainPageTemplate from '@/components/templates/MainPageTemplate';
-import { mainPageTexts } from '@/texts/mainpageTexts';
+import { mainPageTexts } from '@/texts/mainPageTexts';
 import type { UrlLangType } from '@/types/common';
 import type { GetServerSideProps } from 'next';
 import Head from 'next/head';

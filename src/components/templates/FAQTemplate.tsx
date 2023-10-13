@@ -1,4 +1,4 @@
-import { faqPageTexts } from '@/texts/faqpageTexts';
+import { faqPageTexts } from '@/texts/faqPageTexts';
 import type { UrlLangType } from '@/types/common';
 import { Center } from '../atoms/Center';
 import { Stack } from '../atoms/Stack';
