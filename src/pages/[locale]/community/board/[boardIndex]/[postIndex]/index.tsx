@@ -2,7 +2,7 @@ import { getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import type { BackLangType, UrlLangType } from '@/types/common';
+import type { ServerLangType, UrlLangType } from '@/types/common';
 import type { PostResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
@@ -12,7 +12,7 @@ export type CommunityPostPropType = {
   identity: string;
   user_idx: string;
   postIndex: number;
-  lang: BackLangType;
+  lang: ServerLangType;
   communityPostData: PostResponseType;
 };
 

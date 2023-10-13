@@ -1,4 +1,4 @@
-import type { UrlLangType, BackLangType } from '@/types/common';
+import type { UrlLangType, ServerLangType } from '@/types/common';
 import { useRouter } from 'next/router';
 
 export function useUrlLanguage() {
@@ -8,7 +8,7 @@ export function useUrlLanguage() {
 }
 
 export function urlLangToBackLang(lang: UrlLangType) {
-  const translator: Record<UrlLangType, BackLangType> = {
+  const translator: Record<UrlLangType, ServerLangType> = {
     ko: 'ko',
     en: 'en',
     ja: 'ja',

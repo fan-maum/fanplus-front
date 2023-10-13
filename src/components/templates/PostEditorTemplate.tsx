@@ -1,7 +1,7 @@
 import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
 import FullEditor from '@/editor/screen/FullEditor';
 import { communityPostEditorTexts } from '@/texts/communityPostEditorTexts';
-import type { BackLangType, UrlLangType } from '@/types/common';
+import type { ServerLangType, UrlLangType } from '@/types/common';
 import type { TopicListItemType } from '@/types/community';
 import { UploadedUppyFile } from '@uppy/core';
 import { useRouter } from 'next/router';
@@ -28,8 +28,8 @@ type OwnPropType = {
     userId: string;
     boardIndex: number;
     postIndex?: number;
-    boardLang: BackLangType;
-    lang: BackLangType;
+    boardLang: ServerLangType;
+    lang: ServerLangType;
   };
   defaultValues?: {
     topicIndex: number;
