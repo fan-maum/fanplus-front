@@ -1,4 +1,4 @@
-import { businessPageTexts } from '@/texts/businesspageTexts';
+import { businessPageTexts } from '@/texts/businessPageTexts';
 import type { UrlLangType } from '@/types/common';
 import { Center } from '../atoms/Center';
 import BusinessForm from '../organisms/BusinessForm';

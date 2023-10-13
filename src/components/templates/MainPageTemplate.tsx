@@ -1,4 +1,4 @@
-import { mainPageTexts } from '@/texts/mainpageTexts';
+import { mainPageTexts } from '@/texts/mainPageTexts';
 import type { UrlLangType } from '@/types/common';
 import { css } from '@emotion/react';
 import IconAppStore from '../atoms/IconAppStore';
