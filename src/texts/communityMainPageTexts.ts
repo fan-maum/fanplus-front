@@ -12,6 +12,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     buttonSearch: '검색',
     allCategory: '전체',
     searchPlaceholder: '원하는 게시판을 찾아보세요.',
+    postCount: '게시글 수',
     link: { board: '/ko/community/board' },
   },
   en: {
@@ -24,6 +25,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     buttonSearch: 'Search',
     allCategory: 'All',
     searchPlaceholder: 'Search for a board you may like.',
+    postCount: 'Posts',
     link: { board: '/en/community/board' },
   },
   es: {
@@ -36,6 +38,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     buttonSearch: 'Buscar',
     allCategory: 'Total',
     searchPlaceholder: 'Encuentra el tablón de anuncios que deseas.',
+    postCount: 'Publicación',
     link: { board: '/es/community/board' },
   },
   in: {
@@ -52,6 +55,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     buttonSearch: 'Cari',
     allCategory: 'Semua',
     searchPlaceholder: 'Cari papan yang mungkin Anda sukai.',
+    postCount: 'Posts',
     link: { board: '/in/community/board' },
   },
   ja: {
@@ -64,6 +68,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     buttonSearch: '検索',
     allCategory: '全',
     searchPlaceholder: '希望の掲示板を見つけてください。',
+    postCount: '掲示文',
     link: { board: '/ja/community/board' },
   },
   vi: {
@@ -80,6 +85,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     buttonSearch: 'Tìm kiếm',
     allCategory: 'Tất cả',
     searchPlaceholder: 'Tìm kiếm một bảng bạn có thể thích.',
+    postCount: 'Câu chuyện',
     link: { board: '/vi/community/board' },
   },
   'zh-CN': {
@@ -92,6 +98,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     buttonSearch: '搜索',
     allCategory: '全部',
     searchPlaceholder: '找到您想要的消息面板',
+    postCount: '帖子',
     link: { board: '/zh-CN/community/board' },
   },
   'zh-TW': {
@@ -104,6 +111,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     buttonSearch: '搜索',
     allCategory: '全部',
     searchPlaceholder: '找到您想要的消息面板',
+    postCount: '帖子',
     link: { board: '/zh-TW/community/board' },
   },
 };
