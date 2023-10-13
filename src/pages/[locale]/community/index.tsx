@@ -48,7 +48,7 @@ const CommunityHomePage = ({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
-  const urlLang = (context.query.locale || 'en') as UrlLangType;
+  const urlLang = context.query.locale as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const category_type = parseInt(context.query.category_type as string) || 0;
   const searchValue = context.query.searchValue || '';
