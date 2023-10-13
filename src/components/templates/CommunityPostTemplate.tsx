@@ -23,7 +23,8 @@ import {
   reportModalBlockState,
   userState,
 } from '@/store/community';
-import { TargetType } from '@/types/common';
+import { communityPostTexts } from '@/texts/communityPostTexts';
+import type { TargetType } from '@/types/common';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -34,13 +35,15 @@ import CompletedShareModal, { CompletedShareModalProps } from '../modals/Complet
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 
 const CommunityPostTemplate = ({
+  urlLang,
   identity,
   user_idx,
   postIndex,
   lang,
   communityPostData,
-  texts,
 }: CommunityPostPropType) => {
+  const texts = communityPostTexts[urlLang];
+
   const board_lang = 'ALL';
   const per_page = 20;
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;

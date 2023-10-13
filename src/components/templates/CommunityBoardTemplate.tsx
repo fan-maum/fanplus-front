@@ -1,38 +1,31 @@
-import type {
-  CommunityBoardResponseType,
-  CommunityBoardTopicResponseType,
-  CommunityNoticeBannerResponseType,
-  TopicListItemType,
-} from '@/types/community';
-import type { CommunityBoardTextType } from '@/types/textTypes';
-import type { BoardLangType } from '@/types/common';
+import type { CommunityBoardPropType } from '@/pages/[locale]/community/board/[boardIndex]';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import type { TopicListItemType } from '@/types/community';
 import { useRouter } from 'next/router';
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
-import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
-import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
-import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
-import IconWrite from '../atoms/IconWrite';
-import IconPopularBlack from '../atoms/IconPopularBlack';
 import IconMyPost from '../atoms/IconMyPost';
 import IconPopular from '../atoms/IconPopular';
-import CommunityLanguageModal from '../modals/CommunityLanguageModal';
-import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
-import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
-import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
-import { useUrlLanguage } from '@/hooks/useLanguage';
+import IconPopularBlack from '../atoms/IconPopularBlack';
+import IconWrite from '../atoms/IconWrite';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
-import type { CommunityBoardPropType } from '@/pages/[locale]/community/board/[boardIndex]';
+import CommunityLanguageModal from '../modals/CommunityLanguageModal';
+import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
+import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
+import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
+import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
+import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
+import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 
 const CommunityBoardTemplate = ({
+  urlLang,
   userId,
   boardLangCookie,
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
-  texts,
 }: CommunityBoardPropType) => {
   const router = useRouter();
-  const language = useUrlLanguage();
+  const texts = communityBoardTexts[urlLang];
 
   const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
   const [viewType, setViewType] = useState((router.query.view as string) || 'all');
@@ -60,7 +53,7 @@ const CommunityBoardTemplate = ({
       router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
-    router.push(`/${language}/community/board/${boardInfo.BOARD_IDX}/write`);
+    router.push(`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`);
   };
   const onClickPopular = () => {
     if (viewType !== 'best_post') {
@@ -117,7 +110,7 @@ const CommunityBoardTemplate = ({
               return (
                 <CommunityBoardArticle
                   postItem={post}
-                  link={`/${language}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                  link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
                   key={idx}
                   texts={texts}
                 />

@@ -2,10 +2,8 @@ import { getCommunityBoardData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityBoardText_KR } from '@/texts/ko';
 import type { UrlLangType } from '@/types/common';
 import type { CommunityBoardResponseType } from '@/types/community';
-import type { CommunityBoardTextType } from '@/types/textTypes';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
@@ -13,7 +11,6 @@ export type CommunityMyPostPropType = {
   urlLang: UrlLangType;
   userId: string | null;
   communityBoardData: CommunityBoardResponseType;
-  texts: CommunityBoardTextType;
 };
 
 const MyPost = ({ urlLang, userId, communityBoardData }: CommunityMyPostPropType) => {
@@ -23,7 +20,6 @@ const MyPost = ({ urlLang, userId, communityBoardData }: CommunityMyPostPropType
         urlLang={urlLang}
         userId={userId}
         communityBoardData={communityBoardData}
-        texts={CommunityBoardText_KR}
       />
     </Layout>
   );

@@ -2,20 +2,18 @@ import { getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import { CommunityPostText_KR } from '@/texts/ko';
 import type { BackLangType, UrlLangType } from '@/types/common';
 import type { PostResponseType } from '@/types/community';
-import type { CommunityPostTextType } from '@/types/textTypes';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
 export type CommunityPostPropType = {
+  urlLang: UrlLangType;
   identity: string;
   user_idx: string;
   postIndex: number;
   lang: BackLangType;
   communityPostData: PostResponseType;
-  texts: CommunityPostTextType;
 };
 
 const Post = ({
@@ -29,12 +27,12 @@ const Post = ({
   return (
     <Layout urlLang={urlLang}>
       <CommunityPostTemplate
+        urlLang={urlLang}
         identity={identity}
         user_idx={user_idx}
         postIndex={postIndex}
         lang={lang}
         communityPostData={communityPostData}
-        texts={CommunityPostText_KR}
       />
     </Layout>
   );

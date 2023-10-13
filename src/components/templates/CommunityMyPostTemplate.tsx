@@ -1,5 +1,5 @@
-import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { CommunityMyPostPropType } from '@/pages/[locale]/community/board/[boardIndex]/mypost';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
@@ -12,9 +12,9 @@ const CommunityMyPostTemplate = ({
   urlLang,
   userId,
   communityBoardData,
-  texts,
 }: CommunityMyPostPropType) => {
   const router = useRouter();
+  const texts = communityBoardTexts[urlLang];
 
   const [permissionModal, setPermissionModal] = useState(false);
 

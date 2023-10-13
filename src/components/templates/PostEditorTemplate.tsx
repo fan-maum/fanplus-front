@@ -1,4 +1,10 @@
+import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
 import FullEditor from '@/editor/screen/FullEditor';
+import { communityPostEditorTexts } from '@/texts/communityPostEditorTexts';
+import type { BackLangType, UrlLangType } from '@/types/common';
+import type { TopicListItemType } from '@/types/community';
+import { UploadedUppyFile } from '@uppy/core';
+import { useRouter } from 'next/router';
 import {
   Dispatch,
   MouseEventHandler,
@@ -8,23 +14,16 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { CommunityPostEditorTextType } from '@/types/textTypes';
-import type { TopicListItemType } from '@/types/community';
-import type { BackLangType } from '@/types/common';
-import IconArrowLeft from '../atoms/IconArrowLeft';
-import { useRouter } from 'next/router';
-import EditorTopicSet from '../molecules/community/EditorTopicSet';
-import CommunityEditorCommonModal from '../modals/CommunityEditorModal';
-import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
 import { TinyMCE } from '../../../public/tinymce/tinymce';
-import { UploadedUppyFile } from '@uppy/core';
+import IconArrowLeft from '../atoms/IconArrowLeft';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
-import { useUrlLanguage } from '@/hooks/useLanguage';
+import CommunityEditorCommonModal from '../modals/CommunityEditorModal';
+import EditorTopicSet from '../molecules/community/EditorTopicSet';
 
 type OwnPropType = {
   mode: 'CREATE' | 'EDIT';
+  urlLang: UrlLangType;
   topics: TopicListItemType[];
-  texts: CommunityPostEditorTextType;
   datas: {
     userId: string;
     boardIndex: number;
@@ -39,9 +38,9 @@ type OwnPropType = {
   };
 };
 
-const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPropType) => {
+const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: OwnPropType) => {
   const router = useRouter();
-  const language = useUrlLanguage();
+  const texts = communityPostEditorTexts[urlLang];
 
   const isCreateMode = mode === 'CREATE';
   const { userId, boardIndex, postIndex, boardLang, lang } = datas;
@@ -101,7 +100,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
       await editBoardArticle(userId, postId, lang, topicIndex, title, content);
     }
     setUploadModal(false);
-    router.replace(`/${language}/community/board/${boardIndex}/${postId}/`);
+    router.replace(`/${urlLang}/community/board/${boardIndex}/${postId}/`);
   };
   const onClickExit = () => {
     setCancelModal(false);
@@ -154,7 +153,7 @@ const PostEditorTemplate = ({ mode, topics, texts, datas, defaultValues }: OwnPr
           editorId={editorId}
           setContent={setContent}
           defaultValue={content}
-          language={language}
+          language={urlLang}
           fileUploadCallback={fileUploadHandler}
         />
         <div css={{ display: 'flex', justifyContent: 'flex-end' }}>
