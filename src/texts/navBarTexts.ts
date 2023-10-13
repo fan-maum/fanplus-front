@@ -1,5 +1,5 @@
-import type { NavBarTextType } from '@/types/textTypes';
 import type { LangStringType } from '@/types/common';
+import type { NavBarTextType } from '@/types/textTypes';
 
 export const navBarTexts: LangStringType<NavBarTextType> = {
   ko: {

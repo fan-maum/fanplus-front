@@ -1,5 +1,5 @@
-import type { ShareModalTextType } from '@/types/textTypes';
 import type { LangStringType } from '@/types/common';
+import type { ShareModalTextType } from '@/types/textTypes';
 
 export const shareModalTexts: LangStringType<ShareModalTextType> = {
   ko: {

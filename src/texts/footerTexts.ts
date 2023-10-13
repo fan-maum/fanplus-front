@@ -1,5 +1,5 @@
-import type { FooterTextType } from '@/types/textTypes';
 import type { LangStringType } from '@/types/common';
+import type { FooterTextType } from '@/types/textTypes';
 
 export const footerTexts: LangStringType<FooterTextType> = {
   ko: {

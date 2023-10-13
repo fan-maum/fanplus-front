@@ -1,5 +1,5 @@
-import type { BusinessPageTextType } from '@/types/textTypes';
 import type { LangStringType } from '@/types/common';
+import type { BusinessPageTextType } from '@/types/textTypes';
 
 export const businessPageTexts: LangStringType<BusinessPageTextType> = {
   ko: {
