@@ -12,9 +12,9 @@ import type {
   PostBoardArticleResponseType,
 } from '@/types/community';
 
-import type { ServerLangType, BoardLangType, OrderType } from '@/types/common';
+import type { ServerAcceptLangType, BoardLangType, OrderType } from '@/types/common';
 
-export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
+export const getCommunityHomeData = async (userId: string, lang: ServerAcceptLangType) => {
   const recommendListResponse: AxiosResponse<RecommendListResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
     { params: { userId, lang, viewType: 'recommend' } }
@@ -32,7 +32,7 @@ export const getCommunityBoardData = async (
   userId: string,
   boardIndex: number,
   page: number,
-  lang: ServerLangType,
+  lang: ServerAcceptLangType,
   boardLang: BoardLangType,
   topic: number | '',
   view_type: string
@@ -45,7 +45,7 @@ export const getCommunityBoardData = async (
   return response.data;
 };
 
-export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerLangType) => {
+export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerAcceptLangType) => {
   const response: AxiosResponse<CommunityBoardTopicResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/boardTopic`,
     { params: { boardIndex, lang } }
@@ -57,7 +57,7 @@ export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerLa
  * Search Board
  */
 /* 검색 페이지 내 중간부분 Tab response */
-export const getCommunityBoardCategoryData = async (lang: ServerLangType) => {
+export const getCommunityBoardCategoryData = async (lang: ServerAcceptLangType) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
     { params: { lang } }
@@ -69,7 +69,7 @@ export const getCommunityBoardCategoryData = async (lang: ServerLangType) => {
 export const getCommunityBoardResultData = async (
   category_type: number,
   searchValue: any,
-  lang: ServerLangType,
+  lang: ServerAcceptLangType,
   page: number,
   per_page: number
 ) => {
@@ -80,7 +80,10 @@ export const getCommunityBoardResultData = async (
   return response.data;
 };
 
-export const getCommunityNoticeBannerData = async (boardIndex: number, lang: ServerLangType) => {
+export const getCommunityNoticeBannerData = async (
+  boardIndex: number,
+  lang: ServerAcceptLangType
+) => {
   const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/noticeBanner`,
     { params: { boardIndex, lang } }
@@ -96,7 +99,7 @@ export const getCommunityPostData = async (
   boardIndex: number,
   postIndex: number,
   identity: string,
-  lang: ServerLangType
+  lang: ServerAcceptLangType
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
@@ -239,7 +242,7 @@ export const deleteRecommends = async (identity: string, post_idx: string) => {
 export const postBoardArticle = async (
   userId: string,
   boardIndex: number,
-  lang: ServerLangType,
+  lang: ServerAcceptLangType,
   topicIndex: number,
   title: string,
   contents: string,
@@ -255,7 +258,7 @@ export const postBoardArticle = async (
 export const editBoardArticle = async (
   userId: string,
   postIndex: number,
-  lang: ServerLangType,
+  lang: ServerAcceptLangType,
   topicIndex: number,
   title: string,
   contents: string

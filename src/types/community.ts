@@ -1,4 +1,4 @@
-import type { ServerLangType } from './common';
+import type { ServerAcceptLangType } from './common';
 
 export type BoardListItemType = {
   BOARD_IDX: string;
@@ -337,7 +337,7 @@ export type userResponseType = {
       EMAIL: string;
       SELF_INTRODCUTION: null;
       PROFILE_IMG_URL: string;
-      USER_LANG: ServerLangType;
+      USER_LANG: ServerAcceptLangType;
       SUBSCRIPTION_STARS: {
         COUNT: number;
         LIST: [];

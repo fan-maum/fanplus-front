@@ -2,7 +2,7 @@ import { getCommunityBoardTopics } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
+import type { ServerAcceptLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
 import { GetServerSidePropsContext } from 'next';
@@ -14,8 +14,8 @@ type CommunityPostWritePropType = {
   datas: {
     userId: string;
     boardIndex: number;
-    boardLang: ServerLangType;
-    lang: ServerLangType;
+    boardLang: ServerAcceptLangType;
+    lang: ServerAcceptLangType;
   };
 };
 
@@ -40,7 +40,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const urlLang = context.query.locale as UrlLangType;
   const backLang = urlLangToBackLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
-  const boardLang: ServerLangType =
+  const boardLang: ServerAcceptLangType =
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : backLang;
 
   if (!userId) return noUserIdHandler('ko', `/community/board/${boardIndex}/write/`);

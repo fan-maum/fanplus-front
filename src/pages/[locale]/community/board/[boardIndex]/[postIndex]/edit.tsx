@@ -2,7 +2,7 @@ import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { urlLangToBackLang } from '@/hooks/useLanguage';
-import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
+import type { ServerAcceptLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
 import { loginErrorHandler } from '@/utils/loginError';
 import type { GetServerSidePropsContext } from 'next';
@@ -16,8 +16,8 @@ type CommunityPostWritePropType = {
     userId: string;
     boardIndex: number;
     postIndex: number;
-    boardLang: ServerLangType;
-    lang: ServerLangType;
+    boardLang: ServerAcceptLangType;
+    lang: ServerAcceptLangType;
   };
 };
 
@@ -48,7 +48,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const backLang = urlLangToBackLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
-  const boardLang: ServerLangType =
+  const boardLang: ServerAcceptLangType =
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : backLang;
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, backLang);
