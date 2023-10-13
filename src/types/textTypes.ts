@@ -254,7 +254,6 @@ export type CommunityPageTextType = {
   buttonSearch: string;
   allCategory: string;
   searchPlaceholder: string;
-  postCount: string;
   link: {
     board: string;
   };
