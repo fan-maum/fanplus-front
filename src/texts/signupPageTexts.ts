@@ -1,5 +1,5 @@
-import type { SignUpPageTextType } from '@/types/textTypes';
 import type { LangStringType } from '@/types/common';
+import type { SignUpPageTextType } from '@/types/textTypes';
 
 export const signupPageTexts: LangStringType<SignUpPageTextType> = {
   ko: {

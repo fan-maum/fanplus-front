@@ -1,5 +1,5 @@
-import type { LoginPageTextType } from '@/types/textTypes';
 import type { LangStringType } from '@/types/common';
+import type { LoginPageTextType } from '@/types/textTypes';
 
 export const loginPageTexts: LangStringType<LoginPageTextType> = {
   ko: {

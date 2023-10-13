@@ -1,5 +1,5 @@
-import type { VotesPageTextType } from '@/types/textTypes';
 import type { LangStringType } from '@/types/common';
+import type { VotesPageTextType } from '@/types/textTypes';
 
 export const votesPageTexts: LangStringType<VotesPageTextType> = {
   ko: {

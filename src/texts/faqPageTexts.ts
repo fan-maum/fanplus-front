@@ -1,5 +1,5 @@
-import type { FAQPageTextType } from '@/types/textTypes';
 import type { LangStringType } from '@/types/common';
+import type { FAQPageTextType } from '@/types/textTypes';
 
 export const faqPageTexts: LangStringType<FAQPageTextType> = {
   ko: {

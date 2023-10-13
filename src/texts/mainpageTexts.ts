@@ -1,5 +1,5 @@
-import type { MainPageTextType } from '@/types/textTypes';
 import type { LangStringType } from '@/types/common';
+import type { MainPageTextType } from '@/types/textTypes';
 
 export const mainPageTexts: LangStringType<MainPageTextType> = {
   ko: {
