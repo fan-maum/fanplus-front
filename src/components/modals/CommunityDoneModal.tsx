@@ -30,7 +30,7 @@ function CommunityDoneModal({
     <>
       <CommunityCommonModal {...communityDeleteDoneModalProps}>
         <CommunityModalText
-          voteText={
+          text={
             <Group spacing={6} position="center">
               <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>
                 {doneModalMessage}
