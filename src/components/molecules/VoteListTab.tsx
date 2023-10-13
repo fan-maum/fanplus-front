@@ -1,4 +1,3 @@
-import { useUrlLanguage, urlLangToBackLang } from '@/hooks/useLanguage';
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
 import { useRouter } from 'next/router';
 export interface VoteListTabProps extends DefaultProps {
@@ -14,8 +13,6 @@ const VoteTab = ({
   ...props
 }: VoteListTabProps) => {
   const router = useRouter();
-  const urlLang = useUrlLanguage();
-  const backLang = urlLangToBackLang(urlLang);
 
   const onClickVoteTab = (tabValue: string) => {
     setTabState(tabValue);

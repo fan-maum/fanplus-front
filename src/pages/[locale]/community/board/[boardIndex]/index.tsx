@@ -5,7 +5,7 @@ import {
 } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
-import { urlLangToBackLang } from '@/hooks/useLanguage';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, UrlLangType } from '@/types/common';
 import type {
   CommunityBoardResponseType,
@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
   const urlLang = context.query.locale as UrlLangType;
-  const backLang = urlLangToBackLang(urlLang);
+  const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const topic = parseInt(context.query.topic as string) || '';
   const view_type = (context.query.view as string) || 'all';
@@ -64,13 +64,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     userId,
     boardIndex,
     page,
-    backLang,
+    serverLang,
     boardLangCookie,
     topic,
     view_type
   );
-  const communityBoardTopics = await getCommunityBoardTopics(boardIndex, backLang);
-  const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, backLang);
+  const communityBoardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
+  const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, serverLang);
 
   return {
     props: {

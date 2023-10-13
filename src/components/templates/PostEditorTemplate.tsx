@@ -1,7 +1,7 @@
 import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
 import FullEditor from '@/editor/screen/FullEditor';
 import { communityPostEditorTexts } from '@/texts/communityPostEditorTexts';
-import type { ServerAcceptLangType, UrlLangType } from '@/types/common';
+import type { ServerLangType, UrlLangType } from '@/types/common';
 import type { TopicListItemType } from '@/types/community';
 import { UploadedUppyFile } from '@uppy/core';
 import { useRouter } from 'next/router';
@@ -28,8 +28,8 @@ type OwnPropType = {
     userId: string;
     boardIndex: number;
     postIndex?: number;
-    boardLang: ServerAcceptLangType;
-    lang: ServerAcceptLangType;
+    boardLang: ServerLangType;
+    serverLang: ServerLangType;
   };
   defaultValues?: {
     topicIndex: number;
@@ -43,7 +43,7 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
   const texts = communityPostEditorTexts[urlLang];
 
   const isCreateMode = mode === 'CREATE';
-  const { userId, boardIndex, postIndex, boardLang, lang } = datas;
+  const { userId, boardIndex, postIndex, boardLang, serverLang } = datas;
 
   const editorRef = useRef<TinyMCE>();
   const editorId = 'postEditor';
@@ -88,7 +88,7 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
           await postBoardArticle(
             userId,
             boardIndex,
-            lang,
+            serverLang,
             topicIndex,
             title,
             content,
@@ -97,7 +97,7 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
         ).RESULTS.DATAS.POST_IDX
       : (postIndex as number);
     if (!isCreateMode) {
-      await editBoardArticle(userId, postId, lang, topicIndex, title, content);
+      await editBoardArticle(userId, postId, serverLang, topicIndex, title, content);
     }
     setUploadModal(false);
     router.replace(`/${urlLang}/community/board/${boardIndex}/${postId}/`);

@@ -39,7 +39,7 @@ const CommunityPostTemplate = ({
   identity,
   user_idx,
   postIndex,
-  lang,
+  serverLang,
   communityPostData,
 }: CommunityPostPropType) => {
   const texts = communityPostTexts[urlLang];
@@ -61,7 +61,7 @@ const CommunityPostTemplate = ({
   let postParamObject: postParamStateType = {
     target_type: 'post',
     target: parseInt(postInfo.POST_IDX as string),
-    lang: lang,
+    lang: serverLang,
     identity: identity,
   };
 

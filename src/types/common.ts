@@ -1,6 +1,6 @@
 export type UrlLangType = 'ko' | 'en' | 'es' | 'ja' | 'vi' | 'in' | 'zh-CN' | 'zh-TW';
-export type ServerAcceptLangType = 'ko' | 'en' | 'es' | 'ja' | 'vi' | 'id' | 'zh' | 'zhtw';
-export type BoardLangType = ServerAcceptLangType | 'ALL';
+export type ServerLangType = 'ko' | 'en' | 'es' | 'ja' | 'vi' | 'id' | 'zh' | 'zhtw';
+export type BoardLangType = ServerLangType | 'ALL';
 export type LangStringType<T> = Record<UrlLangType, T>;
 
 export type TargetType =

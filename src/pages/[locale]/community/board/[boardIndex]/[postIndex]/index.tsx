@@ -1,8 +1,8 @@
 import { getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
-import { urlLangToBackLang } from '@/hooks/useLanguage';
-import type { ServerAcceptLangType, UrlLangType } from '@/types/common';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import type { ServerLangType, UrlLangType } from '@/types/common';
 import type { PostResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
@@ -12,7 +12,7 @@ export type CommunityPostPropType = {
   identity: string;
   user_idx: string;
   postIndex: number;
-  lang: ServerAcceptLangType;
+  serverLang: ServerLangType;
   communityPostData: PostResponseType;
 };
 
@@ -21,7 +21,7 @@ const Post = ({
   identity,
   user_idx,
   postIndex,
-  lang,
+  serverLang,
   communityPostData,
 }: CommunityPostPropType & { urlLang: UrlLangType }) => {
   return (
@@ -31,7 +31,7 @@ const Post = ({
         identity={identity}
         user_idx={user_idx}
         postIndex={postIndex}
-        lang={lang}
+        serverLang={serverLang}
         communityPostData={communityPostData}
       />
     </Layout>
@@ -40,7 +40,7 @@ const Post = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const urlLang = context.query.locale as UrlLangType;
-  const backLang = urlLangToBackLang(urlLang);
+  const serverLang = translateUrlLangToServerLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
 
@@ -50,10 +50,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
-  const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, backLang);
+  const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, serverLang);
 
   return {
-    props: { urlLang, identity, user_idx, postIndex, lang: backLang, communityPostData },
+    props: { urlLang, identity, user_idx, postIndex, serverLang, communityPostData },
   };
 };
 

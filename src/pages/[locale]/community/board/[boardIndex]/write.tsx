@@ -1,8 +1,8 @@
 import { getCommunityBoardTopics } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
-import { urlLangToBackLang } from '@/hooks/useLanguage';
-import type { ServerAcceptLangType, BoardLangType, UrlLangType } from '@/types/common';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
 import { GetServerSidePropsContext } from 'next';
@@ -14,8 +14,8 @@ type CommunityPostWritePropType = {
   datas: {
     userId: string;
     boardIndex: number;
-    boardLang: ServerAcceptLangType;
-    lang: ServerAcceptLangType;
+    boardLang: ServerLangType;
+    serverLang: ServerLangType;
   };
 };
 
@@ -38,15 +38,15 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
 
   const urlLang = context.query.locale as UrlLangType;
-  const backLang = urlLangToBackLang(urlLang);
+  const serverLang = translateUrlLangToServerLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
-  const boardLang: ServerAcceptLangType =
-    boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : backLang;
+  const boardLang: ServerLangType =
+    boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : serverLang;
 
   if (!userId) return noUserIdHandler('ko', `/community/board/${boardIndex}/write/`);
 
-  const boardTopics = await getCommunityBoardTopics(boardIndex, backLang);
-  const datas = { userId, boardIndex, boardLang, lang: backLang };
+  const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
+  const datas = { userId, boardIndex, boardLang, serverLang };
   return {
     props: { urlLang, boardTopics, datas },
   };

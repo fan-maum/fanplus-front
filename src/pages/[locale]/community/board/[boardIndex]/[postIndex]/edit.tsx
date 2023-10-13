@@ -1,8 +1,8 @@
 import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
-import { urlLangToBackLang } from '@/hooks/useLanguage';
-import type { ServerAcceptLangType, BoardLangType, UrlLangType } from '@/types/common';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
 import { loginErrorHandler } from '@/utils/loginError';
 import type { GetServerSidePropsContext } from 'next';
@@ -16,8 +16,8 @@ type CommunityPostWritePropType = {
     userId: string;
     boardIndex: number;
     postIndex: number;
-    boardLang: ServerAcceptLangType;
-    lang: ServerAcceptLangType;
+    boardLang: ServerLangType;
+    serverLang: ServerLangType;
   };
 };
 
@@ -45,20 +45,20 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const boardLangCookie = cookies['boardLang'] as BoardLangType;
 
   const urlLang = context.query.locale as UrlLangType;
-  const backLang = urlLangToBackLang(urlLang);
+  const serverLang = translateUrlLangToServerLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
-  const boardLang: ServerAcceptLangType =
-    boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : backLang;
+  const boardLang: ServerLangType =
+    boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : serverLang;
 
-  const boardTopics = await getCommunityBoardTopics(boardIndex, backLang);
+  const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
   let communityPostData;
   try {
-    communityPostData = await getCommunityPostData(boardIndex, postIndex, userId, backLang);
+    communityPostData = await getCommunityPostData(boardIndex, postIndex, userId, serverLang);
   } catch (error) {
     return loginErrorHandler(error, 'ko', `/community/board/${boardIndex}/${postIndex}/edit/`);
   }
-  const datas = { userId, boardIndex, postIndex, boardLang, lang: backLang };
+  const datas = { userId, boardIndex, postIndex, boardLang, serverLang };
   return {
     props: { urlLang, boardTopics, communityPostData, datas },
   };

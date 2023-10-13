@@ -1,7 +1,7 @@
 import { getCommunityBoardData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
-import { urlLangToBackLang } from '@/hooks/useLanguage';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
 import type { CommunityBoardResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps<
   const userId = cookies['user_id'] || '';
 
   const urlLang = context.query.locale as UrlLangType;
-  const backLang = urlLangToBackLang(urlLang);
+  const serverLang = translateUrlLangToServerLang(urlLang);
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
   const boardLang = 'ALL';
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<
     userId,
     boardIndex,
     page,
-    backLang,
+    serverLang,
     boardLang,
     topic,
     view_type

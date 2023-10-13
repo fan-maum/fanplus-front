@@ -5,7 +5,7 @@ import {
 } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
-import { urlLangToBackLang } from '@/hooks/useLanguage';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
 import type {
   BoardListItemType,
@@ -49,18 +49,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
   const urlLang = context.query.locale as UrlLangType;
-  const backLang = urlLangToBackLang(urlLang);
+  const serverLang = translateUrlLangToServerLang(urlLang);
   const category_type = parseInt(context.query.category_type as string) || 0;
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
 
-  const communityHomeData = await getCommunityHomeData(userId, backLang);
-  const boardCategoryData = await getCommunityBoardCategoryData(backLang);
+  const communityHomeData = await getCommunityHomeData(userId, serverLang);
+  const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
   const boardResultData = await getCommunityBoardResultData(
     category_type,
     searchValue,
-    backLang,
+    serverLang,
     page,
     per_page
   );

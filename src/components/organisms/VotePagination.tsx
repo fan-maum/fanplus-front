@@ -1,7 +1,5 @@
-import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import PaginationBase from '../molecules/PaginationBase';
-import { useUrlLanguage, urlLangToBackLang } from '@/hooks/useLanguage';
 
 export interface VotePaginationProps {
   totalCount: number;
