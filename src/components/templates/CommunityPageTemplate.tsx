@@ -64,7 +64,11 @@ const CommunityPageTemplate = ({
       {tabBar === 'home' ? (
         <>
           {isRecentlyListExist ? (
-            <CommunityBoardWrapper title={texts.recentlyBoards} boardList={recentlyList} />
+            <CommunityBoardWrapper
+              title={texts.recentlyBoards}
+              boardList={recentlyList}
+              postCountText={texts.postCount}
+            />
           ) : (
             <CommunityNoRecentBoard
               title={texts.recentlyBoards}
@@ -79,7 +83,11 @@ const CommunityPageTemplate = ({
               }}
             />
           )}
-          <CommunityBoardWrapper title={texts.recommendedBoards} boardList={recommendList} />
+          <CommunityBoardWrapper
+            title={texts.recommendedBoards}
+            boardList={recommendList}
+            postCountText={texts.postCount}
+          />
         </>
       ) : (
         <>

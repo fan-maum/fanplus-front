@@ -17,11 +17,13 @@ const CommunitySearchBoardWrapper = ({ title, boardList, texts }: CommunityBoard
       {boardList.length !== 0 ? (
         <>
           {boardList.map((boardItem) => {
+            const postCount = Number(boardItem.POST_CNT).toLocaleString('en-US');
             return (
               <CommunityBoardItem
                 icon={boardItem.BOARD_ICON}
                 title={boardItem.BOARD_TITLE}
                 link={`${texts.link.board}/${boardItem.BOARD_IDX}/`}
+                postCount={texts.postCount + ' ' + postCount}
                 key={boardItem.BOARD_IDX}
                 onClickLocalStore={() => updateStorageRecentBoardList(boardItem)}
               />
