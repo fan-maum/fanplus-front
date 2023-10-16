@@ -15,7 +15,7 @@ export default function Document() {
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap"
           rel="stylesheet"
-        ></link>
+        />
       </Head>
       <body>
         <noscript dangerouslySetInnerHTML={{ __html: GTM_NOSCRIPT }} />
