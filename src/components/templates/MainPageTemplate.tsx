@@ -16,7 +16,7 @@ const MainPageTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
   const area5 = texts.Area5;
   const area6 = texts.Area6;
   return (
-    <main css={container}>
+    <div css={container}>
       <div css={area}>
         <div css={css(center, { [mediaQuery768]: { flexDirection: 'column-reverse' } })}>
           <div
@@ -233,7 +233,7 @@ const MainPageTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

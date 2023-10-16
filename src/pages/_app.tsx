@@ -4,7 +4,6 @@ import Script from 'next/script';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { DefaultSeo } from 'next-seo';
-import Layout from '@/components/organisms/Layout';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,9 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
           crossOrigin="anonymous"
           onLoad={kakaoInit}
         />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Component {...pageProps} />
       </QueryClientProvider>
     </RecoilRoot>
   );

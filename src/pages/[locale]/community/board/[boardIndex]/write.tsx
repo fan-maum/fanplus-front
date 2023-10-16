@@ -1,7 +1,8 @@
 import { getCommunityBoardTopics } from '@/api/Community';
+import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
+import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
 import { GetServerSidePropsContext } from 'next';
@@ -20,12 +21,14 @@ type CommunityPostWritePropType = {
 
 const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
   return (
-    <PostEditorTemplate
-      mode="CREATE"
-      urlLang={urlLang}
-      topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
-      datas={datas}
-    />
+    <Layout urlLang={urlLang}>
+      <PostEditorTemplate
+        mode="CREATE"
+        urlLang={urlLang}
+        topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
+        datas={datas}
+      />
+    </Layout>
   );
 };
 

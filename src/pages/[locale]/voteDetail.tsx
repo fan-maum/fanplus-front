@@ -1,4 +1,5 @@
 import { getVoteDetail } from '@/api/Vote';
+import Layout from '@/components/organisms/Layout';
 import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
@@ -7,11 +8,11 @@ import { NextSeo } from 'next-seo';
 import nookies from 'nookies';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const VoteDetail = ({ voteDetails, headers, authCookie, error, url }: EventProps) => {
+const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, error, url }: EventProps) => {
   const isWebView = false;
 
   return (
-    <>
+    <Layout urlLang={urlLang}>
       <NextSeo
         title={voteDetails.RESULTS.DATAS.VOTE_INFO.TITLE}
         description={voteDetails.RESULTS.DATAS.VOTE_INFO.DESCRIPTION}
@@ -36,7 +37,7 @@ const VoteDetail = ({ voteDetails, headers, authCookie, error, url }: EventProps
         isWebView={isWebView}
         error={error}
       />
-    </>
+    </Layout>
   );
 };
 
@@ -55,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const voteDetails = res.data;
   const error = voteDetails ? false : res.status;
   return {
-    props: { voteDetails, headers, error, authCookie: authCookie || null, url },
+    props: { urlLang, voteDetails, headers, error, authCookie: authCookie || null, url },
   };
 };
 

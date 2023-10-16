@@ -15,7 +15,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
 
   return (
     <>
-      <nav
+      <div
         css={{
           width: '100%',
           position: 'fixed',
@@ -57,7 +57,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
             />
           )}
         </div>
-      </nav>
+      </div>
       {/* background용 div */}
       {!isLoginSignUpPage && (
         <div

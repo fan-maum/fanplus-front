@@ -3,6 +3,7 @@ import {
   getCommunityBoardResultData,
   getCommunityHomeData,
 } from '@/api/Community';
+import Layout from '@/components/organisms/Layout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
@@ -33,12 +34,14 @@ const CommunityHomePage = ({
   boardResultData,
 }: CommunityPropTypes) => {
   return (
-    <CommunityPageTemplate
-      urlLang={urlLang}
-      communityHomeData={communityHomeData}
-      boardCategoryData={boardCategoryData}
-      boardResultData={boardResultData}
-    />
+    <Layout urlLang={urlLang}>
+      <CommunityPageTemplate
+        urlLang={urlLang}
+        communityHomeData={communityHomeData}
+        boardCategoryData={boardCategoryData}
+        boardResultData={boardResultData}
+      />
+    </Layout>
   );
 };
 

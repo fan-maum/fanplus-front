@@ -1,4 +1,5 @@
 import { getCommunityPostData } from '@/api/Community';
+import Layout from '@/components/organisms/Layout';
 import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { ServerLangType, UrlLangType } from '@/types/common';
@@ -24,14 +25,16 @@ const Post = ({
   communityPostData,
 }: CommunityPostPropType & { urlLang: UrlLangType }) => {
   return (
-    <CommunityPostTemplate
-      urlLang={urlLang}
-      identity={identity}
-      user_idx={user_idx}
-      postIndex={postIndex}
-      serverLang={serverLang}
-      communityPostData={communityPostData}
-    />
+    <Layout urlLang={urlLang}>
+      <CommunityPostTemplate
+        urlLang={urlLang}
+        identity={identity}
+        user_idx={user_idx}
+        postIndex={postIndex}
+        serverLang={serverLang}
+        communityPostData={communityPostData}
+      />
+    </Layout>
   );
 };
 

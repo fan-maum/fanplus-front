@@ -1,7 +1,8 @@
 import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
+import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
+import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
 import { loginErrorHandler } from '@/utils/loginError';
 import type { GetServerSidePropsContext } from 'next';
@@ -22,17 +23,19 @@ type CommunityPostWritePropType = {
 
 const Edit = ({ urlLang, boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
   return (
-    <PostEditorTemplate
-      mode="EDIT"
-      urlLang={urlLang}
-      topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
-      datas={datas}
-      defaultValues={{
-        topicIndex: parseInt(communityPostData.RESULTS.DATAS.POST_INFO.THUMBNAIL_IMG),
-        title: communityPostData.RESULTS.DATAS.POST_INFO.POST_TITLE,
-        content: communityPostData.RESULTS.DATAS.POST_INFO.POST_CONTENTS,
-      }}
-    />
+    <Layout urlLang={urlLang}>
+      <PostEditorTemplate
+        mode="EDIT"
+        urlLang={urlLang}
+        topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
+        datas={datas}
+        defaultValues={{
+          topicIndex: parseInt(communityPostData.RESULTS.DATAS.POST_INFO.THUMBNAIL_IMG),
+          title: communityPostData.RESULTS.DATAS.POST_INFO.POST_TITLE,
+          content: communityPostData.RESULTS.DATAS.POST_INFO.POST_CONTENTS,
+        }}
+      />
+    </Layout>
   );
 };
 

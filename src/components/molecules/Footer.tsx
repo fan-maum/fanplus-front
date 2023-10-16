@@ -2,7 +2,7 @@ import { FooterTextType } from '@/types/textTypes';
 
 const Footer = ({ texts }: { texts: FooterTextType }) => {
   return (
-    <footer
+    <div
       css={{ width: '100%', minHeight: '100px', padding: '35px 10px', backgroundColor: '#fafbfd' }}
     >
       <div
@@ -110,7 +110,7 @@ const Footer = ({ texts }: { texts: FooterTextType }) => {
           </a>
         </div>
       </div>
-    </footer>
+    </div>
   );
 };
 
