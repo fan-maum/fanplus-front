@@ -1,5 +1,4 @@
 import { getCommunityBoardData } from '@/api/Community';
-import Layout from '@/components/organisms/Layout';
 import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
@@ -15,13 +14,11 @@ export type CommunityMyPostPropType = {
 
 const MyPost = ({ urlLang, userId, communityBoardData }: CommunityMyPostPropType) => {
   return (
-    <Layout urlLang={urlLang}>
-      <CommunityMyPostTemplate
-        urlLang={urlLang}
-        userId={userId}
-        communityBoardData={communityBoardData}
-      />
-    </Layout>
+    <CommunityMyPostTemplate
+      urlLang={urlLang}
+      userId={userId}
+      communityBoardData={communityBoardData}
+    />
   );
 };
 

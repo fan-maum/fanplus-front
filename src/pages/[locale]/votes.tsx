@@ -1,16 +1,11 @@
-import Layout from '@/components/organisms/Layout';
 import VotesLayout from '@/components/templates/VoteLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const Votes = ({ urlLang, voteLists, error }: EventProps) => {
-  return (
-    <Layout urlLang={urlLang}>
-      <VotesLayout voteLists={voteLists} error={error} />
-    </Layout>
-  );
+const Votes = ({ voteLists, error }: EventProps) => {
+  return <VotesLayout voteLists={voteLists} error={error} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -27,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const voteLists = await res.json();
   return {
-    props: { urlLang, voteLists, error },
+    props: { voteLists, error },
   };
 };
 

@@ -3,7 +3,6 @@ import {
   getCommunityBoardTopics,
   getCommunityNoticeBannerData,
 } from '@/api/Community';
-import Layout from '@/components/organisms/Layout';
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, UrlLangType } from '@/types/common';
@@ -33,16 +32,14 @@ const Board = ({
   communityNoticeBannerData,
 }: CommunityBoardPropType) => {
   return (
-    <Layout urlLang={urlLang}>
-      <CommunityBoardTemplate
-        urlLang={urlLang}
-        userId={userId}
-        boardLangCookie={boardLangCookie}
-        communityBoardData={communityBoardData}
-        communityBoardTopics={communityBoardTopics}
-        communityNoticeBannerData={communityNoticeBannerData}
-      />
-    </Layout>
+    <CommunityBoardTemplate
+      urlLang={urlLang}
+      userId={userId}
+      boardLangCookie={boardLangCookie}
+      communityBoardData={communityBoardData}
+      communityBoardTopics={communityBoardTopics}
+      communityNoticeBannerData={communityNoticeBannerData}
+    />
   );
 };
 
