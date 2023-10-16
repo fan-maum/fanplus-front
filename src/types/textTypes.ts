@@ -160,6 +160,90 @@ export type SignUpPageTextType = {
   agree3Link: string;
   agree4Link: string;
 };
+export type VotesPageTextType = {
+  voteEnd: string;
+  voteFinished: string;
+  voteStart: string;
+  tab: {
+    all: string;
+    bday: string;
+    league: string;
+  };
+  winner: string;
+  daysAgo: string;
+  hoursAgo: string;
+  minutesAgo: string;
+};
+export type VoteDetailPageTextType = {
+  vote: string;
+  voting: string;
+  board: string;
+  voteResult: string;
+  voteEnded: string;
+  voteDifference: {
+    front: string | null;
+    back: string;
+  };
+  seeMore: string;
+  currentVote: string;
+  prizeTitle: {
+    detail: string;
+    first: string;
+    second: string;
+    third: string;
+  };
+};
+export type ShareModalTextType = {
+  shareModalTitle: string;
+  shareModalClose: string;
+  twitter: string;
+  urlShare: string;
+  otherAppShare: string;
+  urlCopied: string;
+  check: string;
+  shareTitleText: {
+    standard: {
+      front: string;
+      back: string;
+    };
+    title0: string;
+    title1: string;
+    title2: string;
+  };
+  shareMiddleText: {
+    first: string;
+    second: string;
+    voteDiffFront: string;
+    voteDiffBack: string;
+    current: string;
+    place: string;
+    lessThan: string;
+    moreThan: string;
+    voteDiff: string;
+    with: string;
+    middlePageFront: string;
+    middlePageBack: string;
+  };
+  shareEndText: {
+    endFront: string;
+    endBack: string;
+    endPage: string;
+  };
+};
+export type VoteModalTextType = {
+  voteProcess: string;
+  voteDoneFirst: string;
+  voteDoneEnd: string;
+  voteBlockFirst: string;
+  voteBlockEnd: string;
+};
+export type VoteModalButtonTextType = {
+  voteModalVote: string;
+  voteModalCancel: string;
+  voteModalComplete: string;
+  voteModalInstall: string;
+  voteModalConfirm: string;
+};
 export type CommunityPageTextType = {
   community: string;
   home: string;

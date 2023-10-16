@@ -1,9 +1,11 @@
-import { BusinessPageTextType } from '@/types/textTypes';
+import { businessPageTexts } from '@/texts/businessPageTexts';
+import type { UrlLangType } from '@/types/common';
 import { Center } from '../atoms/Center';
-import BusinessInfo from '../organisms/BusinessInfo';
 import BusinessForm from '../organisms/BusinessForm';
+import BusinessInfo from '../organisms/BusinessInfo';
 
-const BusinessTemplate = ({ texts }: { texts: BusinessPageTextType }) => {
+const BusinessTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
+  const texts = businessPageTexts[urlLang];
   return (
     <Center
       css={{

@@ -1,12 +1,10 @@
 import CommonModal, { CommonModalProps } from '@/components/modals/CommonModal';
-import VoteModalText from '../molecules/VoteModalText';
-import useHtmlElement from '@/hooks/useHtmlElement';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import { useRecoilState } from 'recoil';
 import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
-import { Group } from '../atoms';
 import { formatNumberWithComma } from '@/utils/util';
-import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { Group } from '../atoms';
+import VoteModalText from '../molecules/VoteModalText';
 
 export interface VoteBlockModalProps {
   opened: boolean;
@@ -58,12 +56,12 @@ function VoteBlockModal({
               <Group spacing={6} position="center">
                 <div
                   css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}
-                  dangerouslySetInnerHTML={useHtmlElement(voteBlockFirstText)}
+                  dangerouslySetInnerHTML={{ __html: voteBlockFirstText }}
                 ></div>
               </Group>
               <div
                 css={{ fontSize: 18, fontWeight: 400 }}
-                dangerouslySetInnerHTML={useHtmlElement(voteBlockEndText)}
+                dangerouslySetInnerHTML={{ __html: voteBlockEndText }}
               ></div>
             </>
           }

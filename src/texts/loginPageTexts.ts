@@ -1,0 +1,110 @@
+import type { LangStringType } from '@/types/common';
+import type { LoginPageTextType } from '@/types/textTypes';
+
+export const loginPageTexts: LangStringType<LoginPageTextType> = {
+  ko: {
+    heading: '팬플러스 로그인 하기',
+    line1: '로그인이 필요합니다. 로그인을 하시겠습니까?',
+    appleButton: 'Apple 계정으로 로그인',
+    googleButton: 'Google 계정으로 로그인',
+    modal: {
+      text1: '해당 브라우저에서는 구글 로그인을 사용할 수 없습니다.',
+      text2AOS: 'URL 복사를 통해 크롬 혹은',
+      text3AOS: '삼성 인터넷 브라우저에서 진행해주세요.',
+      text2IOS: 'URL 복사를 통해 사파리 혹은 크롬 브라우저에서 진행해주세요.',
+      copyUrl: 'URL 복사',
+      close: '닫기',
+    },
+  },
+  en: {
+    heading: 'FanPlus Login',
+    line1: 'Login is required. Would you like to log in?',
+    appleButton: 'Sign in with Apple',
+    googleButton: 'Sign in with Google',
+    modal: {
+      text1: 'You cannot use Google login in this browser.',
+      text2AOS: 'Please copy the URL and proceed in Chrome browser.',
+      text2IOS: 'Please copy the URL and proceed in Safari or Chrome browser.',
+      copyUrl: 'Copy URL',
+      close: 'Close',
+    },
+  },
+  es: {
+    heading: 'FanPlus Inicia sesión',
+    line1: 'Se requiere iniciar sesión. ¿Desea iniciar sesión?',
+    appleButton: 'Iniciar sesión con cuenta de Apple',
+    googleButton: 'Iniciar sesión con cuenta de Google',
+    modal: {
+      text1: 'No se puede usar Google en este navegador.',
+      text2AOS: 'Por favor, copia el URL y siga en el navegador Chrome.',
+      text2IOS: 'Por favor copia la URL y siga en Safari o en Chrome.',
+      copyUrl: 'Copiar URL',
+      close: 'Cerrar',
+    },
+  },
+  in: {
+    heading: 'Masuk FanPlus',
+    line1: 'Login diperlukan. Apakah Anda ingin login?',
+    appleButton: 'Masuk dengan Apple',
+    googleButton: 'Masuk dengan Google',
+    modal: {
+      text1: 'Anda tidak dapat menggunakan login Google di browser ini.',
+      text2AOS: 'Silakan salin URL dan lanjutkan di browser Chrome.',
+      text2IOS: 'Anda tidak dapat menggunakan login Google di browser ini.',
+      copyUrl: 'Salin URL',
+      close: 'Tutup',
+    },
+  },
+  ja: {
+    heading: 'FanPlusログイン',
+    line1: 'ログインが必要です。あなたは、ログインしますか？',
+    appleButton: 'アップルでサインイン',
+    googleButton: 'Googleアカウントでサインイン',
+    modal: {
+      text1: 'このブラウザでは Google ログインを使用できません。',
+      text2AOS: 'URLをコピーして、 Chrome ブラウザで お進みください。',
+      text2IOS: 'URLをコピーして、 Safari または Chrome ブラウザで お進みください。',
+      copyUrl: 'URL コピー',
+      close: '閉じる',
+    },
+  },
+  vi: {
+    heading: 'Đăng nhập FanPlus',
+    line1: 'Đăng nhập là bắt buộc. Bạn có muốn đăng nhập?',
+    appleButton: 'Đăng nhập với Apple',
+    googleButton: 'Đăng nhập bằng Google',
+    modal: {
+      text1: 'Bạn không thể sử dụng đăng nhập Google trong trình duyệt này.',
+      text2AOS: 'Vui lòng sao chép URL và tiếp tục trong trình duyệt Chrome.',
+      text2IOS: 'Vui lòng sao chép URL và tiếp tục trong trình duyệt Safari hoặc Chrome.',
+      copyUrl: 'Sao chép UR',
+      close: 'Đóng',
+    },
+  },
+  'zh-CN': {
+    heading: 'FanPlus登录',
+    line1: '需要登录。您现在要登录吗？',
+    appleButton: '使用Apple 账号登陆',
+    googleButton: '使用Google 账号登陆',
+    modal: {
+      text1: '您无法在此浏览器中使用谷歌(Google)登录。',
+      text2AOS: '请复制URL并在 Chrome浏览器进行',
+      text2IOS: '请复制URL并在 Safari或 Chrome浏览器进行',
+      copyUrl: '复制 URL',
+      close: '关闭',
+    },
+  },
+  'zh-TW': {
+    heading: 'FanPlus登錄',
+    line1: '需要登錄。您現在要登錄嗎？',
+    appleButton: '使用Apple 賬號登陸',
+    googleButton: '使用Google 賬號登陸',
+    modal: {
+      text1: '您無法在此瀏覽器中使用谷歌(Google)登錄。',
+      text2AOS: '請複制URL並在 Chrome瀏覽器進行',
+      text2IOS: '請複制URL並在 Safari或 Chrome瀏覽器進行',
+      copyUrl: '複製 URL',
+      close: '關閉',
+    },
+  },
+};

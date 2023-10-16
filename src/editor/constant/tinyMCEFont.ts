@@ -1,4 +1,4 @@
-import { LangCookie } from '@/utils/setLangCookie';
+import type { UrlLangType } from '@/types/common';
 
 const textName = {
   dotum: '돋움',
@@ -17,7 +17,7 @@ const textName = {
   },
 };
 
-export const font_family_formats = (language: LangCookie) => {
+export const font_family_formats = (language: UrlLangType) => {
   const isKorean = language === 'ko';
   return (
     `${textName.basic[language]}="-apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;` +

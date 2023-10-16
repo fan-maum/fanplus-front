@@ -8,7 +8,7 @@ export interface VoteTitleImageProps {
 
 export default function VoteTitleImage({ voteStatus, voteDataImage }: VoteTitleImageProps) {
   const router = useRouter();
-  const voteDetailPage = router.route.includes('voteDetail');
+  const voteDetailPage = router.pathname.includes('voteDetail');
   const fadeOutImage = voteStatus === 'END' && !voteDetailPage;
 
   return (

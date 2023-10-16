@@ -1,12 +1,11 @@
+import { useUrlLanguage } from '@/hooks/useLanguage';
+import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
 import { VoteDetailStars } from '@/types/vote';
+import { formatNumberWithComma } from '@/utils/util';
+import { useRecoilState } from 'recoil';
+import { Group } from '../atoms';
 import VoteModalText from '../molecules/VoteModalText';
 import CommonModal, { CommonModalProps } from './CommonModal';
-import { Group } from '../atoms';
-import { useUrlLanguage } from '@/hooks/useLanguage';
-import { useRecoilState } from 'recoil';
-import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
-import useHtmlElement from '@/hooks/useHtmlElement';
-import { formatNumberWithComma } from '@/utils/util';
 
 export interface VoteProcessModalProps {
   opened: boolean;
@@ -51,7 +50,7 @@ const VoteProcessModal = ({
               <div
                 className="voteModalTextWrap"
                 css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}
-                dangerouslySetInnerHTML={useHtmlElement(text)}
+                dangerouslySetInnerHTML={{ __html: text }}
               ></div>
             </Group>
           </>

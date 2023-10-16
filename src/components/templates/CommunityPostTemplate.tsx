@@ -1,30 +1,12 @@
-import { useEffect, useState } from 'react';
-import styled from '@emotion/styled';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  modalBlockState,
-  orderTypeState,
-  postParamState,
-  postParamStateType,
-  reportModalBlockState,
-  userState,
-} from '@/store/community';
-import type { PostResponseType, userResponseType } from '@/types/community';
-import type { CommunityPostTextType } from '@/types/textTypes';
-import PostFixedBottomWrapper, {
-  PostFixedBottomWrapperProps,
-} from '@/components/organisms/community/PostFixedBottomWrapper';
 import { postComment } from '@/api/Community';
-import { BackLangType, TargetType } from '@/types/common';
-import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
+import CommunityBlockModal from '@/components/modals/CommunityBlockModal';
 import PostCommentWrapper, {
   PostCommentWrapperProps,
 } from '@/components/organisms/community/PostCommentWrapper';
-import CommunityBlockModal from '@/components/modals/CommunityBlockModal';
-import CommunityDoneModal from '../modals/CommunityDoneModal';
-import CommunityReportModal from '../modals/CommunityReportModal';
-import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
-import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
+import PostFixedBottomWrapper, {
+  PostFixedBottomWrapperProps,
+} from '@/components/organisms/community/PostFixedBottomWrapper';
+import type { CommunityPostPropType } from '@/pages/[locale]/community/board/[boardIndex]/[postIndex]';
 import {
   useGetCommentQuery,
   useGetCommentQueryProps,
@@ -33,15 +15,35 @@ import {
   useGetUserQuery,
   useGetUserQueryProps,
 } from '@/server/useGetCommentsQuery';
+import {
+  modalBlockState,
+  orderTypeState,
+  postParamState,
+  postParamStateType,
+  reportModalBlockState,
+  userState,
+} from '@/store/community';
+import { communityPostTexts } from '@/texts/communityPostTexts';
+import type { TargetType } from '@/types/common';
+import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import CommunityDoneModal from '../modals/CommunityDoneModal';
+import CommunityReportModal from '../modals/CommunityReportModal';
+import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
+import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
+import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 
 const CommunityPostTemplate = ({
+  urlLang,
   identity,
   user_idx,
   postIndex,
-  lang,
+  serverLang,
   communityPostData,
-  texts,
 }: CommunityPostPropType) => {
+  const texts = communityPostTexts[urlLang];
+
   const board_lang = 'ALL';
   const per_page = 20;
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
@@ -59,7 +61,7 @@ const CommunityPostTemplate = ({
   let postParamObject: postParamStateType = {
     target_type: 'post',
     target: parseInt(postInfo.POST_IDX as string),
-    lang: lang,
+    lang: serverLang,
     identity: identity,
   };
 
@@ -228,12 +230,3 @@ const LayoutInner = styled.div`
   margin: 0 auto;
   padding-bottom: 120px;
 `;
-
-export type CommunityPostPropType = {
-  identity: string;
-  user_idx: string;
-  postIndex: number;
-  lang: BackLangType;
-  communityPostData: PostResponseType;
-  texts: CommunityPostTextType;
-};

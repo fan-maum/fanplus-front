@@ -1,5 +1,8 @@
-export type BackLangType = 'ko' | 'en' | 'ja' | 'es' | 'vi' | 'id' | 'zh' | 'zhtw';
-export type BoardLangType = BackLangType | 'ALL';
+export type UrlLangType = 'ko' | 'en' | 'es' | 'ja' | 'vi' | 'in' | 'zh-CN' | 'zh-TW';
+export type ServerLangType = 'ko' | 'en' | 'es' | 'ja' | 'vi' | 'id' | 'zh' | 'zhtw';
+export type BoardLangType = ServerLangType | 'ALL';
+export type LangStringType<T> = Record<UrlLangType, T>;
+
 export type TargetType =
   | 'photo'
   | 'fanfic_episode'
