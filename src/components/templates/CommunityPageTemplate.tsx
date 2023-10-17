@@ -2,23 +2,35 @@ import CommunityBoardFilterTab from '@/components/organisms/community/CommunityB
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
-import type { CommunityPropTypes } from '@/pages/[locale]/community';
+import type { CommunityHomeDataType, CommunityPropTypes } from '@/pages/[locale]/community';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import type { CommunityPageTextType } from '@/types/textTypes';
 import { getStorageRecentBoardDatas } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, Suspense, useEffect, useState } from 'react';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
+import { UrlLangType } from '@/types/common';
+import {
+  CommunityBoardCategoryResponseType,
+  CommunityBoardResultResponseType,
+} from '@/types/community';
 
 type TabBarType = 'home' | 'search';
+
+export type CommunityPagePropTypes = {
+  urlLang: UrlLangType;
+  communityHomeData: CommunityHomeDataType;
+  boardCategoryData: CommunityBoardCategoryResponseType;
+  boardResultData: CommunityBoardResultResponseType;
+};
 
 const CommunityPageTemplate = ({
   urlLang,
   communityHomeData,
   boardCategoryData,
   boardResultData,
-}: CommunityPropTypes) => {
+}: CommunityPagePropTypes) => {
   const router = useRouter();
   const texts = communityMainPageTexts[urlLang];
 
@@ -64,11 +76,13 @@ const CommunityPageTemplate = ({
       {tabBar === 'home' ? (
         <>
           {isRecentlyListExist ? (
-            <CommunityBoardWrapper
-              title={texts.recentlyBoards}
-              boardList={recentlyList}
-              postCountText={texts.postCount}
-            />
+            <Suspense fallback={<div>loading...</div>}>
+              <CommunityBoardWrapper
+                title={texts.recentlyBoards}
+                boardList={recentlyList}
+                postCountText={texts.postCount}
+              />
+            </Suspense>
           ) : (
             <CommunityNoRecentBoard
               title={texts.recentlyBoards}
@@ -96,11 +110,13 @@ const CommunityPageTemplate = ({
             searchCategoryTabs={searchCategoryTabs}
             searchTabState={searchTabState}
           />
-          <CommunitySearchBoardWrapper
-            boardList={boardResultList}
-            activeTabState={activeTabState}
-            texts={texts}
-          />
+          <Suspense fallback={<div>loading...</div>}>
+            <CommunitySearchBoardWrapper
+              boardList={boardResultList}
+              activeTabState={activeTabState}
+              texts={texts}
+            />
+          </Suspense>
           {boardResultList.length !== 0 && (
             <CommunitySearchBoardPagination totalCount={boardResultTotalCount} itemsPerPage={20} />
           )}

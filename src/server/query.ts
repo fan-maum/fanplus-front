@@ -1,4 +1,4 @@
-import { getComments, getReplies } from '@/api/Community';
+import { getComments, getCommunityBoardResultData, getReplies } from '@/api/Community';
 
 export const getRepliesQuery = async ({
   commentIndex,
@@ -21,5 +21,22 @@ export const getCommentsQuery = async ({
   per_page,
 }: any) => {
   const data = await getComments(postIndex, identity, board_lang, orderType, pageParam, per_page);
+  return data;
+};
+
+export const getBoardResultQuery = async ({
+  category_type,
+  searchValue,
+  serverLang,
+  page,
+  per_page,
+}: any) => {
+  const data = await getCommunityBoardResultData(
+    category_type,
+    searchValue,
+    serverLang,
+    page,
+    per_page
+  );
   return data;
 };

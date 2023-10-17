@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { getCommentsQuery, getRepliesQuery } from './query';
-import { BoardLangType, OrderType } from '@/types/common';
+import { BoardLangType, OrderType, ServerLangType } from '@/types/common';
 import { getUser } from '@/api/Community';
 
 export const useGetCommentQuery = (props: useGetCommentQueryProps) => {
@@ -62,4 +62,12 @@ export interface useGetReplyQueryProps extends useCommonCommentQueryType {
 export interface useGetUserQueryProps {
   user_idx: string;
   identity: string;
+}
+
+export interface useGetBoardResultQueryProps {
+  category_type: number;
+  searchValue: any;
+  serverLang: ServerLangType;
+  page: number;
+  per_page: number;
 }
