@@ -74,4 +74,5 @@ const PostContents = styled.div`
     height: auto;
     aspect-ratio: 16/9;
   }
+  word-break: break-word;
 `;
