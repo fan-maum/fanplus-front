@@ -1,6 +1,6 @@
-import { SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { BoardCategoryItemType, BoardResultItemType } from '@/types/community';
+import { BoardCategoryItemType } from '@/types/community';
 import { useRouter } from 'next/router';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -64,11 +64,7 @@ const SearchScrollTabBar = ({
           }}
         >
           {tabs.map((tab, index) => (
-            <SwiperSlide
-              key={index}
-              //   active={activeTab === tab.CATEGORY_NAME}
-              onClick={() => handleTabClick(index, tab.CATEGORY_NAME)}
-            >
+            <SwiperSlide key={index} onClick={() => handleTabClick(index, tab.CATEGORY_NAME)}>
               <Title active={activeTab === tab.CATEGORY_NAME}>{tab.CATEGORY_NAME}</Title>
             </SwiperSlide>
           ))}
