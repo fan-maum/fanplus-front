@@ -107,14 +107,12 @@ const CommunityBoardTemplate = ({
         <>
           <ul>
             {postList.map((post, idx) => {
-              return (
-                <CommunityBoardArticle
-                  postItem={post}
-                  link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
-                  key={idx}
-                  texts={texts}
-                />
-              );
+              let link =
+                `/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}/?` +
+                `page=${router.query.page || 1}` +
+                `&topic=${router.query.topic || 0}` +
+                `&view=${router.query.view || 'all'}`;
+              return <CommunityBoardArticle postItem={post} link={link} key={idx} texts={texts} />;
             })}
           </ul>
           <CommunityBoardPagination totalCount={boardInfo.POST_CNT} />
