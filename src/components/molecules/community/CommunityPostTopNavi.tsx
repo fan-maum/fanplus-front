@@ -76,12 +76,7 @@ const CommunityPostTopNavi = ({
               })
             }
           />
-          <h2
-            css={{ fontSize: 22, fontWeight: 600, color: ' #000' }}
-            onClick={() => console.log(window)}
-          >
-            {texts.post}
-          </h2>
+          <h2 css={{ fontSize: 22, fontWeight: 600, color: ' #000' }}>{texts.post}</h2>
         </div>
         <div
           css={{
