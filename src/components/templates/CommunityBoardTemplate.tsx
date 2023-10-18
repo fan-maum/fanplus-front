@@ -15,6 +15,7 @@ import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi'
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
+import { QueryObserverResult } from 'react-query';
 
 const CommunityBoardTemplate = ({
   urlLang,
@@ -23,7 +24,12 @@ const CommunityBoardTemplate = ({
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
-}: CommunityBoardPropType) => {
+  isFetching,
+  refetch,
+}: CommunityBoardPropType & {
+  isFetching: boolean;
+  refetch: () => Promise<QueryObserverResult>;
+}) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
 
@@ -75,6 +81,15 @@ const CommunityBoardTemplate = ({
     }
     router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
   };
+  const onClickTopic = async (topic: number) => {
+    setTopicIndex(topic);
+    await router.replace(
+      { pathname: router.pathname, query: { ...router.query, topic, page: 1 } },
+      undefined,
+      { shallow: true }
+    );
+    await refetch();
+  };
 
   return (
     <div
@@ -100,14 +115,16 @@ const CommunityBoardTemplate = ({
         stringTopicAll={texts.all}
         topicList={topicList}
         topicIndex={topicIndex}
-        setTopicIndex={setTopicIndex}
+        onClickTopic={onClickTopic}
       />
       {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
       {isPostExist ? (
         <>
           <ul>
             {postList.map((post, idx) => {
-              return (
+              return isFetching ? (
+                <div>Loading..</div>
+              ) : (
                 <CommunityBoardArticle
                   postItem={post}
                   link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
@@ -164,23 +181,15 @@ type TopicTabBarPropType = {
   stringTopicAll: string;
   topicList: TopicListItemType[];
   topicIndex: number;
-  setTopicIndex: Dispatch<SetStateAction<number>>;
+  onClickTopic: (topic: number) => void;
 };
 
 const TopicTabBar = ({
   stringTopicAll,
   topicList,
   topicIndex,
-  setTopicIndex,
+  onClickTopic,
 }: TopicTabBarPropType) => {
-  const router = useRouter();
-  const handleClick = (topicIndex: number) => {
-    setTopicIndex(topicIndex);
-    router.replace({
-      pathname: router.pathname,
-      query: { ...router.query, topic: topicIndex, page: 1 },
-    });
-  };
   return (
     <ul
       css={{
@@ -195,14 +204,14 @@ const TopicTabBar = ({
         '::-webkit-scrollbar': { display: 'none' },
       }}
     >
-      <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => handleClick(0)} />
+      <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => onClickTopic(0)} />
       {topicList.length > 1 &&
         topicList.map((topic, idx) => {
           return (
             <Topic
               title={topic.NAME}
               selected={topicIndex === topic.IDX}
-              onClick={() => handleClick(topic.IDX)}
+              onClick={() => onClickTopic(topic.IDX)}
               key={idx}
             />
           );

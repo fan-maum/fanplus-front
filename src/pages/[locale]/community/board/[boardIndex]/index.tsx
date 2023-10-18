@@ -6,6 +6,10 @@ import {
 import Layout from '@/components/organisms/Layout';
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import {
+  useGetCommunityBoardDataQuery,
+  useGetCommunityBoardDataQueryPropType,
+} from '@/server/useGetCommunityBoardDataQuery';
 import type { BoardLangType, UrlLangType } from '@/types/common';
 import type {
   CommunityBoardResponseType,
@@ -13,6 +17,7 @@ import type {
   CommunityNoticeBannerResponseType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import nookies from 'nookies';
 
 export type CommunityBoardPropType = {
@@ -28,19 +33,38 @@ const Board = ({
   urlLang,
   userId,
   boardLangCookie,
-  communityBoardData,
+  communityBoardData: communityBoardDataSSR,
   communityBoardTopics,
   communityNoticeBannerData,
 }: CommunityBoardPropType) => {
+  const router = useRouter();
+  const useGetCommunityBoardDataQueryProps: useGetCommunityBoardDataQueryPropType = {
+    userId: userId || '',
+    boardIndex: Number(router.query.boardIndex),
+    page: Number(router.query.page) - 1 || 0,
+    lang: translateUrlLangToServerLang(urlLang),
+    boardLang: boardLangCookie,
+    topic: Number(router.query.topic) || 0,
+    viewType: (router.query.view as string) || 'all',
+    initialData: communityBoardDataSSR,
+  };
+  const {
+    data: communityBoardData,
+    isFetching,
+    refetch,
+  } = useGetCommunityBoardDataQuery(useGetCommunityBoardDataQueryProps);
+
   return (
     <Layout urlLang={urlLang}>
       <CommunityBoardTemplate
         urlLang={urlLang}
         userId={userId}
         boardLangCookie={boardLangCookie}
-        communityBoardData={communityBoardData}
+        communityBoardData={communityBoardData || communityBoardDataSSR}
         communityBoardTopics={communityBoardTopics}
         communityNoticeBannerData={communityNoticeBannerData}
+        isFetching={isFetching}
+        refetch={refetch}
       />
     </Layout>
   );
