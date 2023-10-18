@@ -15,52 +15,30 @@ import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi'
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
-import { useCommunityBoardDataQuery } from '@/server/useCommunityBoardDataQuery';
-import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 
 const CommunityBoardTemplate = ({
   urlLang,
   userId,
   boardLangCookie,
-  communityBoardData: communityBoardDataSSR,
+  communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
 }: CommunityBoardPropType) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
 
-  // const [viewType, setViewType] = useState((router.query.view as string) || 'all');
+  const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
+  const [viewType, setViewType] = useState((router.query.view as string) || 'all');
   const [boardLang, setBoardLang] = useState(boardLangCookie);
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
-  const boardInfo = communityBoardDataSSR.RESULTS.DATAS.BOARD_INFO;
+  const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
+  const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
   const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
 
-  const topicIndex = Number(router.query.topic) || 0;
-  const viewType = (router.query.view as string) || 'all';
-
-  const {
-    data: communityBoardData,
-    isFetching,
-    refetch,
-  } = useCommunityBoardDataQuery(
-    userId || '',
-    Number(router.query.boardIndex),
-    Number(router.query.page) - 1 || 0,
-    translateUrlLangToServerLang(urlLang),
-    boardLang,
-    topicIndex,
-    viewType,
-    communityBoardDataSSR
-  );
-  const postList = communityBoardData?.RESULTS.DATAS.POST_LIST;
-
-  const isPostExist = !(
-    postList?.length === 0 &&
-    (!router.query.page || router.query.page === '1')
-  );
+  const isPostExist = !(postList.length === 0 && (!router.query.page || router.query.page === '1'));
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
 
   const onClickWrite = () => {
@@ -77,26 +55,17 @@ const CommunityBoardTemplate = ({
     }
     router.push(`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`);
   };
-  const onClickPopular = async () => {
+  const onClickPopular = () => {
     if (viewType !== 'best_post') {
-      await router.replace(
-        {
-          pathname: router.pathname,
-          query: { ...router.query, view: 'best_post', page: 1 },
-        },
-        undefined,
-        { shallow: true }
-      );
-      await refetch();
+      setViewType('best_post');
+      router.replace({
+        pathname: router.pathname,
+        query: { ...router.query, view: 'best_post', page: 1 },
+      });
       return;
     }
-    // setViewType('all');
-    await router.replace(
-      { pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } },
-      undefined,
-      { shallow: true }
-    );
-    await refetch();
+    setViewType('all');
+    router.replace({ pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } });
   };
   const onClickMyPost = () => {
     if (!userId) {
@@ -105,14 +74,6 @@ const CommunityBoardTemplate = ({
       return;
     }
     router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
-  };
-  const onClickTopic = async (topic: number) => {
-    await router.replace(
-      { pathname: router.pathname, query: { ...router.query, topic, page: 1 } },
-      undefined,
-      { shallow: true }
-    );
-    await refetch();
   };
 
   return (
@@ -139,26 +100,22 @@ const CommunityBoardTemplate = ({
         stringTopicAll={texts.all}
         topicList={topicList}
         topicIndex={topicIndex}
-        onClickTopic={onClickTopic}
+        setTopicIndex={setTopicIndex}
       />
       {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
       {isPostExist ? (
         <>
           <ul>
-            {isFetching ? (
-              <div>Loading....</div>
-            ) : (
-              postList?.map((post, idx) => {
-                return (
-                  <CommunityBoardArticle
-                    postItem={post}
-                    link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
-                    key={idx}
-                    texts={texts}
-                  />
-                );
-              })
-            )}
+            {postList.map((post, idx) => {
+              return (
+                <CommunityBoardArticle
+                  postItem={post}
+                  link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                  key={idx}
+                  texts={texts}
+                />
+              );
+            })}
           </ul>
           <CommunityBoardPagination totalCount={boardInfo.POST_CNT} />
         </>
@@ -207,27 +164,23 @@ type TopicTabBarPropType = {
   stringTopicAll: string;
   topicList: TopicListItemType[];
   topicIndex: number;
-  onClickTopic: (topic: number) => void;
+  setTopicIndex: Dispatch<SetStateAction<number>>;
 };
 
 const TopicTabBar = ({
   stringTopicAll,
   topicList,
   topicIndex,
-  onClickTopic,
+  setTopicIndex,
 }: TopicTabBarPropType) => {
   const router = useRouter();
-  // const handleClick = (topicIndex: number) => {
-  //   setTopicIndex(topicIndex);
-  //   router.replace(
-  //     {
-  //       pathname: router.pathname,
-  //       query: { ...router.query, topic: topicIndex, page: 1 },
-  //     },
-  //     undefined,
-  //     { shallow: true }
-  //   );
-  // };
+  const handleClick = (topicIndex: number) => {
+    setTopicIndex(topicIndex);
+    router.replace({
+      pathname: router.pathname,
+      query: { ...router.query, topic: topicIndex, page: 1 },
+    });
+  };
   return (
     <ul
       css={{
@@ -242,14 +195,14 @@ const TopicTabBar = ({
         '::-webkit-scrollbar': { display: 'none' },
       }}
     >
-      <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => onClickTopic(0)} />
+      <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => handleClick(0)} />
       {topicList.length > 1 &&
         topicList.map((topic, idx) => {
           return (
             <Topic
               title={topic.NAME}
               selected={topicIndex === topic.IDX}
-              onClick={() => onClickTopic(topic.IDX)}
+              onClick={() => handleClick(topic.IDX)}
               key={idx}
             />
           );
