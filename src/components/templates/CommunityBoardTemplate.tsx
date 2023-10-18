@@ -1,8 +1,15 @@
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { CommunityBoardPropType } from '@/pages/[locale]/community/board/[boardIndex]';
+import {
+  useGetCommunityBoardDataQuery,
+  useGetCommunityBoardDataQueryPropType,
+} from '@/server/useGetCommunityBoardDataQuery';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import { BoardLangType } from '@/types/common';
 import type { TopicListItemType } from '@/types/community';
+import { setBoardLangCookie } from '@/utils/langCookie';
 import { useRouter } from 'next/router';
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import IconMyPost from '../atoms/IconMyPost';
 import IconPopular from '../atoms/IconPopular';
 import IconPopularBlack from '../atoms/IconPopularBlack';
@@ -10,46 +17,66 @@ import IconWrite from '../atoms/IconWrite';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
 import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
+import CommunityBoardArticleSkeleton from '../molecules/community/CommunityBoardArticleSkeleton';
 import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
-import { QueryObserverResult } from 'react-query';
 
 const CommunityBoardTemplate = ({
   urlLang,
   userId,
   boardLangCookie,
-  communityBoardData,
+  communityBoardData: communityBoardDataSSR,
   communityBoardTopics,
   communityNoticeBannerData,
-  isFetching,
-  refetch,
-}: CommunityBoardPropType & {
-  isFetching: boolean;
-  refetch: () => Promise<QueryObserverResult>;
-}) => {
+}: CommunityBoardPropType) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
+  const topicIndex = Number(router.query.topic) || 0;
+  const viewType = (router.query.view as string) || 'all';
 
-  const [topicIndex, setTopicIndex] = useState(parseInt(router.query.topic as string) || 0);
-  const [viewType, setViewType] = useState((router.query.view as string) || 'all');
   const [boardLang, setBoardLang] = useState(boardLangCookie);
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
 
+  const useGetCommunityBoardDataQueryProps: useGetCommunityBoardDataQueryPropType = {
+    userId: userId || '',
+    boardIndex: Number(router.query.boardIndex),
+    page: Number(router.query.page) - 1 || 0,
+    lang: translateUrlLangToServerLang(urlLang),
+    boardLang: boardLang,
+    topic: topicIndex,
+    viewType: viewType,
+    initialData: communityBoardDataSSR,
+  };
+  const {
+    isFetching,
+    refetch,
+    data: communityBoardData,
+  } = useGetCommunityBoardDataQuery(useGetCommunityBoardDataQueryProps);
+
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
-  const postList = communityBoardData.RESULTS.DATAS.POST_LIST;
-  const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
+  const postList = communityBoardData?.RESULTS.DATAS.POST_LIST;
+  const boardInfo = communityBoardData?.RESULTS.DATAS.BOARD_INFO;
   const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
 
-  const isPostExist = !(postList.length === 0 && (!router.query.page || router.query.page === '1'));
+  const isPostExist = !(
+    postList?.length === 0 &&
+    (!router.query.page || router.query.page === '1')
+  );
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
+
+  const refreshBoardData = async () => {
+    console.log('view: ', viewType);
+    console.log('topic: ', topicIndex);
+    await refetch();
+  };
 
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];
-    const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX);
+    const writeBanned = writeBanBoard.includes(boardInfo?.BOARD_IDX as string);
     if (writeBanned) {
       setPermissionModal(true);
       return;
@@ -59,19 +86,20 @@ const CommunityBoardTemplate = ({
       router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
-    router.push(`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`);
+    router.push(`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/write`);
   };
-  const onClickPopular = () => {
+  const onClickPopular = async () => {
     if (viewType !== 'best_post') {
-      setViewType('best_post');
-      router.replace({
-        pathname: router.pathname,
-        query: { ...router.query, view: 'best_post', page: 1 },
+      await router.replace({ query: { ...router.query, view: 'best_post', page: 1 } }, undefined, {
+        shallow: true,
       });
+      await refreshBoardData();
       return;
     }
-    setViewType('all');
-    router.replace({ pathname: router.pathname, query: { ...router.query, view: 'all', page: 1 } });
+    await router.replace({ query: { ...router.query, view: 'all', page: 1 } }, undefined, {
+      shallow: true,
+    });
+    await refreshBoardData();
   };
   const onClickMyPost = () => {
     if (!userId) {
@@ -79,16 +107,31 @@ const CommunityBoardTemplate = ({
       router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
-    router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
+    router.push(`/community/board/${boardInfo?.BOARD_IDX}/mypost`);
   };
   const onClickTopic = async (topic: number) => {
-    setTopicIndex(topic);
     await router.replace(
       { pathname: router.pathname, query: { ...router.query, topic, page: 1 } },
       undefined,
       { shallow: true }
     );
-    await refetch();
+    await refreshBoardData();
+  };
+  const onClickLanguageBox = async (language: BoardLangType) => {
+    setBoardLang(language);
+    setBoardLangCookie(language);
+    await router.replace({ query: { ...router.query, page: 1 } }, undefined, { shallow: true });
+    await refreshBoardData();
+    setLangModal(false);
+  };
+
+  const handlePageChange = async (selectedItem: { selected: number }) => {
+    await router.replace(
+      { query: { ...router.query, page: selectedItem.selected + 1 } },
+      undefined,
+      { shallow: true }
+    );
+    await refreshBoardData();
   };
 
   return (
@@ -101,7 +144,7 @@ const CommunityBoardTemplate = ({
       }}
     >
       <CommunityBoardTopNavi
-        boardTitle={boardInfo.BOARD_TITLE}
+        boardTitle={boardInfo?.BOARD_TITLE as string}
         rightItem={
           <CommunityBoardLangSelector
             language={texts.boardLang[boardLang]}
@@ -121,20 +164,23 @@ const CommunityBoardTemplate = ({
       {isPostExist ? (
         <>
           <ul>
-            {postList.map((post, idx) => {
+            {postList?.map((post, idx) => {
               return isFetching ? (
-                <div>Loading..</div>
+                <CommunityBoardArticleSkeleton key={idx} />
               ) : (
                 <CommunityBoardArticle
                   postItem={post}
-                  link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                  link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
                   key={idx}
                   texts={texts}
                 />
               );
             })}
           </ul>
-          <CommunityBoardPagination totalCount={boardInfo.POST_CNT} />
+          <CommunityBoardPagination
+            totalCount={boardInfo?.POST_CNT as number}
+            handlePageChange={handlePageChange}
+          />
         </>
       ) : (
         <CommunityBoardNoPost
@@ -159,7 +205,7 @@ const CommunityBoardTemplate = ({
         opened={langModal}
         setModal={setLangModal}
         boardLang={boardLang}
-        setBoardLanguage={setBoardLang}
+        onClickLanguageBox={onClickLanguageBox}
       />
       <CommunityCommonModal
         opened={permissionModal}
@@ -256,8 +302,9 @@ type BottomTabBarItemPropType = {
   onClick: () => void;
   selected?: boolean;
 };
+type BottomTabBarPropType = BottomTabBarItemPropType[];
 
-const BottomTabBar = ({ items }: { items: BottomTabBarItemPropType[] }) => {
+const BottomTabBar = ({ items }: { items: BottomTabBarPropType }) => {
   return (
     <>
       <div css={{ height: '60px' }}></div>

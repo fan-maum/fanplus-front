@@ -25,7 +25,7 @@ export const useGetCommunityBoardDataQuery = ({
   initialData,
 }: useGetCommunityBoardDataQueryPropType) => {
   const response = useQuery({
-    queryKey: ['communityBoardData'],
+    queryKey: ['communityBoardData', userId, boardIndex, page, lang, boardLang, topic, viewType],
     queryFn: () =>
       getCommunityBoardData(userId, boardIndex, page, lang, boardLang, topic, viewType),
     initialData,
