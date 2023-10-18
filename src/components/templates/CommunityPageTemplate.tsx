@@ -2,7 +2,7 @@ import CommunityBoardFilterTab from '@/components/organisms/community/CommunityB
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
-import type { CommunityHomeDataType } from '@/pages/[locale]/community';
+import type { CommunityPropTypes } from '@/pages/[locale]/community';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import type { CommunityPageTextType } from '@/types/textTypes';
 import { getStorageRecentBoardDatas } from '@/utils/localStorage';
@@ -10,12 +10,7 @@ import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
-import { UrlLangType } from '@/types/common';
-import {
-  BoardResultItemType,
-  CommunityBoardCategoryResponseType,
-  CommunityBoardResultResponseType,
-} from '@/types/community';
+import { BoardResultItemType } from '@/types/community';
 import { useGetBoardResultQueryProps } from '@/server/useGetCommentsQuery';
 import { useQuery } from 'react-query';
 import { getBoardResultQuery } from '@/server/query';
@@ -24,19 +19,12 @@ import { BoardItemSkeleton } from '../molecules/community/CommunitySkeleton';
 
 type TabBarType = 'home' | 'search';
 
-export type CommunityPagePropTypes = {
-  urlLang: UrlLangType;
-  communityHomeData: CommunityHomeDataType;
-  boardCategoryData: CommunityBoardCategoryResponseType;
-  boardResultData: CommunityBoardResultResponseType;
-};
-
 const CommunityPageTemplate = ({
   urlLang,
   communityHomeData,
   boardCategoryData,
   boardResultData,
-}: CommunityPagePropTypes) => {
+}: CommunityPropTypes) => {
   const router = useRouter();
   const texts = communityMainPageTexts[urlLang];
 
