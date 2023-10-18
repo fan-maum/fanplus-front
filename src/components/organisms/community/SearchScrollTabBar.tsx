@@ -1,32 +1,42 @@
-import { useEffect } from 'react';
+import { SetStateAction, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { BoardCategoryItemType } from '@/types/community';
+import { BoardCategoryItemType, BoardResultItemType } from '@/types/community';
 import { useRouter } from 'next/router';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { useQueryClient } from 'react-query';
 
 type SearchScrollTabBarProps = {
   tabs: BoardCategoryItemType[];
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
+  refetchBoardResultData: () => void;
 };
 
 const SearchScrollTabBar = ({
   tabs,
   searchTabState: [activeTab, setActiveTab],
+  refetchBoardResultData,
 }: SearchScrollTabBarProps) => {
   const router = useRouter();
   const { category_type, searchValue, page = 0 } = router?.query;
-  const handleTabClick = (index: number, tabName: string) => {
-    setActiveTab(tabName);
-    router.push({
-      pathname: router.pathname,
-      query: {
-        category_type: tabs[index].CATEGORY_IDX,
-        searchValue: searchValue,
-        locale: router.query.locale,
+  const queryClient = useQueryClient();
+  const handleTabClick = async (index: number, tabName: string) => {
+    await queryClient.removeQueries('boardResults');
+    await setActiveTab(tabName);
+    await router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          category_type: tabs[index].CATEGORY_IDX,
+          searchValue: searchValue,
+          locale: router.query.locale,
+        },
       },
-    });
+      undefined,
+      { shallow: true }
+    );
+    await refetchBoardResultData();
   };
 
   useEffect(() => {

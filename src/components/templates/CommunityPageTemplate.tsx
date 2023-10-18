@@ -2,19 +2,25 @@ import CommunityBoardFilterTab from '@/components/organisms/community/CommunityB
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
-import type { CommunityHomeDataType, CommunityPropTypes } from '@/pages/[locale]/community';
+import type { CommunityHomeDataType } from '@/pages/[locale]/community';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import type { CommunityPageTextType } from '@/types/textTypes';
 import { getStorageRecentBoardDatas } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction, Suspense, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
 import { UrlLangType } from '@/types/common';
 import {
+  BoardResultItemType,
   CommunityBoardCategoryResponseType,
   CommunityBoardResultResponseType,
 } from '@/types/community';
+import { useGetBoardResultQueryProps } from '@/server/useGetCommentsQuery';
+import { useQuery } from 'react-query';
+import { getBoardResultQuery } from '@/server/query';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import { Skeleton } from '@mantine/core';
 
 type TabBarType = 'home' | 'search';
 
@@ -39,13 +45,36 @@ const CommunityPageTemplate = ({
   const searchTabState = useState(texts.allCategory);
   const [activeTabState] = searchTabState;
 
+  const serverLang = translateUrlLangToServerLang(urlLang);
+  const category_type = parseInt(router.query.category_type as string) || 0;
+  const searchValue = router.query.searchValue || '';
+  const page = parseInt(router.query.page as string) - 1 || 0;
+
+  const useGetBoardResultQueryProps: useGetBoardResultQueryProps = {
+    category_type,
+    searchValue,
+    serverLang,
+    page,
+    per_page: 20,
+  };
+
+  const {
+    data: boardResultClientData,
+    isFetching,
+    refetch: refetchBoardResultData,
+  } = useQuery({
+    queryKey: ['boardResults', useGetBoardResultQueryProps],
+    queryFn: () => getBoardResultQuery(useGetBoardResultQueryProps),
+    initialData: boardResultData,
+  });
+
   useEffect(() => {
     const storageRecentlyList = getStorageRecentBoardDatas();
     if (recentlyList.length === 0) setRecentlyList(storageRecentlyList);
   }, []);
   const recommendList = communityHomeData.recommendList;
-  const boardResultTotalCount = boardResultData.RESULTS.DATAS.TOTAL_COUNT;
-  const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
+  const boardResultTotalCount = boardResultClientData.RESULTS.DATAS.TOTAL_COUNT;
+  const boardResultList = boardResultClientData.RESULTS.DATAS.BOARD_LIST;
 
   const isRecentlyListExist = !!recentlyList && recentlyList.length !== 0;
 
@@ -76,13 +105,11 @@ const CommunityPageTemplate = ({
       {tabBar === 'home' ? (
         <>
           {isRecentlyListExist ? (
-            <Suspense fallback={<div>loading...</div>}>
-              <CommunityBoardWrapper
-                title={texts.recentlyBoards}
-                boardList={recentlyList}
-                postCountText={texts.postCount}
-              />
-            </Suspense>
+            <CommunityBoardWrapper
+              title={texts.recentlyBoards}
+              boardList={recentlyList}
+              postCountText={texts.postCount}
+            />
           ) : (
             <CommunityNoRecentBoard
               title={texts.recentlyBoards}
@@ -105,18 +132,49 @@ const CommunityPageTemplate = ({
         </>
       ) : (
         <>
-          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
+          <CommunityBoardSearchInputWrapper
+            searchTabState={searchTabState}
+            texts={texts}
+            refetchBoardResultData={refetchBoardResultData}
+          />
           <CommunityBoardFilterTab
             searchCategoryTabs={searchCategoryTabs}
             searchTabState={searchTabState}
+            refetchBoardResultData={refetchBoardResultData}
           />
-          <Suspense fallback={<div>loading...</div>}>
+          {isFetching ? (
+            <section css={{ marginBottom: '30px' }}>
+              {boardResultList.map((boardItem: BoardResultItemType) => {
+                return (
+                  <div
+                    key={boardItem.BOARD_IDX}
+                    css={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      borderBottom: '1px solid #d9d9d9',
+                      margin: '5px 0px',
+                      padding: '5px 5px 10px',
+                    }}
+                  >
+                    <Skeleton width={64} height={84} mx={10} radius="sm" />
+                    <div css={{ display: 'flex', flexDirection: 'column' }}>
+                      <Skeleton width={160} height={10} radius="xl" />
+                      <Skeleton width={120} height={10} mt={10} radius="xl" />
+                    </div>
+                  </div>
+                );
+              })}
+            </section>
+          ) : (
             <CommunitySearchBoardWrapper
               boardList={boardResultList}
               activeTabState={activeTabState}
               texts={texts}
             />
-          </Suspense>
+          )}
+
           {boardResultList.length !== 0 && (
             <CommunitySearchBoardPagination totalCount={boardResultTotalCount} itemsPerPage={20} />
           )}

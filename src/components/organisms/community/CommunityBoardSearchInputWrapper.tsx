@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Group, UnstyledButton } from '@/components/atoms';
 import styled from '@emotion/styled';
 import { CommunityPageTextType } from '@/types/textTypes';
+import { useQueryClient } from 'react-query';
 
 interface FormValue {
   searchValue: string | number;
@@ -11,27 +12,36 @@ interface FormValue {
 export type CommunityBoardSearchInputProps = {
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
   texts: CommunityPageTextType;
+  refetchBoardResultData: () => void;
 };
 
 const CommunityBoardSearchInputWrapper = ({
   searchTabState: [activeTab, setActiveTab],
   texts,
+  refetchBoardResultData,
 }: CommunityBoardSearchInputProps) => {
   const router = useRouter();
   const { category_type = 0, searchValue, page = 0 } = router?.query;
+  const queryClient = useQueryClient();
   const { handleSubmit, register, reset } = useForm<FormValue>();
-  const handleSearchSubmit: SubmitHandler<FormValue> = (data) => {
-    setActiveTab(texts.allCategory);
-    router.push({
-      pathname: router.pathname,
-      query: {
-        category_type: 0,
-        searchValue: data.searchValue,
-        tab: 'search',
-        locale: router.query.locale,
+  const handleSearchSubmit: SubmitHandler<FormValue> = async (data) => {
+    await queryClient.removeQueries('boardResults');
+    await setActiveTab(texts.allCategory);
+    await router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          category_type: 0,
+          searchValue: data.searchValue,
+          tab: 'search',
+          locale: router.query.locale,
+        },
       },
-    });
-    reset({ searchValue: data.searchValue });
+      undefined,
+      { shallow: true }
+    );
+    await refetchBoardResultData();
+    await reset({ searchValue: data.searchValue });
   };
 
   return (
