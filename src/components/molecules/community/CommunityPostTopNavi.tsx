@@ -6,6 +6,7 @@ import { CommunityPostTextType } from '@/types/textTypes';
 import { useSetRecoilState } from 'recoil';
 import { modalBlockState, reportModalBlockState, selectInfoState } from '@/store/community';
 import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 
 export type CommunityPostTopNaviProps = {
   identity: string;
@@ -22,6 +23,8 @@ const CommunityPostTopNavi = ({
   postIndex,
 }: CommunityPostTopNaviProps) => {
   const router = useRouter();
+  const urlLang = useUrlLanguage();
+  const boardIndex = Number(router.query.boardIndex);
   const setModalBlock = useSetRecoilState(modalBlockState);
   const setReportModalBlock = useSetRecoilState(reportModalBlockState);
   const setSelectInfo = useSetRecoilState(selectInfoState);
@@ -62,9 +65,23 @@ const CommunityPostTopNavi = ({
         <div css={{ display: 'flex', alignItems: 'center' }}>
           <IconArrowLeft
             iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
-            onClickBack={() => router.back()}
+            onClickBack={() =>
+              router.push({
+                pathname: `/${urlLang}/community/board/${boardIndex}/`,
+                query: {
+                  page: router.query.page || 1,
+                  topic: router.query.topic || 0,
+                  view: router.query.view || 'all',
+                },
+              })
+            }
           />
-          <h2 css={{ fontSize: 22, fontWeight: 600, color: ' #000' }}>{texts.post}</h2>
+          <h2
+            css={{ fontSize: 22, fontWeight: 600, color: ' #000' }}
+            onClick={() => console.log(window)}
+          >
+            {texts.post}
+          </h2>
         </div>
         <div
           css={{
