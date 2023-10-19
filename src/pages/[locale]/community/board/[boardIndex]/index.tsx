@@ -17,7 +17,7 @@ import nookies from 'nookies';
 
 export type CommunityBoardPropType = {
   urlLang: UrlLangType;
-  userId: string | null;
+  userId: string;
   boardLangCookie: BoardLangType;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;

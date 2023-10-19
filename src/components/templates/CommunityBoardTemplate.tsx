@@ -34,27 +34,29 @@ const CommunityBoardTemplate = ({
 }: CommunityBoardPropType) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
-  const topicIndex = Number(router.query.topic) || 0;
-  const viewType = (router.query.view as string) || 'all';
 
+  const [page, setPage] = useState(Number(router.query.page) - 1 || 0);
+  const [topicIndex, setTopicIndex] = useState(Number(router.query.topic) || 0);
+  const [viewType, setViewType] = useState((router.query.view as string) || 'all');
   const [boardLang, setBoardLang] = useState(boardLangCookie);
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
 
   const useGetCommunityBoardDataQueryProps: useGetCommunityBoardDataQueryPropType = {
-    userId: userId || '',
+    userId,
     boardIndex: Number(router.query.boardIndex),
-    page: Number(router.query.page) - 1 || 0,
+    page,
     lang: translateUrlLangToServerLang(urlLang),
     boardLang: boardLang,
     topic: topicIndex,
     viewType: viewType,
     initialData: communityBoardDataSSR,
   };
+
   const {
+    data: communityBoardData,
     isFetching,
     refetch,
-    data: communityBoardData,
   } = useGetCommunityBoardDataQuery(useGetCommunityBoardDataQueryProps);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
@@ -67,12 +69,6 @@ const CommunityBoardTemplate = ({
     (!router.query.page || router.query.page === '1')
   );
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
-
-  const refreshBoardData = async () => {
-    console.log('view: ', viewType);
-    console.log('topic: ', topicIndex);
-    await refetch();
-  };
 
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];
@@ -90,16 +86,18 @@ const CommunityBoardTemplate = ({
   };
   const onClickPopular = async () => {
     if (viewType !== 'best_post') {
+      setViewType('best_post');
       await router.replace({ query: { ...router.query, view: 'best_post', page: 1 } }, undefined, {
         shallow: true,
       });
-      await refreshBoardData();
+      await refetch();
       return;
     }
+    setViewType('all');
     await router.replace({ query: { ...router.query, view: 'all', page: 1 } }, undefined, {
       shallow: true,
     });
-    await refreshBoardData();
+    await refetch();
   };
   const onClickMyPost = () => {
     if (!userId) {
@@ -110,28 +108,30 @@ const CommunityBoardTemplate = ({
     router.push(`/community/board/${boardInfo?.BOARD_IDX}/mypost`);
   };
   const onClickTopic = async (topic: number) => {
+    setTopicIndex(topic);
     await router.replace(
       { pathname: router.pathname, query: { ...router.query, topic, page: 1 } },
       undefined,
       { shallow: true }
     );
-    await refreshBoardData();
+    await refetch();
   };
   const onClickLanguageBox = async (language: BoardLangType) => {
     setBoardLang(language);
     setBoardLangCookie(language);
     await router.replace({ query: { ...router.query, page: 1 } }, undefined, { shallow: true });
-    await refreshBoardData();
+    await refetch();
     setLangModal(false);
   };
 
   const handlePageChange = async (selectedItem: { selected: number }) => {
+    setPage(selectedItem.selected);
     await router.replace(
       { query: { ...router.query, page: selectedItem.selected + 1 } },
       undefined,
-      { shallow: true }
+      { shallow: true, scroll: true }
     );
-    await refreshBoardData();
+    await refetch();
   };
 
   return (
