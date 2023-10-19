@@ -1,19 +1,13 @@
-import {
-  getCommunityBoardCategoryData,
-  getCommunityBoardResultData,
-  getCommunityHomeData,
-} from '@/api/Community';
+import { getCommunityBoardCategoryData, getCommunityHomeData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import { getBoardResultQuery } from '@/server/query';
 import type { UrlLangType } from '@/types/common';
-import type {
-  BoardListItemType,
-  CommunityBoardCategoryResponseType,
-  CommunityBoardResultResponseType,
-} from '@/types/community';
+import type { BoardListItemType, CommunityBoardCategoryResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
+import { QueryClient, dehydrate } from 'react-query';
 
 export type CommunityHomeDataType = {
   recommendList: BoardListItemType[];
@@ -24,14 +18,12 @@ export type CommunityPropTypes = {
   urlLang: UrlLangType;
   communityHomeData: CommunityHomeDataType;
   boardCategoryData: CommunityBoardCategoryResponseType;
-  boardResultData: CommunityBoardResultResponseType;
 };
 
 const CommunityHomePage = ({
   urlLang,
   communityHomeData,
   boardCategoryData,
-  boardResultData,
 }: CommunityPropTypes) => {
   return (
     <Layout urlLang={urlLang}>
@@ -39,7 +31,6 @@ const CommunityHomePage = ({
         urlLang={urlLang}
         communityHomeData={communityHomeData}
         boardCategoryData={boardCategoryData}
-        boardResultData={boardResultData}
       />
     </Layout>
   );
@@ -54,18 +45,38 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
+  const queryClient = new QueryClient();
 
   const communityHomeData = await getCommunityHomeData(userId, serverLang);
   const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
-  const boardResultData = await getCommunityBoardResultData(
+  const boardResultQueryFn = await getBoardResultQuery({
     category_type,
     searchValue,
     serverLang,
     page,
-    per_page
+    per_page,
+  });
+  await queryClient.prefetchQuery(
+    [
+      'boardResults',
+      {
+        category_type,
+        searchValue,
+        serverLang,
+        page,
+        per_page,
+      },
+    ],
+    () => boardResultQueryFn
   );
+
   return {
-    props: { urlLang, communityHomeData, boardCategoryData, boardResultData },
+    props: {
+      urlLang,
+      communityHomeData,
+      boardCategoryData,
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 };
 

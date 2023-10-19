@@ -12,7 +12,7 @@ import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper'
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
 import { BoardResultItemType } from '@/types/community';
 import { useGetBoardResultQueryProps } from '@/server/useGetCommentsQuery';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { getBoardResultQuery } from '@/server/query';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import { BoardItemSkeleton } from '../molecules/community/CommunitySkeleton';
@@ -23,10 +23,10 @@ const CommunityPageTemplate = ({
   urlLang,
   communityHomeData,
   boardCategoryData,
-  boardResultData,
 }: CommunityPropTypes) => {
   const router = useRouter();
   const texts = communityMainPageTexts[urlLang];
+  const queryClient = useQueryClient();
 
   const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'home');
   const [recentlyList, setRecentlyList] = useState(communityHomeData.recentlyList);
@@ -46,23 +46,47 @@ const CommunityPageTemplate = ({
     per_page: 20,
   };
 
+  // const {
+  //   data: boardResultClientData,
+  //   isFetching,
+  //   refetch: refetchBoardResultData,
+  // } = useQuery({
+  //   queryKey: ['boardResults', useGetBoardResultQueryProps],
+  //   queryFn: () => getBoardResultQuery(useGetBoardResultQueryProps),
+  //   initialData: boardResultData,
+  //   initialDataUpdatedAt: () => {
+  //     return queryClient.getQueryData(['boardResults', useGetBoardResultQueryProps]);
+  //   },
+  //   // initialData: () => {
+  //   //   return queryClient.getQueryData(['boardResults', useGetBoardResultQueryProps]);
+  //   // },
+  // });
+
   const {
     data: boardResultClientData,
     isFetching,
+    isLoading,
+    isFetched,
     refetch: refetchBoardResultData,
   } = useQuery({
     queryKey: ['boardResults', useGetBoardResultQueryProps],
     queryFn: () => getBoardResultQuery(useGetBoardResultQueryProps),
-    initialData: boardResultData,
+    initialData: () => {
+      return queryClient.getQueryData(['boardResults', useGetBoardResultQueryProps]);
+    },
   });
+
+  // eslint-disable-next-line no-console
+  console.log('boardResultClientData', boardResultClientData);
 
   useEffect(() => {
     const storageRecentlyList = getStorageRecentBoardDatas();
     if (recentlyList.length === 0) setRecentlyList(storageRecentlyList);
   }, []);
+
   const recommendList = communityHomeData.recommendList;
-  const boardResultTotalCount = boardResultClientData.RESULTS.DATAS.TOTAL_COUNT;
-  const boardResultList = boardResultClientData.RESULTS.DATAS.BOARD_LIST;
+  const boardResultTotalCount = boardResultClientData?.RESULTS.DATAS.TOTAL_COUNT;
+  const boardResultList = boardResultClientData?.RESULTS.DATAS.BOARD_LIST;
 
   const isRecentlyListExist = !!recentlyList && recentlyList.length !== 0;
 
@@ -131,11 +155,13 @@ const CommunityPageTemplate = ({
             refetchBoardResultData={refetchBoardResultData}
           />
           {isFetching ? (
-            <section css={{ marginBottom: '30px' }}>
-              {boardResultList.map((boardItem: BoardResultItemType) => (
-                <BoardItemSkeleton key={boardItem.BOARD_IDX} />
-              ))}
-            </section>
+            <>
+              <section css={{ marginBottom: '30px' }}>
+                {/* {boardResultList?.map((boardItem: BoardResultItemType) => ( */}
+                <BoardItemSkeleton key={1} />
+                {/* ))} */}
+              </section>
+            </>
           ) : (
             <CommunitySearchBoardWrapper
               boardList={boardResultList}
@@ -144,7 +170,7 @@ const CommunityPageTemplate = ({
             />
           )}
 
-          {boardResultList.length !== 0 && (
+          {boardResultList?.length !== 0 && (
             <CommunitySearchBoardPagination totalCount={boardResultTotalCount} itemsPerPage={20} />
           )}
         </>

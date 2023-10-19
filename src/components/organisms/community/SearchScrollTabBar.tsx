@@ -36,7 +36,7 @@ const SearchScrollTabBar = ({
       undefined,
       { shallow: true }
     );
-    await refetchBoardResultData();
+    // await refetchBoardResultData();
   };
 
   useEffect(() => {
