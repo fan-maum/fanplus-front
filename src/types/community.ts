@@ -152,6 +152,7 @@ export type PostInfoItemType = {
   POST_TITLE: string;
   POST_CONTENTS: string;
   BOARD_IDX: string;
+  // TODO: BOARD_NAME 추가?
   TOPIC_IDX: string;
   POST_IMG_YN: string;
   SUMNAIL_IMG: string;
