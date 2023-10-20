@@ -3,17 +3,23 @@ import PostToBoardButton from '@/components/atoms/PostToBoardButton';
 import TopicBubble from '@/components/atoms/TopicBubble';
 import CommunityPostInfoState from '@/components/molecules/community/CommunityPostInfoState';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import { PostInfoItemType } from '@/types/community';
-import { CommunityPostTextType } from '@/types/textTypes';
+import type { BoardInfoType, PostInfoItemType } from '@/types/community';
+import type { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 
 type CommunityPostInfoProps = {
   postInfo: PostInfoItemType;
+  boardInfo: BoardInfoType;
   texts: CommunityPostTextType;
   postLikeState: number;
 };
 
-const CommunityPostInfo = ({ postInfo, texts, postLikeState }: CommunityPostInfoProps) => {
+const CommunityPostInfo = ({
+  postInfo,
+  boardInfo,
+  texts,
+  postLikeState,
+}: CommunityPostInfoProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const boardIndex = postInfo.BOARD_IDX;
@@ -31,8 +37,7 @@ const CommunityPostInfo = ({ postInfo, texts, postLikeState }: CommunityPostInfo
 
   return (
     <Stack spacing={12} p={20} css={{ borderBottom: '2px solid #f1f1f1' }}>
-      <PostToBoardButton boardName={'방탄소년단디리단~'} onClick={onClickToBoard} />
-      // !!! TODO: api response에 boardName 추가해야함
+      <PostToBoardButton boardName={boardInfo.BOARD_TITLE} onClick={onClickToBoard} />
       <div css={{ display: 'flex' }}>
         <TopicBubble height={32} p={8} radius={20} name={postInfo.TOPIC_NAME} />
         {postInfo.HAS_POPULAR_BADGE === '1' && (
