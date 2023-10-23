@@ -6,7 +6,7 @@ import {
 import Layout from '@/components/organisms/Layout';
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { BoardLangType, UrlLangType } from '@/types/common';
+import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
@@ -14,6 +14,7 @@ import type {
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
+import { Suspense } from 'react';
 
 export type CommunityBoardPropType = {
   urlLang: UrlLangType;
@@ -22,6 +23,13 @@ export type CommunityBoardPropType = {
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   communityNoticeBannerData: CommunityNoticeBannerResponseType;
+  initialProps: {
+    page: number;
+    serverLang: ServerLangType;
+    boardLangCookie: BoardLangType;
+    topic: number;
+    view_type: string;
+  };
 };
 
 const Board = ({
@@ -31,6 +39,7 @@ const Board = ({
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
+  initialProps,
 }: CommunityBoardPropType) => {
   return (
     <Layout urlLang={urlLang}>
@@ -41,6 +50,7 @@ const Board = ({
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
         communityNoticeBannerData={communityNoticeBannerData}
+        initialProps={initialProps}
       />
     </Layout>
   );
@@ -55,7 +65,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
-  const topic = parseInt(context.query.topic as string) || '';
+  const topic = parseInt(context.query.topic as string) || 0;
   const view_type = (context.query.view as string) || 'all';
 
   if (!boardIndex) return { notFound: true };
@@ -71,6 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
   const communityBoardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
   const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, serverLang);
+  const initialProps = { page, serverLang, boardLangCookie, topic, view_type };
 
   return {
     props: {
@@ -80,6 +91,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       communityBoardData,
       communityBoardTopics,
       communityNoticeBannerData,
+      initialProps,
     },
   };
 };

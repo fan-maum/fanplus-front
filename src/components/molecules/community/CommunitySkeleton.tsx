@@ -22,7 +22,7 @@ export const BoardItemSkeleton = () => {
   );
 };
 
-export const CommunityBoardArticleSkeleton = () => {
+const SingleBoardArticleSkeleton = () => {
   return (
     <li css={{ margin: '6px 12px', padding: '3px 6px', borderBottom: '1px solid #d9d9d9' }}>
       <div css={{ display: 'flex', padding: '' }}>
@@ -39,4 +39,9 @@ export const CommunityBoardArticleSkeleton = () => {
       </div>
     </li>
   );
+};
+
+export const CommunityBoardArticleSkeleton = () => {
+  const SkeletonList = Array.from({ length: 20 }, SingleBoardArticleSkeleton);
+  return SkeletonList;
 };

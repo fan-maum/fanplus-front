@@ -18,17 +18,20 @@ export const useGetCommunityBoardDataQuery = ({
   userId,
   boardIndex,
   page,
-  lang,
+  lang: requestLang,
   boardLang,
-  topic,
+  topic: topicIndex,
   viewType,
   initialData,
 }: useGetCommunityBoardDataQueryPropType) => {
-  const response = useQuery({
-    queryKey: ['communityBoardData', userId, boardIndex, page, lang, boardLang, topic, viewType],
+  return useQuery({
+    queryKey: [
+      'communityBoardData',
+      { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType },
+    ],
     queryFn: () =>
-      getCommunityBoardData(userId, boardIndex, page, lang, boardLang, topic, viewType),
+      getCommunityBoardData(userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType),
     initialData,
+    suspense: true,
   });
-  return response;
 };
