@@ -47,6 +47,7 @@ const CommunityPostTemplate = ({
   const board_lang = 'ALL';
   const per_page = 20;
   const postInfo = communityPostData.RESULTS.DATAS.POST_INFO;
+  const boardInfo = communityPostData.RESULTS.DATAS.BOARD_INFO;
   const orderType = useRecoilValue(orderTypeState);
   const setUser = useSetRecoilState(userState);
   const [commentIndex, setCommentIndex] = useState<number | null>(null);
@@ -130,6 +131,7 @@ const CommunityPostTemplate = ({
     identity,
     user_idx,
     postInfo,
+    boardInfo,
     texts,
   };
 
