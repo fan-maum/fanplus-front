@@ -1,10 +1,9 @@
 import '@/styles/globals.css';
+import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
-import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { DefaultSeo } from 'next-seo';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { RecoilRoot } from 'recoil';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,7 +48,6 @@ export default function App({ Component, pageProps }: AppProps) {
           onLoad={kakaoInit}
         />
         <Component {...pageProps} />
-        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </RecoilRoot>
   );
