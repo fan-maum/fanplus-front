@@ -9,10 +9,9 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnMount: false,
       refetchOnWindowFocus: false,
       retry: 0,
-      staleTime: 1000 * 60 * 5,
+      staleTime: 1000 * 5,
       cacheTime: 1000 * 60 * 10,
     },
   },
