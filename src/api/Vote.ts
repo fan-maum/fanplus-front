@@ -15,13 +15,12 @@ export const getVoteList = async (
   return response.data;
 };
 
-export const getVoteDetail = async (vote_idx: string, lang: ServerLangType) => {
+export const getVoteDetail = async (vote_idx: number, lang: ServerLangType) => {
   const response: AxiosResponse<VoteDetailResponse> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/voteDetail`,
     { params: { vote_idx, lang } }
   );
-
-  return response;
+  return response.data;
 };
 
 export const postVotes = async ({ voteId, userId, starId }: VoteMutateParam) => {

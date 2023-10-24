@@ -34,9 +34,8 @@ import { pathOnly } from '@/utils/util';
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
   headers: [];
-  authCookie: string | null;
+  userId: string | null;
   isWebView?: boolean;
-  error: number | boolean;
 }
 
 export const findStarById: (id: string, voteDetails: VoteDetailResponse) => any = (
@@ -55,9 +54,8 @@ export const findStarIndexById: (
 const VoteDetailLayout = ({
   voteDetails: propsVoteDetails,
   headers,
-  authCookie,
+  userId,
   isWebView,
-  error,
 }: VotesLayoutProps) => {
   const endDay = new Date(propsVoteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
@@ -210,7 +208,7 @@ const VoteDetailLayout = ({
 
   useEffect(() => {
     const starId = String(router.query.id);
-    if (starId && authCookie && findStarById(starId, voteDetails)) {
+    if (starId && userId && findStarById(starId, voteDetails)) {
       const star = findStarIndexById(starId, voteDetails);
       if (star) {
         setStarWithIndex(star.index);
@@ -244,7 +242,7 @@ const VoteDetailLayout = ({
     await router.push({ query: { ...router.query, id: newId } }, undefined, {
       shallow: true,
     });
-    if (authCookie) {
+    if (userId) {
       setVoteModal(true); // * 테스트 => 투표하시겠습니까? 모달
     } else {
       const nextPath = pathOnly(router.asPath);
@@ -302,10 +300,10 @@ const VoteDetailLayout = ({
           setVoteModal(false);
         }}
         onVoteButtonClick={async () => {
-          if (stars[1] && authCookie) {
+          if (stars[1] && userId) {
             voteMutate.mutate({
               voteId: parseInt(router.query.vote_IDX as string),
-              userId: authCookie,
+              userId: userId,
               starId: parseInt(stars[1].STAR_IDX),
             });
           }
