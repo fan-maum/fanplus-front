@@ -34,6 +34,10 @@ export type SubscriptionListResponseType = {
   };
 };
 
+export type BoardInfoType = Omit<BoardListItemType, 'STAR_IDX' | 'STAR_GROUP_IDX'> & {
+  IS_GROUP: 'Y' | 'N';
+  IS_TREND: 'Y' | 'N';
+};
 export type PostListItemType = {
   POST_IDX: string;
   BOARD_IDX: string;
@@ -59,10 +63,7 @@ export type CommunityBoardResponseType = {
     ERROR: number;
     MSG: string;
     DATAS: {
-      BOARD_INFO: Omit<BoardListItemType, 'STAR_IDX' | 'STAR_GROUP_IDX'> & {
-        IS_GROUP: 'Y' | 'N';
-        IS_TREND: 'Y' | 'N';
-      };
+      BOARD_INFO: BoardInfoType;
       POST_LIST: Array<PostListItemType>;
     };
     TIMESTAMP: number;
@@ -208,6 +209,7 @@ export type PostResponseType = {
     ERROR: number;
     MSG: string;
     DATAS: {
+      BOARD_INFO: BoardInfoType;
       POST_INFO: PostInfoItemType;
       COMMENT_LIST: Array<PostInfoCommentItemType>;
       HEAD_LIST: Array<PostInfoHeadListItemType>;

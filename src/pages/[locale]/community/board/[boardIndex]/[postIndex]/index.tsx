@@ -23,7 +23,7 @@ const Post = ({
   postIndex,
   serverLang,
   communityPostData,
-}: CommunityPostPropType & { urlLang: UrlLangType }) => {
+}: CommunityPostPropType) => {
   return (
     <Layout urlLang={urlLang}>
       <CommunityPostTemplate

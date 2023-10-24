@@ -38,6 +38,10 @@ const CommunityMyPostTemplate = ({
     router.push(`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`);
   };
 
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    router.replace({ query: { ...router.query, page: selectedItem.selected + 1 } });
+  };
+
   return (
     <div
       css={{
@@ -62,7 +66,10 @@ const CommunityMyPostTemplate = ({
               );
             })}
           </ul>
-          <CommunityBoardPagination totalCount={boardInfo.POST_CNT} />
+          <CommunityBoardPagination
+            totalCount={boardInfo.POST_CNT}
+            handlePageChange={handlePageChange}
+          />
         </>
       ) : (
         <CommunityBoardNoPost

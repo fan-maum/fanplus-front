@@ -21,3 +21,27 @@ export const BoardItemSkeleton = () => {
     </div>
   );
 };
+
+const SingleBoardArticleSkeleton = () => {
+  return (
+    <li css={{ margin: '6px 12px', padding: '3px 6px', borderBottom: '1px solid #d9d9d9' }}>
+      <div css={{ display: 'flex' }}>
+        <Skeleton width={48} height={24} radius="lg" />
+      </div>
+      <div css={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div css={{ margin: '3px 0px 6px' }}>
+          <Skeleton width={160} height={24} radius="sm" />
+          <div css={{ marginTop: '6px', div: { margin: '1px 0px' } }}>
+            <Skeleton width={200} height={18} radius="sm" />
+            <Skeleton width={100} height={18} radius="sm" />
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+};
+
+export const CommunityBoardArticleSkeleton = () => {
+  const SkeletonList = Array.from({ length: 20 }, SingleBoardArticleSkeleton);
+  return SkeletonList;
+};

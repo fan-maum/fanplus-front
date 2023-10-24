@@ -1,27 +1,22 @@
 import '@/styles/globals.css';
+import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import { DefaultSeo } from 'next-seo';
-import { useState } from 'react';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 0,
+      staleTime: 1000 * 10,
+      cacheTime: 1000 * 60 * 10,
+    },
+  },
+});
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
-            retry: 0,
-            staleTime: 1000 * 60 * 5,
-            cacheTime: 1000 * 60 * 10,
-          },
-        },
-      })
-  );
-
   function kakaoInit() {
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
   }
@@ -52,9 +47,7 @@ export default function App({ Component, pageProps }: AppProps) {
           crossOrigin="anonymous"
           onLoad={kakaoInit}
         />
-        <Hydrate state={pageProps.dehydratedState}>
-          <Component {...pageProps} />
-        </Hydrate>
+        <Component {...pageProps} />
       </QueryClientProvider>
     </RecoilRoot>
   );

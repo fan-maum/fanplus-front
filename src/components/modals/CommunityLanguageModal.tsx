@@ -2,8 +2,6 @@ import { BoardLangType } from '@/types/common';
 import { Divider, Modal, ModalProps } from '@mantine/core';
 import { Dispatch, SetStateAction } from 'react';
 import { Stack } from '../atoms';
-import { useRouter } from 'next/router';
-import { setBoardLangCookie } from '@/utils/langCookie';
 
 type textType = {
   modalHeader: string;
@@ -25,14 +23,14 @@ type propTypes = {
   opened: boolean;
   setModal: Dispatch<SetStateAction<boolean>>;
   boardLang: BoardLangType;
-  setBoardLanguage: Dispatch<SetStateAction<BoardLangType>>;
+  onClickLanguageBox: (language: BoardLangType) => Promise<void>;
 };
 
 const CommunityLanguageModal = ({
   texts,
   setModal,
   boardLang,
-  setBoardLanguage,
+  onClickLanguageBox,
   opened,
   ...props
 }: propTypes) => {
@@ -57,16 +55,6 @@ const CommunityLanguageModal = ({
     opened: opened,
     onClose: () => setModal(false),
     ...props,
-  };
-  const router = useRouter();
-  const onClickLanguageBox = (language: BoardLangType) => {
-    setBoardLanguage(language);
-    setBoardLangCookie(language);
-    router.replace({
-      pathname: router.pathname,
-      query: { ...router.query, page: 1 },
-    });
-    setModal(false);
   };
   return (
     <Modal {...modalProps} css={{ width: '500px' }}>
