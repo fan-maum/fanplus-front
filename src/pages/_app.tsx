@@ -1,17 +1,16 @@
 import '@/styles/globals.css';
+import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
-import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { DefaultSeo } from 'next-seo';
+import { RecoilRoot } from 'recoil';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnMount: false,
       refetchOnWindowFocus: false,
       retry: 0,
-      staleTime: 1000 * 60 * 5,
+      staleTime: 1000 * 10,
       cacheTime: 1000 * 60 * 10,
     },
   },
