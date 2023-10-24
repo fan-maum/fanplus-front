@@ -2,9 +2,9 @@ import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
+import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
-import { loginErrorHandler } from '@/utils/loginError';
+import { noUserIdHandler } from '@/utils/loginError';
 import type { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
 
@@ -51,13 +51,12 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const boardLang: ServerLangType =
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : serverLang;
 
-  const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
-  let communityPostData;
-  try {
-    communityPostData = await getCommunityPostData(boardIndex, postIndex, userId, serverLang);
-  } catch (error) {
-    return loginErrorHandler(error, 'ko', `/community/board/${boardIndex}/${postIndex}/edit/`);
+  if (!userId) {
+    return noUserIdHandler(urlLang, `/community/board/${boardIndex}/${postIndex}/edit/`);
   }
+
+  const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
+  const communityPostData = await getCommunityPostData(boardIndex, postIndex, userId, serverLang);
   const datas = { userId, boardIndex, postIndex, boardLang, serverLang };
   return {
     props: { urlLang, boardTopics, communityPostData, datas },

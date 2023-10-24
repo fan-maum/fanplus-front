@@ -6,12 +6,14 @@ import type {
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
   PostBoardArticleResponseType,
+  PostResponseType,
   RecentlyListResponseType,
   RecommendListResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
 
 import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
+import { APIServer } from './Instance';
 
 export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
   const recommendListResponse: AxiosResponse<RecommendListResponseType> = await axios.get(
@@ -97,9 +99,9 @@ export const getCommunityPostData = async (
   identity: string,
   lang: ServerLangType
 ) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
-    { params: { boardIndex, postIndex, identity, lang } }
+  const response: AxiosResponse<PostResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/posts/${postIndex}/detail`,
+    { params: identity ? { identity, lang } : { lang } }
   );
   return response.data;
 };
