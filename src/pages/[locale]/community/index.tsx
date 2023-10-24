@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const per_page = 20;
 
   const cookies = context.req.cookies;
-  const userId = cookies.user_id || '';
+  const userId = cookies.user_id || null;
 
   const communityHomeData = await getCommunityHomeData(userId, serverLang);
   const boardCategoryData = await getCommunityBoardCategoryData(serverLang);

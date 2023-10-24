@@ -15,14 +15,14 @@ import axios, { AxiosResponse } from 'axios';
 import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
 import { APIServer } from './Instance';
 
-export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
-  const recommendListResponse: AxiosResponse<RecommendListResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId, lang, viewType: 'recommend' } }
+export const getCommunityHomeData = async (identity: string | null, lang: ServerLangType) => {
+  const recommendListResponse: AxiosResponse<RecommendListResponseType> = await APIServer.get(
+    `/voteWeb/boards2/recommend`,
+    { params: identity ? { identity, lang } : { lang } }
   );
-  const recentlyListResponse: AxiosResponse<RecentlyListResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId, lang, viewType: 'recently' } }
+  const recentlyListResponse: AxiosResponse<RecentlyListResponseType> = await APIServer.get(
+    `/voteWeb/boards2/recently`,
+    { params: identity ? { identity, lang } : { lang } }
   );
   const recommendList = recommendListResponse.data.RESULTS.DATAS.RECOMMEND_LIST;
   const recentlyList = recentlyListResponse.data.RESULTS.DATAS.RECENTLY_LIST;
