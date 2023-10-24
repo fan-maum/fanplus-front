@@ -32,7 +32,7 @@ export const getCommunityHomeData = async (identity: string | null, lang: Server
 };
 
 export const getCommunityBoardData = async (
-  userId: string,
+  userId: string | null,
   boardIndex: number,
   page: number,
   lang: ServerLangType,

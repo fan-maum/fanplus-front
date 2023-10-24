@@ -63,7 +63,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const viewType = (context.query.view as string) || 'all';
 
   const cookies = context.req.cookies;
-  const userId = cookies.user_id || '';
+  const userId = cookies.user_id || null;
   const boardLangCookie = (cookies.boardLang as BoardLangType) || 'ALL';
 
   const initialProps = { page, serverLang, boardLangCookie, topic, viewType };
