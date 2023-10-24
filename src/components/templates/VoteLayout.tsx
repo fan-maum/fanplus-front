@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
 import VoteListTab, { VoteListTabProps } from '@/components/molecules/VoteListTab';
 import VoteList, { VoteListProps } from '@/components/organisms/VoteList';
 import VotePagination, { VotePaginationProps } from '@/components/organisms/VotePagination';
 import VoteTemplate from '@/components/templates/VoteTemplate';
-import { useMediaQuery } from 'react-responsive';
-import { VoteResponse } from '@/types/vote';
-import { useRecoilState } from 'recoil';
-import { voteLangState } from '@/store/voteLangState';
 import { useUrlLanguage } from '@/hooks/useLanguage';
+import { voteLangState } from '@/store/voteLangState';
+import type { VoteResponse } from '@/types/vote';
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { useRecoilState } from 'recoil';
 
 export interface VotesLayoutProps {
   voteList: VoteResponse;
