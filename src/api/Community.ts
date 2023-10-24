@@ -83,9 +83,9 @@ export const getCommunityBoardResultData = async (
 };
 
 export const getCommunityNoticeBannerData = async (boardIndex: number, lang: ServerLangType) => {
-  const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/noticeBanner`,
-    { params: { boardIndex, lang } }
+  const response: AxiosResponse<CommunityNoticeBannerResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/banners`,
+    { params: { lang } }
   );
   return response.data;
 };
