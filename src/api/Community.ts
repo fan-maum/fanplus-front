@@ -1,5 +1,6 @@
 import type {
   CommunityBoardResponseType,
+  CommunityBoardResultResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
   EditBoardArticleResponseType,
@@ -70,12 +71,11 @@ export const getCommunityBoardResultData = async (
   category_type: number,
   searchValue: any,
   lang: ServerLangType,
-  page: number,
-  per_page: number
+  page: number
 ) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
-    { params: { category_type, searchValue, lang, page, per_page } }
+  const response: AxiosResponse<CommunityBoardResultResponseType> = await APIServer.get(
+    `/voteWeb/search/board`,
+    { params: { category_type, search_val: searchValue, lang, page, per_page: 20 } }
   );
   return response.data;
 };
