@@ -16,10 +16,9 @@ export const getVoteList = async (
 };
 
 export const getVoteDetail = async (vote_idx: number, lang: ServerLangType) => {
-  const response: AxiosResponse<VoteDetailResponse> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/voteDetail`,
-    { params: { vote_idx, lang } }
-  );
+  const response: AxiosResponse<VoteDetailResponse> = await APIServer.get(`/voteWeb/${vote_idx}`, {
+    params: { lang },
+  });
   return response.data;
 };
 
