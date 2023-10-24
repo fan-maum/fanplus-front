@@ -28,7 +28,6 @@ type OwnPropType = {
     userId: string;
     boardIndex: number;
     postIndex?: number;
-    boardLang: ServerLangType;
     serverLang: ServerLangType;
   };
   defaultValues?: {
@@ -43,7 +42,7 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
   const texts = communityPostEditorTexts[urlLang];
 
   const isCreateMode = mode === 'CREATE';
-  const { userId, boardIndex, postIndex, boardLang, serverLang } = datas;
+  const { userId, boardIndex, postIndex, serverLang } = datas;
 
   const editorRef = useRef<TinyMCE>();
   const editorId = 'postEditor';

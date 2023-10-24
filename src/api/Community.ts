@@ -96,7 +96,7 @@ export const getCommunityNoticeBannerData = async (boardIndex: number, lang: Ser
 export const getCommunityPostData = async (
   boardIndex: number,
   postIndex: number,
-  identity: string,
+  identity: string | null,
   lang: ServerLangType
 ) => {
   const response: AxiosResponse<PostResponseType> = await APIServer.get(

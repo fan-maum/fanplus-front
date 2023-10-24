@@ -5,7 +5,6 @@ import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { ServerLangType, UrlLangType } from '@/types/common';
 import type { PostResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
-import nookies from 'nookies';
 
 export type CommunityPostPropType = {
   urlLang: UrlLangType;
@@ -41,14 +40,12 @@ const Post = ({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
-  const boardIndex = parseInt(context.query.boardIndex as string);
-  const postIndex = parseInt(context.query.postIndex as string);
+  const boardIndex = Number(context.query.boardIndex);
+  const postIndex = Number(context.query.postIndex);
 
-  const cookies = nookies.get(context);
-  const identity: any = cookies.user_id || null;
+  const cookies = context.req.cookies;
+  const identity = cookies.user_id || null;
   const user_idx = cookies.user_idx || null;
-
-  if (!boardIndex || !postIndex) return { notFound: true };
 
   const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, serverLang);
 
