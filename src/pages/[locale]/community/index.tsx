@@ -13,7 +13,6 @@ import type {
   CommunityBoardResultResponseType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
-import nookies from 'nookies';
 
 type CommunityHomeDataType = {
   recommendList: BoardListItemType[];
@@ -46,14 +45,15 @@ const CommunityHomePage = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'] || '';
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
-  const category_type = parseInt(context.query.category_type as string) || 0;
+  const page = Number(context.query.page) - 1 || 0;
+  const category_type = Number(context.query.category_type) || 0;
   const searchValue = context.query.searchValue || '';
-  const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
+
+  const cookies = context.req.cookies;
+  const userId = cookies.user_id || '';
 
   const communityHomeData = await getCommunityHomeData(userId, serverLang);
   const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
