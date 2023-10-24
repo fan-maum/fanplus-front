@@ -1,4 +1,5 @@
 import type {
+  CommunityBoardCategoryResponseType,
   CommunityBoardResponseType,
   CommunityBoardResultResponseType,
   CommunityBoardTopicResponseType,
@@ -60,9 +61,10 @@ export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerLa
  */
 /* 검색 페이지 내 중간부분 Tab response */
 export const getCommunityBoardCategoryData = async (lang: ServerLangType) => {
-  const response: AxiosResponse = await APIServer.get(`/voteWeb/search/category`, {
-    params: { lang },
-  });
+  const response: AxiosResponse<CommunityBoardCategoryResponseType> = await APIServer.get(
+    `/voteWeb/search/category`,
+    { params: { lang } }
+  );
   return response.data;
 };
 
