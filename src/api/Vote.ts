@@ -1,23 +1,25 @@
 import type { ServerLangType } from '@/types/common';
 import { VoteDetailResponse, VoteMutateParam } from '@/types/vote';
 import axios, { AxiosResponse } from 'axios';
+import { APIServer } from './Instance';
 
-const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
-
-export const getVotes = (
+export const getVoteList = async (
   vote_type: string | undefined | null,
   page: number,
   per_page: number,
   lang: string
 ) => {
-  const response = fetch(
-    `https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${lang}`,
-    {
-      method: 'GET',
-      headers: { Origin: origin },
-    }
-  );
-  return response;
+  const response: AxiosResponse = await APIServer.get(`/v2/votes/votes`, {
+    params: { vote_type, page, per_page, lang },
+  });
+  // const response = fetch(
+  //   `https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${lang}`,
+  //   {
+  //     method: 'GET',
+  //     headers: { Origin: origin },
+  //   }
+  // );
+  return response.data;
 };
 
 export const getVoteDetail = async (vote_idx: string, lang: ServerLangType) => {

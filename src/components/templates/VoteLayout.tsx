@@ -10,11 +10,10 @@ import { voteLangState } from '@/store/voteLangState';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 
 export interface VotesLayoutProps {
-  voteLists: VoteResponse;
-  error: number | boolean;
+  voteList: VoteResponse;
 }
 
-const VotesLayout = ({ voteLists, error }: VotesLayoutProps) => {
+const VotesLayout = ({ voteList }: VotesLayoutProps) => {
   const language = useUrlLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
 
@@ -45,11 +44,11 @@ const VotesLayout = ({ voteLists, error }: VotesLayoutProps) => {
     isMobile: isMobile,
     loading: false,
     error: null,
-    voteList: voteLists.RESULTS.DATAS.DATA,
+    voteList: voteList.RESULTS.DATAS.DATA,
   };
 
   const VotePaginationProps: VotePaginationProps = {
-    totalCount: voteLists.RESULTS.DATAS.TOTAL_CNT,
+    totalCount: voteList.RESULTS.DATAS.TOTAL_CNT,
     itemsPerPage: itemsPerPage,
     isMobile: isMobile,
   };
