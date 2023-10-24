@@ -1,40 +1,26 @@
-import type {
-  BoardListItemType,
-  CommunityBoardCategoryResponseType,
-  CommunityBoardResultResponseType,
-} from '@/types/community';
-import type { CommunityPageTextType } from '@/types/textTypes';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
-import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
-import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
-import { getStorageRecentBoardDatas } from '@/utils/recentBoard';
+import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
+import type { CommunityPropTypes } from '@/pages/[locale]/community';
+import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
+import type { CommunityPageTextType } from '@/types/textTypes';
+import { getStorageRecentBoardDatas } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
-
-export type CommunityHomeDataType = {
-  recommendList: BoardListItemType[];
-  recentlyList: BoardListItemType[];
-};
-
-export type CommunityPropTypes = {
-  communityHomeData: CommunityHomeDataType;
-  boardCategoryData: CommunityBoardCategoryResponseType;
-  boardResultData: CommunityBoardResultResponseType;
-  texts: CommunityPageTextType;
-};
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
+import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
 
 type TabBarType = 'home' | 'search';
 
 const CommunityPageTemplate = ({
+  urlLang,
   communityHomeData,
   boardCategoryData,
   boardResultData,
-  texts,
 }: CommunityPropTypes) => {
   const router = useRouter();
+  const texts = communityMainPageTexts[urlLang];
 
   const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'home');
   const [recentlyList, setRecentlyList] = useState(communityHomeData.recentlyList);
@@ -90,7 +76,10 @@ const CommunityPageTemplate = ({
               buttonText={texts.buttonSearch}
               onClickSearch={() => {
                 setTabBar('search');
-                router.push({ pathname: router.pathname, query: { tab: 'search' } });
+                router.push({
+                  pathname: router.pathname,
+                  query: { tab: 'search', locale: router.query.locale },
+                });
               }}
             />
           )}
@@ -144,7 +133,7 @@ const TabBar = ({
   const router = useRouter();
   const handleClick = (tabBar: TabBarType) => {
     setTabBar(tabBar);
-    router.push({ pathname: router.pathname, query: { tab: tabBar } });
+    router.push({ pathname: router.pathname, query: { tab: tabBar, locale: router.query.locale } });
   };
   return (
     <ul css={{ width: '100%', display: 'flex', margin: '8px 0px' }}>
@@ -157,8 +146,8 @@ const TabBar = ({
         title={tabTitles.search}
         selected={tabBar === 'search'}
         onClick={() => {
-          handleClick('search');
           setActiveTab(texts.allCategory);
+          setTabBar('search');
           router.push({
             pathname: router.pathname,
             query: {
@@ -166,6 +155,7 @@ const TabBar = ({
               searchValue: '',
               page: 0,
               tab: 'search',
+              locale: router.query.locale,
             },
           });
         }}

@@ -1,9 +1,11 @@
-import { FAQPageTextType } from '@/types/textTypes';
-import { Stack } from '../atoms/Stack';
+import { faqPageTexts } from '@/texts/faqPageTexts';
+import type { UrlLangType } from '@/types/common';
 import { Center } from '../atoms/Center';
+import { Stack } from '../atoms/Stack';
 import FAQContent from '../organisms/FAQContent';
 
-const FAQTemplate = ({ texts }: { texts: FAQPageTextType }) => {
+const FAQTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
+  const texts = faqPageTexts[urlLang];
   return (
     <Stack
       align="center"

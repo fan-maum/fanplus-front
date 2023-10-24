@@ -82,7 +82,7 @@ function CommunityReportModal({
     <>
       <CommunityReportCommonModal {...CommunityReportCommonModalProps}>
         <CommunityModalText
-          voteText={
+          text={
             <>
               <Group spacing={6} position="center" css={{ textAlign: 'left' }}>
                 <div css={{ fontSize: 18, fontWeight: 400, color: '#475357', flex: 1 }}>

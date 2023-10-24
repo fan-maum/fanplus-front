@@ -1,6 +1,4 @@
-import { useUrlLanguage, GetRouterLanguage } from '@/hooks/useLanguage';
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
-import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 export interface VoteListTabProps extends DefaultProps {
   tabs: string[] | { value: string; label: string | undefined }[];
@@ -15,18 +13,16 @@ const VoteTab = ({
   ...props
 }: VoteListTabProps) => {
   const router = useRouter();
-  const pathname = usePathname();
-  const routerLang = GetRouterLanguage();
 
   const onClickVoteTab = (tabValue: string) => {
     setTabState(tabValue);
     router.push({
-      pathname: pathname,
+      pathname: router.pathname,
       query: {
         vote_type: tabValue,
         page: 1,
         per_page: itemsPerPage,
-        lang: router.query.lang || routerLang,
+        locale: router.query.locale,
       },
     });
   };

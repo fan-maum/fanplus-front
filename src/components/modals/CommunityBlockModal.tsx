@@ -78,7 +78,7 @@ function CommunityBlockModal({
     <>
       <CommunityCommonModal {...communityDeleteModalProps}>
         <CommunityModalText
-          voteText={
+          text={
             <>
               <Group spacing={6} position="center" css={{ flexDirection: 'column' }}>
                 <div css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}>{modalText}</div>

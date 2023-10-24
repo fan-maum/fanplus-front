@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
 import CommonModal, { CommonModalProps } from '@/components/modals/CommonModal';
 import VoteModalText from '@/components/molecules/VoteModalText';
-import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
-import { useRecoilState } from 'recoil';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import { Group } from '../atoms';
-import useHtmlElement from '@/hooks/useHtmlElement';
+import { voteModalButtonState, voteModalState } from '@/store/voteLangState';
 import { formatNumberWithComma } from '@/utils/util';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { Group } from '../atoms';
 
 export interface VoteDoneModalProps {
   onClose: () => void;
@@ -31,7 +30,7 @@ const VoteDoneModal = ({
   const voteModalLang = useRecoilState(voteModalState(language))[0];
   const voteModalButton = useRecoilState(voteModalButtonState(language))[0];
   const voteDoneFirstText = voteModalLang({
-    freeVoteCount: freeVoteCount,
+    freeVoteCount: freeVoteCount.toString(),
     starName: starName,
   }).voteDoneFirst;
   const voteDoneEndText = voteModalLang({
@@ -68,12 +67,12 @@ const VoteDoneModal = ({
                 <div
                   className="voteModalTextWrap"
                   css={{ fontSize: 18, fontWeight: 400, color: '#475357' }}
-                  dangerouslySetInnerHTML={useHtmlElement(voteDoneFirstText)}
+                  dangerouslySetInnerHTML={{ __html: voteDoneFirstText }}
                 ></div>
               </Group>
               <div
                 css={{ fontSize: 18, fontWeight: 400 }}
-                dangerouslySetInnerHTML={useHtmlElement(voteDoneEndText)}
+                dangerouslySetInnerHTML={{ __html: voteDoneEndText }}
               ></div>
             </>
           }

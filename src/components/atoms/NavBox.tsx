@@ -1,3 +1,4 @@
+import { pathOnly } from '@/utils/util';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -8,7 +9,8 @@ type NavBoxPropType = {
 };
 
 const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
-  const path = useRouter().pathname;
+  const router = useRouter();
+  const path = pathOnly(router.asPath);
   const isHighlight =
     (path.includes('vote') && link.includes('vote')) ||
     (path.includes('community') && link.includes('community'));

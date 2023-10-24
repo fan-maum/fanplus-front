@@ -1,29 +1,25 @@
-import React, { useState } from 'react';
-import { FooterTextType, NavBarTextType } from '@/types/textTypes';
-import { ReactNode } from 'react';
-import NavBar from '../molecules/NavBar';
-import Footer from '../molecules/Footer';
-import SideBar from '../molecules/SideBar';
-import { SideBarContextType } from '@/types/contextTypes';
-import { createContext } from 'react';
+import type { UrlLangType } from '@/types/common';
+import type { SideBarContextType } from '@/types/contextTypes';
 import { useRouter } from 'next/router';
+import { ReactNode, createContext, useState } from 'react';
+import Footer from '../molecules/Footer';
+import NavBar from '../molecules/NavBar';
+import SideBar from '../molecules/SideBar';
+import { navBarTexts } from '@/texts/navBarTexts';
+import { footerTexts } from '@/texts/footerTexts';
 
 export const SideBarContext = createContext<SideBarContextType | null>(null);
 
-const Layout: React.FC<{
-  navBarTexts: NavBarTextType;
-  footerTexts: FooterTextType;
-  children: ReactNode;
-}> = ({ navBarTexts, footerTexts, children }) => {
+const Layout = ({ children, urlLang }: { children: ReactNode; urlLang: UrlLangType }) => {
   const page = useRouter().pathname.split('/')[2];
   const noFooterPages = page === 'login' || page === 'signUp' || page === 'community';
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   return (
     <SideBarContext.Provider value={{ isSideBarOpen, setIsSideBarOpen }}>
-      {isSideBarOpen && <SideBar texts={navBarTexts} />}
-      <NavBar texts={navBarTexts} />
+      {isSideBarOpen && <SideBar texts={navBarTexts[urlLang]} />}
+      <NavBar texts={navBarTexts[urlLang]} />
       {children}
-      {!noFooterPages && <Footer texts={footerTexts} />}
+      {!noFooterPages && <Footer texts={footerTexts[urlLang]} />}
     </SideBarContext.Provider>
   );
 };

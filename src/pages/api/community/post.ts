@@ -13,13 +13,7 @@ const handler: NextApiHandler = async (req, res) => {
         Origin: origin,
         'Cache-Control': 'no-cache',
       },
-      params:
-        identity !== undefined
-          ? {
-              identity,
-              lang,
-            }
-          : { lang },
+      params: identity !== undefined ? { identity, lang } : { lang },
     });
     res.status(200).json(response.data);
   } catch (error) {
