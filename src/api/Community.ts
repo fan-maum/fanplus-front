@@ -47,9 +47,9 @@ export const getCommunityBoardData = async (
 };
 
 export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerLangType) => {
-  const response: AxiosResponse<CommunityBoardTopicResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/boardTopic`,
-    { params: { boardIndex, lang } }
+  const response: AxiosResponse<CommunityBoardTopicResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/topics`,
+    { params: { lang } }
   );
   return response.data;
 };

@@ -2,11 +2,10 @@ import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
+import type { ServerLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
 import type { GetServerSidePropsContext } from 'next';
-import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
   urlLang: UrlLangType;

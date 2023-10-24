@@ -2,11 +2,10 @@ import { getCommunityBoardTopics } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
+import type { ServerLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
-import { GetServerSidePropsContext } from 'next';
-import nookies from 'nookies';
+import type { GetServerSidePropsContext } from 'next';
 
 type CommunityPostWritePropType = {
   urlLang: UrlLangType;
@@ -14,7 +13,6 @@ type CommunityPostWritePropType = {
   datas: {
     userId: string;
     boardIndex: number;
-    boardLang: ServerLangType;
     serverLang: ServerLangType;
   };
 };
@@ -33,22 +31,23 @@ const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
 };
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'];
-  const boardLangCookie = cookies['boardLang'] as BoardLangType;
-
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
-  const boardIndex = parseInt(context.query.boardIndex as string);
-  const boardLang: ServerLangType =
-    boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : serverLang;
+  const boardIndex = Number(context.query.boardIndex);
 
-  if (!userId) return noUserIdHandler('ko', `/community/board/${boardIndex}/write/`);
+  const cookies = context.req.cookies;
+  const userId = cookies.user_id || null;
+
+  if (!userId) {
+    return noUserIdHandler(urlLang, `/community/board/${boardIndex}/write/`);
+  }
+
+  const datas = { userId, boardIndex, serverLang };
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
-  const datas = { userId, boardIndex, boardLang, serverLang };
+
   return {
-    props: { urlLang, boardTopics, datas },
+    props: { urlLang, datas, boardTopics },
   };
 };
 

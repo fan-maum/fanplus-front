@@ -13,8 +13,6 @@ import type {
   CommunityNoticeBannerResponseType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
-import nookies from 'nookies';
-import { Suspense } from 'react';
 
 export type CommunityBoardPropType = {
   urlLang: UrlLangType;
@@ -28,7 +26,7 @@ export type CommunityBoardPropType = {
     serverLang: ServerLangType;
     boardLangCookie: BoardLangType;
     topic: number;
-    view_type: string;
+    viewType: string;
   };
 };
 
@@ -57,18 +55,18 @@ const Board = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'] || '';
-
-  const boardIndex = parseInt(context.query.boardIndex as string);
-  const page = parseInt(context.query.page as string) - 1 || 0;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
-  const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
-  const topic = parseInt(context.query.topic as string) || 0;
-  const view_type = (context.query.view as string) || 'all';
+  const boardIndex = Number(context.query.boardIndex);
+  const page = Number(context.query.page) - 1 || 0;
+  const topic = Number(context.query.topic) || 0;
+  const viewType = (context.query.view as string) || 'all';
 
-  if (!boardIndex) return { notFound: true };
+  const cookies = context.req.cookies;
+  const userId = cookies.user_id || '';
+  const boardLangCookie = (cookies.boardLang as BoardLangType) || 'ALL';
+
+  const initialProps = { page, serverLang, boardLangCookie, topic, viewType };
 
   const communityBoardData = await getCommunityBoardData(
     userId,
@@ -77,21 +75,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     serverLang,
     boardLangCookie,
     topic,
-    view_type
+    viewType
   );
   const communityBoardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
   const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, serverLang);
-  const initialProps = { page, serverLang, boardLangCookie, topic, view_type };
 
   return {
     props: {
       urlLang,
       userId,
       boardLangCookie,
+      initialProps,
       communityBoardData,
       communityBoardTopics,
       communityNoticeBannerData,
-      initialProps,
     },
   };
 };

@@ -48,7 +48,7 @@ const CommunityBoardTemplate = ({
     initialProps.boardLangCookie === boardLang &&
     initialProps.page === page &&
     initialProps.serverLang === requestLang &&
-    initialProps.view_type === viewType &&
+    initialProps.viewType === viewType &&
     initialProps.topic === topicIndex;
 
   const onClickWrite = () => {
