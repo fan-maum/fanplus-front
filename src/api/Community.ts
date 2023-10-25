@@ -176,9 +176,7 @@ export const getReplies = async (
 export const postLikes = async (commentIndex: string, identity: string) => {
   const response: AxiosResponse = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
-    {
-      identity: identity,
-    }
+    { identity }
   );
   return response;
 };
@@ -186,11 +184,7 @@ export const postLikes = async (commentIndex: string, identity: string) => {
 export const deleteLikes = async (commentIndex: string, identity: string) => {
   const response: AxiosResponse = await axios.delete(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
-    {
-      data: {
-        identity: identity,
-      },
-    }
+    { params: { identity } }
   );
   return response;
 };
