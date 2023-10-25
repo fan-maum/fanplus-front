@@ -1,26 +1,22 @@
-import { NextApiHandler } from 'next';
-import axios, { AxiosResponse } from 'axios';
+import { APIServer } from '@/api/Instance';
 import type { CommunityBoardResponseType } from '@/types/community';
+import type { AxiosResponse } from 'axios';
+import type { NextApiHandler } from 'next';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { userId, boardIndex, page, lang, boardLang, view_type, topic } = req.query;
-  const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+  const { userId, boardIndex, page, lang, filter_lang, view_type, topic } = req.query;
+
+  const queries = { page, per_page: 20, lang, filter_lang, view_type, 'topic_ids[]': topic };
+  const queriesWithUserId = { ...queries, userId };
 
   try {
-    const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
-      `https://napi.appphotocard.com/voteWeb/boards/${boardIndex}/posts?&page=${page}&per_page=20` +
-        `&lang=${lang}&filter_lang=${boardLang}&view_type=${view_type}&topic_ids[]=${topic}` +
-        (userId && `&identity=${userId}`),
-      {
-        headers: {
-          Origin: origin,
-          'Cache-Control': 'no-cache',
-        },
-      }
+    const response: AxiosResponse<CommunityBoardResponseType> = await APIServer.get(
+      `/voteWeb/boards/${boardIndex}/posts?`,
+      { params: userId ? queriesWithUserId : queries }
     );
     res.status(200).json(response.data);
   } catch (error) {
-    res.status(500).json('Failed to load Community-Board data');
+    res.json(error);
   }
 };
 
