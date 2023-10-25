@@ -71,12 +71,11 @@ export const getCommunityBoardResultData = async (
   category_type: number,
   searchValue: any,
   lang: ServerLangType,
-  page: number,
-  per_page: number
+  page: number
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
-    { params: { category_type, searchValue, lang, page, per_page } }
+    { params: { category_type, searchValue, lang, page } }
   );
   return response.data;
 };
