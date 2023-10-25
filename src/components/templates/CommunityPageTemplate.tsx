@@ -38,8 +38,8 @@ const CommunityPageTemplate = ({
 
   const isInitialProps =
     initialProps.category_type === category_type &&
-    // initialProps.searchValue === searchValue &&
-    // initialProps.serverLang === serverLang &&
+    initialProps.searchValue === searchValue &&
+    initialProps.serverLang === serverLang &&
     initialProps.page === page;
 
   const { data: boardResultClientData, isFetching } = useQuery(
