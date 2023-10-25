@@ -10,12 +10,10 @@ import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
-import { BoardResultItemType } from '@/types/community';
-import { useGetBoardResultQueryProps } from '@/server/useGetCommentsQuery';
-import { useQuery, useQueryClient } from 'react-query';
-import { getBoardResultQuery } from '@/server/query';
+import { useQuery } from 'react-query';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import { BoardItemSkeleton } from '../molecules/community/CommunitySkeleton';
+import { BoardItemListSkeleton } from '../molecules/community/CommunitySkeleton';
+import { getCommunityBoardResultData } from '@/api/Community';
 
 type TabBarType = 'home' | 'search';
 
@@ -23,11 +21,11 @@ const CommunityPageTemplate = ({
   urlLang,
   communityHomeData,
   boardCategoryData,
+  boardResultData,
+  initialProps,
 }: CommunityPropTypes) => {
   const router = useRouter();
   const texts = communityMainPageTexts[urlLang];
-  const queryClient = useQueryClient();
-
   const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'home');
   const [recentlyList, setRecentlyList] = useState(communityHomeData.recentlyList);
   const searchTabState = useState(texts.allCategory);
@@ -38,46 +36,17 @@ const CommunityPageTemplate = ({
   const searchValue = router.query.searchValue || '';
   const page = parseInt(router.query.page as string) - 1 || 0;
 
-  const useGetBoardResultQueryProps: useGetBoardResultQueryProps = {
-    category_type,
-    searchValue,
-    serverLang,
-    page,
-    per_page: 20,
-  };
+  const isInitialProps =
+    initialProps.category_type === category_type &&
+    // initialProps.searchValue === searchValue &&
+    // initialProps.serverLang === serverLang &&
+    initialProps.page === page;
 
-  // const {
-  //   data: boardResultClientData,
-  //   isFetching,
-  //   refetch: refetchBoardResultData,
-  // } = useQuery({
-  //   queryKey: ['boardResults', useGetBoardResultQueryProps],
-  //   queryFn: () => getBoardResultQuery(useGetBoardResultQueryProps),
-  //   initialData: boardResultData,
-  //   initialDataUpdatedAt: () => {
-  //     return queryClient.getQueryData(['boardResults', useGetBoardResultQueryProps]);
-  //   },
-  //   // initialData: () => {
-  //   //   return queryClient.getQueryData(['boardResults', useGetBoardResultQueryProps]);
-  //   // },
-  // });
-
-  const {
-    data: boardResultClientData,
-    isFetching,
-    isLoading,
-    isFetched,
-    refetch: refetchBoardResultData,
-  } = useQuery({
-    queryKey: ['boardResults', useGetBoardResultQueryProps],
-    queryFn: () => getBoardResultQuery(useGetBoardResultQueryProps),
-    initialData: () => {
-      return queryClient.getQueryData(['boardResults', useGetBoardResultQueryProps]);
-    },
-  });
-
-  // eslint-disable-next-line no-console
-  console.log('boardResultClientData', boardResultClientData);
+  const { data: boardResultClientData, isFetching } = useQuery(
+    ['boardResults', { category_type, searchValue, serverLang, page }],
+    () => getCommunityBoardResultData(category_type, searchValue, serverLang, page, 20),
+    { initialData: isInitialProps ? boardResultData : undefined }
+  );
 
   useEffect(() => {
     const storageRecentlyList = getStorageRecentBoardDatas();
@@ -144,24 +113,15 @@ const CommunityPageTemplate = ({
         </>
       ) : (
         <>
-          <CommunityBoardSearchInputWrapper
-            searchTabState={searchTabState}
-            texts={texts}
-            refetchBoardResultData={refetchBoardResultData}
-          />
+          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
           <CommunityBoardFilterTab
             searchCategoryTabs={searchCategoryTabs}
             searchTabState={searchTabState}
-            refetchBoardResultData={refetchBoardResultData}
           />
           {isFetching ? (
-            <>
-              <section css={{ marginBottom: '30px' }}>
-                {/* {boardResultList?.map((boardItem: BoardResultItemType) => ( */}
-                <BoardItemSkeleton key={1} />
-                {/* ))} */}
-              </section>
-            </>
+            <section css={{ marginBottom: '30px' }}>
+              <BoardItemListSkeleton />
+            </section>
           ) : (
             <CommunitySearchBoardWrapper
               boardList={boardResultList}

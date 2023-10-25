@@ -63,11 +63,3 @@ export interface useGetUserQueryProps {
   user_idx: string;
   identity: string;
 }
-
-export interface useGetBoardResultQueryProps {
-  category_type: number;
-  searchValue: any;
-  serverLang: ServerLangType;
-  page: number;
-  per_page: number;
-}

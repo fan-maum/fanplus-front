@@ -5,24 +5,19 @@ import { useRouter } from 'next/router';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { useQueryClient } from 'react-query';
 
 type SearchScrollTabBarProps = {
   tabs: BoardCategoryItemType[];
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
-  refetchBoardResultData: () => void;
 };
 
 const SearchScrollTabBar = ({
   tabs,
   searchTabState: [activeTab, setActiveTab],
-  refetchBoardResultData,
 }: SearchScrollTabBarProps) => {
   const router = useRouter();
   const { category_type, searchValue, page = 0 } = router?.query;
-  const queryClient = useQueryClient();
   const handleTabClick = async (index: number, tabName: string) => {
-    await queryClient.removeQueries('boardResults');
     await setActiveTab(tabName);
     await router.push(
       {
@@ -36,7 +31,6 @@ const SearchScrollTabBar = ({
       undefined,
       { shallow: true }
     );
-    // await refetchBoardResultData();
   };
 
   useEffect(() => {

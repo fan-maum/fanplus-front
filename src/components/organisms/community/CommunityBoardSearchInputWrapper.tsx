@@ -12,13 +12,11 @@ interface FormValue {
 export type CommunityBoardSearchInputProps = {
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
   texts: CommunityPageTextType;
-  refetchBoardResultData: () => void;
 };
 
 const CommunityBoardSearchInputWrapper = ({
   searchTabState: [activeTab, setActiveTab],
   texts,
-  refetchBoardResultData,
 }: CommunityBoardSearchInputProps) => {
   const router = useRouter();
   const { category_type = 0, searchValue, page = 0 } = router?.query;
@@ -40,7 +38,6 @@ const CommunityBoardSearchInputWrapper = ({
       undefined,
       { shallow: true }
     );
-    await refetchBoardResultData();
     await reset({ searchValue: data.searchValue });
   };
 
