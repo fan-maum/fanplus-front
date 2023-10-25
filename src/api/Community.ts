@@ -106,17 +106,10 @@ export const getCommunityPostData = async (
 };
 
 export const deletePost = async (identity: string, post_idx: string, mode: 'reset' | 'remove') => {
-  const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/deletePost?identity=${identity}&post_idx=${post_idx}&mode=${mode}`,
-    {
-      data: {
-        identity: identity,
-        post_idx: post_idx,
-        mode: mode,
-      },
-    }
-  );
-  return response;
+  const response: AxiosResponse = await axios.delete(`/api/community/deletePost`, {
+    params: { identity, post_idx, mode },
+  });
+  return response.data;
 };
 
 export const getComments = async (

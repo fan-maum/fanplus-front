@@ -1,28 +1,17 @@
+import { APIServer } from '@/api/Instance';
 import { NextApiHandler } from 'next';
-import axios from 'axios';
 
 const handler: NextApiHandler = async (req, res) => {
-  if (req.method === 'DELETE') {
-    const { post_idx, mode } = req.query;
-    const { user_id } = req.cookies;
+  const { identity, post_idx, mode } = req.query;
 
-    try {
-      const result = await axios({
-        method: 'delete',
-        url: `https://napi.appphotocard.com/v1/boards/posts?identity=${user_id}`,
-        data: {
-          identity: user_id,
-          post_idx: post_idx,
-          mode: mode,
-        },
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      res.status(200).json(result.data);
-    } catch (error) {
-      res.json(error);
-    }
+  try {
+    const result = await APIServer.delete(`/v1/boards/posts`, {
+      data: { identity, post_idx, mode },
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    res.status(200).json(result.data);
+  } catch (error) {
+    res.json(error);
   }
 };
 

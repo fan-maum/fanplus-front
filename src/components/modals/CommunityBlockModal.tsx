@@ -54,7 +54,7 @@ function CommunityBlockModal({
         if (target_type === 'post') {
           let response = await deletePost(identity, idx, 'remove');
           let modalMessage =
-            response?.data?.RESULTS?.MSG === 'success' ? texts.postDeleted : texts.alreadyDeleted;
+            response.RESULTS.MSG === 'success' ? texts.postDeleted : texts.alreadyDeleted;
           setDoneModalMessage(modalMessage);
           setDoneModalBlock(true);
           router.push(`/community/board/${router.query.boardIndex}`);
