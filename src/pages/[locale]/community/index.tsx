@@ -50,6 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const page = Number(context.query.page) - 1 || 0;
   const category_type = Number(context.query.category_type) || 0;
   const searchValue = context.query.searchValue || '';
+  const per_page = 20;
 
   const cookies = context.req.cookies;
   const userId = cookies.user_id || null;
@@ -60,7 +61,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     category_type,
     searchValue,
     serverLang,
-    page
+    page,
+    per_page
   );
   return {
     props: { urlLang, communityHomeData, boardCategoryData, boardResultData },
