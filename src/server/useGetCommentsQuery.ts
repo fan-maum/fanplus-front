@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { getCommentsQuery, getRepliesQuery } from './query';
-import { BoardLangType, OrderType, ServerLangType } from '@/types/common';
+import { BoardLangType, OrderType } from '@/types/common';
 import { getUser } from '@/api/Community';
 
 export const useGetCommentQuery = (props: useGetCommentQueryProps) => {
