@@ -1,24 +1,15 @@
-import { NextApiHandler } from 'next';
-import axios from 'axios';
+import { APIServer } from '@/api/Instance';
+import type { NextApiHandler } from 'next';
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === 'POST') {
-    const { target_type, target, contents } = req.body;
-    const { user_id } = req.cookies;
+    const { identity, target_type, target, contents } = req.body;
     try {
-      const result = await axios({
-        method: 'post',
-        url: `https://napi.appphotocard.com/v1/comments`,
-        data: {
-          identity: user_id,
-          target_type: target_type,
-          target: target,
-          contents: contents,
-        },
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const result = await APIServer.post(
+        `/v1/comments`,
+        { identity, target_type, target, contents },
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
       res.status(200).json(result.data);
     } catch (error) {
       res.json(error);
@@ -26,19 +17,11 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === 'DELETE') {
-    const { comment_idx } = req.query;
-    const { user_id } = req.cookies;
+    const { comment_idx, identity } = req.query;
     try {
-      const result = await axios({
-        method: 'delete',
-        url: `https://napi.appphotocard.com/v1/comments`,
-        data: {
-          identity: user_id,
-          comment_idx: comment_idx,
-        },
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const result = await APIServer.delete(`/v1/comments`, {
+        data: { identity, comment_idx },
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       res.status(200).json(result.data);
     } catch (error) {

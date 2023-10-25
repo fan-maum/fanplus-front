@@ -1,3 +1,4 @@
+import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
 import type {
   CommunityBoardCategoryResponseType,
   CommunityBoardResponseType,
@@ -13,8 +14,6 @@ import type {
   RecommendListResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
-
-import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
 import { APIServer } from './Instance';
 
 export const getCommunityHomeData = async (identity: string | null, lang: ServerLangType) => {
@@ -141,29 +140,20 @@ export const postComment = async (
   target: number,
   contents: string | number
 ) => {
-  const response: AxiosResponse = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment`,
-    {
-      identity: identity,
-      target_type: target_type,
-      target: target,
-      contents: contents,
-    }
-  );
+  const response: AxiosResponse = await axios.post(`/api/community/postComment/`, {
+    identity: identity,
+    target_type: target_type,
+    target: target,
+    contents: contents,
+  });
   return response.data;
 };
 
 export const deleteComment = async (identity: string, comment_idx: string) => {
-  const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment?comment_idx=${comment_idx}`,
-    {
-      data: {
-        identity: identity,
-        comment_idx: comment_idx,
-      },
-    }
-  );
-  return response;
+  const response: AxiosResponse = await axios.delete(`/api/community/postComment/`, {
+    params: { identity, comment_idx },
+  });
+  return response.data;
 };
 
 export const getReplies = async (

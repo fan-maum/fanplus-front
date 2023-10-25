@@ -62,9 +62,7 @@ function CommunityBlockModal({
         if (target_type === 'comment') {
           let response = await deleteComment(identity, idx);
           let modalMessage =
-            response?.data?.RESULTS?.MSG === '삭제 성공'
-              ? texts.commentDeleted
-              : texts.alreadyDeleted;
+            response?.RESULTS?.MSG === '삭제 성공' ? texts.commentDeleted : texts.alreadyDeleted;
           setDoneModalMessage(modalMessage);
           setDoneModalBlock(true);
           checkComment ? refetch() : replyRefetch();
