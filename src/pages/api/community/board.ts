@@ -11,7 +11,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<CommunityBoardResponseType> = await APIServer.get(
-      `/voteWeb/boards/${boardIndex}/posts?`,
+      `/voteWeb/boards/${boardIndex}/posts`,
       { params: userId ? queriesWithUserId : queries }
     );
     res.status(200).json(response.data);
