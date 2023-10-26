@@ -44,7 +44,7 @@ const CommunityPageTemplate = ({
 
   const { data: boardResultClientData, isFetching } = useQuery(
     ['boardResults', { category_type, searchValue, serverLang, page }],
-    () => getCommunityBoardResultData(category_type, searchValue, serverLang, page, 20),
+    () => getCommunityBoardResultData(category_type, searchValue, serverLang, page),
     { initialData: isInitialProps ? boardResultData : undefined }
   );
 
