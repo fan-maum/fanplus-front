@@ -22,6 +22,11 @@ export const BoardItemSkeleton = () => {
   );
 };
 
+export const BoardItemListSkeleton = () => {
+  const SkeletonList = Array.from({ length: 20 }, BoardItemSkeleton);
+  return SkeletonList;
+};
+
 const SingleBoardArticleSkeleton = () => {
   return (
     <li css={{ margin: '6px 12px', padding: '3px 6px', borderBottom: '1px solid #d9d9d9' }}>

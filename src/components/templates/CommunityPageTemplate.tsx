@@ -10,6 +10,10 @@ import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
+import { useQuery } from 'react-query';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import { BoardItemListSkeleton } from '../molecules/community/CommunitySkeleton';
+import { getCommunityBoardResultData } from '@/api/Community';
 
 type TabBarType = 'home' | 'search';
 
@@ -18,22 +22,40 @@ const CommunityPageTemplate = ({
   communityHomeData,
   boardCategoryData,
   boardResultData,
+  initialProps,
 }: CommunityPropTypes) => {
   const router = useRouter();
   const texts = communityMainPageTexts[urlLang];
-
   const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'home');
   const [recentlyList, setRecentlyList] = useState(communityHomeData.recentlyList);
   const searchTabState = useState(texts.allCategory);
   const [activeTabState] = searchTabState;
 
+  const serverLang = translateUrlLangToServerLang(urlLang);
+  const category_type = parseInt(router.query.category_type as string) || 0;
+  const searchValue = router.query.searchValue || '';
+  const page = parseInt(router.query.page as string) - 1 || 0;
+
+  const isInitialProps =
+    initialProps.category_type === category_type &&
+    initialProps.searchValue === searchValue &&
+    initialProps.serverLang === serverLang &&
+    initialProps.page === page;
+
+  const { data: boardResultClientData, isFetching } = useQuery(
+    ['boardResults', { category_type, searchValue, serverLang, page }],
+    () => getCommunityBoardResultData(category_type, searchValue, serverLang, page, 20),
+    { initialData: isInitialProps ? boardResultData : undefined }
+  );
+
   useEffect(() => {
     const storageRecentlyList = getStorageRecentBoardDatas();
     if (recentlyList.length === 0) setRecentlyList(storageRecentlyList);
   }, []);
+
   const recommendList = communityHomeData.recommendList;
-  const boardResultTotalCount = boardResultData.RESULTS.DATAS.TOTAL_COUNT;
-  const boardResultList = boardResultData.RESULTS.DATAS.BOARD_LIST;
+  const boardResultTotalCount = boardResultClientData?.RESULTS.DATAS.TOTAL_COUNT;
+  const boardResultList = boardResultClientData?.RESULTS.DATAS.BOARD_LIST;
 
   const isRecentlyListExist = !!recentlyList && recentlyList.length !== 0;
 
@@ -96,12 +118,19 @@ const CommunityPageTemplate = ({
             searchCategoryTabs={searchCategoryTabs}
             searchTabState={searchTabState}
           />
-          <CommunitySearchBoardWrapper
-            boardList={boardResultList}
-            activeTabState={activeTabState}
-            texts={texts}
-          />
-          {boardResultList.length !== 0 && (
+          {isFetching ? (
+            <section css={{ marginBottom: '30px' }}>
+              <BoardItemListSkeleton />
+            </section>
+          ) : (
+            <CommunitySearchBoardWrapper
+              boardList={boardResultList}
+              activeTabState={activeTabState}
+              texts={texts}
+            />
+          )}
+
+          {boardResultList?.length !== 0 && (
             <CommunitySearchBoardPagination totalCount={boardResultTotalCount} itemsPerPage={20} />
           )}
         </>
