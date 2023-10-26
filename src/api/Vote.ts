@@ -1,6 +1,6 @@
 import type { ServerLangType } from '@/types/common';
 import type { VoteDetailResponse, VoteMutateParam } from '@/types/vote';
-import axios, { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 import { APIServer } from './Instance';
 
 export const getVoteList = async (
@@ -23,17 +23,10 @@ export const getVoteDetail = async (vote_idx: number, lang: ServerLangType) => {
 };
 
 export const postVotes = async ({ voteId, userId, starId }: VoteMutateParam) => {
-  const response: AxiosResponse<{
-    RESULTS: {
-      ERROR: number;
-      MSG: string;
-      DATAS: object;
-      TIMESTAMP: number;
-    };
-  }> = await axios.post(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/vote`, {
-    voteId,
-    userId,
-    starId,
-  });
+  const response: AxiosResponse = await APIServer.post(
+    `/voteWeb/${voteId}`,
+    { identity: userId, target_star_idx: starId },
+    { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+  );
   return response.data;
 };

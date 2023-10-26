@@ -4,11 +4,11 @@ import { BoardLangType, OrderType } from '@/types/common';
 import { getUser } from '@/api/Community';
 
 export const useGetCommentQuery = (props: useGetCommentQueryProps) => {
-  const { postIndex, identity, board_lang, orderType, per_page } = props;
+  const { postIndex, identity, board_lang, orderType } = props;
   const res = useInfiniteQuery({
     queryKey: ['comments' + postIndex],
     queryFn: ({ pageParam = 0 }) =>
-      getCommentsQuery({ postIndex, identity, board_lang, orderType, pageParam, per_page }),
+      getCommentsQuery({ postIndex, identity, board_lang, orderType, pageParam }),
     getNextPageParam: (currentPage) => {
       const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1;
       return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage;
@@ -20,11 +20,11 @@ export const useGetCommentQuery = (props: useGetCommentQueryProps) => {
 };
 
 export const useGetReplyQuery = (props: useGetReplyQueryProps) => {
-  const { commentIndex, identity, board_lang, orderType, per_page } = props;
+  const { commentIndex, identity, board_lang, orderType } = props;
   const res = useInfiniteQuery({
     queryKey: ['replies'],
     queryFn: ({ pageParam = 0 }) =>
-      getRepliesQuery({ commentIndex, identity, board_lang, orderType, pageParam, per_page }),
+      getRepliesQuery({ commentIndex, identity, board_lang, orderType, pageParam }),
     getNextPageParam: (currentPage) => {
       const nextPage = Number(currentPage.RESULTS.DATAS.PAGE) + 1;
       return nextPage * 20 > currentPage.RESULTS.DATAS.TOTAL_CNT ? null : nextPage;
