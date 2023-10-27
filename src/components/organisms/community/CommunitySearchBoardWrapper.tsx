@@ -5,7 +5,7 @@ import { CommunityPageTextType } from '@/types/textTypes';
 
 type CommunityBoardWrapperType = {
   title?: string;
-  boardList: BoardResultItemType[];
+  boardList?: BoardResultItemType[];
   activeTabState: string;
   texts: CommunityPageTextType;
 };
@@ -14,9 +14,9 @@ const CommunitySearchBoardWrapper = ({ title, boardList, texts }: CommunityBoard
   return (
     <section css={{ marginBottom: '30px' }}>
       {title && <h4 css={{ margin: '15px 5px' }}>{title}</h4>}
-      {boardList.length !== 0 ? (
+      {boardList?.length !== 0 ? (
         <>
-          {boardList.map((boardItem) => {
+          {boardList?.map((boardItem) => {
             const postCount = Number(boardItem.POST_CNT).toLocaleString('en-US');
             return (
               <CommunityBoardItem

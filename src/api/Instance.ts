@@ -5,7 +5,6 @@ export const APIServer = axios.create({
   timeout: 5000,
   headers: {
     Origin: process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr',
-    'Cache-Control': 'no-cache',
   },
 });
 

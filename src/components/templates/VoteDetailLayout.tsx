@@ -147,7 +147,7 @@ const VoteDetailLayout = ({
   };
 
   // setting 하는 Data가 다를 것..
-  async function handleRefresh() {
+  function handleRefresh() {
     // const voteIndex = router.query['vote_IDX'] as string;
     const id = router.query['id'] as string;
     const optimisticResponse: VoteDetailResponse = {
@@ -171,10 +171,7 @@ const VoteDetailLayout = ({
         },
       },
     };
-    // const res = await getVoteDetail(voteIndex, voteLanguage);
-    // if (Object.keys(res.data).length) {
     setVoteDetails(optimisticResponse);
-    // }
   }
 
   const voteMutate = useMutation(
@@ -184,7 +181,7 @@ const VoteDetailLayout = ({
       onSuccess: async (data) => {
         setVoteModal(false);
         if (data.RESULTS.MSG === '투표 완료') {
-          await handleRefresh();
+          handleRefresh();
           setVoteModalDone(moreVoteCount); // TODO: 여기도 (n 표 더 투표하시겠습니까? (앱링크로))
         } else {
           setVoteModalBlock(true);

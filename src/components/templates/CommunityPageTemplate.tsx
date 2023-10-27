@@ -131,7 +131,10 @@ const CommunityPageTemplate = ({
           )}
 
           {boardResultList?.length !== 0 && (
-            <CommunitySearchBoardPagination totalCount={boardResultTotalCount} itemsPerPage={20} />
+            <CommunitySearchBoardPagination
+              totalCount={boardResultTotalCount as number}
+              itemsPerPage={20}
+            />
           )}
         </>
       )}
