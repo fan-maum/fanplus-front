@@ -1,19 +1,19 @@
+import { getCommunityBoardResultData } from '@/api/Community';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
 import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { CommunityPropTypes } from '@/pages/[locale]/community';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import type { CommunityPageTextType } from '@/types/textTypes';
 import { getStorageRecentBoardDatas } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { BoardItemListSkeleton } from '../molecules/community/CommunitySkeleton';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
-import { useQuery } from 'react-query';
-import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import { BoardItemListSkeleton } from '../molecules/community/CommunitySkeleton';
-import { getCommunityBoardResultData } from '@/api/Community';
 
 type TabBarType = 'home' | 'search';
 

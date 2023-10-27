@@ -1,18 +1,13 @@
-import { VoteDetailStars } from '@/types/vote';
-import { brandColor } from '@/styles/Colors';
-import { formatNumberWithComma, getIndexByVotes } from '@/utils/util';
-import { Box, Divider, Modal, ModalProps } from '@mantine/core';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { isMobile } from 'react-device-detect';
-import ShareButtonWithIcon from '../atoms/ShareButtonWithIcon';
-import { Stack, Group, UnstyledButton } from '@/components/atoms';
+import { Group, Stack, UnstyledButton } from '@/components/atoms';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { shareModalState } from '@/store/voteLangState';
-import { useRecoilState } from 'recoil';
-import { useEndText, useMiddleText, useTitleText } from '@/store/shareContent';
-import { useCopiedText } from '@/hooks/useCopyText';
-import { PostInfoItemType } from '@/types/community';
+import { brandColor } from '@/styles/Colors';
+import { Box, Divider, Modal, ModalProps } from '@mantine/core';
 import { useRouter } from 'next/router';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { isMobile } from 'react-device-detect';
+import { useRecoilState } from 'recoil';
+import ShareButtonWithIcon from '../atoms/ShareButtonWithIcon';
 
 export interface CommunityShareModalProps extends ModalProps {
   postTitle: string;
