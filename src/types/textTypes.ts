@@ -374,6 +374,11 @@ export type CommunityPostEditorTextType = {
   };
 };
 
+export type CommunityLayoutTextType = {
+  popularBoards: string;
+  close: string;
+};
+
 export type TextType = {
   NavBar: NavBarTextType;
   Footer: FooterTextType;

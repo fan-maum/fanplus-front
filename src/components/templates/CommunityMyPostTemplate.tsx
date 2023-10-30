@@ -7,6 +7,7 @@ import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle'
 import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
+import CommunityLayout from './CommunityLayout';
 
 const CommunityMyPostTemplate = ({
   urlLang,
@@ -43,52 +44,54 @@ const CommunityMyPostTemplate = ({
   };
 
   return (
-    <div
-      css={{
-        width: '100%',
-        maxWidth: '768px',
-        margin: '0px auto',
-        position: 'relative',
-      }}
-    >
-      <CommunityBoardTopNavi boardTitle={texts.bottomTabBar.myPost} />
-      {isPostExist ? (
-        <>
-          <ul>
-            {postList.map((post, idx) => {
-              return (
-                <CommunityBoardArticle
-                  postItem={post}
-                  link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
-                  key={idx}
-                  texts={texts}
-                />
-              );
-            })}
-          </ul>
-          <CommunityBoardPagination
-            totalCount={boardInfo.POST_CNT}
-            handlePageChange={handlePageChange}
-          />
-        </>
-      ) : (
-        <CommunityBoardNoPost
-          onClickWrite={onClickWrite}
-          buttonText={texts.buttonWrite}
-          texts={texts.noMyPostTexts}
-        />
-      )}
-      <CommunityCommonModal
-        opened={permissionModal}
-        onClose={() => setPermissionModal(false)}
-        confirmButton={{
-          onClick: () => setPermissionModal(false),
-          text: texts.permissionModal.check,
+    <CommunityLayout>
+      <div
+        css={{
+          width: '100%',
+          maxWidth: '768px',
+          margin: '0px auto',
+          position: 'relative',
         }}
       >
-        {texts.permissionModal.noPermission}
-      </CommunityCommonModal>
-    </div>
+        <CommunityBoardTopNavi boardTitle={texts.bottomTabBar.myPost} />
+        {isPostExist ? (
+          <>
+            <ul>
+              {postList.map((post, idx) => {
+                return (
+                  <CommunityBoardArticle
+                    postItem={post}
+                    link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
+                    key={idx}
+                    texts={texts}
+                  />
+                );
+              })}
+            </ul>
+            <CommunityBoardPagination
+              totalCount={boardInfo.POST_CNT}
+              handlePageChange={handlePageChange}
+            />
+          </>
+        ) : (
+          <CommunityBoardNoPost
+            onClickWrite={onClickWrite}
+            buttonText={texts.buttonWrite}
+            texts={texts.noMyPostTexts}
+          />
+        )}
+        <CommunityCommonModal
+          opened={permissionModal}
+          onClose={() => setPermissionModal(false)}
+          confirmButton={{
+            onClick: () => setPermissionModal(false),
+            text: texts.permissionModal.check,
+          }}
+        >
+          {texts.permissionModal.noPermission}
+        </CommunityCommonModal>
+      </div>
+    </CommunityLayout>
   );
 };
 

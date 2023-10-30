@@ -33,6 +33,7 @@ import CommunityReportModal from '../modals/CommunityReportModal';
 import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
+import CommunityLayout from './CommunityLayout';
 
 const CommunityPostTemplate = ({
   urlLang,
@@ -170,13 +171,15 @@ const CommunityPostTemplate = ({
 
   return (
     <>
-      <Layout>
-        <LayoutInner>
-          <PostDetailLayout {...layoutProps} />
-          <PostCommentWrapper {...commentProps} />
-        </LayoutInner>
-        <PostFixedBottomWrapper {...fixedBottomProps} />
-      </Layout>
+      <CommunityLayout>
+        <Layout>
+          <LayoutInner>
+            <PostDetailLayout {...layoutProps} />
+            <PostCommentWrapper {...commentProps} />
+          </LayoutInner>
+          <PostFixedBottomWrapper {...fixedBottomProps} />
+        </Layout>
+      </CommunityLayout>
       <CommunityReportModal
         opened={reportModalBlock}
         texts={texts}
