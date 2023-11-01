@@ -91,7 +91,7 @@ const CommunityPostTemplate = ({
     fetchNextPage,
   } = useGetCommentQuery(useGetCommentQueryProps);
 
-  const commentTotalCount = commentData?.pages[0].RESULTS.DATAS.TOTAL_CNT;
+  const commentTotalCount = commentData?.pages[0].RESULTS.DATAS.TOTAL_CNT as number;
 
   const refetchReplyOnToggle = async (commentIndex: number | null) => {
     await setCommentIndex(commentIndex);

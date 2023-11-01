@@ -5,10 +5,9 @@ import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
-import nookies from 'nookies';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, error, url }: EventProps) => {
+const VoteDetail = ({ urlLang, voteDetails, headers, userId, url }: EventProps) => {
   const isWebView = false;
 
   return (
@@ -33,9 +32,8 @@ const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, error, url }: E
       <VoteDetailLayout
         voteDetails={voteDetails}
         headers={headers}
-        authCookie={authCookie}
+        userId={userId}
         isWebView={isWebView}
-        error={error}
       />
     </Layout>
   );
@@ -45,18 +43,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const url = `${process.env.NEXT_PUBLIC_CLIENT_URL}${context.resolvedUrl}`;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
-  const vote_IDX = context.query.vote_IDX;
-  if (typeof vote_IDX !== 'string') {
-    return { notFound: true };
-  }
+  const vote_IDX = Number(context.query.vote_IDX);
+
   const headers = context.req.headers;
-  const cookies = nookies.get(context);
-  const authCookie = cookies['user_id'];
-  const res = await getVoteDetail(vote_IDX, serverLang);
-  const voteDetails = res.data;
-  const error = voteDetails ? false : res.status;
+
+  const cookies = context.req.cookies;
+  const userId = cookies.user_id || null;
+  const voteDetails = await getVoteDetail(vote_IDX, serverLang);
+
   return {
-    props: { urlLang, voteDetails, headers, error, authCookie: authCookie || null, url },
+    props: { url, urlLang, headers, userId, voteDetails },
   };
 };
 

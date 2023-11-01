@@ -1,26 +1,31 @@
+import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
 import type {
+  CommentResponseType,
+  CommunityBoardCategoryResponseType,
   CommunityBoardResponseType,
+  CommunityBoardResultResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
   EditBoardArticleResponseType,
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
   PostBoardArticleResponseType,
+  PostResponseType,
   RecentlyListResponseType,
   RecommendListResponseType,
+  replyResponseType,
 } from '@/types/community';
-import axios, { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
+import { APIServer } from './Instance';
 
-import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
-
-export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
-  const recommendListResponse: AxiosResponse<RecommendListResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId, lang, viewType: 'recommend' } }
+export const getCommunityHomeData = async (identity: string | null, lang: ServerLangType) => {
+  const recommendListResponse: AxiosResponse<RecommendListResponseType> = await APIServer.get(
+    `/voteWeb/boards2/recommend`,
+    { params: identity ? { identity, lang } : { lang } }
   );
-  const recentlyListResponse: AxiosResponse<RecentlyListResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId, lang, viewType: 'recently' } }
+  const recentlyListResponse: AxiosResponse<RecentlyListResponseType> = await APIServer.get(
+    `/voteWeb/boards2/recently`,
+    { params: identity ? { identity, lang } : { lang } }
   );
   const recommendList = recommendListResponse.data.RESULTS.DATAS.RECOMMEND_LIST;
   const recentlyList = recentlyListResponse.data.RESULTS.DATAS.RECENTLY_LIST;
@@ -28,26 +33,28 @@ export const getCommunityHomeData = async (userId: string, lang: ServerLangType)
 };
 
 export const getCommunityBoardData = async (
-  userId: string,
+  userId: string | null,
   boardIndex: number,
   page: number,
   lang: ServerLangType,
-  boardLang: BoardLangType,
+  filter_lang: BoardLangType,
   topic: number | '',
   view_type: string
 ) => {
   if (topic === 0) topic = '';
-  const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang, view_type } }
+  const queries = { page, per_page: 20, lang, filter_lang, view_type, 'topic_ids[]': topic };
+  const queriesWithUserId = { ...queries, userId };
+  const response: AxiosResponse<CommunityBoardResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/posts`,
+    { params: userId ? queriesWithUserId : queries }
   );
   return response.data;
 };
 
 export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerLangType) => {
-  const response: AxiosResponse<CommunityBoardTopicResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/boardTopic`,
-    { params: { boardIndex, lang } }
+  const response: AxiosResponse<CommunityBoardTopicResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/topics`,
+    { params: { lang } }
   );
   return response.data;
 };
@@ -57,8 +64,8 @@ export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerLa
  */
 /* 검색 페이지 내 중간부분 Tab response */
 export const getCommunityBoardCategoryData = async (lang: ServerLangType) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
+  const response: AxiosResponse<CommunityBoardCategoryResponseType> = await APIServer.get(
+    `/voteWeb/search/category`,
     { params: { lang } }
   );
   return response.data;
@@ -69,20 +76,19 @@ export const getCommunityBoardResultData = async (
   category_type: number,
   searchValue: any,
   lang: ServerLangType,
-  page: number,
-  per_page: number
+  page: number
 ) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardResult`,
-    { params: { category_type, searchValue, lang, page, per_page } }
+  const response: AxiosResponse<CommunityBoardResultResponseType> = await APIServer.get(
+    '/voteWeb/search/board',
+    { params: { category_type, search_val: searchValue, lang, page, per_page: 20 } }
   );
   return response.data;
 };
 
 export const getCommunityNoticeBannerData = async (boardIndex: number, lang: ServerLangType) => {
-  const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/noticeBanner`,
-    { params: { boardIndex, lang } }
+  const response: AxiosResponse<CommunityNoticeBannerResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/banners`,
+    { params: { lang } }
   );
   return response.data;
 };
@@ -94,28 +100,22 @@ export const getCommunityNoticeBannerData = async (boardIndex: number, lang: Ser
 export const getCommunityPostData = async (
   boardIndex: number,
   postIndex: number,
-  identity: string,
+  identity: string | null,
   lang: ServerLangType
 ) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
-    { params: { boardIndex, postIndex, identity, lang } }
+  const response: AxiosResponse<PostResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/posts/${postIndex}/detail`,
+    { params: identity ? { identity, lang } : { lang } }
   );
   return response.data;
 };
 
 export const deletePost = async (identity: string, post_idx: string, mode: 'reset' | 'remove') => {
-  const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/deletePost?identity=${identity}&post_idx=${post_idx}&mode=${mode}`,
-    {
-      data: {
-        identity: identity,
-        post_idx: post_idx,
-        mode: mode,
-      },
-    }
-  );
-  return response;
+  const response: AxiosResponse = await APIServer.delete(`/v1/boards/posts`, {
+    data: { identity, post_idx, mode },
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
 };
 
 export const getComments = async (
@@ -123,12 +123,16 @@ export const getComments = async (
   identity: string | null,
   lang: BoardLangType,
   order_by: OrderType,
-  page: number,
-  per_page: number
+  page: number
 ) => {
-  const response: AxiosResponse = await axios.get(`/api/community/comment`, {
-    params: { postIndex, identity, lang, order_by, page, per_page },
-  });
+  const per_page = 20;
+  const queries = { lang, order_by, page, per_page };
+  const queriesWithUserId = { ...queries, identity };
+
+  const response: AxiosResponse<CommentResponseType> = await APIServer.get(
+    `/voteWeb/posts/${postIndex}/comments`,
+    { params: identity ? queriesWithUserId : queries }
+  );
   return response.data;
 };
 
@@ -138,42 +142,35 @@ export const postComment = async (
   target: number,
   contents: string | number
 ) => {
-  const response: AxiosResponse = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment`,
-    {
-      identity: identity,
-      target_type: target_type,
-      target: target,
-      contents: contents,
-    }
+  const response: AxiosResponse = await APIServer.post(
+    `/v1/comments`,
+    { identity, target_type, target, contents },
+    { headers: { 'Content-Type': 'multipart/form-data' } }
   );
   return response.data;
 };
 
 export const deleteComment = async (identity: string, comment_idx: string) => {
-  const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment?comment_idx=${comment_idx}`,
-    {
-      data: {
-        identity: identity,
-        comment_idx: comment_idx,
-      },
-    }
-  );
-  return response;
+  const response: AxiosResponse = await APIServer.delete(`/v1/comments`, {
+    data: { identity, comment_idx },
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
 };
 
 export const getReplies = async (
   commentIndex: number,
   identity: string | null,
   board_lang: BoardLangType,
-  order_by: OrderType,
-  page: number,
-  per_page: number
+  order_by: OrderType
 ) => {
-  const response: AxiosResponse = await axios.get(`/api/community/reply`, {
-    params: { commentIndex, identity, board_lang, order_by, page, per_page },
-  });
+  const queries = { lang: board_lang, order_by, page: 0, per_page: 20 };
+  const queriesWithUserId = { ...queries, identity };
+
+  const response: AxiosResponse<replyResponseType> = await APIServer.get(
+    `/voteWeb/comments/${commentIndex}/subComments`,
+    { params: identity ? queriesWithUserId : queries }
+  );
   return response.data;
 };
 
@@ -182,25 +179,20 @@ export const getReplies = async (
  */
 /* 좋아요 */
 export const postLikes = async (commentIndex: string, identity: string) => {
-  const response: AxiosResponse = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
-    {
-      identity: identity,
-    }
+  const response: AxiosResponse = await APIServer.post(
+    `/v1/likes/comment/${commentIndex}`,
+    { identity },
+    { headers: { 'Content-Type': 'multipart/form-data' } }
   );
-  return response;
+  return response.data;
 };
 
 export const deleteLikes = async (commentIndex: string, identity: string) => {
-  const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
-    {
-      data: {
-        identity: identity,
-      },
-    }
-  );
-  return response;
+  const response: AxiosResponse = await APIServer.delete(`/v1/likes/comment/${commentIndex}`, {
+    data: { identity },
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
 };
 
 /**
@@ -208,27 +200,20 @@ export const deleteLikes = async (commentIndex: string, identity: string) => {
  */
 /* 추천 */
 export const postRecommends = async (identity: string, post_idx: string) => {
-  const response: AxiosResponse = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends`,
-    {
-      identity: identity,
-      post_idx: post_idx,
-    }
+  const response: AxiosResponse = await APIServer.post(
+    '/v1/recommends/posts',
+    { identity, post_idx },
+    { headers: { 'Content-Type': 'multipart/form-data' } }
   );
-  return response;
+  return response.data;
 };
 
 export const deleteRecommends = async (identity: string, post_idx: string) => {
-  const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends?post_idx=${post_idx}`,
-    {
-      data: {
-        identity: identity,
-        post_idx: post_idx,
-      },
-    }
-  );
-  return response;
+  const response: AxiosResponse = await APIServer.delete('/v1/recommends/posts', {
+    data: { identity, post_idx },
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
 };
 
 /**
@@ -236,53 +221,60 @@ export const deleteRecommends = async (identity: string, post_idx: string) => {
  */
 /* board article posting 하기 */
 export const postBoardArticle = async (
-  userId: string,
+  identity: string,
   boardIndex: number,
   lang: ServerLangType,
-  topicIndex: number,
+  topic_idx: number,
   title: string,
   contents: string,
   attachmentIds: string[]
 ) => {
-  const resposne: AxiosResponse<PostBoardArticleResponseType> = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postBoardArticle`,
-    { userId, boardIndex, lang, topicIndex, title, contents, attachmentIds }
+  const baseBodyData = { identity, lang, app_lang: lang, topic_idx, title, contents };
+  const isAttatchments = attachmentIds.length !== 0;
+  const finalBodyData = isAttatchments
+    ? { ...baseBodyData, attachment_ids: attachmentIds.toString() }
+    : baseBodyData;
+
+  const resposne: AxiosResponse<PostBoardArticleResponseType> = await APIServer.post(
+    `/voteWeb/boards/${boardIndex}/posts/0`,
+    finalBodyData,
+    { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
   );
   return resposne.data;
 };
 
 export const editBoardArticle = async (
-  userId: string,
-  postIndex: number,
+  identity: string,
+  post_idx: number,
   lang: ServerLangType,
-  topicIndex: number,
+  topic_idx: number,
   title: string,
   contents: string
 ) => {
-  const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editBoardArticle`,
-    { userId, postIndex, lang, title, contents, topicIndex }
+  const response: AxiosResponse<EditBoardArticleResponseType> = await APIServer.put(
+    '/v2/boards/posts',
+    { identity, post_idx, lang, app_lang: lang, title, contents, topic_idx, is_publish: 'Y' },
+    { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
   );
   return response.data;
 };
 
 export const getFileUploadUrl = async () => {
-  const response: AxiosResponse<EditorImageUrlResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUploadUrl`
-  );
+  const response: AxiosResponse<EditorImageUrlResponseType> = await APIServer.get('/voteWeb/imgs');
   return response.data;
 };
 
 export const uploadEditorFile = async (
-  userId: string,
+  identity: string,
   fileName: string,
   fileType: string,
-  uploadKey: string,
+  upload_key: string,
   postIndex?: number
 ) => {
-  const response: AxiosResponse<EditorImageUploadResponseType> = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUpload`,
-    { userId, fileName, fileType, uploadKey, postIndex }
+  const response: AxiosResponse<EditorImageUploadResponseType> = await APIServer.post(
+    '/voteWeb/imgs',
+    { identity, origin_name: fileName, file_ext: fileType, upload_key, post_idx: postIndex || 0 },
+    { headers: { 'Content-Type': 'multipart/form-data' } }
   );
   return response.data;
 };
@@ -293,23 +285,16 @@ export const uploadEditorFile = async (
 /* 신고 */
 export const reportPost = async (
   identity: string,
-  page: number,
-  per_page: number,
   post_idx: string,
   mode: 'recommend' | 'report',
   report_type: number
 ) => {
-  const response: AxiosResponse = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reportPost?identity=${identity}&page=${page}&per_page=${per_page}`,
-    {
-      identity: identity,
-      post_idx: post_idx,
-      mode: mode,
-      report_type: report_type,
-    }
+  const response: AxiosResponse = await APIServer.post(
+    '/v1/reports/posts',
+    { identity, post_idx, mode, report_type },
+    { headers: { 'Content-Type': 'multipart/form-data' } }
   );
-
-  return response;
+  return response.data;
 };
 
 export const reportComment = async (
@@ -317,16 +302,12 @@ export const reportComment = async (
   comment_idx: string,
   report_type: 'spam' | 'bad'
 ) => {
-  const response: AxiosResponse = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/reportComment`,
-    {
-      identity: identity,
-      comment_idx: comment_idx,
-      report_type: report_type,
-    }
+  const response: AxiosResponse = await APIServer.post(
+    '/v1/reports/comments',
+    { identity, comment_idx, report_type },
+    { headers: { 'Content-Type': 'multipart/form-data' } }
   );
-
-  return response;
+  return response.data;
 };
 
 /**
@@ -334,10 +315,9 @@ export const reportComment = async (
  */
 /* 유저정보 */
 export const getUser = async (user_idx: string, identity: string | null) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/user`,
-    { params: { user_idx, identity } }
-  );
+  const response: AxiosResponse = await APIServer.get(`/v1/users/${user_idx}`, {
+    params: { identity },
+  });
 
   return response.data;
 };

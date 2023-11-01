@@ -33,7 +33,7 @@ const SignUpTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
     async function update() {
       const user_id = cookies.get('user_id');
       const user_idx = cookies.get('user_idx');
-      const response = await setUserOnboard(user_id, user_idx);
+      await setUserOnboard(user_id, user_idx);
       router.push((router.query['nextUrl'] as string)?.replaceAll(';', '&') || '/');
     }
     if (start === true) update();

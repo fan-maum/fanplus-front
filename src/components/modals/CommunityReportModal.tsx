@@ -51,18 +51,16 @@ function CommunityReportModal({
         setReportModalBlock(false);
 
         if (target_type === 'post') {
-          let response = await reportPost(identity, 0, 20, idx, 'report', selectedValue);
+          let response = await reportPost(identity, idx, 'report', selectedValue);
           let modalMessage =
-            response?.data?.RESULTS?.MSG === 'success' ? texts.reported : texts.alreadyReportedPost;
+            response.RESULTS.MSG === 'success' ? texts.reported : texts.alreadyReportedPost;
           await setDoneModalMessage(modalMessage);
           await setDoneModalBlock(true);
         }
         if (target_type === 'comment') {
           const response = await reportComment(identity, idx, selectedValue);
           let modalMessage =
-            response?.data?.RESULTS?.MSG === 'success'
-              ? texts.reported
-              : texts.alreadyReportedComment;
+            response.RESULTS.MSG === 'success' ? texts.reported : texts.alreadyReportedComment;
           await setDoneModalMessage(modalMessage);
           await setDoneModalBlock(true);
           await refetch();

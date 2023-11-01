@@ -5,7 +5,6 @@ import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
 import type { CommunityBoardResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
-import nookies from 'nookies';
 
 export type CommunityMyPostPropType = {
   urlLang: UrlLangType;
@@ -28,18 +27,16 @@ const MyPost = ({ urlLang, userId, communityBoardData }: CommunityMyPostPropType
 export const getServerSideProps: GetServerSideProps<
   Omit<CommunityMyPostPropType, 'texts'>
 > = async (context) => {
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'] || '';
-
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
-  const boardIndex = parseInt(context.query.boardIndex as string);
-  const page = parseInt(context.query.page as string) - 1 || 0;
-  const boardLang = 'ALL';
+  const boardIndex = Number(context.query.boardIndex);
+  const page = Number(context.query.page) - 1 || 0;
   const topic = '';
-  const view_type = 'my_post';
+  const boardLang = 'ALL';
+  const viewType = 'my_post';
 
-  if (typeof boardIndex !== 'number') return { notFound: true };
+  const cookies = context.req.cookies;
+  const userId = cookies.user_id || null;
 
   const communityBoardData = await getCommunityBoardData(
     userId,
@@ -48,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<
     serverLang,
     boardLang,
     topic,
-    view_type
+    viewType
   );
 
   return { props: { urlLang, userId, communityBoardData } };

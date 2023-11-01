@@ -271,7 +271,7 @@ export type replyResponseType = {
       BEST_COMMENTS: [];
       COMMENTS: Array<CommentListItemType>;
       PAGE: number;
-      PER_PAGE: string;
+      PER_PAGE: number;
     };
     TIMESTAMP: number;
   };
