@@ -4,10 +4,27 @@ import type { CommunityLayoutTextType } from '@/types/textTypes';
 import { useState } from 'react';
 import PopularBoardItem from './PopularBoardItem';
 import { Decreased, Increased, New, NoChange } from './PopularBoardRightItems';
+import { translateUrlLangToServerLang, useUrlLanguage } from '@/hooks/useLanguage';
+import { useQuery } from 'react-query';
+import { getTop30 } from '@/api/Community';
+import { getPopularBoardRightItem } from './PopularBoards';
 
 const PopularBoardsMobile = ({ texts }: { texts: CommunityLayoutTextType }) => {
+  const lang = useUrlLanguage();
+  const serverLang = translateUrlLangToServerLang(lang);
+
   const [page, setPage] = useState(0);
   const [isOpened, setIsOpened] = useState(true);
+
+  const { data: popularBoardResponse } = useQuery({
+    queryKey: 'Top30 Popular Boards',
+    queryFn: () => getTop30(serverLang),
+    staleTime: 1000 * 60 * 10,
+    cacheTime: 1000 * 60 * 30,
+  });
+
+  const popularBoards = popularBoardResponse?.RESULTS.DATAS.TOP_BOARDS;
+  const partialPopularBoards = popularBoards?.slice(page * 5, page * 5 + 5);
 
   const onClickLeft = () => {
     setPage((prev) => prev - 1);
@@ -59,21 +76,17 @@ const PopularBoardsMobile = ({ texts }: { texts: CommunityLayoutTextType }) => {
           transition: '0.3s ease-in-out',
         }}
       >
-        <PopularBoardItem
-          rank={1}
-          boardName="bts"
-          boardIndex={1}
-          rightItem={<Increased rankChange={20} />}
-        />
-        <PopularBoardItem
-          rank={2}
-          boardName="bts"
-          boardIndex={1}
-          rightItem={<Decreased rankChange={20} />}
-        />
-        <PopularBoardItem rank={3} boardName="bts" boardIndex={1} rightItem={<NoChange />} />
-        <PopularBoardItem rank={4} boardName="bts" boardIndex={1} rightItem={<New />} />
-        <PopularBoardItem rank={5} boardName="bts" boardIndex={1} rightItem={<New />} />
+        {partialPopularBoards?.map((boardItem, index) => {
+          return (
+            <PopularBoardItem
+              key={'popularBoard' + index}
+              rank={Number(boardItem.RANK)}
+              boardName={boardItem.BOARD_TITLE}
+              boardIndex={Number(boardItem.BOARD_IDX)}
+              rightItem={getPopularBoardRightItem(boardItem.UP_DOWN)}
+            />
+          );
+        })}
         <Navigator
           page={page}
           texts={texts}

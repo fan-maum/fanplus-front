@@ -1,7 +1,19 @@
 import PopularBoardItem from './PopularBoardItem';
 import { Decreased, Increased, New, NoChange } from './PopularBoardRightItems';
+import { useQuery } from 'react-query';
+import { getTop30 } from '@/api/Community';
+import { translateUrlLangToServerLang, useUrlLanguage } from '@/hooks/useLanguage';
 
 const PopularBoards = ({ title }: { title: string }) => {
+  const lang = useUrlLanguage();
+  const serverLang = translateUrlLangToServerLang(lang);
+  const { data: popularBoardResponse } = useQuery({
+    queryKey: 'Top30 Popular Boards',
+    queryFn: () => getTop30(serverLang),
+    staleTime: 1000 * 60 * 30,
+    cacheTime: 100 * 60 * 60,
+  });
+
   return (
     <div
       css={{
@@ -26,24 +38,27 @@ const PopularBoards = ({ title }: { title: string }) => {
       >
         {title}
       </div>
-      <PopularBoardItem
-        rank={1}
-        boardName="bts"
-        boardIndex={1}
-        rightItem={<Increased rankChange={20} />}
-      />
-      <PopularBoardItem
-        rank={2}
-        boardName="bts"
-        boardIndex={1}
-        rightItem={<Decreased rankChange={20} />}
-      />
-      <PopularBoardItem rank={3} boardName="bts" boardIndex={1} rightItem={<NoChange />} />
-      <PopularBoardItem rank={4} boardName="bts" boardIndex={1} rightItem={<New />} />
-      <PopularBoardItem rank={5} boardName="bts" boardIndex={1} rightItem={<New />} />
-      <PopularBoardItem rank={6} boardName="bts" boardIndex={1} rightItem={<New />} />
+      {popularBoardResponse?.RESULTS.DATAS.TOP_BOARDS.map((boardItem, index) => {
+        return (
+          <PopularBoardItem
+            key={'popularBoard' + index}
+            rank={Number(boardItem.RANK)}
+            boardName={boardItem.BOARD_TITLE}
+            boardIndex={Number(boardItem.BOARD_IDX)}
+            rightItem={getPopularBoardRightItem(boardItem.UP_DOWN)}
+          />
+        );
+      })}
     </div>
   );
 };
 
 export default PopularBoards;
+
+export const getPopularBoardRightItem = (upDown: string | number) => {
+  const rankChange = Number(upDown);
+  if (upDown === 'NEW') return <New />;
+  if (rankChange > 0) return <Increased rankChange={Math.abs(rankChange)} />;
+  if (rankChange < 0) return <Decreased rankChange={Math.abs(rankChange)} />;
+  return <NoChange />;
+};
