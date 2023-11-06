@@ -71,6 +71,7 @@ const PopularBoardsMobile = ({ texts }: { texts: CommunityLayoutTextType }) => {
       </div>
       <div
         css={{
+          position: 'relative',
           height: isOpened ? '205px' : '32px',
           overflow: 'hidden',
           transition: '0.3s ease-in-out',
@@ -90,6 +91,7 @@ const PopularBoardsMobile = ({ texts }: { texts: CommunityLayoutTextType }) => {
         <Navigator
           page={page}
           texts={texts}
+          show={isOpened}
           onClickLeft={onClickLeft}
           onClickRight={onClickRight}
           onClickClose={onClickClose}
@@ -109,12 +111,14 @@ export default PopularBoardsMobile;
 const Navigator = ({
   page,
   texts,
+  show,
   onClickLeft,
   onClickRight,
   onClickClose,
 }: {
   page: number;
   texts: CommunityLayoutTextType;
+  show: boolean;
   onClickLeft: () => void;
   onClickRight: () => void;
   onClickClose: () => void;
@@ -122,7 +126,10 @@ const Navigator = ({
   return (
     <div
       css={{
-        display: 'flex',
+        width: '100%',
+        display: show ? 'flex' : 'none',
+        position: 'absolute',
+        bottom: '0px',
         height: '40px',
         justifyContent: 'space-between',
         alignItems: 'center',
