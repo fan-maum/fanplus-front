@@ -395,3 +395,21 @@ export type userResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type TopBoardItemType = {
+  BOARD_IDX: string;
+  RANK: string;
+  UP_DOWN: string;
+  WEEK: string;
+  BOARD_TITLE: string;
+};
+export type Top30Response = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      TOP_BOARDS: Array<TopBoardItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};

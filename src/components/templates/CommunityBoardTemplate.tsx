@@ -16,6 +16,7 @@ import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLan
 import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
 import CommunityBoardArticleMain from '../organisms/community/CommunityBoardArticleMain';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
+import CommunityLayout from './CommunityLayout';
 
 const CommunityBoardTemplate = ({
   urlLang,
@@ -99,68 +100,70 @@ const CommunityBoardTemplate = ({
   };
 
   return (
-    <div
-      css={{
-        width: '100%',
-        maxWidth: '768px',
-        margin: '0px auto',
-        position: 'relative',
-      }}
-    >
-      <CommunityBoardTopNavi
-        boardTitle={boardInfo.BOARD_TITLE as string}
-        rightItem={
-          <CommunityBoardLangSelector
-            language={texts.boardLang[boardLang]}
-            onClickOpenModal={() => setLangModal(true)}
-            tooltipText={texts.langSelectorToolTip}
-            boardLang={boardLang}
-          />
-        }
-      />
-      <TopicTabBar
-        stringTopicAll={texts.all}
-        topicList={topicList}
-        topicIndex={topicIndex}
-        onClickTopic={onClickTopic}
-      />
-      {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
-      <CommunityBoardArticleMain
-        communityBoardDataSSR={communityBoardData}
-        texts={texts}
-        queries={{ userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType }}
-        isInitialData={isInitialData}
-        onClickWrite={onClickWrite}
-      />
-      <BottomTabBar
-        items={[
-          { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
-          {
-            icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
-            title: texts.bottomTabBar.popular,
-            onClick: onClickPopular,
-          },
-          { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
-        ]}
-      />
-      <CommunityLanguageModal
-        texts={texts.boardLang}
-        opened={langModal}
-        setModal={setLangModal}
-        boardLang={boardLang}
-        onClickLanguageBox={onClickLanguageBox}
-      />
-      <CommunityCommonModal
-        opened={permissionModal}
-        onClose={() => setPermissionModal(false)}
-        confirmButton={{
-          onClick: () => setPermissionModal(false),
-          text: texts.permissionModal.check,
+    <CommunityLayout>
+      <div
+        css={{
+          width: '100%',
+          maxWidth: '768px',
+          margin: '0px auto',
+          position: 'relative',
         }}
       >
-        {texts.permissionModal.noPermission}
-      </CommunityCommonModal>
-    </div>
+        <CommunityBoardTopNavi
+          boardTitle={boardInfo.BOARD_TITLE as string}
+          rightItem={
+            <CommunityBoardLangSelector
+              language={texts.boardLang[boardLang]}
+              onClickOpenModal={() => setLangModal(true)}
+              tooltipText={texts.langSelectorToolTip}
+              boardLang={boardLang}
+            />
+          }
+        />
+        <TopicTabBar
+          stringTopicAll={texts.all}
+          topicList={topicList}
+          topicIndex={topicIndex}
+          onClickTopic={onClickTopic}
+        />
+        {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
+        <CommunityBoardArticleMain
+          communityBoardDataSSR={communityBoardData}
+          texts={texts}
+          queries={{ userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType }}
+          isInitialData={isInitialData}
+          onClickWrite={onClickWrite}
+        />
+        <BottomTabBar
+          items={[
+            { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
+            {
+              icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
+              title: texts.bottomTabBar.popular,
+              onClick: onClickPopular,
+            },
+            { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
+          ]}
+        />
+        <CommunityLanguageModal
+          texts={texts.boardLang}
+          opened={langModal}
+          setModal={setLangModal}
+          boardLang={boardLang}
+          onClickLanguageBox={onClickLanguageBox}
+        />
+        <CommunityCommonModal
+          opened={permissionModal}
+          onClose={() => setPermissionModal(false)}
+          confirmButton={{
+            onClick: () => setPermissionModal(false),
+            text: texts.permissionModal.check,
+          }}
+        >
+          {texts.permissionModal.noPermission}
+        </CommunityCommonModal>
+      </div>
+    </CommunityLayout>
   );
 };
 
