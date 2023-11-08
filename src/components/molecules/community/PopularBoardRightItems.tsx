@@ -30,7 +30,11 @@ export const NoChange = () => {
 };
 
 export const New = () => {
-  return <ChangeInfo>NEW</ChangeInfo>;
+  return (
+    <ChangeInfo>
+      <span css={{ color: '#ff5656' }}>NEW</span>
+    </ChangeInfo>
+  );
 };
 
 const ChangeInfo = ({ children }: { children: ReactNode }) => {
@@ -42,7 +46,8 @@ const ChangeInfo = ({ children }: { children: ReactNode }) => {
         alignItems: 'center',
         justifyContent: 'center',
         width: '28px',
-        right: '20px',
+        right: '15px',
+        fontSize: '13px',
       }}
     >
       {children}
@@ -52,8 +57,6 @@ const ChangeInfo = ({ children }: { children: ReactNode }) => {
 
 const Difference = ({ children, color }: { children: ReactNode; color: string }) => {
   return (
-    <span css={{ color, fontSize: '12px', lineHeight: '11px', fontWeight: 500, marginLeft: '2px' }}>
-      {children}
-    </span>
+    <span css={{ color, lineHeight: '11px', fontWeight: 500, marginLeft: '2px' }}>{children}</span>
   );
 };

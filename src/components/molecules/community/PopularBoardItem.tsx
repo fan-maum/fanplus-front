@@ -29,7 +29,18 @@ const PopularBoardItem = ({ rank, boardName, boardIndex, rightItem }: BoardItemP
       }}
     >
       <span css={{ margin: '0 14px 0 17px', fontWeight: 600 }}>{ranking}</span>
-      {boardName}
+      <p
+        css={{
+          '@media screen and (min-width: 768px)': {
+            width: '132px',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+          },
+        }}
+      >
+        {boardName}
+      </p>
       {rightItem}
     </Link>
   );
