@@ -1,18 +1,14 @@
-import PrivacyInternationalTemplate from '@/components/templates/PrivacyInternationalTemplate';
-import PrivacyKoreanTemplate from '@/components/templates/PrivacyKoreanTemplate';
+import ThirdPartyInternationalTemplate from '@/components/templates/ThirdPartyInternationalTemplate';
+import ThirdPartyKoreanTemplate from '@/components/templates/ThirdPartyKoreanTemplate';
 import { TermsType } from '@/types/common';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
-const Privacy = ({ data }: TermsType) => {
+const ThirdParty = ({ data }: TermsType) => {
   const { locale } = data;
-  return locale === 'ko' ? (
-    <PrivacyKoreanTemplate urlLang={locale} />
-  ) : (
-    <PrivacyInternationalTemplate urlLang={locale} />
-  );
+  return locale === 'ko' ? <ThirdPartyKoreanTemplate /> : <ThirdPartyInternationalTemplate />;
 };
 
-export default Privacy;
+export default ThirdParty;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const data = params;
