@@ -1,20 +1,26 @@
+import { getTop30 } from '@/api/Community';
 import IconArrowDown from '@/components/atoms/IconArrowDown';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
+import { translateUrlLangToServerLang, useUrlLanguage } from '@/hooks/useLanguage';
 import type { CommunityLayoutTextType } from '@/types/textTypes';
 import { useState } from 'react';
-import PopularBoardItem from './PopularBoardItem';
-import { Decreased, Increased, New, NoChange } from './PopularBoardRightItems';
-import { translateUrlLangToServerLang, useUrlLanguage } from '@/hooks/useLanguage';
 import { useQuery } from 'react-query';
-import { getTop30 } from '@/api/Community';
+import PopularBoardItem from './PopularBoardItem';
 import { getPopularBoardRightItem } from './PopularBoards';
+import PopularBoardsRolling from './PopularBoardsRolling';
 
-const PopularBoardsMobile = ({ texts }: { texts: CommunityLayoutTextType }) => {
+const PopularBoardsMobile = ({
+  texts,
+  initialOpen,
+}: {
+  texts: CommunityLayoutTextType;
+  initialOpen: boolean;
+}) => {
   const lang = useUrlLanguage();
   const serverLang = translateUrlLangToServerLang(lang);
 
   const [page, setPage] = useState(0);
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(initialOpen);
 
   const { data: popularBoardResponse } = useQuery({
     queryKey: 'Top30 Popular Boards',
@@ -46,6 +52,8 @@ const PopularBoardsMobile = ({ texts }: { texts: CommunityLayoutTextType }) => {
   return (
     <div
       css={{
+        display: 'none',
+        '@media (max-width: 768px)': { display: 'block' },
         width: 'calc(100% - 32px)',
         border: '1px solid #d9d9d9',
         margin: '0 16px',
@@ -77,25 +85,28 @@ const PopularBoardsMobile = ({ texts }: { texts: CommunityLayoutTextType }) => {
           transition: '0.3s ease-in-out',
         }}
       >
-        {partialPopularBoards?.map((boardItem, index) => {
-          return (
-            <PopularBoardItem
-              key={'popularBoard' + index}
-              rank={Number(boardItem.RANK)}
-              boardName={boardItem.BOARD_TITLE}
-              boardIndex={Number(boardItem.BOARD_IDX)}
-              rightItem={getPopularBoardRightItem(boardItem.UP_DOWN)}
-            />
-          );
-        })}
-        <Navigator
-          page={page}
-          texts={texts}
-          show={isOpened}
-          onClickLeft={onClickLeft}
-          onClickRight={onClickRight}
-          onClickClose={onClickClose}
-        />
+        {!isOpened && <PopularBoardsRolling popularBoards={popularBoards} />}
+        {isOpened &&
+          partialPopularBoards?.map((boardItem, index) => {
+            return (
+              <PopularBoardItem
+                key={'popularBoard' + index}
+                rank={Number(boardItem.RANK)}
+                boardName={boardItem.BOARD_TITLE}
+                boardIndex={Number(boardItem.BOARD_IDX)}
+                rightItem={getPopularBoardRightItem(boardItem.UP_DOWN)}
+              />
+            );
+          })}
+        {isOpened && (
+          <Navigator
+            page={page}
+            texts={texts}
+            onClickLeft={onClickLeft}
+            onClickRight={onClickRight}
+            onClickClose={onClickClose}
+          />
+        )}
       </div>
     </div>
   );
@@ -111,14 +122,12 @@ export default PopularBoardsMobile;
 const Navigator = ({
   page,
   texts,
-  show,
   onClickLeft,
   onClickRight,
   onClickClose,
 }: {
   page: number;
   texts: CommunityLayoutTextType;
-  show: boolean;
   onClickLeft: () => void;
   onClickRight: () => void;
   onClickClose: () => void;
@@ -127,7 +136,7 @@ const Navigator = ({
     <div
       css={{
         width: '100%',
-        display: show ? 'flex' : 'none',
+        display: 'flex',
         position: 'absolute',
         bottom: '0px',
         height: '40px',

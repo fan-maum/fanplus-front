@@ -11,7 +11,6 @@ import type { CommunityPageTextType } from '@/types/textTypes';
 import { getStorageRecentBoardDatas } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
 import { useQuery } from 'react-query';
 import { BoardItemListSkeleton } from '../molecules/community/CommunitySkeleton';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
@@ -90,7 +89,10 @@ const CommunityPageTemplate = ({
         />
         {tabBar === 'home' ? (
           <>
-            {isMobile && <PopularBoardsMobile texts={communityLayoutTexts[urlLang]} />}
+            <PopularBoardsMobile
+              texts={communityLayoutTexts[urlLang]}
+              initialOpen={!isRecentlyListExist}
+            />
             {isRecentlyListExist ? (
               <CommunityBoardWrapper
                 title={texts.recentlyBoards}
