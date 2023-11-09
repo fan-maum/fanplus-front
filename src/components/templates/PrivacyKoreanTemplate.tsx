@@ -1,8 +1,7 @@
-// import '../../styles/privacy.css';
 import css from 'styled-jsx/css';
 import { PrivacyTemplateType } from './PrivacyInternationalTemplate';
 
-const PrivacyKoreanTemplate = ({ urlLang, ThirdPartyOnClick }: PrivacyTemplateType) => {
+const PrivacyKoreanTemplate = ({ urlLang, thirdPartyOnClick }: PrivacyTemplateType) => {
   return (
     <>
       <div className="c16 doc-content">
@@ -177,7 +176,7 @@ const PrivacyKoreanTemplate = ({ urlLang, ThirdPartyOnClick }: PrivacyTemplateTy
             <a
               className="moveToThirdParty"
               onClick={() =>
-                ThirdPartyOnClick(
+                thirdPartyOnClick(
                   '개인정보의 제 3자 제공',
                   `https://fanplus.co.kr/${urlLang}/thirdParty`
                 )

@@ -3,10 +3,10 @@ import css from 'styled-jsx/css';
 
 export type PrivacyTemplateType = {
   urlLang: UrlLangType;
-  ThirdPartyOnClick: (title: string, url: string) => void;
+  thirdPartyOnClick: (title: string, url: string) => void;
 };
 
-const PrivacyInternationalTemplate = ({ urlLang, ThirdPartyOnClick }: PrivacyTemplateType) => {
+const PrivacyInternationalTemplate = ({ urlLang, thirdPartyOnClick }: PrivacyTemplateType) => {
   return (
     <>
       <div className="c19 c23 doc-content">
@@ -223,7 +223,7 @@ const PrivacyInternationalTemplate = ({ urlLang, ThirdPartyOnClick }: PrivacyTem
             <a
               className="moveToThirdParty"
               onClick={() =>
-                ThirdPartyOnClick(
+                thirdPartyOnClick(
                   'Privacy Terms and Conditions: to third parties',
                   `https://fanplus.co.kr/${urlLang}/thirdParty`
                 )
