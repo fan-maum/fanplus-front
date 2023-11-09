@@ -3,12 +3,23 @@ import PrivacyKoreanTemplate from '@/components/templates/PrivacyKoreanTemplate'
 import { TermsType } from '@/types/common';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
+export type ThirdPartyOnClickProps = {
+  title: string;
+  url: string;
+};
+
 const Privacy = ({ data }: TermsType) => {
   const { locale } = data;
+  const ThirdPartyOnClick = (title: string, url: string) => {
+    // eslint-disable-next-line no-console
+    console.log(title, url);
+    return { title, url };
+  };
+
   return locale === 'ko' ? (
-    <PrivacyKoreanTemplate urlLang={locale} />
+    <PrivacyKoreanTemplate urlLang={locale} ThirdPartyOnClick={ThirdPartyOnClick} />
   ) : (
-    <PrivacyInternationalTemplate urlLang={locale} />
+    <PrivacyInternationalTemplate urlLang={locale} ThirdPartyOnClick={ThirdPartyOnClick} />
   );
 };
 
