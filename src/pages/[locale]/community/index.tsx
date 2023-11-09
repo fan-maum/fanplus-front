@@ -6,7 +6,7 @@ import {
 import Layout from '@/components/organisms/Layout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { UrlLangType } from '@/types/common';
+import type { ServerLangType, UrlLangType } from '@/types/common';
 import type {
   BoardListItemType,
   CommunityBoardCategoryResponseType,
@@ -14,6 +14,13 @@ import type {
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
+
+type InitialBoardResultProps = {
+  category_type: number;
+  searchValue: string;
+  serverLang: ServerLangType;
+  page: number;
+};
 
 type CommunityHomeDataType = {
   recommendList: BoardListItemType[];
@@ -25,6 +32,7 @@ export type CommunityPropTypes = {
   communityHomeData: CommunityHomeDataType;
   boardCategoryData: CommunityBoardCategoryResponseType;
   boardResultData: CommunityBoardResultResponseType;
+  initialProps: InitialBoardResultProps;
 };
 
 const CommunityHomePage = ({
@@ -32,6 +40,7 @@ const CommunityHomePage = ({
   communityHomeData,
   boardCategoryData,
   boardResultData,
+  initialProps,
 }: CommunityPropTypes) => {
   return (
     <Layout urlLang={urlLang}>
@@ -40,6 +49,7 @@ const CommunityHomePage = ({
         communityHomeData={communityHomeData}
         boardCategoryData={boardCategoryData}
         boardResultData={boardResultData}
+        initialProps={initialProps}
       />
     </Layout>
   );
@@ -64,8 +74,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     page,
     per_page
   );
+  const initialProps = { category_type, searchValue, serverLang, page };
+
   return {
-    props: { urlLang, communityHomeData, boardCategoryData, boardResultData },
+    props: { urlLang, communityHomeData, boardCategoryData, boardResultData, initialProps },
   };
 };
 

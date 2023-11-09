@@ -33,6 +33,7 @@ import CommunityReportModal from '../modals/CommunityReportModal';
 import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
+import CommunityLayout from './CommunityLayout';
 
 const CommunityPostTemplate = ({
   urlLang,
@@ -170,13 +171,13 @@ const CommunityPostTemplate = ({
 
   return (
     <>
-      <Layout>
+      <CommunityLayout>
         <LayoutInner>
           <PostDetailLayout {...layoutProps} />
           <PostCommentWrapper {...commentProps} />
         </LayoutInner>
         <PostFixedBottomWrapper {...fixedBottomProps} />
-      </Layout>
+      </CommunityLayout>
       <CommunityReportModal
         opened={reportModalBlock}
         texts={texts}
@@ -218,12 +219,6 @@ const CommunityPostTemplate = ({
 };
 
 export default CommunityPostTemplate;
-
-const Layout = styled.div`
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-`;
 
 const LayoutInner = styled.div`
   width: 100%;

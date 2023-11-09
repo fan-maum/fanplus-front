@@ -17,16 +17,20 @@ const SearchScrollTabBar = ({
 }: SearchScrollTabBarProps) => {
   const router = useRouter();
   const { category_type, searchValue, page = 0 } = router?.query;
-  const handleTabClick = (index: number, tabName: string) => {
-    setActiveTab(tabName);
-    router.push({
-      pathname: router.pathname,
-      query: {
-        category_type: tabs[index].CATEGORY_IDX,
-        searchValue: searchValue,
-        locale: router.query.locale,
+  const handleTabClick = async (index: number, tabName: string) => {
+    await setActiveTab(tabName);
+    await router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          category_type: tabs[index].CATEGORY_IDX,
+          searchValue: searchValue,
+          locale: router.query.locale,
+        },
       },
-    });
+      undefined,
+      { shallow: true }
+    );
   };
 
   useEffect(() => {
@@ -54,11 +58,7 @@ const SearchScrollTabBar = ({
           }}
         >
           {tabs.map((tab, index) => (
-            <SwiperSlide
-              key={index}
-              //   active={activeTab === tab.CATEGORY_NAME}
-              onClick={() => handleTabClick(index, tab.CATEGORY_NAME)}
-            >
+            <SwiperSlide key={index} onClick={() => handleTabClick(index, tab.CATEGORY_NAME)}>
               <Title active={activeTab === tab.CATEGORY_NAME}>{tab.CATEGORY_NAME}</Title>
             </SwiperSlide>
           ))}

@@ -3,11 +3,13 @@ function IconArrowDown({
   height = '100%',
   strokeWidth = '2',
   isReverse = false,
+  onClick,
 }: {
   width?: string;
   height?: string;
   strokeWidth?: string;
   isReverse?: boolean;
+  onClick?: () => void;
 }) {
   return (
     <svg
@@ -21,6 +23,7 @@ function IconArrowDown({
         transition: '0.4s ease-in-out',
         transform: isReverse ? 'scaleY(-1)' : '',
       }}
+      onClick={onClick}
     >
       <path
         stroke="#666"

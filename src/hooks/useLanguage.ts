@@ -3,11 +3,16 @@ import { useRouter } from 'next/router';
 
 export function useUrlLanguage() {
   const router = useRouter();
-  const language = router.asPath.split('/')[1];
-  return language as UrlLangType;
+  const urlLang = router.query.locale;
+  return urlLang as UrlLangType;
 }
 
-export function translateUrlLangToServerLang(lang: UrlLangType) {
+export function useServerLang() {
+  const urlLang = useUrlLanguage();
+  return translateUrlLangToServerLang(urlLang);
+}
+
+export function translateUrlLangToServerLang(urlLang: UrlLangType) {
   const translator: Record<UrlLangType, ServerLangType> = {
     ko: 'ko',
     en: 'en',
@@ -18,5 +23,5 @@ export function translateUrlLangToServerLang(lang: UrlLangType) {
     'zh-CN': 'zh',
     'zh-TW': 'zhtw',
   };
-  return translator[lang] || 'en';
+  return translator[urlLang] || 'en';
 }
