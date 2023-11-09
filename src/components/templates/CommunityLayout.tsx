@@ -9,7 +9,7 @@ const CommunityLayout = ({ children }: { children: ReactNode }) => {
   const texts = communityLayoutTexts[urlLang];
 
   return (
-    <div>
+    <div css={{ minHeight: '1200px' }}>
       {!isMobile && <PopularBoards title={texts.popularBoards + ' TOP 30'} />}
       {children}
     </div>
