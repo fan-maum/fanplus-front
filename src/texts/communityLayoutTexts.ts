@@ -7,15 +7,15 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: '닫기',
   },
   en: {
-    popularBoards: 'popular board',
+    popularBoards: 'Popular board',
     close: 'Close',
   },
   es: {
-    popularBoards: 'popular tablero',
+    popularBoards: 'Popular tablero',
     close: 'Cerrar',
   },
   in: {
-    popularBoards: 'populer papan',
+    popularBoards: 'Populer papan',
     close: 'Tutup',
   },
   ja: {
@@ -23,7 +23,7 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: '閉じる',
   },
   vi: {
-    popularBoards: 'nổi tiếng board',
+    popularBoards: 'Nổi tiếng board',
     close: 'Đóng',
   },
   'zh-CN': {
