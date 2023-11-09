@@ -403,7 +403,7 @@ export type TopBoardItemType = {
   WEEK: string;
   BOARD_TITLE: string;
 };
-export type Top30Response = {
+export type Top30ResponseType = {
   RESULTS: {
     ERROR: number;
     MSG: string;
