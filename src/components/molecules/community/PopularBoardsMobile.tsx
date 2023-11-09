@@ -3,7 +3,7 @@ import IconArrowDown from '@/components/atoms/IconArrowDown';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { translateUrlLangToServerLang, useUrlLanguage } from '@/hooks/useLanguage';
 import type { CommunityLayoutTextType } from '@/types/textTypes';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import PopularBoardItem from './PopularBoardItem';
 import { getPopularBoardRightItem } from './PopularBoards';
@@ -20,12 +20,16 @@ const PopularBoardsMobile = ({
   const serverLang = translateUrlLangToServerLang(lang);
 
   const [page, setPage] = useState(0);
-  const [isOpened, setIsOpened] = useState(initialOpen);
+  const [isOpened, setIsOpened] = useState(false);
+
+  useEffect(() => {
+    setIsOpened(initialOpen);
+  }, [initialOpen]);
 
   const { data: popularBoardResponse } = useQuery({
     queryKey: 'Top30 Popular Boards',
     queryFn: () => getTop30(serverLang),
-    staleTime: 1000 * 60 * 10,
+    staleTime: 1000 * 60 * 15,
     cacheTime: 1000 * 60 * 30,
   });
 
@@ -52,8 +56,7 @@ const PopularBoardsMobile = ({
   return (
     <div
       css={{
-        display: 'none',
-        '@media (max-width: 768px)': { display: 'block' },
+        '@media (min-width: 768px)': { display: 'none' },
         width: 'calc(100% - 32px)',
         border: '1px solid #d9d9d9',
         margin: '0 16px',

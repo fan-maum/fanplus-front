@@ -8,7 +8,7 @@ import type {
   PostBoardArticleResponseType,
   RecentlyListResponseType,
   RecommendListResponseType,
-  Top30Response,
+  Top30ResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
 
@@ -347,7 +347,7 @@ export const getUser = async (user_idx: string, identity: string | null) => {
  * TOP30 인기 게시판
  */
 export const getTop30 = async (lang: ServerLangType) => {
-  const response: AxiosResponse<Top30Response> = await axios.get(
+  const response: AxiosResponse<Top30ResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/PopularTop30`,
     { params: { lang } }
   );
