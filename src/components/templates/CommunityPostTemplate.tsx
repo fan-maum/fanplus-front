@@ -172,13 +172,11 @@ const CommunityPostTemplate = ({
   return (
     <>
       <CommunityLayout>
-        <Layout>
-          <LayoutInner>
-            <PostDetailLayout {...layoutProps} />
-            <PostCommentWrapper {...commentProps} />
-          </LayoutInner>
-          <PostFixedBottomWrapper {...fixedBottomProps} />
-        </Layout>
+        <LayoutInner>
+          <PostDetailLayout {...layoutProps} />
+          <PostCommentWrapper {...commentProps} />
+        </LayoutInner>
+        <PostFixedBottomWrapper {...fixedBottomProps} />
       </CommunityLayout>
       <CommunityReportModal
         opened={reportModalBlock}
@@ -221,12 +219,6 @@ const CommunityPostTemplate = ({
 };
 
 export default CommunityPostTemplate;
-
-const Layout = styled.div`
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-`;
 
 const LayoutInner = styled.div`
   width: 100%;
