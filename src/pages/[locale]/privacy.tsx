@@ -12,7 +12,7 @@ export type ThirdPartyOnClickProps = {
 
 const Privacy = ({ data }: TermsType) => {
   const { locale } = data;
-  const [userAgent, setUserAgent] = useState<any>(null);
+  const [userAgent, setUserAgent] = useState<string>('');
   useEffect(() => {
     const userAgent = navigator.userAgent;
     setUserAgent(userAgent);
