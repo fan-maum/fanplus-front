@@ -396,19 +396,19 @@ export type userResponseType = {
   };
 };
 
-export type TopBoardItemType = {
+export type PopularBoardItemType = {
   BOARD_IDX: string;
   RANK: string;
   UP_DOWN: string;
   WEEK: string;
   BOARD_TITLE: string;
 };
-export type Top30ResponseType = {
+export type Top30PopularBoardsResponseType = {
   RESULTS: {
     ERROR: number;
     MSG: string;
     DATAS: {
-      TOP_BOARDS: Array<TopBoardItemType>;
+      TOP_BOARDS: Array<PopularBoardItemType>;
     };
     TIMESTAMP: number;
   };

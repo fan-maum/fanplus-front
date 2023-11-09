@@ -23,8 +23,9 @@ export const BoardItemSkeleton = () => {
 };
 
 export const BoardItemListSkeleton = () => {
-  const SkeletonList = Array.from({ length: 20 }, BoardItemSkeleton);
-  return SkeletonList;
+  return Array.from({ length: 20 }, (_, idx) => (
+    <BoardItemSkeleton key={'Board Item Skeleton' + idx} />
+  ));
 };
 
 const SingleBoardArticleSkeleton = () => {
@@ -47,6 +48,35 @@ const SingleBoardArticleSkeleton = () => {
 };
 
 export const CommunityBoardArticleSkeleton = () => {
-  const SkeletonList = Array.from({ length: 20 }, SingleBoardArticleSkeleton);
-  return SkeletonList;
+  return Array.from({ length: 20 }, (_, idx) => (
+    <SingleBoardArticleSkeleton key={'Board Article Skeleton' + idx} />
+  ));
+};
+
+const PopularBoardItemSkeleton = () => {
+  return (
+    <div
+      css={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        position: 'relative',
+        width: '100%',
+        height: '33px',
+        borderBottom: '1px solid #d9d9d9',
+      }}
+    >
+      <Skeleton width={20} height={18} ml={17} mr={14} radius="sm" />
+      <Skeleton width={100} height={18} radius="sm" />
+      <span css={{ position: 'absolute', right: '15px' }}>
+        <Skeleton width={28} height={18} radius="sm" />
+      </span>
+    </div>
+  );
+};
+
+export const PopularBoardsSkeleton = () => {
+  return Array.from({ length: 30 }, (_, idx) => (
+    <PopularBoardItemSkeleton key={'Popular Board Item Skeleton' + idx} />
+  ));
 };

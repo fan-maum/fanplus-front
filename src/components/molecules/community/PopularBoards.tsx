@@ -1,18 +1,12 @@
+import { useServerLang } from '@/hooks/useLanguage';
+import { useGetPopularBoardsQuery } from '@/server/useGetPopularBoardsQuery';
+import { PopularBoardsSkeleton } from './CommunitySkeleton';
 import PopularBoardItem from './PopularBoardItem';
 import { Decreased, Increased, New, NoChange } from './PopularBoardRightItems';
-import { useQuery } from 'react-query';
-import { getTop30 } from '@/api/Community';
-import { translateUrlLangToServerLang, useUrlLanguage } from '@/hooks/useLanguage';
 
 const PopularBoards = ({ title }: { title: string }) => {
-  const lang = useUrlLanguage();
-  const serverLang = translateUrlLangToServerLang(lang);
-  const { data: popularBoardResponse } = useQuery({
-    queryKey: 'Top30 Popular Boards',
-    queryFn: () => getTop30(serverLang),
-    staleTime: 1000 * 60 * 30,
-    cacheTime: 100 * 60 * 60,
-  });
+  const serverLang = useServerLang();
+  const { data, isFetching } = useGetPopularBoardsQuery(serverLang);
 
   return (
     <div
@@ -38,7 +32,8 @@ const PopularBoards = ({ title }: { title: string }) => {
       >
         {title}
       </div>
-      {popularBoardResponse?.RESULTS.DATAS.TOP_BOARDS.map((boardItem, index) => {
+      {isFetching && <PopularBoardsSkeleton />}
+      {data?.RESULTS.DATAS.TOP_BOARDS.map((boardItem, index) => {
         return (
           <PopularBoardItem
             key={'popularBoard' + index}
