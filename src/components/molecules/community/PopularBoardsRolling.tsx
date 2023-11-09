@@ -1,4 +1,4 @@
-import { TopBoardItemType } from '@/types/community';
+import type { PopularBoardItemType } from '@/types/community';
 import { useInterval } from '@/hooks/useInterval';
 import { useEffect, useState } from 'react';
 import PopularBoardItem from './PopularBoardItem';
@@ -7,7 +7,7 @@ import { getPopularBoardRightItem } from './PopularBoards';
 const PopularBoardsRolling = ({
   popularBoards,
 }: {
-  popularBoards: TopBoardItemType[] | undefined;
+  popularBoards: PopularBoardItemType[] | undefined;
 }) => {
   const [rollingIndex, setRollingIndex] = useState(0);
   const interval = useInterval(() => setRollingIndex((prev) => (prev + 1) % 30), 3000);

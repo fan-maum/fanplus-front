@@ -1,10 +1,9 @@
-import { getTop30 } from '@/api/Community';
 import IconArrowDown from '@/components/atoms/IconArrowDown';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
-import { translateUrlLangToServerLang, useUrlLanguage } from '@/hooks/useLanguage';
+import { useServerLang } from '@/hooks/useLanguage';
+import { useGetPopularBoardsQuery } from '@/server/useGetPopularBoardsQuery';
 import type { CommunityLayoutTextType } from '@/types/textTypes';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
 import PopularBoardItem from './PopularBoardItem';
 import { getPopularBoardRightItem } from './PopularBoards';
 import PopularBoardsRolling from './PopularBoardsRolling';
@@ -16,8 +15,7 @@ const PopularBoardsMobile = ({
   texts: CommunityLayoutTextType;
   initialOpen: boolean;
 }) => {
-  const lang = useUrlLanguage();
-  const serverLang = translateUrlLangToServerLang(lang);
+  const serverLang = useServerLang();
 
   const [page, setPage] = useState(0);
   const [isOpened, setIsOpened] = useState(false);
@@ -26,14 +24,8 @@ const PopularBoardsMobile = ({
     setIsOpened(initialOpen);
   }, [initialOpen]);
 
-  const { data: popularBoardResponse } = useQuery({
-    queryKey: 'Top30 Popular Boards',
-    queryFn: () => getTop30(serverLang),
-    staleTime: 1000 * 60 * 15,
-    cacheTime: 1000 * 60 * 30,
-  });
-
-  const popularBoards = popularBoardResponse?.RESULTS.DATAS.TOP_BOARDS;
+  const { data } = useGetPopularBoardsQuery(serverLang);
+  const popularBoards = data?.RESULTS.DATAS.TOP_BOARDS;
   const partialPopularBoards = popularBoards?.slice(page * 5, page * 5 + 5);
 
   const onClickLeft = () => {

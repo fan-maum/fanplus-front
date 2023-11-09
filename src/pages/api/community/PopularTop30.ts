@@ -1,4 +1,4 @@
-import type { Top30ResponseType } from '@/types/community';
+import type { Top30PopularBoardsResponseType } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
 import type { NextApiHandler } from 'next';
 
@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req, res) => {
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
-    const response: AxiosResponse<Top30ResponseType> = await axios.get(
+    const response: AxiosResponse<Top30PopularBoardsResponseType> = await axios.get(
       `https://napi.appphotocard.com/voteWeb/boards/top?lang=${lang}`,
       {
         headers: {
