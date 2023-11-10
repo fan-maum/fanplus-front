@@ -6,7 +6,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useEffect, useState } from 'react';
 
 export type ThirdPartyOnClickProps = {
-  title: string;
+  title?: string;
   url: string;
 };
 
@@ -29,7 +29,7 @@ const Privacy = ({ data }: TermsType) => {
         (window as any).webkit.messageHandlers.thirdPartyOnClick.postMessage(title, url);
       }
     } else {
-      window.open(url);
+      window.location.assign(url || 'https://fanplus.co.kr');
     }
   };
 
