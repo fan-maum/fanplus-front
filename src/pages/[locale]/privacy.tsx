@@ -1,14 +1,42 @@
 import PrivacyInternationalTemplate from '@/components/templates/PrivacyInternationalTemplate';
 import PrivacyKoreanTemplate from '@/components/templates/PrivacyKoreanTemplate';
 import { TermsType } from '@/types/common';
+import { isAndroid, isIOSMobile } from '@/utils/userAgent';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useEffect, useState } from 'react';
+
+export type ThirdPartyOnClickProps = {
+  title?: string;
+  url: string;
+};
 
 const Privacy = ({ data }: TermsType) => {
   const { locale } = data;
+  const [userAgent, setUserAgent] = useState<string>('');
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+    setUserAgent(userAgent);
+  }, []);
+
+  const thirdPartyOnClick = (title: string, url: string) => {
+    if (
+      (window as any).Android?.thirdPartyOnClick ||
+      (window as any).webkit?.messageHandlers?.thirdPartyOnClick
+    ) {
+      if (isAndroid(userAgent)) {
+        (window as any).Android.thirdPartyOnClick(title, url);
+      } else if (isIOSMobile(userAgent)) {
+        (window as any).webkit.messageHandlers.thirdPartyOnClick.postMessage(title, url);
+      }
+    } else {
+      window.location.assign(url || 'https://fanplus.co.kr');
+    }
+  };
+
   return locale === 'ko' ? (
-    <PrivacyKoreanTemplate urlLang={locale} />
+    <PrivacyKoreanTemplate urlLang={locale} thirdPartyOnClick={thirdPartyOnClick} />
   ) : (
-    <PrivacyInternationalTemplate urlLang={locale} />
+    <PrivacyInternationalTemplate urlLang={locale} thirdPartyOnClick={thirdPartyOnClick} />
   );
 };
 
