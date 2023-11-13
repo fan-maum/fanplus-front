@@ -6,8 +6,16 @@ import IconPlayStore from '../atoms/IconPlayStore';
 import IconPlus from '../atoms/IconPlus';
 import AppLink from '../molecules/AppLink';
 import Carousel from '../organisms/Carousel';
+import { VoteResponse } from '@/types/vote';
+import VoteList, { VoteListProps } from '../organisms/VoteList';
+import { useState } from 'react';
 
-const MainPageTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
+export interface MainPageTemplateProps {
+  voteLists: VoteResponse;
+  urlLang: UrlLangType;
+}
+
+const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
   const texts = mainPageTexts[urlLang];
   const area1 = texts.Area1;
   const area2 = texts.Area2;
@@ -15,8 +23,40 @@ const MainPageTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
   const area4 = texts.Area4;
   const area5 = texts.Area5;
   const area6 = texts.Area6;
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  const VoteListProps: VoteListProps = {
+    isMobile: isMobile,
+    loading: false,
+    error: null,
+    voteList: voteLists.RESULTS.DATAS.DATA,
+  };
+
   return (
     <div css={container}>
+      <div css={recapArea}>
+        <div>
+          <div css={recapVoteArea}>
+            <div css={recapVoteTitleArea}>
+              <h4>진행 중인 투표</h4>
+              <button>더보기</button>
+            </div>
+            <div
+              css={{
+                width: '100%',
+                '& > div': {
+                  width: 'inherit',
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                },
+              }}
+            >
+              <VoteList {...VoteListProps} />
+            </div>
+          </div>
+          <div css={recapCommunityArea}>팬플러스 BEST 소식</div>
+        </div>
+      </div>
       <div css={area}>
         <div css={css(center, { [mediaQuery768]: { flexDirection: 'column-reverse' } })}>
           <div
@@ -247,6 +287,7 @@ const AutoFitImage = ({ ...props }: { src: string; alt: string }) => {
 const mediaQuery768 = '@media screen and (max-width: 768px)';
 const mediaQuery991 = '@media screen and (max-width: 991px)';
 const container = css({
+  position: 'relative',
   fontSize: '20px',
   color: 'rgb(51,51,51)',
   wordBreak: 'break-word',
@@ -275,7 +316,64 @@ const container = css({
     p: { fontSize: '16px' },
   },
 });
-const area = css({ padding: '100px 0px', [mediaQuery991]: { padding: '80px 10px' } });
+const area = css({ padding: '100px 0px', [mediaQuery768]: { padding: '80px 10px' } });
+const recapArea = css({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '100%',
+  justifyContent: 'right',
+  padding: 0,
+  [mediaQuery768]: {
+    padding: '10px 16px 20px',
+    flexDirection: 'column',
+  },
+  '& > div': {
+    display: 'flex',
+    width: '100%',
+    // maxWidth: '1083px',
+    maxWidth: '80%',
+    justifyContent: 'space-between',
+    gap: '2vw',
+  },
+});
+const recapVoteArea = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 20,
+  margin: '10px 0px 30px',
+  minWidth: '600px',
+  maxWidth: '1280px',
+  flex: 1,
+  height: '500px',
+  marginLeft: '-160px',
+  '& > h4': {
+    lineHeight: '24px',
+    color: '#000',
+    fontSize: '20px',
+    fontWeight: 600,
+  },
+  [mediaQuery768]: { flex: 1 },
+});
+const recapCommunityArea = css({
+  margin: '20px 0px 30px',
+  // position: 'absolute',
+  // right: 0,
+  // top: 0,
+  width: '320px',
+  height: '500px',
+  border: '1px solid #D9D9D9',
+  [mediaQuery768]: { flex: 1 },
+});
+const recapVoteTitleArea = css({
+  width: '100%',
+  height: '40px',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '20px',
+});
 const pinkArea = css(area, { backgroundColor: '#fff5f5' });
 const greyArea = css(area, { backgroundColor: '#fafbfd' });
 const center = css({
