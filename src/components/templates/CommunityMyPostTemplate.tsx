@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
 import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
+import CommunityBoardArticleMobile from '../molecules/community/CommunityBoardArticleMobile';
+import CommunityBoardArticleTableHeader from '../molecules/community/CommunityBoardArticleTableHeader';
 import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
@@ -55,24 +57,32 @@ const CommunityMyPostTemplate = ({
       >
         <CommunityBoardTopNavi boardTitle={texts.bottomTabBar.myPost} />
         {isPostExist ? (
-          <>
+          <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
+            <CommunityBoardArticleTableHeader />
             <ul>
-              {postList.map((post, idx) => {
+              {postList?.map((post, idx) => {
                 return (
-                  <CommunityBoardArticle
-                    postItem={post}
-                    link={`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/${post.POST_IDX}`}
-                    key={idx}
-                    texts={texts}
-                  />
+                  <>
+                    <CommunityBoardArticle
+                      key={'CommunityBoardArticle' + idx}
+                      postItem={post}
+                      link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
+                    />
+                    <CommunityBoardArticleMobile
+                      key={'CommunityBoardArticleMobile' + idx}
+                      postItem={post}
+                      link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
+                      texts={texts}
+                    />
+                  </>
                 );
               })}
             </ul>
             <CommunityBoardPagination
-              totalCount={boardInfo.POST_CNT}
+              totalCount={boardInfo?.POST_CNT as number}
               handlePageChange={handlePageChange}
             />
-          </>
+          </div>
         ) : (
           <CommunityBoardNoPost
             onClickWrite={onClickWrite}
