@@ -13,11 +13,15 @@ const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
   const commentCount = Number(postItem.COMMENT_CNT) > 999 ? '[+999]' : `[${postItem.COMMENT_CNT}]`;
 
   return (
-    <li css={{ borderBottom: '1px solid #d9d9d9' }}>
+    <li
+      css={{
+        '@media (max-width: 768px)': { display: 'none' },
+        borderBottom: '1px solid #d9d9d9',
+      }}
+    >
       <Link
         href={link}
         css={{
-          '@media (max-width: 768px)': { display: 'none' },
           display: 'flex',
           alignItems: 'center',
           height: '44px',

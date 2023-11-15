@@ -1,8 +1,8 @@
 import TopicBubble from '@/components/atoms/TopicBubble';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import { UrlLangType } from '@/types/common';
+import type { UrlLangType } from '@/types/common';
 import type { PostListItemType } from '@/types/community';
-import { CommunityBoardTextType } from '@/types/textTypes';
+import type { CommunityBoardTextType } from '@/types/textTypes';
 import { formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
 import { CSSProperties } from 'react';
@@ -17,15 +17,13 @@ const CommunityBoardArticleMobile = ({ postItem, link, texts }: OwnPropType) => 
   const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
 
   return (
-    <li css={{ borderBottom: '1px solid #d9d9d9' }}>
-      <Link
-        href={link}
-        css={{
-          '@media (min-width: 768px)': { display: 'none' },
-          display: 'block',
-          padding: '5px 5px 0',
-        }}
-      >
+    <li
+      css={{
+        '@media (min-width: 768px)': { display: 'none' },
+        borderBottom: '1px solid #d9d9d9',
+      }}
+    >
+      <Link href={link} css={{ display: 'block', padding: '5px 5px 0' }}>
         <div css={{ display: 'flex' }}>
           <TopicBubble name={postItem.TOPIC_NAME as string} />
           {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}

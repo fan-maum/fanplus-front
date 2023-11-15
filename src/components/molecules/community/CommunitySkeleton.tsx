@@ -66,9 +66,9 @@ const CommunityBoardArticleMobileSkeleton = () => {
   return (
     <li
       css={{
+        '@media (min-width: 768px)': { display: 'none' },
         margin: '6px 12px',
         borderBottom: '1px solid #d9d9d9',
-        '@media (min-width: 768px)': { display: 'none' },
         display: 'block',
         padding: '5px 5px 0',
       }}
