@@ -1,6 +1,8 @@
 import { getCommunityBoardData } from '@/api/Community';
 import CommunityBoardArticle from '@/components/molecules/community/CommunityBoardArticle';
-import { CommunityBoardArticleSkeleton } from '@/components/molecules/community/CommunitySkeleton';
+import CommunityBoardArticleMobile from '@/components/molecules/community/CommunityBoardArticleMobile';
+import CommunityBoardArticleTableHeader from '@/components/molecules/community/CommunityBoardArticleTableHeader';
+import { CommunityBoardArticleTableSkeleton } from '@/components/molecules/community/CommunitySkeleton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType } from '@/types/common';
 import type { CommunityBoardResponseType } from '@/types/community';
@@ -10,7 +12,7 @@ import { useQuery } from 'react-query';
 import CommunityBoardPagination from '../CommunityBoardPagination';
 import CommunityBoardNoPost from './CommunityBoardNoPost';
 
-type BardArticleListPropType = {
+type BoardArticleTableProps = {
   communityBoardDataSSR: CommunityBoardResponseType;
   texts: CommunityBoardTextType;
   queries: {
@@ -26,13 +28,13 @@ type BardArticleListPropType = {
   onClickWrite: () => void;
 };
 
-const CommunityBoardArticleMain = ({
+const CommunityBoardArticleTable = ({
   communityBoardDataSSR,
   texts,
   queries,
   isInitialData,
   onClickWrite,
-}: BardArticleListPropType) => {
+}: BoardArticleTableProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
@@ -63,18 +65,26 @@ const CommunityBoardArticleMain = ({
   );
 
   return isFetching ? (
-    <CommunityBoardArticleSkeleton />
+    <CommunityBoardArticleTableSkeleton />
   ) : isPostExist ? (
-    <>
+    <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
+      <CommunityBoardArticleTableHeader />
       <ul>
         {postList?.map((post, idx) => {
           return (
-            <CommunityBoardArticle
-              postItem={post}
-              link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
-              key={idx}
-              texts={texts}
-            />
+            <>
+              <CommunityBoardArticle
+                key={'CommunityBoardArticle' + idx}
+                postItem={post}
+                link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
+              />
+              <CommunityBoardArticleMobile
+                key={'CommunityBoardArticleMobile' + idx}
+                postItem={post}
+                link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
+                texts={texts}
+              />
+            </>
           );
         })}
       </ul>
@@ -82,7 +92,7 @@ const CommunityBoardArticleMain = ({
         totalCount={boardInfo?.POST_CNT as number}
         handlePageChange={handlePageChange}
       />
-    </>
+    </div>
   ) : (
     <CommunityBoardNoPost
       onClickWrite={onClickWrite}
@@ -92,4 +102,4 @@ const CommunityBoardArticleMain = ({
   );
 };
 
-export default CommunityBoardArticleMain;
+export default CommunityBoardArticleTable;

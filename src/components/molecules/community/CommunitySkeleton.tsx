@@ -1,4 +1,5 @@
 import { Skeleton } from '@mantine/core';
+import CommunityBoardArticleTableHeader from './CommunityBoardArticleTableHeader';
 
 export const BoardItemSkeleton = () => {
   return (
@@ -28,9 +29,50 @@ export const BoardItemListSkeleton = () => {
   ));
 };
 
-const SingleBoardArticleSkeleton = () => {
+const CommunityBoardArticleSkeleton = () => {
   return (
-    <li css={{ margin: '6px 12px', padding: '3px 6px', borderBottom: '1px solid #d9d9d9' }}>
+    <li
+      css={{
+        '@media (max-width: 768px)': { display: 'none' },
+        borderBottom: '1px solid #d9d9d9',
+        display: 'flex',
+        alignItems: 'center',
+        height: 44,
+      }}
+    >
+      <div css={{ width: 106, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Skeleton width={50} height={16} radius="sm" />
+      </div>
+      <div css={{ width: 310, display: 'flex', alignItems: 'center' }}>
+        <Skeleton width={100} height={16} radius="sm" />
+      </div>
+      <div css={{ width: 78, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Skeleton width={64} height={16} radius="sm" />
+      </div>
+      <div css={{ width: 82, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Skeleton width={64} height={16} radius="sm" />
+      </div>
+      <div css={{ width: 78, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Skeleton width={30} height={16} radius="sm" />
+      </div>
+      <div css={{ width: 74, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Skeleton width={30} height={16} radius="sm" />
+      </div>
+    </li>
+  );
+};
+
+const CommunityBoardArticleMobileSkeleton = () => {
+  return (
+    <li
+      css={{
+        margin: '6px 12px',
+        borderBottom: '1px solid #d9d9d9',
+        '@media (min-width: 768px)': { display: 'none' },
+        display: 'block',
+        padding: '5px 5px 0',
+      }}
+    >
       <div css={{ display: 'flex' }}>
         <Skeleton width={48} height={24} radius="lg" />
       </div>
@@ -47,10 +89,24 @@ const SingleBoardArticleSkeleton = () => {
   );
 };
 
-export const CommunityBoardArticleSkeleton = () => {
-  return Array.from({ length: 20 }, (_, idx) => (
-    <SingleBoardArticleSkeleton key={'Board Article Skeleton' + idx} />
+export const CommunityBoardArticleTableSkeleton = ({
+  firstHeader = 'topic',
+}: {
+  firstHeader?: 'topic' | 'board';
+}) => {
+  const ArticleSkeletons = Array.from({ length: 20 }, (_, idx) => (
+    <>
+      <CommunityBoardArticleSkeleton key={'CommunityBoardArticleSkeleton' + idx} />
+      <CommunityBoardArticleMobileSkeleton key={'CommunityBoardArticleMobileSkeleton' + idx} />
+    </>
   ));
+
+  return (
+    <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
+      <CommunityBoardArticleTableHeader firstHeader={firstHeader} />
+      {ArticleSkeletons}
+    </div>
+  );
 };
 
 const PopularBoardItemSkeleton = () => {

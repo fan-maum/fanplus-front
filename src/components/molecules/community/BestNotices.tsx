@@ -1,12 +1,19 @@
+import { useUrlLanguage } from '@/hooks/useLanguage';
+import { CommunityBestNoticesTexts } from '@/texts/communityBestNoticesTexts';
+import type { CommunityBestNoticesTextType } from '@/types/textTypes';
 import Link from 'next/link';
-import BestNoticeItem from './BestNoticeItem';
 import { Dispatch, SetStateAction, useState } from 'react';
+import BestNoticeItem from './BestNoticeItem';
 
 const BestPosts = () => {
+  const urlLang = useUrlLanguage();
+  const texts = CommunityBestNoticesTexts[urlLang];
+
   const [sortMode, setSortMode] = useState('live');
   return (
     <div
       css={{
+        '@media (max-width: 768px)': { display: 'none' },
         width: '328px',
         border: '1px solid #d9d9d9',
         borderBottom: 'none',
@@ -21,18 +28,18 @@ const BestPosts = () => {
           width: '100%',
           backgroundColor: '#f8f8f9',
           color: '#101010',
-          font: 'normal 14px/18px Pretendard',
+          font: 'normal 16px/18px Pretendard',
           fontWeight: '600',
           padding: '14px 15px 15px 20px',
         }}
       >
-        팬플러스 BEST 소식
+        {texts.title}
         <Link href={'/'} css={{ display: 'flex', alignItems: 'center', fontSize: '12px' }}>
-          더보기
+          {texts.seeMore}
           <span css={{ fontSize: '13px', marginLeft: '2px', fontWeight: '500' }}>{'>'}</span>
         </Link>
       </div>
-      <SortBubbles currentSortMode={sortMode} setSortMode={setSortMode} />
+      <SortBubbles currentSortMode={sortMode} setSortMode={setSortMode} texts={texts} />
       <BestNoticeItem rank={1} boardIndex={1} postIndex={1} postTitle={'sdfsdf'} comments={1} />
       <BestNoticeItem rank={2} boardIndex={1} postIndex={1} postTitle={'sdfsdaaf'} comments={1} />
       <BestNoticeItem rank={3} boardIndex={1} postIndex={1} postTitle={'sdfsfsdf'} comments={1} />
@@ -47,19 +54,31 @@ export default BestPosts;
  * 순서 바꾸는 버블 아이템
  */
 
-// TODO: sortMode, text object를 인수로 가지는 Array 생성해서 깔쌈하게 처리하자.
+// TODO: sortMode를 인수로 가지는 Array 생성해서 깔쌈하게 처리하자.
+// TODO: onClick에 api 연결해야 함.
 
 const SortBubbles = ({
   currentSortMode,
   setSortMode,
+  texts,
 }: {
   currentSortMode: string;
   setSortMode: Dispatch<SetStateAction<string>>;
+  texts: CommunityBestNoticesTextType;
 }) => {
   return (
-    <div css={{ padding: '10px 17px 9px' }}>
+    <div
+      css={{
+        padding: '10px 17px 9px',
+        whiteSpace: 'nowrap',
+        overflowX: 'scroll',
+        '::-webkit-scrollbar': { display: 'none' },
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+      }}
+    >
       <SortBubble
-        text="실시간"
+        text={texts.live}
         sortMode="live"
         currentMode={currentSortMode}
         onClick={() => {
@@ -67,7 +86,7 @@ const SortBubbles = ({
         }}
       />
       <SortBubble
-        text="주간"
+        text={texts.weekly}
         sortMode="weekly"
         currentMode={currentSortMode}
         onClick={() => {
@@ -75,7 +94,7 @@ const SortBubbles = ({
         }}
       />
       <SortBubble
-        text="월간"
+        text={texts.monthly}
         sortMode="monthly"
         currentMode={currentSortMode}
         onClick={() => {
@@ -83,7 +102,7 @@ const SortBubbles = ({
         }}
       />
       <SortBubble
-        text="댓글순"
+        text={texts.commently}
         sortMode="comment"
         currentMode={currentSortMode}
         onClick={() => {
@@ -91,7 +110,7 @@ const SortBubbles = ({
         }}
       />
       <SortBubble
-        text="추천순"
+        text={texts.recommendly}
         sortMode="recommendate"
         currentMode={currentSortMode}
         onClick={() => {

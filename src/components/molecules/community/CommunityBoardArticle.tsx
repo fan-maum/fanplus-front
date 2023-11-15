@@ -1,75 +1,54 @@
-import Link from 'next/link';
+import IconImage from '@/components/atoms/IconImage';
 import type { PostListItemType } from '@/types/community';
-import { CommunityBoardTextType } from '@/types/textTypes';
-import { formatWrittenTime, timeType } from '@/utils/util';
-import TopicBubble from '@/components/atoms/TopicBubble';
+import { formatWrittenTimeLite } from '@/utils/util';
+import Link from 'next/link';
 
 type OwnPropType = {
   postItem: PostListItemType;
   link: string;
-  texts: CommunityBoardTextType;
 };
 
-const CommunityBoardArticle = ({ postItem, link, texts }: OwnPropType) => {
-  const writtenTime = formatWrittenTime(postItem.PUBLISH_DATE);
-  const timeAppend: { [key in timeType]: string } = {
-    Full: ' (KST)',
-    Date: texts.daysAgo,
-    Hour: texts.hoursAgo,
-    Minute: texts.minsAgo,
-  };
-  const timeExpression = writtenTime.time + timeAppend[writtenTime.timeType];
+const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
+  const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
+  const commentCount = Number(postItem.COMMENT_CNT) > 999 ? '[+999]' : `[${postItem.COMMENT_CNT}]`;
 
   return (
-    <li css={{ margin: '6px 12px', padding: '3px 0px 6px', borderBottom: '1px solid #d9d9d9' }}>
-      <Link href={link}>
-        <div css={{ display: 'flex' }}>
-          <TopicBubble name={postItem.TOPIC_NAME as string} />
-          {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}
+    <li css={{ borderBottom: '1px solid #d9d9d9' }}>
+      <Link
+        href={link}
+        css={{
+          '@media (max-width: 768px)': { display: 'none' },
+          display: 'flex',
+          alignItems: 'center',
+          height: '44px',
+          font: 'normal 12px/14px Pretendard',
+        }}
+      >
+        <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
+        <div css={{ width: 310, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
+          <span>{postItem.POST_TITLE}</span>
+          {postItem.POST_IMG_YN === 'Y' && <IconImage />}
+          <span css={{ fontWeight: 500, color: '#ff5656', marginLeft: '2px' }}>{commentCount}</span>
         </div>
-        <div css={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div css={{ margin: '3px 3px 6px', lineHeight: '1.5' }}>
-            <h4 css={{ wordBreak: 'break-word', fontWeight: '400' }}>
-              {postItem.POST_TITLE}
-              <span css={{ color: '#ff5656' }}> [{postItem.COMMENT_CNT}]</span>
-            </h4>
-            <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>
-              <p>
-                <span css={{ color: '#000' }}>{postItem.WRITER_NAME}</span>
-                {' | ' + timeExpression}
-              </p>
-              <p>
-                <span>{texts.viewCount + ' ' + postItem.VIEW_CNT} </span>
-                <span>{texts.recommendCount + ' ' + postItem.RECOMMEND_CNT}</span>
-              </p>
-            </div>
-          </div>
-          {postItem.POST_IMG_YN === 'Y' && <ThumbnailImage src={postItem.SUMNAIL_IMG} />}
+        <div css={{ width: 78, textAlign: 'center' }}>
+          <p
+            css={{
+              width: '54px',
+              margin: '0 auto',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+            }}
+          >
+            {postItem.WRITER_NAME}
+          </p>
         </div>
+        <div css={{ width: 82, textAlign: 'center' }}>{timeExpression}</div>
+        <div css={{ width: 78, textAlign: 'center' }}>{postItem.VIEW_CNT}</div>
+        <div css={{ width: 74, textAlign: 'center' }}>{postItem.RECOMMEND_CNT}</div>
       </Link>
     </li>
   );
 };
 
 export default CommunityBoardArticle;
-
-const ThumbnailImage = ({ src }: { src: string }) => {
-  return (
-    <div
-      css={{
-        width: '72px',
-        height: '72px',
-        overflow: 'hidden',
-        borderRadius: '5px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-        marginLeft: '12px',
-        backgroundColor: '#fbfbfb',
-      }}
-    >
-      <img src={src} alt="썸네일" css={{ height: '80px', width: 'auto' }} />
-    </div>
-  );
-};
