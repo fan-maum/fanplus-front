@@ -27,6 +27,7 @@ const BestNoticesSortBubbles = ({
       {viewTypes.map((viewType, idx) => {
         return (
           <SortBubble
+            key={'BestNoticesSortBubbles' + idx}
             text={texts[viewType]}
             viewType={viewType}
             currentMode={currentSortMode}
