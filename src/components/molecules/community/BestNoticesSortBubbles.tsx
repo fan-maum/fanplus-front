@@ -1,0 +1,74 @@
+import type { CommunityBestNoticesTextType } from '@/types/textTypes';
+import { Dispatch, SetStateAction } from 'react';
+import type { BestPostsViewType } from './BestNotices';
+
+const BestNoticesSortBubbles = ({
+  currentSortMode,
+  setViewType,
+  texts,
+}: {
+  currentSortMode: string;
+  setViewType: Dispatch<SetStateAction<BestPostsViewType>>;
+  texts: CommunityBestNoticesTextType;
+}) => {
+  const viewTypes: BestPostsViewType[] = ['daily', 'weekly', 'monthly', 'comment', 'recommend'];
+
+  return (
+    <div
+      css={{
+        padding: '10px 17px 9px',
+        whiteSpace: 'nowrap',
+        overflowX: 'scroll',
+        '::-webkit-scrollbar': { display: 'none' },
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+      }}
+    >
+      {viewTypes.map((viewType, idx) => {
+        return (
+          <SortBubble
+            text={texts[viewType]}
+            viewType={viewType}
+            currentMode={currentSortMode}
+            onClick={() => {
+              setViewType(viewType);
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+export default BestNoticesSortBubbles;
+
+const SortBubble = ({
+  text,
+  viewType,
+  currentMode,
+  onClick,
+}: {
+  text: string;
+  viewType: string;
+  currentMode: string;
+  onClick: () => void;
+}) => {
+  return (
+    <button
+      css={{
+        padding: '3px 6px',
+        marginRight: '6px',
+        font: 'normal 14px/18px Pretendard',
+        fontWeight: viewType === currentMode ? 600 : 400,
+        color: viewType === currentMode ? '#ff5656' : '#101010',
+        backgroundColor: viewType === currentMode ? '#ffedf1' : '#f1f1f1',
+        border: 'none',
+        borderRadius: '12px',
+        cursor: 'pointer',
+      }}
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
+};

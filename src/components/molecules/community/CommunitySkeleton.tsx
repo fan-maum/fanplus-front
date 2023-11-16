@@ -136,3 +136,34 @@ export const PopularBoardsSkeleton = () => {
     <PopularBoardItemSkeleton key={'Popular Board Item Skeleton' + idx} />
   ));
 };
+
+const BestPostItemSkeleton = () => {
+  return (
+    <div
+      css={{
+        width: '100%',
+        height: 42,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'start',
+        borderBottom: '1px solid #d9d9d9',
+      }}
+    >
+      <span css={{ margin: '0 17px' }}>
+        <Skeleton width={24} height={20} radius="sm" />
+      </span>
+      <p css={{ width: 180, marginRight: 35 }}>
+        <Skeleton width={160} height={20} radius="sm" />
+      </p>
+      <span>
+        <Skeleton width={36} height={20} radius="sm" />
+      </span>
+    </div>
+  );
+};
+
+export const BestPostsSkeleton = () => {
+  return Array.from({ length: 10 }, (_, idx) => (
+    <BestPostItemSkeleton key={'Best Post Item Skeleton' + idx} />
+  ));
+};

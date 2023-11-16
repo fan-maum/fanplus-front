@@ -383,11 +383,11 @@ export type CommunityLayoutTextType = {
 export type CommunityBestNoticesTextType = {
   title: string;
   seeMore: string;
-  live: string;
+  daily: string;
   weekly: string;
   monthly: string;
-  commently: string;
-  recommendly: string;
+  comment: string;
+  recommend: string;
 };
 
 export type CommunityBoardArticleTableHeaderTextType = {
