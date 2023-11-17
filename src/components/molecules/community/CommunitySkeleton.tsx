@@ -44,7 +44,7 @@ const CommunityBoardArticleSkeleton = () => {
         <Skeleton width={50} height={16} radius="sm" />
       </div>
       <div css={{ width: 310, display: 'flex', alignItems: 'center' }}>
-        <Skeleton width={100} height={16} radius="sm" />
+        <Skeleton width={200} height={16} radius="sm" />
       </div>
       <div css={{ width: 78, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Skeleton width={64} height={16} radius="sm" />
@@ -67,14 +67,13 @@ const CommunityBoardArticleMobileSkeleton = () => {
     <li
       css={{
         '@media (min-width: 768px)': { display: 'none' },
-        margin: '6px 12px',
         borderBottom: '1px solid #d9d9d9',
         display: 'block',
         padding: '5px 5px 0',
       }}
     >
       <div css={{ display: 'flex' }}>
-        <Skeleton width={48} height={24} radius="lg" />
+        <Skeleton width={48} height={21} radius="lg" />
       </div>
       <div css={{ display: 'flex', justifyContent: 'space-between' }}>
         <div css={{ margin: '3px 0px 6px' }}>
@@ -83,6 +82,9 @@ const CommunityBoardArticleMobileSkeleton = () => {
             <Skeleton width={200} height={18} radius="sm" />
             <Skeleton width={100} height={18} radius="sm" />
           </div>
+        </div>
+        <div>
+          <Skeleton width={37} height={54} radius="sm" css={{ margin: '0 16px 0 6px' }} />
         </div>
       </div>
     </li>
@@ -95,16 +97,17 @@ export const CommunityBoardArticleTableSkeleton = ({
   firstHeader?: 'topic' | 'board';
 }) => {
   const ArticleSkeletons = Array.from({ length: 20 }, (_, idx) => (
-    <>
-      <CommunityBoardArticleSkeleton key={'CommunityBoardArticleSkeleton' + idx} />
-      <CommunityBoardArticleMobileSkeleton key={'CommunityBoardArticleMobileSkeleton' + idx} />
-    </>
+    <CommunityBoardArticleSkeleton key={'CommunityBoardArticleSkeleton' + idx} />
+  ));
+  const ArticleMobileSkeleton = Array.from({ length: 20 }, (_, idx) => (
+    <CommunityBoardArticleMobileSkeleton key={'CommunityBoardArticleMobileSkeleton' + idx} />
   ));
 
   return (
     <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
       <CommunityBoardArticleTableHeader firstHeader={firstHeader} />
       {ArticleSkeletons}
+      {ArticleMobileSkeleton}
     </div>
   );
 };
@@ -152,9 +155,9 @@ const BestPostItemSkeleton = () => {
       <span css={{ margin: '0 17px' }}>
         <Skeleton width={24} height={20} radius="sm" />
       </span>
-      <p css={{ width: 180, marginRight: 35 }}>
+      <span css={{ width: 180, marginRight: 35 }}>
         <Skeleton width={160} height={20} radius="sm" />
-      </p>
+      </span>
       <span>
         <Skeleton width={36} height={20} radius="sm" />
       </span>

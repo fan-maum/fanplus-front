@@ -64,27 +64,33 @@ const CommunityBoardArticleTable = ({
     (!router.query.page || router.query.page === '1')
   );
 
-  return isFetching ? (
-    <CommunityBoardArticleTableSkeleton />
-  ) : isPostExist ? (
+  if (isFetching) return <CommunityBoardArticleTableSkeleton />;
+  if (!isPostExist) {
+    return (
+      <CommunityBoardNoPost
+        onClickWrite={onClickWrite}
+        buttonText={texts.buttonWrite}
+        texts={texts.noPostTexts}
+      />
+    );
+  }
+  return (
     <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
       <CommunityBoardArticleTableHeader />
       <ul>
         {postList?.map((post, idx) => {
           return (
-            <>
+            <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle
-                key={'CommunityBoardArticle' + idx}
                 postItem={post}
                 link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
               />
               <CommunityBoardArticleMobile
-                key={'CommunityBoardArticleMobile' + idx}
                 postItem={post}
                 link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
                 texts={texts}
               />
-            </>
+            </li>
           );
         })}
       </ul>
@@ -93,12 +99,6 @@ const CommunityBoardArticleTable = ({
         handlePageChange={handlePageChange}
       />
     </div>
-  ) : (
-    <CommunityBoardNoPost
-      onClickWrite={onClickWrite}
-      buttonText={texts.buttonWrite}
-      texts={texts.noPostTexts}
-    />
   );
 };
 

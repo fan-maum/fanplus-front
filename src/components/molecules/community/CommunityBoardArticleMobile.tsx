@@ -17,38 +17,38 @@ const CommunityBoardArticleMobile = ({ postItem, link, texts }: OwnPropType) => 
   const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
 
   return (
-    <li
+    <Link
+      href={link}
       css={{
         '@media (min-width: 768px)': { display: 'none' },
-        borderBottom: '1px solid #d9d9d9',
+        display: 'block',
+        padding: '5px 5px 0',
       }}
     >
-      <Link href={link} css={{ display: 'block', padding: '5px 5px 0' }}>
+      <div css={{ display: 'flex' }}>
+        <TopicBubble name={postItem.TOPIC_NAME as string} />
+        {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}
+      </div>
+      <div css={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div css={{ margin: '3px 3px 6px', lineHeight: '1.5' }}>
+          <h4 css={{ wordBreak: 'break-word', fontWeight: '400' }}>{postItem.POST_TITLE}</h4>
+          <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>
+            <p>
+              <span css={{ color: '#000' }}>{postItem.WRITER_NAME}</span>
+              {' | ' + timeExpression}
+            </p>
+            <p>
+              <span>{texts.viewCount + ' ' + postItem.VIEW_CNT} </span>
+              <span>{texts.recommendCount + ' ' + postItem.RECOMMEND_CNT}</span>
+            </p>
+          </div>
+        </div>
         <div css={{ display: 'flex' }}>
-          <TopicBubble name={postItem.TOPIC_NAME as string} />
-          {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}
+          {postItem.POST_IMG_YN === 'Y' && <ThumbnailImage src={postItem.SUMNAIL_IMG} />}
+          <CommentBox commentCount={postItem.COMMENT_CNT} text={texts.commentCount} />
         </div>
-        <div css={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div css={{ margin: '3px 3px 6px', lineHeight: '1.5' }}>
-            <h4 css={{ wordBreak: 'break-word', fontWeight: '400' }}>{postItem.POST_TITLE}</h4>
-            <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>
-              <p>
-                <span css={{ color: '#000' }}>{postItem.WRITER_NAME}</span>
-                {' | ' + timeExpression}
-              </p>
-              <p>
-                <span>{texts.viewCount + ' ' + postItem.VIEW_CNT} </span>
-                <span>{texts.recommendCount + ' ' + postItem.RECOMMEND_CNT}</span>
-              </p>
-            </div>
-          </div>
-          <div css={{ display: 'flex' }}>
-            {postItem.POST_IMG_YN === 'Y' && <ThumbnailImage src={postItem.SUMNAIL_IMG} />}
-            <CommentBox commentCount={postItem.COMMENT_CNT} text={texts.commentCount} />
-          </div>
-        </div>
-      </Link>
-    </li>
+      </div>
+    </Link>
   );
 };
 
