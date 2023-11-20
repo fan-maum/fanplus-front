@@ -19,6 +19,7 @@ import { Suspense } from 'react';
 export type CommunityBoardPropType = {
   urlLang: UrlLangType;
   userId: string;
+  isAdminAccount: boolean;
   boardLangCookie: BoardLangType;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
@@ -35,6 +36,7 @@ export type CommunityBoardPropType = {
 const Board = ({
   urlLang,
   userId,
+  isAdminAccount,
   boardLangCookie,
   communityBoardData,
   communityBoardTopics,
@@ -46,6 +48,7 @@ const Board = ({
       <CommunityBoardTemplate
         urlLang={urlLang}
         userId={userId}
+        isAdminAccount={isAdminAccount}
         boardLangCookie={boardLangCookie}
         communityBoardData={communityBoardData}
         communityBoardTopics={communityBoardTopics}
@@ -59,6 +62,8 @@ const Board = ({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
+  const userIdx = cookies['user_idx'] || '';
+  const isAdminAccount = userIdx === process.env.ADMIN_ACCOUNT_IDX;
 
   const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
@@ -87,6 +92,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       urlLang,
       userId,
+      isAdminAccount,
       boardLangCookie,
       communityBoardData,
       communityBoardTopics,
