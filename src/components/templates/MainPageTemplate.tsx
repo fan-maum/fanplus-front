@@ -47,7 +47,7 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
         <div>
           <div css={recapVoteArea}>
             <div css={recapVoteTitleArea}>
-              <h4>진행 중인 투표</h4>
+              <h4>{texts.recapArea.title1}</h4>
               <button
                 css={{
                   display: 'inline-flex',
@@ -62,7 +62,7 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
                 }}
                 onClick={() => router.push(`/${language}/votes`)}
               >
-                더보기{' '}
+                {texts.recapArea.moreButton}{' '}
                 <IconArrowLeft
                   stroke={'#666'}
                   iconCss={{ width: '14px', height: '14px', transform: 'rotateZ(180deg)' }}
@@ -82,7 +82,7 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
               <VoteList {...VoteListProps} />
             </div>
           </div>
-          <div css={recapCommunityArea}>팬플러스 BEST 소식</div>
+          <div css={recapCommunityArea}>{texts.recapArea.title2}</div>
         </div>
       </div>
       <div css={area}>

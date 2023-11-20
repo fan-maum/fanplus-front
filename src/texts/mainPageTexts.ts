@@ -3,6 +3,11 @@ import type { MainPageTextType } from '@/types/textTypes';
 
 export const mainPageTexts: LangStringType<MainPageTextType> = {
   ko: {
+    recapArea: {
+      title1: '진행 중인 투표',
+      title2: '팬플러스 BEST 소식',
+      moreButton: '더보기',
+    },
     Area1: {
       line1: '덕질에 즐거움 더하기,',
       line2: '팬플러스',
@@ -72,6 +77,11 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   en: {
+    recapArea: {
+      title1: 'Ongoing votes',
+      title2: 'FanPlus BEST',
+      moreButton: 'See more',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -141,6 +151,11 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   es: {
+    recapArea: {
+      title1: 'Votación en curso',
+      title2: 'FanPlus Best',
+      moreButton: 'Ver más',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -210,6 +225,11 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   in: {
+    recapArea: {
+      title1: 'Pemungutan suara yang sedang berlangsung',
+      title2: 'FanPlus Terbaik',
+      moreButton: 'Lihat lebih banyak',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -279,6 +299,11 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   ja: {
+    recapArea: {
+      title1: '現在進行中の投票',
+      title2: 'FanPlus ベスト',
+      moreButton: '詳細を見る',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -348,6 +373,11 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   vi: {
+    recapArea: {
+      title1: 'Đang tiến hành bầu chọn',
+      title2: 'FanPlus Tốt nhất',
+      moreButton: 'Xem thêm',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -417,6 +447,11 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   'zh-CN': {
+    recapArea: {
+      title1: '正在进行的投票',
+      title2: 'FanPlus 热门',
+      moreButton: '查看详情',
+    },
     Area1: {
       line1: '在追星的快乐中,',
       line2: '加上Fanplus',
@@ -486,6 +521,11 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   'zh-TW': {
+    recapArea: {
+      title1: '正在進行的投票',
+      title2: 'FanPlus 熱門',
+      moreButton: '查看詳情',
+    },
     Area1: {
       line1: '在追星的快樂中,',
       line2: '加上Fanplus',

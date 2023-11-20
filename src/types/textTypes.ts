@@ -26,6 +26,11 @@ export type FooterTextType = {
   copyright: string;
 };
 export type MainPageTextType = {
+  recapArea: {
+    title1: string;
+    title2: string;
+    moreButton: string;
+  };
   Area1: {
     line1: string;
     line2: string;
