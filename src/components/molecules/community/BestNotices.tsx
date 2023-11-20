@@ -43,7 +43,10 @@ const BesetNotices = () => {
         }}
       >
         {texts.title}
-        <Link href={'/'} css={{ display: 'flex', alignItems: 'center', fontSize: '12px' }}>
+        <Link
+          href={`/${urlLang}/community/board/2291/`}
+          css={{ display: 'flex', alignItems: 'center', fontSize: '12px' }}
+        >
           {texts.seeMore}
           <span css={{ fontSize: '13px', marginLeft: '2px', fontWeight: '500' }}>{'>'}</span>
         </Link>
