@@ -22,6 +22,7 @@ import CommunityLayout from './CommunityLayout';
 const CommunityBoardTemplate = ({
   urlLang,
   userId,
+  isAdminAccount,
   boardLangCookie,
   communityBoardData,
   communityBoardTopics,
@@ -56,7 +57,7 @@ const CommunityBoardTemplate = ({
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];
     const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX as string);
-    if (writeBanned) {
+    if (writeBanned && !isAdminAccount) {
       setPermissionModal(true);
       return;
     }
