@@ -9,6 +9,10 @@ import Carousel from '../organisms/Carousel';
 import { VoteResponse } from '@/types/vote';
 import VoteList, { VoteListProps } from '../organisms/VoteList';
 import { useState } from 'react';
+import useMediaQuery from '@/hooks/useMediaQuery';
+import IconArrowLeft from '../atoms/IconArrowLeft';
+import { useRouter } from 'next/router';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 
 export interface MainPageTemplateProps {
   voteLists: VoteResponse;
@@ -25,13 +29,17 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
   const area6 = texts.Area6;
 
   const [isMobile, setIsMobile] = useState(false);
+  const isDesktop = useMediaQuery('(min-width: 991px)');
 
   const VoteListProps: VoteListProps = {
     isMobile: isMobile,
     loading: false,
     error: null,
-    voteList: voteLists.RESULTS.DATAS.DATA,
+    voteList: isDesktop ? voteLists.RESULTS.DATAS.DATA : voteLists.RESULTS.DATAS.DATA.slice(1),
   };
+
+  const router = useRouter();
+  const language = useUrlLanguage();
 
   return (
     <div css={container}>
@@ -40,7 +48,26 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
           <div css={recapVoteArea}>
             <div css={recapVoteTitleArea}>
               <h4>진행 중인 투표</h4>
-              <button>더보기</button>
+              <button
+                css={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  color: '#666',
+                  fontSize: 12,
+                  fontWeight: 400,
+                  outline: 'none',
+                  border: 'none',
+                  backgroundColor: '#fff',
+                  cursor: 'pointer',
+                }}
+                onClick={() => router.push(`/${language}/votes`)}
+              >
+                더보기{' '}
+                <IconArrowLeft
+                  stroke={'#666'}
+                  iconCss={{ width: '14px', height: '14px', transform: 'rotateZ(180deg)' }}
+                />
+              </button>
             </div>
             <div
               css={{
@@ -48,6 +75,7 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
                 '& > div': {
                   width: 'inherit',
                   gridTemplateColumns: 'repeat(2, 1fr)',
+                  [mediaQuery991]: { gridTemplateColumns: 'repeat(1, 1fr)' },
                 },
               }}
             >
@@ -286,11 +314,14 @@ const AutoFitImage = ({ ...props }: { src: string; alt: string }) => {
 //** css 속성 */
 const mediaQuery768 = '@media screen and (max-width: 768px)';
 const mediaQuery991 = '@media screen and (max-width: 991px)';
+const mediaQuery1440 = '@media screen and (max-width: 1440px)';
+const mediaQuery1280 = '@media screen and (max-width: 1280px)';
 const container = css({
   position: 'relative',
   fontSize: '20px',
   color: 'rgb(51,51,51)',
   wordBreak: 'break-word',
+  overflow: 'hidden',
   h1: {
     fontSize: '56px',
     wordBreak: 'keep-all',
@@ -316,24 +347,18 @@ const container = css({
     p: { fontSize: '16px' },
   },
 });
-const area = css({ padding: '100px 0px', [mediaQuery768]: { padding: '80px 10px' } });
+const area = css({ padding: '100px 0px', [mediaQuery991]: { padding: '80px 10px' } });
 const recapArea = css({
-  display: 'flex',
-  flexDirection: 'row',
+  position: 'relative',
   width: '100%',
-  justifyContent: 'right',
-  padding: 0,
-  [mediaQuery768]: {
+  '& > div': {
+    width: '100%',
+    maxWidth: '768px',
+    margin: '0 auto',
+  },
+  [mediaQuery991]: {
     padding: '10px 16px 20px',
     flexDirection: 'column',
-  },
-  '& > div': {
-    display: 'flex',
-    width: '100%',
-    // maxWidth: '1083px',
-    maxWidth: '80%',
-    justifyContent: 'space-between',
-    gap: '2vw',
   },
 });
 const recapVoteArea = css({
@@ -343,27 +368,27 @@ const recapVoteArea = css({
   gap: 20,
   margin: '10px 0px 30px',
   minWidth: '600px',
-  maxWidth: '1280px',
+  maxWidth: '768px',
   flex: 1,
-  height: '500px',
-  marginLeft: '-160px',
   '& > h4': {
     lineHeight: '24px',
     color: '#000',
     fontSize: '20px',
     fontWeight: 600,
   },
-  [mediaQuery768]: { flex: 1 },
+  [mediaQuery991]: { flex: 1 },
 });
 const recapCommunityArea = css({
   margin: '20px 0px 30px',
-  // position: 'absolute',
-  // right: 0,
-  // top: 0,
+  position: 'absolute',
+  right: 0,
+  top: 0,
   width: '320px',
   height: '500px',
   border: '1px solid #D9D9D9',
-  [mediaQuery768]: { flex: 1 },
+  [mediaQuery1440]: { width: '260px', right: 'calc((100% - 768px)/2 - 270px)' },
+  [mediaQuery1280]: { width: '200px', right: 'calc((100% - 768px)/2 - 210px)' },
+  [mediaQuery991]: { position: 'relative', right: 0, width: '100%', margin: '10px 0px 30px' },
 });
 const recapVoteTitleArea = css({
   width: '100%',
