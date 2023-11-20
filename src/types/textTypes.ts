@@ -1,4 +1,5 @@
 export type NavBarTextType = {
+  home: string;
   vote: string;
   community: string;
   aboutUs: string;
@@ -6,6 +7,7 @@ export type NavBarTextType = {
   business: string;
   language: string;
   link: {
+    home: string;
     vote: string;
     community: string;
     aboutUs: string;
