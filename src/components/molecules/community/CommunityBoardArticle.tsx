@@ -25,7 +25,11 @@ const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
     >
       <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
       <div css={{ width: 310, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
-        <span>{postItem.POST_TITLE}</span>
+        <span
+          css={{ width: 240, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+        >
+          {postItem.POST_TITLE}
+        </span>
         {postItem.POST_IMG_YN === 'Y' && <IconImage />}
         <span css={{ fontWeight: 500, color: '#ff5656', marginLeft: '2px' }}>{commentCount}</span>
       </div>
