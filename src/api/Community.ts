@@ -1,4 +1,5 @@
 import type {
+  BestPostsResponseType,
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
@@ -11,8 +12,8 @@ import type {
   Top30PopularBoardsResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
-
 import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
+import type { BestPostsViewType } from '@/components/molecules/community/BestNotices';
 
 export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
   const recommendListResponse: AxiosResponse<RecommendListResponseType> = await axios.get(
@@ -350,6 +351,17 @@ export const getTop30PopularBoards = async (lang: ServerLangType) => {
   const response: AxiosResponse<Top30PopularBoardsResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/PopularTop30`,
     { params: { lang } }
+  );
+  return response.data;
+};
+
+/**
+ * Best 인기글 게시판
+ */
+export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsViewType) => {
+  const response: AxiosResponse<BestPostsResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bestPosts`,
+    { params: { lang, viewType } }
   );
   return response.data;
 };

@@ -263,6 +263,7 @@ export type CommunityBoardTextType = {
   all: string;
   viewCount: string;
   recommendCount: string;
+  commentCount: string;
   popular: string;
   daysAgo: string;
   hoursAgo: string;
@@ -377,6 +378,26 @@ export type CommunityPostEditorTextType = {
 export type CommunityLayoutTextType = {
   popularBoards: string;
   close: string;
+};
+
+export type CommunityBestNoticesTextType = {
+  title: string;
+  seeMore: string;
+  daily: string;
+  weekly: string;
+  monthly: string;
+  comment: string;
+  recommend: string;
+};
+
+export type CommunityBoardArticleTableHeaderTextType = {
+  topic: string;
+  board: string;
+  title: string;
+  writer: string;
+  postDate: string;
+  viewNum: string;
+  recommendNum: string;
 };
 
 export type TextType = {
