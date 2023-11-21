@@ -4,6 +4,7 @@ import { Group, UnstyledButton } from '@/components/atoms';
 import styled from '@emotion/styled';
 import { CommunityPageTextType } from '@/types/textTypes';
 import { useQueryClient } from 'react-query';
+import IconSearch from '@/components/atoms/IconSeaarch';
 
 interface FormValue {
   searchValue: string | number;
@@ -45,40 +46,20 @@ const CommunityBoardSearchInputWrapper = ({
     <form
       onSubmit={handleSubmit(handleSearchSubmit)}
       css={{
-        height: 60,
+        width: '50%',
+        height: 40,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 18,
-        padding: '10px 20px',
-        borderBottom: '4px solid #f1f1f1',
+        border: '2px solid #FF5656',
       }}
     >
-      <Group
-        h={'100%'}
-        spacing={10}
-        css={{ position: 'relative', flex: 1, borderBottom: '2px solid #f1f1f1' }}
-      >
-        <img
-          src="/icons/icon_search.svg"
-          alt="searchIcon"
-          css={{ width: 32, height: 32, position: 'absolute', left: 0 }}
-        />
+      <Group h={'100%'} spacing={10} css={{ position: 'relative', flex: 1 }}>
         <SearchInput placeholder={texts.searchPlaceholder} {...register('searchValue')} />
       </Group>
-      <UnstyledButton
-        type="submit"
-        bg="#FF5656"
-        h={36}
-        px={16}
-        css={{
-          borderRadius: '6px',
-          color: '#fff',
-          fontSize: 20,
-          fontWeight: 600,
-        }}
-      >
-        <span>{texts.buttonSearch}</span>
+      <UnstyledButton type="submit" bg="#FF5656" h={40} p={'4px 10px'}>
+        <IconSearch fill="#fff" />
       </UnstyledButton>
     </form>
   );
@@ -90,11 +71,11 @@ const SearchInput = styled.input`
   width: 100%;
   outline: none;
   border: none;
-  padding-left: 32px;
+  padding-left: 10px;
   color: #101010;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   &::placeholder {
-    color: '#101010';
+    color: '#75717A';
   }
 `;

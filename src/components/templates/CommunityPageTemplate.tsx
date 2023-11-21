@@ -18,7 +18,7 @@ import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper'
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
 import CommunityLayout from './CommunityLayout';
 
-type TabBarType = 'home' | 'search';
+type TabBarType = 'boards' | 'bestPopular';
 
 const CommunityPageTemplate = ({
   urlLang,
@@ -29,7 +29,7 @@ const CommunityPageTemplate = ({
 }: CommunityPropTypes) => {
   const router = useRouter();
   const texts = communityMainPageTexts[urlLang];
-  const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'home');
+  const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'boards');
   const [recentlyList, setRecentlyList] = useState(communityHomeData.recentlyList);
   const searchTabState = useState(texts.allCategory);
   const [activeTabState] = searchTabState;
@@ -47,7 +47,7 @@ const CommunityPageTemplate = ({
 
   const { data: boardResultClientData, isFetching } = useQuery(
     ['boardResults', { category_type, searchValue, serverLang, page }],
-    () => getCommunityBoardResultData(category_type, searchValue, serverLang, page, 20),
+    () => getCommunityBoardResultData(category_type, searchValue, serverLang, page, 6),
     { initialData: isInitialProps ? boardResultData : undefined }
   );
 
@@ -79,49 +79,27 @@ const CommunityPageTemplate = ({
           margin: '0px auto',
         }}
       >
-        <h3 css={{ margin: '5px' }}>{texts.community}</h3>
+        <div
+          css={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            height: '40px',
+            margin: '6px 0 20px',
+          }}
+        >
+          <h3 css={{ margin: '5px' }}>{texts.community}</h3>
+          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
+        </div>
         <TabBar
-          tabTitles={{ home: texts.home, search: texts.search }}
+          tabTitles={{ boards: texts.boards, bestPopular: texts.bestPopular }}
           tabBar={tabBar}
           texts={texts}
           setTabBar={setTabBar}
           searchTabState={searchTabState}
         />
-        {tabBar === 'home' ? (
+        {tabBar === 'boards' ? (
           <>
-            <PopularBoardsMobile
-              texts={communityLayoutTexts[urlLang]}
-              initialOpen={!isRecentlyListExist}
-            />
-            {isRecentlyListExist ? (
-              <CommunityBoardWrapper
-                title={texts.recentlyBoards}
-                boardList={recentlyList}
-                postCountText={texts.postCount}
-              />
-            ) : (
-              <CommunityNoRecentBoard
-                title={texts.recentlyBoards}
-                texts={texts.noRecentBoardTexts}
-                buttonText={texts.buttonSearch}
-                onClickSearch={() => {
-                  setTabBar('search');
-                  router.push({
-                    pathname: router.pathname,
-                    query: { tab: 'search', locale: router.query.locale },
-                  });
-                }}
-              />
-            )}
-            <CommunityBoardWrapper
-              title={texts.recommendedBoards}
-              boardList={recommendList}
-              postCountText={texts.postCount}
-            />
-          </>
-        ) : (
-          <>
-            <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
             <CommunityBoardFilterTab
               searchCategoryTabs={searchCategoryTabs}
               searchTabState={searchTabState}
@@ -140,9 +118,41 @@ const CommunityPageTemplate = ({
             {boardResultList?.length !== 0 && (
               <CommunitySearchBoardPagination
                 totalCount={boardResultTotalCount as number}
-                itemsPerPage={20}
+                itemsPerPage={6}
               />
             )}
+          </>
+        ) : (
+          <>
+            <PopularBoardsMobile
+              texts={communityLayoutTexts[urlLang]}
+              initialOpen={!isRecentlyListExist}
+            />
+            {isRecentlyListExist ? (
+              <CommunityBoardWrapper
+                title={texts.recentlyBoards}
+                boardList={recentlyList}
+                postCountText={texts.postCount}
+              />
+            ) : (
+              <CommunityNoRecentBoard
+                title={texts.recentlyBoards}
+                texts={texts.noRecentBoardTexts}
+                buttonText={texts.buttonSearch}
+                onClickSearch={() => {
+                  setTabBar('bestPopular');
+                  router.push({
+                    pathname: router.pathname,
+                    query: { tab: 'bestPopular', locale: router.query.locale },
+                  });
+                }}
+              />
+            )}
+            <CommunityBoardWrapper
+              title={texts.recommendedBoards}
+              boardList={recommendList}
+              postCountText={texts.postCount}
+            />
           </>
         )}
       </div>
@@ -154,8 +164,8 @@ export default CommunityPageTemplate;
 
 type TabBarPropTypes = {
   tabTitles: {
-    home: string;
-    search: string;
+    boards: string;
+    bestPopular: string;
   };
   tabBar: TabBarType;
   texts: CommunityPageTextType;
@@ -178,23 +188,23 @@ const TabBar = ({
   return (
     <ul css={{ width: '100%', display: 'flex', margin: '8px 0px' }}>
       <TabBarItem
-        title={tabTitles.home}
-        selected={tabBar === 'home'}
-        onClick={() => handleClick('home')}
+        title={tabTitles.boards}
+        selected={tabBar === 'boards'}
+        onClick={() => handleClick('boards')}
       />
       <TabBarItem
-        title={tabTitles.search}
-        selected={tabBar === 'search'}
+        title={tabTitles.bestPopular}
+        selected={tabBar === 'bestPopular'}
         onClick={() => {
           setActiveTab(texts.allCategory);
-          setTabBar('search');
+          setTabBar('bestPopular');
           router.push({
             pathname: router.pathname,
             query: {
               category_type: 0,
               searchValue: '',
               page: 0,
-              tab: 'search',
+              tab: 'bestPopular',
               locale: router.query.locale,
             },
           });
