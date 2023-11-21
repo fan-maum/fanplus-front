@@ -11,6 +11,7 @@ const PopularBoards = ({ title }: { title: string }) => {
   return (
     <div
       css={{
+        '@media (max-width: 768px)': { display: 'none' },
         width: '230px',
         border: '1px solid #d9d9d9',
         borderBottom: 'none',
