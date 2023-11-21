@@ -13,6 +13,7 @@ import useMediaQuery from '@/hooks/useMediaQuery';
 import IconArrowLeft from '../atoms/IconArrowLeft';
 import { useRouter } from 'next/router';
 import { useUrlLanguage } from '@/hooks/useLanguage';
+import BestNotices from '../molecules/community/BestNotices';
 
 export interface MainPageTemplateProps {
   voteLists: VoteResponse;
@@ -29,7 +30,7 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
   const area6 = texts.Area6;
 
   const [isMobile, setIsMobile] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 991px)');
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const VoteListProps: VoteListProps = {
     isMobile: isMobile,
@@ -44,7 +45,19 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
   return (
     <div css={container}>
       <div css={recapArea}>
-        <div>
+        <div
+          css={{
+            '& > div:nth-child(2)': {
+              top: 0,
+              [mediaQuery768]: {
+                position: 'relative',
+                width: '100%',
+                right: 'unset',
+                display: 'block',
+              },
+            },
+          }}
+        >
           <div css={recapVoteArea}>
             <div css={recapVoteTitleArea}>
               <h4>{texts.recapArea.title1}</h4>
@@ -75,14 +88,14 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
                 '& > div': {
                   width: 'inherit',
                   gridTemplateColumns: 'repeat(2, 1fr)',
-                  [mediaQuery991]: { gridTemplateColumns: 'repeat(1, 1fr)' },
+                  [mediaQuery768]: { gridTemplateColumns: 'repeat(1, 1fr)' },
                 },
               }}
             >
               <VoteList {...VoteListProps} />
             </div>
           </div>
-          <div css={recapCommunityArea}>{texts.recapArea.title2}</div>
+          <BestNotices />
         </div>
       </div>
       <div css={area}>
@@ -314,14 +327,11 @@ const AutoFitImage = ({ ...props }: { src: string; alt: string }) => {
 //** css 속성 */
 const mediaQuery768 = '@media screen and (max-width: 768px)';
 const mediaQuery991 = '@media screen and (max-width: 991px)';
-const mediaQuery1440 = '@media screen and (max-width: 1440px)';
-const mediaQuery1280 = '@media screen and (max-width: 1280px)';
 const container = css({
   position: 'relative',
   fontSize: '20px',
   color: 'rgb(51,51,51)',
   wordBreak: 'break-word',
-  overflow: 'hidden',
   h1: {
     fontSize: '56px',
     wordBreak: 'keep-all',
@@ -347,7 +357,7 @@ const container = css({
     p: { fontSize: '16px' },
   },
 });
-const area = css({ padding: '100px 0px', [mediaQuery991]: { padding: '80px 10px' } });
+const area = css({ padding: '100px 0px', [mediaQuery768]: { padding: '80px 10px' } });
 const recapArea = css({
   position: 'relative',
   width: '100%',
@@ -356,7 +366,7 @@ const recapArea = css({
     maxWidth: '768px',
     margin: '0 auto',
   },
-  [mediaQuery991]: {
+  [mediaQuery768]: {
     padding: '10px 16px 20px',
     flexDirection: 'column',
   },
@@ -376,19 +386,7 @@ const recapVoteArea = css({
     fontSize: '20px',
     fontWeight: 600,
   },
-  [mediaQuery991]: { flex: 1 },
-});
-const recapCommunityArea = css({
-  margin: '20px 0px 30px',
-  position: 'absolute',
-  right: 0,
-  top: 0,
-  width: '320px',
-  height: '500px',
-  border: '1px solid #D9D9D9',
-  [mediaQuery1440]: { width: '260px', right: 'calc((100% - 768px)/2 - 270px)' },
-  [mediaQuery1280]: { width: '200px', right: 'calc((100% - 768px)/2 - 210px)' },
-  [mediaQuery991]: { position: 'relative', right: 0, width: '100%', margin: '10px 0px 30px' },
+  [mediaQuery768]: { flex: 1 },
 });
 const recapVoteTitleArea = css({
   width: '100%',

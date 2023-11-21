@@ -28,7 +28,6 @@ export type FooterTextType = {
 export type MainPageTextType = {
   recapArea: {
     title1: string;
-    title2: string;
     moreButton: string;
   };
   Area1: {

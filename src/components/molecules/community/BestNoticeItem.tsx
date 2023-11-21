@@ -24,6 +24,8 @@ const BestNoticeItem = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'start',
+        gap: 17,
+        padding: '0 17px',
         width: '100%',
         height: '42px',
         font: 'normal 14px/18px Pretendard',
@@ -31,16 +33,17 @@ const BestNoticeItem = ({
         borderBottom: '1px solid #d9d9d9',
       }}
     >
-      <span css={{ margin: '0 17px' }}>{ranking}</span>
+      <span>{ranking}</span>
       <p
         css={{
+          flex: 1,
           width: '180px',
           fontSize: '16px',
           fontWeight: '500',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
-          marginRight: '35px',
+          paddingRight: '35px',
         }}
       >
         {postTitle}
