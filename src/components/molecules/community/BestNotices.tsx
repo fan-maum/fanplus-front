@@ -9,7 +9,7 @@ import { BestPostsSkeleton } from './CommunitySkeleton';
 
 export type BestPostsViewType = 'daily' | 'weekly' | 'monthly' | 'comment' | 'recommend';
 
-const BesetNotices = () => {
+const BestNotices = () => {
   const urlLang = useUrlLanguage();
   const serverLang = useServerLang();
   const texts = CommunityBestNoticesTexts[urlLang];
@@ -69,4 +69,4 @@ const BesetNotices = () => {
   );
 };
 
-export default BesetNotices;
+export default BestNotices;
