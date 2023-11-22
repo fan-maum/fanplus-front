@@ -6,25 +6,33 @@ import { CommunityPageTextType } from '@/types/textTypes';
 import { useQueryClient } from 'react-query';
 import IconSearch from '@/components/atoms/IconSeaarch';
 
-interface FormValue {
+export interface FormValue {
   searchValue: string | number;
 }
 
 export type CommunityBoardSearchInputProps = {
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
+  setTabBar: React.Dispatch<React.SetStateAction<any>>;
+  inputValue: any;
+  setInputValue: React.Dispatch<React.SetStateAction<any>>;
   texts: CommunityPageTextType;
 };
 
 const CommunityBoardSearchInputWrapper = ({
   searchTabState: [activeTab, setActiveTab],
+  setTabBar,
+  inputValue,
+  setInputValue,
   texts,
 }: CommunityBoardSearchInputProps) => {
   const router = useRouter();
   const { category_type = 0, searchValue, page = 0 } = router?.query;
   const queryClient = useQueryClient();
   const { handleSubmit, register, reset } = useForm<FormValue>();
+
   const handleSearchSubmit: SubmitHandler<FormValue> = async (data) => {
     await queryClient.removeQueries('boardResults');
+    await setTabBar('boards');
     await setActiveTab(texts.allCategory);
     await router.push(
       {
@@ -39,7 +47,7 @@ const CommunityBoardSearchInputWrapper = ({
       undefined,
       { shallow: true }
     );
-    await reset({ searchValue: data.searchValue });
+    reset({ searchValue: data.searchValue });
   };
 
   return (

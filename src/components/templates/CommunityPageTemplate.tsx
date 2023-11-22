@@ -1,28 +1,26 @@
 import { getCommunityBoardResultData } from '@/api/Community';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
-import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
+import CommunityBoardSearchInputWrapper, {
+  FormValue,
+} from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { CommunityPropTypes } from '@/pages/[locale]/community';
-import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import type { CommunityPageTextType } from '@/types/textTypes';
-import { getStorageRecentBoardDatas } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useQuery } from 'react-query';
 import { BoardItemListSkeleton } from '../molecules/community/CommunitySkeleton';
-import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
-import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
 import CommunityLayout from './CommunityLayout';
+import { UseFormSetValue, useForm } from 'react-hook-form';
 
 type TabBarType = 'boards' | 'bestPopular';
 
 const CommunityPageTemplate = ({
   urlLang,
-  communityHomeData,
   boardCategoryData,
   boardResultData,
   initialProps,
@@ -30,9 +28,10 @@ const CommunityPageTemplate = ({
   const router = useRouter();
   const texts = communityMainPageTexts[urlLang];
   const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'boards');
-  const [recentlyList, setRecentlyList] = useState(communityHomeData.recentlyList);
   const searchTabState = useState(texts.allCategory);
   const [activeTabState] = searchTabState;
+  const [inputValue, setInputValue] = useState('');
+  const { setValue } = useForm<FormValue>();
 
   const serverLang = translateUrlLangToServerLang(urlLang);
   const category_type = parseInt(router.query.category_type as string) || 0;
@@ -51,16 +50,8 @@ const CommunityPageTemplate = ({
     { initialData: isInitialProps ? boardResultData : undefined }
   );
 
-  useEffect(() => {
-    const storageRecentlyList = getStorageRecentBoardDatas();
-    if (recentlyList.length === 0) setRecentlyList(storageRecentlyList);
-  }, []);
-
-  const recommendList = communityHomeData.recommendList;
   const boardResultTotalCount = boardResultClientData?.RESULTS.DATAS.TOTAL_COUNT;
   const boardResultList = boardResultClientData?.RESULTS.DATAS.BOARD_LIST;
-
-  const isRecentlyListExist = !!recentlyList && recentlyList.length !== 0;
 
   /**
    * searchCategoryTab : IDX - NAME
@@ -89,7 +80,13 @@ const CommunityPageTemplate = ({
           }}
         >
           <h3 css={{ margin: '5px' }}>{texts.community}</h3>
-          <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
+          <CommunityBoardSearchInputWrapper
+            setTabBar={setTabBar}
+            searchTabState={searchTabState}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            texts={texts}
+          />
         </div>
         <TabBar
           tabTitles={{ boards: texts.boards, bestPopular: texts.bestPopular }}
@@ -97,6 +94,8 @@ const CommunityPageTemplate = ({
           texts={texts}
           setTabBar={setTabBar}
           searchTabState={searchTabState}
+          setInputValue={setInputValue}
+          setValue={setValue}
         />
         {tabBar === 'boards' ? (
           <>
@@ -118,40 +117,23 @@ const CommunityPageTemplate = ({
             {boardResultList?.length !== 0 && (
               <CommunitySearchBoardPagination
                 totalCount={boardResultTotalCount as number}
-                itemsPerPage={6}
+                itemsPerPage={20}
               />
             )}
           </>
         ) : (
           <>
-            <PopularBoardsMobile
-              texts={communityLayoutTexts[urlLang]}
-              initialOpen={!isRecentlyListExist}
-            />
-            {isRecentlyListExist ? (
-              <CommunityBoardWrapper
-                title={texts.recentlyBoards}
-                boardList={recentlyList}
-                postCountText={texts.postCount}
-              />
-            ) : (
-              <CommunityNoRecentBoard
-                title={texts.recentlyBoards}
-                texts={texts.noRecentBoardTexts}
-                buttonText={texts.buttonSearch}
-                onClickSearch={() => {
-                  setTabBar('bestPopular');
-                  router.push({
-                    pathname: router.pathname,
-                    query: { tab: 'bestPopular', locale: router.query.locale },
-                  });
-                }}
-              />
-            )}
-            <CommunityBoardWrapper
-              title={texts.recommendedBoards}
-              boardList={recommendList}
-              postCountText={texts.postCount}
+            <CommunityNoRecentBoard
+              title={texts.recentlyBoards}
+              texts={texts.noRecentBoardTexts}
+              buttonText={texts.buttonSearch}
+              onClickSearch={() => {
+                setTabBar('bestPopular');
+                router.push({
+                  pathname: router.pathname,
+                  query: { tab: 'bestPopular', locale: router.query.locale },
+                });
+              }}
             />
           </>
         )}
@@ -171,6 +153,8 @@ type TabBarPropTypes = {
   texts: CommunityPageTextType;
   setTabBar: Dispatch<SetStateAction<TabBarType>>;
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
+  setInputValue: React.Dispatch<React.SetStateAction<any>>;
+  setValue: UseFormSetValue<FormValue>;
 };
 
 const TabBar = ({
@@ -179,35 +163,42 @@ const TabBar = ({
   texts,
   setTabBar,
   searchTabState: [activeTab, setActiveTab],
+  setInputValue,
+  setValue,
 }: TabBarPropTypes) => {
   const router = useRouter();
   const handleClick = (tabBar: TabBarType) => {
     setTabBar(tabBar);
     router.push({ pathname: router.pathname, query: { tab: tabBar, locale: router.query.locale } });
   };
+
   return (
     <ul css={{ width: '100%', display: 'flex', margin: '8px 0px' }}>
       <TabBarItem
         title={tabTitles.boards}
         selected={tabBar === 'boards'}
-        onClick={() => handleClick('boards')}
-      />
-      <TabBarItem
-        title={tabTitles.bestPopular}
-        selected={tabBar === 'bestPopular'}
         onClick={() => {
           setActiveTab(texts.allCategory);
-          setTabBar('bestPopular');
+          setTabBar('boards');
           router.push({
             pathname: router.pathname,
             query: {
               category_type: 0,
               searchValue: '',
               page: 0,
-              tab: 'bestPopular',
+              tab: 'boards',
               locale: router.query.locale,
             },
           });
+        }}
+      />
+      <TabBarItem
+        title={tabTitles.bestPopular}
+        selected={tabBar === 'bestPopular'}
+        onClick={() => {
+          handleClick('bestPopular');
+          setInputValue('');
+          setValue('searchValue', '');
         }}
       />
     </ul>
