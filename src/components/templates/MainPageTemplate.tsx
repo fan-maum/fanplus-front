@@ -8,7 +8,6 @@ import AppLink from '../molecules/AppLink';
 import Carousel from '../organisms/Carousel';
 import { VoteResponse } from '@/types/vote';
 import VoteList, { VoteListProps } from '../organisms/VoteList';
-import useMediaQuery from '@/hooks/useMediaQuery';
 import IconArrowLeft from '../atoms/IconArrowLeft';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import BestNotices from '../molecules/community/BestNotices';
@@ -28,12 +27,10 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
   const area5 = texts.Area5;
   const area6 = texts.Area6;
 
-  const isDesktop = useMediaQuery('(min-width: 768px)');
-
   const VoteListProps: VoteListProps = {
     loading: false,
     error: null,
-    voteList: isDesktop ? voteLists.RESULTS.DATAS.DATA : voteLists.RESULTS.DATAS.DATA.slice(1),
+    voteList: voteLists.RESULTS.DATAS.DATA,
   };
 
   const language = useUrlLanguage();
@@ -356,7 +353,10 @@ const recapVoteArea = css({
     '& > div': {
       width: 'inherit',
       gridTemplateColumns: 'repeat(2, 1fr)',
-      [mediaQuery768]: { gridTemplateColumns: 'repeat(1, 1fr)' },
+      gridTemplateRows: '1fr 0',
+      [mediaQuery768]: {
+        gridTemplateColumns: 'repeat(1, 1fr)',
+      },
     },
   },
 });
