@@ -6,8 +6,19 @@ import IconPlayStore from '../atoms/IconPlayStore';
 import IconPlus from '../atoms/IconPlus';
 import AppLink from '../molecules/AppLink';
 import Carousel from '../organisms/Carousel';
+import { VoteResponse } from '@/types/vote';
+import VoteList, { VoteListProps } from '../organisms/VoteList';
+import IconArrowLeft from '../atoms/IconArrowLeft';
+import { useUrlLanguage } from '@/hooks/useLanguage';
+import BestNotices from '../molecules/community/BestNotices';
+import Link from 'next/link';
 
-const MainPageTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
+export interface MainPageTemplateProps {
+  voteLists: VoteResponse;
+  urlLang: UrlLangType;
+}
+
+const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
   const texts = mainPageTexts[urlLang];
   const area1 = texts.Area1;
   const area2 = texts.Area2;
@@ -15,8 +26,37 @@ const MainPageTemplate = ({ urlLang }: { urlLang: UrlLangType }) => {
   const area4 = texts.Area4;
   const area5 = texts.Area5;
   const area6 = texts.Area6;
+
+  const VoteListProps: VoteListProps = {
+    loading: false,
+    error: null,
+    voteList: voteLists.RESULTS.DATAS.DATA,
+  };
+
+  const language = useUrlLanguage();
+
   return (
     <div css={container}>
+      <div css={recapArea}>
+        <div>
+          <div css={recapVoteArea}>
+            <div css={recapVoteTitleArea}>
+              <h4>{texts.recapArea.title1}</h4>
+              <Link href={`/${language}/votes`}>
+                {texts.recapArea.moreButton}{' '}
+                <IconArrowLeft
+                  stroke={'#666'}
+                  iconCss={{ width: '14px', height: '14px', transform: 'rotateZ(180deg)' }}
+                />
+              </Link>
+            </div>
+            <div className="recapVoteList">
+              <VoteList {...VoteListProps} />
+            </div>
+          </div>
+          <BestNotices />
+        </div>
+      </div>
       <div css={area}>
         <div css={css(center, { [mediaQuery768]: { flexDirection: 'column-reverse' } })}>
           <div
@@ -247,6 +287,7 @@ const AutoFitImage = ({ ...props }: { src: string; alt: string }) => {
 const mediaQuery768 = '@media screen and (max-width: 768px)';
 const mediaQuery991 = '@media screen and (max-width: 991px)';
 const container = css({
+  position: 'relative',
   fontSize: '20px',
   color: 'rgb(51,51,51)',
   wordBreak: 'break-word',
@@ -275,7 +316,72 @@ const container = css({
     p: { fontSize: '16px' },
   },
 });
-const area = css({ padding: '100px 0px', [mediaQuery991]: { padding: '80px 10px' } });
+const area = css({ padding: '100px 0px', [mediaQuery768]: { padding: '80px 10px' } });
+const recapArea = css({
+  position: 'relative',
+  width: '100%',
+  '& > div': {
+    width: '100%',
+    maxWidth: '768px',
+    margin: '0 auto',
+    '& > div:nth-child(2)': {
+      top: 0,
+      [mediaQuery768]: {
+        position: 'relative',
+        width: '100%',
+        right: 'unset',
+        display: 'block',
+      },
+    },
+  },
+  [mediaQuery768]: {
+    padding: '10px 16px 20px',
+    flexDirection: 'column',
+  },
+});
+const recapVoteArea = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 20,
+  margin: '10px 0px 30px',
+  maxWidth: '768px',
+  flex: 1,
+  [mediaQuery768]: { flex: 1 },
+  '& > .recapVoteList': {
+    width: '100%',
+    '& > div': {
+      width: 'inherit',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      gridTemplateRows: '1fr 0',
+      [mediaQuery768]: {
+        gridTemplateColumns: 'repeat(1, 1fr)',
+      },
+    },
+  },
+});
+const recapVoteTitleArea = css({
+  width: '100%',
+  height: '40px',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '20px',
+  '& > h4': {
+    lineHeight: '24px',
+    color: '#000',
+    fontSize: '20px',
+    fontWeight: 600,
+  },
+  '& > a': {
+    display: 'inline-flex',
+    alignItems: 'center',
+    color: '#666',
+    fontSize: 12,
+    fontWeight: 400,
+  },
+});
 const pinkArea = css(area, { backgroundColor: '#fff5f5' });
 const greyArea = css(area, { backgroundColor: '#fafbfd' });
 const center = css({

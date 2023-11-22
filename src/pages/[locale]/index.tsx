@@ -1,11 +1,13 @@
 import Layout from '@/components/organisms/Layout';
 import MainPageTemplate from '@/components/templates/MainPageTemplate';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
-import type { GetServerSideProps } from 'next';
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
+export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-export default function Home({ urlLang }: { urlLang: UrlLangType }) {
+export default function Home({ urlLang, voteLists }: EventProps) {
   return (
     <>
       <Head>
@@ -31,13 +33,25 @@ export default function Home({ urlLang }: { urlLang: UrlLangType }) {
         }}
       />
       <Layout urlLang={urlLang}>
-        <MainPageTemplate urlLang={urlLang} />
+        <MainPageTemplate voteLists={voteLists} urlLang={urlLang} />
       </Layout>
     </>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const urlLang = context.query.locale;
-  return { props: { urlLang } };
+  const urlLang = context.query.locale as UrlLangType;
+  const serverLang = translateUrlLangToServerLang(urlLang);
+  const vote_type = '';
+  const page = 0;
+  const per_page = 2;
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${serverLang}`
+  );
+
+  const voteLists = await res.json();
+  return {
+    props: { urlLang, voteLists },
+  };
 };

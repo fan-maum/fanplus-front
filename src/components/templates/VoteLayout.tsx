@@ -42,7 +42,6 @@ const VotesLayout = ({ voteLists, error }: VotesLayoutProps) => {
   }, [mobile]);
 
   const VoteListProps: VoteListProps = {
-    isMobile: isMobile,
     loading: false,
     error: null,
     voteList: voteLists.RESULTS.DATAS.DATA,

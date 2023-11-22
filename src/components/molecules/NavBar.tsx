@@ -40,7 +40,7 @@ const NavBar = ({ texts }: { texts: NavBarTextType }) => {
             '@media(max-width:991px)': { height: '70px' },
           }}
         >
-          <MainLogo link={texts.link.aboutUs} />
+          <MainLogo />
           <NavContainer texts={texts} isVoteCommunityPage={isVoteCommunityPage} />
           {!isVoteCommunityPage && (
             <img

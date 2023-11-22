@@ -12,9 +12,9 @@ const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
   const router = useRouter();
   const path = pathOnly(router.asPath);
   const isHighlight =
+    path === link ||
     (path.includes('vote') && link.includes('vote')) ||
     (path.includes('community') && link.includes('community'));
-  const picked = path === link;
   return (
     <li
       css={{
@@ -43,7 +43,7 @@ const NavBox = ({ title, link, isSide }: NavBoxPropType) => {
           alignItems: 'center',
           textDecoration: 'none',
           transition: 'color 0.5s',
-          color: isHighlight ? '#ff5656' : picked ? 'rgb(0,0,0)' : 'rgb(102,102,102)',
+          color: isHighlight ? '#ff5656' : 'rgb(102,102,102)',
           ':hover': {
             color: 'rgb(0,0,0)',
             transition: 'color 0.5s',
