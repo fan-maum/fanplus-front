@@ -3,13 +3,12 @@ import { VoteData } from '@/types/vote';
 import VoteListItem from './VoteListItem';
 
 export interface VoteListProps {
-  isMobile: boolean;
   voteList: VoteData[];
   loading: boolean;
   error: string | null;
 }
 
-function VoteList({ isMobile, voteList, loading, error, ...props }: VoteListProps) {
+function VoteList({ voteList, loading, error, ...props }: VoteListProps) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
   return (

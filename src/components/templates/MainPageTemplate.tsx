@@ -8,12 +8,11 @@ import AppLink from '../molecules/AppLink';
 import Carousel from '../organisms/Carousel';
 import { VoteResponse } from '@/types/vote';
 import VoteList, { VoteListProps } from '../organisms/VoteList';
-import { useState } from 'react';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import IconArrowLeft from '../atoms/IconArrowLeft';
-import { useRouter } from 'next/router';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import BestNotices from '../molecules/community/BestNotices';
+import Link from 'next/link';
 
 export interface MainPageTemplateProps {
   voteLists: VoteResponse;
@@ -29,69 +28,32 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
   const area5 = texts.Area5;
   const area6 = texts.Area6;
 
-  const [isMobile, setIsMobile] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const VoteListProps: VoteListProps = {
-    isMobile: isMobile,
     loading: false,
     error: null,
     voteList: isDesktop ? voteLists.RESULTS.DATAS.DATA : voteLists.RESULTS.DATAS.DATA.slice(1),
   };
 
-  const router = useRouter();
   const language = useUrlLanguage();
 
   return (
     <div css={container}>
       <div css={recapArea}>
-        <div
-          css={{
-            '& > div:nth-child(2)': {
-              top: 0,
-              [mediaQuery768]: {
-                position: 'relative',
-                width: '100%',
-                right: 'unset',
-                display: 'block',
-              },
-            },
-          }}
-        >
+        <div>
           <div css={recapVoteArea}>
             <div css={recapVoteTitleArea}>
               <h4>{texts.recapArea.title1}</h4>
-              <button
-                css={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  color: '#666',
-                  fontSize: 12,
-                  fontWeight: 400,
-                  outline: 'none',
-                  border: 'none',
-                  backgroundColor: '#fff',
-                  cursor: 'pointer',
-                }}
-                onClick={() => router.push(`/${language}/votes`)}
-              >
+              <Link href={`/${language}/votes`}>
                 {texts.recapArea.moreButton}{' '}
                 <IconArrowLeft
                   stroke={'#666'}
                   iconCss={{ width: '14px', height: '14px', transform: 'rotateZ(180deg)' }}
                 />
-              </button>
+              </Link>
             </div>
-            <div
-              css={{
-                width: '100%',
-                '& > div': {
-                  width: 'inherit',
-                  gridTemplateColumns: 'repeat(2, 1fr)',
-                  [mediaQuery768]: { gridTemplateColumns: 'repeat(1, 1fr)' },
-                },
-              }}
-            >
+            <div className="recapVoteList">
               <VoteList {...VoteListProps} />
             </div>
           </div>
@@ -365,6 +327,15 @@ const recapArea = css({
     width: '100%',
     maxWidth: '768px',
     margin: '0 auto',
+    '& > div:nth-child(2)': {
+      top: 0,
+      [mediaQuery768]: {
+        position: 'relative',
+        width: '100%',
+        right: 'unset',
+        display: 'block',
+      },
+    },
   },
   [mediaQuery768]: {
     padding: '10px 16px 20px',
@@ -377,16 +348,17 @@ const recapVoteArea = css({
   alignItems: 'center',
   gap: 20,
   margin: '10px 0px 30px',
-  minWidth: '600px',
   maxWidth: '768px',
   flex: 1,
-  '& > h4': {
-    lineHeight: '24px',
-    color: '#000',
-    fontSize: '20px',
-    fontWeight: 600,
-  },
   [mediaQuery768]: { flex: 1 },
+  '& > .recapVoteList': {
+    width: '100%',
+    '& > div': {
+      width: 'inherit',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      [mediaQuery768]: { gridTemplateColumns: 'repeat(1, 1fr)' },
+    },
+  },
 });
 const recapVoteTitleArea = css({
   width: '100%',
@@ -396,6 +368,19 @@ const recapVoteTitleArea = css({
   justifyContent: 'space-between',
   alignItems: 'center',
   marginBottom: '20px',
+  '& > h4': {
+    lineHeight: '24px',
+    color: '#000',
+    fontSize: '20px',
+    fontWeight: 600,
+  },
+  '& > a': {
+    display: 'inline-flex',
+    alignItems: 'center',
+    color: '#666',
+    fontSize: 12,
+    fontWeight: 400,
+  },
 });
 const pinkArea = css(area, { backgroundColor: '#fff5f5' });
 const greyArea = css(area, { backgroundColor: '#fafbfd' });
