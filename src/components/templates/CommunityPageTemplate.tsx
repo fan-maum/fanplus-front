@@ -1,8 +1,6 @@
 import { getCommunityBoardResultData } from '@/api/Community';
 import CommunityBoardFilterTab from '@/components/organisms/community/CommunityBoardFilterTab';
-import CommunityBoardSearchInputWrapper, {
-  FormValue,
-} from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
+import CommunityBoardSearchInputWrapper from '@/components/organisms/community/CommunityBoardSearchInputWrapper';
 import CommunitySearchBoardPagination from '@/components/organisms/community/CommunitySearchBoardPagination';
 import CommunitySearchBoardWrapper from '@/components/organisms/community/CommunitySearchBoardWrapper';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
@@ -15,7 +13,8 @@ import { useQuery } from 'react-query';
 import { BoardItemListSkeleton } from '../molecules/community/CommunitySkeleton';
 import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
 import CommunityLayout from './CommunityLayout';
-import { UseFormSetValue, useForm } from 'react-hook-form';
+import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
 
 type TabBarType = 'boards' | 'bestPopular';
 
@@ -24,19 +23,25 @@ const CommunityPageTemplate = ({
   boardCategoryData,
   boardResultData,
   initialProps,
+  userId,
+  boardIndex,
+  boardLangCookie,
+  communityBoardData,
+  initialBestBoardProps,
 }: CommunityPropTypes) => {
   const router = useRouter();
   const texts = communityMainPageTexts[urlLang];
+  const bestBoardtexts = communityBoardTexts[urlLang];
   const [tabBar, setTabBar] = useState((router.query.tab as TabBarType) || 'boards');
   const searchTabState = useState(texts.allCategory);
   const [activeTabState] = searchTabState;
-  const [inputValue, setInputValue] = useState('');
-  const { setValue } = useForm<FormValue>();
 
   const serverLang = translateUrlLangToServerLang(urlLang);
   const category_type = parseInt(router.query.category_type as string) || 0;
   const searchValue = router.query.searchValue || '';
   const page = parseInt(router.query.page as string) - 1 || 0;
+  const topicIndex = Number(router.query.topic) || 0;
+  const viewType = (router.query.view as string) || 'all';
 
   const isInitialProps =
     initialProps.category_type === category_type &&
@@ -44,9 +49,16 @@ const CommunityPageTemplate = ({
     initialProps.serverLang === serverLang &&
     initialProps.page === page;
 
+  const isInitialBestBoardProps =
+    initialBestBoardProps.boardLangCookie === boardLangCookie &&
+    initialBestBoardProps.page === page &&
+    initialBestBoardProps.serverLang === serverLang &&
+    initialBestBoardProps.view_type === viewType &&
+    initialBestBoardProps.topic === topicIndex;
+
   const { data: boardResultClientData, isFetching } = useQuery(
     ['boardResults', { category_type, searchValue, serverLang, page }],
-    () => getCommunityBoardResultData(category_type, searchValue, serverLang, page, 6),
+    () => getCommunityBoardResultData(category_type, searchValue, serverLang, page, 20),
     { initialData: isInitialProps ? boardResultData : undefined }
   );
 
@@ -60,6 +72,8 @@ const CommunityPageTemplate = ({
   const searchCategoryTabDtos = boardCategoryData.RESULTS.DATAS.CATEGORY_LIST;
   const seearchAllCategory = { CATEGORY_IDX: 0, CATEGORY_NAME: texts.allCategory };
   const searchCategoryTabs = [seearchAllCategory, ...searchCategoryTabDtos];
+
+  const bestBoardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
 
   return (
     <CommunityLayout>
@@ -83,8 +97,6 @@ const CommunityPageTemplate = ({
           <CommunityBoardSearchInputWrapper
             setTabBar={setTabBar}
             searchTabState={searchTabState}
-            inputValue={inputValue}
-            setInputValue={setInputValue}
             texts={texts}
           />
         </div>
@@ -94,8 +106,6 @@ const CommunityPageTemplate = ({
           texts={texts}
           setTabBar={setTabBar}
           searchTabState={searchTabState}
-          setInputValue={setInputValue}
-          setValue={setValue}
         />
         {tabBar === 'boards' ? (
           <>
@@ -122,20 +132,25 @@ const CommunityPageTemplate = ({
             )}
           </>
         ) : (
-          <>
-            <CommunityNoRecentBoard
-              title={texts.recentlyBoards}
-              texts={texts.noRecentBoardTexts}
-              buttonText={texts.buttonSearch}
-              onClickSearch={() => {
-                setTabBar('bestPopular');
-                router.push({
-                  pathname: router.pathname,
-                  query: { tab: 'bestPopular', locale: router.query.locale },
-                });
+          <div css={{ '& > div': { padding: 0 } }}>
+            <CommunityBoardArticleTable
+              communityBoardDataSSR={communityBoardData}
+              texts={bestBoardtexts}
+              queries={{
+                userId,
+                boardIndex,
+                page,
+                requestLang: serverLang,
+                boardLang: boardLangCookie,
+                topicIndex,
+                viewType,
+              }}
+              isInitialData={isInitialBestBoardProps}
+              onClickWrite={() => {
+                return false;
               }}
             />
-          </>
+          </div>
         )}
       </div>
     </CommunityLayout>
@@ -153,8 +168,6 @@ type TabBarPropTypes = {
   texts: CommunityPageTextType;
   setTabBar: Dispatch<SetStateAction<TabBarType>>;
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
-  setInputValue: React.Dispatch<React.SetStateAction<any>>;
-  setValue: UseFormSetValue<FormValue>;
 };
 
 const TabBar = ({
@@ -163,8 +176,6 @@ const TabBar = ({
   texts,
   setTabBar,
   searchTabState: [activeTab, setActiveTab],
-  setInputValue,
-  setValue,
 }: TabBarPropTypes) => {
   const router = useRouter();
   const handleClick = (tabBar: TabBarType) => {
@@ -197,8 +208,6 @@ const TabBar = ({
         selected={tabBar === 'bestPopular'}
         onClick={() => {
           handleClick('bestPopular');
-          setInputValue('');
-          setValue('searchValue', '');
         }}
       />
     </ul>

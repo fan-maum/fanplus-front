@@ -38,6 +38,9 @@ const CommunityBoardArticleTable = ({
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
+  console.log(boardIndex);
+  const isBestBoard = boardIndex === 2291 ? 'board' : 'topic';
+  // firstHeader?: 'topic' | 'board';
 
   const { data: communityBoardData, isFetching } = useQuery(
     [

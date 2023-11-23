@@ -13,16 +13,12 @@ export interface FormValue {
 export type CommunityBoardSearchInputProps = {
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
   setTabBar: React.Dispatch<React.SetStateAction<any>>;
-  inputValue: any;
-  setInputValue: React.Dispatch<React.SetStateAction<any>>;
   texts: CommunityPageTextType;
 };
 
 const CommunityBoardSearchInputWrapper = ({
   searchTabState: [activeTab, setActiveTab],
   setTabBar,
-  inputValue,
-  setInputValue,
   texts,
 }: CommunityBoardSearchInputProps) => {
   const router = useRouter();
