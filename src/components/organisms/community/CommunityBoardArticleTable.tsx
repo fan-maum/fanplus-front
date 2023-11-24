@@ -38,9 +38,7 @@ const CommunityBoardArticleTable = ({
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
-  console.log(boardIndex);
   const isBestBoard = boardIndex === 2291 ? 'board' : 'topic';
-  // firstHeader?: 'topic' | 'board';
 
   const { data: communityBoardData, isFetching } = useQuery(
     [
@@ -67,7 +65,7 @@ const CommunityBoardArticleTable = ({
     (!router.query.page || router.query.page === '1')
   );
 
-  if (isFetching) return <CommunityBoardArticleTableSkeleton />;
+  if (isFetching) return <CommunityBoardArticleTableSkeleton firstHeader={isBestBoard} />;
   if (!isPostExist) {
     return (
       <CommunityBoardNoPost
@@ -79,7 +77,7 @@ const CommunityBoardArticleTable = ({
   }
   return (
     <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
-      <CommunityBoardArticleTableHeader />
+      <CommunityBoardArticleTableHeader firstHeader={isBestBoard} />
       <ul>
         {postList?.map((post, idx) => {
           return (

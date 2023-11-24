@@ -36,7 +36,7 @@ const CommunityBoardSearchInputWrapper = ({
         query: {
           category_type: 0,
           searchValue: data.searchValue,
-          tab: 'search',
+          tab: 'boards',
           locale: router.query.locale,
         },
       },

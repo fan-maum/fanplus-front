@@ -178,10 +178,6 @@ const TabBar = ({
   searchTabState: [activeTab, setActiveTab],
 }: TabBarPropTypes) => {
   const router = useRouter();
-  const handleClick = (tabBar: TabBarType) => {
-    setTabBar(tabBar);
-    router.push({ pathname: router.pathname, query: { tab: tabBar, locale: router.query.locale } });
-  };
 
   return (
     <ul css={{ width: '100%', display: 'flex', margin: '8px 0px' }}>
@@ -194,8 +190,8 @@ const TabBar = ({
           router.push({
             pathname: router.pathname,
             query: {
+              ...router.query,
               category_type: 0,
-              searchValue: '',
               page: 0,
               tab: 'boards',
               locale: router.query.locale,
@@ -207,7 +203,15 @@ const TabBar = ({
         title={tabTitles.bestPopular}
         selected={tabBar === 'bestPopular'}
         onClick={() => {
-          handleClick('bestPopular');
+          setTabBar('bestPopular');
+          router.push({
+            pathname: router.pathname,
+            query: {
+              ...router.query,
+              tab: 'bestPopular',
+              locale: router.query.locale,
+            },
+          });
         }}
       />
     </ul>
