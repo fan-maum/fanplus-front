@@ -202,6 +202,10 @@ const VoteDetailLayout = ({
   );
 
   useEffect(() => {
+    setVoteDetails(propsVoteDetails);
+  }, [propsVoteDetails]);
+
+  useEffect(() => {
     if (stars[1]) {
       const starData = findStarIndexById(stars[1].STAR_IDX, voteDetails);
       if (starData) setStarWithIndex(starData?.index);
