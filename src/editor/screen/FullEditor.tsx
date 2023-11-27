@@ -51,7 +51,6 @@ const FullEditor: React.FC<TProps> = ({
       setup: (editor: Editor) => {
         editor.on('change', () => setContent(editor.getContent()));
         editor.on('keyup', () => setContent(editor.getContent()));
-        editor.on('dragstart dragend dragover drop', (e) => e.preventDefault());
         useIOSIMESetting(editor);
 
         const onCustomAction = () => setModalOpen(true);
