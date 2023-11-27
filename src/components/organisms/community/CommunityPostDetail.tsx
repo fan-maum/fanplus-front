@@ -1,12 +1,12 @@
-import styled from '@emotion/styled';
+import { deleteRecommends, postRecommends } from '@/api/Community';
 import { Center, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
-import { PostInfoItemType } from '@/types/community';
-import { CommunityPostTextType } from '@/types/textTypes';
-import { deleteRecommends, postRecommends } from '@/api/Community';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import PostDetailCopyUrl from '@/components/molecules/community/PostDetailCopyUrl';
+import type { PostInfoItemType } from '@/types/community';
+import type { CommunityPostTextType } from '@/types/textTypes';
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 type CommunityPostDetailProps = {
   identity: string;
@@ -46,7 +46,7 @@ const CommunityPostDetail = ({
   };
   return (
     <>
-      <PostDetailCopyUrl texts={texts} />
+      <PostDetailCopyUrl texts={texts} key={postInfo.POST_IDX} />
       <Stack p={'24px 22px'} spacing={140} css={{ borderBottom: '6px solid #f1f1f1' }}>
         <PostContents dangerouslySetInnerHTML={{ __html: postInfo.POST_CONTENTS }} />
         <Center mb={8}>
