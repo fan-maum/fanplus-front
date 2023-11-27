@@ -26,7 +26,12 @@ const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
       <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
       <div css={{ width: 310, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
         <span
-          css={{ width: 240, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          css={{
+            maxWidth: 240,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
         >
           {postItem.POST_TITLE}
         </span>
