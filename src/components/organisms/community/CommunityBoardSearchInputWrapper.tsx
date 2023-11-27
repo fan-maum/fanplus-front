@@ -57,6 +57,9 @@ const CommunityBoardSearchInputWrapper = ({
         alignItems: 'center',
         gap: 18,
         border: '2px solid #FF5656',
+        '@media (max-width: 768px)': {
+          width: '100%',
+        },
       }}
     >
       <Group h={'100%'} spacing={10} css={{ position: 'relative', flex: 1 }}>

@@ -11,10 +11,11 @@ import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useQuery } from 'react-query';
 import { BoardItemListSkeleton } from '../molecules/community/CommunitySkeleton';
-import CommunityNoRecentBoard from '../organisms/community/CommunityNoRecentBoard';
+import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import CommunityLayout from './CommunityLayout';
 import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 
 type TabBarType = 'boards' | 'bestPopular';
 
@@ -73,8 +74,6 @@ const CommunityPageTemplate = ({
   const seearchAllCategory = { CATEGORY_IDX: 0, CATEGORY_NAME: texts.allCategory };
   const searchCategoryTabs = [seearchAllCategory, ...searchCategoryTabDtos];
 
-  const bestBoardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
-
   return (
     <CommunityLayout>
       <div
@@ -88,9 +87,15 @@ const CommunityPageTemplate = ({
           css={{
             display: 'flex',
             justifyContent: 'space-between',
+            flexDirection: 'row',
             alignItems: 'center',
-            height: '40px',
             margin: '6px 0 20px',
+            '@media (max-width: 768px)': {
+              flexDirection: 'column',
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+              padding: '0 16px',
+            },
           }}
         >
           <h3 css={{ margin: '5px' }}>{texts.community}</h3>
@@ -100,6 +105,7 @@ const CommunityPageTemplate = ({
             texts={texts}
           />
         </div>
+        <PopularBoardsMobile texts={communityLayoutTexts[urlLang]} initialOpen={false} />
         <TabBar
           tabTitles={{ boards: texts.boards, bestPopular: texts.bestPopular }}
           tabBar={tabBar}
