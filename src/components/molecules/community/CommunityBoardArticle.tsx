@@ -1,6 +1,6 @@
 import IconImage from '@/components/atoms/IconImage';
 import type { PostListItemType } from '@/types/community';
-import { formatWrittenTimeLite } from '@/utils/util';
+import { formatCommentCount, formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
 
 type OwnPropType = {
@@ -10,7 +10,7 @@ type OwnPropType = {
 
 const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
   const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
-  const commentCount = Number(postItem.COMMENT_CNT) > 999 ? '[+999]' : `[${postItem.COMMENT_CNT}]`;
+  const commentCount = Number(postItem.COMMENT_CNT) <= 999 ? Number(postItem.COMMENT_CNT) : '+999';
 
   return (
     <Link
@@ -31,7 +31,11 @@ const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
           {postItem.POST_TITLE}
         </span>
         {postItem.POST_IMG_YN === 'Y' && <IconImage />}
-        <span css={{ fontWeight: 500, color: '#ff5656', marginLeft: '2px' }}>{commentCount}</span>
+        {!!commentCount && (
+          <span css={{ fontWeight: 500, color: '#ff5656', marginLeft: '2px' }}>
+            [{commentCount}]
+          </span>
+        )}
       </div>
       <div css={{ width: 78, textAlign: 'center' }}>
         <p
