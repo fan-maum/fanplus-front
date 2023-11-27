@@ -2,10 +2,11 @@ import { getCommunityBoardTopics } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
+import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type { CommunityBoardTopicResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
 import { GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
 import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
@@ -20,6 +21,7 @@ type CommunityPostWritePropType = {
 };
 
 const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
+  const router = useRouter();
   return (
     <Layout urlLang={urlLang}>
       <PostEditorTemplate
@@ -27,6 +29,7 @@ const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
         urlLang={urlLang}
         topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
         datas={datas}
+        defaultValues={{ topicIndex: Number(router.query.topic) }}
       />
     </Layout>
   );

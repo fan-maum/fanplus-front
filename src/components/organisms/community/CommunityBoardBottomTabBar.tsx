@@ -4,7 +4,6 @@ type BottomTabBarItemPropType = {
   icon: ReactNode;
   title: string;
   onClick: () => void;
-  selected?: boolean;
 };
 type BottomTabBarPropType = BottomTabBarItemPropType[];
 

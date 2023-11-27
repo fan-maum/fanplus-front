@@ -66,8 +66,12 @@ const CommunityBoardTemplate = ({
       router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
-    router.push(`/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`);
+    router.push({
+      pathname: `/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`,
+      query: { topic: router.query.topic },
+    });
   };
+
   const onClickPopular = async () => {
     if (viewType !== 'best_post') {
       router.replace({ query: { ...router.query, view: 'best_post', page: 1 } }, undefined, {
@@ -79,6 +83,7 @@ const CommunityBoardTemplate = ({
       shallow: true,
     });
   };
+
   const onClickMyPost = () => {
     if (!userId) {
       const path = router.asPath;
@@ -87,6 +92,7 @@ const CommunityBoardTemplate = ({
     }
     router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
   };
+
   const onClickTopic = async (topic: number) => {
     router.replace(
       { pathname: router.pathname, query: { ...router.query, topic, page: 1 } },
@@ -94,6 +100,7 @@ const CommunityBoardTemplate = ({
       { shallow: true }
     );
   };
+
   const onClickLanguageBox = async (language: BoardLangType) => {
     setBoardLang(language);
     setBoardLangCookie(language);

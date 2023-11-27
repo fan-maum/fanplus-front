@@ -32,9 +32,9 @@ type OwnPropType = {
     serverLang: ServerLangType;
   };
   defaultValues?: {
-    topicIndex: number;
-    title: string;
-    content: string;
+    topicIndex?: number;
+    title?: string;
+    content?: string;
   };
 };
 
