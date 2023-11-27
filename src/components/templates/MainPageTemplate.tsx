@@ -322,14 +322,24 @@ const recapArea = css({
   width: '100%',
   '& > div': {
     width: '100%',
-    maxWidth: '768px',
+    maxWidth: '1190px',
     margin: '0 auto',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'nowrap',
+    gap: 60,
+    padding: '0 20px',
+    [mediaQuery768]: {
+      flexDirection: 'column',
+      gap: 0,
+      padding: '0',
+    },
     '& > div:nth-child(2)': {
-      top: 0,
+      position: 'relative',
+      right: 'unset',
+      height: '100%',
       [mediaQuery768]: {
-        position: 'relative',
         width: '100%',
-        right: 'unset',
         display: 'block',
       },
     },
@@ -345,9 +355,12 @@ const recapVoteArea = css({
   alignItems: 'center',
   gap: 20,
   margin: '10px 0px 30px',
-  maxWidth: '768px',
-  flex: 1,
-  [mediaQuery768]: { flex: 1 },
+  minWidth: '768px',
+  [mediaQuery768]: {
+    minWidth: 'auto',
+    gap: 0,
+    margin: '10px 0px',
+  },
   '& > .recapVoteList': {
     width: '100%',
     '& > div': {
