@@ -223,7 +223,7 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
   },
   in: {
     recapArea: {
-      title1: 'Pemungutan suara yang sedang berlangsung',
+      title1: 'Vote',
       moreButton: 'Lihat lebih banyak',
     },
     Area1: {
