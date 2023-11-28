@@ -1,5 +1,5 @@
 import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
-import { imagesUploadHandler } from '@/editor/module/imagesUploadHandler';
+import { imagesUploadHandler } from '@/editor/util/imagesUploadHandler';
 import FullEditor from '@/editor/screen/FullEditor';
 import { communityPostEditorTexts } from '@/texts/communityPostEditorTexts';
 import type { ServerLangType, UrlLangType } from '@/types/common';
