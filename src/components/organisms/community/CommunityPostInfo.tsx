@@ -48,12 +48,14 @@ const CommunityPostInfo = ({
         boardName={boardInfo.BOARD_TITLE}
         onClick={isBestBoard ? onClickToBestBoard : onClickToBoard}
       />
-      <div css={{ display: 'flex' }}>
-        <TopicBubble height={32} p={8} radius={20} name={postInfo.TOPIC_NAME} />
-        {postInfo.HAS_POPULAR_BADGE === '1' && (
-          <TopicBubble height={32} p={8} radius={20} hightlight={true} name={texts.popular} />
-        )}
-      </div>
+      {!isBestBoard && (
+        <div css={{ display: 'flex' }}>
+          <TopicBubble height={32} p={8} radius={20} name={postInfo.TOPIC_NAME} />
+          {postInfo.HAS_POPULAR_BADGE === '1' && (
+            <TopicBubble height={32} p={8} radius={20} hightlight={true} name={texts.popular} />
+          )}
+        </div>
+      )}
       <div
         css={{
           paddingTop: 10,
