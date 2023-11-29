@@ -30,7 +30,7 @@ const Edit = ({ urlLang, boardTopics, communityPostData, datas }: CommunityPostW
         topics={boardTopics.RESULTS.DATAS.TOPIC_LIST}
         datas={datas}
         defaultValues={{
-          topicIndex: parseInt(communityPostData.RESULTS.DATAS.POST_INFO.THUMBNAIL_IMG),
+          topicIndex: parseInt(communityPostData.RESULTS.DATAS.POST_INFO.TOPIC_IDX),
           title: communityPostData.RESULTS.DATAS.POST_INFO.POST_TITLE,
           content: communityPostData.RESULTS.DATAS.POST_INFO.POST_CONTENTS,
         }}

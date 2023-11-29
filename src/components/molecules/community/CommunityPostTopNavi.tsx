@@ -1,11 +1,12 @@
-import { useRouter } from 'next/router';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import IconVerticalMore from '@/components/atoms/IconVerticalMore';
-import { Popover } from '@mantine/core';
-import { CommunityPostTextType } from '@/types/textTypes';
-import { useSetRecoilState } from 'recoil';
 import { modalBlockState, reportModalBlockState, selectInfoState } from '@/store/community';
+import { CommunityPostTextType } from '@/types/textTypes';
 import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
+import { pathOnly } from '@/utils/util';
+import { Popover } from '@mantine/core';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 
 export type CommunityPostTopNaviProps = {
   identity: string;
@@ -116,7 +117,7 @@ const CommunityPostTopNavi = ({
                   <>
                     <li
                       onClick={() => {
-                        router.push(router.asPath + 'edit/');
+                        router.push(pathOnly(router.asPath) + 'edit/');
                       }}
                       css={{ borderBottom: '1px solid #d9d9d9' }}
                     >
