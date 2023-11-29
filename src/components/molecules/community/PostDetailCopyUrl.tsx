@@ -1,8 +1,7 @@
 import { Stack, UnstyledButton } from '@/components/atoms';
 import ToastModal from '@/components/toast/ToastModal';
-import { CommunityPostTextType } from '@/types/textTypes';
+import type { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
-import CopyToClipboard from 'react-copy-to-clipboard';
 
 interface PostDetailCopyUrlProps {
   texts: CommunityPostTextType;
@@ -13,12 +12,6 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
   const clientURL = process.env.NEXT_PUBLIC_CLIENT_URL;
   const path = router.asPath;
   const href = `${clientURL}${path}`;
-
-  const onCopy = (_: string, copySuccessed: boolean) => {
-    if (copySuccessed) {
-      ToastModal.alert(texts.copyUrlMessage);
-    }
-  };
 
   const handleCopy = () => {
     window?.navigator.clipboard.writeText(href).then(() => {
@@ -44,7 +37,6 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
       >
         {href}
       </span>
-      {/* <CopyToClipboard text={href} onCopy={onCopy}> */}
       <UnstyledButton
         h={26}
         p={'1px 8px'}
@@ -60,7 +52,6 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
       >
         {texts.copyUrlButton}
       </UnstyledButton>
-      {/* </CopyToClipboard> */}
     </Stack>
   );
 };
