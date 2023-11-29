@@ -24,6 +24,9 @@ const CommunityPostInfo = ({
   const urlLang = useUrlLanguage();
   const boardIndex = postInfo.BOARD_IDX;
 
+  const { boardIndex: urlBoardIndex } = router.query;
+  const isBestBoard = urlBoardIndex === '2291';
+
   const onClickToBoard = () => {
     router.push({
       pathname: `/${urlLang}/community/board/${boardIndex}/`,
@@ -35,15 +38,24 @@ const CommunityPostInfo = ({
     });
   };
 
+  const onClickToBestBoard = () => {
+    router.push({ pathname: `/${urlLang}/community/board/2291/` });
+  };
+
   return (
     <Stack spacing={12} p={20} css={{ borderBottom: '2px solid #f1f1f1' }}>
-      <PostToBoardButton boardName={boardInfo.BOARD_TITLE} onClick={onClickToBoard} />
-      <div css={{ display: 'flex' }}>
-        <TopicBubble height={32} p={8} radius={20} name={postInfo.TOPIC_NAME} />
-        {postInfo.HAS_POPULAR_BADGE === '1' && (
-          <TopicBubble height={32} p={8} radius={20} hightlight={true} name={texts.popular} />
-        )}
-      </div>
+      <PostToBoardButton
+        boardName={boardInfo.BOARD_TITLE}
+        onClick={isBestBoard ? onClickToBestBoard : onClickToBoard}
+      />
+      {!isBestBoard && (
+        <div css={{ display: 'flex' }}>
+          <TopicBubble height={32} p={8} radius={20} name={postInfo.TOPIC_NAME} />
+          {postInfo.HAS_POPULAR_BADGE === '1' && (
+            <TopicBubble height={32} p={8} radius={20} hightlight={true} name={texts.popular} />
+          )}
+        </div>
+      )}
       <div
         css={{
           paddingTop: 10,
