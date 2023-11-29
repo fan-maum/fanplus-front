@@ -26,7 +26,7 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     daily: 'Saat ini',
     weekly: 'Mingguan',
     monthly: 'Bulanan',
-    comment: 'Paling banyak dikomentari',
+    comment: 'Melalui komentar',
     recommend: 'Paling disukai',
   },
   ja: {
@@ -35,8 +35,8 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     daily: 'ライブ',
     weekly: '週間',
     monthly: '月間',
-    comment: 'コメントが多い順',
-    recommend: '推薦数多い順',
+    comment: 'コメント順',
+    recommend: '推奨順',
   },
   vi: {
     title: 'Đứng đầu',
@@ -44,8 +44,8 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     daily: 'Hiện nay',
     weekly: 'Hàng tuần',
     monthly: 'Hàng tháng',
-    comment: 'Nhận xét nhiều nhất',
-    recommend: 'Được đề xuất nhiều nhất',
+    comment: 'Bằng bình luận',
+    recommend: 'Khuyến khích',
   },
   'zh-CN': {
     title: 'FanPlus 热门',
@@ -71,7 +71,7 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     daily: 'Actual',
     weekly: 'Semanal',
     monthly: 'Mensual',
-    comment: 'Orden de muchos comentarios',
-    recommend: 'orden de gran cantidad de recomendaciones',
+    comment: 'Por comentario',
+    recommend: 'Recomendado',
   },
 };
