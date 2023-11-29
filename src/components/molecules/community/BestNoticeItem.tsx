@@ -15,10 +15,11 @@ const BestNoticeItem = ({
   const urlLang = useUrlLanguage();
   const ranking = rank < 10 ? '0' + rank : rank;
   const commentCount = comments <= 999 ? comments : '+999';
+  const bestPostsBoardIndex = 2291;
 
   return (
     <Link
-      href={`/${urlLang}/community/board/2291/${postIndex}/`}
+      href={`/${urlLang}/community/board/${bestPostsBoardIndex}/${postIndex}/`}
       css={{
         display: 'flex',
         alignItems: 'center',
