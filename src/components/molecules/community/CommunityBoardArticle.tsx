@@ -29,10 +29,15 @@ const CommunityBoardArticle = ({ postItem, firstHeader = 'topic', link }: OwnPro
       ) : (
         <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
       )}
-      <div
-        css={{ minWidth: 200, flex: 1, padding: '0 20px', display: 'flex', alignItems: 'center' }}
-      >
-        <span css={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+      <div css={{ width: 310, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
+        <span
+          css={{
+            maxWidth: 240,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
           {postItem.POST_TITLE}
         </span>
         {postItem.POST_IMG_YN === 'Y' && <IconImage />}
