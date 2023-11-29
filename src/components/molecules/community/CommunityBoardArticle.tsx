@@ -5,10 +5,11 @@ import Link from 'next/link';
 
 type OwnPropType = {
   postItem: PostListItemType;
+  firstHeader?: 'topic' | 'board';
   link: string;
 };
 
-const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
+const CommunityBoardArticle = ({ postItem, firstHeader = 'topic', link }: OwnPropType) => {
   const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
   const commentCount = Number(postItem.COMMENT_CNT) > 999 ? '[+999]' : `[${postItem.COMMENT_CNT}]`;
 
@@ -23,11 +24,15 @@ const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
         font: 'normal 12px/14px Pretendard',
       }}
     >
-      <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
-      <div css={{ width: 310, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
-        <span
-          css={{ width: 240, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-        >
+      {firstHeader === 'board' ? (
+        <div css={{ width: 106, textAlign: 'center' }}>{postItem.BOARD_TITLE}</div>
+      ) : (
+        <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
+      )}
+      <div
+        css={{ minWidth: 200, flex: 1, padding: '0 20px', display: 'flex', alignItems: 'center' }}
+      >
+        <span css={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {postItem.POST_TITLE}
         </span>
         {postItem.POST_IMG_YN === 'Y' && <IconImage />}

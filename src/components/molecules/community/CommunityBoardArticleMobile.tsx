@@ -9,11 +9,17 @@ import { CSSProperties } from 'react';
 
 type OwnPropType = {
   postItem: PostListItemType;
+  firstHeader?: 'topic' | 'board';
   link: string;
   texts: CommunityBoardTextType;
 };
 
-const CommunityBoardArticleMobile = ({ postItem, link, texts }: OwnPropType) => {
+const CommunityBoardArticleMobile = ({
+  postItem,
+  firstHeader = 'topic',
+  link,
+  texts,
+}: OwnPropType) => {
   const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
 
   return (
@@ -25,10 +31,12 @@ const CommunityBoardArticleMobile = ({ postItem, link, texts }: OwnPropType) => 
         padding: '5px 5px 0',
       }}
     >
-      <div css={{ display: 'flex' }}>
-        <TopicBubble name={postItem.TOPIC_NAME as string} />
-        {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}
-      </div>
+      {firstHeader === 'topic' && (
+        <div css={{ display: 'flex' }}>
+          <TopicBubble name={postItem.TOPIC_NAME as string} />
+          {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}
+        </div>
+      )}
       <div css={{ display: 'flex', justifyContent: 'space-between' }}>
         <div css={{ margin: '3px 3px 6px', lineHeight: '1.5' }}>
           <h4 css={{ wordBreak: 'break-word', fontWeight: '400' }}>{postItem.POST_TITLE}</h4>
