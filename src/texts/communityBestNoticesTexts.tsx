@@ -3,7 +3,7 @@ import { CommunityBestNoticesTextType } from '@/types/textTypes';
 
 export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextType> = {
   ko: {
-    title: 'BEST 소식',
+    title: '팬플러스 BEST 이야기',
     seeMore: '더보기',
     daily: '실시간',
     weekly: '주간',
@@ -12,7 +12,7 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     recommend: '추천순',
   },
   en: {
-    title: 'BEST',
+    title: 'Top Ranked',
     seeMore: 'See more',
     daily: 'daily',
     weekly: 'Weekly',
@@ -21,7 +21,7 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     recommend: 'Most liked',
   },
   in: {
-    title: 'Terbaik',
+    title: 'Peringkat teratas',
     seeMore: 'Lihat lebih banyak',
     daily: 'Saat ini',
     weekly: 'Mingguan',
@@ -30,7 +30,7 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     recommend: 'Paling disukai',
   },
   ja: {
-    title: 'ベスト',
+    title: '上位ランク',
     seeMore: '詳細を見る',
     daily: 'ライブ',
     weekly: '週間',
@@ -39,7 +39,7 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     recommend: '推薦数多い順',
   },
   vi: {
-    title: 'Tốt nhất',
+    title: 'Đứng đầu',
     seeMore: 'Xem thêm',
     daily: 'Hiện nay',
     weekly: 'Hàng tuần',
@@ -48,7 +48,7 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     recommend: 'Được đề xuất nhiều nhất',
   },
   'zh-CN': {
-    title: '热门',
+    title: 'FanPlus 热门',
     seeMore: '查看详情',
     daily: '实时',
     weekly: '周榜',
@@ -57,7 +57,7 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     recommend: '赞最多',
   },
   'zh-TW': {
-    title: '熱門',
+    title: 'FanPlus 熱門',
     seeMore: '查看詳情',
     daily: '即時',
     weekly: '周榜',
@@ -66,7 +66,7 @@ export const CommunityBestNoticesTexts: LangStringType<CommunityBestNoticesTextT
     recommend: '讚最多',
   },
   es: {
-    title: 'Best',
+    title: 'Mejor clasificado',
     seeMore: 'Ver más',
     daily: 'Actual',
     weekly: 'Semanal',
