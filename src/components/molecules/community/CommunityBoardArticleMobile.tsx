@@ -31,7 +31,18 @@ const CommunityBoardArticleMobile = ({ postItem, link, texts }: OwnPropType) => 
       </div>
       <div css={{ display: 'flex', justifyContent: 'space-between' }}>
         <div css={{ margin: '3px 3px 6px', lineHeight: '1.5' }}>
-          <h4 css={{ wordBreak: 'break-word', fontWeight: '400' }}>{postItem.POST_TITLE}</h4>
+          <h4
+            css={{
+              wordBreak: 'break-word',
+              fontWeight: '400',
+              maxWidth: '230px',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {postItem.POST_TITLE}
+          </h4>
           <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>
             <p>
               <span css={{ color: '#000' }}>{postItem.WRITER_NAME}</span>
