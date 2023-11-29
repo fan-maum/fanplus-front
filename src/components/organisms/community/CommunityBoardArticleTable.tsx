@@ -38,6 +38,7 @@ const CommunityBoardArticleTable = ({
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
+  const isBestBoard = boardIndex === 2291 ? 'board' : 'topic';
 
   const { data: communityBoardData, isFetching } = useQuery(
     [
@@ -64,7 +65,7 @@ const CommunityBoardArticleTable = ({
     (!router.query.page || router.query.page === '1')
   );
 
-  if (isFetching) return <CommunityBoardArticleTableSkeleton />;
+  if (isFetching) return <CommunityBoardArticleTableSkeleton firstHeader={isBestBoard} />;
   if (!isPostExist) {
     return (
       <CommunityBoardNoPost
@@ -76,17 +77,19 @@ const CommunityBoardArticleTable = ({
   }
   return (
     <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
-      <CommunityBoardArticleTableHeader />
+      <CommunityBoardArticleTableHeader firstHeader={isBestBoard} />
       <ul>
         {postList?.map((post, idx) => {
           return (
             <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle
                 postItem={post}
+                firstHeader={isBestBoard}
                 link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
               />
               <CommunityBoardArticleMobile
                 postItem={post}
+                firstHeader={isBestBoard}
                 link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
                 texts={texts}
               />

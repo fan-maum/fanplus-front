@@ -4,8 +4,8 @@ import type { CommunityPageTextType } from '@/types/textTypes';
 export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
   ko: {
     community: '커뮤니티',
-    home: '게시판 홈',
-    search: '게시판 검색',
+    boards: '전체 게시판',
+    bestPopular: 'BEST 인기글 (실시간)',
     recentlyBoards: '최근 방문한 게시판',
     recommendedBoards: '추천 게시판',
     noRecentBoardTexts: ['팬플러스는 처음 사용하시나요?', '좋아하는 스타를 검색해 보세요!'],
@@ -17,8 +17,8 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
   },
   en: {
     community: 'Community',
-    home: 'Home',
-    search: 'Search',
+    boards: 'All',
+    bestPopular: 'Most popular(live)',
     recentlyBoards: 'Recently Visited Board',
     recommendedBoards: 'Recommended for you',
     noRecentBoardTexts: ['Are you new to FanPlus?', 'Search for your favorite star!'],
@@ -30,8 +30,8 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
   },
   es: {
     community: 'Comunidad',
-    home: 'Home',
-    search: 'Search',
+    boards: 'Todos',
+    bestPopular: 'Más popular (actual)',
     recentlyBoards: 'Visita reciente',
     recommendedBoards: 'Recomendación',
     noRecentBoardTexts: ['¿Eres nuevo en FanPlus?', '¡Busca tu estrella favorita!'],
@@ -43,8 +43,8 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
   },
   in: {
     community: 'Komunitas',
-    home: 'Beranda',
-    search: 'Cari',
+    boards: 'Semua',
+    bestPopular: 'Paling populer (saat ini)',
     recentlyBoards: 'Papan Baru-Baru Ini Dikunjungi',
     recommendedBoards: 'Disarankan untuk Anda',
     noRecentBoardTexts: [
@@ -60,8 +60,8 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
   },
   ja: {
     community: 'コミュニティ',
-    home: '掲示板ホーム',
-    search: '掲示板検索',
+    boards: 'すべて',
+    bestPopular: '最も人気（ライブ）',
     recentlyBoards: '最近訪れた掲示板',
     recommendedBoards: 'おすすめ掲示板',
     noRecentBoardTexts: ['ファンプラスを利用するのは初めてですか?', 'お気に入りのスターを探せ！'],
@@ -73,8 +73,8 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
   },
   vi: {
     community: 'Cộng đồng',
-    home: 'Trang chủ',
-    search: 'Tìm kiếm',
+    boards: 'Tất cả',
+    bestPopular: 'Phổ biến nhất (hiện tại)',
     recentlyBoards: 'Ban đã ghé thăm gần đây',
     recommendedBoards: 'Được đề xuất cho của bạn',
     noRecentBoardTexts: [
@@ -90,8 +90,8 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
   },
   'zh-CN': {
     community: '社区',
-    home: '消息面板主页',
-    search: '搜索消息面板',
+    boards: '全部',
+    bestPopular: '热门（实时）',
     recentlyBoards: '最近浏览的消息面板',
     recommendedBoards: '推荐的消息面板',
     noRecentBoardTexts: ['您是FanPlus新手吗？', '搜索你最喜欢的明星！'],
@@ -103,8 +103,8 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
   },
   'zh-TW': {
     community: '社區',
-    home: '消息面板主頁',
-    search: '搜索消息面板',
+    boards: '全部',
+    bestPopular: '熱門（即時）',
     recentlyBoards: '最近瀏覽的消息面板',
     recommendedBoards: '推薦的消息面板',
     noRecentBoardTexts: ['您是FanPlus新手嗎？', '搜索你最喜歡的明星！'],

@@ -252,8 +252,8 @@ export type VoteModalButtonTextType = {
 };
 export type CommunityPageTextType = {
   community: string;
-  home: string;
-  search: string;
+  boards: string;
+  bestPopular: string;
   recentlyBoards: string;
   recommendedBoards: string;
   noRecentBoardTexts: string[];

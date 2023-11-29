@@ -94,3 +94,8 @@ export const formatWrittenTimeLite = (prevTimeExpression: string) => {
   }
   return prevTimeExpression.split(' ')[0];
 };
+
+export const formatCommentCount = (commentCount: string | number) => {
+  if (Number(commentCount) > 999) return '+999';
+  return Number(commentCount);
+};

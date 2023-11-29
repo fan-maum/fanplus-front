@@ -1,5 +1,3 @@
-import React from 'react';
-
 type OwnPropType = {
   boardName: string;
   onClick: () => void;

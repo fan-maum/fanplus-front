@@ -53,6 +53,7 @@ const CommunityBoardTemplate = ({
     initialProps.serverLang === requestLang &&
     initialProps.view_type === viewType &&
     initialProps.topic === topicIndex;
+  const isBestBoard = boardIndex === 2291;
 
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];
@@ -129,12 +130,14 @@ const CommunityBoardTemplate = ({
             />
           }
         />
-        <CommunityBoardTopicTabBar
-          stringTopicAll={texts.all}
-          topicList={topicList}
-          topicIndex={topicIndex}
-          onClickTopic={onClickTopic}
-        />
+        {!isBestBoard && (
+          <CommunityBoardTopicTabBar
+            stringTopicAll={texts.all}
+            topicList={topicList}
+            topicIndex={topicIndex}
+            onClickTopic={onClickTopic}
+          />
+        )}
         {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
         <CommunityBoardArticleTable
           communityBoardDataSSR={communityBoardData}
@@ -161,17 +164,19 @@ const CommunityBoardTemplate = ({
           {texts.permissionModal.noPermission}
         </CommunityCommonModal>
       </div>
-      <CommunityBoardBottomTabBar
-        items={[
-          { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
-          {
-            icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
-            title: texts.bottomTabBar.popular,
-            onClick: onClickPopular,
-          },
-          { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
-        ]}
-      />
+      {!isBestBoard && (
+        <CommunityBoardBottomTabBar
+          items={[
+            { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
+            {
+              icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
+              title: texts.bottomTabBar.popular,
+              onClick: onClickPopular,
+            },
+            { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
+          ]}
+        />
+      )}
     </CommunityLayout>
   );
 };
