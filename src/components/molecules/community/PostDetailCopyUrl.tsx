@@ -1,29 +1,24 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { Stack, UnstyledButton } from '@/components/atoms';
-import CopyToClipboard from 'react-copy-to-clipboard';
 import ToastModal from '@/components/toast/ToastModal';
-import useCopyUrl from '@/hooks/useCopyUrl';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { useRouter } from 'next/router';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 interface PostDetailCopyUrlProps {
   texts: CommunityPostTextType;
 }
 const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
   const router = useRouter();
-  const [isCopy, onCopy] = useCopyUrl();
 
   const clientURL = process.env.NEXT_PUBLIC_CLIENT_URL;
   const path = router.asPath;
   const href = `${clientURL}${path}`;
 
-  const handleCopyClipBoard = async (href: string) => {
-    await onCopy(href);
+  const onCopy = (_: string, copySuccessed: boolean) => {
+    if (copySuccessed) {
+      ToastModal.alert(texts.copyUrlMessage);
+    }
   };
-
-  useEffect(() => {
-    isCopy && ToastModal.alert(texts.copyUrlMessage);
-  }, [isCopy]);
 
   return (
     <Stack
@@ -43,7 +38,7 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
       >
         {href}
       </span>
-      <CopyToClipboard text={href} onCopy={() => handleCopyClipBoard(href)}>
+      <CopyToClipboard text={href} onCopy={onCopy}>
         <UnstyledButton
           h={26}
           p={'1px 8px'}

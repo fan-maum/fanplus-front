@@ -1,7 +1,7 @@
 import type { UrlLangType } from '@/types/common';
 import Script from 'next/script';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Editor } from '../../../public/tinymce/tinymce';
+import type { Editor } from '../../../public/tinymce/tinymce';
 import {
   useCustomImageButton,
   useCustomVideoButton,
@@ -17,7 +17,8 @@ type TProps = {
   setContent: Dispatch<SetStateAction<any>>;
   defaultValue?: string;
   language: UrlLangType;
-  fileUploadCallback: (file: any) => Promise<void>;
+  uppyFileUploadHandler: (file: any) => Promise<void>;
+  imagesUploadHandler: (blobInfo: any) => Promise<string | undefined>;
 };
 
 const FullEditor: React.FC<TProps> = ({
@@ -26,7 +27,8 @@ const FullEditor: React.FC<TProps> = ({
   setContent,
   defaultValue,
   language,
-  fileUploadCallback,
+  uppyFileUploadHandler,
+  imagesUploadHandler,
 }) => {
   const [isJsLoading, setIsJsLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -48,10 +50,11 @@ const FullEditor: React.FC<TProps> = ({
       ...useTinyMCEConfig(language),
       selector: `#${editorId}`,
       init_instance_callback: () => editorLoadedComplete(),
+      images_upload_handler: imagesUploadHandler,
+
       setup: (editor: Editor) => {
         editor.on('change', () => setContent(editor.getContent()));
         editor.on('keyup', () => setContent(editor.getContent()));
-        editor.on('dragstart dragend dragover drop', (e) => e.preventDefault());
         useIOSIMESetting(editor);
 
         const onCustomAction = () => setModalOpen(true);
@@ -90,7 +93,10 @@ const FullEditor: React.FC<TProps> = ({
                 <div id={editorId} className="selector-editor" />
               </div>
             </div>
-            <FileUploader state={[modalOpen, setModalOpen]} uploadCallback={fileUploadCallback} />
+            <FileUploader
+              state={[modalOpen, setModalOpen]}
+              uploadCallback={uppyFileUploadHandler}
+            />
           </div>
         </>
       )}

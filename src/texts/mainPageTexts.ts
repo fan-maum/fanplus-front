@@ -3,6 +3,10 @@ import type { MainPageTextType } from '@/types/textTypes';
 
 export const mainPageTexts: LangStringType<MainPageTextType> = {
   ko: {
+    recapArea: {
+      title1: '진행 중인 투표',
+      moreButton: '더보기',
+    },
     Area1: {
       line1: '덕질에 즐거움 더하기,',
       line2: '팬플러스',
@@ -72,6 +76,10 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   en: {
+    recapArea: {
+      title1: 'Ongoing votes',
+      moreButton: 'See more',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -141,6 +149,10 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   es: {
+    recapArea: {
+      title1: 'Votación en curso',
+      moreButton: 'Ver más',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -210,6 +222,10 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   in: {
+    recapArea: {
+      title1: 'Vote',
+      moreButton: 'Lihat lebih banyak',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -279,6 +295,10 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   ja: {
+    recapArea: {
+      title1: '現在進行中の投票',
+      moreButton: '詳細を見る',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -348,6 +368,10 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   vi: {
+    recapArea: {
+      title1: 'Đang tiến hành bầu chọn',
+      moreButton: 'Xem thêm',
+    },
     Area1: {
       line1: 'Must-Have App for',
       line2: 'Worldwide Kpop Fans',
@@ -417,6 +441,10 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   'zh-CN': {
+    recapArea: {
+      title1: '正在进行的投票',
+      moreButton: '查看详情',
+    },
     Area1: {
       line1: '在追星的快乐中,',
       line2: '加上Fanplus',
@@ -486,6 +514,10 @@ export const mainPageTexts: LangStringType<MainPageTextType> = {
     },
   },
   'zh-TW': {
+    recapArea: {
+      title1: '正在進行的投票',
+      moreButton: '查看詳情',
+    },
     Area1: {
       line1: '在追星的快樂中,',
       line2: '加上Fanplus',

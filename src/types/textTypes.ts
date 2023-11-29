@@ -1,4 +1,5 @@
 export type NavBarTextType = {
+  home: string;
   vote: string;
   community: string;
   aboutUs: string;
@@ -6,6 +7,7 @@ export type NavBarTextType = {
   business: string;
   language: string;
   link: {
+    home: string;
     vote: string;
     community: string;
     aboutUs: string;
@@ -24,6 +26,10 @@ export type FooterTextType = {
   copyright: string;
 };
 export type MainPageTextType = {
+  recapArea: {
+    title1: string;
+    moreButton: string;
+  };
   Area1: {
     line1: string;
     line2: string;
