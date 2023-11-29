@@ -1,8 +1,7 @@
 import { Stack, UnstyledButton } from '@/components/atoms';
 import ToastModal from '@/components/toast/ToastModal';
-import { CommunityPostTextType } from '@/types/textTypes';
+import type { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
-import CopyToClipboard from 'react-copy-to-clipboard';
 
 interface PostDetailCopyUrlProps {
   texts: CommunityPostTextType;
@@ -14,10 +13,10 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
   const path = router.asPath;
   const href = `${clientURL}${path}`;
 
-  const onCopy = (_: string, copySuccessed: boolean) => {
-    if (copySuccessed) {
+  const handleCopy = () => {
+    window?.navigator.clipboard.writeText(href).then(() => {
       ToastModal.alert(texts.copyUrlMessage);
-    }
+    });
   };
 
   return (
@@ -38,22 +37,21 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
       >
         {href}
       </span>
-      <CopyToClipboard text={href} onCopy={onCopy}>
-        <UnstyledButton
-          h={26}
-          p={'1px 8px'}
-          bg="#f1f1f1"
-          css={{
-            borderRadius: 6,
-            color: '#101010',
-            fontSize: 12,
-            fontWeight: 600,
-            lineHeight: '14px',
-          }}
-        >
-          {texts.copyUrlButton}
-        </UnstyledButton>
-      </CopyToClipboard>
+      <UnstyledButton
+        h={26}
+        p={'1px 8px'}
+        bg="#f1f1f1"
+        css={{
+          borderRadius: 6,
+          color: '#101010',
+          fontSize: 12,
+          fontWeight: 600,
+          lineHeight: '14px',
+        }}
+        onClick={handleCopy}
+      >
+        {texts.copyUrlButton}
+      </UnstyledButton>
     </Stack>
   );
 };
