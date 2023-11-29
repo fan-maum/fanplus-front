@@ -6,7 +6,7 @@ function IconImage() {
       height="10"
       fill="none"
       viewBox="0 0 10 10"
-      css={{ margin: '0 0 2px 2px', flexShrink: 0 }}
+      css={{ margin: '0 0 2px 2px', flexShrink: 0, width: 16, height: 16 }}
     >
       <path
         fill="#666"

@@ -20,7 +20,7 @@ const CommunityBoardArticle = ({ postItem, link }: OwnPropType) => {
         display: 'flex',
         alignItems: 'center',
         height: '44px',
-        font: 'normal 12px/14px Pretendard',
+        font: 'normal 14px/16px Pretendard',
       }}
     >
       <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
