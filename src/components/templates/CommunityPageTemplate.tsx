@@ -79,7 +79,7 @@ const CommunityPageTemplate = ({
       <div
         css={{
           width: '100%',
-          maxWidth: '768px',
+          maxWidth: '728px',
           margin: '0px auto',
         }}
       >
