@@ -152,7 +152,11 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
         </StyledBar>
         <StyledBar>
           <h2>{texts.title}</h2>
-          <TitleInput placeholder={texts.titlePlaceholder} setTitle={setTitle} />
+          <TitleInput
+            placeholder={texts.titlePlaceholder}
+            defaultValue={defaultValues?.title}
+            setTitle={setTitle}
+          />
         </StyledBar>
         <StyledBar>
           <h2>{texts.content}</h2>
@@ -218,9 +222,11 @@ const StyledBar = ({ children }: { children: ReactNode }) => {
 
 const TitleInput = ({
   placeholder,
+  defaultValue,
   setTitle,
 }: {
   placeholder: string;
+  defaultValue?: string;
   setTitle: Dispatch<SetStateAction<string>>;
 }) => {
   return (
@@ -237,6 +243,7 @@ const TitleInput = ({
         '::placeholder': { color: '#d9d9d9', fontSize: '16px' },
       }}
       placeholder={placeholder}
+      defaultValue={defaultValue}
       onBlur={(e) => setTitle(e.target.value)}
     />
   );
