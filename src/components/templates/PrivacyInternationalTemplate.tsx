@@ -219,7 +219,7 @@ const PrivacyInternationalTemplate = ({ urlLang, thirdPartyOnClick }: PrivacyTem
         </p>
         <p className="c19 c22">
           <span className="c4">
-            5.
+            5.&nbsp;
             <a
               className="moveToThirdParty"
               onClick={() =>

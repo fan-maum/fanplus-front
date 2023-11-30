@@ -172,17 +172,17 @@ const PrivacyKoreanTemplate = ({ urlLang, thirdPartyOnClick }: PrivacyTemplateTy
         </p>
         <p className="c24">
           <span className="c5">
-            5.
+            5.&nbsp;
             <a
               className="moveToThirdParty"
               onClick={() =>
                 thirdPartyOnClick(
-                  '개인정보의 제 3자 제공',
+                  '개인정보의 제3자 제공',
                   `https://fanplus.co.kr/${urlLang}/thirdParty`
                 )
               }
             >
-              개인정보의 제 3자 제공
+              개인정보의 제3자 제공
             </a>
           </span>
         </p>
