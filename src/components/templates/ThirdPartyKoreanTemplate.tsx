@@ -23,7 +23,7 @@ const ThirdPartyKoreanTemplate = () => {
         </p>
         <p className="c6">
           <span className="c14">
-            회사는 원칙적으로 사전 동의 없이 사용자 정보를 제 3 자에게 제공하지 않습니다. 회사는
+            회사는 원칙적으로 사전 동의 없이 사용자 정보를 제3자에게 제공하지 않습니다. 회사는
             정보주체의 동의, 법률의 특별한 규정 등 개인정보보호법 제17조 및 제18조에 해당하는
             경우에만 개인정보를 제3자에게 제공합니다. 아래와 같이 회사의 원활한 서비스 제공 및
             관계법령 준수를 위해서는 데이터를 공유할 수 있습니다.
@@ -36,7 +36,7 @@ const ThirdPartyKoreanTemplate = () => {
             <tr className="c21">
               <td className="c3" colSpan={3} rowSpan={1}>
                 <p className="c16">
-                  <span className="c9">개인정보 제 3자 제공 동의</span>
+                  <span className="c9">개인정보 제3자 제공 동의</span>
                 </p>
                 <p className="c1">
                   <span className="c18 c14"></span>
