@@ -1,6 +1,6 @@
 import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
-import { imagesUploadHandler } from '@/editor/util/imagesUploadHandler';
 import FullEditor from '@/editor/screen/FullEditor';
+import { imagesUploadHandler } from '@/editor/util/imagesUploadHandler';
 import { communityPostEditorTexts } from '@/texts/communityPostEditorTexts';
 import type { ServerLangType, UrlLangType } from '@/types/common';
 import type { TopicListItemType } from '@/types/community';
@@ -75,6 +75,8 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
 
   const onClickUpload: MouseEventHandler = (event) => {
     event.preventDefault();
+    const content = editorRef?.current?.get(editorId)?.getContent() || '';
+    setContent(content);
     if (!title || !content) {
       setDataLackModal(true);
       return;
@@ -150,7 +152,7 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
         </StyledBar>
         <StyledBar>
           <h2>{texts.title}</h2>
-          <TitleInput placeholder={texts.titlePlaceholder} title={title} setTitle={setTitle} />
+          <TitleInput placeholder={texts.titlePlaceholder} setTitle={setTitle} />
         </StyledBar>
         <StyledBar>
           <h2>{texts.content}</h2>
@@ -158,8 +160,7 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
         <FullEditor
           editorRef={editorRef}
           editorId={editorId}
-          setContent={setContent}
-          defaultValue={content}
+          defaultValue={defaultValues?.content}
           language={urlLang}
           uppyFileUploadHandler={uppyFileUploadHandler}
           imagesUploadHandler={imagesUploadHandler(userId, appendAttachmentIds, postIndex)}
@@ -217,11 +218,9 @@ const StyledBar = ({ children }: { children: ReactNode }) => {
 
 const TitleInput = ({
   placeholder,
-  title,
   setTitle,
 }: {
   placeholder: string;
-  title?: string;
   setTitle: Dispatch<SetStateAction<string>>;
 }) => {
   return (
@@ -238,8 +237,7 @@ const TitleInput = ({
         '::placeholder': { color: '#d9d9d9', fontSize: '16px' },
       }}
       placeholder={placeholder}
-      value={title}
-      onChange={(e) => setTitle(e.target.value)}
+      onBlur={(e) => setTitle(e.target.value)}
     />
   );
 };
