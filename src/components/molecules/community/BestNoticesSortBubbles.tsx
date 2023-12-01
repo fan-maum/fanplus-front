@@ -14,16 +14,7 @@ const BestNoticesSortBubbles = ({
   const viewTypes: BestPostsViewType[] = ['daily', 'weekly', 'monthly', 'comment', 'recommend'];
 
   return (
-    <div
-      css={{
-        padding: '10px 17px 9px',
-        whiteSpace: 'nowrap',
-        overflowX: 'scroll',
-        '::-webkit-scrollbar': { display: 'none' },
-        msOverflowStyle: 'none',
-        scrollbarWidth: 'none',
-      }}
-    >
+    <div css={{ padding: '5px 14px' }}>
       {viewTypes.map((viewType, idx) => {
         return (
           <SortBubble
@@ -58,7 +49,7 @@ const SortBubble = ({
     <button
       css={{
         padding: '3px 6px',
-        marginRight: '6px',
+        margin: '5px 3px',
         font: 'normal 14px/18px Pretendard',
         fontWeight: viewType === currentMode ? 600 : 400,
         color: viewType === currentMode ? '#ff5656' : '#101010',
