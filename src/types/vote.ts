@@ -105,3 +105,7 @@ export interface voteModalTextProps {
   starName?: string;
   moreVoteCount?: string;
 }
+
+export interface voteDetailAdBannerTextProps {
+  freeVoteCount?: string;
+}

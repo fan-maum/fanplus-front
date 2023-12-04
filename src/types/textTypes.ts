@@ -243,6 +243,10 @@ export type VoteModalTextType = {
   voteBlockFirst: string;
   voteBlockEnd: string;
 };
+export type VoteDetailAdBannerTextType = {
+  message1: string;
+  message2: string;
+};
 export type VoteModalButtonTextType = {
   voteModalVote: string;
   voteModalCancel: string;
