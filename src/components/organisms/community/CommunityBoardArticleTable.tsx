@@ -1,6 +1,8 @@
 import { getCommunityBoardData } from '@/api/Community';
 import CommunityBoardArticle from '@/components/molecules/community/CommunityBoardArticle';
-import { CommunityBoardArticleSkeleton } from '@/components/molecules/community/CommunitySkeleton';
+import CommunityBoardArticleMobile from '@/components/molecules/community/CommunityBoardArticleMobile';
+import CommunityBoardArticleTableHeader from '@/components/molecules/community/CommunityBoardArticleTableHeader';
+import { CommunityBoardArticleTableSkeleton } from '@/components/molecules/community/CommunitySkeleton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType } from '@/types/common';
 import type { CommunityBoardResponseType } from '@/types/community';
@@ -10,7 +12,7 @@ import { useQuery } from 'react-query';
 import CommunityBoardPagination from '../CommunityBoardPagination';
 import CommunityBoardNoPost from './CommunityBoardNoPost';
 
-type BardArticleListPropType = {
+type BoardArticleTableProps = {
   communityBoardDataSSR: CommunityBoardResponseType;
   texts: CommunityBoardTextType;
   queries: {
@@ -26,16 +28,17 @@ type BardArticleListPropType = {
   onClickWrite: () => void;
 };
 
-const CommunityBoardArticleMain = ({
+const CommunityBoardArticleTable = ({
   communityBoardDataSSR,
   texts,
   queries,
   isInitialData,
   onClickWrite,
-}: BardArticleListPropType) => {
+}: BoardArticleTableProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
+  const isBestBoard = boardIndex === 2291 ? 'board' : 'topic';
 
   const { data: communityBoardData, isFetching } = useQuery(
     [
@@ -62,19 +65,35 @@ const CommunityBoardArticleMain = ({
     (!router.query.page || router.query.page === '1')
   );
 
-  return isFetching ? (
-    <CommunityBoardArticleSkeleton />
-  ) : isPostExist ? (
-    <>
+  if (isFetching) return <CommunityBoardArticleTableSkeleton firstHeader={isBestBoard} />;
+  if (!isPostExist) {
+    return (
+      <CommunityBoardNoPost
+        onClickWrite={onClickWrite}
+        buttonText={texts.buttonWrite}
+        texts={texts.noPostTexts}
+      />
+    );
+  }
+  return (
+    <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
+      <CommunityBoardArticleTableHeader firstHeader={isBestBoard} />
       <ul>
         {postList?.map((post, idx) => {
           return (
-            <CommunityBoardArticle
-              postItem={post}
-              link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
-              key={idx}
-              texts={texts}
-            />
+            <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
+              <CommunityBoardArticle
+                postItem={post}
+                firstHeader={isBestBoard}
+                link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
+              />
+              <CommunityBoardArticleMobile
+                postItem={post}
+                firstHeader={isBestBoard}
+                link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
+                texts={texts}
+              />
+            </li>
           );
         })}
       </ul>
@@ -82,14 +101,8 @@ const CommunityBoardArticleMain = ({
         totalCount={boardInfo?.POST_CNT as number}
         handlePageChange={handlePageChange}
       />
-    </>
-  ) : (
-    <CommunityBoardNoPost
-      onClickWrite={onClickWrite}
-      buttonText={texts.buttonWrite}
-      texts={texts.noPostTexts}
-    />
+    </div>
   );
 };
 
-export default CommunityBoardArticleMain;
+export default CommunityBoardArticleTable;

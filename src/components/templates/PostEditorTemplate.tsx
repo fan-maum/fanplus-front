@@ -1,4 +1,5 @@
 import { editBoardArticle, postBoardArticle, uploadEditorFile } from '@/api/Community';
+import { imagesUploadHandler } from '@/editor/util/imagesUploadHandler';
 import FullEditor from '@/editor/screen/FullEditor';
 import { communityPostEditorTexts } from '@/texts/communityPostEditorTexts';
 import type { ServerLangType, UrlLangType } from '@/types/common';
@@ -32,9 +33,9 @@ type OwnPropType = {
     serverLang: ServerLangType;
   };
   defaultValues?: {
-    topicIndex: number;
-    title: string;
-    content: string;
+    topicIndex?: number;
+    title?: string;
+    content?: string;
   };
 };
 
@@ -71,6 +72,7 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
     event.preventDefault();
     setCancelModal(true);
   };
+
   const onClickUpload: MouseEventHandler = (event) => {
     event.preventDefault();
     if (!title || !content) {
@@ -102,19 +104,24 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
     setUploadModal(false);
     router.replace(`/${urlLang}/community/board/${boardIndex}/${postId}/`);
   };
+
   const onClickExit = () => {
     setCancelModal(false);
     router.back();
   };
 
-  const fileUploadHandler = async (
+  const appendAttachmentIds = (uploadKey: string) => {
+    setAttachmentIds((prev) => [...prev, uploadKey]);
+  };
+
+  const uppyFileUploadHandler = async (
     file: UploadedUppyFile<Record<string, unknown>, Record<string, unknown>>
   ) => {
     const uploadKey = (file.meta.uploadUrl as string).split('/').pop() as string;
     const fileName = file.name.split('.')[0];
     const fileType = '.' + (file.type as string).split('/')[1];
 
-    setAttachmentIds((prev) => [...prev, uploadKey]);
+    appendAttachmentIds(uploadKey);
     const response = await uploadEditorFile(userId, fileName, fileType, uploadKey, postIndex);
     editorRef.current?.activeEditor?.insertContent(
       `<img src="${response.RESULTS.DATAS.IMG_URL}" />`
@@ -154,7 +161,8 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
           setContent={setContent}
           defaultValue={content}
           language={urlLang}
-          fileUploadCallback={fileUploadHandler}
+          uppyFileUploadHandler={uppyFileUploadHandler}
+          imagesUploadHandler={imagesUploadHandler(userId, appendAttachmentIds, postIndex)}
         />
         <div css={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button text={texts.cancel} onClick={onClickCancel} />

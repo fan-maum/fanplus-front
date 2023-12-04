@@ -41,6 +41,7 @@ export type BoardInfoType = Omit<BoardListItemType, 'STAR_IDX' | 'STAR_GROUP_IDX
 export type PostListItemType = {
   POST_IDX: string;
   BOARD_IDX: string;
+  BOARD_TITLE: string;
   TOPIC_NAME: string;
   POST_TITLE: string;
   POST_IMG_YN: 'Y' | 'N';
@@ -409,6 +410,35 @@ export type Top30PopularBoardsResponseType = {
     MSG: string;
     DATAS: {
       TOP_BOARDS: Array<PopularBoardItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};
+
+export type BestPostItemType = {
+  POST_IDX: string;
+  BOARD_IDX: string;
+  TOPIC_NAME: string;
+  POST_TITLE: string;
+  POST_IMG_YN: 'Y' | 'N';
+  SUMNAIL_IMG: string;
+  WRITER_IDX: string;
+  PUBLISH_DATE: string;
+  VIEW_CNT: string;
+  COMMENT_CNT: string;
+  RECOMMEND_CNT: string;
+  HAS_BEST_BADGE: '0' | '1';
+  HAS_POPULAR_BADGE: '0' | '1';
+  BEST_DATE: string;
+  HEAD_IDX: null;
+  HEAD_NAME: null;
+};
+export type BestPostsResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      BEST_POST_LIST: Array<BestPostItemType>;
     };
     TIMESTAMP: number;
   };

@@ -1,8 +1,6 @@
-import Link from 'next/link';
-
-const MainLogo = ({ link }: { link: string }) => {
+const MainLogo = () => {
   return (
-    <Link href={link}>
+    <>
       <img
         src="/images/fanplus_logo_hor.png"
         alt="Fanplus 로고"
@@ -25,7 +23,7 @@ const MainLogo = ({ link }: { link: string }) => {
           },
         }}
       />
-    </Link>
+    </>
   );
 };
 

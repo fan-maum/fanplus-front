@@ -3,6 +3,7 @@ import type { NavBarTextType } from '@/types/textTypes';
 
 export const navBarTexts: LangStringType<NavBarTextType> = {
   ko: {
+    home: '홈',
     vote: '투표',
     community: '커뮤니티',
     aboutUs: '서비스 소개',
@@ -10,6 +11,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     business: '제휴 문의',
     language: '한국어',
     link: {
+      home: '/ko/',
       vote: '/ko/votes',
       community: '/ko/community',
       aboutUs: '/ko/',
@@ -18,6 +20,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     },
   },
   en: {
+    home: 'Home',
     vote: 'Vote',
     community: 'Community',
     aboutUs: 'About Us',
@@ -25,6 +28,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     business: 'Business Inquiry',
     language: 'English',
     link: {
+      home: '/en/',
       vote: '/en/votes',
       community: '/en/community',
       aboutUs: '/en',
@@ -33,6 +37,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     },
   },
   es: {
+    home: 'Inicio',
     vote: 'Votación',
     community: 'Comunidad',
     aboutUs: 'About Us',
@@ -40,6 +45,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     business: 'Business Inquiry',
     language: 'Español',
     link: {
+      home: '/es/',
       vote: '/es/votes',
       community: '/es/community',
       aboutUs: '/es',
@@ -48,6 +54,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     },
   },
   in: {
+    home: 'Beranda',
     vote: 'Vote',
     community: 'Komunitas',
     aboutUs: 'About Us',
@@ -55,6 +62,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     business: 'Business Inquiry',
     language: 'Bahasa Indonesia',
     link: {
+      home: '/in/',
       vote: '/in/votes',
       community: '/in/community',
       aboutUs: '/in',
@@ -63,6 +71,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     },
   },
   ja: {
+    home: 'ホーム',
     vote: '投票',
     community: 'コミュニティ',
     aboutUs: 'About Us',
@@ -70,6 +79,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     business: 'Business Inquiry',
     language: '日本語',
     link: {
+      home: '/ja/',
       vote: '/ja/votes',
       community: '/ja/community',
       aboutUs: '/ja',
@@ -78,6 +88,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     },
   },
   vi: {
+    home: 'Trang chủ',
     vote: 'Bỏ phiếu',
     community: 'Cộng đồng',
     aboutUs: 'About Us',
@@ -85,6 +96,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     business: 'Business Inquiry',
     language: 'Tiếng việt',
     link: {
+      home: '/vi/',
       vote: '/vi/votes',
       community: '/vi/community',
       aboutUs: '/vi',
@@ -93,6 +105,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     },
   },
   'zh-CN': {
+    home: '首页',
     vote: '投票',
     community: '社区',
     aboutUs: '服务介绍',
@@ -100,6 +113,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     business: '商务咨询',
     language: '中文(简体)',
     link: {
+      home: '/zh-CN/',
       vote: '/zh-CN/votes',
       community: '/zh-CN/community',
       aboutUs: '/zh-CN',
@@ -108,6 +122,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     },
   },
   'zh-TW': {
+    home: '首頁',
     vote: '投票',
     community: '社區',
     aboutUs: '服務介紹',
@@ -115,6 +130,7 @@ export const navBarTexts: LangStringType<NavBarTextType> = {
     business: '商務諮詢',
     language: '中文(繁體)',
     link: {
+      home: '/zh-TW/',
       vote: '/zh-TW/votes',
       community: '/zh-TW/community',
       aboutUs: '/zh-TW',

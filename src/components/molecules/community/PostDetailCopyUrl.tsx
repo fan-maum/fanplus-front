@@ -1,29 +1,23 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { Stack, UnstyledButton } from '@/components/atoms';
-import CopyToClipboard from 'react-copy-to-clipboard';
 import ToastModal from '@/components/toast/ToastModal';
-import useCopyUrl from '@/hooks/useCopyUrl';
-import { CommunityPostTextType } from '@/types/textTypes';
+import type { CommunityPostTextType } from '@/types/textTypes';
+import { useRouter } from 'next/router';
 
 interface PostDetailCopyUrlProps {
   texts: CommunityPostTextType;
 }
 const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
   const router = useRouter();
-  const [isCopy, onCopy] = useCopyUrl();
 
   const clientURL = process.env.NEXT_PUBLIC_CLIENT_URL;
   const path = router.asPath;
   const href = `${clientURL}${path}`;
 
-  const handleCopyClipBoard = async (href: string) => {
-    await onCopy(href);
+  const handleCopy = () => {
+    window?.navigator.clipboard.writeText(href).then(() => {
+      ToastModal.alert(texts.copyUrlMessage);
+    });
   };
-
-  useEffect(() => {
-    isCopy && ToastModal.alert(texts.copyUrlMessage);
-  }, [isCopy]);
 
   return (
     <Stack
@@ -43,22 +37,21 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
       >
         {href}
       </span>
-      <CopyToClipboard text={href} onCopy={() => handleCopyClipBoard(href)}>
-        <UnstyledButton
-          h={26}
-          p={'1px 8px'}
-          bg="#f1f1f1"
-          css={{
-            borderRadius: 6,
-            color: '#101010',
-            fontSize: 12,
-            fontWeight: 600,
-            lineHeight: '14px',
-          }}
-        >
-          {texts.copyUrlButton}
-        </UnstyledButton>
-      </CopyToClipboard>
+      <UnstyledButton
+        h={26}
+        p={'1px 8px'}
+        bg="#f1f1f1"
+        css={{
+          borderRadius: 6,
+          color: '#101010',
+          fontSize: 12,
+          fontWeight: 600,
+          lineHeight: '14px',
+        }}
+        onClick={handleCopy}
+      >
+        {texts.copyUrlButton}
+      </UnstyledButton>
     </Stack>
   );
 };

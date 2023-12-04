@@ -1,0 +1,78 @@
+import type { LangStringType } from '@/types/common';
+import type { CommunityBoardArticleTableHeaderTextType } from '@/types/textTypes';
+
+export const CommunityBoardArticleTableHeaderTexts: LangStringType<CommunityBoardArticleTableHeaderTextType> =
+  {
+    ko: {
+      topic: '토픽',
+      board: '게시판명',
+      title: '제목',
+      writer: '글쓴이',
+      postDate: '등록일',
+      viewNum: '조회수',
+      recommendNum: '추천수',
+    },
+    en: {
+      topic: 'Topic',
+      board: 'Board',
+      title: 'Title',
+      writer: 'Author',
+      postDate: 'Posted',
+      viewNum: 'View',
+      recommendNum: 'Likes',
+    },
+    in: {
+      topic: 'Topik',
+      board: 'Papan',
+      title: 'Judul',
+      writer: 'Penulis',
+      postDate: 'Tanggal registrasi',
+      viewNum: 'Lihat',
+      recommendNum: 'Likes',
+    },
+    ja: {
+      topic: 'トピック',
+      board: '掲示板',
+      title: 'タイトル',
+      writer: '著者',
+      postDate: '登録日',
+      viewNum: 'ヒット',
+      recommendNum: 'おすすめ',
+    },
+    vi: {
+      topic: 'Chủ đề',
+      board: 'Board',
+      title: 'Đề mục',
+      writer: 'Tác giả',
+      postDate: 'Ngày đăng ký',
+      viewNum: 'Xem',
+      recommendNum: 'Likes',
+    },
+    'zh-CN': {
+      topic: '话题',
+      board: '消息面板',
+      title: '标题',
+      writer: '作者',
+      postDate: '登录日',
+      viewNum: '阅读数',
+      recommendNum: '推荐',
+    },
+    'zh-TW': {
+      topic: '話題',
+      board: '消息面板',
+      title: '標題',
+      writer: '作者',
+      postDate: '登録日',
+      viewNum: '閱讀數',
+      recommendNum: '推薦',
+    },
+    es: {
+      topic: 'Tema',
+      board: 'Tablero',
+      title: 'Título',
+      writer: 'El autor',
+      postDate: 'Día de registro',
+      viewNum: 'Número de búsquedas',
+      recommendNum: 'Me gusta',
+    },
+  };

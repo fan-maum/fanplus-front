@@ -4,9 +4,11 @@ import { MouseEventHandler } from 'react';
 function IconArrowLeft({
   iconCss,
   onClickBack,
+  stroke = '#000',
 }: {
   iconCss?: Interpolation<Theme>;
   onClickBack?: MouseEventHandler<SVGSVGElement>;
+  stroke?: string;
 }) {
   return (
     <svg
@@ -19,7 +21,7 @@ function IconArrowLeft({
       onClick={onClickBack}
     >
       <path
-        stroke="#000"
+        stroke={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"

@@ -1,4 +1,5 @@
 export type NavBarTextType = {
+  home: string;
   vote: string;
   community: string;
   aboutUs: string;
@@ -6,6 +7,7 @@ export type NavBarTextType = {
   business: string;
   language: string;
   link: {
+    home: string;
     vote: string;
     community: string;
     aboutUs: string;
@@ -24,6 +26,10 @@ export type FooterTextType = {
   copyright: string;
 };
 export type MainPageTextType = {
+  recapArea: {
+    title1: string;
+    moreButton: string;
+  };
   Area1: {
     line1: string;
     line2: string;
@@ -246,8 +252,8 @@ export type VoteModalButtonTextType = {
 };
 export type CommunityPageTextType = {
   community: string;
-  home: string;
-  search: string;
+  boards: string;
+  bestPopular: string;
   recentlyBoards: string;
   recommendedBoards: string;
   noRecentBoardTexts: string[];
@@ -258,11 +264,13 @@ export type CommunityPageTextType = {
   link: {
     board: string;
   };
+  noResult: string[];
 };
 export type CommunityBoardTextType = {
   all: string;
   viewCount: string;
   recommendCount: string;
+  commentCount: string;
   popular: string;
   daysAgo: string;
   hoursAgo: string;
@@ -377,6 +385,26 @@ export type CommunityPostEditorTextType = {
 export type CommunityLayoutTextType = {
   popularBoards: string;
   close: string;
+};
+
+export type CommunityBestNoticesTextType = {
+  title: string;
+  seeMore: string;
+  daily: string;
+  weekly: string;
+  monthly: string;
+  comment: string;
+  recommend: string;
+};
+
+export type CommunityBoardArticleTableHeaderTextType = {
+  topic: string;
+  board: string;
+  title: string;
+  writer: string;
+  postDate: string;
+  viewNum: string;
+  recommendNum: string;
 };
 
 export type TextType = {
