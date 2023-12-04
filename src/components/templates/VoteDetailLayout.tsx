@@ -30,6 +30,9 @@ import { postVotes } from '@/api/Vote';
 import VoteEndModal from '../modals/VoteEndModal';
 import { AxiosError } from 'axios';
 import { pathOnly } from '@/utils/util';
+import VoteDetailImagePopup from '../modals/VoteDetailImagePopup';
+import { getCommunityCookie, setCommunityCookie } from '@/utils/communityCookie';
+import dayjs from 'dayjs';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -72,6 +75,7 @@ const VoteDetailLayout = ({
   const [voteModal, setVoteModal] = useState(false);
   const [voteModalDone, setVoteModalDone] = useState(0);
   const [voteModalEnd, setVoteModalEnd] = useState(false);
+  const [imagePopup, setImagePopup] = useState(false);
 
   const freeVoteCount = 15;
   const moreVoteCount = 1650;
@@ -289,6 +293,16 @@ const VoteDetailLayout = ({
     isRenderComplete: router.isReady,
   };
 
+  const handleImagePopupClose = () => {
+    setImagePopup(false);
+    let VotePopupCount: number | undefined = getCommunityCookie('VotePopupCount');
+    const expire = dayjs().startOf('day').add(1, 'day').toDate();
+    setCommunityCookie('VotePopupCount', Number(VotePopupCount) + 1, {
+      path: '/',
+      expires: expire,
+    });
+  };
+
   return (
     <div css={{ background: '#FAFBFE' }}>
       <VoteDetailTemplate
@@ -296,6 +310,12 @@ const VoteDetailLayout = ({
         voteDetailInfo={<VoteDetailInfo {...voteDetailInfoProps} />}
         voteDetailPrizeList={<VoteDetailPrizeList {...voteDetailPrizeListProps} />}
         voteDetailList={<VoteDetailList {...voteDetailListProps} />}
+      />
+      <VoteDetailImagePopup
+        opened={imagePopup}
+        setOpened={setImagePopup}
+        onClose={handleImagePopupClose}
+        language={language}
       />
       <VoteDetailShareModal {...voteDetailShareModalProps} />
       <CompletedShareModal {...completedShareModalProps} />
