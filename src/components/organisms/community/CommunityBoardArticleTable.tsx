@@ -57,8 +57,8 @@ const CommunityBoardArticleTable = ({
     });
   };
 
-  const postList = communityBoardData?.RESULTS.DATAS.POST_LIST;
-  const boardInfo = communityBoardData?.RESULTS.DATAS.BOARD_INFO;
+  const postList = (communityBoardData || communityBoardDataSSR).RESULTS.DATAS.POST_LIST;
+  const boardInfo = (communityBoardData || communityBoardDataSSR).RESULTS.DATAS.BOARD_INFO;
 
   const isPostExist = !(
     postList?.length === 0 &&
