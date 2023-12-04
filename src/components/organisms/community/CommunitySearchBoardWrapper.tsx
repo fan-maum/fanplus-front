@@ -44,9 +44,9 @@ const CommunitySearchBoardWrapper = ({ title, boardList, texts }: CommunityBoard
             color: '#666',
           }}
         >
-          검색 결과가 없습니다.
+          {texts.noResult[0]}
           <br />
-          연예인 명을 다시 한 번 확인해주세요.
+          {texts.noResult[1]}
         </p>
       )}
     </section>

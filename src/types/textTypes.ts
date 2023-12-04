@@ -264,6 +264,7 @@ export type CommunityPageTextType = {
   link: {
     board: string;
   };
+  noResult: string[];
 };
 export type CommunityBoardTextType = {
   all: string;

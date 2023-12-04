@@ -22,6 +22,8 @@ const CommunityBoardSearchInputWrapper = ({
   texts,
 }: CommunityBoardSearchInputProps) => {
   const router = useRouter();
+  const smallPlaceholder = router.query.locale === 'es' || router.query.locale === 'in';
+
   const { category_type = 0, searchValue, page = 0 } = router?.query;
   const queryClient = useQueryClient();
   const { handleSubmit, register, reset } = useForm<FormValue>();
@@ -63,7 +65,15 @@ const CommunityBoardSearchInputWrapper = ({
       }}
     >
       <Group h={'100%'} spacing={10} css={{ position: 'relative', flex: 1 }}>
-        <SearchInput placeholder={texts.searchPlaceholder} {...register('searchValue')} />
+        <SearchInput
+          css={{
+            '&::placeholder': {
+              fontSize: smallPlaceholder ? 12 : 14,
+            },
+          }}
+          placeholder={texts.searchPlaceholder}
+          {...register('searchValue')}
+        />
       </Group>
       <UnstyledButton type="submit" bg="#FF5656" h={40} p={'4px 10px'}>
         <IconSearch fill="#fff" />

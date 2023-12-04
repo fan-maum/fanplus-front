@@ -14,6 +14,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     searchPlaceholder: '원하는 게시판을 찾아보세요.',
     postCount: '게시글 수',
     link: { board: '/ko/community/board' },
+    noResult: ['검색 결과가 없습니다.', '연예인 명을 다시 한 번 확인해주세요.'],
   },
   en: {
     community: 'Community',
@@ -27,6 +28,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     searchPlaceholder: 'Search for a board you may like.',
     postCount: 'Posts',
     link: { board: '/en/community/board' },
+    noResult: ['No results', "Please check the star's name again."],
   },
   es: {
     community: 'Comunidad',
@@ -40,6 +42,10 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     searchPlaceholder: 'Encuentra el tablón de anuncios que deseas.',
     postCount: 'Publicación',
     link: { board: '/es/community/board' },
+    noResult: [
+      'No se encontraron resultados para tu búsqueda.',
+      'Por favor verifique el nombre de la celebridad nuevamente.',
+    ],
   },
   in: {
     community: 'Komunitas',
@@ -57,6 +63,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     searchPlaceholder: 'Cari papan yang mungkin Anda sukai.',
     postCount: 'Posts',
     link: { board: '/in/community/board' },
+    noResult: ['Tidak ada hasil', 'Silakan periksa kembali nama selebritinya.'],
   },
   ja: {
     community: 'コミュニティ',
@@ -70,6 +77,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     searchPlaceholder: '希望の掲示板を見つけてください。',
     postCount: '掲示文',
     link: { board: '/ja/community/board' },
+    noResult: ['検索結果がありません。', '芸能人の名前をもう一度確認してください'],
   },
   vi: {
     community: 'Cộng đồng',
@@ -87,6 +95,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     searchPlaceholder: 'Tìm kiếm một bảng bạn có thể thích.',
     postCount: 'Câu chuyện',
     link: { board: '/vi/community/board' },
+    noResult: ['Không có kết quả', 'Vui lòng kiểm tra lại tên người nổi tiếng.'],
   },
   'zh-CN': {
     community: '社区',
@@ -100,6 +109,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     searchPlaceholder: '找到您想要的消息面板',
     postCount: '帖子',
     link: { board: '/zh-CN/community/board' },
+    noResult: ['没有搜索结果。', '请再检查一下明星的名字'],
   },
   'zh-TW': {
     community: '社區',
@@ -113,5 +123,6 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     searchPlaceholder: '找到您想要的消息面板',
     postCount: '帖子',
     link: { board: '/zh-TW/community/board' },
+    noResult: ['沒有搜索結果。', '請再檢查一下明星的名字。'],
   },
 };
