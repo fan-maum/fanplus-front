@@ -36,7 +36,12 @@ const VoteDetailImagePopup = ({
   return (
     <VoteModal open={opened} onClose={onClose} position="center">
       <ImagePopupWrapper>
-        <img className="image" src={`/images/votes/ticketPopup_${language}.png`} alt="popup" />
+        <img
+          className="image"
+          src={`/images/votes/ticketPopup_${language}.png`}
+          alt="popup"
+          onClick={() => onClose()}
+        />
         <img
           className="closeButton"
           onClick={() => onClose()}
@@ -75,5 +80,6 @@ const ImagePopupWrapper = styled.div`
     top: 16px;
     right: 18px;
     cursor: pointer;
+    z-index: 10;
   }
 `;
