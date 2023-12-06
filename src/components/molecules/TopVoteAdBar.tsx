@@ -2,6 +2,12 @@ import React, { HTMLAttributes, useEffect } from 'react';
 import IconClose from '../atoms/IconClose';
 import { Group } from '../atoms';
 import { topNavHeight } from '@/global/constant';
+import { useRecoilState } from 'recoil';
+import { voteAdBannerState } from '@/store/voteLangState';
+import { useUrlLanguage } from '@/hooks/useLanguage';
+import { formatNumberWithComma } from '@/utils/util';
+import { useMediaQuery } from 'react-responsive';
+import styled from '@emotion/styled';
 
 export interface TopAdBarProps {
   onButtonClick?: () => void;
@@ -17,6 +23,14 @@ function TopVoteAdBar({
   onButtonClick,
   ...props
 }: Props) {
+  let freeVoteCount = 5;
+  const language = useUrlLanguage();
+  const voteTopVoteAdLang = useRecoilState(voteAdBannerState(language))[0];
+  const voteAdBannerTexts = voteTopVoteAdLang({
+    freeVoteCount: formatNumberWithComma(freeVoteCount),
+  });
+  const isMobile = useMediaQuery({ query: '(max-width:768px)' });
+
   useEffect(() => {
     if (!sessionStorage.getItem('top-notice-bar-close')) {
       setOpened(true);
@@ -30,7 +44,7 @@ function TopVoteAdBar({
         backgroundColor: '#FFC7D6',
         position: 'fixed',
         width: '100%',
-        height: '56px',
+        height: topNavHeight,
         top: opened ? 0 : -topNavHeight,
         transition: 'top 0.5s ease-in-out',
         right: 0,
@@ -39,13 +53,23 @@ function TopVoteAdBar({
         display: opened ? 'flex' : 'none',
         alignItems: 'center',
         zIndex: 200,
+        '@media screen and (max-width: 991px)': {
+          height: topNavHeight + 20,
+          top: opened ? 0 : -topNavHeight - 20,
+        },
       }}
       style={style}
       pl={16}
       pr={22}
       spacing={0}
     >
-      <p>아래 투표에서 최애에게 매일 5표씩 무료로 투표하고 광고 선물하세요!</p>
+      <TopBar>
+        {!isMobile ? (
+          <p dangerouslySetInnerHTML={{ __html: voteAdBannerTexts.message1 }}></p>
+        ) : (
+          <p dangerouslySetInnerHTML={{ __html: voteAdBannerTexts.message2 }}></p>
+        )}
+      </TopBar>
       <div
         css={{ position: 'absolute', right: 30, width: 26, height: 26 }}
         onClick={() => {
@@ -60,3 +84,15 @@ function TopVoteAdBar({
 }
 
 export default TopVoteAdBar;
+
+const TopBar = styled.div`
+  p {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+  }
+  span {
+    font-weight: 700;
+    color: #ff0045;
+  }
+`;

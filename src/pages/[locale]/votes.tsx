@@ -15,7 +15,14 @@ const Votes = ({ urlLang, voteLists, error }: EventProps) => {
   return (
     <>
       <TopVoteAdBar topAdBarState={topAdBarState} />
-      <div css={{ paddingTop: opened ? topNavHeight : 0 }}>
+      <div
+        css={{
+          paddingTop: opened ? topNavHeight : 0,
+          '@media screen and (max-width: 991px)': {
+            paddingTop: opened ? topNavHeight + 20 : 0,
+          },
+        }}
+      >
         <Layout urlLang={urlLang}>
           <VotesLayout voteLists={voteLists} error={error} opened={opened} />
         </Layout>

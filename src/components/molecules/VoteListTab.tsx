@@ -44,7 +44,9 @@ const VoteTab = ({
             margin: '40px auto',
             display: 'flex',
             justifyContent: 'center',
-            '@media(max-width:991px)': { top: opened ? 70 + topNavHeight : '70px' },
+            '@media(max-width:991px)': {
+              top: opened ? 70 + topNavHeight + 20 : '70px + 20px',
+            },
           },
         ]}
       >
