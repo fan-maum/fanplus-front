@@ -1,15 +1,26 @@
+import TopVoteAdBar from '@/components/molecules/TopVoteAdBar';
 import Layout from '@/components/organisms/Layout';
 import VotesLayout from '@/components/templates/VoteLayout';
+import { topNavHeight } from '@/global/constant';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useState } from 'react';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
 const Votes = ({ urlLang, voteLists, error }: EventProps) => {
+  const topAdBarState = useState(false);
+  const [opened] = topAdBarState;
+
   return (
-    <Layout urlLang={urlLang}>
-      <VotesLayout voteLists={voteLists} error={error} />
-    </Layout>
+    <>
+      <TopVoteAdBar topAdBarState={topAdBarState} />
+      <div css={{ paddingTop: opened ? topNavHeight : 0 }}>
+        <Layout urlLang={urlLang}>
+          <VotesLayout voteLists={voteLists} error={error} opened={opened} />
+        </Layout>
+      </div>
+    </>
   );
 };
 
