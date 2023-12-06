@@ -8,21 +8,14 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 import { formatNumberWithComma } from '@/utils/util';
 import { useMediaQuery } from 'react-responsive';
 import styled from '@emotion/styled';
+import dayjs from 'dayjs';
+import { getCommunityCookie, setCommunityCookie } from '@/utils/communityCookie';
 
-export interface TopAdBarProps {
-  onButtonClick?: () => void;
-}
-
-interface Props extends TopAdBarProps, HTMLAttributes<HTMLDivElement> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   topAdBarState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
-function TopVoteAdBar({
-  topAdBarState: [opened, setOpened],
-  style,
-  onButtonClick,
-  ...props
-}: Props) {
+function TopVoteAdBar({ topAdBarState: [opened, setOpened], style, ...props }: Props) {
   let freeVoteCount = 5;
   const language = useUrlLanguage();
   const voteTopVoteAdLang = useRecoilState(voteAdBannerState(language))[0];
@@ -30,12 +23,27 @@ function TopVoteAdBar({
     freeVoteCount: formatNumberWithComma(freeVoteCount),
   });
   const isMobile = useMediaQuery({ query: '(max-width:768px)' });
+  let expire = dayjs().startOf('day').add(1, 'day').toDate();
 
   useEffect(() => {
-    if (!sessionStorage.getItem('top-notice-bar-close')) {
+    let TopVoteAdCount: number | undefined = getCommunityCookie('TopVoteAdCount');
+    if (TopVoteAdCount === undefined) {
+      setCommunityCookie('TopVoteAdCount', 0, { path: '/', expires: expire });
+      TopVoteAdCount = 0;
+    }
+    if (TopVoteAdCount < 1) {
       setOpened(true);
     }
   }, []);
+
+  const handleTopVoteBarClose = () => {
+    setOpened(false);
+    let TopVoteAdCount: number | undefined = getCommunityCookie('TopVoteAdCount');
+    setCommunityCookie('TopVoteAdCount', Number(TopVoteAdCount) + 1, {
+      path: '/',
+      expires: expire,
+    });
+  };
 
   return (
     <Group
@@ -72,10 +80,7 @@ function TopVoteAdBar({
       </TopBar>
       <div
         css={{ position: 'absolute', right: 30, width: 26, height: 26 }}
-        onClick={() => {
-          setOpened(false);
-          sessionStorage.setItem('top-notice-bar-close', 'true');
-        }}
+        onClick={handleTopVoteBarClose}
       >
         <IconClose strokeColor="#000" width="26" height="26" />
       </div>

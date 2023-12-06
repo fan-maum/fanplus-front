@@ -26,9 +26,7 @@ const VoteDetailImagePopup = ({
     if (VotePopupCount === undefined) {
       setCommunityCookie('VotePopupCount', 0, { path: '/', expires: expire });
       VotePopupCount = 0;
-    }
-
-    if (VotePopupCount < 1) {
+    } else if (VotePopupCount < 1) {
       setOpened(true);
     }
   }, []);
