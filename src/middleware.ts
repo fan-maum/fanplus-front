@@ -59,6 +59,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${userLang}/${urlPaths}/${urlQueries}`, request.url));
   }
 
-  // * 올바르지 않은 page path를 가지는 경우: 예전 웹사이트로 rewrite 시킴.
-  return NextResponse.rewrite(`https://old.fanplus.co.kr/${urlPaths}`);
+  // * 나머지는 next.config.js 에서 handle
+  return NextResponse.next();
 }

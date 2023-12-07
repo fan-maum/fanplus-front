@@ -8,10 +8,16 @@ const nextConfig = {
   trailingSlash: true,
   async rewrites() {
     return {
+      beforeFiles: [
+        {
+          source: '/seo/:path*',
+          destination: `${process.env.AWS_SEO_REWRITE_URL}/:path*`,
+        },
+      ],
       fallback: [
         {
           source: '/:path*',
-          destination: `https://old.fanplus.co.kr/:path*`,
+          destination: 'https://old.fanplus.co.kr/:path*',
         },
       ],
     };
