@@ -33,12 +33,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // * seo 크롤 봇 redirection.  ex: (https://fanplus.co.kr/seo/~~) --> (${AWS_SEO_REDIRECT_URL}~~)
-  if (request.nextUrl.pathname.startsWith('/seo/')) {
-    const followingPath = request.nextUrl.pathname.split('/seo/')[1];
-    return NextResponse.redirect(new URL(`${process.env.AWS_SEO_REDIRECT_URL}${followingPath}`));
-  }
-
   const negotiator = new Negotiator({
     headers: { 'accept-language': request.headers.get('accept-language') as string },
   });
@@ -47,7 +41,7 @@ export function middleware(request: NextRequest) {
     request.cookies.get('USER_LANG')?.value || negotiator.language(SUPPORT_LANGUAGE) || 'en';
 
   const urlPaths = request.nextUrl.pathname.substring(1); // * base 주소 다음에 오는 슬래쉬 (/) 제거
-  const urlFirstPath = urlPaths.split('/')[0]; // * ex: https://fanplus.co.kr/ko/votes 에서 ko
+  const urlFirstPath = urlPaths.split('/')[0];
   const urlQueries = request.nextUrl.search;
 
   // * url에 locale 값이 존재하고 쿠키와 (혹은 browser의 locale과) 일치할 경우: 그대로 반환.
