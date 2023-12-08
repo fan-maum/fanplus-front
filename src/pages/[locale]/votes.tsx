@@ -49,7 +49,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
   const error = res.ok ? false : res.status;
   const dailyTicketResponse: DailyVoteTicketResponse = await getDailyVoteTicket();
-  console.log(dailyTicketResponse);
   // const dailyTicketCount = dailyTicketResponse.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
 
   const voteLists = await res.json();
