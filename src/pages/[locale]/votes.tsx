@@ -19,9 +19,9 @@ const Votes = ({
 }: EventProps) => {
   const topAdBarState = useState(false);
   const [opened] = topAdBarState;
-  // eslint-disable-next-line no-console
-  console.log(dailyTicketResponse);
   const dailyTicketCount = dailyTicketResponse?.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
+  // eslint-disable-next-line no-console
+  console.log(dailyTicketCount);
 
   return (
     <>
