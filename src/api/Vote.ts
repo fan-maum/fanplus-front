@@ -5,7 +5,9 @@ import axios, { AxiosResponse } from 'axios';
 const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
 export const getDailyVoteTicket = async () => {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/dailyVoteTicket`);
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/dailyVoteTicket`
+  );
   return response.data;
 };
 

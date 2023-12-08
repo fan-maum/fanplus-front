@@ -10,13 +10,11 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useState } from 'react';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const Votes = ({ urlLang, voteLists, error }: EventProps) => {
+const Votes = ({ urlLang, voteLists, dailyTicketCount, error }: EventProps) => {
   const topAdBarState = useState(false);
   const [opened] = topAdBarState;
   // eslint-disable-next-line no-console
-  // console.log(dailyTicketResponse);
-
-  const dailyTicketCount = 15;
+  console.log(dailyTicketCount);
 
   return (
     <>
@@ -48,12 +46,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${serverLang}`
   );
   const error = res.ok ? false : res.status;
-  // const dailyTicketResponse: DailyVoteTicketResponse = await getDailyVoteTicket();
-  // const dailyTicketCount = dailyTicketResponse.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
+  const dailyTicketResponse: DailyVoteTicketResponse = await getDailyVoteTicket();
+  const dailyTicketCount = dailyTicketResponse.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
 
   const voteLists = await res.json();
   return {
-    props: { urlLang, voteLists, error },
+    props: { urlLang, voteLists, dailyTicketCount, error },
   };
 };
 
