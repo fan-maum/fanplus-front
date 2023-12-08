@@ -10,9 +10,12 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useState } from 'react';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const Votes = ({ urlLang, voteLists, dailyTicketCount, error }: EventProps) => {
+const Votes = ({ urlLang, voteLists, dailyTicketResponse, error }: EventProps) => {
   const topAdBarState = useState(false);
   const [opened] = topAdBarState;
+  console.log(dailyTicketResponse);
+
+  const dailyTicketCount = 15;
 
   return (
     <>
@@ -45,11 +48,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
   const error = res.ok ? false : res.status;
   const dailyTicketResponse: DailyVoteTicketResponse = await getDailyVoteTicket();
-  const dailyTicketCount = dailyTicketResponse.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
+  console.log(dailyTicketResponse);
+  // const dailyTicketCount = dailyTicketResponse.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
 
   const voteLists = await res.json();
   return {
-    props: { urlLang, voteLists, dailyTicketCount, error },
+    props: { urlLang, voteLists, dailyTicketResponse, error },
   };
 };
 
