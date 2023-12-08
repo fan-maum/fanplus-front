@@ -9,7 +9,7 @@ import { formatNumberWithComma } from '@/utils/util';
 import { useMediaQuery } from 'react-responsive';
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
-import { getCommunityCookie, setCommunityCookie } from '@/utils/communityCookie';
+import { getVoteCookie, setVoteCookie } from '@/utils/communityCookie';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   topAdBarState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
@@ -31,9 +31,9 @@ function TopVoteAdBar({
   let expire = dayjs().startOf('day').add(1, 'day').toDate();
 
   useEffect(() => {
-    let TopVoteAdCount: number | undefined = getCommunityCookie('TopVoteAdCount');
+    let TopVoteAdCount: number | undefined = getVoteCookie('TopVoteAdCount');
     if (TopVoteAdCount === undefined) {
-      setCommunityCookie('TopVoteAdCount', 0, { path: '/', expires: expire });
+      setVoteCookie('TopVoteAdCount', 0, { path: '/', expires: expire });
       TopVoteAdCount = 0;
     }
     if (TopVoteAdCount < 1) {
@@ -43,8 +43,8 @@ function TopVoteAdBar({
 
   const handleTopVoteBarClose = () => {
     setOpened(false);
-    let TopVoteAdCount: number | undefined = getCommunityCookie('TopVoteAdCount');
-    setCommunityCookie('TopVoteAdCount', Number(TopVoteAdCount) + 1, {
+    let TopVoteAdCount: number | undefined = getVoteCookie('TopVoteAdCount');
+    setVoteCookie('TopVoteAdCount', Number(TopVoteAdCount) + 1, {
       path: '/',
       expires: expire,
     });

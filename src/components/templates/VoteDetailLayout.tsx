@@ -31,7 +31,7 @@ import VoteEndModal from '../modals/VoteEndModal';
 import { AxiosError } from 'axios';
 import { pathOnly } from '@/utils/util';
 import VoteDetailImagePopup from '../modals/VoteDetailImagePopup';
-import { getCommunityCookie, setCommunityCookie } from '@/utils/communityCookie';
+import { getVoteCookie, setVoteCookie } from '@/utils/communityCookie';
 import dayjs from 'dayjs';
 
 export interface VotesLayoutProps {
@@ -297,9 +297,9 @@ const VoteDetailLayout = ({
 
   const handleImagePopupClose = () => {
     setImagePopup(false);
-    let VotePopupCount: number | undefined = getCommunityCookie('VotePopupCount');
+    let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
     const expire = dayjs().startOf('day').add(1, 'day').toDate();
-    setCommunityCookie('VotePopupCount', Number(VotePopupCount) + 1, {
+    setVoteCookie('VotePopupCount', Number(VotePopupCount) + 1, {
       path: '/',
       expires: expire,
     });

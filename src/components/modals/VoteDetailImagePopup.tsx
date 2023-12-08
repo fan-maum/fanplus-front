@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import dayjs from 'dayjs';
 import VoteModal from './VoteModal';
-import { getCommunityCookie, setCommunityCookie } from '@/utils/communityCookie';
+import { getVoteCookie, setVoteCookie } from '@/utils/communityCookie';
 import styled from '@emotion/styled';
 import { UrlLangType } from '@/types/common';
 
@@ -18,13 +18,15 @@ const VoteDetailImagePopup = ({
   onClose,
   language,
 }: VoteDetailImagePopupProps) => {
+  console.log(opened);
+
   useEffect(() => {
-    let VotePopupCount: number | undefined = getCommunityCookie('VotePopupCount');
+    let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
 
     const expire = dayjs().startOf('day').add(1, 'day').toDate();
 
     if (VotePopupCount === undefined) {
-      setCommunityCookie('VotePopupCount', 0, { path: '/', expires: expire });
+      setVoteCookie('VotePopupCount', 0, { path: '/', expires: expire });
       VotePopupCount = 0;
     } else if (VotePopupCount < 1) {
       setOpened(true);
