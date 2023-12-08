@@ -1,7 +1,6 @@
 import Layout from '@/components/organisms/Layout';
 import MainPageTemplate from '@/components/templates/MainPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import { SUPPORT_LANGUAGE } from '@/middleware';
 import type { UrlLangType } from '@/types/common';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
@@ -46,10 +45,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const vote_type = '';
   const page = 0;
   const per_page = 2;
-
-  if (!SUPPORT_LANGUAGE.includes(urlLang)) {
-    return { notFound: true };
-  }
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${serverLang}`
