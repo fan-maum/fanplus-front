@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const per_page = Number(context.query.per_page) || 9;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${serverLang}`
+    `/api/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${serverLang}`
   );
   const error = res.ok ? false : res.status;
   const dailyTicketResponse: DailyVoteTicketResponse = await getDailyVoteTicket();
