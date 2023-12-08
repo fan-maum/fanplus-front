@@ -20,8 +20,6 @@ const Votes = ({
   const topAdBarState = useState(false);
   const [opened] = topAdBarState;
   const dailyTicketCount = dailyTicketResponse?.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
-  // eslint-disable-next-line no-console
-  console.log(dailyTicketCount);
 
   return (
     <>
@@ -54,7 +52,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
   const error = res.ok ? false : res.status;
   const dailyTicketResponse: DailyVoteTicketResponse = await getDailyVoteTicket();
-  // const dailyTicketCount = dailyTicketResponse.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
   const dailyTicketError = dailyTicketResponse ? false : 0;
 
   const voteLists = await res.json();
