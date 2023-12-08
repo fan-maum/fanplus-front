@@ -13,6 +13,7 @@ export interface EventProps extends InferGetServerSidePropsType<typeof getServer
 const Votes = ({ urlLang, voteLists, dailyTicketResponse, error }: EventProps) => {
   const topAdBarState = useState(false);
   const [opened] = topAdBarState;
+  // eslint-disable-next-line no-console
   console.log(dailyTicketResponse);
 
   const dailyTicketCount = 15;
