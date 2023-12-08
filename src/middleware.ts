@@ -25,6 +25,12 @@ export const SUPPORT_LANGUAGE: UrlLangType[] = [
 ];
 
 export function middleware(request: NextRequest) {
+  // * seo 크롤 봇 redirection.  ex: (https://fanplus.co.kr/seo/~~) --> (${AWS_SEO_REWRITE_URL}~~)
+  if (request.nextUrl.pathname.startsWith('/seo')) {
+    const followingPath = request.nextUrl.pathname.split('/seo')[1];
+    return NextResponse.rewrite(`${process.env.AWS_SEO_REWRITE_URL}${followingPath}`);
+  }
+
   if (
     request.nextUrl.pathname.startsWith('/_next') ||
     request.nextUrl.pathname.includes('/api/') ||
@@ -59,6 +65,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${userLang}/${urlPaths}/${urlQueries}`, request.url));
   }
 
-  // * 나머지는 next.config.js 에서 handle
-  return NextResponse.next();
+  // * 올바르지 않은 page path를 가지는 경우: 예전 웹사이트로 rewrite 시킴.
+  return NextResponse.rewrite(`https://old.fanplus.co.kr/${urlPaths}`);
 }
