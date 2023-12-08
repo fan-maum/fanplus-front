@@ -15,15 +15,15 @@ import styled from '@emotion/styled';
 
 export interface VoteDetailInfoProps {
   voteDetailInfo: VoteDetailVoteInfo;
+  dailyTicketCount: number;
 }
 
-const VoteDetailInfo = ({ voteDetailInfo, ...props }: VoteDetailInfoProps) => {
+const VoteDetailInfo = ({ voteDetailInfo, dailyTicketCount, ...props }: VoteDetailInfoProps) => {
   const language = useUrlLanguage();
-  let freeVoteCount = 5;
   const voteDetailLanguage = useRecoilState(voteDetailLangState(language))[0];
   const voteAdBannerLang = useRecoilState(voteDetailAdBannerState(language))[0];
   const voteAdBannerTexts = voteAdBannerLang({
-    freeVoteCount: formatNumberWithComma(freeVoteCount),
+    dailyTicketCount: formatNumberWithComma(dailyTicketCount),
   });
 
   const firstRankStar = voteDetailInfo.STARS.find((star) => star.RANK === '1');

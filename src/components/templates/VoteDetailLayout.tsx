@@ -269,6 +269,7 @@ const VoteDetailLayout = ({
 
   const voteDetailInfoProps: VoteDetailInfoProps = {
     voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
+    dailyTicketCount: dailyTicketCount,
   };
 
   const voteDetailShareModalProps: VoteDetailShareModalProps = {
