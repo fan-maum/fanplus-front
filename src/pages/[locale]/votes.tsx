@@ -10,11 +10,18 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useState } from 'react';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const Votes = ({ urlLang, voteLists, dailyTicketCount, error }: EventProps) => {
+const Votes = ({
+  urlLang,
+  voteLists,
+  dailyTicketResponse,
+  error,
+  dailyTicketError,
+}: EventProps) => {
   const topAdBarState = useState(false);
   const [opened] = topAdBarState;
   // eslint-disable-next-line no-console
-  console.log(dailyTicketCount);
+  console.log(dailyTicketResponse);
+  const dailyTicketCount = dailyTicketResponse?.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
 
   return (
     <>
@@ -47,11 +54,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
   const error = res.ok ? false : res.status;
   const dailyTicketResponse: DailyVoteTicketResponse = await getDailyVoteTicket();
-  const dailyTicketCount = dailyTicketResponse.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
+  // const dailyTicketCount = dailyTicketResponse.RESULTS.DATAS.DAILY_VOTE_TICKET_COUNT;
+  const dailyTicketError = dailyTicketResponse ? false : 0;
 
   const voteLists = await res.json();
   return {
-    props: { urlLang, voteLists, dailyTicketCount, error },
+    props: { urlLang, voteLists, dailyTicketResponse, error, dailyTicketError },
   };
 };
 
