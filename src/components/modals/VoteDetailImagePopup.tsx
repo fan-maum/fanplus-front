@@ -18,8 +18,6 @@ const VoteDetailImagePopup = ({
   onClose,
   language,
 }: VoteDetailImagePopupProps) => {
-  console.log(opened);
-
   useEffect(() => {
     let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
 
