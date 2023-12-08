@@ -10,7 +10,7 @@ import { Group } from '../atoms';
 export interface VoteDoneModalProps {
   onClose: () => void;
   onWebViewLink?: () => void;
-  freeVoteCount: number;
+  dailyTicketCount: number;
   moreVoteCount: number;
   isWebView?: boolean;
   starName: string;
@@ -19,7 +19,7 @@ export interface VoteDoneModalProps {
 const VoteDoneModal = ({
   onClose,
   isWebView,
-  freeVoteCount,
+  dailyTicketCount,
   moreVoteCount,
   onWebViewLink,
   starName,
@@ -30,7 +30,7 @@ const VoteDoneModal = ({
   const voteModalLang = useRecoilState(voteModalState(language))[0];
   const voteModalButton = useRecoilState(voteModalButtonState(language))[0];
   const voteDoneFirstText = voteModalLang({
-    freeVoteCount: freeVoteCount.toString(),
+    dailyTicketCount: dailyTicketCount.toString(),
     starName: starName,
   }).voteDoneFirst;
   const voteDoneEndText = voteModalLang({

@@ -36,6 +36,7 @@ import dayjs from 'dayjs';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
+  dailyTicketCount: number;
   headers: [];
   authCookie: string | null;
   isWebView?: boolean;
@@ -57,6 +58,7 @@ export const findStarIndexById: (
 
 const VoteDetailLayout = ({
   voteDetails: propsVoteDetails,
+  dailyTicketCount,
   headers,
   authCookie,
   isWebView,
@@ -77,7 +79,6 @@ const VoteDetailLayout = ({
   const [voteModalEnd, setVoteModalEnd] = useState(false);
   const [imagePopup, setImagePopup] = useState(false);
 
-  const freeVoteCount = 5;
   const moreVoteCount = 1650;
   const webViewLink = `https://p7m9w.app.goo.gl/?link=${encodeURIComponent(
     `https://vote.fanplus.co.kr/?vote=${router.query.vote_IDX}&photocard_type=share_vote&vote_idx=${router.query.vote_IDX}`
@@ -168,7 +169,7 @@ const VoteDetailLayout = ({
               if (star.STAR_IDX === id) {
                 return {
                   ...star,
-                  VOTE_CNT: (Number(star.VOTE_CNT) + 5).toString(),
+                  VOTE_CNT: (Number(star.VOTE_CNT) + dailyTicketCount).toString(),
                 };
               }
               return star;
@@ -321,7 +322,7 @@ const VoteDetailLayout = ({
       <CompletedShareModal {...completedShareModalProps} />
       <VoteProcessModal
         opened={voteModal}
-        freeVoteCount={freeVoteCount}
+        dailyTicketCount={dailyTicketCount}
         onClose={() => {
           setVoteModal(false);
         }}
@@ -341,7 +342,7 @@ const VoteDetailLayout = ({
           setVoteModalDone(0);
         }}
         isWebView={isWebView}
-        freeVoteCount={freeVoteCount}
+        dailyTicketCount={dailyTicketCount}
         moreVoteCount={voteModalDone}
         onWebViewLink={() => router.push(webViewLink)}
         starName={stars[1]?.STAR_NAME || '스타이름'}

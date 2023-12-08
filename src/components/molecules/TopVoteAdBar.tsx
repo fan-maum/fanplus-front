@@ -13,14 +13,19 @@ import { getCommunityCookie, setCommunityCookie } from '@/utils/communityCookie'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   topAdBarState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  dailyTicketCount: number;
 }
 
-function TopVoteAdBar({ topAdBarState: [opened, setOpened], style, ...props }: Props) {
-  let freeVoteCount = 5;
+function TopVoteAdBar({
+  topAdBarState: [opened, setOpened],
+  dailyTicketCount,
+  style,
+  ...props
+}: Props) {
   const language = useUrlLanguage();
   const voteTopVoteAdLang = useRecoilState(voteAdBannerState(language))[0];
   const voteAdBannerTexts = voteTopVoteAdLang({
-    freeVoteCount: formatNumberWithComma(freeVoteCount),
+    dailyTicketCount: formatNumberWithComma(dailyTicketCount),
   });
   const isMobile = useMediaQuery({ query: '(max-width:768px)' });
   let expire = dayjs().startOf('day').add(1, 'day').toDate();

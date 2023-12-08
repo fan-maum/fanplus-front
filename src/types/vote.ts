@@ -19,6 +19,18 @@ export interface StarInfo {
   VOTE_CNT: string;
 }
 
+export interface DailyVoteTicketResponse {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      WELCOME_VOTE_TICKET_COUNT: number;
+      DAILY_VOTE_TICKET_COUNT: number;
+    };
+    TIMESTAMP: number;
+  };
+}
+
 export interface VoteResponse {
   RESULTS: {
     ERROR: number;
@@ -101,11 +113,11 @@ export interface Result {
   message: string;
 }
 export interface voteModalTextProps {
-  freeVoteCount?: string;
+  dailyTicketCount?: string;
   starName?: string;
   moreVoteCount?: string;
 }
 
 export interface voteDetailAdBannerTextProps {
-  freeVoteCount?: string;
+  dailyTicketCount?: string;
 }
