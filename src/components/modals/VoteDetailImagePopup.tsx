@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import dayjs from 'dayjs';
 import VoteModal from './VoteModal';
-import { getVoteCookie, setVoteCookie } from '@/utils/communityCookie';
+import { getVoteCookie, setVoteCookie } from '@/utils/voteCookie';
 import styled from '@emotion/styled';
 import { UrlLangType } from '@/types/common';
 

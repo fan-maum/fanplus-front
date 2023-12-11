@@ -31,7 +31,7 @@ import VoteEndModal from '../modals/VoteEndModal';
 import { AxiosError } from 'axios';
 import { pathOnly } from '@/utils/util';
 import VoteDetailImagePopup from '../modals/VoteDetailImagePopup';
-import { getVoteCookie, setVoteCookie } from '@/utils/communityCookie';
+import { getVoteCookie, setVoteCookie } from '@/utils/voteCookie';
 import dayjs from 'dayjs';
 
 export interface VotesLayoutProps {

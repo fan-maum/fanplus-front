@@ -9,7 +9,7 @@ import { formatNumberWithComma } from '@/utils/util';
 import { useMediaQuery } from 'react-responsive';
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
-import { getVoteCookie, setVoteCookie } from '@/utils/communityCookie';
+import { getVoteCookie, setVoteCookie } from '@/utils/voteCookie';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   topAdBarState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
