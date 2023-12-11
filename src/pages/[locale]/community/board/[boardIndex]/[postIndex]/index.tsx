@@ -51,6 +51,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!boardIndex || !postIndex) return { notFound: true };
 
   const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, serverLang);
+  if (communityPostData.RESULTS.DATAS.POST_INFO.IS_PUBLISH === 'N') return { notFound: true };
 
   return {
     props: { urlLang, identity, user_idx, postIndex, serverLang, communityPostData },
