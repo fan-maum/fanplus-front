@@ -219,7 +219,8 @@ const VoteDetailLayout = ({
     if (VotePopupCount === undefined) {
       setVoteCookie('VotePopupCount', 0, { path: '/', expires: expire });
       VotePopupCount = 0;
-    } else if (VotePopupCount < 1 || VotePopupCount === undefined) {
+      setImagePopup(true);
+    } else if (VotePopupCount < 1) {
       setImagePopup(true);
     }
   }, []);
