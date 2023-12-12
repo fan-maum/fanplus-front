@@ -80,6 +80,7 @@ const VoteDetailLayout = ({
   const [imagePopup, setImagePopup] = useState(false);
 
   const moreVoteCount = 1650;
+  let expire = dayjs().startOf('day').add(1, 'day').toDate();
   const webViewLink = `https://p7m9w.app.goo.gl/?link=${encodeURIComponent(
     `https://vote.fanplus.co.kr/?vote=${router.query.vote_IDX}&photocard_type=share_vote&vote_idx=${router.query.vote_IDX}`
   )}&apn=com.photocard.allstar&amv=100&ibi=com.photocard.master&isi=1448805815&ofl=${encodeURIComponent(
@@ -213,8 +214,7 @@ const VoteDetailLayout = ({
   useEffect(() => {
     let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
 
-    const expire = dayjs().startOf('day').add(1, 'day').toDate();
-
+    console.log('VotePopupCount', VotePopupCount);
     if (VotePopupCount === undefined) {
       setVoteCookie('VotePopupCount', 0, { path: '/', expires: expire });
       VotePopupCount = 0;
@@ -311,7 +311,6 @@ const VoteDetailLayout = ({
   const handleImagePopupClose = () => {
     setImagePopup(false);
     let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
-    const expire = dayjs().startOf('day').add(1, 'day').toDate();
     setVoteCookie('VotePopupCount', Number(VotePopupCount) + 1, {
       path: '/',
       expires: expire,
