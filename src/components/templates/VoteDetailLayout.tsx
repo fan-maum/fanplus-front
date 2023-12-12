@@ -211,6 +211,19 @@ const VoteDetailLayout = ({
   }, [propsVoteDetails]);
 
   useEffect(() => {
+    let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
+
+    const expire = dayjs().startOf('day').add(1, 'day').toDate();
+
+    if (VotePopupCount === undefined) {
+      setVoteCookie('VotePopupCount', 0, { path: '/', expires: expire });
+      VotePopupCount = 0;
+    } else if (VotePopupCount < 1 || VotePopupCount === undefined) {
+      setImagePopup(true);
+    }
+  }, []);
+
+  useEffect(() => {
     if (stars[1]) {
       const starData = findStarIndexById(stars[1].STAR_IDX, voteDetails);
       if (starData) setStarWithIndex(starData?.index);
