@@ -7,6 +7,7 @@ import type {
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
   PostBoardArticleResponseType,
+  PostResponseType,
   RecentlyListResponseType,
   RecommendListResponseType,
   Top30PopularBoardsResponseType,
@@ -99,7 +100,7 @@ export const getCommunityPostData = async (
   identity: string,
   lang: ServerLangType
 ) => {
-  const response: AxiosResponse = await axios.get(
+  const response: AxiosResponse<PostResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
     { params: { boardIndex, postIndex, identity, lang } }
   );
