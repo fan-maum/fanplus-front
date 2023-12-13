@@ -15,8 +15,6 @@ const PopularBoards = ({ title }: { title: string }) => {
         width: '230px',
         border: '1px solid #d9d9d9',
         borderBottom: 'none',
-        position: 'absolute',
-        left: 'calc((100% - 768px)/2 - 250px)',
       }}
     >
       <div

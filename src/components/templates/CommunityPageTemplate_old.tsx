@@ -75,92 +75,91 @@ const CommunityPageTemplate = ({
   const searchCategoryTabs = [seearchAllCategory, ...searchCategoryTabDtos];
 
   return (
-    // <CommunityLayout>
-    <div css={{ width: 800, height: 600, border: '1px solid #000' }}>contents layout</div>
-    // <div
-    //   css={{
-    //     width: '100%',
-    //     maxWidth: '728px',
-    //     margin: '0px auto',
-    //   }}
-    // >
-    //   <div
-    //     css={{
-    //       display: 'flex',
-    //       justifyContent: 'space-between',
-    //       flexDirection: 'row',
-    //       alignItems: 'center',
-    //       margin: '6px 0 20px',
-    //       '@media (max-width: 768px)': {
-    //         flexDirection: 'column',
-    //         justifyContent: 'flex-start',
-    //         alignItems: 'flex-start',
-    //         padding: '0 16px',
-    //       },
-    //     }}
-    //   >
-    //     <h3 css={{ margin: '5px' }}>{texts.community}</h3>
-    //     <CommunityBoardSearchInputWrapper
-    //       setTabBar={setTabBar}
-    //       searchTabState={searchTabState}
-    //       texts={texts}
-    //     />
-    //   </div>
-    //   <PopularBoardsMobile texts={communityLayoutTexts[urlLang]} initialOpen={false} />
-    //   <TabBar
-    //     tabTitles={{ boards: texts.boards, bestPopular: texts.bestPopular }}
-    //     tabBar={tabBar}
-    //     texts={texts}
-    //     setTabBar={setTabBar}
-    //     searchTabState={searchTabState}
-    //   />
-    //   {tabBar === 'boards' ? (
-    //     <>
-    //       <CommunityBoardFilterTab
-    //         searchCategoryTabs={searchCategoryTabs}
-    //         searchTabState={searchTabState}
-    //       />
-    //       {isFetching ? (
-    //         <section css={{ marginBottom: '30px' }}>
-    //           <BoardItemListSkeleton />
-    //         </section>
-    //       ) : (
-    //         <CommunitySearchBoardWrapper
-    //           boardList={boardResultList}
-    //           activeTabState={activeTabState}
-    //           texts={texts}
-    //         />
-    //       )}
-    //       {boardResultList?.length !== 0 && (
-    //         <CommunitySearchBoardPagination
-    //           totalCount={boardResultTotalCount as number}
-    //           itemsPerPage={20}
-    //         />
-    //       )}
-    //     </>
-    //   ) : (
-    //     <div css={{ '& > div': { padding: 0 } }}>
-    //       <CommunityBoardArticleTable
-    //         communityBoardDataSSR={communityBoardData}
-    //         texts={bestBoardtexts}
-    //         queries={{
-    //           userId,
-    //           boardIndex,
-    //           page,
-    //           requestLang: serverLang,
-    //           boardLang: boardLangCookie,
-    //           topicIndex,
-    //           viewType,
-    //         }}
-    //         isInitialData={isInitialBestBoardProps}
-    //         onClickWrite={() => {
-    //           return false;
-    //         }}
-    //       />
-    //     </div>
-    //   )}
-    // </div>
-    // </CommunityLayout>
+    <CommunityLayout>
+      <div
+        css={{
+          width: '100%',
+          maxWidth: '728px',
+          margin: '0px auto',
+        }}
+      >
+        <div
+          css={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            margin: '6px 0 20px',
+            '@media (max-width: 768px)': {
+              flexDirection: 'column',
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+              padding: '0 16px',
+            },
+          }}
+        >
+          <h3 css={{ margin: '5px' }}>{texts.community}</h3>
+          <CommunityBoardSearchInputWrapper
+            setTabBar={setTabBar}
+            searchTabState={searchTabState}
+            texts={texts}
+          />
+        </div>
+        <PopularBoardsMobile texts={communityLayoutTexts[urlLang]} initialOpen={false} />
+        <TabBar
+          tabTitles={{ boards: texts.boards, bestPopular: texts.bestPopular }}
+          tabBar={tabBar}
+          texts={texts}
+          setTabBar={setTabBar}
+          searchTabState={searchTabState}
+        />
+        {tabBar === 'boards' ? (
+          <>
+            <CommunityBoardFilterTab
+              searchCategoryTabs={searchCategoryTabs}
+              searchTabState={searchTabState}
+            />
+            {isFetching ? (
+              <section css={{ marginBottom: '30px' }}>
+                <BoardItemListSkeleton />
+              </section>
+            ) : (
+              <CommunitySearchBoardWrapper
+                boardList={boardResultList}
+                activeTabState={activeTabState}
+                texts={texts}
+              />
+            )}
+            {boardResultList?.length !== 0 && (
+              <CommunitySearchBoardPagination
+                totalCount={boardResultTotalCount as number}
+                itemsPerPage={20}
+              />
+            )}
+          </>
+        ) : (
+          <div css={{ '& > div': { padding: 0 } }}>
+            <CommunityBoardArticleTable
+              communityBoardDataSSR={communityBoardData}
+              texts={bestBoardtexts}
+              queries={{
+                userId,
+                boardIndex,
+                page,
+                requestLang: serverLang,
+                boardLang: boardLangCookie,
+                topicIndex,
+                viewType,
+              }}
+              isInitialData={isInitialBestBoardProps}
+              onClickWrite={() => {
+                return false;
+              }}
+            />
+          </div>
+        )}
+      </div>
+    </CommunityLayout>
   );
 };
 

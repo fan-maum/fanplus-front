@@ -4,6 +4,7 @@ import {
   getCommunityBoardResultData,
 } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
+import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
@@ -52,7 +53,7 @@ const CommunityHomePage = ({
   initialBestBoardProps,
 }: CommunityPropTypes) => {
   return (
-    <Layout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang}>
       <CommunityPageTemplate
         urlLang={urlLang}
         boardCategoryData={boardCategoryData}
@@ -64,7 +65,7 @@ const CommunityHomePage = ({
         communityBoardData={communityBoardData}
         initialBestBoardProps={initialBestBoardProps}
       />
-    </Layout>
+    </CommunityMainLayout>
   );
 };
 
