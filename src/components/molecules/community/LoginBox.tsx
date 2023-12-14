@@ -4,17 +4,17 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 interface LoginBoxProps {
-  texts: CommunityPageTextType;
+  loginTitle: string;
 }
 
-const LoginBox = ({ texts }: LoginBoxProps) => {
+const LoginBox = ({ loginTitle }: LoginBoxProps) => {
   const router = useRouter();
   const path = router.asPath;
 
   return (
     <LoginBoxWrapper onClick={() => router.push({ pathname: '/login', query: { nextUrl: path } })}>
       <img src="/fanplusLogo.svg" alt="fanplus logo" />
-      <button>{texts.userCard[0]}</button>
+      <button>{loginTitle}</button>
     </LoginBoxWrapper>
   );
 };

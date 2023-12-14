@@ -9,9 +9,9 @@ interface ProfileBoxProps {
   nickname: string;
   profileImage: string;
   user_id: string | null;
-  texts: CommunityPageTextType;
+  ProfileTexts: string[];
 }
-const ProfileBox = ({ nickname, profileImage, user_id, texts }: ProfileBoxProps) => {
+const ProfileBox = ({ nickname, profileImage, user_id, ProfileTexts }: ProfileBoxProps) => {
   const router = useRouter();
 
   const handleMyPost = () => {
@@ -37,7 +37,7 @@ const ProfileBox = ({ nickname, profileImage, user_id, texts }: ProfileBoxProps)
         <div>
           <h6>{nickname}</h6>
           <div className="myPostButton" onClick={handleMyPost}>
-            {texts.userCard[1]}
+            {ProfileTexts[1]}
             <IconArrowLeft
               stroke={'#000'}
               iconCss={{ width: '12px', height: '12px', transform: 'rotateZ(180deg)' }}
@@ -47,7 +47,7 @@ const ProfileBox = ({ nickname, profileImage, user_id, texts }: ProfileBoxProps)
       </div>
       {user_id !== null && (
         <button onClick={handleLogout}>
-          {texts.userCard[2]} <img src="/icons/icon_logout.svg" alt="icon_logout" />
+          {ProfileTexts[2]} <img src="/icons/icon_logout.svg" alt="icon_logout" />
         </button>
       )}
     </ProfileBoxWrapper>

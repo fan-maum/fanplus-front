@@ -22,7 +22,7 @@ const MainAsideUserCard = ({ urlLang }: MainAsideUserCardProps) => {
 
   const { data, isFetched } = useGetUserQuery(useGetUserQueryProps);
 
-  if (user_idx === null || identity === null) return <LoginBox texts={texts} />;
+  if (user_idx === null || identity === null) return <LoginBox loginTitle={texts.userCard[0]} />;
 
   const userInfo = isFetched && data.RESULTS.DATAS;
 
@@ -31,7 +31,7 @@ const MainAsideUserCard = ({ urlLang }: MainAsideUserCardProps) => {
       nickname={userInfo.NICK}
       profileImage={userInfo.PROFILE_IMG_URL}
       user_id={identity}
-      texts={texts}
+      ProfileTexts={texts.userCard}
     />
   );
 };

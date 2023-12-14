@@ -13,8 +13,7 @@ const PopularBoards = ({ title }: { title: string }) => {
       css={{
         '@media (max-width: 768px)': { display: 'none' },
         width: '230px',
-        border: '1px solid #d9d9d9',
-        borderBottom: 'none',
+        borderTop: '1px solid #d9d9d9',
       }}
     >
       <div
@@ -22,7 +21,7 @@ const PopularBoards = ({ title }: { title: string }) => {
           width: '100%',
           height: '40px',
           lineHeight: '40px',
-          backgroundColor: '#f8f8f9',
+          backgroundColor: '#FBFBFB',
           textAlign: 'center',
           color: '#101010',
           fontSize: '16px',
