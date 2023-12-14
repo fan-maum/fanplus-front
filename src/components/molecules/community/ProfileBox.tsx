@@ -1,6 +1,7 @@
 import { Avatar } from '@/components/atoms';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { colors } from '@/styles/Colors';
+import { CommunityPageTextType } from '@/types/textTypes';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
@@ -8,8 +9,9 @@ interface ProfileBoxProps {
   nickname: string;
   profileImage: string;
   user_id: string | null;
+  texts: CommunityPageTextType;
 }
-const ProfileBox = ({ nickname, profileImage, user_id }: ProfileBoxProps) => {
+const ProfileBox = ({ nickname, profileImage, user_id, texts }: ProfileBoxProps) => {
   const router = useRouter();
 
   const handleMyPost = () => {
@@ -35,7 +37,7 @@ const ProfileBox = ({ nickname, profileImage, user_id }: ProfileBoxProps) => {
         <div>
           <h6>{nickname}</h6>
           <div className="myPostButton" onClick={handleMyPost}>
-            내가 쓴 글
+            {texts.userCard[1]}
             <IconArrowLeft
               stroke={'#000'}
               iconCss={{ width: '12px', height: '12px', transform: 'rotateZ(180deg)' }}
@@ -45,7 +47,7 @@ const ProfileBox = ({ nickname, profileImage, user_id }: ProfileBoxProps) => {
       </div>
       {user_id !== null && (
         <button onClick={handleLogout}>
-          로그아웃 <img src="/icons/icon_logout.svg" alt="icon_logout" />
+          {texts.userCard[2]} <img src="/icons/icon_logout.svg" alt="icon_logout" />
         </button>
       )}
     </ProfileBoxWrapper>

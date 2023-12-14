@@ -15,6 +15,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     postCount: '게시글 수',
     link: { board: '/ko/community/board' },
     noResult: ['검색 결과가 없습니다.', '연예인 명을 다시 한 번 확인해주세요.'],
+    userCard: ['로그인을 해주세요', '내가 쓴 글', '로그아웃'],
   },
   en: {
     community: 'Community',
@@ -29,6 +30,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     postCount: 'Posts',
     link: { board: '/en/community/board' },
     noResult: ['No results', "Please check the star's name again."],
+    userCard: ['Sign In', 'My posts', 'Sign Out'],
   },
   es: {
     community: 'Comunidad',
@@ -46,6 +48,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
       'No se encontraron resultados para tu búsqueda.',
       'Por favor verifique el nombre de la celebridad nuevamente.',
     ],
+    userCard: ['Inicio de sesión', 'El texto que escribí', 'Cierre de sesión'],
   },
   in: {
     community: 'Komunitas',
@@ -64,6 +67,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     postCount: 'Posts',
     link: { board: '/in/community/board' },
     noResult: ['Tidak ada hasil', 'Silakan periksa kembali nama selebritinya.'],
+    userCard: ['Log Masuk', 'Cerita Saya', 'Log keluar'],
   },
   ja: {
     community: 'コミュニティ',
@@ -78,6 +82,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     postCount: '掲示文',
     link: { board: '/ja/community/board' },
     noResult: ['検索結果がありません。', '芸能人の名前をもう一度確認してください'],
+    userCard: ['ログオン', '私が書いた記事', 'ログアウト'],
   },
   vi: {
     community: 'Cộng đồng',
@@ -96,6 +101,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     postCount: 'Câu chuyện',
     link: { board: '/vi/community/board' },
     noResult: ['Không có kết quả', 'Vui lòng kiểm tra lại tên người nổi tiếng.'],
+    userCard: ['Việc đăng nhập', 'Câu chuyện của tôi', 'Đăng xuất'],
   },
   'zh-CN': {
     community: '社区',
@@ -110,6 +116,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     postCount: '帖子',
     link: { board: '/zh-CN/community/board' },
     noResult: ['没有搜索结果。', '请再检查一下明星的名字'],
+    userCard: ['登入', '我发的贴子', '退出登录'],
   },
   'zh-TW': {
     community: '社區',
@@ -124,5 +131,6 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     postCount: '帖子',
     link: { board: '/zh-TW/community/board' },
     noResult: ['沒有搜索結果。', '請再檢查一下明星的名字。'],
+    userCard: ['登入', '我發的貼子', '登出登入'],
   },
 };

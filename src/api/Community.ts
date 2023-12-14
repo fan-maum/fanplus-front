@@ -336,7 +336,7 @@ export const reportComment = async (
  * User
  */
 /* 유저정보 */
-export const getUser = async (user_idx: string, identity: string | null) => {
+export const getUser = async (user_idx: string | null, identity: string | null) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/user`,
     { params: { user_idx, identity } }

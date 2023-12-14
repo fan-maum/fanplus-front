@@ -60,6 +60,6 @@ export interface useGetReplyQueryProps extends useCommonCommentQueryType {
 }
 
 export interface useGetUserQueryProps {
-  user_idx: string;
-  identity: string;
+  user_idx: string | null;
+  identity: string | null;
 }

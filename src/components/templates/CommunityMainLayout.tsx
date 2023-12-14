@@ -16,7 +16,7 @@ const CommunityMainLayout = ({ urlLang, children }: CommunityMainLayoutProps) =>
       <LayoutWrapper>
         <div className="contents">
           <div className="mainAside">
-            <MainAsideUserCard />
+            <MainAsideUserCard urlLang={urlLang} />
             <MainAsideCategory urlLang={urlLang} />
           </div>
           <div className="mainContent">{children}</div>
