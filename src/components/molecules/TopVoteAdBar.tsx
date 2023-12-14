@@ -77,11 +77,13 @@ function TopVoteAdBar({
       spacing={0}
     >
       <TopBar>
-        {!isMobile ? (
-          <p dangerouslySetInnerHTML={{ __html: voteAdBannerTexts.message1 }}></p>
-        ) : (
-          <p dangerouslySetInnerHTML={{ __html: voteAdBannerTexts.message2 }}></p>
-        )}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `${voteAdBannerTexts.message1}${isMobile ? '<br/>' : ''}${
+              voteAdBannerTexts.message2
+            }`,
+          }}
+        ></div>
       </TopBar>
       <div
         css={{ position: 'absolute', right: 30, width: 26, height: 26 }}
