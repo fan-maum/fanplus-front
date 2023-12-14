@@ -5,8 +5,6 @@ import { topNavHeight } from '@/global/constant';
 import { useRecoilState } from 'recoil';
 import { voteAdBannerState } from '@/store/voteLangState';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import { formatNumberWithComma } from '@/utils/util';
-import { useMediaQuery } from 'react-responsive';
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
 import { getVoteCookie, setVoteCookie } from '@/utils/voteCookie';
@@ -24,10 +22,6 @@ function TopVoteAdBar({
 }: Props) {
   const language = useUrlLanguage();
   const voteTopVoteAdLang = useRecoilState(voteAdBannerState(language))[0];
-  const voteAdBannerTexts = voteTopVoteAdLang({
-    dailyTicketCount: formatNumberWithComma(dailyTicketCount),
-  });
-  const isMobile = useMediaQuery({ query: '(max-width:768px)' });
   let expire = dayjs().startOf('day').add(1, 'day').toDate();
 
   useEffect(() => {
@@ -77,13 +71,8 @@ function TopVoteAdBar({
       spacing={0}
     >
       <TopBar>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `${voteAdBannerTexts.message1}${isMobile ? '<br/>' : ''}${
-              voteAdBannerTexts.message2
-            }`,
-          }}
-        ></div>
+        <div dangerouslySetInnerHTML={{ __html: voteTopVoteAdLang.message1 + '&nbsp;' }}></div>
+        <div>{voteTopVoteAdLang.message2}</div>
       </TopBar>
       <div
         css={{ position: 'absolute', right: 30, width: 26, height: 26 }}
@@ -98,10 +87,14 @@ function TopVoteAdBar({
 export default TopVoteAdBar;
 
 const TopBar = styled.div`
-  p {
-    font-size: 16px;
-    font-weight: 600;
-    color: #000;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  & > div {
+    display: inline-block;
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
   }
   span {
     font-weight: 700;
