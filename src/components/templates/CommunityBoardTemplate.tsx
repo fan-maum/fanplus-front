@@ -110,7 +110,7 @@ const CommunityBoardTemplate = ({
   };
 
   return (
-    <CommunityLayout>
+    <>
       <div
         css={{
           width: '100%',
@@ -164,7 +164,7 @@ const CommunityBoardTemplate = ({
           {texts.permissionModal.noPermission}
         </CommunityCommonModal>
       </div>
-      {!isBestBoard && (
+      {/* {!isBestBoard && (
         <CommunityBoardBottomTabBar
           items={[
             { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
@@ -176,8 +176,8 @@ const CommunityBoardTemplate = ({
             { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
           ]}
         />
-      )}
-    </CommunityLayout>
+      )} */}
+    </>
   );
 };
 

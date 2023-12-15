@@ -2,14 +2,23 @@ import { colors } from '@/styles/CommunityColors';
 import styled from '@emotion/styled';
 import MainBookmarkMenu from './MainBookmarkMenu';
 import Link from 'next/link';
+import MainMenuList from './MainMenuList';
+import { useGetMainMenuCategoryQuery } from '@/server/query';
+import { ServerLangType, UrlLangType } from '@/types/common';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 
-const MainAsideMenus = () => {
+interface MainAsideMenusProps {
+  urlLang: UrlLangType;
+}
+
+const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
+  const serverLang = translateUrlLangToServerLang(urlLang);
   return (
     <MenuWrapper>
       <div className="title">팬플러스 커뮤니티</div>
       <MainBookmarkMenu />
       <div>
-        <Link
+        {/* <Link
           className="menu-title"
           data-active={boardSlug === topMenu.slug}
           href={`/[boardSlug]`}
@@ -28,13 +37,11 @@ const MainAsideMenus = () => {
               />
             </span>
           )}
-        </Link>
+        </Link> */}
+        <>전체글</>
       </div>
-      <div>
-        <div>BEST 인기글 (실시간)</div>
-        <div>공지사항</div>
-        <div>자유게시판</div>
-      </div>
+      {/* {isFetching && <>...loading</>} */}
+      <MainMenuList serverLang={serverLang} />
     </MenuWrapper>
   );
 };

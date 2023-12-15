@@ -3,9 +3,13 @@ import {
   getCommunityBoardTopics,
   getCommunityNoticeBannerData,
 } from '@/api/Community';
+import BestNotices from '@/components/molecules/community/BestNotices';
+import PopularBoards from '@/components/molecules/community/PopularBoards';
 import Layout from '@/components/organisms/Layout';
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
+import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
   CommunityBoardResponseType,
@@ -44,18 +48,20 @@ const Board = ({
   initialProps,
 }: CommunityBoardPropType) => {
   return (
-    <Layout urlLang={urlLang}>
-      <CommunityBoardTemplate
-        urlLang={urlLang}
-        userId={userId}
-        isAdminAccount={isAdminAccount}
-        boardLangCookie={boardLangCookie}
-        communityBoardData={communityBoardData}
-        communityBoardTopics={communityBoardTopics}
-        communityNoticeBannerData={communityNoticeBannerData}
-        initialProps={initialProps}
-      />
-    </Layout>
+    <>
+      <CommunityMainLayout urlLang={urlLang}>
+        <CommunityBoardTemplate
+          urlLang={urlLang}
+          userId={userId}
+          isAdminAccount={isAdminAccount}
+          boardLangCookie={boardLangCookie}
+          communityBoardData={communityBoardData}
+          communityBoardTopics={communityBoardTopics}
+          communityNoticeBannerData={communityNoticeBannerData}
+          initialProps={initialProps}
+        />
+      </CommunityMainLayout>
+    </>
   );
 };
 

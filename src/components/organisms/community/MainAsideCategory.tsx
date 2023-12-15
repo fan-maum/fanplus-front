@@ -3,6 +3,12 @@ import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import { UrlLangType } from '@/types/common';
 import styled from '@emotion/styled';
 import MainAsideMenus from './MainAsideMenus';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import dynamic from 'next/dynamic';
+
+const TestMainAsideMenus = dynamic(() => import('./MainAsideMenus'), {
+  ssr: true,
+});
 
 interface MainAsideMenuProps {
   urlLang: UrlLangType;
@@ -12,7 +18,8 @@ const MainAsideCategory = ({ urlLang }: MainAsideMenuProps) => {
   const texts = communityLayoutTexts[urlLang];
   return (
     <MainAsideMenuWrapper>
-      <MainAsideMenus />
+      {/* <MainAsideMenus urlLang={urlLang} /> */}
+      <TestMainAsideMenus urlLang={urlLang} />
       <PopularBoards title={texts.popularBoards + ' TOP 50'} />
     </MainAsideMenuWrapper>
   );

@@ -4,6 +4,7 @@ import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import { ReactNode } from 'react';
 import styled from '@emotion/styled';
 import MainAsideCategory from '../organisms/community/MainAsideCategory';
+import BestNotices from '../molecules/community/BestNotices';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -20,6 +21,7 @@ const CommunityMainLayout = ({ urlLang, children }: CommunityMainLayoutProps) =>
             <MainAsideCategory urlLang={urlLang} />
           </div>
           <div className="mainContent">{children}</div>
+          {/* <BestNotices /> */}
         </div>
       </LayoutWrapper>
     </Layout>
@@ -32,9 +34,8 @@ const LayoutWrapper = styled.div`
   .contents {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     max-width: 1440px;
-    gap: 20px;
     width: 100%;
     margin: 0 auto;
     padding-bottom: 100px;
@@ -46,8 +47,9 @@ const LayoutWrapper = styled.div`
     gap: 14px;
   }
   .mainContent {
-    width: 100%;
-    max-width: calc(100% - 250px);
+    /* width: 100%; */
+    padding-left: 40px;
+    max-width: calc(100% - 230px);
   }
   @media (max-width: 768px) {
     padding-top: 0;

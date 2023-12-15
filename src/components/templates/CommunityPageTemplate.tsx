@@ -16,6 +16,9 @@ import CommunityLayout from './CommunityLayout';
 import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
+import BestNotices from '../molecules/community/BestNotices';
+import NotificationBoard from '../molecules/community/NotificationBoard';
+import HorizontalBestNotices from '../molecules/community/HorizontalBestNotices';
 
 type TabBarType = 'boards' | 'bestPopular';
 
@@ -75,8 +78,17 @@ const CommunityPageTemplate = ({
   const searchCategoryTabs = [seearchAllCategory, ...searchCategoryTabDtos];
 
   return (
-    // <CommunityLayout>
-    <div css={{ width: 800, height: 600, border: '1px solid #000' }}>contents layout</div>
+    <div css={{ width: 810, height: 600 }}>
+      <CommunityBoardSearchInputWrapper
+        setTabBar={setTabBar}
+        searchTabState={searchTabState}
+        texts={texts}
+      />
+      <div css={{ display: 'flex', gap: 10, marginTop: 10 }}>
+        <HorizontalBestNotices />
+        <NotificationBoard />
+      </div>
+    </div>
     // <div
     //   css={{
     //     width: '100%',
@@ -84,28 +96,6 @@ const CommunityPageTemplate = ({
     //     margin: '0px auto',
     //   }}
     // >
-    //   <div
-    //     css={{
-    //       display: 'flex',
-    //       justifyContent: 'space-between',
-    //       flexDirection: 'row',
-    //       alignItems: 'center',
-    //       margin: '6px 0 20px',
-    //       '@media (max-width: 768px)': {
-    //         flexDirection: 'column',
-    //         justifyContent: 'flex-start',
-    //         alignItems: 'flex-start',
-    //         padding: '0 16px',
-    //       },
-    //     }}
-    //   >
-    //     <h3 css={{ margin: '5px' }}>{texts.community}</h3>
-    //     <CommunityBoardSearchInputWrapper
-    //       setTabBar={setTabBar}
-    //       searchTabState={searchTabState}
-    //       texts={texts}
-    //     />
-    //   </div>
     //   <PopularBoardsMobile texts={communityLayoutTexts[urlLang]} initialOpen={false} />
     //   <TabBar
     //     tabTitles={{ boards: texts.boards, bestPopular: texts.bestPopular }}
@@ -160,7 +150,6 @@ const CommunityPageTemplate = ({
     //     </div>
     //   )}
     // </div>
-    // </CommunityLayout>
   );
 };
 
