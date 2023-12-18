@@ -7,18 +7,16 @@ import { useQueryClient } from 'react-query';
 import IconSearch from '@/components/atoms/IconSeaarch';
 
 export interface FormValue {
-  searchValue: string | number;
+  searchValue: any;
 }
 
 export type CommunityBoardSearchInputProps = {
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
-  setTabBar: React.Dispatch<React.SetStateAction<any>>;
   texts: CommunityPageTextType;
 };
 
 const CommunityBoardSearchInputWrapper = ({
   searchTabState: [activeTab, setActiveTab],
-  setTabBar,
   texts,
 }: CommunityBoardSearchInputProps) => {
   const router = useRouter();
@@ -26,15 +24,18 @@ const CommunityBoardSearchInputWrapper = ({
 
   const { category_type = 0, searchValue, page = 0 } = router?.query;
   const queryClient = useQueryClient();
-  const { handleSubmit, register, reset } = useForm<FormValue>();
+  const { handleSubmit, register, reset } = useForm<FormValue>({
+    defaultValues: {
+      searchValue: searchValue,
+    },
+  });
 
   const handleSearchSubmit: SubmitHandler<FormValue> = async (data) => {
     await queryClient.removeQueries('boardResults');
-    await setTabBar('boards');
     await setActiveTab(texts.allCategory);
     await router.push(
       {
-        pathname: router.pathname,
+        pathname: `/${router.query.locale}/community/search`,
         query: {
           category_type: 0,
           searchValue: data.searchValue,
@@ -52,7 +53,8 @@ const CommunityBoardSearchInputWrapper = ({
     <form
       onSubmit={handleSubmit(handleSearchSubmit)}
       css={{
-        width: '50%',
+        width: '40%',
+        minWidth: 364,
         height: 40,
         display: 'flex',
         justifyContent: 'space-between',

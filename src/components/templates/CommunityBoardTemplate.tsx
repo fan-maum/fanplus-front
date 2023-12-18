@@ -35,7 +35,9 @@ const CommunityBoardTemplate = ({
   const page = Number(router.query.page) - 1 || 0;
   const topicIndex = Number(router.query.topic) || 0;
   const viewType = (router.query.view as string) || 'all';
-  const boardIndex = Number(router.query.boardIndex);
+  // const boardIndex = Number(router.query.boardIndex);
+  const { boardIndex = 'main' } = router.query;
+  console.log(router.query.boardIndex);
   const requestLang = translateUrlLangToServerLang(urlLang);
 
   const [boardLang, setBoardLang] = useState(boardLangCookie);
@@ -45,6 +47,7 @@ const CommunityBoardTemplate = ({
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
   const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
+  console.log(topicList, boardInfo, noticeBannerList);
 
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
   const isInitialData =
@@ -53,7 +56,7 @@ const CommunityBoardTemplate = ({
     initialProps.serverLang === requestLang &&
     initialProps.view_type === viewType &&
     initialProps.topic === topicIndex;
-  const isBestBoard = boardIndex === 2291;
+  const isBestBoard = Number(boardIndex) === 2291;
 
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];

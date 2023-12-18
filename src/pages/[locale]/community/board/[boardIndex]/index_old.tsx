@@ -17,49 +17,40 @@ import type {
   CommunityNoticeBannerResponseType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import nookies from 'nookies';
 import { Suspense } from 'react';
 
 export type CommunityBoardPropType = {
   urlLang: UrlLangType;
-  // userId: string;
-  // isAdminAccount: boolean;
-  // boardLangCookie: BoardLangType;
-  // communityBoardData: CommunityBoardResponseType;
-  // communityBoardTopics: CommunityBoardTopicResponseType;
-  // communityNoticeBannerData: CommunityNoticeBannerResponseType;
-  // initialProps: {
-  //   page: number;
-  //   serverLang: ServerLangType;
-  //   boardLangCookie: BoardLangType;
-  //   topic: number;
-  //   view_type: string;
-  // };
+  userId: string;
+  isAdminAccount: boolean;
+  boardLangCookie: BoardLangType;
+  communityBoardData: CommunityBoardResponseType;
+  communityBoardTopics: CommunityBoardTopicResponseType;
+  communityNoticeBannerData: CommunityNoticeBannerResponseType;
+  initialProps: {
+    page: number;
+    serverLang: ServerLangType;
+    boardLangCookie: BoardLangType;
+    topic: number;
+    view_type: string;
+  };
 };
 
-const Board = ({ urlLang }: CommunityBoardPropType) =>
-  // urlLang,
-  // userId,
-  // isAdminAccount,
-  // boardLangCookie,
-  // communityBoardData,
-  // communityBoardTopics,
-  // communityNoticeBannerData,
-  // initialProps,
-  {
-    const router = useRouter();
-
-    const isNotCommunity =
-      router.asPath !== `/${urlLang}/community/` &&
-      router.asPath !== `/${urlLang}/community/board/community/`;
-    console.log(isNotCommunity);
-
-    return (
-      <>
-        <CommunityMainLayout urlLang={urlLang}>
-          {isNotCommunity ? <>isNotCommunity</> : <>isCommunity</>}
-          {/* <CommunityBoardTemplate
+const Board = ({
+  urlLang,
+  userId,
+  isAdminAccount,
+  boardLangCookie,
+  communityBoardData,
+  communityBoardTopics,
+  communityNoticeBannerData,
+  initialProps,
+}: CommunityBoardPropType) => {
+  return (
+    <>
+      <CommunityMainLayout urlLang={urlLang}>
+        <CommunityBoardTemplate
           urlLang={urlLang}
           userId={userId}
           isAdminAccount={isAdminAccount}
@@ -68,11 +59,11 @@ const Board = ({ urlLang }: CommunityBoardPropType) =>
           communityBoardTopics={communityBoardTopics}
           communityNoticeBannerData={communityNoticeBannerData}
           initialProps={initialProps}
-        /> */}
-        </CommunityMainLayout>
-      </>
-    );
-  };
+        />
+      </CommunityMainLayout>
+    </>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
@@ -80,9 +71,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const userIdx = cookies['user_idx'] || '';
   const isAdminAccount = userIdx === process.env.ADMIN_ACCOUNT_IDX;
 
-  // const boardIndex = parseInt(context.query.boardIndex as string);
-  const boardIndex = context.query.boardIndex;
-  console.log(boardIndex);
+  const boardIndex = parseInt(context.query.boardIndex as string);
   const page = parseInt(context.query.page as string) - 1 || 0;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
@@ -108,13 +97,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       urlLang,
-      // userId,
-      // isAdminAccount,
-      // boardLangCookie,
-      // communityBoardData,
-      // communityBoardTopics,
-      // communityNoticeBannerData,
-      // initialProps,
+      userId,
+      isAdminAccount,
+      boardLangCookie,
+      communityBoardData,
+      communityBoardTopics,
+      communityNoticeBannerData,
+      initialProps,
     },
   };
 };

@@ -1,10 +1,13 @@
+import { ReactNode, useState } from 'react';
+import { useRouter } from 'next/router';
 import { UrlLangType } from '@/types/common';
 import Layout from '../organisms/Layout';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
-import { ReactNode } from 'react';
 import styled from '@emotion/styled';
 import MainAsideCategory from '../organisms/community/MainAsideCategory';
 import BestNotices from '../molecules/community/BestNotices';
+import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
+import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -12,6 +15,12 @@ interface CommunityMainLayoutProps {
 }
 
 const CommunityMainLayout = ({ urlLang, children }: CommunityMainLayoutProps) => {
+  const router = useRouter();
+  const isCommunity = router.route === '/[locale]/community';
+  const isSearch = router.route === '/[locale]/community/search';
+  const texts = communityMainPageTexts[urlLang];
+  const searchTabState = useState(texts.allCategory);
+
   return (
     <Layout urlLang={urlLang}>
       <LayoutWrapper>
@@ -20,8 +29,15 @@ const CommunityMainLayout = ({ urlLang, children }: CommunityMainLayoutProps) =>
             <MainAsideUserCard urlLang={urlLang} />
             <MainAsideCategory urlLang={urlLang} />
           </div>
-          <div className="mainContent">{children}</div>
-          {/* <BestNotices /> */}
+          <div className="mainContent">
+            {(isCommunity || isSearch) && (
+              <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
+            )}
+            <div className="contentLayout">
+              <div css={{ width: 810 }}>{children}</div>
+              {!isCommunity && <BestNotices />}
+            </div>
+          </div>
         </div>
       </LayoutWrapper>
     </Layout>
@@ -47,8 +63,11 @@ const LayoutWrapper = styled.div`
     gap: 14px;
   }
   .mainContent {
-    /* width: 100%; */
-    padding-left: 40px;
+    .contentLayout {
+      display: flex;
+      gap: 20px;
+    }
+    padding-left: 20px;
     max-width: calc(100% - 230px);
   }
   @media (max-width: 768px) {

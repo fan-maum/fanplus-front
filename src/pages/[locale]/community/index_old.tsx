@@ -54,17 +54,17 @@ const CommunityHomePage = ({
 }: CommunityPropTypes) => {
   return (
     <CommunityMainLayout urlLang={urlLang}>
-      <CommunityPageTemplate
-      // urlLang={urlLang}
-      // boardCategoryData={boardCategoryData}
-      // boardResultData={boardResultData}
-      // initialProps={initialProps}
-      // userId={userId}
-      // boardIndex={boardIndex}
-      // boardLangCookie={boardLangCookie}
-      // communityBoardData={communityBoardData}
-      // initialBestBoardProps={initialBestBoardProps}
-      />
+      {/* <CommunityPageTemplate
+        urlLang={urlLang}
+        boardCategoryData={boardCategoryData}
+        boardResultData={boardResultData}
+        initialProps={initialProps}
+        userId={userId}
+        boardIndex={boardIndex}
+        boardLangCookie={boardLangCookie}
+        communityBoardData={communityBoardData}
+        initialBestBoardProps={initialBestBoardProps}
+      /> */}
     </CommunityMainLayout>
   );
 };

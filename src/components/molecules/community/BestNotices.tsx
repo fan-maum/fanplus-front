@@ -22,12 +22,11 @@ const BestNotices = () => {
   return (
     <div
       css={{
-        '@media (max-width: 768px)': { display: 'none' },
+        // '@media (max-width: 768px)': { display: 'none' },
         width: '328px',
+        height: '100%',
         border: '1px solid #d9d9d9',
         borderBottom: 'none',
-        position: 'absolute',
-        right: 'calc((100% - 768px)/2 - 350px)',
       }}
     >
       <div
