@@ -99,11 +99,11 @@ const CommunityPageTemplate = ({
           }}
         >
           <h3 css={{ margin: '5px' }}>{texts.community}</h3>
-          <CommunityBoardSearchInputWrapper
+          {/* <CommunityBoardSearchInputWrapper
             setTabBar={setTabBar}
             searchTabState={searchTabState}
             texts={texts}
-          />
+          /> */}
         </div>
         <PopularBoardsMobile texts={communityLayoutTexts[urlLang]} initialOpen={false} />
         <TabBar

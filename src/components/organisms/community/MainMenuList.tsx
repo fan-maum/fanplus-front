@@ -19,7 +19,7 @@ const MainMenuList = ({ serverLang }: MainMenuListProps) => {
         <li key={data?.RESULTS.DATAS.BOARD_LIST[2]?.BOARD_IDX}>
           {data?.RESULTS.DATAS.BOARD_LIST[2].BOARD_TITLE}
         </li>
-        {data?.RESULTS.DATAS.BOARD_LIST.map((menu) => (
+        {data?.RESULTS.DATAS.BOARD_LIST.map((menu: BoardListItemType) => (
           <li key={menu.BOARD_IDX}>{menu.BOARD_TITLE}</li>
         ))}
       </ul>
