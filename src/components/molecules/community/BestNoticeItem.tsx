@@ -43,7 +43,7 @@ const BestNoticeItem = ({
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
-          paddingRight: '35px',
+          paddingRight: '5px',
         }}
       >
         {postTitle}

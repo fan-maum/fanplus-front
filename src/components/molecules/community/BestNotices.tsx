@@ -23,7 +23,7 @@ const BestNotices = () => {
     <div
       css={{
         '@media (max-width: 768px)': { display: 'none' },
-        width: '328px',
+        width: '291px',
         border: '1px solid #d9d9d9',
         borderBottom: 'none',
         position: 'absolute',
