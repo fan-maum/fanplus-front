@@ -32,6 +32,7 @@ const PopularBoardsRolling = ({
             boardName={boardItem.BOARD_TITLE}
             boardIndex={Number(boardItem.BOARD_IDX)}
             rightItem={getPopularBoardRightItem(boardItem.UP_DOWN)}
+            onClickCancel={() => {}}
           />
         );
       })}

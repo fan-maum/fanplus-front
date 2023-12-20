@@ -4,7 +4,13 @@ import { PopularBoardsSkeleton } from './CommunitySkeleton';
 import PopularBoardItem from './PopularBoardItem';
 import { Decreased, Increased, New, NoChange } from './PopularBoardRightItems';
 
-const PopularBoards = ({ title }: { title: string }) => {
+interface PopularBoardsProps {
+  title: string;
+  mode?: string | undefined;
+  onClickCancel: () => void;
+}
+
+const PopularBoards = ({ title, mode, onClickCancel }: PopularBoardsProps) => {
   const serverLang = useServerLang();
   const { data, isFetching } = useGetPopularBoardsQuery(serverLang);
 
@@ -39,6 +45,8 @@ const PopularBoards = ({ title }: { title: string }) => {
             boardName={boardItem.BOARD_TITLE}
             boardIndex={Number(boardItem.BOARD_IDX)}
             rightItem={getPopularBoardRightItem(boardItem.UP_DOWN)}
+            mode={mode}
+            onClickCancel={onClickCancel}
           />
         );
       })}

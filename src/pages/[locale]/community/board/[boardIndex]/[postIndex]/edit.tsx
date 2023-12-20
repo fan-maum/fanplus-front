@@ -1,5 +1,6 @@
 import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
+import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
@@ -23,7 +24,7 @@ type CommunityPostWritePropType = {
 
 const Edit = ({ urlLang, boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
   return (
-    <Layout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} mode="EDIT">
       <PostEditorTemplate
         mode="EDIT"
         urlLang={urlLang}
@@ -35,7 +36,7 @@ const Edit = ({ urlLang, boardTopics, communityPostData, datas }: CommunityPostW
           content: communityPostData.RESULTS.DATAS.POST_INFO.POST_CONTENTS,
         }}
       />
-    </Layout>
+    </CommunityMainLayout>
   );
 };
 

@@ -1,5 +1,5 @@
 import { getCommunityBoardTopics } from '@/api/Community';
-import Layout from '@/components/organisms/Layout';
+import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
@@ -23,7 +23,7 @@ type CommunityPostWritePropType = {
 const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
   const router = useRouter();
   return (
-    <Layout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} mode="CREATE">
       <PostEditorTemplate
         mode="CREATE"
         urlLang={urlLang}
@@ -31,7 +31,7 @@ const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
         datas={datas}
         defaultValues={{ topicIndex: Number(router.query.topic) }}
       />
-    </Layout>
+    </CommunityMainLayout>
   );
 };
 

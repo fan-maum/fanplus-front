@@ -10,20 +10,34 @@ interface ProfileBoxProps {
   profileImage: string;
   user_id: string | null;
   ProfileTexts: string[];
+  mode: string | undefined;
+  onClickCancel: () => void;
 }
-const ProfileBox = ({ nickname, profileImage, user_id, ProfileTexts }: ProfileBoxProps) => {
+const ProfileBox = ({
+  nickname,
+  profileImage,
+  user_id,
+  ProfileTexts,
+  mode,
+  onClickCancel,
+}: ProfileBoxProps) => {
   const router = useRouter();
-
   const handleMyPost = () => {
     if (!user_id) {
       const path = router.asPath;
       router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
+    if (mode) {
+      onClickCancel();
+    }
     // router.push(`/community/board/mypost`);
   };
 
   const handleLogout = () => {
+    if (mode) {
+      onClickCancel();
+    }
     // router.push('/api/auth/logout');
 
     // eslint-disable-next-line no-console

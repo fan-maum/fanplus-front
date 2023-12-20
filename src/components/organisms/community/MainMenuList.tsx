@@ -4,16 +4,25 @@ import { BoardListItemType } from '@/types/community';
 
 interface MainMenuListProps {
   serverLang: ServerLangType;
+  mode: string | undefined;
+  onClickCancel: () => void;
 }
 
-const MainMenuList = ({ serverLang }: MainMenuListProps) => {
+const MainMenuList = ({ serverLang, mode, onClickCancel }: MainMenuListProps) => {
   const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
   const menus = data?.RESULTS.DATAS.BOARD_LIST;
+  const handleMenuListOnClick = () => {
+    // eslint-disable-next-line no-console
+    console.log('clicked board');
+    if (mode) {
+      onClickCancel();
+    }
+  };
   return (
     <div>
       <ul>
         {/* {isFetching && <>...loading</>} */}
-        <li key={data?.RESULTS.DATAS.BOARD_LIST[0]?.BOARD_IDX}>
+        <li key={data?.RESULTS.DATAS.BOARD_LIST[0]?.BOARD_IDX} onClick={handleMenuListOnClick}>
           {data?.RESULTS.DATAS.BOARD_LIST[0].BOARD_TITLE}
         </li>
         <li key={data?.RESULTS.DATAS.BOARD_LIST[2]?.BOARD_IDX}>

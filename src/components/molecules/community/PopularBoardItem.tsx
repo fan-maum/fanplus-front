@@ -1,5 +1,6 @@
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 
 type BoardItemProps = {
@@ -7,14 +8,30 @@ type BoardItemProps = {
   boardName: string;
   boardIndex: number;
   rightItem?: ReactNode;
+  mode?: string | undefined;
+  onClickCancel: () => void;
 };
 
-const PopularBoardItem = ({ rank, boardName, boardIndex, rightItem }: BoardItemProps) => {
+const PopularBoardItem = ({
+  rank,
+  boardName,
+  boardIndex,
+  rightItem,
+  mode,
+  onClickCancel,
+}: BoardItemProps) => {
   const urlLang = useUrlLanguage();
   const ranking = rank < 10 ? '0' + rank : rank;
+  const router = useRouter();
+  const handleBoardItemOnClick = () => {
+    if (mode) {
+      onClickCancel();
+    }
+    router.push(`/${urlLang}/community/board/${boardIndex}/`);
+  };
   return (
-    <Link
-      href={`/${urlLang}/community/board/${boardIndex}/`}
+    <div
+      onClick={handleBoardItemOnClick}
       css={{
         display: 'flex',
         alignItems: 'center',
@@ -42,7 +59,7 @@ const PopularBoardItem = ({ rank, boardName, boardIndex, rightItem }: BoardItemP
         {boardName}
       </p>
       {rightItem}
-    </Link>
+    </div>
   );
 };
 

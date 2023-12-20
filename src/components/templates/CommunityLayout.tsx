@@ -11,7 +11,9 @@ const CommunityLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div css={{ '@media (min-width: 768px)': { minHeight: '1200px' } }}>
-      {!isMobile && <PopularBoards title={texts.popularBoards + ' TOP 30'} />}
+      {!isMobile && (
+        <PopularBoards title={texts.popularBoards + ' TOP 30'} onClickCancel={() => {}} />
+      )}
       {!isMobile && <BestNotices />}
       {children}
     </div>

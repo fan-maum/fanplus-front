@@ -9,10 +9,19 @@ import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 
 interface MainAsideMenusProps {
   urlLang: UrlLangType;
+  mode: string | undefined;
+  onClickCancel: () => void;
 }
 
-const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
+const MainAsideMenus = ({ urlLang, mode, onClickCancel }: MainAsideMenusProps) => {
   const serverLang = translateUrlLangToServerLang(urlLang);
+  const handleAllPostsBoardOnClick = () => {
+    // eslint-disable-next-line no-console
+    console.log('clicked board');
+    if (mode) {
+      onClickCancel();
+    }
+  };
   return (
     <MenuWrapper>
       <div className="title">팬플러스 커뮤니티</div>
@@ -38,10 +47,10 @@ const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
             </span>
           )}
         </Link> */}
-        <>전체글</>
+        <div onClick={handleAllPostsBoardOnClick}>전체글</div>
       </div>
       {/* {isFetching && <>...loading</>} */}
-      <MainMenuList serverLang={serverLang} />
+      <MainMenuList serverLang={serverLang} mode={mode} onClickCancel={onClickCancel} />
     </MenuWrapper>
   );
 };
