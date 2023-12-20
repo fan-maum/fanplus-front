@@ -1,8 +1,9 @@
 import type { ServerLangType } from '@/types/common';
 import { VoteDetailResponse, VoteMutateParam } from '@/types/vote';
+import { publicEnv } from '@/utils/util';
 import axios, { AxiosResponse } from 'axios';
 
-const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+const origin = publicEnv.CLIENT_URL || 'https://dev.fanplus.co.kr';
 
 export const getVotes = (
   vote_type: string | undefined | null,
@@ -22,7 +23,7 @@ export const getVotes = (
 
 export const getVoteDetail = async (vote_idx: string, lang: ServerLangType) => {
   const response: AxiosResponse<VoteDetailResponse> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/voteDetail`,
+    `${publicEnv.CLIENT_URL}/api/voteDetail`,
     { params: { vote_idx, lang } }
   );
 
@@ -37,7 +38,7 @@ export const postVotes = async ({ voteId, userId, starId }: VoteMutateParam) => 
       DATAS: object;
       TIMESTAMP: number;
     };
-  }> = await axios.post(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/vote`, {
+  }> = await axios.post(`${publicEnv.CLIENT_URL}/api/vote`, {
     voteId,
     userId,
     starId,

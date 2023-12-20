@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import { publicEnv } from '@/utils/util';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
@@ -18,7 +19,7 @@ const queryClient = new QueryClient({
 
 export default function App({ Component, pageProps }: AppProps) {
   function kakaoInit() {
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+    window.Kakao.init(publicEnv.KAKAO_JS_KEY);
   }
 
   return (

@@ -2,6 +2,7 @@ import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { VoteDetailStars } from '@/types/vote';
+import getConfig from 'next/config';
 
 export const FormatTime = (time: number | undefined) => {
   const language = useUrlLanguage();
@@ -99,3 +100,5 @@ export const formatCommentCount = (commentCount: string | number) => {
   if (Number(commentCount) > 999) return '+999';
   return Number(commentCount);
 };
+
+export const publicEnv = getConfig().publicRuntimeConfig;

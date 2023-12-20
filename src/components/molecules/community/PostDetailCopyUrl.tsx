@@ -1,6 +1,7 @@
 import { Stack, UnstyledButton } from '@/components/atoms';
 import ToastModal from '@/components/toast/ToastModal';
 import type { CommunityPostTextType } from '@/types/textTypes';
+import { publicEnv } from '@/utils/util';
 import { useRouter } from 'next/router';
 
 interface PostDetailCopyUrlProps {
@@ -9,7 +10,7 @@ interface PostDetailCopyUrlProps {
 const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
   const router = useRouter();
 
-  const clientURL = process.env.NEXT_PUBLIC_CLIENT_URL;
+  const clientURL = publicEnv.CLIENT_URL;
   const path = router.asPath;
   const href = `${clientURL}${path}`;
 

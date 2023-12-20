@@ -1,9 +1,10 @@
-import { NextApiHandler } from 'next';
+import type { EditorImageUrlResponseType } from '@/types/community';
+import { publicEnv } from '@/utils/util';
 import axios, { AxiosResponse } from 'axios';
-import { EditorImageUrlResponseType } from '@/types/community';
+import type { NextApiHandler } from 'next';
 
 const handler: NextApiHandler = async (req, res) => {
-  const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+  const origin = publicEnv.CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
     const response: AxiosResponse<EditorImageUrlResponseType> = await axios.get(

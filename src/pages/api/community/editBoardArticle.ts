@@ -1,10 +1,11 @@
-import { NextApiHandler } from 'next';
-import axios, { AxiosResponse } from 'axios';
 import type { EditBoardArticleResponseType } from '@/types/community';
+import { publicEnv } from '@/utils/util';
+import axios, { AxiosResponse } from 'axios';
+import type { NextApiHandler } from 'next';
 
 const handler: NextApiHandler = async (req, res) => {
   const { userId, postIndex, lang, title, contents, topicIndex } = req.body;
-  const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+  const origin = publicEnv.CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
     const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(

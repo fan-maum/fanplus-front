@@ -1,3 +1,4 @@
+import { publicEnv } from '@/utils/util';
 import axios, { AxiosResponse } from 'axios';
 
 export const setUserOnboard = async (userId: string, userIndex: string) => {
@@ -8,7 +9,7 @@ export const setUserOnboard = async (userId: string, userIndex: string) => {
       DATAS: object;
       TIMESTAMP: number;
     };
-  }> = await axios.put(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/userUpdate`, {
+  }> = await axios.put(`${publicEnv.CLIENT_URL}/api/userUpdate`, {
     userId,
     userIndex,
   });
