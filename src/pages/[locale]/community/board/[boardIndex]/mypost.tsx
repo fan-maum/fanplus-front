@@ -16,11 +16,11 @@ export type CommunityMyPostPropType = {
 const MyPost = ({ urlLang, userId, communityBoardData }: CommunityMyPostPropType) => {
   return (
     <Layout urlLang={urlLang}>
-      <CommunityMyPostTemplate
+      {/* <CommunityMyPostTemplate
         urlLang={urlLang}
         userId={userId}
         communityBoardData={communityBoardData}
-      />
+      /> */}
     </Layout>
   );
 };

@@ -69,7 +69,7 @@ const CommunityBoardArticleTable = ({
   if (!isPostExist) {
     return (
       <CommunityBoardNoPost
-        onClickWrite={onClickWrite}
+        // onClickWrite={onClickWrite}
         buttonText={texts.buttonWrite}
         texts={texts.noPostTexts}
       />

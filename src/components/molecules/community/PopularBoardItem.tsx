@@ -27,7 +27,7 @@ const PopularBoardItem = ({
     if (mode) {
       onClickCancel();
     }
-    router.push(`/${urlLang}/community/board/${boardIndex}/`);
+    // router.push(`/${urlLang}/community/board/${boardIndex}/`);
   };
   return (
     <div

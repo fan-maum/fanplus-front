@@ -29,7 +29,7 @@ const CommunityBoardArticle = ({ postItem, firstHeader = 'topic', link }: OwnPro
       ) : (
         <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
       )}
-      <div css={{ width: 310, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
+      <div css={{ flex: 1, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
         <span
           css={{
             maxWidth: 240,

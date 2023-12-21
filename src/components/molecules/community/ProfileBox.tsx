@@ -31,7 +31,7 @@ const ProfileBox = ({
     if (mode) {
       onClickCancel();
     }
-    // router.push(`/community/board/mypost`);
+    router.push(`/community/myPost`);
   };
 
   const handleLogout = () => {
