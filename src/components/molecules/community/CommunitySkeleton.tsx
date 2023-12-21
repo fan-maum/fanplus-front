@@ -155,11 +155,11 @@ const BestPostItemSkeleton = () => {
       <span css={{ margin: '0 17px' }}>
         <Skeleton width={24} height={20} radius="sm" />
       </span>
-      <span css={{ width: 180, marginRight: 35 }}>
-        <Skeleton width={160} height={20} radius="sm" />
+      <span css={{ width: 180, marginRight: 5 }}>
+        <Skeleton width={150} height={20} radius="sm" />
       </span>
       <span>
-        <Skeleton width={36} height={20} radius="sm" />
+        <Skeleton width={30} height={20} radius="sm" />
       </span>
     </div>
   );
