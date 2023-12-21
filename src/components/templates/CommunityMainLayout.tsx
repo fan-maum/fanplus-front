@@ -50,7 +50,7 @@ const CommunityMainLayout = ({ urlLang, mode, children }: CommunityMainLayoutPro
               <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
             )}
             <div className="contentLayout">
-              <div css={{ width: 810 }}>{children}</div>
+              <div css={{ width: 810, minWidth: 810 }}>{children}</div>
               {!isCommunity && !mode && <BestNotices />}
             </div>
           </div>

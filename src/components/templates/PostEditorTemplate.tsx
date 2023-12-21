@@ -129,13 +129,7 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
   };
 
   return (
-    <main
-      css={{
-        width: '100%',
-        maxWidth: '768px',
-        margin: '0px auto',
-      }}
-    >
+    <main>
       <form css={{ padding: '0px 10px' }}>
         <div css={{ display: 'flex', marginBottom: '30px', alignItems: 'center' }}>
           <IconArrowLeft

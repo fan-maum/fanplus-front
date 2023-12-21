@@ -36,7 +36,7 @@ const CommunityMyPostTemplate = ({ urlLang, userId, myPostData }: MyPostPageProp
   };
 
   return (
-    <div>
+    <div css={{ minWidth: 810 }}>
       <div
         css={{
           display: 'flex',

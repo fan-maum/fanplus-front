@@ -27,7 +27,7 @@ const PopularBoardItem = ({
     if (mode) {
       onClickCancel();
     }
-    // router.push(`/${urlLang}/community/board/${boardIndex}/`);
+    router.push(`/${urlLang}/community/board/${boardIndex}/`);
   };
   return (
     <div
@@ -43,6 +43,7 @@ const PopularBoardItem = ({
         fontSize: '16px',
         fontWeight: 500,
         color: '#101010',
+        cursor: 'pointer',
       }}
     >
       <span css={{ margin: '0 14px 0 17px', fontWeight: 600 }}>{ranking}</span>

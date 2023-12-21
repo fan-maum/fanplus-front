@@ -170,14 +170,12 @@ const CommunityPostTemplate = ({
   };
 
   return (
-    <>
-      <CommunityLayout>
-        <LayoutInner>
-          <PostDetailLayout {...layoutProps} />
-          <PostCommentWrapper {...commentProps} />
-        </LayoutInner>
+    <div>
+      <LayoutInner>
+        <PostDetailLayout {...layoutProps} />
+        <PostCommentWrapper {...commentProps} />
         <PostFixedBottomWrapper {...fixedBottomProps} />
-      </CommunityLayout>
+      </LayoutInner>
       <CommunityReportModal
         opened={reportModalBlock}
         texts={texts}
@@ -214,7 +212,7 @@ const CommunityPostTemplate = ({
       />
       <CommunityShareModal {...shareModalProps} />
       <CompletedShareModal {...completedShareModalProps} />
-    </>
+    </div>
   );
 };
 

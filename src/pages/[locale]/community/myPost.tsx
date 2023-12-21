@@ -12,11 +12,6 @@ export interface MyPostPageProps {
 const MyPostPage = ({ urlLang, userId, myPostData }: MyPostPageProps) => {
   return (
     <CommunityMainLayout urlLang={urlLang}>
-      <div css={{ display: 'flex', gap: 20 }}>
-        <div css={{ width: '100%', minWidth: 810 }}>
-          <div></div>
-        </div>
-      </div>
       <CommunityMyPostTemplate urlLang={urlLang} userId={userId} myPostData={myPostData} />
     </CommunityMainLayout>
   );

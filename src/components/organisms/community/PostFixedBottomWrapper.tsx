@@ -28,16 +28,7 @@ const PostFixedBottomWrapper = ({
 }: PostFixedBottomWrapperProps) => {
   const { POST_IDX } = postInfo;
   return (
-    <div
-      css={{
-        position: 'fixed',
-        bottom: 0,
-        width: '100%',
-        borderTop: '2px solid #F1F1F1',
-        margin: '0 auto',
-        background: '#fff',
-      }}
-    >
+    <div>
       <CommentRegister
         identity={identity}
         texts={texts}

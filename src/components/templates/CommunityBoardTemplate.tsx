@@ -111,14 +111,7 @@ const CommunityBoardTemplate = ({
 
   return (
     <>
-      <div
-        css={{
-          width: '100%',
-          maxWidth: '768px',
-          margin: '0px auto',
-          position: 'relative',
-        }}
-      >
+      <div>
         <CommunityBoardTopNavi
           boardTitle={boardInfo.BOARD_TITLE as string}
           rightItem={
