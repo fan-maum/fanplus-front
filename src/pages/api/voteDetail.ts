@@ -1,11 +1,12 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { publicEnv } from '@/utils/util';
 import axios, { AxiosResponse } from 'axios';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const vote_IDX = String(req.query.vote_idx) || '';
     const lang = String(req.query.lang);
-    const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+    const origin = publicEnv.CLIENT_URL || 'https://dev.fanplus.co.kr';
 
     const response: AxiosResponse<{
       RESULTS: {

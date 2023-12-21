@@ -1,6 +1,6 @@
 import { VoteDetailStars } from '@/types/vote';
 import { brandColor } from '@/styles/Colors';
-import { formatNumberWithComma, getIndexByVotes } from '@/utils/util';
+import { formatNumberWithComma, getIndexByVotes, publicEnv } from '@/utils/util';
 import { Box, Divider, Modal, ModalProps } from '@mantine/core';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { isMobile } from 'react-device-detect';
@@ -91,7 +91,7 @@ function VoteDetailShareModal({
   const copyText = copyText2.replace('\\r\\n', '<br>').replace('\\n', '<br>');
 
   const kakaoOnClick = () => {
-    if (!window.Kakao.isInitialized()) window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+    if (!window.Kakao.isInitialized()) window.Kakao.init(publicEnv.KAKAO_JS_KEY);
 
     const defaultStarData = {
       starImage: star?.PROFILE_IMG,

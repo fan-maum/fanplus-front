@@ -3,6 +3,7 @@ import Layout from '@/components/organisms/Layout';
 import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
+import { publicEnv } from '@/utils/util';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import nookies from 'nookies';
@@ -42,7 +43,7 @@ const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, error, url }: E
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const url = `${process.env.NEXT_PUBLIC_CLIENT_URL}${context.resolvedUrl}`;
+  const url = `${publicEnv.CLIENT_URL}${context.resolvedUrl}`;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
   const vote_IDX = context.query.vote_IDX;

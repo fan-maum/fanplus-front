@@ -1,11 +1,12 @@
-import { NextApiHandler } from 'next';
-import axios, { AxiosResponse } from 'axios';
 import type { CommunityBoardResponseType } from '@/types/community';
+import { publicEnv } from '@/utils/util';
+import axios, { AxiosResponse } from 'axios';
+import type { NextApiHandler } from 'next';
 
 const handler: NextApiHandler = async (req, res) => {
   const { postIndex, identity, lang, order_by, page } = req.query;
   const per_page = 20;
-  const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+  const origin = publicEnv.CLIENT_URL || 'https://dev.fanplus.co.kr';
   const unAuthUrl =
     `https://napi.appphotocard.com/voteWeb/posts/${postIndex}/comments?lang=${lang}` +
     `&order_by=${order_by}&page=${page}&per_page=${per_page}`;

@@ -1,7 +1,8 @@
-import { NextApiHandler } from 'next';
+import { publicEnv } from '@/utils/util';
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import type { NextApiHandler } from 'next';
 
-const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+const origin = publicEnv.CLIENT_URL || 'https://dev.fanplus.co.kr';
 
 const handler: NextApiHandler = async (req, res) => {
   const voteId = req.body?.voteId;

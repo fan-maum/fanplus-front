@@ -1,4 +1,4 @@
-import { NextApiHandler } from 'next';
+import type { NextApiHandler } from 'next';
 import axios, { AxiosResponse } from 'axios';
 
 const handler: NextApiHandler = async (req, res) => {

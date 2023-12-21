@@ -2,6 +2,7 @@ import Layout from '@/components/organisms/Layout';
 import VotesLayout from '@/components/templates/VoteLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
+import { publicEnv } from '@/utils/util';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
@@ -21,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const per_page = Number(context.query.per_page) || 9;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${serverLang}`
+    `${publicEnv.CLIENT_URL}/api/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${serverLang}`
   );
   const error = res.ok ? false : res.status;
 
