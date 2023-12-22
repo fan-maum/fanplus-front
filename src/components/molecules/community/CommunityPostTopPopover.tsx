@@ -1,54 +1,45 @@
-import { Popover } from '@mantine/core';
-import { useSetRecoilState } from 'recoil';
-import {
-  checkCommentState,
-  modalBlockState,
-  reportModalBlockState,
-  selectInfoState,
-} from '@/store/community';
-import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
-import { CommunityPostTextType } from '@/types/textTypes';
-import { useRouter } from 'next/router';
-import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
 import IconVerticalMore from '@/components/atoms/IconVerticalMore';
+import { modalBlockState, reportModalBlockState, selectInfoState } from '@/store/community';
+import { CommunityPostTextType } from '@/types/textTypes';
+import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
+import { pathOnly } from '@/utils/util';
+import { Popover } from '@mantine/core';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 
-type CommentPopoverProps = {
+export type CommunityPostTopNaviProps = {
   identity: string;
-  comment_idx: any;
-  isWriter: string | undefined;
+  user_idx: string;
+  writer_idx: string;
   texts: CommunityPostTextType;
-  isComment: boolean;
+  postIndex: string;
 };
-export default function CommentPopover({
+const CommunityPostTopPopover = ({
   identity,
-  comment_idx,
-  isWriter,
+  user_idx,
+  writer_idx,
   texts,
-  isComment,
-}: CommentPopoverProps) {
+  postIndex,
+}: CommunityPostTopNaviProps) => {
+  const router = useRouter();
   const setModalBlock = useSetRecoilState(modalBlockState);
   const setReportModalBlock = useSetRecoilState(reportModalBlockState);
   const setSelectInfo = useSetRecoilState(selectInfoState);
-  const setCheckComment = useSetRecoilState(checkCommentState);
-  const showModalBlockOnClick = async () => {
+  const showModalBlockOnClick = async () =>
     await showModalOnClick({
       purpose: 'delete',
-      target_type: 'comment',
-      idx: comment_idx,
-      isComment,
-      setCheckComment,
+      target_type: 'post',
+      idx: postIndex,
       setModalBlock,
       setSelectInfo,
     });
-  };
 
-  const router = useRouter();
   const ReportOnClick = async () => {
     if (identity !== null) {
       await showReportModalBlockOnClick({
         purpose: 'report',
-        target_type: 'comment',
-        idx: comment_idx,
+        target_type: 'post',
+        idx: postIndex,
         setReportModalBlock,
         setSelectInfo,
       });
@@ -60,11 +51,12 @@ export default function CommentPopover({
 
   return (
     <Popover
-      width="auto"
+      width={60}
       position="bottom-end"
       shadow="none"
       styles={() => ({
         dropdown: {
+          width: 'auto !important',
           padding: 0,
           border: '1px solid #d9d9d9',
           borderRadius: '6px',
@@ -80,7 +72,7 @@ export default function CommentPopover({
             background: 'none',
           }}
         >
-          <IconVerticalMore iconCss={{ width: 20, height: 20 }} />
+          <IconVerticalMore />
         </button>
       </Popover.Target>
       <Popover.Dropdown>
@@ -94,12 +86,21 @@ export default function CommentPopover({
               color: '#101010',
               fontSize: 14,
               fontWeight: 400,
-              cursor: 'pointer',
             },
           }}
         >
-          {isWriter === 'Y' ? (
-            <li onClick={showModalBlockOnClick}>{texts.delete}</li>
+          {writer_idx === user_idx ? (
+            <>
+              <li
+                onClick={() => {
+                  router.push(pathOnly(router.asPath) + 'edit/');
+                }}
+                css={{ borderBottom: '1px solid #d9d9d9' }}
+              >
+                {texts.edit}
+              </li>
+              <li onClick={showModalBlockOnClick}>{texts.delete}</li>
+            </>
           ) : (
             <li onClick={ReportOnClick}>{texts.report}</li>
           )}
@@ -107,4 +108,6 @@ export default function CommentPopover({
       </Popover.Dropdown>
     </Popover>
   );
-}
+};
+
+export default CommunityPostTopPopover;

@@ -4,10 +4,14 @@ import { colors } from '@/styles/CommunityColors';
 
 export default function IconBookmark({
   iconCss,
+  width = '18',
+  height = '18',
   onClick,
   fill = colors.gray[200],
 }: {
   iconCss?: Interpolation<Theme>;
+  width?: string;
+  height?: string;
   onClick?: () => void;
   fill?: string;
 }) {
@@ -15,9 +19,9 @@ export default function IconBookmark({
     <span>
       <svg
         onClick={onClick}
-        css={iconCss}
-        width={18}
-        height={18}
+        css={[{ cursor: 'pointer' }, iconCss]}
+        width={width}
+        height={height}
         viewBox="0 0 18 18"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

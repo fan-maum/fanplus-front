@@ -6,6 +6,7 @@ import IconReply from '@/components/atoms/IconReply';
 import { useRouter } from 'next/router';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useLikesButtonOnClick } from '@/hooks/useLikesButtonOnClick';
+import { colors } from '@/styles/CommunityColors';
 
 export type CommentCardProps = {
   identity: string;
@@ -35,7 +36,7 @@ const CommentCard = ({
     });
 
   return (
-    <Stack p={'26px 20px 20px 20px'} spacing={18}>
+    <Stack p={'20px'} spacing={6}>
       <CommentInfoState identity={identity} comment={comment} texts={texts} />
       <Group position="apart" ml={68}>
         <div>
@@ -52,7 +53,7 @@ const CommentCard = ({
               </UnstyledButton>
             </>
           )}
-          <UnstyledButton fz={16} fw={400} css={{ color: '#999' }} onClick={ReplyWriteOnToggle}>
+          <UnstyledButton fz={14} fw={400} css={{ color: '#999' }} onClick={ReplyWriteOnToggle}>
             {texts.writeReply}
           </UnstyledButton>
         </div>

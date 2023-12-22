@@ -7,10 +7,16 @@ import { TargetType } from '@/types/common';
 import PostCommentList from './PostCommentList';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { CommentResponseType } from '@/types/community';
+import CommentRegister from './CommentRegister';
+import styled from '@emotion/styled';
 
 export type PostCommentWrapperProps = {
-  texts: CommunityPostTextType;
+  identity: string;
+  POST_IDX: string;
   commentTotalCount: number;
+  commentData: any;
+  replyData: any;
+  texts: CommunityPostTextType;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -21,20 +27,20 @@ export type PostCommentWrapperProps = {
   replyRefetch: () => void;
   fetchNextPage: () => void;
   refetchReplyOnToggle: (commentIndex: number) => void;
-  commentData: any;
-  replyData: any;
 };
 
 const PostCommentWrapper = ({
-  texts,
+  identity,
+  POST_IDX,
   commentTotalCount,
+  commentData,
+  replyData,
+  texts,
   onCreateComment,
   refetch,
   replyRefetch,
   fetchNextPage,
   refetchReplyOnToggle,
-  commentData,
-  replyData,
 }: PostCommentWrapperProps) => {
   const commentList: Array<CommentResponseType> = commentData.pages;
 
@@ -42,11 +48,18 @@ const PostCommentWrapper = ({
   const hasNextPage = 20 * (page + 1) < Number(commentTotalCount);
 
   return (
-    <>
-      <Group h={80} position="apart" px={24} mb={15}>
+    <div>
+      <CommentRegisterWrapper>
         <PostCommentCount count={commentTotalCount} />
-        <PostCommentOrders texts={texts} refetch={refetch} />
-      </Group>
+        <CommentRegister
+          identity={identity}
+          POST_IDX={POST_IDX}
+          createMode={'post'}
+          texts={texts}
+          onCreateComment={onCreateComment}
+        />
+      </CommentRegisterWrapper>
+      <PostCommentOrders texts={texts} refetch={refetch} />
       <>
         {commentList.map((comments, index) => (
           <PostCommentList
@@ -77,8 +90,12 @@ const PostCommentWrapper = ({
           </UnstyledButton>
         )}
       </>
-    </>
+    </div>
   );
 };
 
 export default PostCommentWrapper;
+
+const CommentRegisterWrapper = styled.div`
+  padding: 14px 20px;
+`;

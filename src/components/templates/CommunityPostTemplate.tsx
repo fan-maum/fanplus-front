@@ -3,9 +3,6 @@ import CommunityBlockModal from '@/components/modals/CommunityBlockModal';
 import PostCommentWrapper, {
   PostCommentWrapperProps,
 } from '@/components/organisms/community/PostCommentWrapper';
-import PostFixedBottomWrapper, {
-  PostFixedBottomWrapperProps,
-} from '@/components/organisms/community/PostFixedBottomWrapper';
 import type { CommunityPostPropType } from '@/pages/[locale]/community/board/[boardIndex]/[postIndex]';
 import {
   useGetCommentQuery,
@@ -25,7 +22,6 @@ import {
 } from '@/store/community';
 import { communityPostTexts } from '@/texts/communityPostTexts';
 import type { TargetType } from '@/types/common';
-import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import CommunityDoneModal from '../modals/CommunityDoneModal';
@@ -33,7 +29,6 @@ import CommunityReportModal from '../modals/CommunityReportModal';
 import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
-import CommunityLayout from './CommunityLayout';
 
 const CommunityPostTemplate = ({
   urlLang,
@@ -129,16 +124,20 @@ const CommunityPostTemplate = ({
    * LayoutProps
    */
   const layoutProps: PostDetailLayoutProps = {
+    urlLang,
     identity,
     user_idx,
     postInfo,
     boardInfo,
     texts,
+    shareOnClick: () => setShareModalIsOpened(true),
   };
 
   const commentProps: PostCommentWrapperProps = {
-    texts,
+    identity,
+    POST_IDX: postInfo.POST_IDX,
     commentTotalCount,
+    texts,
     commentData,
     replyData,
     onCreateComment,
@@ -146,15 +145,6 @@ const CommunityPostTemplate = ({
     replyRefetch,
     fetchNextPage,
     refetchReplyOnToggle,
-  };
-
-  const fixedBottomProps: PostFixedBottomWrapperProps = {
-    identity,
-    texts,
-    postInfo,
-    commentTotalCount,
-    onCreateComment,
-    shareOnClick: () => setShareModalIsOpened(true),
   };
 
   const shareModalProps: CommunityShareModalProps = {
@@ -171,11 +161,10 @@ const CommunityPostTemplate = ({
 
   return (
     <div>
-      <LayoutInner>
+      <div>
         <PostDetailLayout {...layoutProps} />
         <PostCommentWrapper {...commentProps} />
-        <PostFixedBottomWrapper {...fixedBottomProps} />
-      </LayoutInner>
+      </div>
       <CommunityReportModal
         opened={reportModalBlock}
         texts={texts}
@@ -217,11 +206,3 @@ const CommunityPostTemplate = ({
 };
 
 export default CommunityPostTemplate;
-
-const LayoutInner = styled.div`
-  width: 100%;
-  max-width: 768px;
-  position: relative;
-  margin: 0 auto;
-  padding-bottom: 120px;
-`;

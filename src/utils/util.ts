@@ -80,6 +80,12 @@ export const formatWrittenTime = (prevTimeExpression: string) => {
   return { timeType: 'Minute' as timeType, time: elpasedTimeInMinute };
 };
 
+export const formatKSTtime = (prevTimeExpression: string) => {
+  const today00am = new Date();
+  today00am.setHours(0, 0, 0, 0);
+  return { timeType: 'Full' as timeType, time: prevTimeExpression };
+};
+
 /**
  *
  * @returns 오늘일 경우: 시간만 표시 (ex: 13:05 (KST))

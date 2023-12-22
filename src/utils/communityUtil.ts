@@ -1,7 +1,7 @@
 import { selectInfoType } from '@/types/common';
 import { userResponseType } from '@/types/community';
 import { SetterOrUpdater } from 'recoil';
-import { formatWrittenTime, timeType } from './util';
+import { formatKSTtime, formatWrittenTime, timeType } from './util';
 
 interface showModalOnClickProps extends selectInfoType {
   isComment?: boolean;
@@ -58,5 +58,18 @@ export const getStandardTimeDate = (publishDate: string, texts: any) => {
     Hour: texts.hoursAgo,
     Minute: texts.minsAgo,
   };
+
+  return writtenTime.time + timeAppend[writtenTime.timeType];
+};
+
+export const getKSTtimeDate = (publishDate: string, texts: any) => {
+  const writtenTime = formatKSTtime(publishDate);
+  const timeAppend: { [key in timeType]: string } = {
+    Full: ' (KST)',
+    Date: texts.daysAgo,
+    Hour: texts.hoursAgo,
+    Minute: texts.minsAgo,
+  };
+
   return writtenTime.time + timeAppend[writtenTime.timeType];
 };

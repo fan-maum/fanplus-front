@@ -1,4 +1,3 @@
-import IconBookmark from '@/components/atoms/IconBookmark';
 import Link from 'next/link';
 
 export type BoardItemType = {
@@ -31,13 +30,6 @@ const CommunityBoardItem = ({ icon, title, link, postCount, onClickLocalStore }:
       >
         <div css={{ display: 'flex', flexDirection: 'row' }}>
           <p css={{ color: '#101010', letterSpacing: '0.18px', fontSize: '18px' }}> {title} </p>
-          <IconBookmark
-            iconCss={{ zIndex: 10 }}
-            onClick={() => {
-              // eslint-disable-next-line no-console
-              console.log('clicked');
-            }}
-          />
         </div>
         <p css={{ color: '#999', letterSpacing: '0.16px', fontSize: '16px' }}>{postCount}</p>
       </div>

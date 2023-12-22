@@ -1,7 +1,9 @@
 import { deleteRecommends, postRecommends } from '@/api/Community';
-import { Center, Stack } from '@/components/atoms';
+import { Center, Group, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
+import ShareButton from '@/components/atoms/ShareButton';
 import PostDetailCopyUrl from '@/components/molecules/community/PostDetailCopyUrl';
+import { colors } from '@/styles/CommunityColors';
 import type { PostInfoItemType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import styled from '@emotion/styled';
@@ -13,6 +15,7 @@ type CommunityPostDetailProps = {
   postInfo: PostInfoItemType;
   texts: CommunityPostTextType;
   setPostLikeState: React.Dispatch<React.SetStateAction<number>>;
+  shareOnClick: () => void;
 };
 
 const CommunityPostDetail = ({
@@ -20,6 +23,7 @@ const CommunityPostDetail = ({
   postInfo,
   texts,
   setPostLikeState,
+  shareOnClick,
 }: CommunityPostDetailProps) => {
   const router = useRouter();
   const [recommended, setRecommended] = useState(postInfo.RECOMMEND_YN);
@@ -44,20 +48,28 @@ const CommunityPostDetail = ({
       router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
+  const handleListButton = () => {
+    router.push('');
+  };
   return (
     <>
       <PostDetailCopyUrl texts={texts} key={postInfo.POST_IDX} />
-      <Stack p={'24px 22px'} spacing={140} css={{ borderBottom: '6px solid #f1f1f1' }}>
+      <Stack p={'24px 22px'} spacing={140} css={{ borderBottom: `2px solid ${colors.gray[200]}` }}>
         <PostContents dangerouslySetInnerHTML={{ __html: postInfo.POST_CONTENTS }} />
-        <Center mb={8}>
+        <Group position="apart">
+          <div></div>
           <LikesButton
             text={texts.recommend}
             recommended={recommended}
             recommendedCount={recommendedCount}
             onClick={RecommendOnClick}
           />
-        </Center>
+          <ShareButton onClick={shareOnClick} css={{ background: 'none', width: 32, height: 32 }} />
+        </Group>
       </Stack>
+      <ListButtonWrapper>
+        <button onClick={handleListButton}>목록</button>
+      </ListButtonWrapper>
     </>
   );
 };
@@ -75,4 +87,20 @@ const PostContents = styled.div`
     aspect-ratio: 16/9;
   }
   word-break: break-word;
+`;
+const ListButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 12px 0;
+  padding: 0 20px;
+  button {
+    outline: none;
+    border-radius: 6px;
+    border: 1px solid ${colors.gray[200]};
+    background-color: #fff;
+    padding: 5px 8px;
+    color: ${colors.gray[600]};
+    font-size: 14px;
+    font-weight: 600;
+  }
 `;
