@@ -52,9 +52,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const headers = context.req.headers;
   const cookies = nookies.get(context);
   const authCookie = cookies['user_id'];
-  const res = await getVoteDetail(vote_IDX, serverLang);
-  const voteDetails = res.data;
-  const error = voteDetails ? false : res.status;
+  let res;
+  try {
+    res = await getVoteDetail(vote_IDX, serverLang);
+  } catch (error) {
+    console.error(error);
+  }
+  const voteDetails = res?.data;
+  const error = voteDetails ? false : res?.status;
   return {
     props: { urlLang, voteDetails, headers, error, authCookie: authCookie || null, url },
   };
