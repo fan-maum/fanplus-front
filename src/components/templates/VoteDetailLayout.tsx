@@ -36,7 +36,6 @@ export interface VotesLayoutProps {
   headers: [];
   authCookie: string | null;
   isWebView?: boolean;
-  error: number | boolean;
 }
 
 export const findStarById: (id: string, voteDetails: VoteDetailResponse) => any = (
@@ -57,7 +56,6 @@ const VoteDetailLayout = ({
   headers,
   authCookie,
   isWebView,
-  error,
 }: VotesLayoutProps) => {
   const endDay = new Date(propsVoteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();

@@ -8,7 +8,7 @@ import { NextSeo } from 'next-seo';
 import nookies from 'nookies';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, error, url }: EventProps) => {
+const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, url }: EventProps) => {
   const isWebView = false;
 
   return (
@@ -35,7 +35,6 @@ const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, error, url }: E
         headers={headers}
         authCookie={authCookie}
         isWebView={isWebView}
-        error={error}
       />
     </Layout>
   );
@@ -57,11 +56,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     res = await getVoteDetail(vote_IDX, serverLang);
   } catch (error) {
     console.error(error);
+    throw new Error('getVoteDetail Error');
   }
   const voteDetails = res?.data;
-  const error = voteDetails ? false : res?.status;
   return {
-    props: { urlLang, voteDetails, headers, error, authCookie: authCookie || null, url },
+    props: { urlLang, voteDetails, headers, authCookie: authCookie || null, url },
   };
 };
 
