@@ -55,7 +55,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     res = await getVoteDetail(vote_IDX, serverLang);
   } catch (error) {
-    console.error(error);
+    console.error(`Error: getVoteDetail api
+vote_IDX: ${vote_IDX}
+lang: ${serverLang}`);
     throw new Error('getVoteDetail Error');
   }
   const voteDetails = res?.data;
