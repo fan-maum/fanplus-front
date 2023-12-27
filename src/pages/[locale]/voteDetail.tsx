@@ -3,6 +3,7 @@ import Layout from '@/components/organisms/Layout';
 import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
+import { AxiosError } from 'axios';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import nookies from 'nookies';
@@ -51,16 +52,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const headers = context.req.headers;
   const cookies = nookies.get(context);
   const authCookie = cookies['user_id'];
-  let res;
+
+  let voteDetails;
   try {
-    res = await getVoteDetail(vote_IDX, serverLang);
+    voteDetails = await getVoteDetail(vote_IDX, serverLang);
   } catch (error) {
-    console.error(`Error: getVoteDetail api
-vote_IDX: ${vote_IDX}
-lang: ${serverLang}`);
-    throw new Error('getVoteDetail Error');
+    if (error instanceof AxiosError) {
+      console.error(error.response?.status);
+      const is4XXError = Math.floor((error.response?.status as number) / 100) === 4;
+      if (is4XXError) {
+        return { notFound: true };
+      }
+      throw new Error('Non-4XX Error occurs on voteDetail page');
+    }
   }
-  const voteDetails = res?.data;
+
   return {
     props: { urlLang, voteDetails, headers, authCookie: authCookie || null, url },
   };
