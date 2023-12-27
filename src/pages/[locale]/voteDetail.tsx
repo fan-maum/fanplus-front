@@ -53,10 +53,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const authCookie = cookies['user_id'];
 
-  let voteDetailResponse;
+  let voteDetails;
   try {
-    voteDetailResponse = await getVoteDetail(vote_IDX, serverLang);
-    console.error('voteDetailResponse.status: ', voteDetailResponse.status);
+    voteDetails = await getVoteDetail(vote_IDX, serverLang);
   } catch (error) {
     if (error instanceof AxiosError) {
       console.error(error.response?.status);
@@ -67,7 +66,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       throw new Error('Non-4XX Error occurs on voteDetail page');
     }
   }
-  const voteDetails = voteDetailResponse?.data;
 
   return {
     props: { urlLang, voteDetails, headers, authCookie: authCookie || null, url },
