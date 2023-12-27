@@ -306,6 +306,7 @@ export type CommunityBoardTextType = {
     check: string;
   };
   langSelectorToolTip: string;
+  notice: string;
 };
 
 export type CommunityPostTextType = {

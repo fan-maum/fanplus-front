@@ -89,7 +89,7 @@ export const formatKSTtime = (prevTimeExpression: string) => {
 /**
  *
  * @returns 오늘일 경우: 시간만 표시 (ex: 13:05 (KST))
- * @returns 오늘이 아닐 경우: 날짜만 표시 (ex: 2023-11-14)
+ * @returns 오늘이 아닐 경우: 날짜만 표시 (ex: 2023.11.14)
  */
 export const formatWrittenTimeLite = (prevTimeExpression: string) => {
   const writtenTime = new Date(prevTimeExpression.replace(' ', 'T'));
@@ -98,7 +98,7 @@ export const formatWrittenTimeLite = (prevTimeExpression: string) => {
   if (writtenTime.getDate() === today.getDate()) {
     return `${writtenTime.getHours()}:${writtenTime.getMinutes()} (KST)`;
   }
-  return prevTimeExpression.split(' ')[0];
+  return prevTimeExpression.split(' ')[0].replaceAll('-', '.');
 };
 
 export const formatCommentCount = (commentCount: string | number) => {

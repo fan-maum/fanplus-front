@@ -1,15 +1,17 @@
 import IconImage from '@/components/atoms/IconImage';
 import type { PostListItemType } from '@/types/community';
-import { formatCommentCount, formatWrittenTimeLite } from '@/utils/util';
+import { formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
+import { ReactNode } from 'react';
 
 type OwnPropType = {
   postItem: PostListItemType;
-  firstHeader?: 'topic' | 'board';
   link: string;
+  firstHeader?: ReactNode;
+  isNotice?: boolean;
 };
 
-const CommunityBoardArticle = ({ postItem, firstHeader = 'topic', link }: OwnPropType) => {
+const CommunityBoardArticle = ({ postItem, link, firstHeader, isNotice }: OwnPropType) => {
   const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
   const commentCount = Number(postItem.COMMENT_CNT) <= 999 ? Number(postItem.COMMENT_CNT) : '+999';
 
@@ -22,13 +24,15 @@ const CommunityBoardArticle = ({ postItem, firstHeader = 'topic', link }: OwnPro
         alignItems: 'center',
         height: '44px',
         font: 'normal 14px/16px Pretendard',
+        backgroundColor: isNotice ? '#fff6f6' : 'transparent',
       }}
     >
-      {firstHeader === 'board' ? (
+      <div css={{ width: 106, textAlign: 'center' }}>{firstHeader || postItem.TOPIC_NAME}</div>
+      {/* {firstHeader === 'board' ? (
         <div css={{ width: 106, textAlign: 'center' }}>{postItem.BOARD_TITLE}</div>
       ) : (
         <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
-      )}
+      )} */}
       <div css={{ flex: 1, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
         <span
           css={{

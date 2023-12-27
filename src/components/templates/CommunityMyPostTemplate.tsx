@@ -1,12 +1,11 @@
+import { MyPostPageProps } from '@/pages/[locale]/community/myPost';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useRouter } from 'next/router';
 import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
 import CommunityBoardArticleMobile from '../molecules/community/CommunityBoardArticleMobile';
 import CommunityBoardArticleTableHeader from '../molecules/community/CommunityBoardArticleTableHeader';
-import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
-import { MyPostPageProps } from '@/pages/[locale]/community/myPost';
 
 const CommunityMyPostTemplate = ({ urlLang, userId, myPostData }: MyPostPageProps) => {
   const router = useRouter();
@@ -59,14 +58,13 @@ const CommunityMyPostTemplate = ({ urlLang, userId, myPostData }: MyPostPageProp
               return (
                 <>
                   <CommunityBoardArticle
-                    firstHeader="board"
                     key={'CommunityBoardArticle' + idx}
                     postItem={post}
+                    firstHeader={post.BOARD_TITLE}
                     link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
                   />
                   <CommunityBoardArticleMobile
                     key={'CommunityBoardArticleMobile' + idx}
-                    firstHeader="board"
                     postItem={post}
                     link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
                     texts={texts}
