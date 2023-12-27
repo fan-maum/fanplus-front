@@ -53,28 +53,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const authCookie = cookies['user_id'];
 
-  const res = await getVoteDetail(vote_IDX, serverLang);
-  const voteDetails = res.data;
-  const status = res.status;
-
-  console.error(voteDetails);
-  console.error('status??:' + status);
-  if (Math.floor(status / 100) === 4) {
-    return { notFound: true };
+  let voteDetails;
+  try {
+    voteDetails = (await getVoteDetail(vote_IDX, serverLang)).data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      const errorCode = error.response?.status as number;
+      if (Math.floor(errorCode / 100) === 4) {
+        return { notFound: true };
+      }
+    }
   }
-
-  // let res;
-  // try {
-  //   res = await getVoteDetail(vote_IDX, serverLang);
-  // } catch (error) {
-  //   console.log(error);
-  //   console.error(`Error: getVoteDetail api
-  //   vote_IDX: ${vote_IDX}
-  //   lang: ${serverLang}`);
-  //   return { notFound: true };
-  // }
-
-  // const voteDetails = res.data;
 
   return {
     props: { urlLang, voteDetails, headers, authCookie: authCookie || null, url },
