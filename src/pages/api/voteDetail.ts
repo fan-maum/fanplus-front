@@ -20,8 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         'Cache-Control': 'no-cache',
       },
     });
+    console.error(response.status);
     res.status(response.status).json(response.data);
-    res.end();
   } catch (error) {
     if (error instanceof AxiosError) {
       console.error(`Error: getVoteDetail (voteDetail.ts)
