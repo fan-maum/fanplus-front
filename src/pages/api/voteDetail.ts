@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.end();
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.error(`Error: getVoteDetail (voteDetail.ts)
+      console.error(`Error: voteDetailPage > getVoteDetail > voteDetail.ts
 status code: ${error.response?.status}
 parameters: { vote_IDX: ${vote_IDX}, lang: ${lang} }
 response: `);
