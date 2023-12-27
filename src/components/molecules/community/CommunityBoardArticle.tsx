@@ -28,11 +28,6 @@ const CommunityBoardArticle = ({ postItem, link, firstHeader, isNotice }: OwnPro
       }}
     >
       <div css={{ width: 106, textAlign: 'center' }}>{firstHeader || postItem.TOPIC_NAME}</div>
-      {/* {firstHeader === 'board' ? (
-        <div css={{ width: 106, textAlign: 'center' }}>{postItem.BOARD_TITLE}</div>
-      ) : (
-        <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
-      )} */}
       <div css={{ flex: 1, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
         <span
           css={{
