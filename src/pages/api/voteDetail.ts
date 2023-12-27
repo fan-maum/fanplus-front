@@ -20,9 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         'Cache-Control': 'no-cache',
       },
     });
-    console.error(response.status);
     res.status(response.status).json(response.data);
   } catch (error) {
+    console.error('error catch?');
     if (error instanceof AxiosError) {
       console.error(`Error: getVoteDetail (voteDetail.ts)
 status code: ${error.response?.status}
