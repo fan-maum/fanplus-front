@@ -1,10 +1,9 @@
 import { colors } from '@/styles/CommunityColors';
 import styled from '@emotion/styled';
 import MainBookmarkMenu from './MainBookmarkMenu';
-import Link from 'next/link';
 import MainMenuList from './MainMenuList';
 import { useGetMainMenuCategoryQuery } from '@/server/query';
-import { ServerLangType, UrlLangType } from '@/types/common';
+import { UrlLangType } from '@/types/common';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 
 interface MainAsideMenusProps {
@@ -15,6 +14,9 @@ interface MainAsideMenusProps {
 
 const MainAsideMenus = ({ urlLang, mode, onClickCancel }: MainAsideMenusProps) => {
   const serverLang = translateUrlLangToServerLang(urlLang);
+  const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
+  const menus = data?.RESULTS.DATAS.BOARD_LIST;
+
   const handleAllPostsBoardOnClick = () => {
     // eslint-disable-next-line no-console
     console.log('clicked board');
@@ -50,7 +52,7 @@ const MainAsideMenus = ({ urlLang, mode, onClickCancel }: MainAsideMenusProps) =
         <div onClick={handleAllPostsBoardOnClick}>전체글</div>
       </div>
       {/* {isFetching && <>...loading</>} */}
-      <MainMenuList serverLang={serverLang} mode={mode} onClickCancel={onClickCancel} />
+      <MainMenuList data={data} serverLang={serverLang} mode={mode} onClickCancel={onClickCancel} />
     </MenuWrapper>
   );
 };

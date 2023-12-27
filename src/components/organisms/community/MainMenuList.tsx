@@ -3,14 +3,15 @@ import { ServerLangType } from '@/types/common';
 import { BoardListItemType } from '@/types/community';
 
 interface MainMenuListProps {
+  data: any;
   serverLang: ServerLangType;
   mode: string | undefined;
   onClickCancel: () => void;
 }
 
-const MainMenuList = ({ serverLang, mode, onClickCancel }: MainMenuListProps) => {
-  const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
-  const menus = data?.RESULTS.DATAS.BOARD_LIST;
+const MainMenuList = ({ data, serverLang, mode, onClickCancel }: MainMenuListProps) => {
+  // const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
+  // const menus = data?.RESULTS.DATAS.BOARD_LIST;
   const handleMenuListOnClick = () => {
     // eslint-disable-next-line no-console
     console.log('clicked board');
