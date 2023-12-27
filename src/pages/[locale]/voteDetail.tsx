@@ -58,6 +58,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     voteDetails = (await getVoteDetail(vote_IDX, serverLang)).data;
   } catch (error) {
     if (error instanceof AxiosError) {
+      console.error(error.response);
       const is4XXError = Math.floor((error.response?.status as number) / 100) === 4;
       if (is4XXError) {
         return { notFound: true };
