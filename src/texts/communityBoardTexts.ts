@@ -41,6 +41,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: '확인',
     },
     langSelectorToolTip: '게시글 언어를 선택해 주세요',
+    notice: '공지',
   },
   en: {
     all: 'All',
@@ -81,6 +82,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: 'Check',
     },
     langSelectorToolTip: 'Please select a language',
+    notice: 'Notice',
   },
   es: {
     all: 'Total',
@@ -121,6 +123,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: 'Confirmar',
     },
     langSelectorToolTip: 'Por favor, seleccione un idioma',
+    notice: 'Aviso',
   },
   in: {
     all: 'Semua',
@@ -161,6 +164,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: 'Memeriksa',
     },
     langSelectorToolTip: 'Silakan pilih bahasa',
+    notice: 'Pengumuman',
   },
   ja: {
     all: '全',
@@ -201,6 +205,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: '確認',
     },
     langSelectorToolTip: '言語を選択してください',
+    notice: 'お知らせ',
   },
   vi: {
     all: 'Tất cả',
@@ -241,6 +246,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: 'Xác nhận',
     },
     langSelectorToolTip: 'Vui lòng chọn một ngôn ngữ',
+    notice: 'Thông báo',
   },
   'zh-CN': {
     all: '全部',
@@ -281,6 +287,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: '确认',
     },
     langSelectorToolTip: '请选择语言',
+    notice: '公告',
   },
   'zh-TW': {
     all: '全部',
@@ -321,5 +328,6 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: '確認',
     },
     langSelectorToolTip: '請選擇語言',
+    notice: '公告',
   },
 };
