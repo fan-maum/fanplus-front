@@ -51,7 +51,6 @@ const CommunityPostDetail = ({
       router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
-  console.log(router.query.from);
 
   const handleListButton = () => {
     if (router.query.from === '2291') {
