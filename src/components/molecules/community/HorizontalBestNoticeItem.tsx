@@ -3,11 +3,13 @@ import Link from 'next/link';
 
 const HorizontalBestNoticeItem = ({
   rank,
+  boardIndex,
   postIndex,
   postTitle,
   comments,
 }: {
   rank: number;
+  boardIndex: number;
   postIndex: number;
   postTitle: string;
   comments: number;
@@ -15,11 +17,11 @@ const HorizontalBestNoticeItem = ({
   const urlLang = useUrlLanguage();
   const ranking = rank < 10 ? '0' + rank : rank;
   const commentCount = comments <= 999 ? comments : '+999';
-  const bestPostsBoardIndex = 2291;
+  const bestPopularBoardIndex = 2291;
 
   return (
     <Link
-      href={`/${urlLang}/community/board/${bestPostsBoardIndex}/${postIndex}/`}
+      href={`/${urlLang}/community/board/${boardIndex}/${postIndex}?page=0&from=${bestPopularBoardIndex}`}
       css={{
         display: 'flex',
         gap: 14,

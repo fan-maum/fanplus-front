@@ -42,6 +42,7 @@ const PostDetailLayout = ({
       <CommunityPostDetail
         identity={identity}
         postInfo={postInfo}
+        urlLang={urlLang}
         texts={texts}
         setPostLikeState={setPostLikeState}
         shareOnClick={shareOnClick}

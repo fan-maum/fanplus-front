@@ -18,6 +18,8 @@ import CommunityBoardBottomTabBar from '../organisms/community/CommunityBoardBot
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import CommunityBoardTopicTabBar from '../organisms/community/CommunityBoardTopicTabBar';
 import CommunityLayout from './CommunityLayout';
+import { Button } from '../atoms';
+import { colors } from '@/styles/CommunityColors';
 
 const CommunityBoardTemplate = ({
   urlLang,
@@ -115,12 +117,28 @@ const CommunityBoardTemplate = ({
         <CommunityBoardTopNavi
           boardTitle={boardInfo.BOARD_TITLE as string}
           rightItem={
-            <CommunityBoardLangSelector
-              language={texts.boardLang[boardLang]}
-              onClickOpenModal={() => setLangModal(true)}
-              tooltipText={texts.langSelectorToolTip}
-              boardLang={boardLang}
-            />
+            <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <CommunityBoardLangSelector
+                language={texts.boardLang[boardLang]}
+                onClickOpenModal={() => setLangModal(true)}
+                tooltipText={texts.langSelectorToolTip}
+                boardLang={boardLang}
+              />
+              <button
+                css={{
+                  padding: '5px 8px',
+                  fontSize: 14,
+                  fontWeight: 600,
+                  outline: 'none',
+                  border: 'none',
+                  color: '#fff',
+                  backgroundColor: colors.primary[500],
+                  borderRadius: 6,
+                }}
+              >
+                글쓰기
+              </button>
+            </div>
           }
         />
         {!isBestBoard && (

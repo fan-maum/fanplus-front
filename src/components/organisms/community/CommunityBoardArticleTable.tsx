@@ -75,6 +75,9 @@ const CommunityBoardArticleTable = ({
       />
     );
   }
+  const urlPage = router.query.page || 1;
+  const urlPath = router.query.boardIndex;
+
   return (
     <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
       <CommunityBoardArticleTableHeader firstHeader={isBestBoard} />
@@ -85,12 +88,12 @@ const CommunityBoardArticleTable = ({
               <CommunityBoardArticle
                 postItem={post}
                 firstHeader={isBestBoard}
-                link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
+                link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
               />
               <CommunityBoardArticleMobile
                 postItem={post}
                 firstHeader={isBestBoard}
-                link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
+                link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
                 texts={texts}
               />
             </li>

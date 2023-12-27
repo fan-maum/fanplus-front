@@ -74,6 +74,7 @@ const HorizontalBestNotices = () => {
               <HorizontalBestNoticeItem
                 key={'HighRankBestNotice' + index}
                 rank={index + 1}
+                boardIndex={Number(post.BOARD_IDX)}
                 postIndex={Number(post.POST_IDX)}
                 postTitle={post.POST_TITLE}
                 comments={Number(post.COMMENT_CNT)}
@@ -87,6 +88,7 @@ const HorizontalBestNotices = () => {
               <HorizontalBestNoticeItem
                 key={'LowRankBestNotice' + index}
                 rank={index + 6}
+                boardIndex={Number(post.BOARD_IDX)}
                 postIndex={Number(post.POST_IDX)}
                 postTitle={post.POST_TITLE}
                 comments={Number(post.COMMENT_CNT)}

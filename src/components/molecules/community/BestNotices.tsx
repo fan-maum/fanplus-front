@@ -57,6 +57,7 @@ const BestNotices = () => {
           <BestNoticeItem
             key={'BestNotice' + idx}
             rank={idx + 1}
+            boardIndex={Number(post.BOARD_IDX)}
             postIndex={Number(post.POST_IDX)}
             postTitle={post.POST_TITLE}
             comments={Number(post.COMMENT_CNT)}

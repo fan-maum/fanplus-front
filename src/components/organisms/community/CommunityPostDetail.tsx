@@ -4,6 +4,7 @@ import LikesButton from '@/components/atoms/LikesButton';
 import ShareButton from '@/components/atoms/ShareButton';
 import PostDetailCopyUrl from '@/components/molecules/community/PostDetailCopyUrl';
 import { colors } from '@/styles/CommunityColors';
+import { UrlLangType } from '@/types/common';
 import type { PostInfoItemType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import styled from '@emotion/styled';
@@ -13,6 +14,7 @@ import { useState } from 'react';
 type CommunityPostDetailProps = {
   identity: string;
   postInfo: PostInfoItemType;
+  urlLang: UrlLangType;
   texts: CommunityPostTextType;
   setPostLikeState: React.Dispatch<React.SetStateAction<number>>;
   shareOnClick: () => void;
@@ -21,6 +23,7 @@ type CommunityPostDetailProps = {
 const CommunityPostDetail = ({
   identity,
   postInfo,
+  urlLang,
   texts,
   setPostLikeState,
   shareOnClick,
@@ -48,8 +51,14 @@ const CommunityPostDetail = ({
       router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
+  console.log(router.query.from);
+
   const handleListButton = () => {
-    router.push('');
+    if (router.query.from === '2291') {
+      router.push(`/${urlLang}/community/board/${router.query.from}/`);
+    } else {
+      router.push(`/${urlLang}/community/board/${router.query.boardIndex}/`);
+    }
   };
   return (
     <>

@@ -21,6 +21,11 @@ const CommunityMainLayout = ({ urlLang, mode, children }: CommunityMainLayoutPro
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
   const isSearch = router.route === '/[locale]/community/search';
+  const isPostDetail = '/[locale]/community/board/[boardIndex]/[postIndex]';
+  const isMyPost = '/[locale]/community/myPost';
+  const isWrite = '/[locale]/community/board/[boardIndex]/write';
+  const isNoSearchInput =
+    router.route === isPostDetail || router.route === isMyPost || router.route === isWrite;
 
   const texts = communityMainPageTexts[urlLang];
   const modalTexts = communityPostEditorTexts[urlLang];
@@ -46,7 +51,7 @@ const CommunityMainLayout = ({ urlLang, mode, children }: CommunityMainLayoutPro
             <MainAsideCategory urlLang={urlLang} mode={mode} onClickCancel={onClickCancel} />
           </div>
           <div className="mainContent">
-            {(isCommunity || isSearch) && (
+            {!isNoSearchInput && (
               <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
             )}
             <div className="contentLayout">

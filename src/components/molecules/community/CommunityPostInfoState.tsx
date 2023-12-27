@@ -16,6 +16,7 @@ const CommunityPostInfoState = ({
   postLikeState,
 }: CommunityPostInfoStateProps) => {
   const getTimeDate = getKSTtimeDate(postInfo.PUBLISH_DATE, texts);
+
   return (
     <Group spacing={10} align={'flex-start'}>
       <div css={{ position: 'relative' }}>
