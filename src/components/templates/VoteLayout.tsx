@@ -12,9 +12,10 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 export interface VotesLayoutProps {
   voteLists: VoteResponse;
   error: number | boolean;
+  opened: boolean;
 }
 
-const VotesLayout = ({ voteLists, error }: VotesLayoutProps) => {
+const VotesLayout = ({ voteLists, error, opened }: VotesLayoutProps) => {
   const language = useUrlLanguage();
   const voteLanguage = useRecoilState(voteLangState(language))[0];
 
@@ -34,6 +35,7 @@ const VotesLayout = ({ voteLists, error }: VotesLayoutProps) => {
     ],
     state: [tabState, setTabState],
     itemsPerPage: itemsPerPage,
+    opened: opened,
   };
 
   useEffect(() => {
