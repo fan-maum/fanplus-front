@@ -3,12 +3,13 @@ import Layout from '@/components/organisms/Layout';
 import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
+import { AxiosError } from 'axios';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import nookies from 'nookies';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, error, url }: EventProps) => {
+const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, url }: EventProps) => {
   const isWebView = false;
 
   return (
@@ -35,7 +36,6 @@ const VoteDetail = ({ urlLang, voteDetails, headers, authCookie, error, url }: E
         headers={headers}
         authCookie={authCookie}
         isWebView={isWebView}
-        error={error}
       />
     </Layout>
   );
@@ -52,11 +52,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const headers = context.req.headers;
   const cookies = nookies.get(context);
   const authCookie = cookies['user_id'];
-  const res = await getVoteDetail(vote_IDX, serverLang);
-  const voteDetails = res.data;
-  const error = voteDetails ? false : res.status;
+
+  let voteDetails;
+  try {
+    voteDetails = await getVoteDetail(vote_IDX, serverLang);
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      const is4XXError = Math.floor((error.response?.status as number) / 100) === 4;
+      if (is4XXError) return { notFound: true };
+      throw new Error('Non-4XX Error occurs on voteDetail page');
+    }
+  }
+
   return {
-    props: { urlLang, voteDetails, headers, error, authCookie: authCookie || null, url },
+    props: { urlLang, voteDetails, headers, authCookie: authCookie || null, url },
   };
 };
 
