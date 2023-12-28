@@ -2,7 +2,7 @@ import IconImage from '@/components/atoms/IconImage';
 import type { PostListItemType } from '@/types/community';
 import { formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 type OwnPropType = {
   postItem: PostListItemType;

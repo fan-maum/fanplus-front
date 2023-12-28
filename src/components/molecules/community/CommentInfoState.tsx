@@ -1,9 +1,9 @@
-import { Group, Stack, Avatar } from '@/components/atoms';
-import { CommentListItemType } from '@/types/community';
-import CommentPopover from './CommentPopover';
-import { CommunityPostTextType } from '@/types/textTypes';
-import { getKSTtimeDate } from '@/utils/communityUtil';
+import { Avatar, Group, Stack } from '@/components/atoms';
 import { colors } from '@/styles/CommunityColors';
+import type { CommentListItemType } from '@/types/community';
+import type { CommunityPostTextType } from '@/types/textTypes';
+import { formatWrittenTime } from '@/utils/util';
+import CommentPopover from './CommentPopover';
 
 type CommentInfoStateProps = {
   identity: string;
@@ -16,8 +16,8 @@ function CommentInfoState({ identity, comment, reply, texts }: CommentInfoStateP
   const commentContent = comment?.COMMENT === false ? texts.deleted : comment?.COMMENT;
   const replyContent = reply?.COMMENT === false ? texts.deleted : reply?.COMMENT;
   const isComment = comment ? true : false;
-  const getCommentTimeDate = comment && getKSTtimeDate(comment.INS_DATE, texts);
-  const getReplyTimeDate = reply && getKSTtimeDate(reply.INS_DATE, texts);
+  const getCommentTimeDate = !!comment && formatWrittenTime(comment.INS_DATE);
+  const getReplyTimeDate = !!reply && formatWrittenTime(reply.INS_DATE);
 
   return (
     <Group position="apart" spacing={30} align={'flex-start'} css={{ flexWrap: 'nowrap', flex: 1 }}>
