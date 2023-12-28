@@ -9,7 +9,7 @@ export type CommunityPropTypes = {
 
 const CommunityHomePage = ({ urlLang }: CommunityPropTypes) => {
   return (
-    <CommunityMainLayout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} withSearchInput>
       <CommunityPageTemplate />
     </CommunityMainLayout>
   );

@@ -10,9 +10,10 @@ interface BoardDomainItemProps {
 
 const BoardDomainItem = ({ domainParam, domain, onClick }: BoardDomainItemProps) => {
   const router = useRouter();
+  const { view = 'all' } = router.query;
 
   return (
-    <BoardDomainButton onClick={onClick} data-active={router.query.view === domain}>
+    <BoardDomainButton onClick={onClick} data-active={view === domain}>
       {domainParam}
     </BoardDomainButton>
   );

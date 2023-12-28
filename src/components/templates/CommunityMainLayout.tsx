@@ -11,17 +11,13 @@ import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
+  withSearchInput?: boolean;
   children: ReactNode;
 }
 
-const CommunityMainLayout = ({ urlLang, children }: CommunityMainLayoutProps) => {
+const CommunityMainLayout = ({ urlLang, withSearchInput, children }: CommunityMainLayoutProps) => {
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
-  const isPostDetail = '/[locale]/community/board/[boardIndex]/[postIndex]';
-  const isMyPost = '/[locale]/community/myPost';
-  const isWrite = '/[locale]/community/board/[boardIndex]/write';
-  const isNoSearchInput =
-    router.route === isPostDetail || router.route === isMyPost || router.route === isWrite;
   const texts = communityMainPageTexts[urlLang];
   const searchTabState = useState(texts.allCategory);
 
@@ -34,7 +30,7 @@ const CommunityMainLayout = ({ urlLang, children }: CommunityMainLayoutProps) =>
             <MainAsideCategory urlLang={urlLang} />
           </div>
           <div className="mainContent">
-            {!isNoSearchInput && (
+            {withSearchInput && (
               <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
             )}
             <div className="contentLayout">

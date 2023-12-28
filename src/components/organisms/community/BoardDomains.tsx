@@ -29,7 +29,7 @@ const BoardDomains = ({ viewType }: { viewType: string }) => {
     }
   };
   return (
-    <div css={{ minWidth: '170px', flex: 1 }}>
+    <div css={{ minWidth: '170px' }}>
       <BoardDomainItem domainParam="전체글" domain="all" onClick={onClickAll} />
       <BoardDomainItem domainParam="인기글" domain="best_post" onClick={onClickPopular} />
       <BoardDomainItem domainParam="공지" domain="notice" onClick={onClickNotice} />

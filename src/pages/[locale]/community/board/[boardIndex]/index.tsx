@@ -44,7 +44,7 @@ const Board = ({
 }: CommunityBoardPropType) => {
   return (
     <>
-      <CommunityMainLayout urlLang={urlLang}>
+      <CommunityMainLayout urlLang={urlLang} withSearchInput>
         <CommunityBoardTemplate
           urlLang={urlLang}
           userId={userId}
