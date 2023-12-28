@@ -1,7 +1,6 @@
 import { Avatar } from '@/components/atoms';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { colors } from '@/styles/Colors';
-import { CommunityPageTextType } from '@/types/textTypes';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
@@ -10,17 +9,8 @@ interface ProfileBoxProps {
   profileImage: string;
   user_id: string | null;
   ProfileTexts: string[];
-  mode: string | undefined;
-  onClickCancel: () => void;
 }
-const ProfileBox = ({
-  nickname,
-  profileImage,
-  user_id,
-  ProfileTexts,
-  mode,
-  onClickCancel,
-}: ProfileBoxProps) => {
+const ProfileBox = ({ nickname, profileImage, user_id, ProfileTexts }: ProfileBoxProps) => {
   const router = useRouter();
   const handleMyPost = () => {
     if (!user_id) {
@@ -28,16 +18,10 @@ const ProfileBox = ({
       router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
-    if (mode) {
-      onClickCancel();
-    }
     router.push(`/community/myPost`);
   };
 
   const handleLogout = () => {
-    if (mode) {
-      onClickCancel();
-    }
     // router.push('/api/auth/logout');
 
     // eslint-disable-next-line no-console

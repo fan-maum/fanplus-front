@@ -1,5 +1,5 @@
 import { deleteRecommends, postRecommends } from '@/api/Community';
-import { Center, Group, Stack } from '@/components/atoms';
+import { Group, Stack } from '@/components/atoms';
 import LikesButton from '@/components/atoms/LikesButton';
 import ShareButton from '@/components/atoms/ShareButton';
 import PostDetailCopyUrl from '@/components/molecules/community/PostDetailCopyUrl';
@@ -103,6 +103,7 @@ const ListButtonWrapper = styled.div`
   padding: 0 20px;
   button {
     outline: none;
+    cursor: pointer;
     border-radius: 6px;
     border: 1px solid ${colors.gray[200]};
     background-color: #fff;

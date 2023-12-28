@@ -1,53 +1,51 @@
+import MenuItem from '@/components/molecules/community/MenuItem';
 import { useGetMainMenuCategoryQuery } from '@/server/query';
 import { ServerLangType } from '@/types/common';
-import { BoardListItemType } from '@/types/community';
+import { BoardResultItemType } from '@/types/community';
+import styled from '@emotion/styled';
+import MenuListToggle from './MenuListToggle';
 
 interface MainMenuListProps {
-  data: any;
   serverLang: ServerLangType;
-  mode: string | undefined;
-  onClickCancel: () => void;
 }
 
-const MainMenuList = ({ data, serverLang, mode, onClickCancel }: MainMenuListProps) => {
-  // const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
-  // const menus = data?.RESULTS.DATAS.BOARD_LIST;
+const MainMenuList = ({ serverLang }: MainMenuListProps) => {
+  const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
+  const menus = data?.RESULTS.DATAS.BOARD_LIST;
+  const mainMenu = menus?.filter(
+    (list: BoardResultItemType) =>
+      String(list.BOARD_IDX) === '2291' || String(list.BOARD_IDX) === '139'
+  );
+  const subMenu = menus?.filter((list: BoardResultItemType) => !mainMenu.includes(list));
+
   const handleMenuListOnClick = () => {
     // eslint-disable-next-line no-console
     console.log('clicked board');
-    if (mode) {
-      onClickCancel();
-    }
   };
+
   return (
-    <div>
+    <MainMenuListWrapper>
       <ul>
-        {/* {isFetching && <>...loading</>} */}
-        <li key={data?.RESULTS.DATAS.BOARD_LIST[0]?.BOARD_IDX} onClick={handleMenuListOnClick}>
-          {data?.RESULTS.DATAS.BOARD_LIST[0].BOARD_TITLE}
-        </li>
-        <li key={data?.RESULTS.DATAS.BOARD_LIST[2]?.BOARD_IDX}>
-          {data?.RESULTS.DATAS.BOARD_LIST[2].BOARD_TITLE}
-        </li>
-        {data?.RESULTS.DATAS.BOARD_LIST.map((menu: BoardListItemType) => (
-          <li key={menu.BOARD_IDX}>{menu.BOARD_TITLE}</li>
+        {mainMenu?.map((menu: BoardResultItemType) => (
+          <MenuItem key={menu.BOARD_IDX} menuData={menu} onClick={handleMenuListOnClick} />
         ))}
       </ul>
-      {/* <div>BEST 인기글 (실시간)</div>
-      <div>공지사항</div>
-      <div>자유게시판</div> */}
-    </div>
+      <MenuListToggle headerTitle="자유게시판">
+        <ul>
+          {subMenu?.map((menu: BoardResultItemType) => (
+            <MenuItem key={menu.BOARD_IDX} menuData={menu} onClick={handleMenuListOnClick} />
+          ))}
+        </ul>
+      </MenuListToggle>
+    </MainMenuListWrapper>
   );
 };
 
 export default MainMenuList;
 
-// BEST 인기글 실시간
-// 공지사항
-// 자유게시판
-//     - 건의사항
-//     - 자유게시판
-//     - 팬플 지식 in
-//     - 팬플러스 광고 사진
-//     - 팬픽
-//     - 팬픽 공지사항
+const MainMenuListWrapper = styled.div`
+  li {
+    width: 100%;
+    height: 100%;
+  }
+`;

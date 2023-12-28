@@ -1,4 +1,4 @@
-import { Group, UnstyledButton } from '@/components/atoms';
+import { UnstyledButton } from '@/components/atoms';
 import { useRecoilState } from 'recoil';
 import { pageState } from '@/store/community';
 import PostCommentCount from '@/components/atoms/PostCommentCount';

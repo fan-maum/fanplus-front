@@ -1,3 +1,4 @@
+import { colors } from '@/styles/CommunityColors';
 import type { TopicListItemType } from '@/types/community';
 
 type TopicTabBarPropType = {
@@ -14,23 +15,7 @@ const CommunityBoardTopicTabBar = ({
   onClickTopic,
 }: TopicTabBarPropType) => {
   return (
-    <ul
-      css={{
-        width: 'calc(100% - 40px)',
-        display: 'flex',
-        margin: '8px 20px 10px',
-        borderBottom: '1px solid #d9d9d9',
-        overflowX: 'scroll',
-        whiteSpace: 'nowrap',
-        msOverflowStyle: 'none',
-        scrollbarWidth: 'none',
-        '::-webkit-scrollbar': { display: 'none' },
-        '@media (max-width: 768px)': {
-          width: '100%',
-          margin: '8px 0 10px',
-        },
-      }}
-    >
+    <ul css={{ display: 'flex' }}>
       <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => onClickTopic(0)} />
       {topicList.length > 1 &&
         topicList.map((topic, idx) => {
@@ -61,16 +46,11 @@ const Topic = ({
   return (
     <li
       css={{
-        height: '40px',
-        lineHeight: '37px',
-        fontSize: '15px',
-        fontWeight: '600',
-        color: selected ? '#ff5656' : '#000',
-        borderBottom: `${selected ? '2.5px solid #ff5656' : ''}`,
-        textAlign: 'center',
+        fontSize: '14px',
+        fontWeight: selected ? 600 : 400,
+        color: selected ? colors.primary[500] : colors.gray[1000],
         cursor: 'pointer',
         padding: '5px 8px',
-        margin: '0px 2px',
       }}
       onClick={onClick}
     >

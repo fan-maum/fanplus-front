@@ -21,7 +21,6 @@ const MainBookmarkMenu = () => {
     //   router.push('/login');
     // }
   };
-  //   const hasBookmarkMenu = data && data?.bookmarks.length > 0;
   const hasBookmarkMenu = false;
   return (
     <div onClick={handleBookmark}>

@@ -79,7 +79,7 @@ const CommunityBoardArticleTable = ({
   const urlPath = router.query.boardIndex;
 
   return (
-    <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
+    <div>
       <CommunityBoardArticleTableHeader firstHeader={isBestBoard} />
       <ul>
         {postList?.map((post, idx) => {

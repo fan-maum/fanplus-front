@@ -6,11 +6,9 @@ import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 
 interface MainAsideUserCardProps {
   urlLang: UrlLangType;
-  mode: string | undefined;
-  onClickCancel: () => void;
 }
 
-const MainAsideUserCard = ({ urlLang, mode, onClickCancel }: MainAsideUserCardProps) => {
+const MainAsideUserCard = ({ urlLang }: MainAsideUserCardProps) => {
   const texts = communityMainPageTexts[urlLang];
   // let user_idx = null;
   // let identity = null;
@@ -34,8 +32,6 @@ const MainAsideUserCard = ({ urlLang, mode, onClickCancel }: MainAsideUserCardPr
       profileImage={userInfo.PROFILE_IMG_URL}
       user_id={identity}
       ProfileTexts={texts.userCard}
-      mode={mode}
-      onClickCancel={onClickCancel}
     />
   );
 };
