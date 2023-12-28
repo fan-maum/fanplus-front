@@ -2,7 +2,7 @@ import { Avatar, Group, Stack } from '@/components/atoms';
 import { colors } from '@/styles/CommunityColors';
 import { PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { getKSTtimeDate } from '@/utils/communityUtil';
+import { formatWrittenTime } from '@/utils/util';
 
 export interface CommunityPostInfoStateProps {
   postInfo: PostInfoItemType;
@@ -15,7 +15,7 @@ const CommunityPostInfoState = ({
   texts,
   postLikeState,
 }: CommunityPostInfoStateProps) => {
-  const getTimeDate = getKSTtimeDate(postInfo.PUBLISH_DATE, texts);
+  const getTimeDate = formatWrittenTime(postInfo.PUBLISH_DATE);
 
   return (
     <Group spacing={10} align={'flex-start'}>
