@@ -98,7 +98,7 @@ const CommunityBoardArticleTable = ({
   );
 
   return (
-    <div css={{ padding: '0 20px', '@media(max-width: 768px)': { padding: 0 } }}>
+    <div>
       <CommunityBoardArticleTableHeader firstHeader={isBestBoard} />
       <ul>
         {noticeList.map((notice, idx) => {

@@ -1,5 +1,4 @@
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 
@@ -8,25 +7,13 @@ type BoardItemProps = {
   boardName: string;
   boardIndex: number;
   rightItem?: ReactNode;
-  mode?: string | undefined;
-  onClickCancel: () => void;
 };
 
-const PopularBoardItem = ({
-  rank,
-  boardName,
-  boardIndex,
-  rightItem,
-  mode,
-  onClickCancel,
-}: BoardItemProps) => {
+const PopularBoardItem = ({ rank, boardName, boardIndex, rightItem }: BoardItemProps) => {
   const urlLang = useUrlLanguage();
   const ranking = rank < 10 ? '0' + rank : rank;
   const router = useRouter();
   const handleBoardItemOnClick = () => {
-    if (mode) {
-      onClickCancel();
-    }
     router.push(`/${urlLang}/community/board/${boardIndex}/`);
   };
   return (

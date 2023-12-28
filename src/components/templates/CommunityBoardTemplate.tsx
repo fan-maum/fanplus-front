@@ -5,21 +5,15 @@ import type { BoardLangType } from '@/types/common';
 import { setBoardLangCookie } from '@/utils/langCookie';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import IconMyPost from '../atoms/IconMyPost';
-import IconPopular from '../atoms/IconPopular';
-import IconPopularBlack from '../atoms/IconPopularBlack';
-import IconWrite from '../atoms/IconWrite';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
 import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
 import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
-import CommunityBoardBottomTabBar from '../organisms/community/CommunityBoardBottomTabBar';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import CommunityBoardTopicTabBar from '../organisms/community/CommunityBoardTopicTabBar';
-import CommunityLayout from './CommunityLayout';
-import { Button } from '../atoms';
 import { colors } from '@/styles/CommunityColors';
+import BoardDomains from '../organisms/community/BoardDomains';
 
 const CommunityBoardTemplate = ({
   urlLang,
@@ -75,27 +69,6 @@ const CommunityBoardTemplate = ({
     });
   };
 
-  const onClickPopular = async () => {
-    if (viewType !== 'best_post') {
-      router.replace({ query: { ...router.query, view: 'best_post', page: 1 } }, undefined, {
-        shallow: true,
-      });
-      return;
-    }
-    router.replace({ query: { ...router.query, view: 'all', page: 1 } }, undefined, {
-      shallow: true,
-    });
-  };
-
-  const onClickMyPost = () => {
-    if (!userId) {
-      const path = router.asPath;
-      router.push({ pathname: '/login', query: { nextUrl: path } });
-      return;
-    }
-    router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
-  };
-
   const onClickTopic = async (topic: number) => {
     router.replace(
       { pathname: router.pathname, query: { ...router.query, topic, page: 1 } },
@@ -142,12 +115,15 @@ const CommunityBoardTemplate = ({
           }
         />
         {!isBestBoard && (
-          <CommunityBoardTopicTabBar
-            stringTopicAll={texts.all}
-            topicList={topicList}
-            topicIndex={topicIndex}
-            onClickTopic={onClickTopic}
-          />
+          <div css={{ display: 'flex', alignItems: 'center', gap: 20, height: 52 }}>
+            <BoardDomains viewType={viewType} />
+            <CommunityBoardTopicTabBar
+              stringTopicAll={texts.all}
+              topicList={topicList}
+              topicIndex={topicIndex}
+              onClickTopic={onClickTopic}
+            />
+          </div>
         )}
         {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
         <CommunityBoardArticleTable
@@ -175,19 +151,6 @@ const CommunityBoardTemplate = ({
           {texts.permissionModal.noPermission}
         </CommunityCommonModal>
       </div>
-      {/* {!isBestBoard && (
-        <CommunityBoardBottomTabBar
-          items={[
-            { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
-            {
-              icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
-              title: texts.bottomTabBar.popular,
-              onClick: onClickPopular,
-            },
-            { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
-          ]}
-        />
-      )} */}
     </>
   );
 };

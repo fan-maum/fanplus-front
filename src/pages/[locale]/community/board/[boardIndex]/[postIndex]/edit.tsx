@@ -24,7 +24,7 @@ type CommunityPostWritePropType = {
 
 const Edit = ({ urlLang, boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
   return (
-    <CommunityMainLayout urlLang={urlLang} mode="EDIT">
+    <CommunityMainLayout urlLang={urlLang}>
       <PostEditorTemplate
         mode="EDIT"
         urlLang={urlLang}

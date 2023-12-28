@@ -23,7 +23,7 @@ type CommunityPostWritePropType = {
 const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
   const router = useRouter();
   return (
-    <CommunityMainLayout urlLang={urlLang} mode="CREATE">
+    <CommunityMainLayout urlLang={urlLang}>
       <PostEditorTemplate
         mode="CREATE"
         urlLang={urlLang}

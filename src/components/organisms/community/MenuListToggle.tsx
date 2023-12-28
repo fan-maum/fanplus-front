@@ -1,4 +1,3 @@
-import IconBookmark from '@/components/atoms/IconBookmark';
 import { colors } from '@/styles/CommunityColors';
 import styled from '@emotion/styled';
 import { ReactNode, useState } from 'react';
@@ -6,30 +5,30 @@ import { ReactNode, useState } from 'react';
 interface BookmarkListToggleProps {
   headerTitle: string;
   children: ReactNode;
-  isActive: boolean;
 }
-const BookmarkListToggle = ({ headerTitle, children, isActive }: BookmarkListToggleProps) => {
+const MenuListToggle = ({ headerTitle, children }: BookmarkListToggleProps) => {
   const [isOpen, toggleIsOpen] = useState(false);
   const menuIcon = isOpen ? 'up' : 'down';
   return (
-    <BookmarkListToggleWrapper>
-      <div className="title-wrapper" onClick={() => toggleIsOpen(!isOpen)}>
-        <span className="bookmark-title">
-          {headerTitle}
-          <IconBookmark isActive={isActive} width="16" height="16" />
-        </span>
+    <MenuListToggleWrapper>
+      <div
+        className="title-wrapper"
+        onClick={() => toggleIsOpen(!isOpen)}
+        css={{ borderBottom: isOpen ? `1px solid ${colors.gray[200]}` : 'none' }}
+      >
+        <span className="bookmark-title">{headerTitle}</span>
         <div className="icon">
           <img src={`/icons/icon_arrow_${menuIcon}.svg`} alt="메뉴 열기버튼" />
         </div>
       </div>
       <ToggleWrapper data-open={isOpen}>{children}</ToggleWrapper>
-    </BookmarkListToggleWrapper>
+    </MenuListToggleWrapper>
   );
 };
 
-export default BookmarkListToggle;
+export default MenuListToggle;
 
-const BookmarkListToggleWrapper = styled.div`
+const MenuListToggleWrapper = styled.div`
   .title-wrapper {
     display: flex;
     justify-content: space-between;
@@ -38,7 +37,7 @@ const BookmarkListToggleWrapper = styled.div`
     height: 40px;
     padding: 0 12px 0 16px;
     cursor: pointer;
-    border-bottom: 1px solid ${colors.gray[200]};
+    border-top: 1px solid ${colors.gray[200]};
   }
 
   .bookmark-title {
@@ -72,10 +71,10 @@ const ToggleWrapper = styled.div`
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+  border-bottom: none;
 
   &[data-open='true'] {
     max-height: 1000px;
     transition: max-height 1s ease-in-out;
-    border-bottom: 1px solid ${colors.gray[200]};
   }
 `;

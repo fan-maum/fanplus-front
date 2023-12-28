@@ -6,11 +6,9 @@ import { Decreased, Increased, New, NoChange } from './PopularBoardRightItems';
 
 interface PopularBoardsProps {
   title: string;
-  mode?: string | undefined;
-  onClickCancel: () => void;
 }
 
-const PopularBoards = ({ title, mode, onClickCancel }: PopularBoardsProps) => {
+const PopularBoards = ({ title }: PopularBoardsProps) => {
   const serverLang = useServerLang();
   const { data, isFetching } = useGetPopularBoardsQuery(serverLang);
 
@@ -45,8 +43,6 @@ const PopularBoards = ({ title, mode, onClickCancel }: PopularBoardsProps) => {
             boardName={boardItem.BOARD_TITLE}
             boardIndex={Number(boardItem.BOARD_IDX)}
             rightItem={getPopularBoardRightItem(boardItem.UP_DOWN)}
-            mode={mode}
-            onClickCancel={onClickCancel}
           />
         );
       })}

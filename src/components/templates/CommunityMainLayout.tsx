@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useRouter } from 'next/router';
 import { UrlLangType } from '@/types/common';
 import Layout from '../organisms/Layout';
@@ -8,69 +8,38 @@ import MainAsideCategory from '../organisms/community/MainAsideCategory';
 import BestNotices from '../molecules/community/BestNotices';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
-import CommunityEditorCommonModal from '../modals/CommunityEditorModal';
-import { communityPostEditorTexts } from '@/texts/communityPostEditorTexts';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
-  mode?: string | undefined;
+  withSearchInput?: boolean;
   children: ReactNode;
 }
 
-const CommunityMainLayout = ({ urlLang, mode, children }: CommunityMainLayoutProps) => {
+const CommunityMainLayout = ({ urlLang, withSearchInput, children }: CommunityMainLayoutProps) => {
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
-  const isSearch = router.route === '/[locale]/community/search';
-  const isPostDetail = '/[locale]/community/board/[boardIndex]/[postIndex]';
-  const isMyPost = '/[locale]/community/myPost';
-  const isWrite = '/[locale]/community/board/[boardIndex]/write';
-  const isNoSearchInput =
-    router.route === isPostDetail || router.route === isMyPost || router.route === isWrite;
-
   const texts = communityMainPageTexts[urlLang];
-  const modalTexts = communityPostEditorTexts[urlLang];
   const searchTabState = useState(texts.allCategory);
-
-  const [cancelModal, setCancelModal] = useState(false);
-
-  const onClickExit = () => {
-    setCancelModal(false);
-    // router.back();
-  };
-
-  const onClickCancel = () => {
-    setCancelModal(true);
-  };
 
   return (
     <Layout urlLang={urlLang}>
       <LayoutWrapper>
         <div className="contents">
           <div className="mainAside">
-            <MainAsideUserCard urlLang={urlLang} mode={mode} onClickCancel={onClickCancel} />
-            <MainAsideCategory urlLang={urlLang} mode={mode} onClickCancel={onClickCancel} />
+            <MainAsideUserCard urlLang={urlLang} />
+            <MainAsideCategory urlLang={urlLang} />
           </div>
           <div className="mainContent">
-            {!isNoSearchInput && (
+            {withSearchInput && (
               <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
             )}
             <div className="contentLayout">
               <div css={{ width: 810, minWidth: 810 }}>{children}</div>
-              {!isCommunity && !mode && <BestNotices />}
+              {!isCommunity && <BestNotices />}
             </div>
           </div>
         </div>
       </LayoutWrapper>
-      <CommunityEditorCommonModal
-        texts={{
-          main: modalTexts.modal[mode === 'CREATE' ? 'cancelUpload' : 'cancelEdit'],
-          sub: mode === 'CREATE' ? modalTexts.modal.cancelUploadSub : '',
-        }}
-        cancelButton={{ text: modalTexts.modal.cancel, onClick: () => setCancelModal(false) }}
-        confirmButton={{ text: modalTexts.modal.check, onClick: onClickExit }}
-        opened={cancelModal}
-        onClose={() => setCancelModal(false)}
-      />
     </Layout>
   );
 };
