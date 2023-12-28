@@ -33,7 +33,7 @@ export const getVoteDetail = async (vote_idx: string, lang: ServerLangType) => {
     { params: { vote_idx, lang } }
   );
 
-  return response;
+  return response.data;
 };
 
 export const postVotes = async ({ voteId, userId, starId }: VoteMutateParam) => {

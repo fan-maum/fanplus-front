@@ -11,7 +11,7 @@ const nextConfig = {
       fallback: [
         {
           source: '/:path*',
-          destination: `https://old.fanplus.co.kr/:path*`,
+          destination: 'https://old.fanplus.co.kr/:path*',
         },
       ],
     };

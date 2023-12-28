@@ -1,12 +1,12 @@
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import axios, { AxiosResponse } from 'axios';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const vote_IDX = String(req.query.vote_idx) || '';
-    const lang = String(req.query.lang);
-    const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+  const vote_IDX = String(req.query.vote_idx) || '';
+  const lang = String(req.query.lang);
+  const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
+  try {
     const response: AxiosResponse<{
       RESULTS: {
         ERROR: number;
@@ -20,8 +20,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         'Cache-Control': 'no-cache',
       },
     });
-    res.status(200).json(response.data);
-  } catch (err) {
-    res.status(500).json({ error: 'failed to load data' });
+    res.status(response.status).json(response.data);
+    res.end();
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.error(`Error: voteDetailPage > getVoteDetail > voteDetail.ts
+status code: ${error.response?.status}
+parameters: { vote_IDX: ${vote_IDX}, lang: ${lang} }
+response: `);
+      console.error(error.response?.data);
+      res.status(error.response?.status as number).json(error.response?.data);
+    }
   }
 }

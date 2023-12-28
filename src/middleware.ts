@@ -25,6 +25,12 @@ export const SUPPORT_LANGUAGE: UrlLangType[] = [
 ];
 
 export function middleware(request: NextRequest) {
+  // * seo 크롤 봇 redirection.  ex: (https://fanplus.co.kr/seo/~~) --> (${AWS_SEO_REWRITE_URL}~~)
+  if (request.nextUrl.pathname.startsWith('/seo')) {
+    const followingPath = request.nextUrl.pathname.split('/seo')[1];
+    return NextResponse.rewrite(`${process.env.AWS_SEO_REWRITE_URL}${followingPath}`);
+  }
+
   if (
     request.nextUrl.pathname.startsWith('/_next') ||
     request.nextUrl.pathname.includes('/api/') ||
