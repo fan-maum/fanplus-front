@@ -1,15 +1,18 @@
+import { topNavHeight } from '@/global/constant';
 import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
 import { useRouter } from 'next/router';
 export interface VoteListTabProps extends DefaultProps {
   tabs: string[] | { value: string; label: string | undefined }[];
   itemsPerPage: number;
   state: [string, React.Dispatch<React.SetStateAction<any>>];
+  opened: boolean;
 }
 
 const VoteTab = ({
   tabs,
   itemsPerPage,
   state: [tabState = '', setTabState],
+  opened,
   ...props
 }: VoteListTabProps) => {
   const router = useRouter();
@@ -35,13 +38,15 @@ const VoteTab = ({
             width: '90%',
             background: '#fff',
             position: 'sticky',
-            top: '85px',
+            top: opened ? 85 + topNavHeight : '85px',
             zIndex: 100,
             padding: '10px 0',
             margin: '40px auto',
             display: 'flex',
             justifyContent: 'center',
-            '@media(max-width:991px)': { top: '70px' },
+            '@media(max-width:991px)': {
+              top: opened ? 70 + topNavHeight + 20 : '70px + 20px',
+            },
           },
         ]}
       >

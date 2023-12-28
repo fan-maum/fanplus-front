@@ -11,7 +11,7 @@ export interface VoteProcessModalProps {
   opened: boolean;
   onClose: () => void;
   onVoteButtonClick: () => void;
-  freeVoteCount: number;
+  dailyTicketCount: number;
   star: VoteDetailStars | null;
 }
 
@@ -19,7 +19,7 @@ const VoteProcessModal = ({
   opened,
   onClose,
   onVoteButtonClick,
-  freeVoteCount,
+  dailyTicketCount,
   star,
   ...props
 }: VoteProcessModalProps) => {
@@ -27,7 +27,7 @@ const VoteProcessModal = ({
   const voteModalLang = useRecoilState(voteModalState(language))[0];
   const voteModalButton = useRecoilState(voteModalButtonState(language))[0];
   const text = voteModalLang({
-    freeVoteCount: formatNumberWithComma(freeVoteCount),
+    dailyTicketCount: formatNumberWithComma(dailyTicketCount),
     starName: star?.STAR_NAME || '스타이름',
   }).voteProcess;
 
