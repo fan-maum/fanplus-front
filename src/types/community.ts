@@ -443,3 +443,12 @@ export type BestPostsResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type BookmarksResponseType = {
+  SUBSCRIPTION_BOARDS: [
+    {
+      BOARD_IDX: string;
+      BOARD_TITLE: string;
+    }
+  ];
+};

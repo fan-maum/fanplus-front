@@ -1,5 +1,6 @@
 import type {
   BestPostsResponseType,
+  BookmarksResponseType,
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
@@ -365,4 +366,39 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
     { params: { lang, viewType } }
   );
   return response.data;
+};
+
+/**
+ * Bookmark
+ */
+export const getBookmarks = async (identity: string, lang: ServerLangType) => {
+  const response: AxiosResponse<BookmarksResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmarks`,
+    { params: { identity, lang } }
+  );
+  return response.data;
+};
+
+export const postBookmark = async (identity: string, board_idx: string) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark`,
+    {
+      identity: identity,
+      board_idx: board_idx,
+    }
+  );
+  return response;
+};
+
+export const deleteBookmark = async (identity: string, board_idx: string) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark?board_idx=${board_idx}`,
+    {
+      data: {
+        identity: identity,
+        board_idx: board_idx,
+      },
+    }
+  );
+  return response;
 };
