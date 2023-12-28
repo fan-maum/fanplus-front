@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
-      `https://napi.appphotocard.com/v1/users/${user_idx}?identity=${identity}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/users/${user_idx}?identity=${identity}`,
       {
         headers: {
           Origin: origin,

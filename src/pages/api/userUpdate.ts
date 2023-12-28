@@ -14,7 +14,7 @@ const handler: NextApiHandler = async (req, res) => {
         TIMESTAMP: number;
       };
     }> = await axios.put(
-      `https://napi.appphotocard.com/v1/users/${userIndex}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/users/${userIndex}`,
       {
         identity: userId,
         target: 'onboarding_finished_yn',

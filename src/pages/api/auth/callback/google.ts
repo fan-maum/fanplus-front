@@ -63,7 +63,7 @@ const getResultsByIdToken = async (req: NextApiRequest, idToken: string) => {
   const user_lang = negotiator.language(SUPPORT_LANGUAGE) || 'en';
 
   const backResponse = await axios.post(
-    'https://napi.appphotocard.com/voteWeb/auth/google',
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/auth/google`,
     {
       platform: 'web',
       id_token: idToken,
