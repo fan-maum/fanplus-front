@@ -15,7 +15,16 @@ const CommunityBoardTopicTabBar = ({
   onClickTopic,
 }: TopicTabBarPropType) => {
   return (
-    <ul css={{ display: 'flex' }}>
+    <ul
+      css={{
+        display: 'flex',
+        overflowX: 'scroll',
+        whiteSpace: 'nowrap',
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+        '::-webkit-scrollbar': { display: 'none' },
+      }}
+    >
       <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => onClickTopic(0)} />
       {topicList.length > 1 &&
         topicList.map((topic, idx) => {
