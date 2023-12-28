@@ -6,10 +6,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
   const page = 0;
   const per_page = Number(req.query.per_page) || 20;
   const vote_type = req.query.vote_type;
-  const NEXT_PUBLIC_VOTE_URL = 'https://napi.appphotocard.com';
 
   const result = axios.get(
-    `${NEXT_PUBLIC_VOTE_URL}/v2/votes/votes?vote_type=${vote_type}&page=${
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/v2/votes/votes?vote_type=${vote_type}&page=${
       page - 1
     }&per_page=${per_page}`,
     {

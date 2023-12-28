@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
-      `https://napi.appphotocard.com/voteWeb/boards/${boardIndex}/posts?&page=${page}&per_page=20` +
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/boards/${boardIndex}/posts?&page=${page}&per_page=20` +
         `&lang=${lang}&filter_lang=${boardLang}&view_type=${view_type}&topic_ids[]=${topic}` +
         (userId && `&identity=${userId}`),
       {

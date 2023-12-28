@@ -11,7 +11,7 @@ export const getVotes = (
   lang: string
 ) => {
   const response = fetch(
-    `https://napi.appphotocard.com/v2/votes/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${lang}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/v2/votes/votes?vote_type=${vote_type}&page=${page}&per_page=${per_page}&lang=${lang}`,
     {
       method: 'GET',
       headers: { Origin: origin },
