@@ -43,10 +43,7 @@ const CommunityPostInfo = ({
 
   return (
     <Stack spacing={12} p={'18px 20px 30px'} css={{ borderBottom: '2px solid #f1f1f1' }}>
-      <PostToBoardButton
-        boardName={'나중에 이 INDEX의 게시판 이름 : ' + postInfo.BOARD_IDX}
-        onClick={onClickToBoard}
-      />
+      <PostToBoardButton boardName={boardInfo.BOARD_TITLE} onClick={onClickToBoard} />
       <div
         css={{
           display: 'flex',
