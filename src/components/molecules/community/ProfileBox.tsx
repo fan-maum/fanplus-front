@@ -3,7 +3,7 @@ import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/Colors';
 import type { PartialUserType } from '@/types/community';
-import { deleteCookie } from '@/utils/cookie';
+import { deleteCookie } from '@/utils/Cookie';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
