@@ -1,4 +1,5 @@
 import {
+  getBookmarks,
   getComments,
   getCommunityBoardCategoryData,
   getCommunityBoardResultData,
@@ -38,3 +39,17 @@ export const useGetMainMenuCategoryQuery = (serverLang: ServerLangType) => {
     queryFn: () => getCommunityBoardResultData(5, '', serverLang, 0, 20),
   });
 };
+
+export const useGetBookmarksQuery = (props: useGetBookmarksQueryProps) => {
+  const { identity, lang } = props;
+  const res = useQuery({
+    queryKey: [`bookmarks${identity}${lang}`],
+    queryFn: () => getBookmarks(identity, lang),
+  });
+  return res;
+};
+
+export interface useGetBookmarksQueryProps {
+  identity: string;
+  lang: string; // UrlLangType => 나중에 소진님 API 수정 후 고쳐야댐
+}

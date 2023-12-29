@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { UrlLangType } from '@/types/common';
 import Layout from '../organisms/Layout';
@@ -8,6 +8,7 @@ import MainAsideCategory from '../organisms/community/MainAsideCategory';
 import BestNotices from '../molecules/community/BestNotices';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
+import { getCookie } from '@/utils/Cookie';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -20,6 +21,8 @@ const CommunityMainLayout = ({ urlLang, withSearchInput, children }: CommunityMa
   const isCommunity = router.route === '/[locale]/community';
   const texts = communityMainPageTexts[urlLang];
   const searchTabState = useState(texts.allCategory);
+  const user_id = getCookie('user_id');
+  const user_idx = getCookie('user_idx');
 
   return (
     <Layout urlLang={urlLang}>

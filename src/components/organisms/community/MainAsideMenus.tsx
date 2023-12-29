@@ -23,7 +23,7 @@ const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
   return (
     <MenuWrapper>
       <div className="title">팬플러스 커뮤니티</div>
-      <MainBookmarkMenu />
+      <MainBookmarkMenu urlLang={urlLang} />
       <ScreenAllWrapper>
         <Link
           className="menu-title"

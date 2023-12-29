@@ -371,7 +371,11 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
 /**
  * Bookmark
  */
-export const getBookmarks = async (identity: string, lang: ServerLangType) => {
+export const getBookmarks = async (
+  identity: string,
+  lang: string
+  // lang: ServerLangType
+) => {
   const response: AxiosResponse<BookmarksResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmarks`,
     { params: { identity, lang } }
