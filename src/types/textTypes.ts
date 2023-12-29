@@ -259,13 +259,11 @@ export type CommunityPageTextType = {
   noRecentBoardTexts: string[];
   buttonSearch: string;
   allCategory: string;
-  searchPlaceholder: string;
   postCount: string;
   link: {
     board: string;
   };
   noResult: string[];
-  userCard: string[];
 };
 export type CommunityBoardTextType = {
   all: string;
@@ -386,6 +384,8 @@ export type CommunityPostEditorTextType = {
 
 export type CommunityLayoutTextType = {
   popularBoards: string;
+  userCard: string[];
+  searchPlaceholder: string;
   close: string;
 };
 

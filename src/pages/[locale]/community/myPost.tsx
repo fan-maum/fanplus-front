@@ -1,17 +1,23 @@
+import { getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
-import { BoardLangType, UrlLangType } from '@/types/common';
-import { GetServerSideProps } from 'next';
-import nookies from 'nookies';
+import type { UrlLangType } from '@/types/common';
+import type { PartialUserType } from '@/types/community';
+import type { GetServerSideProps } from 'next';
 export interface MyPostPageProps {
   urlLang: UrlLangType;
-  userId: string | null;
+  userId: string;
   myPostData: any;
 }
 
-const MyPostPage = ({ urlLang, userId, myPostData }: MyPostPageProps) => {
+const MyPostPage = ({
+  urlLang,
+  user,
+  userId,
+  myPostData,
+}: MyPostPageProps & { user: PartialUserType }) => {
   return (
-    <CommunityMainLayout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} user={user}>
       <CommunityMyPostTemplate urlLang={urlLang} userId={userId} myPostData={myPostData} />
     </CommunityMainLayout>
   );
@@ -19,8 +25,9 @@ const MyPostPage = ({ urlLang, userId, myPostData }: MyPostPageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const urlLang = context.query.locale as UrlLangType;
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'] || '';
+  const user_id = context.req.cookies.user_id;
+  const user_idx = context.req.cookies.user_idx;
+
   const myPostData = {
     RESULTS: {
       ERROR: 0,
@@ -64,10 +71,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 
+  if (!!user_id && !!user_idx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
+    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+    return { props: { urlLang, userId: user_id, myPostData, user } };
+  }
   return {
     props: {
       urlLang,
-      userId,
+      userId: user_id,
       myPostData,
     },
   };

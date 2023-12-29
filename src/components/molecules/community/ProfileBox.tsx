@@ -1,41 +1,38 @@
 import { Avatar } from '@/components/atoms';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/Colors';
+import type { PartialUserType } from '@/types/community';
+import { deleteCookie } from '@/utils/cookie';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 interface ProfileBoxProps {
-  nickname: string;
-  profileImage: string;
-  user_id: string | null;
-  ProfileTexts: string[];
+  user: PartialUserType;
+  texts: string[];
 }
-const ProfileBox = ({ nickname, profileImage, user_id, ProfileTexts }: ProfileBoxProps) => {
+const ProfileBox = ({ user, texts }: ProfileBoxProps) => {
   const router = useRouter();
-  const handleMyPost = () => {
-    if (!user_id) {
-      const path = router.asPath;
-      router.push({ pathname: '/login', query: { nextUrl: path } });
-      return;
-    }
-    router.push(`/community/myPost`);
-  };
+  const urlLang = useUrlLanguage();
 
   const handleLogout = () => {
-    // router.push('/api/auth/logout');
+    deleteCookie('user_id', { secure: true });
+    deleteCookie('user_idx', { secure: true });
+    router.reload();
+  };
 
-    // eslint-disable-next-line no-console
-    console.log('logged out');
+  const routeToMyPost = () => {
+    router.push(`/${urlLang}/community/myPost/`);
   };
 
   return (
     <ProfileBoxWrapper>
       <div className="profileWrapper">
-        <Avatar w={48} h={48} radius={'50%'} src={profileImage} alt="profileImage" />
+        <Avatar w={48} h={48} radius={'50%'} src={user.profileImage} alt="profileImage" />
         <div>
-          <h6>{nickname}</h6>
-          <div className="myPostButton" onClick={handleMyPost}>
-            {ProfileTexts[1]}
+          <h6>{user.nickname}</h6>
+          <div className="myPostButton" onClick={routeToMyPost}>
+            {texts[1]}
             <IconArrowLeft
               stroke={'#000'}
               iconCss={{ width: '12px', height: '12px', transform: 'rotateZ(180deg)' }}
@@ -43,11 +40,9 @@ const ProfileBox = ({ nickname, profileImage, user_id, ProfileTexts }: ProfileBo
           </div>
         </div>
       </div>
-      {user_id !== null && (
-        <button onClick={handleLogout}>
-          {ProfileTexts[2]} <img src="/icons/icon_logout.svg" alt="icon_logout" />
-        </button>
-      )}
+      <button onClick={handleLogout}>
+        {texts[2]} <img src="/icons/icon_logout.svg" alt="icon_logout" />
+      </button>
     </ProfileBoxWrapper>
   );
 };

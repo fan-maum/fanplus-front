@@ -332,18 +332,29 @@ export type EditorImageUploadResponseType = {
   };
 };
 
-export type userResponseType = {
+export type PartialUserType = {
+  nickname: string;
+  profileImage: string;
+};
+export type UserResponseType = {
   RESULTS: {
     DATAS: {
       USER_IDX: number;
       NICK: string;
       EMAIL: string;
-      SELF_INTRODCUTION: null;
+      SELF_INTRODCUTION: string | null;
       PROFILE_IMG_URL: string;
       USER_LANG: ServerLangType;
       SUBSCRIPTION_STARS: {
         COUNT: number;
-        LIST: [];
+        LIST: Array<{
+          STAR_IDX: string;
+          STAR_GROUP_IDX: string;
+          SBUSCRIPTION_DATE: string;
+          STAR_NAME: string;
+          DEFAULT_PHOTO: string;
+          STAR_GROUP_NAME: string | null;
+        }>;
       };
       HAVE_CASH: number;
       HAVE_VOTETICKET: number;
@@ -360,8 +371,8 @@ export type userResponseType = {
       MY_FRIENDS_CNT: number;
       MAX_FRIENDS_COUNT: number;
       FRIENDS_STATUS: string;
-      PHONENUMBER_VERIFIED: false;
-      MY_PHONENUMBER_VERIFIED: false;
+      PHONENUMBER_VERIFIED: boolean;
+      MY_PHONENUMBER_VERIFIED: boolean;
       LIKE_ALERT_YN: string;
       COMMENT_ALERT_YN: string;
       CAN_GET_POST_CNT: {
@@ -369,27 +380,31 @@ export type userResponseType = {
         SYSTEM: number;
         SUM: number;
       };
-      FRIEND_REQUEST_CNT: string;
+      FRIEND_REQUEST_CNT: number;
       BIAS_STAR: {
         STAR_IDX: number;
         STAR_NAME: string;
         INS_DATE: string;
       };
-      BIRTHDAY: null;
+      BIRTHDAY: string | null;
       GENDER: string;
       PROFILE_COMPLETION_RATE: {
         NOW: number;
         MAX: number;
       };
       COUNTRY: {
-        CODE: null;
-        NAME: null;
+        CODE: string | null;
+        NAME: string | null;
       };
       ONBOARDING_FINISHED_YN: string;
       DISPLAY_RECOMMEND_FRIENDS: string;
       RECEIVE_FRIENDS_REQUEST: string;
       REFERRAL_CODE: string;
       BLOCK_STATUS: boolean;
+      WELCOME_VOTE_RECEIVED_AT: string;
+      DAILY_VOTE_RECEIVED_AT: string;
+      WELCOME_TICKET_COUNT: number;
+      DAILY_TICKET_COUNT: number;
     };
     ERROR: number;
     MSG: string;
