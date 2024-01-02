@@ -54,10 +54,10 @@ const CommunityPostInfo = ({
           justifyContent: 'space-between',
         }}
       >
-        <h2 css={{ color: '#000', fontSize: 20, fontWeight: 600 }}>
+        <h1 css={{ color: '#000', fontSize: 20, fontWeight: 600 }}>
           {!isBestBoard && <span>[{postInfo.TOPIC_NAME}] </span>}
           {postInfo.POST_TITLE}
-        </h2>
+        </h1>
         <CommunityPostTopPopover
           identity={identity}
           user_idx={user_idx}
