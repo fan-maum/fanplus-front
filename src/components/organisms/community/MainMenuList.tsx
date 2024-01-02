@@ -5,13 +5,15 @@ import { BoardResultItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import MenuListToggle from './MenuListToggle';
 import { BookmarkItemType } from './MainAsideCategory';
+import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 
 interface MainMenuListProps {
   serverLang: ServerLangType;
   bookmarks: BookmarkItemType[];
+  freeBoardText: string;
 }
 
-const MainMenuList = ({ serverLang, bookmarks }: MainMenuListProps) => {
+const MainMenuList = ({ serverLang, bookmarks, freeBoardText }: MainMenuListProps) => {
   const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
   const menus = data?.RESULTS.DATAS.BOARD_LIST;
   const mainMenu = menus?.filter(
@@ -27,7 +29,7 @@ const MainMenuList = ({ serverLang, bookmarks }: MainMenuListProps) => {
           <MenuItem key={menu.BOARD_IDX} menuData={menu} bookmarks={bookmarks} />
         ))}
       </ul>
-      <MenuListToggle headerTitle="자유게시판">
+      <MenuListToggle headerTitle={freeBoardText}>
         <ul>
           {subMenu?.map((menu: BoardResultItemType) => (
             <MenuItem key={menu.BOARD_IDX} menuData={menu} bookmarks={bookmarks} />

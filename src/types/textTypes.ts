@@ -266,6 +266,12 @@ export type CommunityPageTextType = {
   };
   noResult: string[];
   userCard: string[];
+  fanplus: string;
+  bookmark: string;
+  asideMenus: string[];
+};
+export type CommmunityBookmarkType = {
+  NoBookmarkMessage: string;
 };
 export type CommunityBoardTextType = {
   all: string;
@@ -278,7 +284,9 @@ export type CommunityBoardTextType = {
   minsAgo: string;
   bottomTabBar: {
     write: string;
+    all: string;
     popular: string;
+    notice: string;
     myPost: string;
   };
   boardLang: {

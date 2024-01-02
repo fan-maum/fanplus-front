@@ -1,18 +1,19 @@
 import BookmarkMenuItem from '@/components/molecules/community/BookmarkMenuItem';
 import BookmarkListToggle from './BookmarkListToggle';
 import NoBookmarkMessage from '@/components/molecules/community/NoBookMarkMessage';
-import { getBookmarks, getUser } from '@/api/Community';
 import { getCookie } from '@/utils/Cookie';
 import { useRouter } from 'next/router';
 import { BookmarkItemType } from './MainAsideCategory';
+import { UrlLangType } from '@/types/common';
 
 const MainBookmarkMenu = ({
   urlLang,
   bookmarks,
+  bookmarkTitle,
 }: {
-  urlLang: string;
+  urlLang: UrlLangType;
   bookmarks: BookmarkItemType[];
-  // urlLang: UrlLangType => 나중에 소진님 API 수정 후 고쳐야댐
+  bookmarkTitle: string;
 }) => {
   const router = useRouter();
   const user_id = getCookie('user_id');
@@ -26,7 +27,7 @@ const MainBookmarkMenu = ({
 
   return (
     <div onClick={handleBookmark}>
-      <BookmarkListToggle headerTitle="즐겨찾기" isActive={Boolean(bookmarks?.length)}>
+      <BookmarkListToggle headerTitle={bookmarkTitle} isActive={Boolean(bookmarks?.length)}>
         <div>
           {hasBookmarkMenu ? (
             <div className="bookmark-list" style={{ fontSize: '13px' }}>
@@ -35,7 +36,7 @@ const MainBookmarkMenu = ({
               ))}
             </div>
           ) : (
-            <NoBookmarkMessage />
+            <NoBookmarkMessage urlLang={urlLang} />
           )}
         </div>
       </BookmarkListToggle>

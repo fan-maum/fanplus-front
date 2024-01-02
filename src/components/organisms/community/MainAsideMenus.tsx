@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
 import { BookmarkItemType } from './MainAsideCategory';
+import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 
 interface MainAsideMenusProps {
   urlLang: UrlLangType;
@@ -17,6 +18,7 @@ interface MainAsideMenusProps {
 const MainAsideMenus = ({ urlLang, bookmarks }: MainAsideMenusProps) => {
   const router = useRouter();
   const serverLang = translateUrlLangToServerLang(urlLang);
+  const texts = communityMainPageTexts[urlLang];
   const handleAllPostsBoardOnClick = () => {
     // eslint-disable-next-line no-console
     console.log('clicked board');
@@ -24,8 +26,10 @@ const MainAsideMenus = ({ urlLang, bookmarks }: MainAsideMenusProps) => {
 
   return (
     <MenuWrapper>
-      <div className="title">팬플러스 커뮤니티</div>
-      <MainBookmarkMenu urlLang={urlLang} bookmarks={bookmarks} />
+      <div className="title">
+        {texts.fanplus} {texts.community}
+      </div>
+      <MainBookmarkMenu urlLang={urlLang} bookmarks={bookmarks} bookmarkTitle={texts.bookmark} />
       <ScreenAllWrapper>
         <Link
           className="menu-title"
@@ -33,7 +37,7 @@ const MainAsideMenus = ({ urlLang, bookmarks }: MainAsideMenusProps) => {
           href={`/${urlLang}/community`}
           onClick={handleAllPostsBoardOnClick}
         >
-          <span className="title-top-menu">전체글</span>
+          <span className="title-top-menu">{texts.asideMenus[0]}</span>
           {/* {topMenu.hasNewPost && ( */}
           <span className="new">
             <img src="/icons/icon_new.svg" alt="new-icon" />
@@ -42,7 +46,11 @@ const MainAsideMenus = ({ urlLang, bookmarks }: MainAsideMenusProps) => {
         </Link>
         <BookmarkButton isBookmarked={false} />
       </ScreenAllWrapper>
-      <MainMenuList serverLang={serverLang} bookmarks={bookmarks} />
+      <MainMenuList
+        serverLang={serverLang}
+        bookmarks={bookmarks}
+        freeBoardText={texts.asideMenus[1]}
+      />
     </MenuWrapper>
   );
 };

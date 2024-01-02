@@ -16,6 +16,9 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     link: { board: '/ko/community/board' },
     noResult: ['검색 결과가 없습니다.', '연예인 명을 다시 한 번 확인해주세요.'],
     userCard: ['로그인을 해주세요', '내가 쓴 글', '로그아웃'],
+    fanplus: '팬플러스',
+    bookmark: '즐겨찾기',
+    asideMenus: ['전체글', '자유게시판'],
   },
   en: {
     community: 'Community',
@@ -31,6 +34,9 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     link: { board: '/en/community/board' },
     noResult: ['No results', "Please check the star's name again."],
     userCard: ['Sign In', 'My posts', 'Sign Out'],
+    fanplus: 'Fanplus',
+    bookmark: 'Bookmarks',
+    asideMenus: ['All', 'Free Board'],
   },
   es: {
     community: 'Comunidad',
@@ -49,6 +55,9 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
       'Por favor verifique el nombre de la celebridad nuevamente.',
     ],
     userCard: ['Inicio de sesión', 'El texto que escribí', 'Cierre de sesión'],
+    fanplus: 'Fanplus',
+    bookmark: 'Marca de libro',
+    asideMenus: ['TODO', 'tablero libre'],
   },
   in: {
     community: 'Komunitas',
@@ -68,6 +77,9 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     link: { board: '/in/community/board' },
     noResult: ['Tidak ada hasil', 'Silakan periksa kembali nama selebritinya.'],
     userCard: ['Log Masuk', 'Cerita Saya', 'Log keluar'],
+    fanplus: 'Fanplus',
+    bookmark: 'Markah buku',
+    asideMenus: ['SEMUA', 'Papan Gratis'],
   },
   ja: {
     community: 'コミュニティ',
@@ -83,6 +95,9 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     link: { board: '/ja/community/board' },
     noResult: ['検索結果がありません。', '芸能人の名前をもう一度確認してください'],
     userCard: ['ログオン', '私が書いた記事', 'ログアウト'],
+    fanplus: 'Fanplus',
+    bookmark: 'ブックマーク',
+    asideMenus: ['全て', 'フリーボード'],
   },
   vi: {
     community: 'Cộng đồng',
@@ -102,6 +117,9 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     link: { board: '/vi/community/board' },
     noResult: ['Không có kết quả', 'Vui lòng kiểm tra lại tên người nổi tiếng.'],
     userCard: ['Việc đăng nhập', 'Câu chuyện của tôi', 'Đăng xuất'],
+    fanplus: 'Fanplus',
+    bookmark: 'Đánh dấu',
+    asideMenus: ['TẤT CẢ', 'Bảng miễn phí'],
   },
   'zh-CN': {
     community: '社区',
@@ -117,6 +135,9 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     link: { board: '/zh-CN/community/board' },
     noResult: ['没有搜索结果。', '请再检查一下明星的名字'],
     userCard: ['登入', '我发的贴子', '退出登录'],
+    fanplus: 'Fanplus',
+    bookmark: '关注',
+    asideMenus: ['全部', '自由消息面'],
   },
   'zh-TW': {
     community: '社區',
@@ -132,5 +153,8 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     link: { board: '/zh-TW/community/board' },
     noResult: ['沒有搜索結果。', '請再檢查一下明星的名字。'],
     userCard: ['登入', '我發的貼子', '登出登入'],
+    fanplus: 'Fanplus',
+    bookmark: '關注',
+    asideMenus: ['全部', '自由消息面'],
   },
 };
