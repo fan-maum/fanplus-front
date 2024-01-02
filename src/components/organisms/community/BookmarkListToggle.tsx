@@ -16,7 +16,7 @@ const BookmarkListToggle = ({ headerTitle, children, isActive }: BookmarkListTog
       <div className="title-wrapper" onClick={() => toggleIsOpen(!isOpen)}>
         <span className="bookmark-title">
           {headerTitle}
-          <IconBookmark isActive={isActive} width="16" height="16" />
+          <IconBookmark isBookmarked={isActive} width="16" height="16" />
         </span>
         <div className="icon">
           <img src={`/icons/icon_arrow_${menuIcon}.svg`} alt="메뉴 열기버튼" />

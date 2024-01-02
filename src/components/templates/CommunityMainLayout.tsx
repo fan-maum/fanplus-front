@@ -9,20 +9,26 @@ import BestNotices from '../molecules/community/BestNotices';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import { getCookie } from '@/utils/Cookie';
+import { BookmarksResponseType } from '@/types/community';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
+  bookmarksData: BookmarksResponseType;
   withSearchInput?: boolean;
   children: ReactNode;
 }
 
-const CommunityMainLayout = ({ urlLang, withSearchInput, children }: CommunityMainLayoutProps) => {
+const CommunityMainLayout = ({
+  urlLang,
+  bookmarksData,
+  withSearchInput,
+  children,
+}: CommunityMainLayoutProps) => {
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
   const texts = communityMainPageTexts[urlLang];
   const searchTabState = useState(texts.allCategory);
-  const user_id = getCookie('user_id');
-  const user_idx = getCookie('user_idx');
+  const bookmarks = bookmarksData.SUBSCRIPTION_BOARDS;
 
   return (
     <Layout urlLang={urlLang}>
@@ -30,7 +36,7 @@ const CommunityMainLayout = ({ urlLang, withSearchInput, children }: CommunityMa
         <div className="contents">
           <div className="mainAside">
             <MainAsideUserCard urlLang={urlLang} />
-            <MainAsideCategory urlLang={urlLang} />
+            <MainAsideCategory urlLang={urlLang} bookmarks={bookmarks} />
           </div>
           <div className="mainContent">
             {withSearchInput && (

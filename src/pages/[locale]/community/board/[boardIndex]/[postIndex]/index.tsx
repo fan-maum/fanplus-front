@@ -1,10 +1,10 @@
-import { getCommunityPostData } from '@/api/Community';
+import { getBookmarks, getCommunityPostData } from '@/api/Community';
 import Layout from '@/components/organisms/Layout';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { ServerLangType, UrlLangType } from '@/types/common';
-import type { PostResponseType } from '@/types/community';
+import type { BookmarksResponseType, PostResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
@@ -17,6 +17,10 @@ export type CommunityPostPropType = {
   communityPostData: PostResponseType;
 };
 
+export interface bookmarksPostProps extends CommunityPostPropType {
+  bookmarksData: BookmarksResponseType;
+}
+
 const Post = ({
   urlLang,
   identity,
@@ -24,9 +28,10 @@ const Post = ({
   postIndex,
   serverLang,
   communityPostData,
-}: CommunityPostPropType) => {
+  bookmarksData,
+}: bookmarksPostProps) => {
   return (
-    <CommunityMainLayout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData}>
       <CommunityPostTemplate
         urlLang={urlLang}
         identity={identity}
@@ -54,8 +59,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, serverLang);
   if (communityPostData.RESULTS.DATAS.POST_INFO.IS_PUBLISH === 'N') return { notFound: true };
 
+  let bookmarksData;
+  if (identity === null) {
+    bookmarksData = { SUBSCRIPTION_BOARDS: [] };
+  } else {
+    bookmarksData = await getBookmarks(identity, 'ko_KR');
+  }
+
   return {
-    props: { urlLang, identity, user_idx, postIndex, serverLang, communityPostData },
+    props: { urlLang, identity, user_idx, postIndex, serverLang, communityPostData, bookmarksData },
   };
 };
 

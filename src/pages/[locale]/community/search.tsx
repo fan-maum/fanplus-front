@@ -1,13 +1,19 @@
-import { getCommunityBoardCategoryData, getCommunityBoardResultData } from '@/api/Community';
+import {
+  getBookmarks,
+  getCommunityBoardCategoryData,
+  getCommunityBoardResultData,
+} from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunitySearchTemplate from '@/components/templates/CommunitySearchTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import { ServerLangType, UrlLangType } from '@/types/common';
 import {
+  BookmarksResponseType,
   CommunityBoardCategoryResponseType,
   CommunityBoardResultResponseType,
 } from '@/types/community';
 import { GetServerSideProps } from 'next';
+import nookies from 'nookies';
 
 type InitialBoardResultProps = {
   category_type: number;
@@ -23,14 +29,19 @@ export interface SearchPageProps {
   initialProps: InitialBoardResultProps;
 }
 
+export interface bookmarksSearchProps extends SearchPageProps {
+  bookmarksData: BookmarksResponseType;
+}
+
 export default function SearchPage({
   urlLang,
   boardCategoryData,
   boardResultData,
+  bookmarksData,
   initialProps,
-}: SearchPageProps) {
+}: bookmarksSearchProps) {
   return (
-    <CommunityMainLayout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData}>
       <CommunitySearchTemplate
         urlLang={urlLang}
         boardCategoryData={boardCategoryData}
@@ -48,6 +59,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
+  const cookies = nookies.get(context);
+  const userId = cookies['user_id'] || null;
 
   const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
   const boardResultData = await getCommunityBoardResultData(
@@ -57,6 +70,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     page,
     per_page
   );
+
+  let bookmarksData;
+  if (userId === null) {
+    bookmarksData = { SUBSCRIPTION_BOARDS: [] };
+  } else {
+    bookmarksData = await getBookmarks(userId, 'ko_KR');
+  }
+
   const initialProps = { category_type, searchValue, serverLang, page };
 
   return {
@@ -64,6 +85,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       urlLang,
       boardCategoryData,
       boardResultData,
+      bookmarksData,
       initialProps,
     },
   };

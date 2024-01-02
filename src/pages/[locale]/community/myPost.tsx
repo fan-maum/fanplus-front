@@ -1,6 +1,8 @@
+import { getBookmarks } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
-import { BoardLangType, UrlLangType } from '@/types/common';
+import { UrlLangType } from '@/types/common';
+import { BookmarksResponseType } from '@/types/community';
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 export interface MyPostPageProps {
@@ -9,9 +11,13 @@ export interface MyPostPageProps {
   myPostData: any;
 }
 
-const MyPostPage = ({ urlLang, userId, myPostData }: MyPostPageProps) => {
+export interface bookmarksMyPostProps extends MyPostPageProps {
+  bookmarksData: BookmarksResponseType;
+}
+
+const MyPostPage = ({ urlLang, userId, myPostData, bookmarksData }: bookmarksMyPostProps) => {
   return (
-    <CommunityMainLayout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData}>
       <CommunityMyPostTemplate urlLang={urlLang} userId={userId} myPostData={myPostData} />
     </CommunityMainLayout>
   );
@@ -63,12 +69,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       TIMESTAMP: 1695349603,
     },
   };
+  let bookmarksData;
+  if (userId === '') {
+    bookmarksData = { SUBSCRIPTION_BOARDS: [] };
+  } else {
+    bookmarksData = await getBookmarks(userId, 'ko_KR');
+  }
 
   return {
     props: {
       urlLang,
       userId,
       myPostData,
+      bookmarksData,
     },
   };
 };

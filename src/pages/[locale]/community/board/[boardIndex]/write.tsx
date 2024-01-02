@@ -1,9 +1,9 @@
-import { getCommunityBoardTopics } from '@/api/Community';
+import { getBookmarks, getCommunityBoardTopics } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
-import type { CommunityBoardTopicResponseType } from '@/types/community';
+import type { BookmarksResponseType, CommunityBoardTopicResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
@@ -20,10 +20,14 @@ type CommunityPostWritePropType = {
   };
 };
 
-const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
+export interface bookmarksWriteProps extends CommunityPostWritePropType {
+  bookmarksData: BookmarksResponseType;
+}
+
+const Write = ({ urlLang, boardTopics, datas, bookmarksData }: bookmarksWriteProps) => {
   const router = useRouter();
   return (
-    <CommunityMainLayout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData}>
       <PostEditorTemplate
         mode="CREATE"
         urlLang={urlLang}
@@ -49,9 +53,12 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   if (!userId) return noUserIdHandler('ko', `/community/board/${boardIndex}/write/`);
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
+
+  const bookmarksData = await getBookmarks(userId, 'ko_KR');
+
   const datas = { userId, boardIndex, boardLang, serverLang };
   return {
-    props: { urlLang, boardTopics, datas },
+    props: { urlLang, boardTopics, datas, bookmarksData },
   };
 };
 

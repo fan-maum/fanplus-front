@@ -4,18 +4,22 @@ import BookmarkButton from '@/components/atoms/BookmarkButton';
 import styled from '@emotion/styled';
 import { BoardResultItemType } from '@/types/community';
 import { colors } from '@/styles/CommunityColors';
+import { BookmarkItemType } from '@/components/organisms/community/MainAsideCategory';
 
 type MenuItemProps = {
   menuData: BoardResultItemType;
   className?: string;
   disabledBookmark?: boolean;
-  onClick?: () => void;
+  bookmarks: BookmarkItemType[];
 };
 
-const MenuItem = ({ menuData, className, disabledBookmark, onClick }: MenuItemProps) => {
+const MenuItem = ({ menuData, className, disabledBookmark, bookmarks }: MenuItemProps) => {
   const router = useRouter();
   const { boardIndex } = router.query;
   const href = `/community/board/${menuData.BOARD_IDX}/`;
+  const isBookmarked = Boolean(
+    bookmarks.find((bookmark) => bookmark.BOARD_IDX === menuData.BOARD_IDX)
+  );
 
   return (
     <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.BOARD_IDX))}>
@@ -27,7 +31,7 @@ const MenuItem = ({ menuData, className, disabledBookmark, onClick }: MenuItemPr
         </span>
         {/* )} */}
       </Link>
-      <BookmarkButton className="bookmark-icon" />
+      <BookmarkButton isBookmarked={isBookmarked} className="bookmark-icon" />
     </MenuItemWrapper>
   );
 };

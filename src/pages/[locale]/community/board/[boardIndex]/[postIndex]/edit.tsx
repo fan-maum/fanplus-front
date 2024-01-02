@@ -1,10 +1,13 @@
-import { getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
-import Layout from '@/components/organisms/Layout';
+import { getBookmarks, getCommunityBoardTopics, getCommunityPostData } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { ServerLangType, BoardLangType, UrlLangType } from '@/types/common';
-import type { CommunityBoardTopicResponseType, PostResponseType } from '@/types/community';
+import type {
+  BookmarksResponseType,
+  CommunityBoardTopicResponseType,
+  PostResponseType,
+} from '@/types/community';
 import { loginErrorHandler } from '@/utils/loginError';
 import type { GetServerSidePropsContext } from 'next';
 import nookies from 'nookies';
@@ -22,9 +25,19 @@ type CommunityPostWritePropType = {
   };
 };
 
-const Edit = ({ urlLang, boardTopics, communityPostData, datas }: CommunityPostWritePropType) => {
+export interface bookmarksEditProps extends CommunityPostWritePropType {
+  bookmarksData: BookmarksResponseType;
+}
+
+const Edit = ({
+  urlLang,
+  boardTopics,
+  communityPostData,
+  datas,
+  bookmarksData,
+}: bookmarksEditProps) => {
   return (
-    <CommunityMainLayout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData}>
       <PostEditorTemplate
         mode="EDIT"
         urlLang={urlLang}
@@ -60,8 +73,9 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     return loginErrorHandler(error, 'ko', `/community/board/${boardIndex}/${postIndex}/edit/`);
   }
   const datas = { userId, boardIndex, postIndex, boardLang, serverLang };
+  const bookmarksData = await getBookmarks(userId, 'ko_KR');
   return {
-    props: { urlLang, boardTopics, communityPostData, datas },
+    props: { urlLang, boardTopics, communityPostData, datas, bookmarksData },
   };
 };
 

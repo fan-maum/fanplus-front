@@ -26,7 +26,7 @@ const BookmarkMenuItem = ({ menuInfo }: BookmarkMenuItemProps) => {
         </span>
         {/* )} */}
       </Link>
-      <BookmarkButton />
+      <BookmarkButton isBookmarked={true} height="18px" />
     </BookmarkMenuItemWrapper>
   );
 };

@@ -4,12 +4,14 @@ import { ServerLangType } from '@/types/common';
 import { BoardResultItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import MenuListToggle from './MenuListToggle';
+import { BookmarkItemType } from './MainAsideCategory';
 
 interface MainMenuListProps {
   serverLang: ServerLangType;
+  bookmarks: BookmarkItemType[];
 }
 
-const MainMenuList = ({ serverLang }: MainMenuListProps) => {
+const MainMenuList = ({ serverLang, bookmarks }: MainMenuListProps) => {
   const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
   const menus = data?.RESULTS.DATAS.BOARD_LIST;
   const mainMenu = menus?.filter(
@@ -18,22 +20,17 @@ const MainMenuList = ({ serverLang }: MainMenuListProps) => {
   );
   const subMenu = menus?.filter((list: BoardResultItemType) => !mainMenu.includes(list));
 
-  const handleMenuListOnClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('clicked board');
-  };
-
   return (
     <MainMenuListWrapper>
       <ul>
         {mainMenu?.map((menu: BoardResultItemType) => (
-          <MenuItem key={menu.BOARD_IDX} menuData={menu} onClick={handleMenuListOnClick} />
+          <MenuItem key={menu.BOARD_IDX} menuData={menu} bookmarks={bookmarks} />
         ))}
       </ul>
       <MenuListToggle headerTitle="자유게시판">
         <ul>
           {subMenu?.map((menu: BoardResultItemType) => (
-            <MenuItem key={menu.BOARD_IDX} menuData={menu} onClick={handleMenuListOnClick} />
+            <MenuItem key={menu.BOARD_IDX} menuData={menu} bookmarks={bookmarks} />
           ))}
         </ul>
       </MenuListToggle>

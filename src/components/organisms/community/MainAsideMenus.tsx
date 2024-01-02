@@ -7,12 +7,14 @@ import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
+import { BookmarkItemType } from './MainAsideCategory';
 
 interface MainAsideMenusProps {
   urlLang: UrlLangType;
+  bookmarks: BookmarkItemType[];
 }
 
-const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
+const MainAsideMenus = ({ urlLang, bookmarks }: MainAsideMenusProps) => {
   const router = useRouter();
   const serverLang = translateUrlLangToServerLang(urlLang);
   const handleAllPostsBoardOnClick = () => {
@@ -23,7 +25,7 @@ const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
   return (
     <MenuWrapper>
       <div className="title">팬플러스 커뮤니티</div>
-      <MainBookmarkMenu urlLang={urlLang} />
+      <MainBookmarkMenu urlLang={urlLang} bookmarks={bookmarks} />
       <ScreenAllWrapper>
         <Link
           className="menu-title"
@@ -38,9 +40,9 @@ const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
           </span>
           {/* )} */}
         </Link>
-        <BookmarkButton />
+        <BookmarkButton isBookmarked={false} />
       </ScreenAllWrapper>
-      <MainMenuList serverLang={serverLang} />
+      <MainMenuList serverLang={serverLang} bookmarks={bookmarks} />
     </MenuWrapper>
   );
 };

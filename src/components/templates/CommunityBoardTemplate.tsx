@@ -23,6 +23,7 @@ const CommunityBoardTemplate = ({
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
+  bookmarksData,
   initialProps,
 }: CommunityBoardPropType) => {
   const router = useRouter();
@@ -41,6 +42,10 @@ const CommunityBoardTemplate = ({
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
   const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
+  const bookmarks = bookmarksData.SUBSCRIPTION_BOARDS;
+  const isBookmarked = Boolean(
+    bookmarks.find((bookmark) => Number(bookmark.BOARD_IDX) === boardIndex)
+  );
 
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
   const isInitialData =
@@ -89,6 +94,7 @@ const CommunityBoardTemplate = ({
       <div>
         <CommunityBoardTopNavi
           boardTitle={boardInfo.BOARD_TITLE as string}
+          isBookmarked={isBookmarked}
           rightItem={
             <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <CommunityBoardLangSelector

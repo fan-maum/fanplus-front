@@ -1,4 +1,5 @@
 import {
+  getBookmarks,
   getCommunityBoardData,
   getCommunityBoardTopics,
   getCommunityNoticeBannerData,
@@ -8,6 +9,7 @@ import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
+  BookmarksResponseType,
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
@@ -23,6 +25,7 @@ export type CommunityBoardPropType = {
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   communityNoticeBannerData: CommunityNoticeBannerResponseType;
+  bookmarksData: BookmarksResponseType;
   initialProps: {
     page: number;
     serverLang: ServerLangType;
@@ -41,10 +44,11 @@ const Board = ({
   communityBoardTopics,
   communityNoticeBannerData,
   initialProps,
+  bookmarksData,
 }: CommunityBoardPropType) => {
   return (
     <>
-      <CommunityMainLayout urlLang={urlLang} withSearchInput>
+      <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData} withSearchInput>
         <CommunityBoardTemplate
           urlLang={urlLang}
           userId={userId}
@@ -53,6 +57,7 @@ const Board = ({
           communityBoardData={communityBoardData}
           communityBoardTopics={communityBoardTopics}
           communityNoticeBannerData={communityNoticeBannerData}
+          bookmarksData={bookmarksData}
           initialProps={initialProps}
         />
       </CommunityMainLayout>
@@ -89,6 +94,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, serverLang);
   const initialProps = { page, serverLang, boardLangCookie, topic, view_type };
 
+  let bookmarksData;
+  if (userId === '') {
+    bookmarksData = { SUBSCRIPTION_BOARDS: [] };
+  } else {
+    bookmarksData = await getBookmarks(userId, 'ko_KR');
+  }
+
   return {
     props: {
       urlLang,
@@ -99,6 +111,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       communityBoardTopics,
       communityNoticeBannerData,
       initialProps,
+      bookmarksData,
     },
   };
 };
