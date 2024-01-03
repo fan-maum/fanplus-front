@@ -70,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const isAdminAccount = userIdx === process.env.ADMIN_ACCOUNT_IDX;
 
   const boardIndex = parseInt(context.query.boardIndex as string);
-  const page = parseInt(context.query.page as string) - 1 || 0;
+  const page = parseInt(context.query.page as string) || 1;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';

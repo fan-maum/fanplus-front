@@ -28,7 +28,7 @@ const CommunityBoardTemplate = ({
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
 
-  const page = Number(router.query.page) - 1 || 0;
+  const page = Number(router.query.page) || 1;
   const topicIndex = Number(router.query.topic) || 0;
   const viewType = (router.query.view as string) || 'all';
   const boardIndex = Number(router.query.boardIndex);
@@ -39,7 +39,7 @@ const CommunityBoardTemplate = ({
   const [permissionModal, setPermissionModal] = useState(false);
 
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
-  const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
+  const boardInfo = communityBoardData.BOARD_INFO[0];
   const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
 
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;

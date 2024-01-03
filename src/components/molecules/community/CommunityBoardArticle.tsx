@@ -1,11 +1,11 @@
 import IconImage from '@/components/atoms/IconImage';
-import type { PostListItemType } from '@/types/community';
+import type { NoticeListItemType, PostListItemType } from '@/types/community';
 import { formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 type OwnPropType = {
-  postItem: PostListItemType;
+  postItem: PostListItemType | NoticeListItemType;
   link: string;
   firstHeader?: ReactNode;
   isNotice?: boolean;
@@ -27,7 +27,7 @@ const CommunityBoardArticle = ({ postItem, link, firstHeader, isNotice }: OwnPro
         backgroundColor: isNotice ? '#fff6f6' : 'transparent',
       }}
     >
-      <div css={{ width: 106, textAlign: 'center' }}>{firstHeader || postItem.TOPIC_NAME}</div>
+      <div css={{ width: 106, textAlign: 'center' }}>{firstHeader}</div>
       <div css={{ flex: 1, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
         <span
           css={{
