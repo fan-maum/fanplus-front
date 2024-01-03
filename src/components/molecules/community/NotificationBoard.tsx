@@ -1,9 +1,9 @@
-import { useGetGlobalNoticesQuery } from '@/server/useGetGlobalNoticesQuery';
+import { useGetMainPageNoticesQuery } from '@/server/useGetMainPageNoticesQuery';
 import { NotificationBoardsSkeleton } from './CommunitySkeleton';
 import NotificationBoardItem from './NotificationBoardItem';
 
 const NotificationBoard = () => {
-  const { data, isFetching } = useGetGlobalNoticesQuery(1); // TODO: 26으로 바뀔 예정
+  const { data, isFetching } = useGetMainPageNoticesQuery(1); // TODO: 26으로 바뀔 예정
 
   return (
     <div

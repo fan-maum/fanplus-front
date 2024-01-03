@@ -473,7 +473,7 @@ export type BestPostsResponseType = {
   };
 };
 
-export type GlobalNoticesResponseType = Array<{
+export type MainPageNoticesResponseType = Array<{
   IDX: string;
   BOARD_IDX: string;
   WRITER_IDX: string;

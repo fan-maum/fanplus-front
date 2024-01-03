@@ -1,4 +1,4 @@
-import type { GlobalNoticesResponseType } from '@/types/community';
+import type { MainPageNoticesResponseType } from '@/types/community';
 import axios, { AxiosError, type AxiosResponse } from 'axios';
 import type { NextApiHandler } from 'next';
 
@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req, res) => {
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
-    const response: AxiosResponse<GlobalNoticesResponseType> = await axios.get(
+    const response: AxiosResponse<MainPageNoticesResponseType> = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/collection/${collectionId}`,
       {
         headers: {
