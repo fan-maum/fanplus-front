@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
 import { BookmarkItemType } from './MainAsideCategory';
-import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
+import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 
 interface MainAsideMenusProps {
   urlLang: UrlLangType;
@@ -18,7 +18,7 @@ interface MainAsideMenusProps {
 const MainAsideMenus = ({ urlLang, bookmarks }: MainAsideMenusProps) => {
   const router = useRouter();
   const serverLang = translateUrlLangToServerLang(urlLang);
-  const texts = communityMainPageTexts[urlLang];
+  const texts = communityLayoutTexts[urlLang];
   const handleAllPostsBoardOnClick = () => {
     // eslint-disable-next-line no-console
     console.log('clicked board');
@@ -26,9 +26,7 @@ const MainAsideMenus = ({ urlLang, bookmarks }: MainAsideMenusProps) => {
 
   return (
     <MenuWrapper>
-      <div className="title">
-        {texts.fanplus} {texts.community}
-      </div>
+      <div className="title">{texts.fanplusCommunity}</div>
       <MainBookmarkMenu urlLang={urlLang} bookmarks={bookmarks} bookmarkTitle={texts.bookmark} />
       <ScreenAllWrapper>
         <Link

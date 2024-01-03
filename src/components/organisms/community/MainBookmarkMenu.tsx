@@ -16,10 +16,11 @@ const MainBookmarkMenu = ({
   bookmarkTitle: string;
 }) => {
   const router = useRouter();
+  const path = router.asPath;
   const user_id = getCookie('user_id');
   const handleBookmark = () => {
     if (!user_id) {
-      router.push('/login');
+      router.push({ pathname: '/login', query: { nextUrl: path } });
     }
   };
 

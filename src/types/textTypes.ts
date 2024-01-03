@@ -264,10 +264,6 @@ export type CommunityPageTextType = {
     board: string;
   };
   noResult: string[];
-  userCard: string[];
-  fanplus: string;
-  bookmark: string;
-  asideMenus: string[];
 };
 export type CommmunityBookmarkType = {
   NoBookmarkMessage: string;
@@ -396,6 +392,9 @@ export type CommunityLayoutTextType = {
   userCard: string[];
   searchPlaceholder: string;
   close: string;
+  fanplusCommunity: string;
+  bookmark: string;
+  asideMenus: string[];
 };
 
 export type CommunityBestNoticesTextType = {

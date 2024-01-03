@@ -8,8 +8,6 @@ import Layout from '../organisms/Layout';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
 import MainAsideCategory from '../organisms/community/MainAsideCategory';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
-import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
-import { getCookie } from '@/utils/Cookie';
 import { BookmarksResponseType } from '@/types/community';
 
 interface CommunityMainLayoutProps {
@@ -29,7 +27,6 @@ const CommunityMainLayout = ({
 }: CommunityMainLayoutProps) => {
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
-  const texts = communityMainPageTexts[urlLang];
   const bookmarks = bookmarksData.SUBSCRIPTION_BOARDS;
 
   return (
