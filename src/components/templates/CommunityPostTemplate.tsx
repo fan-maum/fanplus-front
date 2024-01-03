@@ -101,11 +101,13 @@ const CommunityPostTemplate = ({
   const { data: userInfo, isFetched } = useGetUserQuery(useGetUserQueryProps);
 
   useEffect(() => {
-    isFetched && setUser(userInfo);
+    if (isFetched && userInfo?.RESULTS.DATAS) {
+      setUser(userInfo);
+    }
     if (isSuccess) {
       setPostParam(postParamObject);
     }
-  }, [isSuccess, isFetched, postParamObject]);
+  }, [isSuccess, isFetched, postParamObject, userInfo]);
 
   if (isLoading) return '';
   // if (error) return 'An error has occurred: ' + error;

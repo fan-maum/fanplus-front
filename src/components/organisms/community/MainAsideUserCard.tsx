@@ -1,39 +1,19 @@
-import ProfileBox from '@/components/molecules/community/ProfileBox';
 import LoginBox from '@/components/molecules/community/LoginBox';
-import { useGetUserQuery, useGetUserQueryProps } from '@/server/useGetCommentsQuery';
-import { UrlLangType } from '@/types/common';
-import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
+import ProfileBox from '@/components/molecules/community/ProfileBox';
+import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
+import type { UrlLangType } from '@/types/common';
+import type { PartialUserType } from '@/types/community';
 
 interface MainAsideUserCardProps {
   urlLang: UrlLangType;
+  user?: PartialUserType;
 }
 
-const MainAsideUserCard = ({ urlLang }: MainAsideUserCardProps) => {
-  const texts = communityMainPageTexts[urlLang];
-  // let user_idx = null;
-  // let identity = null;
-  let user_idx = '4114325';
-  let identity = '24913d46b044b5ee9027f19f8c22ecc42a493ffc33a432bd4822ad9ba3523365';
+const MainAsideUserCard = ({ urlLang, user }: MainAsideUserCardProps) => {
+  const texts = communityLayoutTexts[urlLang];
 
-  const useGetUserQueryProps: useGetUserQueryProps = {
-    user_idx,
-    identity,
-  };
-
-  const { data, isFetched } = useGetUserQuery(useGetUserQueryProps);
-
-  if (user_idx === null || identity === null) return <LoginBox loginTitle={texts.userCard[0]} />;
-
-  const userInfo = isFetched && data.RESULTS.DATAS;
-
-  return (
-    <ProfileBox
-      nickname={userInfo.NICK}
-      profileImage={userInfo.PROFILE_IMG_URL}
-      user_id={identity}
-      ProfileTexts={texts.userCard}
-    />
-  );
+  if (!user) return <LoginBox loginTitle={texts.userCard[0]} />;
+  return <ProfileBox user={user} texts={texts.userCard} />;
 };
 
 export default MainAsideUserCard;

@@ -1,5 +1,5 @@
-import { selectInfoType } from '@/types/common';
-import { userResponseType } from '@/types/community';
+import type { selectInfoType } from '@/types/common';
+import type { UserResponseType } from '@/types/community';
 import { SetterOrUpdater } from 'recoil';
 
 interface showModalOnClickProps extends selectInfoType {
@@ -39,7 +39,7 @@ export const showReportModalBlockOnClick = async ({
   await setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
 };
 
-export const getProfileData = (user: userResponseType | null) => {
+export const getProfileData = (user: UserResponseType | null) => {
   const profile = {
     profileImg: user
       ? user?.RESULTS.DATAS.PROFILE_IMG_URL

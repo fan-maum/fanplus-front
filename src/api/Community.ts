@@ -11,6 +11,7 @@ import type {
   RecentlyListResponseType,
   RecommendListResponseType,
   Top30PopularBoardsResponseType,
+  UserResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
 import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
@@ -37,12 +38,12 @@ export const getCommunityBoardData = async (
   lang: ServerLangType,
   boardLang: BoardLangType,
   topic: number | '',
-  view_type: string
+  viewType: string
 ) => {
   if (topic === 0) topic = '';
   const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang, view_type } }
+    { params: { userId, boardIndex, page, topic, lang, boardLang, viewType } }
   );
   return response.data;
 };
@@ -336,8 +337,8 @@ export const reportComment = async (
  * User
  */
 /* 유저정보 */
-export const getUser = async (user_idx: string | null, identity: string | null) => {
-  const response: AxiosResponse = await axios.get(
+export const getUser = async (identity?: string, user_idx?: string) => {
+  const response: AxiosResponse<UserResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/user`,
     { params: { user_idx, identity } }
   );

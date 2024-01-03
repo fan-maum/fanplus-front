@@ -67,7 +67,7 @@ const getResultsByIdToken = async (req: NextApiRequest, idToken: string) => {
     {
       platform: 'web',
       id_token: idToken,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
       user_lang: user_lang,
     },
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
