@@ -22,8 +22,10 @@ const NotificationBoardItem = ({
       href={`/${urlLang}/community/board/${NotificationBoardIndex}/${postIndex}/`}
       css={{
         display: 'flex',
+        alignItems: 'center',
         gap: 14,
         width: '100%',
+        height: 18,
       }}
     >
       <span css={{ fontSize: 14, fontWeight: 'bold', color: '#101010' }}>{ranking}</span>

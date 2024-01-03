@@ -472,3 +472,36 @@ export type BestPostsResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type GlobalNoticesResponseType = Array<{
+  IDX: string;
+  BOARD_IDX: string;
+  WRITER_IDX: string;
+  HEAD_IDX: string | number | null;
+  TOPIC_IDX: number;
+  TITLE: string;
+  CONTENTS: string;
+  IMG_CNT: string;
+  SUMNAILE_IMG: string;
+  VIEW_CNT: string;
+  COMMENT_CNT: string;
+  LIKE_CNT: string;
+  RECOMMEND_CNT: string;
+  REPORT_CNT: string;
+  IS_BLIND: 'Y' | 'N';
+  IS_REMOVE: 'Y' | 'N';
+  IS_PUBLISH: 'Y' | 'N';
+  RANK_SCORE: number;
+  INS_DATE: string;
+  UPD_DATE: string;
+  REMOVE_DATE: string | null;
+  PUBLISH_DATE: string | null;
+  PLATFORM: number;
+  LANG: string;
+  APP_LANG: string;
+  ORIGIN_BOARD_IDX: string;
+  ORIGIN_POST_IDX: string;
+  TREND_DATE: string | null;
+  HAS_BEST_BADGE: number;
+  HAS_POPULAR_BADGE: number;
+}>;

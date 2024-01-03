@@ -217,7 +217,6 @@ const NotificationBoardSkeleton = () => {
         gap: 10,
         alignItems: 'flex-start',
         justifyContent: 'start',
-        borderBottom: '1px solid #d9d9d9',
       }}
     >
       <span>
