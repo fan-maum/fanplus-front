@@ -419,15 +419,8 @@ export type PopularBoardItemType = {
   WEEK: string;
   BOARD_TITLE: string;
 };
-export type Top30PopularBoardsResponseType = {
-  RESULTS: {
-    ERROR: number;
-    MSG: string;
-    DATAS: {
-      TOP_BOARDS: Array<PopularBoardItemType>;
-    };
-    TIMESTAMP: number;
-  };
+export type Top50PopularBoardsResponseType = {
+  TOP_BOARDS: Array<PopularBoardItemType>;
 };
 
 export type BestPostItemType = {

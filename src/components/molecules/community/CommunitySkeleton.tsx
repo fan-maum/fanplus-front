@@ -135,7 +135,7 @@ const PopularBoardItemSkeleton = () => {
 };
 
 export const PopularBoardsSkeleton = () => {
-  return Array.from({ length: 30 }, (_, idx) => (
+  return Array.from({ length: 50 }, (_, idx) => (
     <PopularBoardItemSkeleton key={'Popular Board Item Skeleton' + idx} />
   ));
 };
