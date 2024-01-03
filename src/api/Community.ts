@@ -33,7 +33,7 @@ export const getCommunityHomeData = async (userId: string, lang: ServerLangType)
 
 export const getCommunityBoardData = async (
   userId: string,
-  boardIndex: number,
+  boardIndex: number | string,
   page: number,
   lang: ServerLangType,
   boardLang: BoardLangType,

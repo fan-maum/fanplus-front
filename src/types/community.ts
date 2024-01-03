@@ -85,6 +85,11 @@ export type CommunityBoardResponseType = {
   POST_LIST: Array<PostListItemType>;
 };
 
+export type CommunityMainPageResponseType = Pick<
+  CommunityBoardResponseType,
+  'NOTICE' | 'POST_LIST'
+>;
+
 export type TopicListItemType = {
   IDX: number;
   NAME: string;

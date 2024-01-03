@@ -1,30 +1,26 @@
+import CommunityBoardLangSelector from '@/components/molecules/community/CommunityBoardLangSelector';
+import CommunityBoardTopNavi from '@/components/molecules/community/CommunityBoardTopNavi';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { CommunityBoardPropType } from '@/pages/[locale]/community/board/[boardIndex]';
+import { colors } from '@/styles/CommunityColors';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import type { BoardLangType } from '@/types/common';
 import { setBoardLangCookie } from '@/utils/langCookie';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import CommunityCommonModal from '../modals/CommunityCommonModal';
-import CommunityLanguageModal from '../modals/CommunityLanguageModal';
-import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
-import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
-import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
-import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
-import CommunityBoardTopicTabBar from '../organisms/community/CommunityBoardTopicTabBar';
-import { colors } from '@/styles/CommunityColors';
-import BoardDomains from '../organisms/community/BoardDomains';
+import CommunityBoardArticleTable from './CommunityBoardArticleTable';
+import CommunityLanguageModal from '@/components/modals/CommunityLanguageModal';
+import CommunityCommonModal from '@/components/modals/CommunityCommonModal';
+import { CommunityPropTypes } from '@/pages/[locale]/community';
 
-const CommunityBoardTemplate = ({
+const CommunityMainBoard = ({
   urlLang,
   userId,
   isAdminAccount,
   boardLangCookie,
-  communityBoardData,
-  communityBoardTopics,
-  communityNoticeBannerData,
+  communityMainBoardData,
+  boardType,
   initialProps,
-}: CommunityBoardPropType) => {
+}: CommunityPropTypes & { boardType: string | string[] }) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
 
@@ -38,43 +34,16 @@ const CommunityBoardTemplate = ({
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
 
-  const topicList = communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST;
-  const boardInfo = communityBoardData.BOARD_INFO[0];
-  const noticeBannerList = communityNoticeBannerData?.RESULTS.DATAS.LIST;
-
-  const isNoticeBannerExist = communityNoticeBannerData?.RESULTS.DATAS.COUNT !== 0;
   const isInitialData =
     initialProps.boardLangCookie === boardLang &&
     initialProps.page === page &&
     initialProps.serverLang === requestLang &&
     initialProps.view_type === viewType &&
     initialProps.topic === topicIndex;
-  const isBestBoard = boardIndex === 2291;
 
   const onClickWrite = () => {
-    const writeBanBoard = ['139', '192', '220'];
-    const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX as string);
-    if (writeBanned && !isAdminAccount) {
-      setPermissionModal(true);
-      return;
-    }
-    if (!userId) {
-      const path = router.asPath;
-      router.push({ pathname: '/login', query: { nextUrl: path } });
-      return;
-    }
-    router.push({
-      pathname: `/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`,
-      query: { topic: router.query.topic },
-    });
-  };
-
-  const onClickTopic = async (topic: number) => {
-    router.replace(
-      { pathname: router.pathname, query: { ...router.query, topic, page: 1 } },
-      undefined,
-      { shallow: true }
-    );
+    // eslint-disable-next-line no-console
+    console.log('onClickWrite');
   };
 
   const onClickLanguageBox = async (language: BoardLangType) => {
@@ -88,7 +57,7 @@ const CommunityBoardTemplate = ({
     <>
       <div>
         <CommunityBoardTopNavi
-          boardTitle={boardInfo.BOARD_TITLE as string}
+          boardTitle={'전체글'}
           rightItem={
             <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <CommunityBoardLangSelector
@@ -114,20 +83,8 @@ const CommunityBoardTemplate = ({
             </div>
           }
         />
-        {!isBestBoard && (
-          <div css={{ display: 'flex', alignItems: 'center', gap: 20, height: 52 }}>
-            <BoardDomains viewType={viewType} />
-            <CommunityBoardTopicTabBar
-              stringTopicAll={texts.all}
-              topicList={topicList}
-              topicIndex={topicIndex}
-              onClickTopic={onClickTopic}
-            />
-          </div>
-        )}
-        {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
         <CommunityBoardArticleTable
-          communityBoardDataSSR={communityBoardData}
+          communityBoardDataSSR={communityMainBoardData}
           texts={texts}
           queries={{ userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType }}
           isInitialData={isInitialData}
@@ -155,4 +112,4 @@ const CommunityBoardTemplate = ({
   );
 };
 
-export default CommunityBoardTemplate;
+export default CommunityMainBoard;
