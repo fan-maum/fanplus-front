@@ -9,7 +9,7 @@ const handler: NextApiHandler = async (req, res) => {
     try {
       const result = await axios({
         method: 'delete',
-        url: `https://napi.appphotocard.com/v1/boards/posts?identity=${user_id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/boards/posts?identity=${user_id}`,
         data: {
           identity: user_id,
           post_idx: post_idx,

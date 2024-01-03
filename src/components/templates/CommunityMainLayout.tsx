@@ -1,38 +1,40 @@
-import { ReactNode, useState } from 'react';
-import { useRouter } from 'next/router';
-import { UrlLangType } from '@/types/common';
-import Layout from '../organisms/Layout';
-import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
+import type { UrlLangType } from '@/types/common';
+import type { PartialUserType } from '@/types/community';
 import styled from '@emotion/styled';
-import MainAsideCategory from '../organisms/community/MainAsideCategory';
+import { useRouter } from 'next/router';
+import type { ReactNode } from 'react';
 import BestNotices from '../molecules/community/BestNotices';
+import Layout from '../organisms/Layout';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
-import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
+import MainAsideCategory from '../organisms/community/MainAsideCategory';
+import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
+  user?: PartialUserType;
   withSearchInput?: boolean;
   children: ReactNode;
 }
 
-const CommunityMainLayout = ({ urlLang, withSearchInput, children }: CommunityMainLayoutProps) => {
+const CommunityMainLayout = ({
+  urlLang,
+  user,
+  withSearchInput,
+  children,
+}: CommunityMainLayoutProps) => {
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
-  const texts = communityMainPageTexts[urlLang];
-  const searchTabState = useState(texts.allCategory);
 
   return (
     <Layout urlLang={urlLang}>
       <LayoutWrapper>
         <div className="contents">
           <div className="mainAside">
-            <MainAsideUserCard urlLang={urlLang} />
+            <MainAsideUserCard user={user} urlLang={urlLang} />
             <MainAsideCategory urlLang={urlLang} />
           </div>
           <div className="mainContent">
-            {withSearchInput && (
-              <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
-            )}
+            {withSearchInput && <CommunityBoardSearchInputWrapper />}
             <div className="contentLayout">
               <div css={{ width: 810, minWidth: 810 }}>{children}</div>
               {!isCommunity && <BestNotices />}

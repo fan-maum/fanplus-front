@@ -1,11 +1,16 @@
-import { getCommunityBoardCategoryData, getCommunityBoardResultData } from '@/api/Community';
+import {
+  getCommunityBoardCategoryData,
+  getCommunityBoardResultData,
+  getUser,
+} from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunitySearchTemplate from '@/components/templates/CommunitySearchTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import { ServerLangType, UrlLangType } from '@/types/common';
-import {
+import type { ServerLangType, UrlLangType } from '@/types/common';
+import type {
   CommunityBoardCategoryResponseType,
   CommunityBoardResultResponseType,
+  PartialUserType,
 } from '@/types/community';
 import { GetServerSideProps } from 'next';
 
@@ -28,9 +33,10 @@ export default function SearchPage({
   boardCategoryData,
   boardResultData,
   initialProps,
-}: SearchPageProps) {
+  user,
+}: SearchPageProps & { user: PartialUserType }) {
   return (
-    <CommunityMainLayout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
       <CommunitySearchTemplate
         urlLang={urlLang}
         boardCategoryData={boardCategoryData}
@@ -49,6 +55,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
 
+  const user_id = context.req.cookies.user_id;
+  const user_idx = context.req.cookies.user_idx;
+
   const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
   const boardResultData = await getCommunityBoardResultData(
     category_type,
@@ -58,6 +67,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     per_page
   );
   const initialProps = { category_type, searchValue, serverLang, page };
+
+  if (!!user_id && !!user_idx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
+    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+    return { props: { urlLang, boardCategoryData, boardResultData, initialProps, user } };
+  }
 
   return {
     props: {

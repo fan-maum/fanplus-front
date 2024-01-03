@@ -22,7 +22,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<PostBoardArticleResponseType> = await axios.post(
-      `https://napi.appphotocard.com/voteWeb/boards/${boardIndex}/posts/0`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/boards/${boardIndex}/posts/0`,
       finalBodyData,
       {
         headers: {

@@ -1,4 +1,4 @@
-import { MyPostPageProps } from '@/pages/[locale]/community/myPost';
+import type { MyPostPageProps } from '@/pages/[locale]/community/myPost';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useRouter } from 'next/router';
 import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
@@ -6,6 +6,7 @@ import CommunityBoardArticleMobile from '../molecules/community/CommunityBoardAr
 import CommunityBoardArticleTableHeader from '../molecules/community/CommunityBoardArticleTableHeader';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import CommunityBoardNoPost from '../organisms/community/CommunityBoardNoPost';
+import { Fragment } from 'react';
 
 const CommunityMyPostTemplate = ({ urlLang, userId, myPostData }: MyPostPageProps) => {
   const router = useRouter();
@@ -56,20 +57,18 @@ const CommunityMyPostTemplate = ({ urlLang, userId, myPostData }: MyPostPageProp
           <ul>
             {postList?.map((post: any, idx: number) => {
               return (
-                <>
+                <Fragment key={'MyPosts' + idx}>
                   <CommunityBoardArticle
-                    key={'CommunityBoardArticle' + idx}
                     postItem={post}
                     firstHeader={post.BOARD_TITLE}
                     link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
                   />
                   <CommunityBoardArticleMobile
-                    key={'CommunityBoardArticleMobile' + idx}
                     postItem={post}
                     link={`/${urlLang}/community/board/${boardInfo?.BOARD_IDX}/${post.POST_IDX}`}
                     texts={texts}
                   />
-                </>
+                </Fragment>
               );
             })}
           </ul>
