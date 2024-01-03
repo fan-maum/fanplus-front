@@ -1,5 +1,6 @@
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import { BoardLangType, UrlLangType } from '@/types/common';
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
@@ -21,6 +22,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const urlLang = context.query.locale as UrlLangType;
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || '';
+  const serverLang = translateUrlLangToServerLang(urlLang);
+  const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
+  const view_type = (context.query.view as string) || 'all';
+  const page = parseInt(context.query.page as string) - 1 || 0;
+
   const myPostData = {
     RESULTS: {
       ERROR: 0,

@@ -8,6 +8,7 @@ const CommunityPageTemplate = () => {
         <HorizontalBestNotices />
         <NotificationBoard />
       </div>
+      <>전체글</>
     </div>
   );
 };
