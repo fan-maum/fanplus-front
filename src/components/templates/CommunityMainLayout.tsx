@@ -1,18 +1,20 @@
-import { ReactNode, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { UrlLangType } from '@/types/common';
-import Layout from '../organisms/Layout';
-import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
+import type { UrlLangType } from '@/types/common';
+import type { PartialUserType } from '@/types/community';
 import styled from '@emotion/styled';
-import MainAsideCategory from '../organisms/community/MainAsideCategory';
+import { useRouter } from 'next/router';
+import { type ReactNode } from 'react';
 import BestNotices from '../molecules/community/BestNotices';
+import Layout from '../organisms/Layout';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
+import MainAsideCategory from '../organisms/community/MainAsideCategory';
+import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import { getCookie } from '@/utils/Cookie';
 import { BookmarksResponseType } from '@/types/community';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
+  user?: PartialUserType;
   bookmarksData: BookmarksResponseType;
   withSearchInput?: boolean;
   children: ReactNode;
@@ -21,13 +23,13 @@ interface CommunityMainLayoutProps {
 const CommunityMainLayout = ({
   urlLang,
   bookmarksData,
+  user,
   withSearchInput,
   children,
 }: CommunityMainLayoutProps) => {
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
   const texts = communityMainPageTexts[urlLang];
-  const searchTabState = useState(texts.allCategory);
   const bookmarks = bookmarksData.SUBSCRIPTION_BOARDS;
 
   return (
@@ -35,13 +37,11 @@ const CommunityMainLayout = ({
       <LayoutWrapper>
         <div className="contents">
           <div className="mainAside">
-            <MainAsideUserCard urlLang={urlLang} />
+            <MainAsideUserCard user={user} urlLang={urlLang} />
             <MainAsideCategory urlLang={urlLang} bookmarks={bookmarks} />
           </div>
           <div className="mainContent">
-            {withSearchInput && (
-              <CommunityBoardSearchInputWrapper searchTabState={searchTabState} texts={texts} />
-            )}
+            {withSearchInput && <CommunityBoardSearchInputWrapper />}
             <div className="contentLayout">
               <div css={{ width: 810, minWidth: 810 }}>{children}</div>
               {!isCommunity && <BestNotices />}

@@ -1,12 +1,10 @@
-import { getBookmarks, getCommunityPostData } from '@/api/Community';
-import Layout from '@/components/organisms/Layout';
+import { getBookmarks, getCommunityPostData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { ServerLangType, UrlLangType } from '@/types/common';
-import type { BookmarksResponseType, PostResponseType } from '@/types/community';
+import type { BookmarksResponseType, PartialUserType, PostResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
-import nookies from 'nookies';
 
 export type CommunityPostPropType = {
   urlLang: UrlLangType;
@@ -17,10 +15,6 @@ export type CommunityPostPropType = {
   communityPostData: PostResponseType;
 };
 
-export interface bookmarksPostProps extends CommunityPostPropType {
-  bookmarksData: BookmarksResponseType;
-}
-
 const Post = ({
   urlLang,
   identity,
@@ -28,10 +22,13 @@ const Post = ({
   postIndex,
   serverLang,
   communityPostData,
+  user,
   bookmarksData,
-}: bookmarksPostProps) => {
+}: CommunityPostPropType & { user: PartialUserType } & {
+  bookmarksData: BookmarksResponseType;
+}) => {
   return (
-    <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData}>
+    <CommunityMainLayout urlLang={urlLang} user={user} bookmarksData={bookmarksData}>
       <CommunityPostTemplate
         urlLang={urlLang}
         identity={identity}
@@ -50,9 +47,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
 
-  const cookies = nookies.get(context);
-  const identity: any = cookies.user_id || null;
-  const user_idx = cookies.user_idx || null;
+  const identity = context.req.cookies.user_id || '';
+  const user_idx = context.req.cookies.user_idx;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
@@ -66,9 +62,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     bookmarksData = await getBookmarks(identity, 'ko_KR');
   }
 
-  return {
-    props: { urlLang, identity, user_idx, postIndex, serverLang, communityPostData, bookmarksData },
+  const props = {
+    urlLang,
+    identity,
+    user_idx,
+    postIndex,
+    serverLang,
+    communityPostData,
+    bookmarksData,
   };
+
+  if (!!identity && !!user_idx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(identity, user_idx)).RESULTS.DATAS;
+    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+    return { props: { ...props, user } };
+  }
+
+  return { props };
 };
 
 export default Post;

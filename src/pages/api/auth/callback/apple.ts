@@ -48,7 +48,7 @@ const getResultsByCode = async (req: NextApiRequest, code: string) => {
     {
       platform: 'web',
       code: code,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
       user_lang: user_lang,
       redirect_uri: process.env.APPLE_REDIRECT_URI,
     },

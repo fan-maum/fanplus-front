@@ -1,23 +1,26 @@
+import { getUser } from '@/api/Community';
 import { getBookmarks } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
-import { UrlLangType } from '@/types/common';
+import type { UrlLangType } from '@/types/common';
+import type { PartialUserType } from '@/types/community';
 import { BookmarksResponseType } from '@/types/community';
-import { GetServerSideProps } from 'next';
-import nookies from 'nookies';
+import type { GetServerSideProps } from 'next';
 export interface MyPostPageProps {
   urlLang: UrlLangType;
-  userId: string | null;
+  userId: string;
   myPostData: any;
 }
 
-export interface bookmarksMyPostProps extends MyPostPageProps {
-  bookmarksData: BookmarksResponseType;
-}
-
-const MyPostPage = ({ urlLang, userId, myPostData, bookmarksData }: bookmarksMyPostProps) => {
+const MyPostPage = ({
+  urlLang,
+  user,
+  userId,
+  myPostData,
+  bookmarksData,
+}: MyPostPageProps & { user: PartialUserType } & { bookmarksData: BookmarksResponseType }) => {
   return (
-    <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData}>
+    <CommunityMainLayout urlLang={urlLang} user={user} bookmarksData={bookmarksData}>
       <CommunityMyPostTemplate urlLang={urlLang} userId={userId} myPostData={myPostData} />
     </CommunityMainLayout>
   );
@@ -25,8 +28,9 @@ const MyPostPage = ({ urlLang, userId, myPostData, bookmarksData }: bookmarksMyP
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const urlLang = context.query.locale as UrlLangType;
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'] || '';
+  const user_id = context.req.cookies.user_id || null;
+  const user_idx = context.req.cookies.user_idx;
+
   const myPostData = {
     RESULTS: {
       ERROR: 0,
@@ -70,16 +74,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
   let bookmarksData;
-  if (userId === '') {
+  if (user_id === null) {
     bookmarksData = { SUBSCRIPTION_BOARDS: [] };
   } else {
-    bookmarksData = await getBookmarks(userId, 'ko_KR');
+    bookmarksData = await getBookmarks(user_id, 'ko_KR');
   }
 
+  if (!!user_id && !!user_idx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
+    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+    return { props: { urlLang, userId: user_id, myPostData, user } };
+  }
   return {
     props: {
       urlLang,
-      userId,
+      userId: user_id,
       myPostData,
       bookmarksData,
     },

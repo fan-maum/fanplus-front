@@ -3,6 +3,7 @@ import {
   getCommunityBoardData,
   getCommunityBoardTopics,
   getCommunityNoticeBannerData,
+  getUser,
 } from '@/api/Community';
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
@@ -13,6 +14,7 @@ import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
+  PartialUserType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
@@ -45,10 +47,16 @@ const Board = ({
   communityNoticeBannerData,
   initialProps,
   bookmarksData,
-}: CommunityBoardPropType) => {
+  user,
+}: CommunityBoardPropType & { user: PartialUserType }) => {
   return (
     <>
-      <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData} withSearchInput>
+      <CommunityMainLayout
+        urlLang={urlLang}
+        user={user}
+        bookmarksData={bookmarksData}
+        withSearchInput
+      >
         <CommunityBoardTemplate
           urlLang={urlLang}
           userId={userId}
@@ -72,7 +80,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const isAdminAccount = userIdx === process.env.ADMIN_ACCOUNT_IDX;
 
   const boardIndex = parseInt(context.query.boardIndex as string);
-  const page = parseInt(context.query.page as string) - 1 || 0;
+  const page = parseInt(context.query.page as string) || 1;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
@@ -101,19 +109,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     bookmarksData = await getBookmarks(userId, 'ko_KR');
   }
 
-  return {
-    props: {
-      urlLang,
-      userId,
-      isAdminAccount,
-      boardLangCookie,
-      communityBoardData,
-      communityBoardTopics,
-      communityNoticeBannerData,
-      initialProps,
-      bookmarksData,
-    },
+  const props = {
+    urlLang,
+    userId,
+    isAdminAccount,
+    boardLangCookie,
+    communityBoardData,
+    communityBoardTopics,
+    communityNoticeBannerData,
+    bookmarksData,
+    initialProps,
   };
+
+  if (!!userId && !!userIdx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, userIdx)).RESULTS.DATAS;
+    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+    return { props: { ...props, user } };
+  }
+
+  return { props };
 };
 
 export default Board;

@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps<
   const page = parseInt(context.query.page as string) - 1 || 0;
   const boardLang = 'ALL';
   const topic = '';
-  const view_type = 'my_post';
+  const viewType = 'my_post';
 
   if (typeof boardIndex !== 'number') return { notFound: true };
 
@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<
     serverLang,
     boardLang,
     topic,
-    view_type
+    viewType
   );
 
   return { props: { urlLang, userId, communityBoardData } };

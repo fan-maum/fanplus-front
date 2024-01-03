@@ -2,15 +2,17 @@ import {
   getBookmarks,
   getCommunityBoardCategoryData,
   getCommunityBoardResultData,
+  getUser,
 } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunitySearchTemplate from '@/components/templates/CommunitySearchTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import { ServerLangType, UrlLangType } from '@/types/common';
-import {
+import type { ServerLangType, UrlLangType } from '@/types/common';
+import type {
   BookmarksResponseType,
   CommunityBoardCategoryResponseType,
   CommunityBoardResultResponseType,
+  PartialUserType,
 } from '@/types/community';
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
@@ -39,9 +41,15 @@ export default function SearchPage({
   boardResultData,
   bookmarksData,
   initialProps,
-}: bookmarksSearchProps) {
+  user,
+}: SearchPageProps & { user: PartialUserType } & { bookmarksData: BookmarksResponseType }) {
   return (
-    <CommunityMainLayout urlLang={urlLang} bookmarksData={bookmarksData}>
+    <CommunityMainLayout
+      urlLang={urlLang}
+      user={user}
+      bookmarksData={bookmarksData}
+      withSearchInput
+    >
       <CommunitySearchTemplate
         urlLang={urlLang}
         boardCategoryData={boardCategoryData}
@@ -62,6 +70,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const userId = cookies['user_id'] || null;
 
+  const user_id = context.req.cookies.user_id;
+  const user_idx = context.req.cookies.user_idx;
+
   const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
   const boardResultData = await getCommunityBoardResultData(
     category_type,
@@ -79,6 +90,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const initialProps = { category_type, searchValue, serverLang, page };
+
+  if (!!user_id && !!user_idx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
+    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+    return { props: { urlLang, boardCategoryData, boardResultData, initialProps, user } };
+  }
 
   return {
     props: {
