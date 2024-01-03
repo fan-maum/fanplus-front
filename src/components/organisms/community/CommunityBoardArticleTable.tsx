@@ -57,9 +57,9 @@ const CommunityBoardArticleTable = ({
     });
   };
 
-  const noticeList = sampleNotice; // TODO: api 연결해야함
-  const postList = communityBoardData?.RESULTS.DATAS.POST_LIST;
-  const boardInfo = communityBoardData?.RESULTS.DATAS.BOARD_INFO;
+  const noticeList = communityBoardData?.NOTICE;
+  const postList = communityBoardData?.POST_LIST;
+  const boardInfo = communityBoardData?.BOARD_INFO[0];
 
   const isPostExist = !(
     postList?.length === 0 &&
@@ -101,7 +101,7 @@ const CommunityBoardArticleTable = ({
     <div>
       <CommunityBoardArticleTableHeader firstHeader={isBestBoard} />
       <ul>
-        {noticeList.map((notice, idx) => {
+        {noticeList?.map((notice, idx) => {
           return (
             <li key={'CommunityBoardNotice' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle
@@ -132,7 +132,7 @@ const CommunityBoardArticleTable = ({
         })}
       </ul>
       <CommunityBoardPagination
-        totalCount={boardInfo?.POST_CNT as number}
+        totalCount={Number(boardInfo?.POST_CNT)}
         handlePageChange={handlePageChange}
       />
     </div>
@@ -146,7 +146,6 @@ const sampleNotice: PostListItemType[] = [
   {
     POST_IDX: '6721126',
     BOARD_IDX: '91',
-    BOARD_TITLE: '김태리',
     TOPIC_NAME: '소통',
     POST_TITLE: '가나다',
     POST_IMG_YN: 'N',
@@ -168,7 +167,6 @@ const sampleNotice: PostListItemType[] = [
   {
     POST_IDX: '6721125',
     BOARD_IDX: '91',
-    BOARD_TITLE: '김태리',
     TOPIC_NAME: '소통',
     POST_TITLE: 'ㄹㄹㄹ',
     POST_IMG_YN: 'N',
@@ -190,7 +188,6 @@ const sampleNotice: PostListItemType[] = [
   {
     POST_IDX: '6721098',
     BOARD_IDX: '91',
-    BOARD_TITLE: '김태리',
     TOPIC_NAME: '소통',
     POST_TITLE: 'ㄹㄹ2222',
     POST_IMG_YN: 'N',

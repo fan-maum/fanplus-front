@@ -38,12 +38,12 @@ export const getCommunityBoardData = async (
   lang: ServerLangType,
   boardLang: BoardLangType,
   topic: number | '',
-  view_type: string
+  viewType: string
 ) => {
   if (topic === 0) topic = '';
   const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang, view_type } }
+    { params: { userId, boardIndex, page, topic, lang, boardLang, viewType } }
   );
   return response.data;
 };
