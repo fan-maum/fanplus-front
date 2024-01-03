@@ -8,14 +8,19 @@ import { BookmarksResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 
 export type CommunityPropTypes = {
+  user_id: string | null;
   urlLang: UrlLangType;
   bookmarksData: BookmarksResponseType;
   user: PartialUserType;
 };
 
-const CommunityHomePage = ({ urlLang, user, bookmarksData }: CommunityPropTypes) => {
+const CommunityHomePage = ({ user_id, urlLang, user, bookmarksData }: CommunityPropTypes) => {
+  // eslint-disable-next-line no-console
+  console.log(bookmarksData);
+
   return (
     <CommunityMainLayout
+      user_id={user_id}
       urlLang={urlLang}
       user={user}
       bookmarksData={bookmarksData}
@@ -31,20 +36,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const user_id = context.req.cookies.user_id || null;
   const user_idx = context.req.cookies.user_idx;
 
-  if (!!user_id && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { urlLang, user } };
-  }
-
   let bookmarksData;
   if (user_id === null) {
     bookmarksData = { SUBSCRIPTION_BOARDS: [] };
   } else {
-    bookmarksData = await getBookmarks(user_id, 'ko_KR');
+    bookmarksData = await getBookmarks(user_id, urlLang);
   }
 
-  return { props: { urlLang, bookmarksData } };
+  if (!!user_id && !!user_idx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
+    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+    return { props: { user_id, urlLang, user, bookmarksData } };
+  }
+
+  return { props: { user_id, urlLang, bookmarksData } };
 };
 
 export default CommunityHomePage;

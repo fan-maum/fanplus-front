@@ -15,7 +15,7 @@ import type {
   UserResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
-import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
+import type { BoardLangType, OrderType, ServerLangType, UrlLangType } from '@/types/common';
 import type { BestPostsViewType } from '@/components/molecules/community/BestNotices';
 
 export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
@@ -372,11 +372,7 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
 /**
  * Bookmark
  */
-export const getBookmarks = async (
-  identity: string,
-  lang: string
-  // lang: ServerLangType
-) => {
+export const getBookmarks = async (identity: string, lang: UrlLangType) => {
   const response: AxiosResponse<BookmarksResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmarks`,
     { params: { identity, lang } }

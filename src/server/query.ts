@@ -5,7 +5,7 @@ import {
   getCommunityBoardResultData,
   getReplies,
 } from '@/api/Community';
-import { ServerLangType } from '@/types/common';
+import { ServerLangType, UrlLangType } from '@/types/common';
 import { useQuery } from 'react-query';
 
 export const getRepliesQuery = async ({
@@ -51,5 +51,5 @@ export const useGetBookmarksQuery = (props: useGetBookmarksQueryProps) => {
 
 export interface useGetBookmarksQueryProps {
   identity: string;
-  lang: string; // UrlLangType => 나중에 소진님 API 수정 후 고쳐야댐
+  lang: UrlLangType;
 }

@@ -77,7 +77,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (user_id === null) {
     bookmarksData = { SUBSCRIPTION_BOARDS: [] };
   } else {
-    bookmarksData = await getBookmarks(user_id, 'ko_KR');
+    bookmarksData = await getBookmarks(user_id, urlLang);
   }
 
   if (!!user_id && !!user_idx) {

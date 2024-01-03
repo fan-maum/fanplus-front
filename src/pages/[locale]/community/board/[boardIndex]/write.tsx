@@ -59,7 +59,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
 
-  const bookmarksData = await getBookmarks(userId, 'ko_KR');
+  const bookmarksData = await getBookmarks(userId, urlLang);
 
   const datas = { userId, boardIndex, boardLang, serverLang };
 

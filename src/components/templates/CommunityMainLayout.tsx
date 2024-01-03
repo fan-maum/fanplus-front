@@ -9,8 +9,12 @@ import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBo
 import MainAsideCategory from '../organisms/community/MainAsideCategory';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import { BookmarksResponseType } from '@/types/community';
+import { useGetBookmarksQuery } from '@/server/query';
+import { useQuery } from 'react-query';
+import { getBookmarks } from '@/api/Community';
 
 interface CommunityMainLayoutProps {
+  user_id: string;
   urlLang: UrlLangType;
   user?: PartialUserType;
   bookmarksData: BookmarksResponseType;
@@ -19,6 +23,7 @@ interface CommunityMainLayoutProps {
 }
 
 const CommunityMainLayout = ({
+  user_id,
   urlLang,
   bookmarksData,
   user,
@@ -28,6 +33,15 @@ const CommunityMainLayout = ({
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
   const bookmarks = bookmarksData.SUBSCRIPTION_BOARDS;
+  const locale = router.query.locale;
+
+  const { data, isFetched } = useQuery(
+    ['bookmarks', { user_id, urlLang }],
+    () => getBookmarks(user_id, urlLang),
+    { initialData: urlLang === locale ? bookmarksData : undefined }
+  );
+  console.log(bookmarksData);
+  console.log(data);
 
   return (
     <Layout urlLang={urlLang}>

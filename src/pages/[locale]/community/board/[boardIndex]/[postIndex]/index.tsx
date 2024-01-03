@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (identity === null) {
     bookmarksData = { SUBSCRIPTION_BOARDS: [] };
   } else {
-    bookmarksData = await getBookmarks(identity, 'ko_KR');
+    bookmarksData = await getBookmarks(identity, urlLang);
   }
 
   const props = {

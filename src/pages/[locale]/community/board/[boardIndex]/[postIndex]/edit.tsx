@@ -83,7 +83,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     return loginErrorHandler(error, urlLang, `/community/board/${boardIndex}/${postIndex}/edit/`);
   }
   const datas = { userId, boardIndex, postIndex, boardLang, serverLang };
-  const bookmarksData = await getBookmarks(userId, 'ko_KR');
+  const bookmarksData = await getBookmarks(userId, urlLang);
 
   const { NICK, PROFILE_IMG_URL } = (await getUser(userId, userIdx)).RESULTS.DATAS;
   const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
