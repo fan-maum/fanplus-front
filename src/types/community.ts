@@ -38,6 +38,18 @@ export type BoardInfoType = Omit<BoardListItemType, 'STAR_IDX' | 'STAR_GROUP_IDX
   IS_GROUP: 'Y' | 'N';
   IS_TREND: 'Y' | 'N';
 };
+export type NoticeListItemType = {
+  POST_IDX: string;
+  BOARD_IDX: string;
+  POST_TITLE: string;
+  POST_IMG_YN: 'Y' | 'N';
+  WRITER_IDX: string;
+  PUBLISH_DATE: string;
+  VIEW_CNT: string;
+  COMMENT_CNT: string;
+  RECOMMEND_CNT: string;
+  WRITER_NAME: string;
+};
 export type PostListItemType = {
   POST_IDX: string;
   BOARD_IDX: string;
@@ -69,23 +81,8 @@ export type CommunityBoardResponseType = {
       IS_TREND: 'Y' | 'N';
     }
   ];
-  POST_LIST: Array<PostListItemType>;
-};
-
-export type NoticeListItemType = {
-  POST_IDX: string;
-  BOARD_IDX: string;
-  POST_TITLE: string;
-  POST_IMG_YN: 'Y' | 'N';
-  WRITER_IDX: string;
-  PUBLISH_DATE: string;
-  VIEW_CNT: string;
-  COMMENT_CNT: string;
-  RECOMMEND_CNT: string;
-  WRITER_NAME: string;
-};
-export type GlobalNoticesResponseType = {
   NOTICE: Array<NoticeListItemType>;
+  POST_LIST: Array<PostListItemType>;
 };
 
 export type TopicListItemType = {

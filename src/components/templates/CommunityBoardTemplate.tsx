@@ -20,7 +20,6 @@ const CommunityBoardTemplate = ({
   userId,
   isAdminAccount,
   boardLangCookie,
-  globalNotices,
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
@@ -128,7 +127,6 @@ const CommunityBoardTemplate = ({
         )}
         {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
         <CommunityBoardArticleTable
-          globalNotices={globalNotices}
           communityBoardDataSSR={communityBoardData}
           texts={texts}
           queries={{ userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType }}

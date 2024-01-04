@@ -5,11 +5,7 @@ import CommunityBoardArticleTableHeader from '@/components/molecules/community/C
 import { CommunityBoardArticleTableSkeleton } from '@/components/molecules/community/CommunitySkeleton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType } from '@/types/common';
-import type {
-  CommunityBoardResponseType,
-  GlobalNoticesResponseType,
-  PostListItemType,
-} from '@/types/community';
+import type { CommunityBoardResponseType, PostListItemType } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
@@ -17,7 +13,6 @@ import CommunityBoardPagination from '../CommunityBoardPagination';
 import CommunityBoardNoPost from './CommunityBoardNoPost';
 
 type BoardArticleTableProps = {
-  globalNotices: GlobalNoticesResponseType;
   communityBoardDataSSR: CommunityBoardResponseType;
   texts: CommunityBoardTextType;
   queries: {
@@ -34,7 +29,6 @@ type BoardArticleTableProps = {
 };
 
 const CommunityBoardArticleTable = ({
-  globalNotices,
   communityBoardDataSSR,
   texts,
   queries,
@@ -63,7 +57,7 @@ const CommunityBoardArticleTable = ({
     });
   };
 
-  const noticeList = globalNotices.NOTICE;
+  const noticeList = communityBoardData?.NOTICE;
   const postList = communityBoardData?.POST_LIST;
   const boardInfo = communityBoardData?.BOARD_INFO[0];
 
