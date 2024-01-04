@@ -2,6 +2,7 @@ import {
   getCommunityBoardData,
   getCommunityBoardTopics,
   getCommunityNoticeBannerData,
+  getGlobalNotices,
   getUser,
 } from '@/api/Community';
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
@@ -12,6 +13,7 @@ import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
+  GlobalNoticesResponseType,
   PartialUserType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
@@ -22,6 +24,7 @@ export type CommunityBoardPropType = {
   userId: string;
   isAdminAccount: boolean;
   boardLangCookie: BoardLangType;
+  globalNotices: GlobalNoticesResponseType;
   communityBoardData: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   communityNoticeBannerData: CommunityNoticeBannerResponseType;
@@ -39,6 +42,7 @@ const Board = ({
   userId,
   isAdminAccount,
   boardLangCookie,
+  globalNotices,
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
@@ -53,6 +57,7 @@ const Board = ({
           userId={userId}
           isAdminAccount={isAdminAccount}
           boardLangCookie={boardLangCookie}
+          globalNotices={globalNotices}
           communityBoardData={communityBoardData}
           communityBoardTopics={communityBoardTopics}
           communityNoticeBannerData={communityNoticeBannerData}
@@ -79,6 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (!boardIndex) return { notFound: true };
 
+  const globalNotices = await getGlobalNotices(userId, serverLang, boardLangCookie);
   const communityBoardData = await getCommunityBoardData(
     userId,
     boardIndex,
@@ -97,6 +103,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     userId,
     isAdminAccount,
     boardLangCookie,
+    globalNotices,
     communityBoardData,
     communityBoardTopics,
     communityNoticeBannerData,

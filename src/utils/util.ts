@@ -67,19 +67,19 @@ export const formatWrittenTime = (prevTimeExpression: string) => {
 };
 
 /**
- * @param prevTimeExpression api 반환값 (ex: 2023-12-28 21:10:05)
+ * @param prevTimeExpression api 반환값 (ex: 2023-12-28T21:10:05)
  * @returns 오늘일 경우: 시간만 표시 (ex: 21:10 (KST))
  * @returns 오늘이 아닐 경우: 날짜만 표시 (ex: 2023.12.28)
  */
 export const formatWrittenTimeLite = (prevTimeExpression: string) => {
   const today = new Date();
-  const writtenTime = new Date(prevTimeExpression.replace(' ', 'T'));
+  const writtenTime = new Date(prevTimeExpression);
 
   const isToday = writtenTime.toDateString() === today.toDateString();
 
   return isToday
     ? `${writtenTime.getHours()}:${writtenTime.getMinutes()} (KST)`
-    : prevTimeExpression.split(' ')[0].replaceAll('-', '.');
+    : prevTimeExpression.split('T')[0].replaceAll('-', '.');
 };
 
 export const formatCommentCount = (commentCount: string | number) => {

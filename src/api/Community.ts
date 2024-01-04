@@ -6,6 +6,7 @@ import type {
   EditBoardArticleResponseType,
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
+  GlobalNoticesResponseType,
   PostBoardArticleResponseType,
   PostResponseType,
   RecentlyListResponseType,
@@ -44,6 +45,18 @@ export const getCommunityBoardData = async (
   const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
     { params: { userId, boardIndex, page, topic, lang, boardLang, viewType } }
+  );
+  return response.data;
+};
+
+export const getGlobalNotices = async (
+  userId: string,
+  lang: ServerLangType,
+  boardLang: BoardLangType
+) => {
+  const response: AxiosResponse<GlobalNoticesResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/globalNotices`,
+    { params: { userId, lang, boardLang } }
   );
   return response.data;
 };
