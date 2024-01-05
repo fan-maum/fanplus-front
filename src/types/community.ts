@@ -472,3 +472,13 @@ export type BestPostsResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type MultiBoardInquiryItemType = {
+  IDX: string;
+  TITLE: string;
+  BOARD_ICON: string;
+  HEAD_IMG: string;
+  POST_CNT: string;
+  isExistNewPost: boolean;
+};
+export type MultiBoardInquiryResponseType = Array<MultiBoardInquiryItemType>;

@@ -6,6 +6,7 @@ import type {
   EditBoardArticleResponseType,
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
+  MultiBoardInquiryResponseType,
   PostBoardArticleResponseType,
   PostResponseType,
   RecentlyListResponseType,
@@ -364,6 +365,18 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
   const response: AxiosResponse<BestPostsResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bestPosts`,
     { params: { lang, viewType } }
+  );
+  return response.data;
+};
+
+/**
+ * @desc 다중 게시판 조회
+ * @param boardIds 빈 배열 / undefined 모두 가능
+ */
+export const getMultiBoardsInquiry = async (lang: ServerLangType, boardIds?: number[]) => {
+  const response: AxiosResponse<MultiBoardInquiryResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardInquiry`,
+    { params: { lang, boardIds }, paramsSerializer: { indexes: null } }
   );
   return response.data;
 };
