@@ -1,6 +1,6 @@
 import MenuItem from '@/components/molecules/community/MenuItem';
 import { useServerLang } from '@/hooks/useLanguage';
-import { useGetMultiBoardInquiryQuery } from '@/server/query';
+import { useGetMultiBoardsInquiryQuery } from '@/server/query';
 import styled from '@emotion/styled';
 import MenuListToggle from './MenuListToggle';
 
@@ -11,7 +11,7 @@ const inquiryBoardList = [...mainMenuBoardList, ...subMenuBoardList];
 
 const MainMenuList = () => {
   const serverLang = useServerLang();
-  const { data, isFetching } = useGetMultiBoardInquiryQuery(serverLang, inquiryBoardList);
+  const { data, isFetching } = useGetMultiBoardsInquiryQuery(serverLang, inquiryBoardList);
 
   const mainMenu = data?.filter((menu) => mainMenuBoardList.includes(Number(menu.IDX)));
   const subMenu = data?.filter((menu) => !mainMenuBoardList.includes(Number(menu.IDX)));

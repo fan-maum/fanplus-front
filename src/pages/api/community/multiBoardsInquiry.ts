@@ -1,4 +1,4 @@
-import type { MultiBoardInquiryResponseType } from '@/types/community';
+import type { MultiBoardsInquiryResponseType } from '@/types/community';
 import axios, { AxiosError, type AxiosResponse } from 'axios';
 import type { NextApiHandler } from 'next';
 
@@ -10,7 +10,7 @@ const handler: NextApiHandler = async (req, res) => {
   const params = isBoardIds ? { boardIds, lang } : { lang };
 
   try {
-    const response: AxiosResponse<MultiBoardInquiryResponseType> = await axios.get(
+    const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/boards`,
       {
         params,

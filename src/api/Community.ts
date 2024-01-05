@@ -6,7 +6,7 @@ import type {
   EditBoardArticleResponseType,
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
-  MultiBoardInquiryResponseType,
+  MultiBoardsInquiryResponseType,
   PostBoardArticleResponseType,
   PostResponseType,
   RecentlyListResponseType,
@@ -374,8 +374,8 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
  * @param boardIds 빈 배열 / undefined 모두 가능
  */
 export const getMultiBoardsInquiry = async (lang: ServerLangType, boardIds?: number[]) => {
-  const response: AxiosResponse<MultiBoardInquiryResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardInquiry`,
+  const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardsInquiry`,
     { params: { lang, boardIds }, paramsSerializer: { indexes: null } }
   );
   return response.data;

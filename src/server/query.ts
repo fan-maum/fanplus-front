@@ -1,6 +1,5 @@
 import {
   getComments,
-  getCommunityBoardCategoryData,
   getCommunityBoardResultData,
   getMultiBoardsInquiry,
   getReplies,
@@ -40,9 +39,9 @@ export const useGetMainMenuCategoryQuery = (serverLang: ServerLangType) => {
   });
 };
 
-export const useGetMultiBoardInquiryQuery = (lang: ServerLangType, boardIds?: number[]) => {
+export const useGetMultiBoardsInquiryQuery = (lang: ServerLangType, boardIds?: number[]) => {
   return useQuery({
-    queryKey: 'multiBoardInquiry' + lang + boardIds?.toString(),
+    queryKey: 'multiBoardsInquiry' + lang + boardIds?.toString(),
     queryFn: () => getMultiBoardsInquiry(lang, boardIds),
     staleTime: 1000 * 60 * 60 * 1,
     cacheTime: 1000 * 60 * 60 * 3,

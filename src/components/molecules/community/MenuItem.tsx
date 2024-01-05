@@ -1,13 +1,13 @@
 import BookmarkButton from '@/components/atoms/BookmarkButton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/CommunityColors';
-import { MultiBoardInquiryItemType } from '@/types/community';
+import { MultiBoardsInquiryItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 type MenuItemProps = {
-  menuData: MultiBoardInquiryItemType;
+  menuData: MultiBoardsInquiryItemType;
   className?: string;
   disabledBookmark?: boolean;
 };

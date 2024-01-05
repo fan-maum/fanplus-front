@@ -473,7 +473,7 @@ export type BestPostsResponseType = {
   };
 };
 
-export type MultiBoardInquiryItemType = {
+export type MultiBoardsInquiryItemType = {
   IDX: string;
   TITLE: string;
   BOARD_ICON: string;
@@ -481,4 +481,4 @@ export type MultiBoardInquiryItemType = {
   POST_CNT: string;
   isExistNewPost: boolean;
 };
-export type MultiBoardInquiryResponseType = Array<MultiBoardInquiryItemType>;
+export type MultiBoardsInquiryResponseType = Array<MultiBoardsInquiryItemType>;
