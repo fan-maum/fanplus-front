@@ -23,7 +23,6 @@ const CommunityBoardTemplate = ({
   communityBoardData,
   communityBoardTopics,
   communityNoticeBannerData,
-  bookmarksData,
   initialProps,
 }: CommunityBoardPropType) => {
   const router = useRouter();
@@ -42,11 +41,6 @@ const CommunityBoardTemplate = ({
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const boardInfo = communityBoardData.BOARD_INFO[0];
   const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
-  const bookmarks = bookmarksData.SUBSCRIPTION_BOARDS;
-  const isBookmarked = Boolean(
-    bookmarks.find((bookmark) => Number(bookmark.BOARD_IDX) === boardIndex)
-  );
-
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
   const isInitialData =
     initialProps.boardLangCookie === boardLang &&
@@ -94,7 +88,8 @@ const CommunityBoardTemplate = ({
       <div>
         <CommunityBoardTopNavi
           boardTitle={boardInfo.BOARD_TITLE as string}
-          isBookmarked={isBookmarked}
+          urlLang={urlLang}
+          userId={userId}
           rightItem={
             <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <CommunityBoardLangSelector

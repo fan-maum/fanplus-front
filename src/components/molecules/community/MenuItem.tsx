@@ -2,24 +2,41 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
 import styled from '@emotion/styled';
-import { BoardResultItemType } from '@/types/community';
+import { BoardResultItemType, BookmarksItemType } from '@/types/community';
 import { colors } from '@/styles/CommunityColors';
-import { BookmarkItemType } from '@/components/organisms/community/MainAsideCategory';
+import { getCookie } from '@/utils/Cookie';
+import { UrlLangType } from '@/types/common';
+import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
 
 type MenuItemProps = {
   menuData: BoardResultItemType;
-  className?: string;
-  disabledBookmark?: boolean;
-  bookmarks: BookmarkItemType[];
+  bookmarks: Array<BookmarksItemType>;
+  urlLang: UrlLangType;
 };
 
-const MenuItem = ({ menuData, className, disabledBookmark, bookmarks }: MenuItemProps) => {
+type BookmarkProps = {
+  identity: string;
+  boardIndex: string;
+};
+
+const MenuItem = ({ menuData, bookmarks, urlLang }: MenuItemProps) => {
   const router = useRouter();
   const { boardIndex } = router.query;
   const href = `/community/board/${menuData.BOARD_IDX}/`;
+  const user_id = getCookie('user_id');
   const isBookmarked = Boolean(
-    bookmarks.find((bookmark) => bookmark.BOARD_IDX === menuData.BOARD_IDX)
+    bookmarks.find((bookmark) => bookmark.BOARD_IDX === String(menuData.BOARD_IDX))
   );
+
+  const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
+
+  const handleBookmarkOnClick = async (boardIndex: string) => {
+    if (isBookmarked) {
+      useRemoveBookmark.mutate({ identity: user_id, boardIndex });
+    } else {
+      useAddBookmark.mutate({ identity: user_id, boardIndex });
+    }
+  };
 
   return (
     <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.BOARD_IDX))}>
@@ -31,7 +48,11 @@ const MenuItem = ({ menuData, className, disabledBookmark, bookmarks }: MenuItem
         </span>
         {/* )} */}
       </Link>
-      <BookmarkButton isBookmarked={isBookmarked} className="bookmark-icon" />
+      <BookmarkButton
+        isBookmarked={isBookmarked}
+        className="bookmark-icon"
+        onClick={() => handleBookmarkOnClick(menuData.BOARD_IDX)}
+      />
     </MenuItemWrapper>
   );
 };

@@ -1,10 +1,8 @@
 import { getUser } from '@/api/Community';
-import { getBookmarks } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
 import type { UrlLangType } from '@/types/common';
 import type { PartialUserType } from '@/types/community';
-import { BookmarksResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 export interface MyPostPageProps {
   urlLang: UrlLangType;
@@ -17,10 +15,9 @@ const MyPostPage = ({
   user,
   userId,
   myPostData,
-  bookmarksData,
-}: MyPostPageProps & { user: PartialUserType } & { bookmarksData: BookmarksResponseType }) => {
+}: MyPostPageProps & { user: PartialUserType }) => {
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} bookmarksData={bookmarksData}>
+    <CommunityMainLayout urlLang={urlLang} user={user}>
       <CommunityMyPostTemplate urlLang={urlLang} userId={userId} myPostData={myPostData} />
     </CommunityMainLayout>
   );
@@ -73,12 +70,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       TIMESTAMP: 1695349603,
     },
   };
-  let bookmarksData;
-  if (user_id === null) {
-    bookmarksData = { SUBSCRIPTION_BOARDS: [] };
-  } else {
-    bookmarksData = await getBookmarks(user_id, urlLang);
-  }
 
   if (!!user_id && !!user_idx) {
     const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
@@ -90,7 +81,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       urlLang,
       userId: user_id,
       myPostData,
-      bookmarksData,
     },
   };
 };

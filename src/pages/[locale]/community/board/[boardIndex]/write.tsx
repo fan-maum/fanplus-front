@@ -1,13 +1,9 @@
-import { getBookmarks, getUser, getCommunityBoardTopics } from '@/api/Community';
+import { getUser, getCommunityBoardTopics } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
-import type {
-  CommunityBoardTopicResponseType,
-  BookmarksResponseType,
-  PartialUserType,
-} from '@/types/community';
+import type { CommunityBoardTopicResponseType, PartialUserType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
@@ -24,14 +20,10 @@ type CommunityPostWritePropType = {
   user: PartialUserType;
 };
 
-export interface bookmarksWriteProps extends CommunityPostWritePropType {
-  bookmarksData: BookmarksResponseType;
-}
-
-const Write = ({ urlLang, boardTopics, datas, user, bookmarksData }: bookmarksWriteProps) => {
+const Write = ({ urlLang, boardTopics, datas, user }: CommunityPostWritePropType) => {
   const router = useRouter();
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} bookmarksData={bookmarksData}>
+    <CommunityMainLayout urlLang={urlLang} user={user}>
       <PostEditorTemplate
         mode="CREATE"
         urlLang={urlLang}
@@ -59,15 +51,13 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
 
-  const bookmarksData = await getBookmarks(userId, urlLang);
-
   const datas = { userId, boardIndex, boardLang, serverLang };
 
   const { NICK, PROFILE_IMG_URL } = (await getUser(userId, userIdx)).RESULTS.DATAS;
   const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
 
   return {
-    props: { urlLang, boardTopics, datas, user, bookmarksData },
+    props: { urlLang, boardTopics, datas, user },
   };
 };
 

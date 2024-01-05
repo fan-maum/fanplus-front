@@ -8,40 +8,22 @@ import Layout from '../organisms/Layout';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
 import MainAsideCategory from '../organisms/community/MainAsideCategory';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
-import { BookmarksResponseType } from '@/types/community';
-import { useGetBookmarksQuery } from '@/server/query';
-import { useQuery } from 'react-query';
-import { getBookmarks } from '@/api/Community';
 
 interface CommunityMainLayoutProps {
-  user_id: string;
   urlLang: UrlLangType;
   user?: PartialUserType;
-  bookmarksData: BookmarksResponseType;
   withSearchInput?: boolean;
   children: ReactNode;
 }
 
 const CommunityMainLayout = ({
-  user_id,
   urlLang,
-  bookmarksData,
   user,
   withSearchInput,
   children,
 }: CommunityMainLayoutProps) => {
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
-  const bookmarks = bookmarksData.SUBSCRIPTION_BOARDS;
-  const locale = router.query.locale;
-
-  const { data, isFetched } = useQuery(
-    ['bookmarks', { user_id, urlLang }],
-    () => getBookmarks(user_id, urlLang),
-    { initialData: urlLang === locale ? bookmarksData : undefined }
-  );
-  console.log(bookmarksData);
-  console.log(data);
 
   return (
     <Layout urlLang={urlLang}>
@@ -49,7 +31,7 @@ const CommunityMainLayout = ({
         <div className="contents">
           <div className="mainAside">
             <MainAsideUserCard user={user} urlLang={urlLang} />
-            <MainAsideCategory urlLang={urlLang} bookmarks={bookmarks} />
+            <MainAsideCategory urlLang={urlLang} />
           </div>
           <div className="mainContent">
             {withSearchInput && <CommunityBoardSearchInputWrapper />}

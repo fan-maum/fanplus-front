@@ -3,25 +3,31 @@ import styled from '@emotion/styled';
 import MainBookmarkMenu from './MainBookmarkMenu';
 import MainMenuList from './MainMenuList';
 import { UrlLangType } from '@/types/common';
-import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
-import { BookmarkItemType } from './MainAsideCategory';
 import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
+import { useQuery } from 'react-query';
+import { getBookmarks } from '@/api/Community';
+import { getCookie } from '@/utils/Cookie';
 
 interface MainAsideMenusProps {
   urlLang: UrlLangType;
-  bookmarks: BookmarkItemType[];
 }
 
-const MainAsideMenus = ({ urlLang, bookmarks }: MainAsideMenusProps) => {
+const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
   const router = useRouter();
-  const serverLang = translateUrlLangToServerLang(urlLang);
   const texts = communityLayoutTexts[urlLang];
+  const user_id = getCookie('user_id');
+
+  const { data } = useQuery(['bookmarks', { user_id, urlLang }], () =>
+    getBookmarks(user_id, urlLang)
+  );
+  const bookmarks = data ?? [];
+
   const handleAllPostsBoardOnClick = () => {
     // eslint-disable-next-line no-console
-    console.log('clicked board');
+    console.log('전체글로 이동하기');
   };
 
   return (
@@ -44,11 +50,7 @@ const MainAsideMenus = ({ urlLang, bookmarks }: MainAsideMenusProps) => {
         </Link>
         <BookmarkButton isBookmarked={false} />
       </ScreenAllWrapper>
-      <MainMenuList
-        serverLang={serverLang}
-        bookmarks={bookmarks}
-        freeBoardText={texts.asideMenus[1]}
-      />
+      <MainMenuList urlLang={urlLang} bookmarks={bookmarks} freeBoardText={texts.asideMenus[1]} />
     </MenuWrapper>
   );
 };

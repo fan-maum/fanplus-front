@@ -1,19 +1,19 @@
 import MenuItem from '@/components/molecules/community/MenuItem';
 import { useGetMainMenuCategoryQuery } from '@/server/query';
-import { ServerLangType } from '@/types/common';
-import { BoardResultItemType } from '@/types/community';
+import { UrlLangType } from '@/types/common';
+import { BoardResultItemType, BookmarksItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import MenuListToggle from './MenuListToggle';
-import { BookmarkItemType } from './MainAsideCategory';
-import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 
 interface MainMenuListProps {
-  serverLang: ServerLangType;
-  bookmarks: BookmarkItemType[];
+  urlLang: UrlLangType;
+  bookmarks: Array<BookmarksItemType>;
   freeBoardText: string;
 }
 
-const MainMenuList = ({ serverLang, bookmarks, freeBoardText }: MainMenuListProps) => {
+const MainMenuList = ({ urlLang, bookmarks, freeBoardText }: MainMenuListProps) => {
+  const serverLang = translateUrlLangToServerLang(urlLang);
   const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
   const menus = data?.RESULTS.DATAS.BOARD_LIST;
   const mainMenu = menus?.filter(
@@ -26,13 +26,18 @@ const MainMenuList = ({ serverLang, bookmarks, freeBoardText }: MainMenuListProp
     <MainMenuListWrapper>
       <ul>
         {mainMenu?.map((menu: BoardResultItemType) => (
-          <MenuItem key={menu.BOARD_IDX} menuData={menu} bookmarks={bookmarks} />
+          <MenuItem key={menu.BOARD_IDX} menuData={menu} bookmarks={bookmarks} urlLang={urlLang} />
         ))}
       </ul>
       <MenuListToggle headerTitle={freeBoardText}>
         <ul>
           {subMenu?.map((menu: BoardResultItemType) => (
-            <MenuItem key={menu.BOARD_IDX} menuData={menu} bookmarks={bookmarks} />
+            <MenuItem
+              key={menu.BOARD_IDX}
+              menuData={menu}
+              bookmarks={bookmarks}
+              urlLang={urlLang}
+            />
           ))}
         </ul>
       </MenuListToggle>

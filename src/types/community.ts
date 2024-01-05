@@ -473,11 +473,9 @@ export type BestPostsResponseType = {
   };
 };
 
-export type BookmarksResponseType = {
-  SUBSCRIPTION_BOARDS: [
-    {
-      BOARD_IDX: string;
-      BOARD_TITLE: string;
-    }
-  ];
+export type BookmarksResponseType = Array<BookmarksItemType>;
+
+export type BookmarksItemType = {
+  BOARD_IDX: string;
+  BOARD_TITLE: string;
 };

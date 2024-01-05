@@ -1,9 +1,9 @@
-import { getBookmarks, getCommunityPostData, getUser } from '@/api/Community';
+import { getCommunityPostData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { ServerLangType, UrlLangType } from '@/types/common';
-import type { BookmarksResponseType, PartialUserType, PostResponseType } from '@/types/community';
+import type { PartialUserType, PostResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 
 export type CommunityPostPropType = {
@@ -23,12 +23,9 @@ const Post = ({
   serverLang,
   communityPostData,
   user,
-  bookmarksData,
-}: CommunityPostPropType & { user: PartialUserType } & {
-  bookmarksData: BookmarksResponseType;
-}) => {
+}: CommunityPostPropType & { user: PartialUserType }) => {
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} bookmarksData={bookmarksData}>
+    <CommunityMainLayout urlLang={urlLang} user={user}>
       <CommunityPostTemplate
         urlLang={urlLang}
         identity={identity}
@@ -55,13 +52,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, serverLang);
   if (communityPostData.RESULTS.DATAS.POST_INFO.IS_PUBLISH === 'N') return { notFound: true };
 
-  let bookmarksData;
-  if (identity === null) {
-    bookmarksData = { SUBSCRIPTION_BOARDS: [] };
-  } else {
-    bookmarksData = await getBookmarks(identity, urlLang);
-  }
-
   const props = {
     urlLang,
     identity,
@@ -69,7 +59,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     postIndex,
     serverLang,
     communityPostData,
-    bookmarksData,
   };
 
   if (!!identity && !!user_idx) {

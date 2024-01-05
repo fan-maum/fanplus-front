@@ -5,6 +5,7 @@ interface BookmarkButtonProps {
   className?: string;
   width?: string;
   height?: string;
+  onClick?: () => void;
 }
 
 export default function BookmarkButton({
@@ -12,17 +13,14 @@ export default function BookmarkButton({
   className = 'bookmark-icon',
   width,
   height,
+  onClick,
 }: BookmarkButtonProps) {
-  const handleBookmarkButtonClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('clicked');
-  };
   return (
     <div
       data-role="북마크-버튼"
       className={className}
       css={{ display: 'flex', height: height }}
-      onClick={handleBookmarkButtonClick}
+      onClick={onClick}
     >
       <IconBookmark isBookmarked={isBookmarked} width={width} height={height} />
     </div>

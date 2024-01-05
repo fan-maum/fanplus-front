@@ -1,5 +1,4 @@
 import {
-  getBookmarks,
   getCommunityBoardCategoryData,
   getCommunityBoardResultData,
   getUser,
@@ -9,7 +8,6 @@ import CommunitySearchTemplate from '@/components/templates/CommunitySearchTempl
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { ServerLangType, UrlLangType } from '@/types/common';
 import type {
-  BookmarksResponseType,
   CommunityBoardCategoryResponseType,
   CommunityBoardResultResponseType,
   PartialUserType,
@@ -31,25 +29,15 @@ export interface SearchPageProps {
   initialProps: InitialBoardResultProps;
 }
 
-export interface bookmarksSearchProps extends SearchPageProps {
-  bookmarksData: BookmarksResponseType;
-}
-
 export default function SearchPage({
   urlLang,
   boardCategoryData,
   boardResultData,
-  bookmarksData,
   initialProps,
   user,
-}: SearchPageProps & { user: PartialUserType } & { bookmarksData: BookmarksResponseType }) {
+}: SearchPageProps & { user: PartialUserType }) {
   return (
-    <CommunityMainLayout
-      urlLang={urlLang}
-      user={user}
-      bookmarksData={bookmarksData}
-      withSearchInput
-    >
+    <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
       <CommunitySearchTemplate
         urlLang={urlLang}
         boardCategoryData={boardCategoryData}
@@ -67,9 +55,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'] || null;
-
   const user_id = context.req.cookies.user_id;
   const user_idx = context.req.cookies.user_idx;
 
@@ -81,13 +66,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     page,
     per_page
   );
-
-  let bookmarksData;
-  if (userId === null) {
-    bookmarksData = { SUBSCRIPTION_BOARDS: [] };
-  } else {
-    bookmarksData = await getBookmarks(userId, urlLang);
-  }
 
   const initialProps = { category_type, searchValue, serverLang, page };
 
@@ -102,7 +80,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       urlLang,
       boardCategoryData,
       boardResultData,
-      bookmarksData,
       initialProps,
     },
   };

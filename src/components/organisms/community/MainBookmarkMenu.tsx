@@ -3,8 +3,8 @@ import BookmarkListToggle from './BookmarkListToggle';
 import NoBookmarkMessage from '@/components/molecules/community/NoBookMarkMessage';
 import { getCookie } from '@/utils/Cookie';
 import { useRouter } from 'next/router';
-import { BookmarkItemType } from './MainAsideCategory';
 import { UrlLangType } from '@/types/common';
+import { BookmarksItemType } from '@/types/community';
 
 const MainBookmarkMenu = ({
   urlLang,
@@ -12,7 +12,7 @@ const MainBookmarkMenu = ({
   bookmarkTitle,
 }: {
   urlLang: UrlLangType;
-  bookmarks: BookmarkItemType[];
+  bookmarks: Array<BookmarksItemType>;
   bookmarkTitle: string;
 }) => {
   const router = useRouter();
@@ -33,7 +33,12 @@ const MainBookmarkMenu = ({
           {hasBookmarkMenu ? (
             <div className="bookmark-list" style={{ fontSize: '13px' }}>
               {bookmarks.map((item) => (
-                <BookmarkMenuItem key={item.BOARD_IDX} menuInfo={item} />
+                <BookmarkMenuItem
+                  key={item.BOARD_IDX}
+                  menuInfo={item}
+                  user_id={user_id}
+                  bookmarks={bookmarks}
+                />
               ))}
             </div>
           ) : (

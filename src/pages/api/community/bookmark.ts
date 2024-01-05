@@ -3,18 +3,17 @@ import axios from 'axios';
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === 'POST') {
-    const { boardIndex } = req.query;
-    const { identity } = req.body;
+    const { identity, boardIdx } = req.body;
     try {
       const result = await axios({
         method: 'post',
         url: `${process.env.NEXT_PUBLIC_SERVER_URL}/boards/bookmark`,
         data: {
           identity: identity,
-          board_idx: boardIndex,
+          boardIdx: boardIdx,
         },
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
       res.status(200).json(result.data);
@@ -24,18 +23,19 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === 'DELETE') {
-    const { boardIndex } = req.query;
+    const { board_idx } = req.query;
     const { user_id } = req.cookies;
+
     try {
       const result = await axios({
         method: 'delete',
         url: `${process.env.NEXT_PUBLIC_SERVER_URL}/boards/bookmark`,
         data: {
           identity: user_id,
-          board_idx: boardIndex,
+          boardIdx: board_idx,
         },
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
       res.status(200).json(result.data);

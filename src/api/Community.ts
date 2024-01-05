@@ -380,24 +380,24 @@ export const getBookmarks = async (identity: string, lang: UrlLangType) => {
   return response.data;
 };
 
-export const postBookmark = async (identity: string, board_idx: string) => {
+export const postBookmark = async (identity: string, boardIdx: string) => {
   const response: AxiosResponse = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark`,
     {
       identity: identity,
-      board_idx: board_idx,
+      boardIdx: boardIdx,
     }
   );
   return response;
 };
 
-export const deleteBookmark = async (identity: string, board_idx: string) => {
+export const deleteBookmark = async (identity: string, boardIdx: string) => {
   const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark?board_idx=${board_idx}`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark?board_idx=${boardIdx}`,
     {
       data: {
         identity: identity,
-        board_idx: board_idx,
+        board_idx: boardIdx,
       },
     }
   );

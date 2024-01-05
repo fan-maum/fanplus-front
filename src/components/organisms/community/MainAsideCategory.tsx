@@ -3,21 +3,17 @@ import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import { UrlLangType } from '@/types/common';
 import styled from '@emotion/styled';
 import MainAsideMenus from './MainAsideMenus';
+import { BookmarksItemType } from '@/types/community';
 
-export interface BookmarkItemType {
-  BOARD_IDX: string;
-  BOARD_TITLE: string;
-}
-interface MainAsideMenuProps {
-  urlLang: UrlLangType;
-  bookmarks: BookmarkItemType[];
-}
+// interface MainAsideMenuProps {
+//   urlLang: UrlLangType;
+// }
 
-const MainAsideCategory = ({ urlLang, bookmarks }: MainAsideMenuProps) => {
+const MainAsideCategory = ({ urlLang }: { urlLang: UrlLangType }) => {
   const texts = communityLayoutTexts[urlLang];
   return (
     <MainAsideMenuWrapper>
-      <MainAsideMenus urlLang={urlLang} bookmarks={bookmarks} />
+      <MainAsideMenus urlLang={urlLang} />
       <PopularBoards title={texts.popularBoards + ' TOP 50'} />
     </MainAsideMenuWrapper>
   );

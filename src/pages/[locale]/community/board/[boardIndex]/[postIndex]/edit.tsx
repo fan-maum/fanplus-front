@@ -1,15 +1,9 @@
-import {
-  getCommunityBoardTopics,
-  getCommunityPostData,
-  getUser,
-  getBookmarks,
-} from '@/api/Community';
+import { getCommunityBoardTopics, getCommunityPostData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
-  BookmarksResponseType,
   CommunityBoardTopicResponseType,
   PartialUserType,
   PostResponseType,
@@ -31,20 +25,15 @@ type CommunityPostWritePropType = {
   user: PartialUserType;
 };
 
-export interface bookmarksEditProps extends CommunityPostWritePropType {
-  bookmarksData: BookmarksResponseType;
-}
-
 const Edit = ({
   urlLang,
   boardTopics,
   communityPostData,
   datas,
   user,
-  bookmarksData,
-}: bookmarksEditProps) => {
+}: CommunityPostWritePropType) => {
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} bookmarksData={bookmarksData}>
+    <CommunityMainLayout urlLang={urlLang} user={user}>
       <PostEditorTemplate
         mode="EDIT"
         urlLang={urlLang}
@@ -83,13 +72,12 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     return loginErrorHandler(error, urlLang, `/community/board/${boardIndex}/${postIndex}/edit/`);
   }
   const datas = { userId, boardIndex, postIndex, boardLang, serverLang };
-  const bookmarksData = await getBookmarks(userId, urlLang);
 
   const { NICK, PROFILE_IMG_URL } = (await getUser(userId, userIdx)).RESULTS.DATAS;
   const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
 
   return {
-    props: { urlLang, boardTopics, communityPostData, datas, user, bookmarksData },
+    props: { urlLang, boardTopics, communityPostData, datas, user },
   };
 };
 

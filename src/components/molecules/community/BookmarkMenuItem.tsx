@@ -1,4 +1,6 @@
 import BookmarkButton from '@/components/atoms/BookmarkButton';
+import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
+import { BookmarksItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -8,13 +10,21 @@ interface BookmarkMenuItemProps {
     BOARD_IDX: string;
     BOARD_TITLE: string;
   };
+  user_id: string;
+  bookmarks: Array<BookmarksItemType>;
 }
 
-const BookmarkMenuItem = ({ menuInfo }: BookmarkMenuItemProps) => {
+const BookmarkMenuItem = ({ menuInfo, user_id, bookmarks }: BookmarkMenuItemProps) => {
   const router = useRouter();
   const { BOARD_IDX, BOARD_TITLE } = menuInfo;
   const isActive = BOARD_IDX === router.query.boardIndex;
   const href = `/community/board/${BOARD_IDX}`;
+
+  const { useRemoveBookmark } = useBookmarkOnClick();
+
+  const addBookmarkOnClick = async (boardIndex: string) => {
+    useRemoveBookmark.mutate({ identity: user_id, boardIndex });
+  };
 
   return (
     <BookmarkMenuItemWrapper>
@@ -26,7 +36,11 @@ const BookmarkMenuItem = ({ menuInfo }: BookmarkMenuItemProps) => {
         </span>
         {/* )} */}
       </Link>
-      <BookmarkButton isBookmarked={true} height="18px" />
+      <BookmarkButton
+        isBookmarked={true}
+        height="18px"
+        onClick={() => addBookmarkOnClick(menuInfo.BOARD_IDX)}
+      />
     </BookmarkMenuItemWrapper>
   );
 };
