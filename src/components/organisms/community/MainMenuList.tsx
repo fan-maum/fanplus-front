@@ -1,39 +1,32 @@
 import MenuItem from '@/components/molecules/community/MenuItem';
-import { useGetMainMenuCategoryQuery } from '@/server/query';
-import { ServerLangType } from '@/types/common';
-import { BoardResultItemType } from '@/types/community';
+import { useServerLang } from '@/hooks/useLanguage';
+import { useGetMultiBoardsInquiryQuery } from '@/server/query';
 import styled from '@emotion/styled';
 import MenuListToggle from './MenuListToggle';
 
-interface MainMenuListProps {
-  serverLang: ServerLangType;
-}
+// * 2291: BEST 인기글(실시간) / 139: 공지사항 / 161: 건의사항 / 160: 자유게시판 / 115: 팬플 지식in / 192: 팬플러스 광고 사진 / 114: 팬픽 / 220: 팬픽 공지사항
+const mainMenuBoardList = [2291, 139];
+const subMenuBoardList = [161, 160, 115, 192, 114, 220];
+const inquiryBoardList = [...mainMenuBoardList, ...subMenuBoardList];
 
-const MainMenuList = ({ serverLang }: MainMenuListProps) => {
-  const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
-  const menus = data?.RESULTS.DATAS.BOARD_LIST;
-  const mainMenu = menus?.filter(
-    (list: BoardResultItemType) =>
-      String(list.BOARD_IDX) === '2291' || String(list.BOARD_IDX) === '139'
-  );
-  const subMenu = menus?.filter((list: BoardResultItemType) => !mainMenu.includes(list));
+const MainMenuList = () => {
+  const serverLang = useServerLang();
+  const { data, isFetching } = useGetMultiBoardsInquiryQuery(serverLang, inquiryBoardList);
 
-  const handleMenuListOnClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('clicked board');
-  };
+  const mainMenu = data?.filter((menu) => mainMenuBoardList.includes(Number(menu.IDX)));
+  const subMenu = data?.filter((menu) => !mainMenuBoardList.includes(Number(menu.IDX)));
 
   return (
     <MainMenuListWrapper>
       <ul>
-        {mainMenu?.map((menu: BoardResultItemType) => (
-          <MenuItem key={menu.BOARD_IDX} menuData={menu} onClick={handleMenuListOnClick} />
+        {mainMenu?.map((menu) => (
+          <MenuItem key={menu.IDX} menuData={menu} />
         ))}
       </ul>
       <MenuListToggle headerTitle="자유게시판">
         <ul>
-          {subMenu?.map((menu: BoardResultItemType) => (
-            <MenuItem key={menu.BOARD_IDX} menuData={menu} onClick={handleMenuListOnClick} />
+          {subMenu?.map((menu) => (
+            <MenuItem key={menu.IDX} menuData={menu} />
           ))}
         </ul>
       </MenuListToggle>
