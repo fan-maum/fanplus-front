@@ -10,6 +10,8 @@ const CommunityBoardArticleTableHeader = ({
 }: {
   firstHeader?: 'topic' | 'board';
 }) => {
+  console.log(firstHeader);
+
   const urlLang = useUrlLanguage();
   const texts = CommunityBoardArticleTableHeaderTexts[urlLang];
   return (

@@ -1,21 +1,19 @@
 import CommunityBoardLangSelector from '@/components/molecules/community/CommunityBoardLangSelector';
 import CommunityBoardTopNavi from '@/components/molecules/community/CommunityBoardTopNavi';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import { colors } from '@/styles/CommunityColors';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import type { BoardLangType } from '@/types/common';
 import { setBoardLangCookie } from '@/utils/langCookie';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import CommunityBoardArticleTable from './CommunityBoardArticleTable';
 import CommunityLanguageModal from '@/components/modals/CommunityLanguageModal';
 import CommunityCommonModal from '@/components/modals/CommunityCommonModal';
 import { CommunityPropTypes } from '@/pages/[locale]/community';
+import CommunityTypeBoardArticleTable from './CommunityTypeBoardArticleTable';
 
 const CommunityMainBoard = ({
   urlLang,
   userId,
-  isAdminAccount,
   boardLangCookie,
   communityMainBoardData,
   boardType,
@@ -23,11 +21,14 @@ const CommunityMainBoard = ({
 }: CommunityPropTypes & { boardType: string | string[] }) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
+  // eslint-disable-next-line no-console
+  console.log(communityMainBoardData);
 
   const page = Number(router.query.page) || 1;
   const topicIndex = Number(router.query.topic) || 0;
   const viewType = (router.query.view as string) || 'all';
   const boardIndex = Number(router.query.boardIndex);
+  const maxPage = initialProps.maxPage;
   const requestLang = translateUrlLangToServerLang(urlLang);
 
   const [boardLang, setBoardLang] = useState(boardLangCookie);
@@ -39,7 +40,7 @@ const CommunityMainBoard = ({
     initialProps.page === page &&
     initialProps.serverLang === requestLang &&
     initialProps.view_type === viewType &&
-    initialProps.topic === topicIndex;
+    initialProps.maxPage === topicIndex;
 
   const onClickWrite = () => {
     // eslint-disable-next-line no-console
@@ -58,6 +59,7 @@ const CommunityMainBoard = ({
       <div>
         <CommunityBoardTopNavi
           boardTitle={'전체글'}
+          boardType={boardType}
           rightItem={
             <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <CommunityBoardLangSelector
@@ -66,28 +68,15 @@ const CommunityMainBoard = ({
                 tooltipText={texts.langSelectorToolTip}
                 boardLang={boardLang}
               />
-              <button
-                css={{
-                  padding: '5px 8px',
-                  fontSize: 14,
-                  fontWeight: 600,
-                  outline: 'none',
-                  border: 'none',
-                  color: '#fff',
-                  backgroundColor: colors.primary[500],
-                  borderRadius: 6,
-                }}
-              >
-                글쓰기
-              </button>
             </div>
           }
         />
-        <CommunityBoardArticleTable
+        <CommunityTypeBoardArticleTable
           communityBoardDataSSR={communityMainBoardData}
           texts={texts}
-          queries={{ userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType }}
+          queries={{ userId, boardIndex, page, requestLang, boardLang, maxPage, viewType }}
           isInitialData={isInitialData}
+          isStarBoardTableHeader
           onClickWrite={onClickWrite}
         />
         <CommunityLanguageModal

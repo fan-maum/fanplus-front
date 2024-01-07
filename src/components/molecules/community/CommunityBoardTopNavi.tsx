@@ -6,12 +6,16 @@ import { colors } from '@/styles/CommunityColors';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
+  boardType?: string | string[];
   rightItem?: ReactNode;
 };
 
-const CommunityBoardTopNavi = ({ boardTitle, rightItem }: CommunityBoardTopNaviPropType) => {
+const CommunityBoardTopNavi = ({
+  boardTitle,
+  boardType,
+  rightItem,
+}: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
-
   return (
     <>
       <div
@@ -25,10 +29,12 @@ const CommunityBoardTopNavi = ({ boardTitle, rightItem }: CommunityBoardTopNaviP
         }}
       >
         <div css={{ display: 'flex', alignItems: 'center' }}>
-          <IconArrowLeft
-            iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
-            onClickBack={() => router.back()}
-          />
+          {!boardType && (
+            <IconArrowLeft
+              iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
+              onClickBack={() => router.back()}
+            />
+          )}
           <h2
             css={{
               fontSize: '18px',

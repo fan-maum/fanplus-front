@@ -33,7 +33,7 @@ export const getCommunityHomeData = async (userId: string, lang: ServerLangType)
 
 export const getCommunityBoardData = async (
   userId: string,
-  boardIndex: number | string,
+  boardType: number | string,
   page: number,
   lang: ServerLangType,
   boardLang: BoardLangType,
@@ -43,7 +43,23 @@ export const getCommunityBoardData = async (
   if (topic === 0) topic = '';
   const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang, viewType } }
+    { params: { userId, boardType, page, topic, lang, boardLang, viewType } }
+  );
+  return response.data;
+};
+
+export const getCommunityTypeBoardData = async (
+  userId: string,
+  boardType: string,
+  page: number,
+  maxPage: number,
+  lang: ServerLangType,
+  boardLang: BoardLangType,
+  viewType: string
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/typeBoard`,
+    { params: { userId, boardType, page, maxPage, lang, boardLang, viewType } }
   );
   return response.data;
 };

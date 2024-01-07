@@ -1,15 +1,10 @@
-import { getCommunityBoardData, getUser } from '@/api/Community';
+import { getCommunityTypeBoardData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
-import type {
-  CommunityBoardResponseType,
-  CommunityMainPageResponseType,
-  PartialUserType,
-} from '@/types/community';
+import type { CommunityMainPageResponseType, PartialUserType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import nookies from 'nookies';
 
 export type CommunityPropTypes = {
@@ -22,7 +17,7 @@ export type CommunityPropTypes = {
     page: number;
     serverLang: ServerLangType;
     boardLangCookie: BoardLangType;
-    topic: number;
+    maxPage: number;
     view_type: string;
   };
 };
@@ -36,9 +31,6 @@ const CommunityHomePage = ({
   initialProps,
   user,
 }: CommunityPropTypes & { user: PartialUserType }) => {
-  const router = useRouter();
-  const { boardType = 'community' } = router.query;
-
   return (
     <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
       <CommunityPageTemplate
@@ -48,7 +40,6 @@ const CommunityHomePage = ({
         boardLangCookie={boardLangCookie}
         communityMainBoardData={communityMainBoardData}
         initialProps={initialProps}
-        boardType={boardType}
       />
     </CommunityMainLayout>
   );
@@ -56,32 +47,31 @@ const CommunityHomePage = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
-  const userId = cookies['user_id'] || '';
+  const user_id = context.req.cookies.user_id || '';
+  const user_idx = context.req.cookies.user_idx;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const view_type = (context.query.view as string) || 'all';
   const page = parseInt(context.query.page as string) - 1 || 1;
-  const boardType = 'community';
-  const user_id = context.req.cookies.user_id;
-  const user_idx = context.req.cookies.user_idx;
+  const maxPage = 1000000;
   const topic = parseInt(context.query.topic as string) || 0;
   const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
 
-  const communityMainBoardData = await getCommunityBoardData(
-    userId,
-    boardType,
+  const communityMainBoardData: CommunityMainPageResponseType = await getCommunityTypeBoardData(
+    user_id,
+    'community',
     page,
+    maxPage,
     serverLang,
     boardLangCookie,
-    topic,
     view_type
   );
 
-  const initialProps = { page, serverLang, boardLangCookie, topic, view_type };
+  const initialProps = { page, serverLang, boardLangCookie, maxPage, view_type };
   const props = {
     urlLang,
-    userId,
+    user_id,
     isAdminAccount,
     boardLangCookie,
     communityMainBoardData,

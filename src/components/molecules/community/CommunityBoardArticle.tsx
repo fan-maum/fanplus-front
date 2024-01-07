@@ -12,7 +12,8 @@ type OwnPropType = {
 };
 
 const CommunityBoardArticle = ({ postItem, link, firstHeader, isNotice }: OwnPropType) => {
-  const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
+  const timeExpression =
+    postItem.PUBLISH_DATE !== null ? formatWrittenTimeLite(postItem.PUBLISH_DATE) : 0;
   const commentCount = Number(postItem.COMMENT_CNT) <= 999 ? Number(postItem.COMMENT_CNT) : '+999';
 
   return (

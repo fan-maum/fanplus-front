@@ -15,7 +15,8 @@ type OwnPropType = {
 };
 
 const CommunityBoardArticleMobile = ({ postItem, link, texts, showTopic }: OwnPropType) => {
-  const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
+  const timeExpression =
+    postItem.PUBLISH_DATE !== null ? formatWrittenTimeLite(postItem.PUBLISH_DATE) : 0;
 
   return (
     <Link

@@ -1,11 +1,15 @@
-import { getCommunityBoardData } from '@/api/Community';
+import { getCommunityBoardData, getCommunityTypeBoardData } from '@/api/Community';
 import CommunityBoardArticle from '@/components/molecules/community/CommunityBoardArticle';
 import CommunityBoardArticleMobile from '@/components/molecules/community/CommunityBoardArticleMobile';
 import CommunityBoardArticleTableHeader from '@/components/molecules/community/CommunityBoardArticleTableHeader';
 import { CommunityBoardArticleTableSkeleton } from '@/components/molecules/community/CommunitySkeleton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType } from '@/types/common';
-import type { CommunityBoardResponseType, PostListItemType } from '@/types/community';
+import type {
+  CommunityMainPageResponseType,
+  NoticeListItemType,
+  PostListItemType,
+} from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
@@ -13,7 +17,7 @@ import CommunityBoardPagination from '../CommunityBoardPagination';
 import CommunityBoardNoPost from './CommunityBoardNoPost';
 
 type BoardArticleTableProps = {
-  communityBoardDataSSR: CommunityBoardResponseType;
+  communityBoardDataSSR: CommunityMainPageResponseType;
   texts: CommunityBoardTextType;
   queries: {
     userId: string;
@@ -21,7 +25,7 @@ type BoardArticleTableProps = {
     page: number;
     requestLang: ServerLangType;
     boardLang: BoardLangType;
-    topicIndex: number;
+    maxPage: number;
     viewType: string;
   };
   isInitialData: boolean;
@@ -29,7 +33,7 @@ type BoardArticleTableProps = {
   onClickWrite: () => void;
 };
 
-const CommunityBoardArticleTable = ({
+const CommunityTypeBoardArticleTable = ({
   communityBoardDataSSR,
   texts,
   queries,
@@ -39,16 +43,24 @@ const CommunityBoardArticleTable = ({
 }: BoardArticleTableProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
-  const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
+  const { userId, boardIndex, page, requestLang, boardLang, maxPage, viewType } = queries;
   const tableHeader = isStarBoardTableHeader ? 'board' : 'topic';
 
   const { data: communityBoardData, isFetching } = useQuery(
     [
-      'communityBoardData',
-      { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType },
+      'communityTypeBoardData',
+      { userId, boardIndex, page, requestLang, boardLang, maxPage, viewType },
     ],
     () =>
-      getCommunityBoardData(userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType),
+      getCommunityTypeBoardData(
+        userId,
+        boardIndex,
+        page,
+        requestLang,
+        boardLang,
+        maxPage,
+        viewType
+      ),
     { initialData: isInitialData ? communityBoardDataSSR : undefined }
   );
 
@@ -59,9 +71,9 @@ const CommunityBoardArticleTable = ({
     });
   };
 
-  const noticeList = communityBoardData?.NOTICE;
-  const postList = communityBoardData?.POST_LIST;
-  const boardInfo = communityBoardData?.BOARD_INFO[0];
+  const noticeList: Array<NoticeListItemType> = communityBoardData?.NOTICE;
+  const postList: Array<PostListItemType> = communityBoardData?.POST_LIST;
+  const boardInfo: { VIEW_POSSIBLE_PAGE: number } = communityBoardData?.BOARD_INFO;
 
   const isPostExist = !(
     postList?.length === 0 &&
@@ -134,11 +146,11 @@ const CommunityBoardArticleTable = ({
         })}
       </ul>
       <CommunityBoardPagination
-        totalCount={Number(boardInfo?.POST_CNT)}
+        totalCount={Number(20 * boardInfo?.VIEW_POSSIBLE_PAGE)}
         handlePageChange={handlePageChange}
       />
     </div>
   );
 };
 
-export default CommunityBoardArticleTable;
+export default CommunityTypeBoardArticleTable;
