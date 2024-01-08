@@ -52,6 +52,7 @@ const CommunityBoardTopNavi = ({
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingRight: '10px',
+          paddingLeft: '22px',
           height: 40,
           marginTop: 20,
         }}

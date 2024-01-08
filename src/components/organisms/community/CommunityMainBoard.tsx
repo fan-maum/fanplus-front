@@ -50,7 +50,7 @@ const CommunityMainBoard = ({
     <>
       <div>
         <CommunityBoardTopNavi
-          boardTitle={'전체글'}
+          boardTitle={texts.bottomTabBar.all}
           boardType={boardType}
           urlLang={urlLang}
           userId={userId}

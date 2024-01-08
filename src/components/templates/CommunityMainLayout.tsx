@@ -42,7 +42,7 @@ const CommunityMainLayout = ({
                 css={{
                   width: 810,
                   minWidth: 810,
-                  '@media(max-width:768px)': {
+                  '@media(max-width:960px)': {
                     width: '100%',
                     minWidth: 360,
                   },

@@ -111,7 +111,9 @@ const CommunityBoardTemplate = ({
                   color: '#fff',
                   backgroundColor: colors.primary[500],
                   borderRadius: 6,
+                  cursor: 'pointer',
                 }}
+                onClick={onClickWrite}
               >
                 {texts.bottomTabBar.write}
               </button>

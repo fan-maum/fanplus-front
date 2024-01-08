@@ -26,7 +26,7 @@ const BestNotices = () => {
         height: '100%',
         border: '1px solid #d9d9d9',
         borderBottom: 'none',
-        '@media (max-width: 768px)': { display: 'none' },
+        '@media (max-width: 960px)': { display: 'none' },
       }}
     >
       <div
