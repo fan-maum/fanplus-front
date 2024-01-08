@@ -16,8 +16,26 @@ const CommunityPageTemplate = ({
   const { boardType = 'community' } = router.query;
 
   return (
-    <div css={{ width: 810, height: 600 }}>
-      <div css={{ display: 'flex', gap: 10, marginTop: 10 }}>
+    <div
+      css={{
+        width: 810,
+        height: 600,
+        '@media(max-width:768px)': {
+          width: '100%',
+          minWidth: 360,
+        },
+      }}
+    >
+      <div
+        css={{
+          display: 'flex',
+          gap: 10,
+          marginTop: 10,
+          '@media(max-width:768px)': {
+            display: 'none',
+          },
+        }}
+      >
         <HorizontalBestNotices />
         <NotificationBoard />
       </div>

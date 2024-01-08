@@ -43,8 +43,8 @@ const CommunityBoardArticleSkeleton = () => {
       <div css={{ width: 106, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Skeleton width={50} height={16} radius="sm" />
       </div>
-      <div css={{ width: 310, display: 'flex', alignItems: 'center' }}>
-        <Skeleton width={200} height={16} radius="sm" />
+      <div css={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+        <Skeleton width={'90%'} height={16} radius="sm" />
       </div>
       <div css={{ width: 78, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Skeleton width={64} height={16} radius="sm" />

@@ -36,7 +36,18 @@ const CommunityMainLayout = ({
           <div className="mainContent">
             {withSearchInput && <CommunityBoardSearchInputWrapper />}
             <div className="contentLayout">
-              <div css={{ width: 810, minWidth: 810 }}>{children}</div>
+              <div
+                css={{
+                  width: 810,
+                  minWidth: 810,
+                  '@media(max-width:768px)': {
+                    width: '100%',
+                    minWidth: 360,
+                  },
+                }}
+              >
+                {children}
+              </div>
               {!isCommunity && <BestNotices />}
             </div>
           </div>
@@ -76,13 +87,18 @@ const LayoutWrapper = styled.div`
     padding-top: 0;
     padding-bottom: 50px;
 
-    > .side-menu {
+    .mainAside {
       display: none;
     }
 
-    > .content {
+    .mainContent {
+      padding: 0 20px;
+      width: 100%;
       max-width: 100%;
-      padding-left: 0;
+
+      .contentLayout {
+        flex-direction: column;
+      }
     }
   }
 `;
