@@ -2,7 +2,7 @@ import type { UrlLangType } from '@/types/common';
 import type { PartialUserType } from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import BestNotices from '../molecules/community/BestNotices';
 import Layout from '../organisms/Layout';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';

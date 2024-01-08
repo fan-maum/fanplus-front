@@ -3,10 +3,13 @@ import styled from '@emotion/styled';
 import MainBookmarkMenu from './MainBookmarkMenu';
 import MainMenuList from './MainMenuList';
 import { UrlLangType } from '@/types/common';
-import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
+import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
+import { useQuery } from 'react-query';
+import { getBookmarks } from '@/api/Community';
+import { getCookie } from '@/utils/Cookie';
 
 interface MainAsideMenusProps {
   urlLang: UrlLangType;
@@ -14,16 +17,23 @@ interface MainAsideMenusProps {
 
 const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
   const router = useRouter();
-  const serverLang = translateUrlLangToServerLang(urlLang);
+  const texts = communityLayoutTexts[urlLang];
+  const user_id = getCookie('user_id');
+
+  const { data } = useQuery(['bookmarks', { user_id, urlLang }], () =>
+    getBookmarks(user_id, urlLang)
+  );
+  const bookmarks = data ?? [];
+
   const handleAllPostsBoardOnClick = () => {
     // eslint-disable-next-line no-console
-    console.log('clicked board');
+    console.log('전체글로 이동하기');
   };
 
   return (
     <MenuWrapper>
-      <div className="title">팬플러스 커뮤니티</div>
-      <MainBookmarkMenu />
+      <div className="title">{texts.fanplusCommunity}</div>
+      <MainBookmarkMenu urlLang={urlLang} bookmarks={bookmarks} bookmarkTitle={texts.bookmark} />
       <ScreenAllWrapper>
         <Link
           className="menu-title"
@@ -31,16 +41,16 @@ const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
           href={`/${urlLang}/community`}
           onClick={handleAllPostsBoardOnClick}
         >
-          <span className="title-top-menu">전체글</span>
+          <span className="title-top-menu">{texts.asideMenus[0]}</span>
           {/* {topMenu.hasNewPost && ( */}
           <span className="new">
             <img src="/icons/icon_new.svg" alt="new-icon" />
           </span>
           {/* )} */}
         </Link>
-        <BookmarkButton />
+        <BookmarkButton isBookmarked={false} />
       </ScreenAllWrapper>
-      <MainMenuList serverLang={serverLang} />
+      <MainMenuList urlLang={urlLang} bookmarks={bookmarks} freeBoardText={texts.asideMenus[1]} />
     </MenuWrapper>
   );
 };

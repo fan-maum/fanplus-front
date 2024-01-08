@@ -52,7 +52,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, serverLang);
   if (communityPostData.RESULTS.DATAS.POST_INFO.IS_PUBLISH === 'N') return { notFound: true };
 
-  const props = { urlLang, identity, user_idx, postIndex, serverLang, communityPostData };
+  const props = {
+    urlLang,
+    identity,
+    user_idx,
+    postIndex,
+    serverLang,
+    communityPostData,
+  };
 
   if (!!identity && !!user_idx) {
     const { NICK, PROFILE_IMG_URL } = (await getUser(identity, user_idx)).RESULTS.DATAS;

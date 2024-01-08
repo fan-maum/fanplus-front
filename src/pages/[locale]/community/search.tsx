@@ -13,6 +13,7 @@ import type {
   PartialUserType,
 } from '@/types/community';
 import { GetServerSideProps } from 'next';
+import nookies from 'nookies';
 
 type InitialBoardResultProps = {
   category_type: number;
@@ -54,7 +55,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
-
   const user_id = context.req.cookies.user_id;
   const user_idx = context.req.cookies.user_idx;
 
@@ -66,6 +66,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     page,
     per_page
   );
+
   const initialProps = { category_type, searchValue, serverLang, page };
 
   if (!!user_id && !!user_idx) {

@@ -1,4 +1,4 @@
-import { getCommunityBoardTopics, getUser } from '@/api/Community';
+import { getUser, getCommunityBoardTopics } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
@@ -50,6 +50,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   if (!userId || !userIdx) return noUserIdHandler(urlLang, `/community/board/${boardIndex}/write/`);
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
+
   const datas = { userId, boardIndex, boardLang, serverLang };
 
   const { NICK, PROFILE_IMG_URL } = (await getUser(userId, userIdx)).RESULTS.DATAS;

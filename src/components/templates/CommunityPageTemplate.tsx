@@ -1,5 +1,6 @@
 import NotificationBoard from '../molecules/community/NotificationBoard';
 import HorizontalBestNotices from '../molecules/community/HorizontalBestNotices';
+import { BookmarksResponseType } from '@/types/community';
 
 const CommunityPageTemplate = () => {
   return (
@@ -8,6 +9,7 @@ const CommunityPageTemplate = () => {
         <HorizontalBestNotices />
         <NotificationBoard />
       </div>
+      <div>전체글</div>
     </div>
   );
 };

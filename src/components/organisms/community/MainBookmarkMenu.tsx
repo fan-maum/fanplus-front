@@ -1,45 +1,48 @@
 import BookmarkMenuItem from '@/components/molecules/community/BookmarkMenuItem';
 import BookmarkListToggle from './BookmarkListToggle';
 import NoBookmarkMessage from '@/components/molecules/community/NoBookMarkMessage';
+import { getCookie } from '@/utils/Cookie';
+import { useRouter } from 'next/router';
+import { UrlLangType } from '@/types/common';
+import { BookmarksItemType } from '@/types/community';
 
-const MainBookmarkMenu = () => {
-  const data = {
-    bookmarks: [
-      {
-        id: 1,
-        title: 'BEST 인기글(실시간)',
-        slug: '2291',
-        hasNewPost: true,
-      },
-    ],
-  };
+const MainBookmarkMenu = ({
+  urlLang,
+  bookmarks,
+  bookmarkTitle,
+}: {
+  urlLang: UrlLangType;
+  bookmarks: Array<BookmarksItemType>;
+  bookmarkTitle: string;
+}) => {
+  const router = useRouter();
+  const path = router.asPath;
+  const user_id = getCookie('user_id');
   const handleBookmark = () => {
-    // eslint-disable-next-line no-console
-    console.log('clicked');
-
-    // if (!user.data.id) {
-    //   router.push('/login');
-    // }
+    if (!user_id) {
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+    }
   };
-  const hasBookmarkMenu = false;
+
+  const hasBookmarkMenu = bookmarks?.length > 0;
+
   return (
     <div onClick={handleBookmark}>
-      <BookmarkListToggle headerTitle="즐겨찾기" isActive={Boolean(data?.bookmarks.length)}>
+      <BookmarkListToggle headerTitle={bookmarkTitle} isActive={Boolean(bookmarks?.length)}>
         <div>
           {hasBookmarkMenu ? (
-            <div
-              className="bookmark-list"
-              style={{
-                padding: '0 0 10px',
-                fontSize: '13px',
-              }}
-            >
-              {data?.bookmarks.map((item) => (
-                <BookmarkMenuItem key={item.id} menuInfo={item} />
+            <div className="bookmark-list" style={{ fontSize: '13px' }}>
+              {bookmarks.map((item) => (
+                <BookmarkMenuItem
+                  key={item.BOARD_IDX}
+                  menuInfo={item}
+                  user_id={user_id}
+                  bookmarks={bookmarks}
+                />
               ))}
             </div>
           ) : (
-            <NoBookmarkMessage />
+            <NoBookmarkMessage urlLang={urlLang} />
           )}
         </div>
       </BookmarkListToggle>

@@ -1,7 +1,18 @@
 import BoardDomainItem from '@/components/molecules/community/BoardDomainItem';
 import { useRouter } from 'next/router';
 
-const BoardDomains = ({ viewType }: { viewType: string }) => {
+interface BoardDomainsProps {
+  viewType: string;
+  boardDomainTexts: {
+    write: string;
+    all: string;
+    popular: string;
+    notice: string;
+    myPost: string;
+  };
+}
+
+const BoardDomains = ({ viewType, boardDomainTexts }: BoardDomainsProps) => {
   const router = useRouter();
   const onClickAll = async () => {
     if (viewType !== 'all') {
@@ -30,9 +41,17 @@ const BoardDomains = ({ viewType }: { viewType: string }) => {
   };
   return (
     <div css={{ minWidth: '170px' }}>
-      <BoardDomainItem domainParam="전체글" domain="all" onClick={onClickAll} />
-      <BoardDomainItem domainParam="인기글" domain="best_post" onClick={onClickPopular} />
-      <BoardDomainItem domainParam="공지" domain="notice" onClick={onClickNotice} />
+      <BoardDomainItem domainParam={boardDomainTexts.all} domain="all" onClick={onClickAll} />
+      <BoardDomainItem
+        domainParam={boardDomainTexts.popular}
+        domain="best_post"
+        onClick={onClickPopular}
+      />
+      <BoardDomainItem
+        domainParam={boardDomainTexts.notice}
+        domain="notice"
+        onClick={onClickNotice}
+      />
     </div>
   );
 };

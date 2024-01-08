@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import CommunityPostInfo from './CommunityPostInfo';
 import { CommunityPostTextType } from '@/types/textTypes';
-import IconBookmark from '@/components/atoms/IconBookmark';
 
 interface PostDetailHeaderProps {
   identity: string;
@@ -49,14 +48,13 @@ const PostDetailHeader = ({
   texts,
 }: PostDetailHeaderProps) => {
   const router = useRouter();
-  const boardIndex = Number(router.query.boardIndex);
+  const boardFrom = Number(router.query.from);
 
   return (
     <PostDetailHeaderWrapper>
-      {isPostDetailConstant[boardIndex] && (
+      {isPostDetailConstant[boardFrom] && (
         <div className="post-header">
-          <h2 className="header-title">{isPostDetailBoardTitle[boardIndex]}</h2>
-          <IconBookmark width="24" height="24" iconCss={{ padding: 2 }} />
+          <h2 className="header-title">{isPostDetailBoardTitle[boardFrom]}</h2>
         </div>
       )}
       <CommunityPostInfo

@@ -41,7 +41,6 @@ const CommunityBoardTemplate = ({
   const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
   const boardInfo = communityBoardData.BOARD_INFO[0];
   const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
-
   const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
   const isInitialData =
     initialProps.boardLangCookie === boardLang &&
@@ -89,6 +88,8 @@ const CommunityBoardTemplate = ({
       <div>
         <CommunityBoardTopNavi
           boardTitle={boardInfo.BOARD_TITLE as string}
+          urlLang={urlLang}
+          userId={userId}
           rightItem={
             <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <CommunityBoardLangSelector
@@ -109,14 +110,14 @@ const CommunityBoardTemplate = ({
                   borderRadius: 6,
                 }}
               >
-                글쓰기
+                {texts.bottomTabBar.write}
               </button>
             </div>
           }
         />
         {!isBestBoard && (
           <div css={{ display: 'flex', alignItems: 'center', gap: 20, height: 52 }}>
-            <BoardDomains viewType={viewType} />
+            <BoardDomains viewType={viewType} boardDomainTexts={texts.bottomTabBar} />
             <CommunityBoardTopicTabBar
               stringTopicAll={texts.all}
               topicList={topicList}

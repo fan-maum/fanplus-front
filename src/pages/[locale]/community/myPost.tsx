@@ -25,7 +25,7 @@ const MyPostPage = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const urlLang = context.query.locale as UrlLangType;
-  const user_id = context.req.cookies.user_id;
+  const user_id = context.req.cookies.user_id || null;
   const user_idx = context.req.cookies.user_idx;
 
   const myPostData = {

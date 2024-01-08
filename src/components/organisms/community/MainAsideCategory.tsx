@@ -3,12 +3,13 @@ import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import { UrlLangType } from '@/types/common';
 import styled from '@emotion/styled';
 import MainAsideMenus from './MainAsideMenus';
+import { BookmarksItemType } from '@/types/community';
 
-interface MainAsideMenuProps {
-  urlLang: UrlLangType;
-}
+// interface MainAsideMenuProps {
+//   urlLang: UrlLangType;
+// }
 
-const MainAsideCategory = ({ urlLang }: MainAsideMenuProps) => {
+const MainAsideCategory = ({ urlLang }: { urlLang: UrlLangType }) => {
   const texts = communityLayoutTexts[urlLang];
   return (
     <MainAsideMenuWrapper>
