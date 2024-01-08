@@ -7,11 +7,13 @@ import type {
   EditBoardArticleResponseType,
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
+  MainPageNoticesResponseType,
+  MultiBoardsInquiryResponseType,
   PostBoardArticleResponseType,
   PostResponseType,
   RecentlyListResponseType,
   RecommendListResponseType,
-  Top30PopularBoardsResponseType,
+  Top50PopularBoardsResponseType,
   UserResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
@@ -366,9 +368,9 @@ export const getUser = async (identity?: string, user_idx?: string) => {
 /**
  * TOP30 인기 게시판
  */
-export const getTop30PopularBoards = async (lang: ServerLangType) => {
-  const response: AxiosResponse<Top30PopularBoardsResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/PopularTop30`,
+export const getTop50PopularBoards = async (lang: ServerLangType) => {
+  const response: AxiosResponse<Top50PopularBoardsResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/PopularTop50`,
     { params: { lang } }
   );
   return response.data;
@@ -392,6 +394,16 @@ export const getBookmarks = async (identity: string, lang: UrlLangType) => {
   const response: AxiosResponse<BookmarksResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmarks`,
     { params: { identity, lang } }
+  );
+};
+
+/**
+ * 전체 공지
+ */
+export const getMainPageNotices = async (collectionId: number) => {
+  const response: AxiosResponse<MainPageNoticesResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/mainpageNotices`,
+    { params: { collectionId } }
   );
   return response.data;
 };
@@ -418,4 +430,16 @@ export const deleteBookmark = async (identity: string, boardIdx: string) => {
     }
   );
   return response;
+};
+
+/**
+ * @desc 다중 게시판 조회
+ * @param boardIds 빈 배열 / undefined 모두 가능
+ */
+export const getMultiBoardsInquiry = async (lang: ServerLangType, boardIds?: number[]) => {
+  const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardsInquiry`,
+    { params: { lang, boardIds }, paramsSerializer: { indexes: null } }
+  );
+  return response.data;
 };

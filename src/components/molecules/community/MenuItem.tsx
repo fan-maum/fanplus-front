@@ -1,31 +1,29 @@
+import BookmarkButton from '@/components/atoms/BookmarkButton';
+import { useUrlLanguage } from '@/hooks/useLanguage';
+import { colors } from '@/styles/CommunityColors';
+import { MultiBoardsInquiryItemType } from '@/types/community';
+import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import BookmarkButton from '@/components/atoms/BookmarkButton';
-import styled from '@emotion/styled';
-import { BoardResultItemType, BookmarksItemType } from '@/types/community';
-import { colors } from '@/styles/CommunityColors';
+import { BookmarksItemType } from '@/types/community';
 import { getCookie } from '@/utils/Cookie';
-import { UrlLangType } from '@/types/common';
 import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
 
 type MenuItemProps = {
-  menuData: BoardResultItemType;
+  menuData: MultiBoardsInquiryItemType;
+  className?: string;
+  disabledBookmark?: boolean;
   bookmarks: Array<BookmarksItemType>;
-  urlLang: UrlLangType;
 };
 
-type BookmarkProps = {
-  identity: string;
-  boardIndex: string;
-};
-
-const MenuItem = ({ menuData, bookmarks, urlLang }: MenuItemProps) => {
+const MenuItem = ({ menuData, className, disabledBookmark, bookmarks }: MenuItemProps) => {
   const router = useRouter();
+  const urlLang = useUrlLanguage();
   const { boardIndex } = router.query;
-  const href = `/community/board/${menuData.BOARD_IDX}/`;
+  const href = `/${urlLang}/community/board/${menuData.IDX}/`;
   const user_id = getCookie('user_id');
   const isBookmarked = Boolean(
-    bookmarks.find((bookmark) => bookmark.BOARD_IDX === String(menuData.BOARD_IDX))
+    bookmarks.find((bookmark) => bookmark.BOARD_IDX === String(menuData.IDX))
   );
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
@@ -39,19 +37,19 @@ const MenuItem = ({ menuData, bookmarks, urlLang }: MenuItemProps) => {
   };
 
   return (
-    <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.BOARD_IDX))}>
+    <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.IDX))}>
       <Link href={href} className="board-link">
-        <span className="submenu-title">{menuData.BOARD_TITLE}</span>
-        {/* {menuData.hasNewPost && ( */}
-        <span className="new">
-          <img src="/icons/icon_new.svg" alt="new-icon" />
-        </span>
-        {/* )} */}
+        <span className="submenu-title">{menuData.TITLE}</span>
+        {menuData.isExistNewPost && (
+          <span className="new">
+            <img src="/icons/icon_new.svg" alt="new-icon" />
+          </span>
+        )}
       </Link>
       <BookmarkButton
         isBookmarked={isBookmarked}
         className="bookmark-icon"
-        onClick={() => handleBookmarkOnClick(menuData.BOARD_IDX)}
+        onClick={() => handleBookmarkOnClick(menuData.IDX)}
       />
     </MenuItemWrapper>
   );

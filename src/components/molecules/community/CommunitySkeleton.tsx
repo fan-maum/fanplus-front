@@ -135,7 +135,7 @@ const PopularBoardItemSkeleton = () => {
 };
 
 export const PopularBoardsSkeleton = () => {
-  return Array.from({ length: 30 }, (_, idx) => (
+  return Array.from({ length: 50 }, (_, idx) => (
     <PopularBoardItemSkeleton key={'Popular Board Item Skeleton' + idx} />
   ));
 };
@@ -217,7 +217,6 @@ const NotificationBoardSkeleton = () => {
         gap: 10,
         alignItems: 'flex-start',
         justifyContent: 'start',
-        borderBottom: '1px solid #d9d9d9',
       }}
     >
       <span>

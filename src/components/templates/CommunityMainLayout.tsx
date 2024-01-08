@@ -4,9 +4,10 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { type ReactNode } from 'react';
 import BestNotices from '../molecules/community/BestNotices';
+import PopularBoards from '../molecules/community/PopularBoards';
 import Layout from '../organisms/Layout';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
-import MainAsideCategory from '../organisms/community/MainAsideCategory';
+import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 
 interface CommunityMainLayoutProps {
@@ -30,8 +31,9 @@ const CommunityMainLayout = ({
       <LayoutWrapper>
         <div className="contents">
           <div className="mainAside">
-            <MainAsideUserCard user={user} urlLang={urlLang} />
-            <MainAsideCategory urlLang={urlLang} />
+            <MainAsideUserCard user={user} />
+            <MainAsideMenus />
+            <PopularBoards />
           </div>
           <div className="mainContent">
             {withSearchInput && <CommunityBoardSearchInputWrapper />}
@@ -73,7 +75,9 @@ const LayoutWrapper = styled.div`
     width: 230px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+  }
+  .mainAside > div:first-child {
+    margin-bottom: 14px;
   }
   .mainContent {
     .contentLayout {

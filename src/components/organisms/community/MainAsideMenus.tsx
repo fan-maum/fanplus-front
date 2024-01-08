@@ -1,22 +1,19 @@
+import BookmarkButton from '@/components/atoms/BookmarkButton';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/CommunityColors';
 import styled from '@emotion/styled';
 import MainBookmarkMenu from './MainBookmarkMenu';
 import MainMenuList from './MainMenuList';
-import { UrlLangType } from '@/types/common';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import BookmarkButton from '@/components/atoms/BookmarkButton';
 import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import { useQuery } from 'react-query';
 import { getBookmarks } from '@/api/Community';
 import { getCookie } from '@/utils/Cookie';
 
-interface MainAsideMenusProps {
-  urlLang: UrlLangType;
-}
-
-const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
+const MainAsideMenus = () => {
   const router = useRouter();
+  const urlLang = useUrlLanguage();
   const texts = communityLayoutTexts[urlLang];
   const user_id = getCookie('user_id');
 
@@ -24,11 +21,6 @@ const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
     getBookmarks(user_id, urlLang)
   );
   const bookmarks = data ?? [];
-
-  const handleAllPostsBoardOnClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('전체글로 이동하기');
-  };
 
   return (
     <MenuWrapper>
@@ -38,15 +30,13 @@ const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
         <Link
           className="menu-title"
           data-active={router.pathname === '/[locale]/community'}
-          href={`/${urlLang}/community`}
-          onClick={handleAllPostsBoardOnClick}
+          href={`/${urlLang}/community/`}
         >
           <span className="title-top-menu">{texts.asideMenus[0]}</span>
           {/* {topMenu.hasNewPost && ( */}
           <span className="new">
             <img src="/icons/icon_new.svg" alt="new-icon" />
           </span>
-          {/* )} */}
         </Link>
         <BookmarkButton isBookmarked={false} />
       </ScreenAllWrapper>
@@ -85,11 +75,10 @@ const MenuWrapper = styled.div`
     .title-top-menu {
       font-weight: 500;
       font-size: 14px;
-      color: ${colors.primary[500]};
     }
 
     &[data-active='true'] {
-      color: var(--color-primary);
+      color: ${colors.primary[500]};
     }
   }
 

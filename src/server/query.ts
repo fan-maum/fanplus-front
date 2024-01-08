@@ -1,7 +1,7 @@
+import { getMultiBoardsInquiry } from './../api/Community';
 import {
   getBookmarks,
   getComments,
-  getCommunityBoardCategoryData,
   getCommunityBoardResultData,
   getReplies,
 } from '@/api/Community';
@@ -53,3 +53,14 @@ export interface useGetBookmarksQueryProps {
   identity: string;
   lang: UrlLangType;
 }
+
+/* community */
+
+export const useGetMultiBoardsInquiryQuery = (lang: ServerLangType, boardIds?: number[]) => {
+  return useQuery({
+    queryKey: 'multiBoardsInquiry' + lang + boardIds?.toString(),
+    queryFn: () => getMultiBoardsInquiry(lang, boardIds),
+    staleTime: 1000 * 60 * 60 * 1,
+    cacheTime: 1000 * 60 * 60 * 3,
+  });
+};

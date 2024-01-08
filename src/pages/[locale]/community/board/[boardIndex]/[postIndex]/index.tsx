@@ -5,6 +5,8 @@ import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { ServerLangType, UrlLangType } from '@/types/common';
 import type { PartialUserType, PostResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
+import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 
 export type CommunityPostPropType = {
   urlLang: UrlLangType;
@@ -24,17 +26,35 @@ const Post = ({
   communityPostData,
   user,
 }: CommunityPostPropType & { user: PartialUserType }) => {
+  const router = useRouter();
+  const url = process.env.NEXT_PUBLIC_CLIENT_URL + router.asPath;
+
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user}>
-      <CommunityPostTemplate
-        urlLang={urlLang}
-        identity={identity}
-        user_idx={user_idx}
-        postIndex={postIndex}
-        serverLang={serverLang}
-        communityPostData={communityPostData}
+    <>
+      <NextSeo
+        title={communityPostData.RESULTS.DATAS.POST_INFO.POST_TITLE}
+        description={communityPostData.RESULTS.DATAS.POST_INFO.POST_CONTENTS}
+        canonical={url}
+        openGraph={{
+          title: communityPostData.RESULTS.DATAS.POST_INFO.POST_TITLE,
+          type: 'website',
+          url: url,
+          siteName: '팬플러스(fanPlus)',
+          description: communityPostData.RESULTS.DATAS.POST_INFO.POST_CONTENTS,
+          images: [{ url: communityPostData.RESULTS.DATAS.POST_INFO.SUMNAIL_IMG }],
+        }}
       />
-    </CommunityMainLayout>
+      <CommunityMainLayout urlLang={urlLang} user={user}>
+        <CommunityPostTemplate
+          urlLang={urlLang}
+          identity={identity}
+          user_idx={user_idx}
+          postIndex={postIndex}
+          serverLang={serverLang}
+          communityPostData={communityPostData}
+        />
+      </CommunityMainLayout>
+    </>
   );
 };
 
