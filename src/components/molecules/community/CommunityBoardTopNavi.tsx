@@ -1,16 +1,48 @@
 import { useRouter } from 'next/router';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { ReactNode } from 'react';
-import IconBookmark from '@/components/atoms/IconBookmark';
 import { colors } from '@/styles/CommunityColors';
+import BookmarkButton from '@/components/atoms/BookmarkButton';
+import { useQuery } from 'react-query';
+import { UrlLangType } from '@/types/common';
+import { getBookmarks } from '@/api/Community';
+import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
+import { BookmarksItemType } from '@/types/community';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
+  boardType?: string | string[];
+  urlLang: UrlLangType;
+  userId: string;
   rightItem?: ReactNode;
 };
 
-const CommunityBoardTopNavi = ({ boardTitle, rightItem }: CommunityBoardTopNaviPropType) => {
+const CommunityBoardTopNavi = ({
+  boardTitle,
+  boardType,
+  urlLang,
+  userId,
+  rightItem,
+}: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
+  const boardIndex = router.query.boardIndex;
+  const { data } = useQuery(['bookmarks', { userId, urlLang }], () =>
+    getBookmarks(userId, urlLang)
+  );
+  const bookmarks = data ?? [];
+  const isBookmarked = Boolean(
+    bookmarks.find((bookmark: BookmarksItemType) => bookmark.BOARD_IDX === boardIndex)
+  );
+
+  const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
+
+  const handleBookmarkOnClick = async (boardIndex: string) => {
+    if (isBookmarked) {
+      useRemoveBookmark.mutate({ identity: userId, boardIndex });
+    } else {
+      useAddBookmark.mutate({ identity: userId, boardIndex });
+    }
+  };
 
   return (
     <>
@@ -25,11 +57,13 @@ const CommunityBoardTopNavi = ({ boardTitle, rightItem }: CommunityBoardTopNaviP
         }}
       >
         <div css={{ display: 'flex', alignItems: 'center' }}>
-          <IconArrowLeft
-            iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
-            onClickBack={() => router.back()}
-          />
-          <h2
+          {!boardType && (
+            <IconArrowLeft
+              iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
+              onClickBack={() => router.back()}
+            />
+          )}
+          <h1
             css={{
               fontSize: '18px',
               fontWeight: 600,
@@ -37,8 +71,13 @@ const CommunityBoardTopNavi = ({ boardTitle, rightItem }: CommunityBoardTopNaviP
             }}
           >
             {boardTitle}
-          </h2>
-          <IconBookmark width="24" height="24" />
+          </h1>
+          <BookmarkButton
+            isBookmarked={isBookmarked}
+            width="24"
+            height="24"
+            onClick={() => handleBookmarkOnClick(String(boardIndex))}
+          />
         </div>
         {rightItem}
       </div>

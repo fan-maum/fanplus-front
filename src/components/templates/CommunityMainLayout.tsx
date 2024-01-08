@@ -2,7 +2,7 @@ import type { UrlLangType } from '@/types/common';
 import type { PartialUserType } from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import BestNotices from '../molecules/community/BestNotices';
 import PopularBoards from '../molecules/community/PopularBoards';
 import Layout from '../organisms/Layout';
@@ -38,7 +38,18 @@ const CommunityMainLayout = ({
           <div className="mainContent">
             {withSearchInput && <CommunityBoardSearchInputWrapper />}
             <div className="contentLayout">
-              <div css={{ width: 810, minWidth: 810 }}>{children}</div>
+              <div
+                css={{
+                  width: 810,
+                  minWidth: 810,
+                  '@media(max-width:768px)': {
+                    width: '100%',
+                    minWidth: 360,
+                  },
+                }}
+              >
+                {children}
+              </div>
               {!isCommunity && <BestNotices />}
             </div>
           </div>
@@ -80,13 +91,18 @@ const LayoutWrapper = styled.div`
     padding-top: 0;
     padding-bottom: 50px;
 
-    > .side-menu {
+    .mainAside {
       display: none;
     }
 
-    > .content {
+    .mainContent {
+      padding: 0 20px;
+      width: 100%;
       max-width: 100%;
-      padding-left: 0;
+
+      .contentLayout {
+        flex-direction: column;
+      }
     }
   }
 `;

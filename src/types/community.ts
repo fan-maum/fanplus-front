@@ -85,6 +85,21 @@ export type CommunityBoardResponseType = {
   POST_LIST: Array<PostListItemType>;
 };
 
+export type CommunityMyPostResponseType = {
+  BOARD_INFO: {
+    VIEW_POSSIBLE_PAGE: number;
+  };
+  POST_LIST: Array<PostListItemType>;
+};
+
+export type CommunityMainPageResponseType = {
+  BOARD_INFO: {
+    VIEW_POSSIBLE_PAGE: number;
+  };
+  NOTICE: Array<NoticeListItemType>;
+  POST_LIST: Array<PostListItemType>;
+};
+
 export type TopicListItemType = {
   IDX: number;
   NAME: string;
@@ -464,6 +479,12 @@ export type BestPostsResponseType = {
   };
 };
 
+export type BookmarksResponseType = Array<BookmarksItemType>;
+
+export type BookmarksItemType = {
+  BOARD_IDX: string;
+  BOARD_TITLE: string;
+};
 export type MainPageNoticesResponseType = Array<{
   IDX: string;
   BOARD_IDX: string;

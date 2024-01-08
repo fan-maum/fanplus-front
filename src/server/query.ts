@@ -1,10 +1,11 @@
+import { getMultiBoardsInquiry } from './../api/Community';
 import {
+  getBookmarks,
   getComments,
   getCommunityBoardResultData,
-  getMultiBoardsInquiry,
   getReplies,
 } from '@/api/Community';
-import { ServerLangType } from '@/types/common';
+import { ServerLangType, UrlLangType } from '@/types/common';
 import { useQuery } from 'react-query';
 
 export const getRepliesQuery = async ({
@@ -38,6 +39,22 @@ export const useGetMainMenuCategoryQuery = (serverLang: ServerLangType) => {
     queryFn: () => getCommunityBoardResultData(5, '', serverLang, 0, 20),
   });
 };
+
+export const useGetBookmarksQuery = (props: useGetBookmarksQueryProps) => {
+  const { identity, lang } = props;
+  const res = useQuery({
+    queryKey: [`bookmarks${identity}${lang}`],
+    queryFn: () => getBookmarks(identity, lang),
+  });
+  return res;
+};
+
+export interface useGetBookmarksQueryProps {
+  identity: string;
+  lang: UrlLangType;
+}
+
+/* community */
 
 export const useGetMultiBoardsInquiryQuery = (lang: ServerLangType, boardIds?: number[]) => {
   return useQuery({

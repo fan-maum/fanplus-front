@@ -1,5 +1,6 @@
 import type {
   BestPostsResponseType,
+  BookmarksResponseType,
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
@@ -16,7 +17,7 @@ import type {
   UserResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
-import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
+import type { BoardLangType, OrderType, ServerLangType, UrlLangType } from '@/types/common';
 import type { BestPostsViewType } from '@/components/molecules/community/BestNotices';
 
 export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
@@ -35,7 +36,7 @@ export const getCommunityHomeData = async (userId: string, lang: ServerLangType)
 
 export const getCommunityBoardData = async (
   userId: string,
-  boardIndex: number,
+  boardType: number | string,
   page: number,
   lang: ServerLangType,
   boardLang: BoardLangType,
@@ -45,7 +46,23 @@ export const getCommunityBoardData = async (
   if (topic === 0) topic = '';
   const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang, viewType } }
+    { params: { userId, boardType, page, topic, lang, boardLang, viewType } }
+  );
+  return response.data;
+};
+
+export const getCommunityTypeBoardData = async (
+  userId: string,
+  boardType: string | string[],
+  page: number,
+  maxPage: number,
+  lang: ServerLangType,
+  filterLang: BoardLangType,
+  viewType: string
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/typeBoard`,
+    { params: { userId, boardType, page, maxPage, lang, filterLang, viewType } }
   );
   return response.data;
 };
@@ -371,6 +388,16 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
 };
 
 /**
+ * Bookmark
+ */
+export const getBookmarks = async (identity: string, lang: UrlLangType) => {
+  const response: AxiosResponse<BookmarksResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmarks`,
+    { params: { identity, lang } }
+  );
+};
+
+/**
  * 전체 공지
  */
 export const getMainPageNotices = async (collectionId: number) => {
@@ -379,6 +406,30 @@ export const getMainPageNotices = async (collectionId: number) => {
     { params: { collectionId } }
   );
   return response.data;
+};
+
+export const postBookmark = async (identity: string, boardIdx: string) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark`,
+    {
+      identity: identity,
+      boardIdx: boardIdx,
+    }
+  );
+  return response;
+};
+
+export const deleteBookmark = async (identity: string, boardIdx: string) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark?board_idx=${boardIdx}`,
+    {
+      data: {
+        identity: identity,
+        board_idx: boardIdx,
+      },
+    }
+  );
+  return response;
 };
 
 /**

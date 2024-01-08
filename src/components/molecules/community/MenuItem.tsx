@@ -5,18 +5,36 @@ import { MultiBoardsInquiryItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { BookmarksItemType } from '@/types/community';
+import { getCookie } from '@/utils/Cookie';
+import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
 
 type MenuItemProps = {
   menuData: MultiBoardsInquiryItemType;
   className?: string;
   disabledBookmark?: boolean;
+  bookmarks: Array<BookmarksItemType>;
 };
 
-const MenuItem = ({ menuData, className, disabledBookmark }: MenuItemProps) => {
+const MenuItem = ({ menuData, className, disabledBookmark, bookmarks }: MenuItemProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const { boardIndex } = router.query;
   const href = `/${urlLang}/community/board/${menuData.IDX}/`;
+  const user_id = getCookie('user_id');
+  const isBookmarked = Boolean(
+    bookmarks.find((bookmark) => bookmark.BOARD_IDX === String(menuData.IDX))
+  );
+
+  const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
+
+  const handleBookmarkOnClick = async (boardIndex: string) => {
+    if (isBookmarked) {
+      useRemoveBookmark.mutate({ identity: user_id, boardIndex });
+    } else {
+      useAddBookmark.mutate({ identity: user_id, boardIndex });
+    }
+  };
 
   return (
     <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.IDX))}>
@@ -28,7 +46,11 @@ const MenuItem = ({ menuData, className, disabledBookmark }: MenuItemProps) => {
           </span>
         )}
       </Link>
-      <BookmarkButton className="bookmark-icon" />
+      <BookmarkButton
+        isBookmarked={isBookmarked}
+        className="bookmark-icon"
+        onClick={() => handleBookmarkOnClick(menuData.IDX)}
+      />
     </MenuItemWrapper>
   );
 };
