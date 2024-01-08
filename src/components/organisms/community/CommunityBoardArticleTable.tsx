@@ -61,7 +61,7 @@ const CommunityBoardArticleTable = ({
 
   const noticeList = communityBoardData?.NOTICE;
   const postList = communityBoardData?.POST_LIST;
-  const boardInfo = communityBoardData?.BOARD_INFO[0];
+  const boardInfo = communityBoardData?.BOARD_INFO;
 
   const isPostExist = !(
     postList?.length === 0 &&
