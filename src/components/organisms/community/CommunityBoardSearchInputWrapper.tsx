@@ -64,6 +64,7 @@ const CommunityBoardSearchInputWrapper = () => {
           }}
           placeholder={texts.searchPlaceholder}
           {...register('searchValue')}
+          defaultValue={searchValue}
         />
       </Group>
       <UnstyledButton type="submit" bg="#FF5656" h={40} p={'4px 10px'}>

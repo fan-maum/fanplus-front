@@ -4,8 +4,10 @@ import { voteDetailPageTexts } from '@/texts/voteDetailPageTexts';
 import { voteModalButtonTexts } from '@/texts/voteModalButtonTexts';
 import { voteModalTexts } from '@/texts/voteModalTexts';
 import { votesPageTexts } from '@/texts/votesPageTexts';
+import { voteDetailAdBannerTexts } from '@/texts/voteDetailAdBannerTexts';
 import type { UrlLangType } from '@/types/common';
 import { atomFamily } from 'recoil';
+import { voteAdBannerTexts } from '@/texts/voteAdBannerTexts';
 
 const randomNumber = Math.floor(Math.random() * 100);
 
@@ -17,6 +19,16 @@ export const voteLangState = atomFamily({
 export const voteDetailLangState = atomFamily({
   key: `voteDetailLangState/${randomNumber}`,
   default: (lang: UrlLangType) => voteDetailPageTexts[lang],
+});
+
+export const voteDetailAdBannerState = atomFamily({
+  key: `voteDetailAdBannerState/${randomNumber}`,
+  default: (lang: UrlLangType) => voteDetailAdBannerTexts[lang],
+});
+
+export const voteAdBannerState = atomFamily({
+  key: `voteAdBannerState/${randomNumber}`,
+  default: (lang: UrlLangType) => voteAdBannerTexts[lang],
 });
 
 export const shareModalState = atomFamily({

@@ -30,13 +30,16 @@ import { postVotes } from '@/api/Vote';
 import VoteEndModal from '../modals/VoteEndModal';
 import { AxiosError } from 'axios';
 import { pathOnly } from '@/utils/util';
+import VoteDetailImagePopup from '../modals/VoteDetailImagePopup';
+import { getVoteCookie, setVoteCookie } from '@/utils/voteCookie';
+import dayjs from 'dayjs';
 
 export interface VotesLayoutProps {
   voteDetails: VoteDetailResponse;
+  dailyTicketCount: number;
   headers: [];
   authCookie: string | null;
   isWebView?: boolean;
-  error: number | boolean;
 }
 
 export const findStarById: (id: string, voteDetails: VoteDetailResponse) => any = (
@@ -54,10 +57,10 @@ export const findStarIndexById: (
 
 const VoteDetailLayout = ({
   voteDetails: propsVoteDetails,
+  dailyTicketCount,
   headers,
   authCookie,
   isWebView,
-  error,
 }: VotesLayoutProps) => {
   const endDay = new Date(propsVoteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
@@ -72,9 +75,10 @@ const VoteDetailLayout = ({
   const [voteModal, setVoteModal] = useState(false);
   const [voteModalDone, setVoteModalDone] = useState(0);
   const [voteModalEnd, setVoteModalEnd] = useState(false);
+  const [imagePopup, setImagePopup] = useState(false);
 
-  const freeVoteCount = 15;
   const moreVoteCount = 1650;
+  let expire = dayjs().startOf('day').add(1, 'day').toDate();
   const webViewLink = `https://p7m9w.app.goo.gl/?link=${encodeURIComponent(
     `https://vote.fanplus.co.kr/?vote=${router.query.vote_IDX}&photocard_type=share_vote&vote_idx=${router.query.vote_IDX}`
   )}&apn=com.photocard.allstar&amv=100&ibi=com.photocard.master&isi=1448805815&ofl=${encodeURIComponent(
@@ -164,7 +168,7 @@ const VoteDetailLayout = ({
               if (star.STAR_IDX === id) {
                 return {
                   ...star,
-                  VOTE_CNT: (Number(star.VOTE_CNT) + 15).toString(),
+                  VOTE_CNT: (Number(star.VOTE_CNT) + dailyTicketCount).toString(),
                 };
               }
               return star;
@@ -204,6 +208,20 @@ const VoteDetailLayout = ({
   useEffect(() => {
     setVoteDetails(propsVoteDetails);
   }, [propsVoteDetails]);
+
+  useEffect(() => {
+    let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
+
+    // eslint-disable-next-line no-console
+    console.log('VotePopupCount', VotePopupCount);
+    if (VotePopupCount === undefined) {
+      setVoteCookie('VotePopupCount', 0, { path: '/', expires: expire });
+      VotePopupCount = 0;
+      setImagePopup(true);
+    } else if (VotePopupCount < 1) {
+      setImagePopup(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (stars[1]) {
@@ -264,6 +282,7 @@ const VoteDetailLayout = ({
 
   const voteDetailInfoProps: VoteDetailInfoProps = {
     voteDetailInfo: voteDetails.RESULTS.DATAS.VOTE_INFO,
+    dailyTicketCount: dailyTicketCount,
   };
 
   const voteDetailShareModalProps: VoteDetailShareModalProps = {
@@ -289,6 +308,15 @@ const VoteDetailLayout = ({
     isRenderComplete: router.isReady,
   };
 
+  const handleImagePopupClose = () => {
+    setImagePopup(false);
+    let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
+    setVoteCookie('VotePopupCount', Number(VotePopupCount) + 1, {
+      path: '/',
+      expires: expire,
+    });
+  };
+
   return (
     <div css={{ background: '#FAFBFE' }}>
       <VoteDetailTemplate
@@ -297,11 +325,17 @@ const VoteDetailLayout = ({
         voteDetailPrizeList={<VoteDetailPrizeList {...voteDetailPrizeListProps} />}
         voteDetailList={<VoteDetailList {...voteDetailListProps} />}
       />
+      <VoteDetailImagePopup
+        opened={imagePopup}
+        setOpened={setImagePopup}
+        onClose={handleImagePopupClose}
+        language={language}
+      />
       <VoteDetailShareModal {...voteDetailShareModalProps} />
       <CompletedShareModal {...completedShareModalProps} />
       <VoteProcessModal
         opened={voteModal}
-        freeVoteCount={freeVoteCount}
+        dailyTicketCount={dailyTicketCount}
         onClose={() => {
           setVoteModal(false);
         }}
@@ -321,7 +355,7 @@ const VoteDetailLayout = ({
           setVoteModalDone(0);
         }}
         isWebView={isWebView}
-        freeVoteCount={freeVoteCount}
+        dailyTicketCount={dailyTicketCount}
         moreVoteCount={voteModalDone}
         onWebViewLink={() => router.push(webViewLink)}
         starName={stars[1]?.STAR_NAME || '스타이름'}

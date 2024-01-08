@@ -4,6 +4,13 @@ import axios, { AxiosResponse } from 'axios';
 
 const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
+export const getDailyVoteTicket = async () => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/dailyVoteTicket`
+  );
+  return response.data;
+};
+
 export const getVotes = (
   vote_type: string | undefined | null,
   page: number,
@@ -26,7 +33,7 @@ export const getVoteDetail = async (vote_idx: string, lang: ServerLangType) => {
     { params: { vote_idx, lang } }
   );
 
-  return response;
+  return response.data;
 };
 
 export const postVotes = async ({ voteId, userId, starId }: VoteMutateParam) => {
