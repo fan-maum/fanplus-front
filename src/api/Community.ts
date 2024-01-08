@@ -6,6 +6,7 @@ import type {
   EditBoardArticleResponseType,
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
+  MainPageNoticesResponseType,
   MultiBoardsInquiryResponseType,
   PostBoardArticleResponseType,
   PostResponseType,
@@ -365,6 +366,17 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
   const response: AxiosResponse<BestPostsResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bestPosts`,
     { params: { lang, viewType } }
+  );
+  return response.data;
+};
+
+/**
+ * 전체 공지
+ */
+export const getMainPageNotices = async (collectionId: number) => {
+  const response: AxiosResponse<MainPageNoticesResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/globalNotices`,
+    { params: { collectionId } }
   );
   return response.data;
 };
