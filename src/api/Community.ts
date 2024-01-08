@@ -381,6 +381,7 @@ export const getMainPageNotices = async (collectionId: number) => {
   return response.data;
 };
 
+/**
  * @desc 다중 게시판 조회
  * @param boardIds 빈 배열 / undefined 모두 가능
  */
