@@ -38,10 +38,11 @@ const CommunityBoardTemplate = ({
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
 
-  const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
+  const topicList = communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST;
   const boardInfo = communityBoardData.BOARD_INFO[0];
-  const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
-  const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
+  const noticeBannerList = communityNoticeBannerData?.RESULTS.DATAS.LIST;
+
+  const isNoticeBannerExist = communityNoticeBannerData?.RESULTS.DATAS.COUNT !== 0;
   const isInitialData =
     initialProps.boardLangCookie === boardLang &&
     initialProps.page === page &&

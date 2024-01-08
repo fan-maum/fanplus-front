@@ -85,6 +85,21 @@ export type CommunityBoardResponseType = {
   POST_LIST: Array<PostListItemType>;
 };
 
+export type CommunityMyPostResponseType = {
+  BOARD_INFO: {
+    VIEW_POSSIBLE_PAGE: number;
+  };
+  POST_LIST: Array<PostListItemType>;
+};
+
+export type CommunityMainPageResponseType = {
+  BOARD_INFO: {
+    VIEW_POSSIBLE_PAGE: number;
+  };
+  NOTICE: Array<NoticeListItemType>;
+  POST_LIST: Array<PostListItemType>;
+};
+
 export type TopicListItemType = {
   IDX: number;
   NAME: string;

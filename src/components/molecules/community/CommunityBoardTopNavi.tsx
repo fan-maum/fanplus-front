@@ -10,6 +10,7 @@ import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
+  boardType?: string | string[];
   urlLang: UrlLangType;
   userId: string;
   rightItem?: ReactNode;
@@ -17,6 +18,7 @@ export type CommunityBoardTopNaviPropType = {
 
 const CommunityBoardTopNavi = ({
   boardTitle,
+  boardType,
   urlLang,
   userId,
   rightItem,
@@ -52,10 +54,12 @@ const CommunityBoardTopNavi = ({
         }}
       >
         <div css={{ display: 'flex', alignItems: 'center' }}>
-          <IconArrowLeft
-            iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
-            onClickBack={() => router.back()}
-          />
+          {!boardType && (
+            <IconArrowLeft
+              iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
+              onClickBack={() => router.back()}
+            />
+          )}
           <h1
             css={{
               fontSize: '18px',
