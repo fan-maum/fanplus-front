@@ -34,7 +34,7 @@ const PopularBoards = () => {
         {texts.popularBoards + ' TOP 50'}
       </div>
       {isFetching && <PopularBoardsSkeleton />}
-      {data?.TOP_BOARDS.map((boardItem, index) => {
+      {data?.map((boardItem, index) => {
         return (
           <PopularBoardItem
             key={'popularBoard' + index}

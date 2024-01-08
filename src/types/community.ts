@@ -433,9 +433,7 @@ export type PopularBoardItemType = {
   WEEK: string;
   BOARD_TITLE: string;
 };
-export type Top50PopularBoardsResponseType = {
-  TOP_BOARDS: Array<PopularBoardItemType>;
-};
+export type Top50PopularBoardsResponseType = Array<PopularBoardItemType>;
 
 export type BestPostItemType = {
   POST_IDX: string;
