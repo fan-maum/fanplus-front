@@ -8,7 +8,6 @@ import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
 export type CommunityPropTypes = {
-  user_id: string;
   urlLang: UrlLangType;
   userId: string;
   isAdminAccount: boolean;
@@ -51,7 +50,7 @@ const CommunityHomePage = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
-  const user_id = context.req.cookies.user_id || '';
+  const userId = context.req.cookies.user_id || '';
   const user_idx = context.req.cookies.user_idx;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
@@ -63,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
 
   const communityMainBoardData: CommunityMainPageResponseType = await getCommunityTypeBoardData(
-    user_id,
+    userId,
     'community',
     page,
     maxPage,
@@ -75,15 +74,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const initialProps = { page, serverLang, boardLangCookie, maxPage, view_type };
   const props = {
     urlLang,
-    user_id,
+    userId,
     isAdminAccount,
     boardLangCookie,
     communityMainBoardData,
     initialProps,
   };
 
-  if (!!user_id && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
+  if (!!userId && !!user_idx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
     const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
     return { props: { ...props, user } };
   }

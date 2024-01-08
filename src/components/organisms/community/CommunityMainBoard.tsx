@@ -57,6 +57,8 @@ const CommunityMainBoard = ({
         <CommunityBoardTopNavi
           boardTitle={'전체글'}
           boardType={boardType}
+          urlLang={urlLang}
+          userId={userId}
           rightItem={
             <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <CommunityBoardLangSelector

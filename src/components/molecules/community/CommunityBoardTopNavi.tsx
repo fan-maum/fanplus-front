@@ -19,9 +19,6 @@ export type CommunityBoardTopNaviPropType = {
 const CommunityBoardTopNavi = ({
   boardTitle,
   boardType,
-  rightItem,
-}: CommunityBoardTopNaviPropType) => {
-  const router = useRouter();
   urlLang,
   userId,
   rightItem,
@@ -63,7 +60,7 @@ const CommunityBoardTopNavi = ({
               onClickBack={() => router.back()}
             />
           )}
-          <h2
+          <h1
             css={{
               fontSize: '18px',
               fontWeight: 600,
