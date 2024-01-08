@@ -50,16 +50,16 @@ export const getCommunityBoardData = async (
 
 export const getCommunityTypeBoardData = async (
   userId: string,
-  boardType: string,
+  boardType: string | string[],
   page: number,
   maxPage: number,
   lang: ServerLangType,
-  boardLang: BoardLangType,
+  filterLang: BoardLangType,
   viewType: string
 ) => {
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/typeBoard`,
-    { params: { userId, boardType, page, maxPage, lang, boardLang, viewType } }
+    { params: { userId, boardType, page, maxPage, lang, filterLang, viewType } }
   );
   return response.data;
 };

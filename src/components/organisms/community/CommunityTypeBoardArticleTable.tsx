@@ -21,7 +21,7 @@ type BoardArticleTableProps = {
   texts: CommunityBoardTextType;
   queries: {
     userId: string;
-    boardIndex: number;
+    boardType: any;
     page: number;
     requestLang: ServerLangType;
     boardLang: BoardLangType;
@@ -43,24 +43,16 @@ const CommunityTypeBoardArticleTable = ({
 }: BoardArticleTableProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
-  const { userId, boardIndex, page, requestLang, boardLang, maxPage, viewType } = queries;
+  const { userId, boardType, page, requestLang, boardLang, maxPage, viewType } = queries;
   const tableHeader = isStarBoardTableHeader ? 'board' : 'topic';
 
   const { data: communityBoardData, isFetching } = useQuery(
     [
       'communityTypeBoardData',
-      { userId, boardIndex, page, requestLang, boardLang, maxPage, viewType },
+      { userId, boardType, page, requestLang, boardLang, maxPage, viewType },
     ],
     () =>
-      getCommunityTypeBoardData(
-        userId,
-        boardIndex,
-        page,
-        requestLang,
-        boardLang,
-        maxPage,
-        viewType
-      ),
+      getCommunityTypeBoardData(userId, boardType, page, maxPage, requestLang, boardLang, viewType),
     { initialData: isInitialData ? communityBoardDataSSR : undefined }
   );
 

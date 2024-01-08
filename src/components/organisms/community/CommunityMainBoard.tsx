@@ -21,9 +21,6 @@ const CommunityMainBoard = ({
 }: CommunityPropTypes & { boardType: string | string[] }) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
-  // eslint-disable-next-line no-console
-  console.log(communityMainBoardData);
-
   const page = Number(router.query.page) || 1;
   const topicIndex = Number(router.query.topic) || 0;
   const viewType = (router.query.view as string) || 'all';
@@ -74,7 +71,7 @@ const CommunityMainBoard = ({
         <CommunityTypeBoardArticleTable
           communityBoardDataSSR={communityMainBoardData}
           texts={texts}
-          queries={{ userId, boardIndex, page, requestLang, boardLang, maxPage, viewType }}
+          queries={{ userId, boardType, page, requestLang, boardLang, maxPage, viewType }}
           isInitialData={isInitialData}
           isStarBoardTableHeader
           onClickWrite={onClickWrite}
