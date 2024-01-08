@@ -25,7 +25,7 @@ const PopularBoardsMobile = ({
   }, [initialOpen]);
 
   const { data } = useGetPopularBoardsQuery(serverLang);
-  const popularBoards = data?.TOP_BOARDS;
+  const popularBoards = data;
   const partialPopularBoards = popularBoards?.slice(page * 5, page * 5 + 5);
 
   const onClickLeft = () => {
