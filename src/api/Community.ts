@@ -375,7 +375,7 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
  */
 export const getMainPageNotices = async (collectionId: number) => {
   const response: AxiosResponse<MainPageNoticesResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/globalNotices`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/mainpageNotices`,
     { params: { collectionId } }
   );
   return response.data;
