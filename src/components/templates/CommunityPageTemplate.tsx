@@ -14,6 +14,7 @@ const CommunityPageTemplate = ({
 }: CommunityPropTypes) => {
   const router = useRouter();
   const { boardType = 'community' } = router.query;
+import { BookmarksResponseType } from '@/types/community';
 
   return (
     <div css={{ width: 810, height: 600 }}>

@@ -1,15 +1,19 @@
 import MenuItem from '@/components/molecules/community/MenuItem';
 import { useGetMainMenuCategoryQuery } from '@/server/query';
-import { ServerLangType } from '@/types/common';
-import { BoardResultItemType } from '@/types/community';
+import { UrlLangType } from '@/types/common';
+import { BoardResultItemType, BookmarksItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import MenuListToggle from './MenuListToggle';
+import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 
 interface MainMenuListProps {
-  serverLang: ServerLangType;
+  urlLang: UrlLangType;
+  bookmarks: Array<BookmarksItemType>;
+  freeBoardText: string;
 }
 
-const MainMenuList = ({ serverLang }: MainMenuListProps) => {
+const MainMenuList = ({ urlLang, bookmarks, freeBoardText }: MainMenuListProps) => {
+  const serverLang = translateUrlLangToServerLang(urlLang);
   const { data, isFetching, isFetched } = useGetMainMenuCategoryQuery(serverLang);
   const menus = data?.RESULTS.DATAS.BOARD_LIST;
   const mainMenu = menus?.filter(
@@ -18,22 +22,22 @@ const MainMenuList = ({ serverLang }: MainMenuListProps) => {
   );
   const subMenu = menus?.filter((list: BoardResultItemType) => !mainMenu.includes(list));
 
-  const handleMenuListOnClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('clicked board');
-  };
-
   return (
     <MainMenuListWrapper>
       <ul>
         {mainMenu?.map((menu: BoardResultItemType) => (
-          <MenuItem key={menu.BOARD_IDX} menuData={menu} onClick={handleMenuListOnClick} />
+          <MenuItem key={menu.BOARD_IDX} menuData={menu} bookmarks={bookmarks} urlLang={urlLang} />
         ))}
       </ul>
-      <MenuListToggle headerTitle="자유게시판">
+      <MenuListToggle headerTitle={freeBoardText}>
         <ul>
           {subMenu?.map((menu: BoardResultItemType) => (
-            <MenuItem key={menu.BOARD_IDX} menuData={menu} onClick={handleMenuListOnClick} />
+            <MenuItem
+              key={menu.BOARD_IDX}
+              menuData={menu}
+              bookmarks={bookmarks}
+              urlLang={urlLang}
+            />
           ))}
         </ul>
       </MenuListToggle>

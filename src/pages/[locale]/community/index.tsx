@@ -8,6 +8,7 @@ import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
 export type CommunityPropTypes = {
+  user_id: string;
   urlLang: UrlLangType;
   userId: string;
   isAdminAccount: boolean;

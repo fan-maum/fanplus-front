@@ -1,34 +1,46 @@
 import BookmarkButton from '@/components/atoms/BookmarkButton';
+import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
+import { BookmarksItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 interface BookmarkMenuItemProps {
   menuInfo: {
-    title: string;
-    slug: string;
-    hasNewPost: boolean;
+    BOARD_IDX: string;
+    BOARD_TITLE: string;
   };
+  user_id: string;
+  bookmarks: Array<BookmarksItemType>;
 }
-const BookmarkMenuItem = ({ menuInfo }: BookmarkMenuItemProps) => {
+
+const BookmarkMenuItem = ({ menuInfo, user_id, bookmarks }: BookmarkMenuItemProps) => {
   const router = useRouter();
-  const { title, slug, hasNewPost } = menuInfo;
-  const { boardSlug } = router.query;
-  const isActive = boardSlug === slug;
-  const href = '/[boardSlug]';
-  const as = `/${slug}`;
+  const { BOARD_IDX, BOARD_TITLE } = menuInfo;
+  const isActive = BOARD_IDX === router.query.boardIndex;
+  const href = `/community/board/${BOARD_IDX}`;
+
+  const { useRemoveBookmark } = useBookmarkOnClick();
+
+  const addBookmarkOnClick = async (boardIndex: string) => {
+    useRemoveBookmark.mutate({ identity: user_id, boardIndex });
+  };
 
   return (
     <BookmarkMenuItemWrapper>
-      <Link className="bookmark-link" href={href} as={as} data-status={isActive}>
-        <span>{title}</span>
-        {hasNewPost && (
-          <span className="new-post-icon">
-            <img src="/icons/icon_new.svg" alt="new-icon" />
-          </span>
-        )}
+      <Link className="bookmark-link" href={href} data-status={isActive}>
+        <span>{BOARD_TITLE}</span>
+        {/* {hasNewPost && ( */}
+        <span className="new-post-icon">
+          <img src="/icons/icon_new.svg" alt="new-icon" />
+        </span>
+        {/* )} */}
       </Link>
-      <BookmarkButton />
+      <BookmarkButton
+        isBookmarked={true}
+        height="18px"
+        onClick={() => addBookmarkOnClick(menuInfo.BOARD_IDX)}
+      />
     </BookmarkMenuItemWrapper>
   );
 };
@@ -40,6 +52,7 @@ const BookmarkMenuItemWrapper: any = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 30px;
+  padding: 0 12px 0 16px;
 
   .new-post-icon {
     padding-left: 5px;

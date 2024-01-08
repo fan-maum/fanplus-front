@@ -487,3 +487,10 @@ export type BestPostsResponseType = {
     TIMESTAMP: number;
   };
 };
+
+export type BookmarksResponseType = Array<BookmarksItemType>;
+
+export type BookmarksItemType = {
+  BOARD_IDX: string;
+  BOARD_TITLE: string;
+};
