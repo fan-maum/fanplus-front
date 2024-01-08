@@ -76,7 +76,7 @@ const CommunityPostDetail = ({
         </Group>
       </Stack>
       <ListButtonWrapper>
-        <button onClick={handleListButton}>목록</button>
+        <button onClick={handleListButton}>{texts.postList}</button>
       </ListButtonWrapper>
     </>
   );

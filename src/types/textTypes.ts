@@ -365,6 +365,7 @@ export type CommunityPostTextType = {
   minsAgo: string;
   copyUrlButton: string;
   copyUrlMessage: string;
+  postList: string;
 };
 
 export type CommunityPostEditorTextType = {
