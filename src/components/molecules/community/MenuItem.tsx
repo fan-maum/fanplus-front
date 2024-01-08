@@ -1,31 +1,32 @@
+import BookmarkButton from '@/components/atoms/BookmarkButton';
+import { useUrlLanguage } from '@/hooks/useLanguage';
+import { colors } from '@/styles/CommunityColors';
+import { MultiBoardsInquiryItemType } from '@/types/community';
+import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import BookmarkButton from '@/components/atoms/BookmarkButton';
-import styled from '@emotion/styled';
-import { BoardResultItemType } from '@/types/community';
-import { colors } from '@/styles/CommunityColors';
 
 type MenuItemProps = {
-  menuData: BoardResultItemType;
+  menuData: MultiBoardsInquiryItemType;
   className?: string;
   disabledBookmark?: boolean;
-  onClick?: () => void;
 };
 
-const MenuItem = ({ menuData, className, disabledBookmark, onClick }: MenuItemProps) => {
+const MenuItem = ({ menuData, className, disabledBookmark }: MenuItemProps) => {
   const router = useRouter();
+  const urlLang = useUrlLanguage();
   const { boardIndex } = router.query;
-  const href = `/community/board/${menuData.BOARD_IDX}/`;
+  const href = `/${urlLang}/community/board/${menuData.IDX}/`;
 
   return (
-    <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.BOARD_IDX))}>
+    <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.IDX))}>
       <Link href={href} className="board-link">
-        <span className="submenu-title">{menuData.BOARD_TITLE}</span>
-        {/* {menuData.hasNewPost && ( */}
-        <span className="new">
-          <img src="/icons/icon_new.svg" alt="new-icon" />
-        </span>
-        {/* )} */}
+        <span className="submenu-title">{menuData.TITLE}</span>
+        {menuData.isExistNewPost && (
+          <span className="new">
+            <img src="/icons/icon_new.svg" alt="new-icon" />
+          </span>
+        )}
       </Link>
       <BookmarkButton className="bookmark-icon" />
     </MenuItemWrapper>

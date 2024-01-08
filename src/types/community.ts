@@ -505,3 +505,13 @@ export type MainPageNoticesResponseType = Array<{
   HAS_BEST_BADGE: number;
   HAS_POPULAR_BADGE: number;
 }>;
+
+export type MultiBoardsInquiryItemType = {
+  IDX: string;
+  TITLE: string;
+  BOARD_ICON: string;
+  HEAD_IMG: string;
+  POST_CNT: string;
+  isExistNewPost: boolean;
+};
+export type MultiBoardsInquiryResponseType = Array<MultiBoardsInquiryItemType>;

@@ -7,6 +7,7 @@ import type {
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
   MainPageNoticesResponseType,
+  MultiBoardsInquiryResponseType,
   PostBoardArticleResponseType,
   PostResponseType,
   RecentlyListResponseType,
@@ -376,6 +377,17 @@ export const getMainPageNotices = async (collectionId: number) => {
   const response: AxiosResponse<MainPageNoticesResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/globalNotices`,
     { params: { collectionId } }
+  );
+  return response.data;
+};
+
+ * @desc 다중 게시판 조회
+ * @param boardIds 빈 배열 / undefined 모두 가능
+ */
+export const getMultiBoardsInquiry = async (lang: ServerLangType, boardIds?: number[]) => {
+  const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardsInquiry`,
+    { params: { lang, boardIds }, paramsSerializer: { indexes: null } }
   );
   return response.data;
 };
