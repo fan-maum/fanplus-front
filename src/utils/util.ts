@@ -58,41 +58,28 @@ export const pathOnly = (url: string) => {
   return url.split('?')[0];
 };
 
-export type timeType = 'Full' | 'Date' | 'Hour' | 'Minute';
+/**
+ * @param prevTimeExpression api 반환값 (ex: 2023-12-28 21:10:05)
+ * @returns 날짜 + 시간 + (KST) (ex: 2023.12.28 21:10 (KST))
+ */
 export const formatWrittenTime = (prevTimeExpression: string) => {
-  const writtenTime = new Date(prevTimeExpression.replace(' ', 'T'));
-  const today = new Date();
-  const today00am = new Date();
-  today00am.setHours(0, 0, 0, 0);
-
-  const elapsedTimeInDate = Math.ceil(
-    (today00am.getTime() - writtenTime.getTime()) / (1000 * 60 * 60 * 24)
-  );
-
-  if (elapsedTimeInDate > 6) return { timeType: 'Full' as timeType, time: prevTimeExpression };
-  if (elapsedTimeInDate > 0) return { timeType: 'Date' as timeType, time: elapsedTimeInDate };
-
-  const elapsedTimeInSecond = Math.floor((today.getTime() - writtenTime.getTime()) / 1000);
-  const elpasedTimeInMinute = Math.floor(elapsedTimeInSecond / 60);
-  const elpasedTimeInHour = Math.floor(elpasedTimeInMinute / 60);
-
-  if (elpasedTimeInHour > 0) return { timeType: 'Hour' as timeType, time: elpasedTimeInHour };
-  return { timeType: 'Minute' as timeType, time: elpasedTimeInMinute };
+  return prevTimeExpression.split(':', 2).join(':').replaceAll('-', '.') + ' (KST)';
 };
 
 /**
- *
- * @returns 오늘일 경우: 시간만 표시 (ex: 13:05 (KST))
- * @returns 오늘이 아닐 경우: 날짜만 표시 (ex: 2023-11-14)
+ * @param prevTimeExpression api 반환값 (ex: 2023-12-28T21:10:05.000Z)
+ * @returns 오늘일 경우: 시간만 표시 (ex: 21:10 (KST))
+ * @returns 오늘이 아닐 경우: 날짜만 표시 (ex: 2023.12.28)
  */
 export const formatWrittenTimeLite = (prevTimeExpression: string) => {
-  const writtenTime = new Date(prevTimeExpression.replace(' ', 'T'));
   const today = new Date();
+  const writtenTime = new Date(prevTimeExpression.split('.')[0]);
 
-  if (writtenTime.getDate() === today.getDate()) {
-    return `${writtenTime.getHours()}:${writtenTime.getMinutes()} (KST)`;
-  }
-  return prevTimeExpression.split(' ')[0];
+  const isToday = writtenTime.toDateString() === today.toDateString();
+
+  return isToday
+    ? `${writtenTime.getHours()}:${writtenTime.getMinutes()} (KST)`
+    : prevTimeExpression.split('T')[0].replaceAll('-', '.');
 };
 
 export const formatCommentCount = (commentCount: string | number) => {

@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req, res) => {
   try {
     const result = await axios({
       method: 'post',
-      url: `https://napi.appphotocard.com/v1/reports/comments`,
+      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/reports/comments`,
       data: {
         identity: user_id,
         comment_idx: comment_idx,

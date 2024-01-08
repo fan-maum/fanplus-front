@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         DATAS: object;
         TIMESTAMP: number;
       };
-    }> = await axios.get(`https://napi.appphotocard.com/voteWeb/${vote_IDX}?lang=${lang}`, {
+    }> = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/${vote_IDX}?lang=${lang}`, {
       headers: {
         Origin: origin,
         'Cache-Control': 'no-cache',

@@ -80,7 +80,7 @@ export default function CommentPopover({
             background: 'none',
           }}
         >
-          <IconVerticalMore />
+          <IconVerticalMore iconCss={{ width: 20, height: 20 }} />
         </button>
       </Popover.Target>
       <Popover.Dropdown>

@@ -17,7 +17,7 @@ const handler: NextApiHandler = async (req, res) => {
         TIMESTAMP: number;
       };
     }> = await axios.post(
-      `https://napi.appphotocard.com/voteWeb/${voteId}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/${voteId}`,
       { identity: userId, target_star_idx: starId },
       {
         headers: {

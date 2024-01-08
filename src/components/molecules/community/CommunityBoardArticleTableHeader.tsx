@@ -22,10 +22,11 @@ const CommunityBoardArticleTableHeader = ({
         font: 'normal 14px/16px Pretendard',
         fontWeight: '500',
         borderBottom: '1px solid #d9d9d9',
+        borderTop: '1px solid #d9d9d9',
       }}
     >
       <div css={{ width: 106, textAlign: 'center' }}>{texts[firstHeader]}</div>
-      <div css={{ width: 310, textAlign: 'center' }}>{texts.title}</div>
+      <div css={{ flex: 1, textAlign: 'center' }}>{texts.title}</div>
       <div css={{ width: 78, textAlign: 'center' }}>{texts.writer}</div>
       <div css={{ width: 82, textAlign: 'center' }}>{texts.postDate}</div>
       <div css={{ width: 78, textAlign: 'center' }}>{texts.viewNum}</div>

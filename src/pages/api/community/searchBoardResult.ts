@@ -9,7 +9,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<CommunityBoardResultResponseType> = await axios.get(
-      `https://napi.appphotocard.com/voteWeb/search/board?category_type=${category_type}` +
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/search/board?category_type=${category_type}` +
         `&search_val=${searchValue}&lang=${lang}&page=${page}&per_page=${per_page}`,
       {
         headers: {

@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<EditorImageUploadResponseType> = await axios.post(
-      'https://napi.appphotocard.com/voteWeb/imgs',
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/imgs`,
       {
         identity: userId,
         origin_name: fileName,

@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
   try {
     const result = await axios({
       method: 'post',
-      url: `https://napi.appphotocard.com/v1/reports/posts?identity=${user_id}&page=${page}&per_page=${per_page}`,
+      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/reports/posts?identity=${user_id}&page=${page}&per_page=${per_page}`,
       data: {
         identity: user_id,
         post_idx: post_idx,
