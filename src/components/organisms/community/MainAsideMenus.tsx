@@ -1,24 +1,15 @@
+import BookmarkButton from '@/components/atoms/BookmarkButton';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/CommunityColors';
 import styled from '@emotion/styled';
-import MainBookmarkMenu from './MainBookmarkMenu';
-import MainMenuList from './MainMenuList';
-import { UrlLangType } from '@/types/common';
-import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import BookmarkButton from '@/components/atoms/BookmarkButton';
+import MainBookmarkMenu from './MainBookmarkMenu';
+import MainMenuList from './MainMenuList';
 
-interface MainAsideMenusProps {
-  urlLang: UrlLangType;
-}
-
-const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
+const MainAsideMenus = () => {
   const router = useRouter();
-  const serverLang = translateUrlLangToServerLang(urlLang);
-  const handleAllPostsBoardOnClick = () => {
-    // eslint-disable-next-line no-console
-    console.log('clicked board');
-  };
+  const urlLang = useUrlLanguage();
 
   return (
     <MenuWrapper>
@@ -28,19 +19,16 @@ const MainAsideMenus = ({ urlLang }: MainAsideMenusProps) => {
         <Link
           className="menu-title"
           data-active={router.pathname === '/[locale]/community'}
-          href={`/${urlLang}/community`}
-          onClick={handleAllPostsBoardOnClick}
+          href={`/${urlLang}/community/`}
         >
           <span className="title-top-menu">전체글</span>
-          {/* {topMenu.hasNewPost && ( */}
           <span className="new">
             <img src="/icons/icon_new.svg" alt="new-icon" />
           </span>
-          {/* )} */}
         </Link>
         <BookmarkButton />
       </ScreenAllWrapper>
-      <MainMenuList serverLang={serverLang} />
+      <MainMenuList />
     </MenuWrapper>
   );
 };
@@ -75,11 +63,10 @@ const MenuWrapper = styled.div`
     .title-top-menu {
       font-weight: 500;
       font-size: 14px;
-      color: ${colors.primary[500]};
     }
 
     &[data-active='true'] {
-      color: var(--color-primary);
+      color: ${colors.primary[500]};
     }
   }
 

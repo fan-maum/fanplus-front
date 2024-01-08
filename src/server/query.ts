@@ -1,7 +1,7 @@
 import {
   getComments,
-  getCommunityBoardCategoryData,
   getCommunityBoardResultData,
+  getMultiBoardsInquiry,
   getReplies,
 } from '@/api/Community';
 import { ServerLangType } from '@/types/common';
@@ -36,5 +36,14 @@ export const useGetMainMenuCategoryQuery = (serverLang: ServerLangType) => {
   return useQuery({
     queryKey: 'communityMainMenuCateogory' + serverLang,
     queryFn: () => getCommunityBoardResultData(5, '', serverLang, 0, 20),
+  });
+};
+
+export const useGetMultiBoardsInquiryQuery = (lang: ServerLangType, boardIds?: number[]) => {
+  return useQuery({
+    queryKey: 'multiBoardsInquiry' + lang + boardIds?.toString(),
+    queryFn: () => getMultiBoardsInquiry(lang, boardIds),
+    staleTime: 1000 * 60 * 60 * 1,
+    cacheTime: 1000 * 60 * 60 * 3,
   });
 };
