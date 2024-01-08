@@ -33,7 +33,6 @@ const MainAsideMenus = () => {
           href={`/${urlLang}/community/`}
         >
           <span className="title-top-menu">{texts.asideMenus[0]}</span>
-          {/* {topMenu.hasNewPost && ( */}
           <span className="new">
             <img src="/icons/icon_new.svg" alt="new-icon" />
           </span>

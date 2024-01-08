@@ -7,6 +7,7 @@ import type { PartialUserType, PostResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
+import nookies from 'nookies';
 
 export type CommunityPostPropType = {
   urlLang: UrlLangType;
@@ -64,8 +65,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const boardIndex = parseInt(context.query.boardIndex as string);
   const postIndex = parseInt(context.query.postIndex as string);
 
-  const identity = context.req.cookies.user_id || '';
-  const user_idx = context.req.cookies.user_idx;
+  const cookies = nookies.get(context);
+  const identity: any = cookies.user_id || null;
+  const user_idx = context.req.cookies.user_idx || null;
 
   if (!boardIndex || !postIndex) return { notFound: true };
 

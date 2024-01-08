@@ -71,18 +71,46 @@ export type PostListItemType = {
   NEW_POST_YN: 'Y' | 'N';
 };
 export type CommunityBoardResponseType = {
-  BOARD_INFO: [
-    {
-      BOARD_IDX: string;
-      BOARD_TITLE: string;
-      BOARD_ICON: string;
-      POST_CNT: string;
-      IS_GROUP: 'Y' | 'N';
-      IS_TREND: 'Y' | 'N';
-    }
-  ];
+  BOARD_INFO: {
+    BOARD_IDX: string;
+    BOARD_TITLE: string;
+    IS_GROUP: 'Y' | 'N';
+    IS_TREND: 'Y' | 'N';
+
+    IDX: string;
+    BASE_LANG: string;
+    LEVEL: null;
+    LEVEL_EXP: null;
+    BOARD_ICON: string;
+    HEAD_IMG: null;
+    SUBSCRIPTION_CNT: string;
+    BOOKMARK_CNT: string;
+    RECOMMEND_CNT: string;
+    RANK_SCORE: number;
+    OWNER_IDX: string;
+    IS_DISPLAY: 'Y' | 'N';
+    IS_REMOVE: 'Y' | 'N';
+    IS_BLIND: 'Y' | 'N';
+    INS_DATE: string;
+    UPD_DATE: null;
+    REMOVE_DATE: null;
+    POST_CNT: 'Y' | 'N';
+    DEFAULT_TOPIC: number;
+    NEW_POST_DATE: null;
+    photocard_board_lang: Array<CommunityBoardPhotocardResponseType>;
+  };
   NOTICE: Array<NoticeListItemType>;
   POST_LIST: Array<PostListItemType>;
+};
+
+export type CommunityBoardPhotocardResponseType = {
+  IDX: string;
+  BOARD_IDX: string;
+  LANG_TYPE: string;
+  TITLE: string;
+  DISCRIPTION: string;
+  INS_DATE: string;
+  UPD_DATE: string;
 };
 
 export type CommunityMyPostResponseType = {

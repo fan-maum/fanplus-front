@@ -28,7 +28,7 @@ const MenuItem = ({ menuData, className, disabledBookmark, bookmarks }: MenuItem
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
-  const handleBookmarkOnClick = async (boardIndex: string) => {
+  const handleBookmarkOnClick = (boardIndex: string) => {
     if (isBookmarked) {
       useRemoveBookmark.mutate({ identity: user_id, boardIndex });
     } else {

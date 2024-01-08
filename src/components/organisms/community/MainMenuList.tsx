@@ -18,7 +18,6 @@ const inquiryBoardList = [...mainMenuBoardList, ...subMenuBoardList];
 const MainMenuList = ({ bookmarks, freeBoardText }: MainMenuListProps) => {
   const serverLang = useServerLang();
   const { data, isFetching } = useGetMultiBoardsInquiryQuery(serverLang, inquiryBoardList);
-
   const mainMenu = data?.filter((menu) => mainMenuBoardList.includes(Number(menu.IDX)));
   const subMenu = data?.filter((menu) => !mainMenuBoardList.includes(Number(menu.IDX)));
 

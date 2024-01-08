@@ -19,9 +19,6 @@ const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPos
     router.replace({ query: { ...router.query, page: selectedItem.selected + 1 } });
   };
 
-  // eslint-disable-next-line no-console
-  console.log(communityMyPostData);
-
   return (
     <div css={{ minWidth: 810 }}>
       <div

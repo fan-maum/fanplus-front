@@ -28,13 +28,13 @@ interface PostDetailHeaderProps {
 //   fanficNotice: true, //220
 // };
 
-export const isPostDetailConstant: { [key: number]: boolean } = {
-  0: true, //
+export const isPostDetailConstant: { [key: number | string]: boolean } = {
+  community: true, //
   2291: true, // BEST 인기글
 };
 
-export const isPostDetailBoardTitle: { [key: number]: string } = {
-  0: '전체글',
+export const isPostDetailBoardTitle: { [key: number | string]: string } = {
+  community: '전체글',
   2291: 'Best 인기글 (실시간)',
 };
 
@@ -48,7 +48,7 @@ const PostDetailHeader = ({
   texts,
 }: PostDetailHeaderProps) => {
   const router = useRouter();
-  const boardFrom = Number(router.query.from);
+  const boardFrom: any = router.query.from;
 
   return (
     <PostDetailHeaderWrapper>

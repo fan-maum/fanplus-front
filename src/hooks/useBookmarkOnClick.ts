@@ -22,7 +22,8 @@ export function useBookmarkOnClick() {
   });
 
   const useRemoveBookmark = useMutation({
-    mutationFn: ({ identity, boardIndex }: BookmarkProps) => deleteBookmark(identity, boardIndex),
+    mutationFn: async ({ identity, boardIndex }: BookmarkProps) =>
+      await deleteBookmark(identity, boardIndex),
     onSuccess: () => {
       queryClient.invalidateQueries('bookmarks');
     },

@@ -76,7 +76,7 @@ const LayoutWrapper = styled.div`
     display: flex;
     flex-direction: column;
   }
-  .mainAside > div:first-child {
+  .mainAside > div:first-of-type {
     margin-bottom: 14px;
   }
   .mainContent {

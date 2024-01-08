@@ -31,9 +31,6 @@ const CommunityHomePage = ({
   initialProps,
   user,
 }: CommunityPropTypes & { user: PartialUserType }) => {
-  // eslint-disable-next-line no-console
-  console.log(communityMainBoardData);
-
   return (
     <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
       <CommunityPageTemplate

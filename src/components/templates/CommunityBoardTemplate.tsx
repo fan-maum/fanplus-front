@@ -14,6 +14,7 @@ import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNot
 import CommunityBoardTopicTabBar from '../organisms/community/CommunityBoardTopicTabBar';
 import { colors } from '@/styles/CommunityColors';
 import BoardDomains from '../organisms/community/BoardDomains';
+import { CommunityBoardPhotocardResponseType } from '@/types/community';
 
 const CommunityBoardTemplate = ({
   urlLang,
@@ -27,7 +28,6 @@ const CommunityBoardTemplate = ({
 }: CommunityBoardPropType) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
-
   const page = Number(router.query.page) || 1;
   const topicIndex = Number(router.query.topic) || 0;
   const viewType = (router.query.view as string) || 'all';
@@ -39,7 +39,9 @@ const CommunityBoardTemplate = ({
   const [permissionModal, setPermissionModal] = useState(false);
 
   const topicList = communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST;
-  const boardInfo = communityBoardData.BOARD_INFO[0];
+  const boardInfo = communityBoardData.BOARD_INFO;
+  const boardInfoDetail: Array<CommunityBoardPhotocardResponseType> =
+    communityBoardData.BOARD_INFO.photocard_board_lang;
   const noticeBannerList = communityNoticeBannerData?.RESULTS.DATAS.LIST;
 
   const isNoticeBannerExist = communityNoticeBannerData?.RESULTS.DATAS.COUNT !== 0;
@@ -53,7 +55,7 @@ const CommunityBoardTemplate = ({
 
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];
-    const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX as string);
+    const writeBanned = writeBanBoard.includes(boardInfoDetail[0].BOARD_IDX as string);
     if (writeBanned && !isAdminAccount) {
       setPermissionModal(true);
       return;
@@ -64,7 +66,7 @@ const CommunityBoardTemplate = ({
       return;
     }
     router.push({
-      pathname: `/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`,
+      pathname: `/${urlLang}/community/board/${boardInfoDetail[0].BOARD_IDX}/write`,
       query: { topic: router.query.topic },
     });
   };
@@ -88,7 +90,7 @@ const CommunityBoardTemplate = ({
     <>
       <div>
         <CommunityBoardTopNavi
-          boardTitle={boardInfo.BOARD_TITLE as string}
+          boardTitle={boardInfoDetail[0].TITLE as string}
           urlLang={urlLang}
           userId={userId}
           rightItem={

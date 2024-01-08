@@ -66,7 +66,7 @@ const PostCommentListItem = ({
       className="comment"
       css={{
         borderTop: `1px solid ${colors.gray[200]}`,
-        '&:first-child': {
+        '&:first-of-type': {
           borderTop: 'none',
         },
       }}

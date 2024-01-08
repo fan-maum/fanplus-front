@@ -30,7 +30,6 @@ type BoardArticleTableProps = {
   };
   isInitialData: boolean;
   isStarBoardTableHeader?: boolean;
-  onClickWrite: () => void;
 };
 
 const CommunityTypeBoardArticleTable = ({
@@ -39,7 +38,6 @@ const CommunityTypeBoardArticleTable = ({
   queries,
   isInitialData,
   isStarBoardTableHeader,
-  onClickWrite,
 }: BoardArticleTableProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
@@ -74,16 +72,10 @@ const CommunityTypeBoardArticleTable = ({
 
   if (isFetching) return <CommunityBoardArticleTableSkeleton firstHeader={tableHeader} />;
   if (!isPostExist) {
-    return (
-      <CommunityBoardNoPost
-        // onClickWrite={onClickWrite}
-        buttonText={texts.buttonWrite}
-        texts={texts.noPostTexts}
-      />
-    );
+    return <CommunityBoardNoPost buttonText={texts.buttonWrite} texts={texts.noPostTexts} />;
   }
   const urlPage = router.query.page || 1;
-  const urlPath = router.query.boardIndex;
+  const urlPath = !boardType ? router.query.boardIndex : boardType;
 
   const noticeHeader = (
     <div

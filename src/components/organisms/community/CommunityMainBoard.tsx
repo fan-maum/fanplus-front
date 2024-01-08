@@ -39,11 +39,6 @@ const CommunityMainBoard = ({
     initialProps.view_type === viewType &&
     initialProps.maxPage === topicIndex;
 
-  const onClickWrite = () => {
-    // eslint-disable-next-line no-console
-    console.log('onClickWrite');
-  };
-
   const onClickLanguageBox = async (language: BoardLangType) => {
     setBoardLang(language);
     setBoardLangCookie(language);
@@ -76,7 +71,6 @@ const CommunityMainBoard = ({
           queries={{ userId, boardType, page, requestLang, boardLang, maxPage, viewType }}
           isInitialData={isInitialData}
           isStarBoardTableHeader
-          onClickWrite={onClickWrite}
         />
         <CommunityLanguageModal
           texts={texts.boardLang}

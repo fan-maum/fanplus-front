@@ -17,8 +17,7 @@ const handler: NextApiHandler = async (req, res) => {
           viewType,
           page,
           perPage: 20,
-          'topic_ids[]': topic,
-          // 'topicIds[]': topic,
+          'topicIds[]': topic,
         },
         headers: {
           Origin: origin,

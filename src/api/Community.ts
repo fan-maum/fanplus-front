@@ -36,7 +36,7 @@ export const getCommunityHomeData = async (userId: string, lang: ServerLangType)
 
 export const getCommunityBoardData = async (
   userId: string,
-  boardType: number | string,
+  boardIndex: number | string,
   page: number,
   lang: ServerLangType,
   boardLang: BoardLangType,
@@ -44,9 +44,10 @@ export const getCommunityBoardData = async (
   viewType: string
 ) => {
   if (topic === 0) topic = '';
+
   const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardType, page, topic, lang, boardLang, viewType } }
+    { params: { userId, boardIndex, page, topic, lang, boardLang, viewType } }
   );
   return response.data;
 };
@@ -395,6 +396,7 @@ export const getBookmarks = async (identity: string, lang: UrlLangType) => {
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmarks`,
     { params: { identity, lang } }
   );
+  return response.data;
 };
 
 /**
