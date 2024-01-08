@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import { UrlLangType } from '@/types/common';
 import { getBookmarks } from '@/api/Community';
 import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
+import { BookmarksItemType } from '@/types/community';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
@@ -29,7 +30,9 @@ const CommunityBoardTopNavi = ({
     getBookmarks(userId, urlLang)
   );
   const bookmarks = data ?? [];
-  const isBookmarked = Boolean(bookmarks.find((bookmark) => bookmark.BOARD_IDX === boardIndex));
+  const isBookmarked = Boolean(
+    bookmarks.find((bookmark: BookmarksItemType) => bookmark.BOARD_IDX === boardIndex)
+  );
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 

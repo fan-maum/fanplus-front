@@ -40,7 +40,7 @@ const MainAsideMenus = () => {
         </Link>
         <BookmarkButton isBookmarked={false} />
       </ScreenAllWrapper>
-      <MainMenuList urlLang={urlLang} bookmarks={bookmarks} freeBoardText={texts.asideMenus[1]} />
+      <MainMenuList bookmarks={bookmarks} freeBoardText={texts.asideMenus[1]} />
     </MenuWrapper>
   );
 };
