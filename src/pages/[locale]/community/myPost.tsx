@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const user_idx = context.req.cookies.user_idx;
   const topic = parseInt(context.query.topic as string) || 0;
   const boardType = 'myPost';
-  const maxPage = 1000000;
+  const maxPage = 5;
 
   const communityMyPostData = await getCommunityTypeBoardData(
     user_id,

@@ -8,12 +8,20 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<BookmarksResponseType> = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/boards/bookmark?identity=${identity}&lang=${lang}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/boards/bookmark`,
       {
         headers: {
           Origin: origin,
           'Cache-Control': 'no-cache',
         },
+        params: identity
+          ? {
+              identity: identity,
+              lang,
+            }
+          : {
+              lang,
+            },
       }
     );
     res.status(200).json(response.data);

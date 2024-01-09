@@ -53,6 +53,7 @@ export type NoticeListItemType = {
 export type PostListItemType = {
   POST_IDX: string;
   BOARD_IDX: string;
+  BOARD_TITLE: string;
   TOPIC_NAME: string;
   POST_TITLE: string;
   POST_IMG_YN: 'Y' | 'N';
