@@ -19,7 +19,7 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(200).json(response.data);
   } catch (error) {
     if (error instanceof AxiosError) {
-      res.status(error.response?.status as number).json(error);
+      res.status(500).json('Failed to load bookmarks data');
     }
   }
 };

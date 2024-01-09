@@ -27,7 +27,7 @@ const handler: NextApiHandler = async (req, res) => {
     );
     res.status(200).json(response.data);
   } catch (error) {
-    res.status(500).json('Failed to load Community-Board data');
+    res.status(500).json('Failed to load Community-type-Board data');
   }
 };
 
