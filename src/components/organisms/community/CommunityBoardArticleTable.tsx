@@ -135,6 +135,7 @@ const CommunityBoardArticleTable = ({
       </ul>
       <CommunityBoardPagination
         totalCount={Number(boardInfo?.POST_CNT)}
+        viewPossiblePage={0}
         handlePageChange={handlePageChange}
       />
     </div>

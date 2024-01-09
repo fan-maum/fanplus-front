@@ -35,12 +35,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const view_type = (context.query.view as string) || 'all';
-  const page = parseInt(context.query.page as string) - 1 || 1;
+  const page = parseInt(context.query.page as string) || 1;
   const user_id = context.req.cookies.user_id || '';
   const user_idx = context.req.cookies.user_idx;
   const topic = parseInt(context.query.topic as string) || 0;
   const boardType = 'myPost';
-  const maxPage = 5;
+  const maxPage = 10;
 
   const communityMyPostData = await getCommunityTypeBoardData(
     user_id,

@@ -58,7 +58,8 @@ const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPos
             })}
           </ul>
           <CommunityBoardPagination
-            totalCount={boardInfo.VIEW_POSSIBLE_PAGE as number}
+            boardType={'myPost'}
+            viewPossiblePage={boardInfo.VIEW_POSSIBLE_PAGE as number}
             handlePageChange={handlePageChange}
           />
         </div>

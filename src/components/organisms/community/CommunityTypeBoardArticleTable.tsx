@@ -130,7 +130,8 @@ const CommunityTypeBoardArticleTable = ({
         })}
       </ul>
       <CommunityBoardPagination
-        totalCount={Number(20 * boardInfo?.VIEW_POSSIBLE_PAGE)}
+        boardType={boardType}
+        viewPossiblePage={Number(boardInfo.VIEW_POSSIBLE_PAGE)}
         handlePageChange={handlePageChange}
       />
     </div>
