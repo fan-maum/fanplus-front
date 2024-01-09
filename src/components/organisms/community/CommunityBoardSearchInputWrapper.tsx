@@ -52,6 +52,7 @@ const CommunityBoardSearchInputWrapper = () => {
         border: '2px solid #FF5656',
         '@media (max-width: 768px)': {
           width: '100%',
+          marginTop: 10,
         },
       }}
     >

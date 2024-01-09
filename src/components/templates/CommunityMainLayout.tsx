@@ -9,6 +9,7 @@ import Layout from '../organisms/Layout';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
 import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
+import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -37,6 +38,7 @@ const CommunityMainLayout = ({
           </div>
           <div className="mainContent">
             {withSearchInput && <CommunityBoardSearchInputWrapper />}
+            <PopularBoardsMobile initialOpen={false} />
             <div className="contentLayout">
               <div
                 css={{
