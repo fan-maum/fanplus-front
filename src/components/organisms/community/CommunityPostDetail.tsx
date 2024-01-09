@@ -62,7 +62,7 @@ const CommunityPostDetail = ({
   return (
     <>
       <PostDetailCopyUrl texts={texts} key={postInfo.POST_IDX} />
-      <Stack p={'24px 22px'} spacing={140} css={{ borderBottom: `2px solid ${colors.gray[200]}` }}>
+      <Stack p={'24px 22px'} spacing={200} css={{ borderBottom: `2px solid ${colors.gray[200]}` }}>
         <PostContents dangerouslySetInnerHTML={{ __html: postInfo.POST_CONTENTS }} />
         <Group position="apart">
           <div></div>

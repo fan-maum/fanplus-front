@@ -26,6 +26,11 @@ const CommunityBoardArticle = ({ postItem, link, firstHeader, isNotice }: OwnPro
         height: '44px',
         font: 'normal 14px/16px Pretendard',
         backgroundColor: isNotice ? '#fff6f6' : 'transparent',
+        '& > div': {
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        },
       }}
     >
       <div css={{ width: 106, textAlign: 'center' }}>{firstHeader}</div>
