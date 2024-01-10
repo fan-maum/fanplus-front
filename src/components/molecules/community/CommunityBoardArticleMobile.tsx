@@ -5,22 +5,18 @@ import type { PostListItemType } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
 type OwnPropType = {
   postItem: PostListItemType;
-  firstHeader?: 'topic' | 'board';
   link: string;
   texts: CommunityBoardTextType;
+  showTopic?: boolean;
 };
 
-const CommunityBoardArticleMobile = ({
-  postItem,
-  firstHeader = 'topic',
-  link,
-  texts,
-}: OwnPropType) => {
-  const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
+const CommunityBoardArticleMobile = ({ postItem, link, texts, showTopic }: OwnPropType) => {
+  const timeExpression =
+    postItem.PUBLISH_DATE !== null ? formatWrittenTimeLite(postItem.PUBLISH_DATE) : 0;
 
   return (
     <Link
@@ -31,7 +27,7 @@ const CommunityBoardArticleMobile = ({
         padding: '5px 5px 0',
       }}
     >
-      {firstHeader === 'topic' && (
+      {showTopic && (
         <div css={{ display: 'flex' }}>
           <TopicBubble name={postItem.TOPIC_NAME as string} />
           {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}

@@ -12,7 +12,7 @@ type CommunityBoardWrapperType = {
 
 const CommunitySearchBoardWrapper = ({ title, boardList, texts }: CommunityBoardWrapperType) => {
   return (
-    <section css={{ marginBottom: '30px' }}>
+    <section css={{ margin: '12px 0 30px 0' }}>
       {title && <h4 css={{ margin: '15px 5px' }}>{title}</h4>}
       {boardList.length !== 0 ? (
         <>

@@ -1,19 +1,23 @@
 import type {
   BestPostsResponseType,
+  BookmarksResponseType,
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
   EditBoardArticleResponseType,
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
+  MainPageNoticesResponseType,
+  MultiBoardsInquiryResponseType,
   PostBoardArticleResponseType,
   PostResponseType,
   RecentlyListResponseType,
   RecommendListResponseType,
-  Top30PopularBoardsResponseType,
+  Top50PopularBoardsResponseType,
+  UserResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
-import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
+import type { BoardLangType, OrderType, ServerLangType, UrlLangType } from '@/types/common';
 import type { BestPostsViewType } from '@/components/molecules/community/BestNotices';
 
 export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
@@ -32,17 +36,34 @@ export const getCommunityHomeData = async (userId: string, lang: ServerLangType)
 
 export const getCommunityBoardData = async (
   userId: string,
-  boardIndex: number,
+  boardIndex: number | string,
   page: number,
   lang: ServerLangType,
   boardLang: BoardLangType,
   topic: number | '',
-  view_type: string
+  viewType: string
 ) => {
   if (topic === 0) topic = '';
+
   const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang, view_type } }
+    { params: { userId, boardIndex, page, topic, lang, boardLang, viewType } }
+  );
+  return response.data;
+};
+
+export const getCommunityTypeBoardData = async (
+  userId: string,
+  boardType: string | string[],
+  page: number,
+  maxPage: number,
+  lang: ServerLangType,
+  filterLang: BoardLangType,
+  viewType: string
+) => {
+  const response: AxiosResponse = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/typeBoard`,
+    { params: { userId, boardType, page, maxPage, lang, filterLang, viewType } }
   );
   return response.data;
 };
@@ -336,8 +357,8 @@ export const reportComment = async (
  * User
  */
 /* 유저정보 */
-export const getUser = async (user_idx: string, identity: string | null) => {
-  const response: AxiosResponse = await axios.get(
+export const getUser = async (identity?: string, user_idx?: string) => {
+  const response: AxiosResponse<UserResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/user`,
     { params: { user_idx, identity } }
   );
@@ -348,9 +369,9 @@ export const getUser = async (user_idx: string, identity: string | null) => {
 /**
  * TOP30 인기 게시판
  */
-export const getTop30PopularBoards = async (lang: ServerLangType) => {
-  const response: AxiosResponse<Top30PopularBoardsResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/PopularTop30`,
+export const getTop50PopularBoards = async (lang: ServerLangType) => {
+  const response: AxiosResponse<Top50PopularBoardsResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/PopularTop50`,
     { params: { lang } }
   );
   return response.data;
@@ -363,6 +384,64 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
   const response: AxiosResponse<BestPostsResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bestPosts`,
     { params: { lang, viewType } }
+  );
+  return response.data;
+};
+
+/**
+ * Bookmark
+ */
+export const getBookmarks = async (identity: string, lang: UrlLangType) => {
+  const response: AxiosResponse<BookmarksResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmarks`,
+    { params: { identity, lang } }
+  );
+  return response.data;
+};
+
+/**
+ * 전체 공지
+ */
+export const getMainPageNotices = async (collectionId: number) => {
+  const response: AxiosResponse<MainPageNoticesResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/mainpageNotices`,
+    { params: { collectionId } }
+  );
+  return response.data;
+};
+
+export const postBookmark = async (identity: string, boardIdx: string) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark`,
+    {
+      identity: identity,
+      boardIdx: boardIdx,
+    }
+  );
+  return response;
+};
+
+export const deleteBookmark = async (identity: string, boardIdx: string) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark?board_idx=${boardIdx}`,
+    {
+      data: {
+        identity: identity,
+        board_idx: boardIdx,
+      },
+    }
+  );
+  return response;
+};
+
+/**
+ * @desc 다중 게시판 조회
+ * @param boardIds 빈 배열 / undefined 모두 가능
+ */
+export const getMultiBoardsInquiry = async (lang: ServerLangType, boardIds?: number[]) => {
+  const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardsInquiry`,
+    { params: { lang, boardIds }, paramsSerializer: { indexes: null } }
   );
   return response.data;
 };

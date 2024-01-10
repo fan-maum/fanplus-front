@@ -1,58 +1,49 @@
-import { useRouter } from 'next/router';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { Group, UnstyledButton } from '@/components/atoms';
-import styled from '@emotion/styled';
-import { CommunityPageTextType } from '@/types/textTypes';
-import { useQueryClient } from 'react-query';
 import IconSearch from '@/components/atoms/IconSeaarch';
+import { useUrlLanguage } from '@/hooks/useLanguage';
+import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-export interface FormValue {
-  searchValue: string | number;
-}
-
-export type CommunityBoardSearchInputProps = {
-  searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
-  setTabBar: React.Dispatch<React.SetStateAction<any>>;
-  texts: CommunityPageTextType;
+type FormValue = {
+  searchValue: string;
 };
 
-const CommunityBoardSearchInputWrapper = ({
-  searchTabState: [activeTab, setActiveTab],
-  setTabBar,
-  texts,
-}: CommunityBoardSearchInputProps) => {
+const CommunityBoardSearchInputWrapper = () => {
   const router = useRouter();
-  const smallPlaceholder = router.query.locale === 'es' || router.query.locale === 'in';
+  const urlLang = useUrlLanguage();
+  const texts = communityLayoutTexts[urlLang];
+  const smallPlaceholder = urlLang === 'es' || urlLang === 'in';
 
   const { category_type = 0, searchValue, page = 0 } = router?.query;
-  const queryClient = useQueryClient();
-  const { handleSubmit, register, reset } = useForm<FormValue>();
+  const { handleSubmit, register } = useForm<FormValue>({
+    defaultValues: {
+      searchValue: searchValue as string,
+    },
+  });
 
   const handleSearchSubmit: SubmitHandler<FormValue> = async (data) => {
-    await queryClient.removeQueries('boardResults');
-    await setTabBar('boards');
-    await setActiveTab(texts.allCategory);
-    await router.push(
+    router.push(
       {
-        pathname: router.pathname,
+        pathname: `/${urlLang}/community/search/`,
         query: {
           category_type: 0,
           searchValue: data.searchValue,
-          tab: 'boards',
           locale: router.query.locale,
         },
       },
       undefined,
       { shallow: true }
     );
-    reset({ searchValue: data.searchValue });
   };
 
   return (
     <form
       onSubmit={handleSubmit(handleSearchSubmit)}
       css={{
-        width: '50%',
+        width: '40%',
+        minWidth: 364,
         height: 40,
         display: 'flex',
         justifyContent: 'space-between',
@@ -61,6 +52,7 @@ const CommunityBoardSearchInputWrapper = ({
         border: '2px solid #FF5656',
         '@media (max-width: 768px)': {
           width: '100%',
+          marginTop: 10,
         },
       }}
     >

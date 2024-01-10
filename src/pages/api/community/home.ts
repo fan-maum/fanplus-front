@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse = await axios.get(
-      `https://napi.appphotocard.com/voteWeb/boards2/${viewType}?lang=${lang}` +
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/boards2/${viewType}?lang=${lang}` +
         (userId && `&identity=${userId}`),
       {
         headers: {

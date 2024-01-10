@@ -44,11 +44,11 @@ const getResultsByCode = async (req: NextApiRequest, code: string) => {
   const user_lang = negotiator.language(SUPPORT_LANGUAGE) || 'en';
 
   const backResponse = await axios.post(
-    'https://napi.appphotocard.com/voteWeb/auth/apple',
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/auth/apple`,
     {
       platform: 'web',
       code: code,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
       user_lang: user_lang,
       redirect_uri: process.env.APPLE_REDIRECT_URI,
     },
