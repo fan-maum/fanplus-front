@@ -257,6 +257,7 @@ export type VoteModalButtonTextType = {
 export type CommunityPageTextType = {
   community: string;
   boards: string;
+  boardMain: string;
   bestPopular: string;
   recentlyBoards: string;
   recommendedBoards: string;

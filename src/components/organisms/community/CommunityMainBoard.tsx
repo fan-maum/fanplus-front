@@ -18,7 +18,7 @@ const CommunityMainBoard = ({
   communityMainBoardData,
   boardType,
   initialProps,
-}: CommunityPropTypes & { boardType: string | string[] }) => {
+}: CommunityPropTypes & { boardType: string | string[] | undefined }) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
   const page = Number(router.query.page) || 1;
