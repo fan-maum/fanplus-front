@@ -72,6 +72,7 @@ const LayoutWrapper = styled.div`
     width: 100%;
     margin: 0 auto;
     padding-bottom: 100px;
+    gap: 20px;
   }
   .mainAside {
     width: 230px;
@@ -86,7 +87,6 @@ const LayoutWrapper = styled.div`
       display: flex;
       gap: 20px;
     }
-    padding-left: 20px;
     max-width: calc(100% - 230px);
   }
   @media (max-width: 768px) {
@@ -98,7 +98,6 @@ const LayoutWrapper = styled.div`
     }
 
     .mainContent {
-      padding: 0 20px;
       width: 100%;
       max-width: 100%;
 

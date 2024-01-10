@@ -24,7 +24,7 @@ export const TabBar = ({
 }: TabBarPropTypes) => {
   const router = useRouter();
   return (
-    <ul css={{ width: '100%', display: 'flex', margin: '8px 0px' }}>
+    <ul css={{ width: '100%', display: 'flex', margin: '20px 0px' }}>
       <TabBarItem
         title={tabTitles.firstTab}
         selected={tabBar === tabItems[0]}
@@ -75,7 +75,7 @@ export const TabBarItem = ({
         width: '50%',
         height: '40px',
         lineHeight: '37px',
-        fontSize: '15px',
+        fontSize: '16px',
         fontWeight: '600',
         color: selected ? '#ff5656' : '#999999',
         borderBottom: `2.5px solid ${selected ? '#ff5656' : '#d9d9d9'}`,

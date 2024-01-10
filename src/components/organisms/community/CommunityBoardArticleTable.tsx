@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import CommunityBoardPagination from '../CommunityBoardPagination';
 import CommunityBoardNoPost from './CommunityBoardNoPost';
+import CommunityBoardNoticeArticleMobile from '@/components/molecules/community/CommunityBoardNoticeArticleMobile';
 
 type BoardArticleTableProps = {
   communityBoardDataSSR: CommunityBoardResponseType;
@@ -110,6 +111,13 @@ const CommunityBoardArticleTable = ({
                 postItem={notice}
                 firstHeader={noticeHeader}
                 link={`/${urlLang}/community/board/${notice.BOARD_IDX}/${notice.POST_IDX}?page=${urlPage}&from=${urlPath}`}
+                isNotice
+              />
+              <CommunityBoardNoticeArticleMobile
+                postItem={notice}
+                firstHeader={noticeHeader}
+                link={`/${urlLang}/community/board/${notice.BOARD_IDX}/${notice.POST_IDX}?page=${urlPage}&from=${urlPath}`}
+                texts={texts}
                 isNotice
               />
             </li>

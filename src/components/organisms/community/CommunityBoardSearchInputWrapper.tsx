@@ -51,7 +51,8 @@ const CommunityBoardSearchInputWrapper = () => {
         gap: 18,
         border: '2px solid #FF5656',
         '@media (max-width: 768px)': {
-          width: '100%',
+          width: 'calc(100% - 32px)',
+          margin: '0 auto',
           marginTop: 10,
         },
       }}
