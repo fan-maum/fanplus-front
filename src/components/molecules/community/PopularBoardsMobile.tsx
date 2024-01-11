@@ -46,8 +46,9 @@ const PopularBoardsMobile = ({ initialOpen }: { initialOpen: boolean }) => {
     <div
       css={{
         '@media (min-width: 768px)': { display: 'none' },
-        width: '100%',
+        width: 'calc(100% - 32px)',
         border: '1px solid #d9d9d9',
+        margin: '0 auto',
         marginTop: 20,
       }}
     >

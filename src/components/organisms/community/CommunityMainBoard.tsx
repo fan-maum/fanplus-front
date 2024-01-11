@@ -18,7 +18,7 @@ const CommunityMainBoard = ({
   communityMainBoardData,
   boardType,
   initialProps,
-}: CommunityPropTypes & { boardType: string | string[] }) => {
+}: CommunityPropTypes & { boardType: string | string[] | undefined }) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
   const page = Number(router.query.page) || 1;
@@ -55,7 +55,15 @@ const CommunityMainBoard = ({
           urlLang={urlLang}
           userId={userId}
           rightItem={
-            <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div
+              css={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                flex: 1,
+                justifyContent: 'flex-end',
+              }}
+            >
               <CommunityBoardLangSelector
                 language={texts.boardLang[boardLang]}
                 onClickOpenModal={() => setLangModal(true)}

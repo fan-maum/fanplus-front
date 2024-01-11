@@ -94,13 +94,69 @@ const CommunityBoardTemplate = ({
           urlLang={urlLang}
           userId={userId}
           rightItem={
-            <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div
+              css={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                flex: 1,
+                justifyContent: 'flex-end',
+              }}
+            >
               <CommunityBoardLangSelector
                 language={texts.boardLang[boardLang]}
                 onClickOpenModal={() => setLangModal(true)}
                 tooltipText={texts.langSelectorToolTip}
                 boardLang={boardLang}
               />
+              {!isBestBoard && (
+                <button
+                  css={{
+                    padding: '5px 8px',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    outline: 'none',
+                    border: 'none',
+                    color: '#fff',
+                    backgroundColor: colors.primary[500],
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    '@media(max-width:768px)': { display: 'none' },
+                  }}
+                  onClick={onClickWrite}
+                >
+                  {texts.bottomTabBar.write}
+                </button>
+              )}
+            </div>
+          }
+        />
+        {!isBestBoard && (
+          <div
+            css={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 20,
+              height: 52,
+              '@media(max-width:768px)': { height: '80px', flexDirection: 'column', gap: 0 },
+            }}
+          >
+            <div
+              css={{
+                '@media(max-width:768px)': {
+                  display: 'flex',
+                  width: '100%',
+                  height: '40px',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '0 16px',
+                  borderTop: `1px solid ${colors.gray[100]}`,
+                  borderBottom: `1px solid ${colors.gray[100]}`,
+                },
+              }}
+            >
+              <BoardDomains viewType={viewType} boardDomainTexts={texts.bottomTabBar} />
               <button
                 css={{
                   padding: '5px 8px',
@@ -112,17 +168,14 @@ const CommunityBoardTemplate = ({
                   backgroundColor: colors.primary[500],
                   borderRadius: 6,
                   cursor: 'pointer',
+                  display: 'none',
+                  '@media(max-width:768px)': { display: 'flex' },
                 }}
                 onClick={onClickWrite}
               >
                 {texts.bottomTabBar.write}
               </button>
             </div>
-          }
-        />
-        {!isBestBoard && (
-          <div css={{ display: 'flex', alignItems: 'center', gap: 20, height: 52 }}>
-            <BoardDomains viewType={viewType} boardDomainTexts={texts.bottomTabBar} />
             <CommunityBoardTopicTabBar
               stringTopicAll={texts.all}
               topicList={topicList}

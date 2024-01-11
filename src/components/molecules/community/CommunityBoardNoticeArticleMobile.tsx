@@ -1,26 +1,27 @@
 import TopicBubble from '@/components/atoms/TopicBubble';
 import { useUrlLanguage } from '@/hooks/useLanguage';
+import { colors } from '@/styles/CommunityColors';
 import type { UrlLangType } from '@/types/common';
 import type { NoticeListItemType, PostListItemType } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 type OwnPropType = {
-  postItem: PostListItemType;
+  postItem: NoticeListItemType;
+  firstHeader: ReactNode;
   link: string;
   texts: CommunityBoardTextType;
   isNotice?: boolean;
   showTopic?: boolean;
 };
-
-const CommunityBoardArticleMobile = ({
+const CommunityBoardNoticeArticleMobile = ({
   postItem,
+  firstHeader,
   link,
   texts,
   isNotice,
-  showTopic,
 }: OwnPropType) => {
   const timeExpression =
     postItem.PUBLISH_DATE !== null ? formatWrittenTimeLite(postItem.PUBLISH_DATE) : 0;
@@ -38,23 +39,21 @@ const CommunityBoardArticleMobile = ({
     >
       <div css={{ display: 'flex', justifyContent: 'space-between' }}>
         <div css={{ margin: '3px 3px 6px', lineHeight: '1.5', width: '70%' }}>
-          <h4
-            css={{
-              wordBreak: 'break-word',
-              fontWeight: '400',
-              maxWidth: '80%',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {showTopic ? (
-              <span>[{postItem.TOPIC_NAME}]</span>
-            ) : (
-              <span>[{postItem.BOARD_TITLE}]</span>
-            )}{' '}
-            {postItem.POST_TITLE}
-          </h4>
+          <div css={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <div>{firstHeader}</div>
+            <h4
+              css={{
+                wordBreak: 'break-word',
+                fontWeight: '400',
+                maxWidth: '80%',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {postItem.POST_TITLE}
+            </h4>
+          </div>
           <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>
             <p css={{ marginBottom: '4px' }}>
               <span css={{ color: '#000' }}>{postItem.WRITER_NAME}</span>
@@ -66,8 +65,7 @@ const CommunityBoardArticleMobile = ({
             </p>
           </div>
         </div>
-        <div css={{ display: 'flex', gap: 10 }}>
-          {postItem.POST_IMG_YN === 'Y' && <ThumbnailImage src={postItem.SUMNAIL_IMG} />}
+        <div css={{ display: 'flex' }}>
           <CommentBox commentCount={postItem.COMMENT_CNT} text={texts.commentCount} />
         </div>
       </div>
@@ -75,7 +73,7 @@ const CommunityBoardArticleMobile = ({
   );
 };
 
-export default CommunityBoardArticleMobile;
+export default CommunityBoardNoticeArticleMobile;
 
 const ThumbnailImage = ({ src }: { src: string }) => {
   return (

@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import CommunityBoardPagination from '../CommunityBoardPagination';
 import CommunityBoardNoPost from './CommunityBoardNoPost';
+import CommunityBoardNoticeArticleMobile from '@/components/molecules/community/CommunityBoardNoticeArticleMobile';
 
 type BoardArticleTableProps = {
   communityBoardDataSSR: CommunityBoardResponseType;
@@ -40,15 +41,16 @@ const CommunityBoardArticleTable = ({
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
-  const tableHeader = isStarBoardTableHeader ? 'board' : 'topic';
+  const { boardIndex: urlBoardIndex } = router.query;
+  const isBestBoard = urlBoardIndex === '2291';
 
+  const tableHeader = isStarBoardTableHeader || isBestBoard ? 'board' : 'topic';
   const { data: communityBoardData, isFetching } = useQuery(
     [
       'communityBoardData',
       { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType },
     ],
-    () =>
-      getCommunityBoardData(userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType),
+    () => getCommunityBoardData(userId, 2291, page, requestLang, boardLang, topicIndex, viewType),
     { initialData: isInitialData ? communityBoardDataSSR : undefined }
   );
 
@@ -112,6 +114,13 @@ const CommunityBoardArticleTable = ({
                 link={`/${urlLang}/community/board/${notice.BOARD_IDX}/${notice.POST_IDX}?page=${urlPage}&from=${urlPath}`}
                 isNotice
               />
+              <CommunityBoardNoticeArticleMobile
+                postItem={notice}
+                firstHeader={noticeHeader}
+                link={`/${urlLang}/community/board/${notice.BOARD_IDX}/${notice.POST_IDX}?page=${urlPage}&from=${urlPath}`}
+                texts={texts}
+                isNotice
+              />
             </li>
           );
         })}
@@ -120,14 +129,16 @@ const CommunityBoardArticleTable = ({
             <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle
                 postItem={post}
-                firstHeader={post.TOPIC_NAME}
+                firstHeader={
+                  isStarBoardTableHeader || isBestBoard ? post.BOARD_TITLE : post.TOPIC_NAME
+                }
                 link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
               />
               <CommunityBoardArticleMobile
                 postItem={post}
                 link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
                 texts={texts}
-                showTopic
+                showTopic={isStarBoardTableHeader || isBestBoard ? false : true}
               />
             </li>
           );
