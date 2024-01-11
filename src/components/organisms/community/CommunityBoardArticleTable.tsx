@@ -138,7 +138,7 @@ const CommunityBoardArticleTable = ({
                 postItem={post}
                 link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
                 texts={texts}
-                showTopic={isBestBoard ? false : true}
+                showTopic={isStarBoardTableHeader || isBestBoard ? false : true}
               />
             </li>
           );
