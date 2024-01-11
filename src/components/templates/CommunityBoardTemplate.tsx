@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
-import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
 import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
@@ -85,51 +84,14 @@ const CommunityBoardTemplate = ({
     router.replace({ query: { ...router.query, page: 1 } }, undefined, { shallow: true });
     setLangModal(false);
   };
-
   return (
     <>
       <div>
         <CommunityBoardTopNavi
           boardTitle={boardInfoDetail[0].TITLE as string}
-          urlLang={urlLang}
-          userId={userId}
-          rightItem={
-            <div
-              css={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                flex: 1,
-                justifyContent: 'flex-end',
-              }}
-            >
-              <CommunityBoardLangSelector
-                language={texts.boardLang[boardLang]}
-                onClickOpenModal={() => setLangModal(true)}
-                tooltipText={texts.langSelectorToolTip}
-                boardLang={boardLang}
-              />
-              {!isBestBoard && (
-                <button
-                  css={{
-                    padding: '5px 8px',
-                    fontSize: 14,
-                    fontWeight: 600,
-                    outline: 'none',
-                    border: 'none',
-                    color: '#fff',
-                    backgroundColor: colors.primary[500],
-                    borderRadius: 6,
-                    cursor: 'pointer',
-                    '@media(max-width:768px)': { display: 'none' },
-                  }}
-                  onClick={onClickWrite}
-                >
-                  {texts.bottomTabBar.write}
-                </button>
-              )}
-            </div>
-          }
+          boardLang={boardLang}
+          setLangModal={setLangModal}
+          onClickWrite={onClickWrite}
         />
         {!isBestBoard && (
           <div

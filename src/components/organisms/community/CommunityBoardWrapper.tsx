@@ -1,4 +1,3 @@
-import CommunityBoardLangSelector from '@/components/molecules/community/CommunityBoardLangSelector';
 import CommunityBoardTopNavi from '@/components/molecules/community/CommunityBoardTopNavi';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
@@ -69,27 +68,10 @@ const CommunityBoardWrapper = ({
       <div>
         <CommunityBoardTopNavi
           boardTitle={boardTitle}
+          boardLang={boardLang}
           boardType={boardType}
-          urlLang={urlLang}
-          userId={userId}
-          rightItem={
-            <div
-              css={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                flex: 1,
-                justifyContent: 'flex-end',
-              }}
-            >
-              <CommunityBoardLangSelector
-                language={texts.boardLang[boardLang]}
-                onClickOpenModal={() => setLangModal(true)}
-                tooltipText={texts.langSelectorToolTip}
-                boardLang={boardLang}
-              />
-            </div>
-          }
+          setLangModal={setLangModal}
+          onClickWrite={() => false}
         />
         <CommunityBoardArticleTable
           communityBoardDataSSR={communityBoardData}
