@@ -51,8 +51,7 @@ const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPos
                 <Fragment key={'MyPosts' + idx}>
                   <CommunityBoardArticle
                     postItem={post}
-                    // firstHeader={post.BOARD_TITLE}
-                    firstHeader={post.TOPIC_NAME}
+                    firstHeader={post.BOARD_TITLE}
                     link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}`}
                   />
                   <CommunityBoardArticleMobile
