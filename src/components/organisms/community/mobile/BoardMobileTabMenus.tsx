@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import MainAsideMenus from '../MainAsideMenus';
 import PopularBoards from '@/components/molecules/community/PopularBoards';
-import MobileSideBar from './mobileSideBar';
 import { Portal } from '@mantine/core';
 
 const BoardMobileTabMenus = () => {
@@ -16,16 +15,16 @@ const BoardMobileTabMenus = () => {
         <img src="/icons/icon_Menu.svg" alt="메뉴버튼" />
       </BoardMobileTabMenusWrapper>
 
-      <Portal>
-        <MobileSideBar visible={visible} onClose={handleOnClose}>
-          <StyledMenuWrapper className="menu-wrapper">
-            <div className="nav-page-info">
-              <MainAsideMenus />
-            </div>
-            <PopularBoards />
-          </StyledMenuWrapper>
-        </MobileSideBar>
-      </Portal>
+      {/* <Portal> */}
+      {/* <MobileSideBar visible={visible} onClose={handleOnClose}> */}
+      <StyledMenuWrapper className="menu-wrapper">
+        <div className="nav-page-info">
+          <MainAsideMenus />
+        </div>
+        <PopularBoards />
+      </StyledMenuWrapper>
+      {/* </MobileSideBar> */}
+      {/* </Portal> */}
     </>
   );
 };
