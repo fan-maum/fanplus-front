@@ -56,7 +56,7 @@ const CommunityBoardTopNavi = ({
           '@media (max-width: 768px)': { padding: '0 16px' },
         }}
       >
-        <div css={{ display: 'flex', alignItems: 'center' }}>
+        <div css={{ display: 'inline-flex', alignItems: 'center' }}>
           {!boardType && (
             <IconArrowLeft
               iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}

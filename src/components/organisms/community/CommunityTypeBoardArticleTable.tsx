@@ -124,14 +124,13 @@ const CommunityTypeBoardArticleTable = ({
             <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle
                 postItem={post}
-                firstHeader={post.TOPIC_NAME}
+                firstHeader={post.BOARD_TITLE}
                 link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
               />
               <CommunityBoardArticleMobile
                 postItem={post}
                 link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
                 texts={texts}
-                showTopic
               />
             </li>
           );

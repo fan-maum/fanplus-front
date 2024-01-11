@@ -48,7 +48,12 @@ const CommunityBoardArticleMobile = ({
               textOverflow: 'ellipsis',
             }}
           >
-            {showTopic && <span>[{postItem.TOPIC_NAME}]</span>} {postItem.POST_TITLE}
+            {showTopic ? (
+              <span>[{postItem.TOPIC_NAME}]</span>
+            ) : (
+              <span>[{postItem.BOARD_TITLE}]</span>
+            )}{' '}
+            {postItem.POST_TITLE}
           </h4>
           <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>
             <p css={{ marginBottom: '4px' }}>

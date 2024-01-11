@@ -73,7 +73,15 @@ const CommunityBoardWrapper = ({
           urlLang={urlLang}
           userId={userId}
           rightItem={
-            <div css={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div
+              css={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                flex: 1,
+                justifyContent: 'flex-end',
+              }}
+            >
               <CommunityBoardLangSelector
                 language={texts.boardLang[boardLang]}
                 onClickOpenModal={() => setLangModal(true)}

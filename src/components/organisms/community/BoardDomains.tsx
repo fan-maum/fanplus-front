@@ -1,5 +1,6 @@
 import BoardDomainItem from '@/components/molecules/community/BoardDomainItem';
 import { useRouter } from 'next/router';
+import { useMediaQuery } from 'react-responsive';
 
 interface BoardDomainsProps {
   viewType: string;
@@ -14,6 +15,7 @@ interface BoardDomainsProps {
 
 const BoardDomains = ({ viewType, boardDomainTexts }: BoardDomainsProps) => {
   const router = useRouter();
+  const isMobile = useMediaQuery({ query: '(max-width:768px)' });
   const onClickAll = async () => {
     if (viewType !== 'all') {
       router.replace({ query: { ...router.query, view: 'all', page: 1 } }, undefined, {

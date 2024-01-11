@@ -23,6 +23,14 @@ const CommunityBoardTopicTabBar = ({
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
         '::-webkit-scrollbar': { display: 'none' },
+        '@media(max-width:768px)': {
+          display: 'flex',
+          width: '100%',
+          height: '40px',
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: '0 16px',
+        },
       }}
     >
       <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => onClickTopic(0)} />

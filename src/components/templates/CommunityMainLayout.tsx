@@ -10,6 +10,7 @@ import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBo
 import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
+import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -50,6 +51,7 @@ const CommunityMainLayout = ({
                   },
                 }}
               >
+                <BoardMobileTab />
                 {children}
               </div>
               {!isCommunity && <BestNotices />}
