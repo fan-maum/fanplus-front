@@ -16,18 +16,24 @@ const BoardMobileTab = () => {
 export default BoardMobileTab;
 
 const BoardMobileTabWrapper: any = styled.div`
-  @media screen and (max-width: 768px) {
-    display: flex;
+    display: none;
+    @media screen and (max-width: 768px) {
+    display: none;
+    /* display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: flex-start; */
 
     .boardMobileTabAllMenu-wrapper {
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
+      @media (max-width: 768px) {
+        display: none;
+    }
+  }
     }
 
     .menu-wrapper[data-active='true'] {
