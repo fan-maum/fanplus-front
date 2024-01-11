@@ -20,7 +20,14 @@ const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPos
   };
 
   return (
-    <div css={{ minWidth: 810 }}>
+    <div
+      css={{
+        minWidth: 810,
+        '@media(max-width:768px)': {
+          minWidth: 360,
+        },
+      }}
+    >
       <div
         css={{
           display: 'flex',

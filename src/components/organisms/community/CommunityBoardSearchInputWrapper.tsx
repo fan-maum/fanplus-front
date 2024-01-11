@@ -10,7 +10,11 @@ type FormValue = {
   searchValue: string;
 };
 
-const CommunityBoardSearchInputWrapper = () => {
+type SearchInputWrapProps = {
+  withSearchInput?: boolean;
+};
+
+const CommunityBoardSearchInputWrapper = ({ withSearchInput }: SearchInputWrapProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const texts = communityLayoutTexts[urlLang];
@@ -45,15 +49,16 @@ const CommunityBoardSearchInputWrapper = () => {
         width: '40%',
         minWidth: 364,
         height: 40,
-        display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 18,
         border: '2px solid #FF5656',
+        display: withSearchInput ? 'flex' : 'none',
         '@media (max-width: 768px)': {
           width: 'calc(100% - 32px)',
           margin: '0 auto',
           marginTop: 10,
+          display: 'flex',
         },
       }}
     >

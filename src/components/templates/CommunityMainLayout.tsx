@@ -38,7 +38,7 @@ const CommunityMainLayout = ({
             <PopularBoards />
           </div>
           <div className="mainContent">
-            {withSearchInput && <CommunityBoardSearchInputWrapper />}
+            <CommunityBoardSearchInputWrapper withSearchInput={withSearchInput} />
             <PopularBoardsMobile initialOpen={false} />
             <div className="contentLayout">
               <div
