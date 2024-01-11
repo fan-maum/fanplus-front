@@ -2,7 +2,7 @@ import type { UrlLangType } from '@/types/common';
 import type { PartialUserType } from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import BestNotices from '../molecules/community/BestNotices';
 import PopularBoards from '../molecules/community/PopularBoards';
 import Layout from '../organisms/Layout';
@@ -11,6 +11,7 @@ import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
+import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -27,6 +28,7 @@ const CommunityMainLayout = ({
 }: CommunityMainLayoutProps) => {
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   return (
     <Layout urlLang={urlLang}>
@@ -45,13 +47,10 @@ const CommunityMainLayout = ({
                 css={{
                   width: 810,
                   minWidth: 810,
-                  '@media(max-width:960px)': {
-                    width: '100%',
-                    minWidth: 360,
-                  },
+                  '@media(max-width:960px)': { width: '100%', minWidth: 360 },
                 }}
               >
-                <BoardMobileTab />
+                {/* <BoardMobileTab setOpenSidebar={setOpenSidebar} /> */}
                 {children}
               </div>
               {!isCommunity && <BestNotices />}
@@ -59,6 +58,11 @@ const CommunityMainLayout = ({
           </div>
         </div>
       </LayoutWrapper>
+      <CommunityMobileSidebar
+        user={user}
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+      />
     </Layout>
   );
 };

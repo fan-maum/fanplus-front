@@ -1,35 +1,43 @@
+import { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
-import { ReactNode } from 'react';
 import { colors } from '@/styles/CommunityColors';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
-import { useQuery } from 'react-query';
-import { UrlLangType } from '@/types/common';
+import { BoardLangType } from '@/types/common';
 import { getBookmarks } from '@/api/Community';
 import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
 import { BookmarksItemType } from '@/types/community';
+import { useUrlLanguage } from '@/hooks/useLanguage';
+import { getCookie } from '@/utils/Cookie';
+import CommunityBoardLangSelector from './CommunityBoardLangSelector';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
+  boardLang: BoardLangType;
+  setLangModal: Dispatch<SetStateAction<boolean>>;
   boardType?: string | string[];
-  urlLang: UrlLangType;
-  userId: string;
-  rightItem?: ReactNode;
+  onClickWrite: () => void;
 };
 
 const CommunityBoardTopNavi = ({
   boardTitle,
+  boardLang,
   boardType,
-  urlLang,
-  userId,
-  rightItem,
+  setLangModal,
+  onClickWrite,
 }: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
+  const userId = getCookie('user_id');
+  const urlLang = useUrlLanguage();
   const boardIndex = router.query.boardIndex;
+  const texts = communityBoardTexts[urlLang];
   const { data } = useQuery(['bookmarks', { userId, urlLang }], () =>
     getBookmarks(userId, urlLang)
   );
   const bookmarks = data ?? [];
+  const isBestBoard = Number(router.query.boardIndex) === 2291;
   const isBookmarked = Boolean(
     bookmarks.find((bookmark: BookmarksItemType) => bookmark.BOARD_IDX === boardIndex)
   );
@@ -79,7 +87,39 @@ const CommunityBoardTopNavi = ({
             onClick={() => handleBookmarkOnClick(String(boardIndex))}
           />
         </div>
-        {rightItem}
+        <div
+          css={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            flex: 1,
+            justifyContent: 'flex-end',
+          }}
+        >
+          <CommunityBoardLangSelector
+            onClickOpenModal={() => setLangModal(true)}
+            boardLang={boardLang}
+          />
+          {!isBestBoard && (
+            <button
+              css={{
+                padding: '5px 8px',
+                fontSize: 14,
+                fontWeight: 600,
+                outline: 'none',
+                border: 'none',
+                color: '#fff',
+                backgroundColor: colors.primary[500],
+                borderRadius: 6,
+                cursor: 'pointer',
+                '@media(max-width:768px)': { display: 'none' },
+              }}
+              onClick={onClickWrite}
+            >
+              {texts.bottomTabBar.write}
+            </button>
+          )}
+        </div>
       </div>
     </>
   );

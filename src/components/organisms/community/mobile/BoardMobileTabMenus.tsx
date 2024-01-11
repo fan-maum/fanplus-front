@@ -1,47 +1,30 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import styled from '@emotion/styled';
-import MainAsideMenus from '../MainAsideMenus';
-import PopularBoards from '@/components/molecules/community/PopularBoards';
-import { Portal } from '@mantine/core';
 
-const BoardMobileTabMenus = () => {
-  const [visible, setVisible] = useState(false);
-  const handleOpOpen = () => setVisible(true);
-  const handleOnClose = () => setVisible(false);
-
+const BoardMobileTabMenus = ({
+  setOpenSidebar,
+}: {
+  setOpenSidebar: Dispatch<SetStateAction<boolean>>;
+}) => {
   return (
-    <>
-      <BoardMobileTabMenusWrapper onClick={handleOpOpen}>
-        <img src="/icons/icon_Menu.svg" alt="메뉴버튼" />
-      </BoardMobileTabMenusWrapper>
-
-      {/* <Portal> */}
-      {/* <MobileSideBar visible={visible} onClose={handleOnClose}> */}
-      <StyledMenuWrapper className="menu-wrapper">
-        <div className="nav-page-info">
-          <MainAsideMenus />
-        </div>
-        <PopularBoards />
-      </StyledMenuWrapper>
-      {/* </MobileSideBar> */}
-      {/* </Portal> */}
-    </>
+    <BoardMobileTabMenusButton onClick={() => setOpenSidebar(true)}>
+      <img src="/icons/icon_Menu.svg" alt="메뉴버튼" />
+    </BoardMobileTabMenusButton>
   );
 };
 
 export default BoardMobileTabMenus;
 
-const BoardMobileTabMenusWrapper = styled.div`
-  background-color: var(--color-background);
-  padding: 8px 11px;
+const BoardMobileTabMenusButton = styled.div`
   display: flex;
-  width: 47px;
+  width: 24px;
+  height: 24px;
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
   display: none;
   @media (max-width: 768px) {
-    display: none;
+    display: block;
   }
 
   > span {
@@ -51,12 +34,5 @@ const BoardMobileTabMenusWrapper = styled.div`
 
   > img {
     width: 24px;
-  }
-`;
-
-const StyledMenuWrapper = styled.div`
-  width: 250px;
-  .nav-page-info {
-    padding: 10px;
   }
 `;
