@@ -1,9 +1,13 @@
-import { getCommunityTypeBoardData, getUser } from '@/api/Community';
+import { getCommunityBoardData, getCommunityTypeBoardData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
-import type { CommunityMainPageResponseType, PartialUserType } from '@/types/community';
+import type {
+  CommunityBoardResponseType,
+  CommunityMainPageResponseType,
+  PartialUserType,
+} from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
@@ -22,6 +26,17 @@ export type CommunityPropTypes = {
   };
 };
 
+export interface CommunityBestBoardPropTypes {
+  communityBoardData: CommunityBoardResponseType;
+  initialBestBoardProps: {
+    page: number;
+    serverLang: ServerLangType;
+    boardLangCookie: BoardLangType;
+    topic: number;
+    view_type: string;
+  };
+}
+
 const CommunityHomePage = ({
   urlLang,
   userId,
@@ -30,7 +45,9 @@ const CommunityHomePage = ({
   communityMainBoardData,
   initialProps,
   user,
-}: CommunityPropTypes & { user: PartialUserType }) => {
+  communityBoardData,
+  initialBestBoardProps,
+}: CommunityPropTypes & { user: PartialUserType } & CommunityBestBoardPropTypes) => {
   return (
     <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
       <CommunityPageTemplate
@@ -40,6 +57,8 @@ const CommunityHomePage = ({
         boardLangCookie={boardLangCookie}
         communityMainBoardData={communityMainBoardData}
         initialProps={initialProps}
+        communityBoardData={communityBoardData}
+        initialBestBoardProps={initialBestBoardProps}
       />
     </CommunityMainLayout>
   );
@@ -57,6 +76,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const maxPage = 10;
   const topic = parseInt(context.query.topic as string) || 0;
   const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
+  const boardIndex = 2291;
 
   const communityMainBoardData: CommunityMainPageResponseType = await getCommunityTypeBoardData(
     userId,
@@ -69,6 +89,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   const initialProps = { page, serverLang, boardLangCookie, maxPage, view_type };
+
+  const communityBoardData = await getCommunityBoardData(
+    userId,
+    boardIndex,
+    page,
+    serverLang,
+    boardLangCookie,
+    topic,
+    view_type
+  );
+
+  const initialBestBoardProps = { page, serverLang, boardLangCookie, topic, view_type };
+
   const props = {
     urlLang,
     userId,
@@ -76,6 +109,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     boardLangCookie,
     communityMainBoardData,
     initialProps,
+    communityBoardData,
+    initialBestBoardProps,
   };
 
   if (!!userId && !!user_idx) {
