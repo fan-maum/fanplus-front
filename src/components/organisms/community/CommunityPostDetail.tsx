@@ -55,6 +55,8 @@ const CommunityPostDetail = ({
   const handleListButton = () => {
     if (router.query.from === '2291') {
       router.push(`/${urlLang}/community/board/${router.query.from}/`);
+    } else if (router.query.from === 'community') {
+      router.push(`/${urlLang}/community`);
     } else {
       router.push(`/${urlLang}/community/board/${router.query.boardIndex}/`);
     }
