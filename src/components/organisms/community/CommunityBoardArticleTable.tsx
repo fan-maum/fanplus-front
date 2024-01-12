@@ -43,6 +43,8 @@ const CommunityBoardArticleTable = ({
   const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
   const { boardIndex: urlBoardIndex } = router.query;
   const isBestBoard = urlBoardIndex === '2291';
+  const currentBoardIndex =
+    Number(router.query.boardIndex) === 2291 ? 2291 : Number(router.query.boardIndex);
 
   const tableHeader = isStarBoardTableHeader || isBestBoard ? 'board' : 'topic';
   const { data: communityBoardData, isFetching } = useQuery(
@@ -50,7 +52,16 @@ const CommunityBoardArticleTable = ({
       'communityBoardData',
       { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType },
     ],
-    () => getCommunityBoardData(userId, 2291, page, requestLang, boardLang, topicIndex, viewType),
+    () =>
+      getCommunityBoardData(
+        userId,
+        currentBoardIndex,
+        page,
+        requestLang,
+        boardLang,
+        topicIndex,
+        viewType
+      ),
     { initialData: isInitialData ? communityBoardDataSSR : undefined }
   );
 
