@@ -1,4 +1,4 @@
-import type { ServerLangType } from './common';
+import type { ServerLangType, UrlLangType } from './common';
 
 export type BoardListItemType = {
   BOARD_IDX: string;
@@ -556,3 +556,71 @@ export type MultiBoardsInquiryItemType = {
   isExistNewPost: boolean;
 };
 export type MultiBoardsInquiryResponseType = Array<MultiBoardsInquiryItemType>;
+
+/**
+ * Side Menu
+ */
+export type sideMenuResponseType = Array<sideMenuItemType>;
+
+export type sideMenuItemType = {
+  id: string;
+  boardId: string | null;
+  path: string;
+  categoryId: string | null;
+  isDisplay: number;
+  parentId: string | null;
+  title: string;
+  photocard_board_info: sideMenuPhotoCardBoardInfo | null;
+  MenuLang: Array<sideMenuLang | null>;
+  isBookmarked: boolean;
+  board: sideMenuBoard | undefined;
+};
+
+export type sideMenuPhotoCardBoardInfo = {
+  IDX: string;
+  BASE_LANG: string;
+  LEVEL: null;
+  LEVEL_EXP: null;
+  BOARD_ICON: string;
+  HEAD_IMG: string | null;
+  SUBSCRIPTION_CNT: string;
+  BOOKMARK_CNT: string;
+  RECOMMEND_CNT: string;
+  RANK_SCORE: number;
+  OWNER_IDX: string;
+  IS_DISPLAY: 'Y' | 'N';
+  IS_REMOVE: 'Y' | 'N';
+  IS_BLIND: 'Y' | 'N';
+  INS_DATE: string;
+  UPD_DATE: string | null;
+  REMOVE_DATE: string | null;
+  POST_CNT: string;
+  DEFAULT_TOPIC: number;
+  NEW_POST_DATE: string | null;
+  photocard_board_lang: Array<sideMenuPhotoCardBoardLang>;
+};
+
+export type sideMenuPhotoCardBoardLang = {
+  IDX: string;
+  BOARD_IDX: string;
+  LANG_TYPE: string;
+  TITLE: string;
+  DISCRIPTION: string;
+  INS_DATE: string;
+  UPD_DATE: string;
+};
+
+export type sideMenuLang = {
+  id: number;
+  menuId: string;
+  lang: UrlLangType;
+  title: string;
+};
+
+export type sideMenuBoard = {
+  TITLE: string;
+  BOARD_TITLE: string;
+  HEAD_IMG: string;
+  POST_CNT: string;
+  isExistNewPost: boolean;
+};
