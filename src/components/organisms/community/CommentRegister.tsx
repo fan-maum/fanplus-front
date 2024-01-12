@@ -65,7 +65,7 @@ const CommentRegister = ({
           h={'100%'}
           px={16}
           css={{
-            width: '60px',
+            width: 'fit-content',
             margin: 0,
             padding: '4px 14px',
             borderRadius: '6px',
@@ -93,6 +93,8 @@ const RegisterInput = styled.input`
   border: 1px solid ${colors.gray[200]};
   border-radius: 6px;
   padding: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   &::placeholder {
     color: ${colors.gray[500]};
   }

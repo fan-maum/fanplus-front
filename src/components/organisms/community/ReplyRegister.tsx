@@ -7,6 +7,7 @@ import { CommunityPostTextType } from '@/types/textTypes';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/community';
 import { getProfileData } from '@/utils/communityUtil';
+import { colors } from '@/styles/CommunityColors';
 
 interface FormValue {
   registerValue: string | number;
@@ -61,6 +62,12 @@ const ReplyRegister = ({
         height: '120px',
         padding: '20px 20px 20px 30px',
         borderTop: '1px solid #f1f1f1',
+        '@media(max-width:768px)': {
+          alignItems: 'flex-start',
+          height: '130px',
+          padding: '10px 16px',
+          gap: 12,
+        },
       }}
     >
       <Avatar
@@ -70,6 +77,7 @@ const ReplyRegister = ({
         radius={'50%'}
         css={{
           border: '1px solid #F8F8F9',
+          '@media(max-width:768px)': { width: '60px', height: '60px' },
         }}
         src={profile.profileImg}
         alt="Avatar"
@@ -80,21 +88,30 @@ const ReplyRegister = ({
         align="center"
         h="100%"
         spacing={10}
-        css={{ flexDirection: 'row', flex: 1 }}
+        css={{
+          flexDirection: 'row',
+          flex: 1,
+          '@media(max-width:768px)': { flexDirection: 'column', alignItems: 'flex-end' },
+        }}
       >
-        <RegisterInputWrapper>
-          <label>{profile.profileNick}</label>
+        <RegisterInputWrapper
+          css={{ padding: profile.profileNick ? '20px 10px 10px 10px' : '10px' }}
+        >
+          <label>{profile && profile.profileNick}</label>
           <RegisterInput
             placeholder={texts.replyRegisterPlaceholder}
             {...register('registerValue', { maxLength: 200 })}
+            css={{ padding: profile.profileNick ? '20px 0 0 0' : '0px' }}
           />
         </RegisterInputWrapper>
         <UnstyledButton
           type="submit"
-          bg="#FF5656"
+          bg={colors.primary[400]}
           h={80}
           px={16}
           css={{
+            display: 'flex',
+            alignItems: 'center',
             width: 'auto',
             height: 80,
             margin: 0,
@@ -103,6 +120,7 @@ const ReplyRegister = ({
             color: '#fff',
             fontSize: 20,
             fontWeight: 600,
+            '@media(max-width: 768px)': { height: 32, padding: '7px 16px' },
           }}
         >
           <span>{texts.register}</span>
@@ -130,6 +148,9 @@ const RegisterInputWrapper = styled.div`
     font-size: 16px;
     font-weight: 500;
   }
+  @media screen and (max-width: 768px) {
+    height: 70px;
+  }
 `;
 
 const RegisterInput = styled.input`
@@ -138,6 +159,8 @@ const RegisterInput = styled.input`
   flex: 1;
   border: none;
   outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 14px;
   font-weight: 400;
   padding: 20px 0 0 0;
