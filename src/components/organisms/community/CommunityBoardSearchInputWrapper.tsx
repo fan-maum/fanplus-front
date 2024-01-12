@@ -47,7 +47,7 @@ const CommunityBoardSearchInputWrapper = ({ withSearchInput }: SearchInputWrapPr
       onSubmit={handleSubmit(handleSearchSubmit)}
       css={{
         width: '40%',
-        minWidth: 364,
+        minWidth: 320,
         height: 40,
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -56,6 +56,7 @@ const CommunityBoardSearchInputWrapper = ({ withSearchInput }: SearchInputWrapPr
         display: withSearchInput ? 'flex' : 'none',
         '@media (max-width: 768px)': {
           width: 'calc(100% - 32px)',
+          minWidth: 0,
           margin: '0 auto',
           marginTop: 10,
           display: 'flex',

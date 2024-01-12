@@ -15,7 +15,7 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
   const copyUrl = href.split('?')[0];
 
   const handleCopy = () => {
-    window?.navigator.clipboard.writeText(href).then(() => {
+    window?.navigator.clipboard.writeText(copyUrl).then(() => {
       ToastModal.alert(texts.copyUrlMessage);
     });
   };

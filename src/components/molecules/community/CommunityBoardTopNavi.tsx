@@ -100,7 +100,7 @@ const CommunityBoardTopNavi = ({
             onClickOpenModal={() => setLangModal(true)}
             boardLang={boardLang}
           />
-          {!isBestBoard && (
+          {!boardType && !isBestBoard && (
             <button
               css={{
                 padding: '5px 8px',

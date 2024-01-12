@@ -36,7 +36,7 @@ const CommunityPageTemplate = ({
         height: 600,
         '@media(max-width:768px)': {
           width: '100%',
-          minWidth: 360,
+          minWidth: 320,
         },
       }}
     >
