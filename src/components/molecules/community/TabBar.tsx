@@ -35,7 +35,7 @@ export const TabBar = ({
             pathname: router.pathname,
             query: {
               ...router.query,
-              tab: tabItems[0],
+              boardType: tabItems[0],
               locale: router.query.locale,
             },
           });
@@ -50,7 +50,7 @@ export const TabBar = ({
             pathname: router.pathname,
             query: {
               ...router.query,
-              tab: tabItems[1],
+              boardType: tabItems[1],
               locale: router.query.locale,
             },
           });
