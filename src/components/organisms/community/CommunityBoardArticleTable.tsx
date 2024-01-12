@@ -42,9 +42,8 @@ const CommunityBoardArticleTable = ({
   const urlLang = useUrlLanguage();
   const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
   const { boardIndex: urlBoardIndex } = router.query;
-  const isBestBoard = urlBoardIndex === '2291';
-  const currentBoardIndex =
-    Number(router.query.boardIndex) === 2291 ? 2291 : Number(router.query.boardIndex);
+  const isBestBoard = urlBoardIndex === '2291' || router.query.boardType === '2291';
+  const currentBoardIndex = isBestBoard ? 2291 : Number(router.query.boardIndex);
 
   const tableHeader = isStarBoardTableHeader || isBestBoard ? 'board' : 'topic';
   const { data: communityBoardData, isFetching } = useQuery(
@@ -92,7 +91,7 @@ const CommunityBoardArticleTable = ({
     );
   }
   const urlPage = router.query.page || 1;
-  const urlPath = router.query.boardIndex;
+  const urlPath = currentBoardIndex;
 
   const noticeHeader = (
     <div

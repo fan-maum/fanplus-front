@@ -8,7 +8,6 @@ import { TabBar } from '../molecules/community/TabBar';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import { useState } from 'react';
 import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
-import { communityBoardTexts } from '@/texts/communityBoardTexts';
 
 const CommunityPageTemplate = ({
   urlLang,
@@ -67,7 +66,7 @@ const CommunityPageTemplate = ({
         <div>
           <TabBar
             tabTitles={{ firstTab: texts.boardMain, secondTab: texts.bestPopular }}
-            tabItems={['community', 'bestPopular']}
+            tabItems={['community', '2291']}
             tabBar={tabBar}
             texts={texts}
             setTabBar={setTabBar}
