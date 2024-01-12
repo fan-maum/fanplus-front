@@ -47,7 +47,7 @@ const CommunityMainLayout = ({
                 css={{
                   width: 810,
                   minWidth: 810,
-                  '@media(max-width:960px)': { width: '100%', minWidth: 360 },
+                  '@media(max-width:960px)': { width: '100%', minWidth: 320 },
                 }}
               >
                 {/* <BoardMobileTab setOpenSidebar={setOpenSidebar} /> */}

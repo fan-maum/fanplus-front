@@ -92,6 +92,10 @@ const TabContainer = styled.div`
     width: max-content;
     cursor: pointer;
     padding: 12px 12px 0 12px;
+    overflow-x: scroll;
+    white-space: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     & > span {
       flex-shrink: 0;
       width: auto;

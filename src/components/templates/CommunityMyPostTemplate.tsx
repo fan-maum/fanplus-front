@@ -24,7 +24,7 @@ const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPos
       css={{
         minWidth: 810,
         '@media(max-width:768px)': {
-          minWidth: 360,
+          minWidth: 320,
         },
       }}
     >

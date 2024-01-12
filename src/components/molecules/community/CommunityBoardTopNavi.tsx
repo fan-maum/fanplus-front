@@ -61,10 +61,16 @@ const CommunityBoardTopNavi = ({
           justifyContent: 'space-between',
           height: 40,
           marginTop: 20,
-          '@media (max-width: 768px)': { padding: '0 16px' },
+          '@media (max-width: 768px)': { padding: '0 16px', height: 'auto' },
         }}
       >
-        <div css={{ display: 'inline-flex', alignItems: 'center' }}>
+        <div
+          css={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            '@media (max-width: 768px)': { maxWidth: '48%' },
+          }}
+        >
           {!boardType && (
             <IconArrowLeft
               iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
@@ -100,7 +106,7 @@ const CommunityBoardTopNavi = ({
             onClickOpenModal={() => setLangModal(true)}
             boardLang={boardLang}
           />
-          {!isBestBoard && (
+          {!boardType && !isBestBoard && (
             <button
               css={{
                 padding: '5px 8px',

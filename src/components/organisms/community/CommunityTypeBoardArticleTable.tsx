@@ -81,7 +81,8 @@ const CommunityTypeBoardArticleTable = ({
   const noticeHeader = (
     <div
       css={{
-        width: 'fit-content',
+        flex: 1,
+        width: 'max-content',
         border: '1px solid #ff5656',
         borderRadius: '4px',
         margin: 'auto',

@@ -16,8 +16,8 @@ const ProfileBox = ({ user, texts }: ProfileBoxProps) => {
   const urlLang = useUrlLanguage();
 
   const handleLogout = () => {
-    deleteCookie('user_id', { secure: true });
-    deleteCookie('user_idx', { secure: true });
+    deleteCookie('user_id');
+    deleteCookie('user_idx');
     router.reload();
   };
 
