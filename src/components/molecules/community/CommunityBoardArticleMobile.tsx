@@ -37,7 +37,13 @@ const CommunityBoardArticleMobile = ({
       }}
     >
       <div css={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div css={{ margin: '3px 3px 6px', lineHeight: '1.5', width: '70%' }}>
+        <div
+          css={{
+            margin: '3px 3px 6px',
+            lineHeight: '1.5',
+            width: postItem.POST_IMG_YN === 'Y' ? '50%' : '70%',
+          }}
+        >
           <h4
             css={{
               wordBreak: 'break-word',
