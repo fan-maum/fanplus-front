@@ -15,6 +15,7 @@ import type {
   RecommendListResponseType,
   Top50PopularBoardsResponseType,
   UserResponseType,
+  sideMenuResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
 import type { BoardLangType, OrderType, ServerLangType, UrlLangType } from '@/types/common';
@@ -442,6 +443,15 @@ export const getMultiBoardsInquiry = async (lang: ServerLangType, boardIds?: num
   const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardsInquiry`,
     { params: { lang, boardIds }, paramsSerializer: { indexes: null } }
+  );
+  return response.data;
+};
+
+/* sideMenus + Menus */
+export const getSideMenu = async (lang: ServerLangType, parentId?: string) => {
+  const response: AxiosResponse<sideMenuResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/sideMenu`,
+    { params: { lang, parentId } }
   );
   return response.data;
 };

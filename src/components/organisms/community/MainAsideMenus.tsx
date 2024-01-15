@@ -1,19 +1,16 @@
-import BookmarkButton from '@/components/atoms/BookmarkButton';
-import { useUrlLanguage } from '@/hooks/useLanguage';
+import { useServerLang, useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/CommunityColors';
 import styled from '@emotion/styled';
 import MainBookmarkMenu from './MainBookmarkMenu';
 import MainMenuList from './MainMenuList';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import { useQuery } from 'react-query';
-import { getBookmarks } from '@/api/Community';
+import { getBookmarks, getSideMenu } from '@/api/Community';
 import { getCookie } from '@/utils/Cookie';
 
 const MainAsideMenus = () => {
-  const router = useRouter();
   const urlLang = useUrlLanguage();
+  const serverLang = useServerLang();
   const texts = communityLayoutTexts[urlLang];
   const user_id = getCookie('user_id');
 
@@ -22,24 +19,27 @@ const MainAsideMenus = () => {
   );
   const bookmarks = data ?? [];
 
+  const { data: mainMenuData } = useQuery(['mainMenu', { serverLang }], async () => {
+    let response = await getSideMenu(serverLang);
+    const responseData = response.reverse();
+    return responseData;
+  });
+
+  const freeBoardParentId = '6';
+  const { data: freeBoardSubMenusData } = useQuery(
+    ['freeBoardSubMenus', { serverLang, freeBoardParentId }],
+    () => getSideMenu(serverLang, freeBoardParentId)
+  );
+
+  const mainMenus = mainMenuData ?? [];
+  const freeBoardSubMenus = freeBoardSubMenusData ?? [];
+  const menus = [mainMenus, freeBoardSubMenus];
+
   return (
     <MenuWrapper>
       <div className="title">{texts.fanplusCommunity}</div>
       <MainBookmarkMenu urlLang={urlLang} bookmarks={bookmarks} bookmarkTitle={texts.bookmark} />
-      <ScreenAllWrapper>
-        <Link
-          className="menu-title"
-          data-active={router.pathname === '/[locale]/community'}
-          href={`/${urlLang}/community/`}
-        >
-          <span className="title-top-menu">{texts.asideMenus[0]}</span>
-          <span className="new">
-            <img src="/icons/icon_new.svg" alt="new-icon" />
-          </span>
-        </Link>
-        <BookmarkButton isBookmarked={false} />
-      </ScreenAllWrapper>
-      <MainMenuList bookmarks={bookmarks} freeBoardText={texts.asideMenus[1]} />
+      <MainMenuList bookmarks={bookmarks} menus={menus} freeBoardText={texts.asideMenus[1]} />
     </MenuWrapper>
   );
 };
@@ -88,11 +88,4 @@ const MenuWrapper = styled.div`
     transform: translateY(-1px);
     display: inline-block;
   }
-`;
-
-const ScreenAllWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0 12px 0 16px;
-  border-bottom: 1px solid ${colors.gray[200]};
 `;

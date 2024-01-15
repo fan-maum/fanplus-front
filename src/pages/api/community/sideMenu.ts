@@ -5,12 +5,13 @@ import type { sideMenuResponseType } from '@/types/community';
 const handler: NextApiHandler = async (req, res) => {
   const { lang, parentId } = req.query;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
+  const params = !!parentId ? { parentId, lang } : { lang };
 
   try {
     const response: AxiosResponse<sideMenuResponseType> = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/menus/side`,
       {
-        params: { lang, parentId },
+        params,
         headers: {
           Origin: origin,
           'Cache-Control': 'no-cache',

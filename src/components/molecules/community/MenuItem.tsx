@@ -1,7 +1,7 @@
 import BookmarkButton from '@/components/atoms/BookmarkButton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/CommunityColors';
-import { MultiBoardsInquiryItemType } from '@/types/community';
+import { sideMenuItemType, sideMenuResponseType } from '@/types/community';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,21 +10,31 @@ import { getCookie } from '@/utils/Cookie';
 import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
 
 type MenuItemProps = {
-  menuData: MultiBoardsInquiryItemType;
+  menuTitle: string | undefined;
+  href: string;
+  menuData: sideMenuItemType;
+  hasSubMenus: boolean;
+  subMenus?: sideMenuResponseType;
   className?: string;
   disabledBookmark?: boolean;
   bookmarks: Array<BookmarksItemType>;
 };
 
-const MenuItem = ({ menuData, className, disabledBookmark, bookmarks }: MenuItemProps) => {
+const MenuItem = ({
+  menuTitle,
+  href,
+  menuData,
+  hasSubMenus,
+  subMenus,
+  className,
+  disabledBookmark,
+  bookmarks,
+}: MenuItemProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const { boardIndex } = router.query;
-  const href = `/${urlLang}/community/board/${menuData.IDX}/`;
   const user_id = getCookie('user_id');
-  const isBookmarked = Boolean(
-    bookmarks.find((bookmark) => bookmark.BOARD_IDX === String(menuData.IDX))
-  );
+  const isBookmarked = menuData?.isBookmarked;
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
@@ -37,10 +47,10 @@ const MenuItem = ({ menuData, className, disabledBookmark, bookmarks }: MenuItem
   };
 
   return (
-    <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.IDX))}>
+    <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData?.id))}>
       <Link href={href} className="board-link">
-        <span className="submenu-title">{menuData.TITLE}</span>
-        {menuData.isExistNewPost && (
+        <span className="submenu-title">{menuTitle}</span>
+        {menuData?.photocard_board_info?.NEW_POST_DATE && (
           <span className="new">
             <img src="/icons/icon_new.svg" alt="new-icon" />
           </span>
@@ -49,7 +59,7 @@ const MenuItem = ({ menuData, className, disabledBookmark, bookmarks }: MenuItem
       <BookmarkButton
         isBookmarked={isBookmarked}
         className="bookmark-icon"
-        onClick={() => handleBookmarkOnClick(menuData.IDX)}
+        onClick={() => handleBookmarkOnClick(String(menuData?.boardId))}
       />
     </MenuItemWrapper>
   );

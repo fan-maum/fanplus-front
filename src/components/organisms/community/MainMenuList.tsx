@@ -1,49 +1,64 @@
 import MenuItem from '@/components/molecules/community/MenuItem';
-import { BookmarksItemType, MultiBoardsInquiryItemType } from '@/types/community';
-import { useServerLang } from '@/hooks/useLanguage';
-import { useGetMultiBoardsInquiryQuery } from '@/server/query';
-import styled from '@emotion/styled';
+import { BookmarksItemType, sideMenuResponseType } from '@/types/community';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 import MenuListToggle from './MenuListToggle';
 
 interface MainMenuListProps {
   bookmarks: Array<BookmarksItemType>;
+  menus: Array<sideMenuResponseType>;
   freeBoardText: string;
 }
 
-// * 2291: BEST 인기글(실시간) / 139: 공지사항 / 161: 건의사항 / 160: 자유게시판 / 115: 팬플 지식in / 192: 팬플러스 광고 사진 / 114: 팬픽 / 220: 팬픽 공지사항
-const mainMenuBoardList = [2291, 139];
-const subMenuBoardList = [161, 160, 115, 192, 114, 220];
-const inquiryBoardList = [...mainMenuBoardList, ...subMenuBoardList];
+const MainMenuList = ({ bookmarks, menus, freeBoardText }: MainMenuListProps) => {
+  const urlLang = useUrlLanguage();
+  const [mainMenus, freeBoardSubMenus] = menus;
+  const mainMenusWithoutAll = mainMenus.filter((menu) => menu !== mainMenus[3]);
 
-const MainMenuList = ({ bookmarks, freeBoardText }: MainMenuListProps) => {
-  const serverLang = useServerLang();
-  const { data, isFetching } = useGetMultiBoardsInquiryQuery(serverLang, inquiryBoardList);
-  const mainMenu = data?.filter((menu) => mainMenuBoardList.includes(Number(menu.IDX)));
-  const subMenu = data?.filter((menu) => !mainMenuBoardList.includes(Number(menu.IDX)));
+  // eslint-disable-next-line no-console
+  console.log(menus);
 
   return (
-    <MainMenuListWrapper>
+    <div>
       <ul>
-        {mainMenu?.map((menu) => (
-          <MenuItem key={menu.IDX} menuData={menu} bookmarks={bookmarks} />
-        ))}
+        <MenuItem
+          key={`mainMenu/${mainMenus[3]?.id}`}
+          menuTitle={mainMenus[3]?.MenuLang[0]?.title}
+          href={`/${urlLang}${mainMenus[3]?.path}`}
+          menuData={mainMenus[3]}
+          bookmarks={bookmarks}
+          hasSubMenus={false}
+        />
+        {mainMenusWithoutAll.map((mainMenu) => {
+          return mainMenu.photocard_board_info !== null ? (
+            <MenuItem
+              key={`mainMenu/${mainMenu?.id}`}
+              menuTitle={mainMenu.board?.TITLE ? mainMenu.board?.TITLE : mainMenu.title}
+              href={mainMenu.boardId ? `/${urlLang}/community/board/${mainMenu.boardId}` : ''}
+              menuData={mainMenu}
+              subMenus={freeBoardSubMenus}
+              bookmarks={bookmarks}
+              hasSubMenus={mainMenu.photocard_board_info === null}
+            />
+          ) : (
+            <MenuListToggle key={'mainMenu/toggle'} headerTitle={freeBoardText}>
+              <ul>
+                {freeBoardSubMenus?.map((subMenu) => (
+                  <MenuItem
+                    key={`subMenu/${subMenu.id}`}
+                    menuTitle={subMenu.board?.TITLE ? subMenu.board?.TITLE : subMenu.title}
+                    href={`/${urlLang}/community/board/${subMenu.boardId}`}
+                    menuData={subMenu}
+                    bookmarks={bookmarks}
+                    hasSubMenus={false}
+                  />
+                ))}
+              </ul>
+            </MenuListToggle>
+          );
+        })}
       </ul>
-      <MenuListToggle headerTitle={freeBoardText}>
-        <ul>
-          {subMenu?.map((menu: MultiBoardsInquiryItemType) => (
-            <MenuItem key={menu.IDX} menuData={menu} bookmarks={bookmarks} />
-          ))}
-        </ul>
-      </MenuListToggle>
-    </MainMenuListWrapper>
+    </div>
   );
 };
 
 export default MainMenuList;
-
-const MainMenuListWrapper = styled.div`
-  li {
-    width: 100%;
-    height: 100%;
-  }
-`;
