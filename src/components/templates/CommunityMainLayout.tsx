@@ -96,6 +96,9 @@ const LayoutWrapper = styled.div`
       display: flex;
       gap: 20px;
     }
+    @media (max-width: 960px) {
+      width: 100%;
+    }
   }
   @media (max-width: 768px) {
     padding-top: 0;

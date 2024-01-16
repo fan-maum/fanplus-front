@@ -367,6 +367,10 @@ export type CommunityPostTextType = {
   copyUrlButton: string;
   copyUrlMessage: string;
   postList: string;
+  headerTitle: {
+    all: string;
+    best: string;
+  };
 };
 
 export type CommunityPostEditorTextType = {

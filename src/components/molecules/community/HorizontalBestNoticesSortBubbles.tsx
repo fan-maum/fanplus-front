@@ -50,7 +50,7 @@ const SortBubble = ({
       css={{
         padding: '3px 6px',
         margin: '0 3px',
-        font: 'normal 14px/18px Pretendard',
+        fontSize: '14px',
         fontWeight: viewType === currentMode ? 600 : 400,
         color: viewType === currentMode ? '#ff5656' : '#101010',
         backgroundColor: viewType === currentMode ? '#ffedf1' : '#f1f1f1',

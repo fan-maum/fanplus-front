@@ -101,7 +101,7 @@ const CommunityTypeBoardArticleTable = ({
     <div>
       <CommunityBoardArticleTableHeader firstHeader={tableHeader} />
       <ul>
-        {noticeList?.map((notice, idx) => {
+        {noticeList?.map((notice: NoticeListItemType, idx: number) => {
           return (
             <li key={'CommunityBoardNotice' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle
@@ -120,7 +120,7 @@ const CommunityTypeBoardArticleTable = ({
             </li>
           );
         })}
-        {postList?.map((post, idx) => {
+        {postList?.map((post: PostListItemType, idx: number) => {
           return (
             <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle

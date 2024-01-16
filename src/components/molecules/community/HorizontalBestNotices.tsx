@@ -36,7 +36,7 @@ const HorizontalBestNotices = () => {
           justifyContent: 'space-between',
           width: '100%',
           color: '#101010',
-          font: 'normal 16px/18px Pretendard',
+          fontSize: '16px',
           fontWeight: '600',
           marginBottom: '16px',
         }}
