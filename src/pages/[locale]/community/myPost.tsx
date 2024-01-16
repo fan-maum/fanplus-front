@@ -19,7 +19,7 @@ const MyPostPage = ({
   communityMyPostData,
 }: MyPostPageProps & { user: PartialUserType }) => {
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user}>
+    <CommunityMainLayout urlLang={urlLang} user={user} withBestNotices>
       <CommunityMyPostTemplate
         urlLang={urlLang}
         userId={userId}

@@ -62,9 +62,9 @@ const CommunityTypeBoardArticleTable = ({
     });
   };
 
-  const noticeList: Array<NoticeListItemType> = communityBoardData?.NOTICE;
-  const postList: Array<PostListItemType> = communityBoardData?.POST_LIST;
-  const boardInfo: { VIEW_POSSIBLE_PAGE: number } = communityBoardData?.BOARD_INFO;
+  const noticeList = (communityBoardData || communityBoardDataSSR).NOTICE;
+  const postList = (communityBoardData || communityBoardDataSSR).POST_LIST;
+  const boardInfo = (communityBoardData || communityBoardDataSSR).BOARD_INFO;
 
   const isPostExist = !(
     postList?.length === 0 &&
@@ -101,7 +101,7 @@ const CommunityTypeBoardArticleTable = ({
     <div>
       <CommunityBoardArticleTableHeader firstHeader={tableHeader} />
       <ul>
-        {noticeList?.map((notice, idx) => {
+        {noticeList?.map((notice: NoticeListItemType, idx: number) => {
           return (
             <li key={'CommunityBoardNotice' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle
@@ -120,7 +120,7 @@ const CommunityTypeBoardArticleTable = ({
             </li>
           );
         })}
-        {postList?.map((post, idx) => {
+        {postList?.map((post: PostListItemType, idx: number) => {
           return (
             <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle

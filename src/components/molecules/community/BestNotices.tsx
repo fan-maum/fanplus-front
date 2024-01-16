@@ -36,7 +36,7 @@ const BestNotices = () => {
           width: '100%',
           backgroundColor: '#f8f8f9',
           color: '#101010',
-          font: 'normal 16px/18px Pretendard',
+          fontSize: '16px',
           fontWeight: '600',
           padding: '14px 15px 15px 20px',
         }}

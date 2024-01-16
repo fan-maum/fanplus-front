@@ -41,14 +41,14 @@ const CommunityBoardArticleMobile = ({
           css={{
             margin: '3px 3px 6px',
             lineHeight: '1.5',
-            width: postItem.POST_IMG_YN === 'Y' ? '50%' : '70%',
+            width: postItem.POST_IMG_YN === 'Y' ? '60%' : '70%',
           }}
         >
           <h4
             css={{
               wordBreak: 'break-word',
               fontWeight: '400',
-              maxWidth: '80%',
+              maxWidth: '100%',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -106,14 +106,14 @@ const ThumbnailImage = ({ src }: { src: string }) => {
 const CommentBox = ({ commentCount, text }: { commentCount: string; text: string }) => {
   const urlLang = useUrlLanguage();
   const fontStyle: Record<UrlLangType, CSSProperties['font']> = {
-    ko: 'normal 12px/14px Pretendard',
-    'zh-CN': 'normal 12px/14px Pretendard',
-    'zh-TW': 'normal 12px/14px Pretendard',
-    en: 'normal 6px/8px Pretendard',
-    ja: 'normal 6px/8px Pretendard',
-    vi: 'normal 6px/8px Pretendard',
-    es: 'normal 6px/8px Pretendard',
-    in: 'normal 6px/8px Pretendard',
+    ko: '14px',
+    'zh-CN': '12px',
+    'zh-TW': '12px',
+    en: '6px',
+    ja: '6px',
+    vi: '6px',
+    es: '6px',
+    in: '6px',
   };
   return (
     <div
@@ -131,7 +131,7 @@ const CommentBox = ({ commentCount, text }: { commentCount: string; text: string
       }}
     >
       <p>{commentCount}</p>
-      <p css={{ font: fontStyle[urlLang] }}>{text}</p>
+      <p css={{ fontSize: fontStyle[urlLang] }}>{text}</p>
     </div>
   );
 };

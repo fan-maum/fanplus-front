@@ -9,7 +9,13 @@ import { getPopularBoardRightItem } from './PopularBoards';
 import PopularBoardsRolling from './PopularBoardsRolling';
 import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 
-const PopularBoardsMobile = ({ initialOpen }: { initialOpen: boolean }) => {
+const PopularBoardsMobile = ({
+  initialOpen,
+  isEditMode,
+}: {
+  initialOpen: boolean;
+  isEditMode: boolean;
+}) => {
   const serverLang = useServerLang();
   const urlLang = useUrlLanguage();
   const texts = communityLayoutTexts[urlLang];
@@ -45,11 +51,12 @@ const PopularBoardsMobile = ({ initialOpen }: { initialOpen: boolean }) => {
   return (
     <div
       css={{
-        '@media (min-width: 768px)': { display: 'none' },
+        '@media (max-width: 768px)': { display: !isEditMode ? 'block' : 'none' },
         width: 'calc(100% - 32px)',
         border: '1px solid #d9d9d9',
         margin: '0 auto',
         marginTop: 20,
+        display: 'none',
       }}
     >
       <div

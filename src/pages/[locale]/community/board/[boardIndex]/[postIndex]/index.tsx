@@ -45,7 +45,7 @@ const Post = ({
           images: [{ url: communityPostData.RESULTS.DATAS.POST_INFO.SUMNAIL_IMG }],
         }}
       />
-      <CommunityMainLayout urlLang={urlLang} user={user}>
+      <CommunityMainLayout urlLang={urlLang} user={user} withBestNotices>
         <CommunityPostTemplate
           urlLang={urlLang}
           identity={identity}

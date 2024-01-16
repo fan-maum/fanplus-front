@@ -71,9 +71,9 @@ const CommunityBoardArticleTable = ({
     });
   };
 
-  const noticeList = communityBoardData?.NOTICE;
-  const postList = communityBoardData?.POST_LIST;
-  const boardInfo = communityBoardData?.BOARD_INFO;
+  const noticeList = (communityBoardData || communityBoardDataSSR).NOTICE;
+  const postList = (communityBoardData || communityBoardDataSSR).POST_LIST;
+  const boardInfo = (communityBoardData || communityBoardDataSSR).BOARD_INFO;
 
   const isPostExist = !(
     postList?.length === 0 &&

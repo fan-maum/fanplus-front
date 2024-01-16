@@ -82,6 +82,7 @@ const CommunityBoardTopNavi = ({
               fontSize: '18px',
               fontWeight: 600,
               color: colors.gray[1000],
+              wordBreak: 'keep-all',
             }}
           >
             {boardTitle}
