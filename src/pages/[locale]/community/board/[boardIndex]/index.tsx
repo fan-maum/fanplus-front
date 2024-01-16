@@ -47,7 +47,7 @@ const Board = ({
 }: CommunityBoardPropType & { user: PartialUserType }) => {
   return (
     <>
-      <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
+      <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput withBestNotices>
         <CommunityBoardTemplate
           urlLang={urlLang}
           userId={userId}

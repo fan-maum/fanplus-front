@@ -17,6 +17,7 @@ interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
   user?: PartialUserType;
   withSearchInput?: boolean;
+  withBestNotices?: boolean;
   children: ReactNode;
 }
 
@@ -24,6 +25,7 @@ const CommunityMainLayout = ({
   urlLang,
   user,
   withSearchInput,
+  withBestNotices,
   children,
 }: CommunityMainLayoutProps) => {
   const router = useRouter();
@@ -47,13 +49,13 @@ const CommunityMainLayout = ({
                 css={{
                   width: 810,
                   minWidth: 810,
-                  '@media(max-width:960px)': { width: '100%', minWidth: 320 },
+                  '@media(max-width:960px)': { width: '100%', minWidth: 320, flex: 1 },
                 }}
               >
                 {/* <BoardMobileTab setOpenSidebar={setOpenSidebar} /> */}
                 {children}
               </div>
-              {!isCommunity && <BestNotices />}
+              {withBestNotices && <BestNotices />}
             </div>
           </div>
         </div>
@@ -89,11 +91,11 @@ const LayoutWrapper = styled.div`
     margin-bottom: 14px;
   }
   .mainContent {
+    max-width: calc(100% - 230px);
     .contentLayout {
       display: flex;
       gap: 20px;
     }
-    max-width: calc(100% - 230px);
   }
   @media (max-width: 768px) {
     padding-top: 0;

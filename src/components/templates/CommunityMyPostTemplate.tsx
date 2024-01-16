@@ -5,7 +5,6 @@ import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle'
 import CommunityBoardArticleMobile from '../molecules/community/CommunityBoardArticleMobile';
 import CommunityBoardArticleTableHeader from '../molecules/community/CommunityBoardArticleTableHeader';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
-import { Fragment } from 'react';
 
 const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPostPageProps) => {
   const router = useRouter();
@@ -23,7 +22,8 @@ const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPos
     <div
       css={{
         minWidth: 810,
-        '@media(max-width:768px)': {
+        '@media(max-width:960px)': {
+          width: '100%',
           minWidth: 320,
         },
       }}
@@ -48,7 +48,7 @@ const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPos
           <ul>
             {postList?.map((post: any, idx: number) => {
               return (
-                <Fragment key={'MyPosts' + idx}>
+                <li key={'MyPosts' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
                   <CommunityBoardArticle
                     postItem={post}
                     firstHeader={post.BOARD_TITLE}
@@ -59,7 +59,7 @@ const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPos
                     link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}`}
                     texts={texts}
                   />
-                </Fragment>
+                </li>
               );
             })}
           </ul>
