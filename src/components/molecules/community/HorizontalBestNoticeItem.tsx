@@ -26,6 +26,7 @@ const HorizontalBestNoticeItem = ({
         display: 'flex',
         gap: 14,
         width: '100%',
+        alignItems: 'center',
       }}
     >
       <span css={{ fontSize: 14, fontWeight: 'bold', color: '#101010' }}>{ranking}</span>

@@ -59,9 +59,9 @@ const ReplyRegister = ({
         width: '100%',
         margin: '0 auto',
         maxWidth: '768px',
-        height: '120px',
-        padding: '20px 20px 20px 30px',
-        borderTop: '1px solid #f1f1f1',
+        height: '100px',
+        padding: '14px 20px 16px',
+        borderTop: `1px solid ${colors.gray[200]}`,
         '@media(max-width:768px)': {
           alignItems: 'flex-start',
           height: '130px',
@@ -72,8 +72,8 @@ const ReplyRegister = ({
     >
       <Avatar
         imageProps={{ style: { borderRadius: '50%' } }}
-        w={46}
-        h={46}
+        w={60}
+        h={60}
         radius={'50%'}
         css={{
           border: '1px solid #F8F8F9',
@@ -101,24 +101,22 @@ const ReplyRegister = ({
           <RegisterInput
             placeholder={texts.replyRegisterPlaceholder}
             {...register('registerValue', { maxLength: 200 })}
-            css={{ padding: profile.profileNick ? '20px 0 0 0' : '0px' }}
           />
         </RegisterInputWrapper>
         <UnstyledButton
           type="submit"
-          bg={colors.primary[400]}
-          h={80}
+          bg={colors.primary[500]}
+          h={70}
           px={16}
           css={{
             display: 'flex',
             alignItems: 'center',
             width: 'auto',
-            height: 80,
             margin: 0,
-            padding: '6px 20px',
+            padding: '16px',
             borderRadius: '6px',
             color: '#fff',
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: 600,
             '@media(max-width: 768px)': { height: 32, padding: '7px 16px' },
           }}
@@ -143,9 +141,9 @@ const RegisterInputWrapper = styled.div`
   border-radius: 10px;
   & > label {
     position: absolute;
-    top: 10px;
+    top: 8px;
     color: #101010;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
   }
   @media screen and (max-width: 768px) {
@@ -161,12 +159,11 @@ const RegisterInput = styled.input`
   outline: none;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
-  padding: 20px 0 0 0;
   &::placeholder {
     color: '#D9D9D9';
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
   }
 `;

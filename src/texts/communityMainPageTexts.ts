@@ -6,7 +6,7 @@ export const communityMainPageTexts: LangStringType<CommunityPageTextType> = {
     community: '커뮤니티',
     boards: '전체 게시판',
     boardMain: '전체글',
-    bestPopular: 'BEST 인기글',
+    bestPopular: 'BEST 인기글(실시간)',
     recentlyBoards: '최근 방문한 게시판',
     recommendedBoards: '추천 게시판',
     noRecentBoardTexts: ['팬플러스는 처음 사용하시나요?', '좋아하는 스타를 검색해 보세요!'],

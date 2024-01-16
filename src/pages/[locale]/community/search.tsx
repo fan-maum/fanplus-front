@@ -37,7 +37,7 @@ export default function SearchPage({
   user,
 }: SearchPageProps & { user: PartialUserType }) {
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
+    <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput withBestNotices>
       <CommunitySearchTemplate
         urlLang={urlLang}
         boardCategoryData={boardCategoryData}

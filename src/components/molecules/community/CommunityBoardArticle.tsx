@@ -9,9 +9,16 @@ type OwnPropType = {
   link: string;
   firstHeader?: ReactNode;
   isNotice?: boolean;
+  isMyPost?: boolean;
 };
 
-const CommunityBoardArticle = ({ postItem, link, firstHeader, isNotice }: OwnPropType) => {
+const CommunityBoardArticle = ({
+  postItem,
+  link,
+  firstHeader,
+  isNotice,
+  isMyPost,
+}: OwnPropType) => {
   const timeExpression =
     postItem.PUBLISH_DATE !== null ? formatWrittenTimeLite(postItem.PUBLISH_DATE) : 0;
   const commentCount = Number(postItem.COMMENT_CNT) <= 999 ? Number(postItem.COMMENT_CNT) : '+999';
@@ -24,7 +31,7 @@ const CommunityBoardArticle = ({ postItem, link, firstHeader, isNotice }: OwnPro
         display: 'flex',
         alignItems: 'center',
         height: '44px',
-        font: 'normal 14px/16px Pretendard',
+        fontSize: '14px',
         backgroundColor: isNotice ? '#fff6f6' : 'transparent',
         '& > div': {
           whiteSpace: 'nowrap',
@@ -52,19 +59,21 @@ const CommunityBoardArticle = ({ postItem, link, firstHeader, isNotice }: OwnPro
           </span>
         )}
       </div>
-      <div css={{ width: 78, textAlign: 'center' }}>
-        <p
-          css={{
-            width: '54px',
-            margin: '0 auto',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-          }}
-        >
-          {postItem.WRITER_NAME}
-        </p>
-      </div>
+      {!isMyPost && (
+        <div css={{ width: 78, textAlign: 'center' }}>
+          <p
+            css={{
+              width: '54px',
+              margin: '0 auto',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+            }}
+          >
+            {postItem.WRITER_NAME}
+          </p>
+        </div>
+      )}
       <div css={{ width: 82, textAlign: 'center' }}>{timeExpression}</div>
       <div css={{ width: 78, textAlign: 'center' }}>{postItem.VIEW_CNT}</div>
       <div css={{ width: 74, textAlign: 'center' }}>{postItem.RECOMMEND_CNT}</div>

@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import CommunityPostInfo from './CommunityPostInfo';
 import { CommunityPostTextType } from '@/types/textTypes';
+import { communityPostTexts } from '@/texts/communityPostTexts';
 
 interface PostDetailHeaderProps {
   identity: string;
@@ -33,11 +34,6 @@ export const isPostDetailConstant: { [key: number | string]: boolean } = {
   2291: true, // BEST 인기글
 };
 
-export const isPostDetailBoardTitle: { [key: number | string]: string } = {
-  community: '전체글',
-  2291: 'Best 인기글 (실시간)',
-};
-
 const PostDetailHeader = ({
   identity,
   user_idx,
@@ -49,6 +45,12 @@ const PostDetailHeader = ({
 }: PostDetailHeaderProps) => {
   const router = useRouter();
   const boardFrom: any = router.query.from;
+  const text = communityPostTexts[urlLang];
+
+  const isPostDetailBoardTitle: { [key: number | string]: string } = {
+    community: text.headerTitle.all,
+    2291: text.headerTitle.best,
+  };
 
   return (
     <PostDetailHeaderWrapper>

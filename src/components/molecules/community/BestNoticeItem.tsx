@@ -30,7 +30,7 @@ const BestNoticeItem = ({
         padding: '0 17px',
         width: '100%',
         height: '42px',
-        font: 'normal 14px/18px Pretendard',
+        fontSize: '14px',
         fontWeight: 600,
         borderBottom: '1px solid #d9d9d9',
       }}
