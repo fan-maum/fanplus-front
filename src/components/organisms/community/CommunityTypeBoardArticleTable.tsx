@@ -62,9 +62,9 @@ const CommunityTypeBoardArticleTable = ({
     });
   };
 
-  const noticeList: Array<NoticeListItemType> = communityBoardData?.NOTICE;
-  const postList: Array<PostListItemType> = communityBoardData?.POST_LIST;
-  const boardInfo: { VIEW_POSSIBLE_PAGE: number } = communityBoardData?.BOARD_INFO;
+  const noticeList = (communityBoardData || communityBoardDataSSR).NOTICE;
+  const postList = (communityBoardData || communityBoardDataSSR).POST_LIST;
+  const boardInfo = (communityBoardData || communityBoardDataSSR).BOARD_INFO;
 
   const isPostExist = !(
     postList?.length === 0 &&
