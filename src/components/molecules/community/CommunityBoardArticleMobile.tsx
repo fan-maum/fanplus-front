@@ -41,14 +41,14 @@ const CommunityBoardArticleMobile = ({
           css={{
             margin: '3px 3px 6px',
             lineHeight: '1.5',
-            width: postItem.POST_IMG_YN === 'Y' ? '50%' : '70%',
+            width: postItem.POST_IMG_YN === 'Y' ? '60%' : '70%',
           }}
         >
           <h4
             css={{
               wordBreak: 'break-word',
               fontWeight: '400',
-              maxWidth: '80%',
+              maxWidth: '100%',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',

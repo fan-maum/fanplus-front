@@ -31,6 +31,7 @@ const CommunityMainLayout = ({
   const router = useRouter();
   const isCommunity = router.route === '/[locale]/community';
   const [openSidebar, setOpenSidebar] = useState(false);
+  const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
 
   return (
     <Layout urlLang={urlLang}>
@@ -42,8 +43,11 @@ const CommunityMainLayout = ({
             <PopularBoards />
           </div>
           <div className="mainContent">
-            <CommunityBoardSearchInputWrapper withSearchInput={withSearchInput} />
-            <PopularBoardsMobile initialOpen={false} />
+            <CommunityBoardSearchInputWrapper
+              withSearchInput={withSearchInput}
+              isEditMode={isEditMode}
+            />
+            <PopularBoardsMobile initialOpen={false} isEditMode={isEditMode} />
             <div className="contentLayout">
               <div
                 css={{
