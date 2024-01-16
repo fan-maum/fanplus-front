@@ -6,40 +6,35 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 interface BookmarkMenuItemProps {
-  menuInfo: {
-    BOARD_IDX: string;
-    BOARD_TITLE: string;
-  };
+  bookmark: BookmarksItemType;
   user_id: string;
-  bookmarks: Array<BookmarksItemType>;
 }
 
-const BookmarkMenuItem = ({ menuInfo, user_id, bookmarks }: BookmarkMenuItemProps) => {
+const BookmarkMenuItem = ({ bookmark, user_id }: BookmarkMenuItemProps) => {
   const router = useRouter();
-  const { BOARD_IDX, BOARD_TITLE } = menuInfo;
-  const isActive = BOARD_IDX === router.query.boardIndex;
-  const href = `/community/board/${BOARD_IDX}`;
+  const isActive = bookmark.boardId === router.query.boardIndex;
+  const href = `/community/board/${bookmark.boardId}`;
 
   const { useRemoveBookmark } = useBookmarkOnClick();
 
-  const addBookmarkOnClick = async (boardIndex: string) => {
-    useRemoveBookmark.mutate({ identity: user_id, boardIndex });
+  const addBookmarkOnClick = async (menuId: number) => {
+    useRemoveBookmark.mutate({ identity: user_id, menuId });
   };
 
   return (
     <BookmarkMenuItemWrapper>
       <Link className="bookmark-link" href={href} data-status={isActive}>
-        <span>{BOARD_TITLE}</span>
-        {/* {hasNewPost && ( */}
-        <span className="new-post-icon">
-          <img src="/icons/icon_new.svg" alt="new-icon" />
-        </span>
-        {/* )} */}
+        <span>{bookmark.title}</span>
+        {bookmark.isExistNewPost && (
+          <span className="new-post-icon">
+            <img src="/icons/icon_new.svg" alt="new-icon" />
+          </span>
+        )}
       </Link>
       <BookmarkButton
         isBookmarked={true}
         height="18px"
-        onClick={() => addBookmarkOnClick(menuInfo.BOARD_IDX)}
+        onClick={() => addBookmarkOnClick(Number(bookmark.id))}
       />
     </BookmarkMenuItemWrapper>
   );

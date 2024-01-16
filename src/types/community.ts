@@ -511,8 +511,13 @@ export type BestPostsResponseType = {
 export type BookmarksResponseType = Array<BookmarksItemType>;
 
 export type BookmarksItemType = {
-  BOARD_IDX: string;
-  BOARD_TITLE: string;
+  id: string;
+  title: string;
+  isBookmarked: boolean;
+  isExistNewPost: boolean;
+  categoryId: string | null;
+  parentId: string;
+  boardId: string;
 };
 export type MainPageNoticesResponseType = Array<{
   IDX: string;
@@ -564,16 +569,23 @@ export type sideMenuResponseType = Array<sideMenuItemType>;
 
 export type sideMenuItemType = {
   id: string;
-  boardId: string | null;
-  path: string;
-  categoryId: string | null;
-  isDisplay: number;
-  parentId: string | null;
   title: string;
-  photocard_board_info: sideMenuPhotoCardBoardInfo | null;
-  MenuLang: Array<sideMenuLang | null>;
   isBookmarked: boolean;
-  board: sideMenuBoard | undefined;
+  isExistNewPost: boolean;
+  categoryId: string | null;
+  parentId: string | null;
+  boardId: string | null;
+  children?: Array<subMenuItemType> | undefined;
+};
+
+export type subMenuItemType = {
+  id: string;
+  title: string;
+  isBookmarked: boolean;
+  isExistNewPost: boolean;
+  categoryId: string | null;
+  parentId: string;
+  boardId: string;
 };
 
 export type sideMenuPhotoCardBoardInfo = {

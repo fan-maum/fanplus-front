@@ -17,29 +17,21 @@ const MainAsideMenus = () => {
   const { data } = useQuery(['bookmarks', { user_id, urlLang }], () =>
     getBookmarks(user_id, urlLang)
   );
-  const bookmarks = data ?? [];
 
-  const { data: mainMenuData } = useQuery(['mainMenu', { serverLang }], async () => {
+  const { data: sideMenuData } = useQuery(['sideMenu', { serverLang }], async () => {
     let response = await getSideMenu(serverLang);
-    const responseData = response.reverse();
+    const responseData = [response[0], response[3], response[2], response[1]];
     return responseData;
   });
 
-  const freeBoardParentId = '6';
-  const { data: freeBoardSubMenusData } = useQuery(
-    ['freeBoardSubMenus', { serverLang, freeBoardParentId }],
-    () => getSideMenu(serverLang, freeBoardParentId)
-  );
-
-  const mainMenus = mainMenuData ?? [];
-  const freeBoardSubMenus = freeBoardSubMenusData ?? [];
-  const menus = [mainMenus, freeBoardSubMenus];
+  const bookmarks = data ?? [];
+  const sideMenus = sideMenuData ?? [];
 
   return (
     <MenuWrapper>
       <div className="title">{texts.fanplusCommunity}</div>
       <MainBookmarkMenu urlLang={urlLang} bookmarks={bookmarks} bookmarkTitle={texts.bookmark} />
-      <MainMenuList bookmarks={bookmarks} menus={menus} freeBoardText={texts.asideMenus[1]} />
+      <MainMenuList menus={sideMenus} freeBoardText={texts.asideMenus[1]} />
     </MenuWrapper>
   );
 };

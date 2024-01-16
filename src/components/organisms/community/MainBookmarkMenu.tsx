@@ -32,13 +32,8 @@ const MainBookmarkMenu = ({
         <div>
           {hasBookmarkMenu ? (
             <div className="bookmark-list" style={{ fontSize: '13px' }}>
-              {bookmarks.map((item) => (
-                <BookmarkMenuItem
-                  key={item.BOARD_IDX}
-                  menuInfo={item}
-                  user_id={user_id}
-                  bookmarks={bookmarks}
-                />
+              {bookmarks.map((bookmark) => (
+                <BookmarkMenuItem key={bookmark.id} bookmark={bookmark} user_id={user_id} />
               ))}
             </div>
           ) : (

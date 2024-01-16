@@ -1,7 +1,6 @@
 import BookmarkButton from '@/components/atoms/BookmarkButton';
-import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/CommunityColors';
-import { sideMenuItemType, sideMenuResponseType } from '@/types/community';
+import { sideMenuItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,44 +12,30 @@ type MenuItemProps = {
   menuTitle: string | undefined;
   href: string;
   menuData: sideMenuItemType;
-  hasSubMenus: boolean;
-  subMenus?: sideMenuResponseType;
   className?: string;
-  disabledBookmark?: boolean;
-  bookmarks: Array<BookmarksItemType>;
 };
 
-const MenuItem = ({
-  menuTitle,
-  href,
-  menuData,
-  hasSubMenus,
-  subMenus,
-  className,
-  disabledBookmark,
-  bookmarks,
-}: MenuItemProps) => {
+const MenuItem = ({ menuTitle, href, menuData, className }: MenuItemProps) => {
   const router = useRouter();
-  const urlLang = useUrlLanguage();
   const { boardIndex } = router.query;
   const user_id = getCookie('user_id');
-  const isBookmarked = menuData?.isBookmarked;
+  const isBookmarked = menuData.isBookmarked;
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
-  const handleBookmarkOnClick = (boardIndex: string) => {
+  const handleBookmarkOnClick = (menuId: number) => {
     if (isBookmarked) {
-      useRemoveBookmark.mutate({ identity: user_id, boardIndex });
+      useRemoveBookmark.mutate({ identity: user_id, menuId });
     } else {
-      useAddBookmark.mutate({ identity: user_id, boardIndex });
+      useAddBookmark.mutate({ identity: user_id, menuId });
     }
   };
 
   return (
-    <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData?.id))}>
+    <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.id))}>
       <Link href={href} className="board-link">
         <span className="submenu-title">{menuTitle}</span>
-        {menuData?.photocard_board_info?.NEW_POST_DATE && (
+        {menuData.isExistNewPost && (
           <span className="new">
             <img src="/icons/icon_new.svg" alt="new-icon" />
           </span>
@@ -59,7 +44,7 @@ const MenuItem = ({
       <BookmarkButton
         isBookmarked={isBookmarked}
         className="bookmark-icon"
-        onClick={() => handleBookmarkOnClick(String(menuData?.boardId))}
+        onClick={() => handleBookmarkOnClick(Number(menuData.id))}
       />
     </MenuItemWrapper>
   );

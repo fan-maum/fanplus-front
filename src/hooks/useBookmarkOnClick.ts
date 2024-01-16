@@ -3,17 +3,17 @@ import { useMutation, useQueryClient } from 'react-query';
 
 type BookmarkProps = {
   identity: string;
-  boardIndex: string;
+  menuId: number;
 };
 
 export function useBookmarkOnClick() {
   const queryClient = useQueryClient();
 
   const useAddBookmark = useMutation({
-    mutationFn: async ({ identity, boardIndex }: BookmarkProps) =>
-      await postBookmark(identity, boardIndex),
+    mutationFn: async ({ identity, menuId }: BookmarkProps) => await postBookmark(identity, menuId),
     onSuccess: () => {
       queryClient.invalidateQueries('bookmarks');
+      queryClient.invalidateQueries('sideMenu');
     },
     onError: (error) => {
       // eslint-disable-next-line no-console
@@ -22,10 +22,11 @@ export function useBookmarkOnClick() {
   });
 
   const useRemoveBookmark = useMutation({
-    mutationFn: async ({ identity, boardIndex }: BookmarkProps) =>
-      await deleteBookmark(identity, boardIndex),
+    mutationFn: async ({ identity, menuId }: BookmarkProps) =>
+      await deleteBookmark(identity, menuId),
     onSuccess: () => {
       queryClient.invalidateQueries('bookmarks');
+      queryClient.invalidateQueries('sideMenu');
     },
     onError: (error) => {
       // eslint-disable-next-line no-console
