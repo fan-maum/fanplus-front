@@ -13,9 +13,9 @@ export function useBookmarkOnClick() {
     mutationFn: async ({ identity, menuId }: BookmarkProps) => await postBookmark(identity, menuId),
     onSuccess: () => {
       queryClient.invalidateQueries('bookmarks');
-      queryClient.invalidateQueries('sideMenu');
       queryClient.invalidateQueries('communityBoardData');
       queryClient.invalidateQueries('communityTypeBoardData');
+      queryClient.invalidateQueries('sideMenu');
     },
     onError: (error) => {
       // eslint-disable-next-line no-console
@@ -28,9 +28,9 @@ export function useBookmarkOnClick() {
       await deleteBookmark(identity, menuId),
     onSuccess: () => {
       queryClient.invalidateQueries('bookmarks');
-      queryClient.invalidateQueries('sideMenu');
       queryClient.invalidateQueries('communityBoardData');
       queryClient.invalidateQueries('communityTypeBoardData');
+      queryClient.invalidateQueries('sideMenu');
     },
     onError: (error) => {
       // eslint-disable-next-line no-console

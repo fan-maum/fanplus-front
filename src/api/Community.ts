@@ -448,10 +448,10 @@ export const getMultiBoardsInquiry = async (lang: ServerLangType, boardIds?: num
 };
 
 /* sideMenus + Menus */
-export const getSideMenu = async (lang: ServerLangType, parentId?: string) => {
+export const getSideMenu = async (lang: ServerLangType, identity: string) => {
   const response: AxiosResponse<sideMenuResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/sideMenu`,
-    { params: { lang, parentId } }
+    { params: { lang, identity } }
   );
   return response.data;
 };

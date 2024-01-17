@@ -19,7 +19,7 @@ const MainAsideMenus = () => {
   );
 
   const { data: sideMenuData } = useQuery(['sideMenu', { serverLang }], async () => {
-    let response = await getSideMenu(serverLang);
+    let response = await getSideMenu(serverLang, user_id);
     const responseData = [response[0], response[3], response[2], response[1]];
     return responseData;
   });
