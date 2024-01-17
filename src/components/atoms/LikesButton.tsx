@@ -32,6 +32,7 @@ export default function LikesButton({
         css={{
           display: 'flex',
           flexDirection: 'row',
+          alignItems: 'center',
           gap: gap || 6,
           padding: padding || '10px',
           borderRadius: 5,

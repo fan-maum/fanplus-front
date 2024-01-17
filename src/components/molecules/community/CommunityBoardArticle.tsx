@@ -1,16 +1,26 @@
 import IconImage from '@/components/atoms/IconImage';
-import type { PostListItemType } from '@/types/community';
-import { formatCommentCount, formatWrittenTimeLite } from '@/utils/util';
+import type { NoticeListItemType, PostListItemType } from '@/types/community';
+import { formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 type OwnPropType = {
-  postItem: PostListItemType;
-  firstHeader?: 'topic' | 'board';
+  postItem: PostListItemType | NoticeListItemType;
   link: string;
+  firstHeader?: ReactNode;
+  isNotice?: boolean;
+  isMyPost?: boolean;
 };
 
-const CommunityBoardArticle = ({ postItem, firstHeader = 'topic', link }: OwnPropType) => {
-  const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
+const CommunityBoardArticle = ({
+  postItem,
+  link,
+  firstHeader,
+  isNotice,
+  isMyPost,
+}: OwnPropType) => {
+  const timeExpression =
+    postItem.PUBLISH_DATE !== null ? formatWrittenTimeLite(postItem.PUBLISH_DATE) : 0;
   const commentCount = Number(postItem.COMMENT_CNT) <= 999 ? Number(postItem.COMMENT_CNT) : '+999';
 
   return (
@@ -21,15 +31,17 @@ const CommunityBoardArticle = ({ postItem, firstHeader = 'topic', link }: OwnPro
         display: 'flex',
         alignItems: 'center',
         height: '44px',
-        font: 'normal 14px/16px Pretendard',
+        fontSize: '14px',
+        backgroundColor: isNotice ? '#fff6f6' : 'transparent',
+        '& > div': {
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        },
       }}
     >
-      {firstHeader === 'board' ? (
-        <div css={{ width: 106, textAlign: 'center' }}>{postItem.BOARD_TITLE}</div>
-      ) : (
-        <div css={{ width: 106, textAlign: 'center' }}>{postItem.TOPIC_NAME}</div>
-      )}
-      <div css={{ width: 310, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
+      <div css={{ width: 106, textAlign: 'center' }}>{firstHeader}</div>
+      <div css={{ flex: 1, paddingLeft: 20, display: 'flex', alignItems: 'center' }}>
         <span
           css={{
             maxWidth: 240,
@@ -47,19 +59,21 @@ const CommunityBoardArticle = ({ postItem, firstHeader = 'topic', link }: OwnPro
           </span>
         )}
       </div>
-      <div css={{ width: 78, textAlign: 'center' }}>
-        <p
-          css={{
-            width: '54px',
-            margin: '0 auto',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-          }}
-        >
-          {postItem.WRITER_NAME}
-        </p>
-      </div>
+      {!isMyPost && (
+        <div css={{ width: 78, textAlign: 'center' }}>
+          <p
+            css={{
+              width: '54px',
+              margin: '0 auto',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+            }}
+          >
+            {postItem.WRITER_NAME}
+          </p>
+        </div>
+      )}
       <div css={{ width: 82, textAlign: 'center' }}>{timeExpression}</div>
       <div css={{ width: 78, textAlign: 'center' }}>{postItem.VIEW_CNT}</div>
       <div css={{ width: 74, textAlign: 'center' }}>{postItem.RECOMMEND_CNT}</div>

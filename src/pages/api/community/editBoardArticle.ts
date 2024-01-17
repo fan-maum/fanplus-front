@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<EditBoardArticleResponseType> = await axios.put(
-      'https://napi.appphotocard.com/v2/boards/posts',
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/v2/boards/posts`,
       {
         identity: userId,
         post_idx: postIndex,

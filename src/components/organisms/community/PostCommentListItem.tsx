@@ -7,6 +7,7 @@ import { CommunityPostTextType } from '@/types/textTypes';
 import ReplyRegister from './ReplyRegister';
 import { useRecoilValue } from 'recoil';
 import { postParamState } from '@/store/community';
+import { colors } from '@/styles/CommunityColors';
 
 type PostCommentListItemProps = {
   item: CommentListItemType;
@@ -64,9 +65,9 @@ const PostCommentListItem = ({
     <li
       className="comment"
       css={{
-        borderBottom: '1px solid #f1f1f1',
-        '&:last-child': {
-          borderBottom: 'none',
+        borderTop: `1px solid ${colors.gray[200]}`,
+        '&:first-of-type': {
+          borderTop: 'none',
         },
       }}
     >

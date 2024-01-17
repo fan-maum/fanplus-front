@@ -12,7 +12,7 @@ function VoteDetailTemplate({ ...props }: VoteDetailTemplateProps) {
       css={{
         position: 'relative',
         maxWidth: '768px',
-        minWidth: '360px',
+        minWidth: '320px',
         margin: '0 auto',
         background: '#fff',
       }}

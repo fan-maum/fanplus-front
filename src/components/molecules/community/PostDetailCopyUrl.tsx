@@ -12,9 +12,10 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
   const clientURL = process.env.NEXT_PUBLIC_CLIENT_URL;
   const path = router.asPath;
   const href = `${clientURL}${path}`;
+  const copyUrl = href.split('?')[0];
 
   const handleCopy = () => {
-    window?.navigator.clipboard.writeText(href).then(() => {
+    window?.navigator.clipboard.writeText(copyUrl).then(() => {
       ToastModal.alert(texts.copyUrlMessage);
     });
   };
@@ -35,7 +36,7 @@ const PostDetailCopyUrl = ({ texts }: PostDetailCopyUrlProps) => {
           fontWeight: 400,
         }}
       >
-        {href}
+        {copyUrl}
       </span>
       <UnstyledButton
         h={26}

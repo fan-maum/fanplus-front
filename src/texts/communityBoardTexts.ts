@@ -13,7 +13,9 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     minsAgo: '분 전',
     bottomTabBar: {
       write: '글쓰기',
+      all: '전체글',
       popular: '인기글',
+      notice: '공지',
       myPost: '내가 쓴 글',
     },
     boardLang: {
@@ -41,6 +43,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: '확인',
     },
     langSelectorToolTip: '게시글 언어를 선택해 주세요',
+    notice: '공지',
   },
   en: {
     all: 'All',
@@ -53,7 +56,9 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     minsAgo: 'mins ago',
     bottomTabBar: {
       write: 'Write',
+      all: 'All',
       popular: 'Trending',
+      notice: 'Notice',
       myPost: 'My Posts',
     },
     boardLang: {
@@ -81,6 +86,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: 'Check',
     },
     langSelectorToolTip: 'Please select a language',
+    notice: 'Notice',
   },
   es: {
     all: 'Total',
@@ -93,7 +99,9 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     minsAgo: 'Minuto(s) antes',
     bottomTabBar: {
       write: 'Escribir',
+      all: 'TODO',
       popular: 'Popular',
+      notice: 'Aviso',
       myPost: 'El texto que escribí',
     },
     boardLang: {
@@ -121,6 +129,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: 'Confirmar',
     },
     langSelectorToolTip: 'Por favor, seleccione un idioma',
+    notice: 'Aviso',
   },
   in: {
     all: 'Semua',
@@ -133,7 +142,9 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     minsAgo: 'menit sebelumnya',
     bottomTabBar: {
       write: 'Tulis',
+      all: 'SEMUA',
       popular: 'Populer',
+      notice: 'Pengumuman',
       myPost: 'Cerita Saya',
     },
     boardLang: {
@@ -161,6 +172,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: 'Memeriksa',
     },
     langSelectorToolTip: 'Silakan pilih bahasa',
+    notice: 'Pengumuman',
   },
   ja: {
     all: '全',
@@ -173,7 +185,9 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     minsAgo: '分 前',
     bottomTabBar: {
       write: '書き込み',
+      all: '全て',
       popular: '人気',
+      notice: '通知',
       myPost: '私が書いた記事',
     },
     boardLang: {
@@ -201,6 +215,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: '確認',
     },
     langSelectorToolTip: '言語を選択してください',
+    notice: 'お知らせ',
   },
   vi: {
     all: 'Tất cả',
@@ -213,7 +228,9 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     minsAgo: 'Phút trước',
     bottomTabBar: {
       write: 'Viết',
+      all: 'TẤT CẢ',
       popular: 'Nổi tiếng',
+      notice: 'Thông báo',
       myPost: 'Câu chuyện của tôi',
     },
     boardLang: {
@@ -241,6 +258,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: 'Xác nhận',
     },
     langSelectorToolTip: 'Vui lòng chọn một ngôn ngữ',
+    notice: 'Thông báo',
   },
   'zh-CN': {
     all: '全部',
@@ -253,7 +271,9 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     minsAgo: '分钟 前',
     bottomTabBar: {
       write: '发帖子',
+      all: '全部',
       popular: '热门文章',
+      notice: '公告',
       myPost: '我发的贴子',
     },
     boardLang: {
@@ -281,6 +301,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: '确认',
     },
     langSelectorToolTip: '请选择语言',
+    notice: '公告',
   },
   'zh-TW': {
     all: '全部',
@@ -293,7 +314,9 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     minsAgo: '分鐘 前',
     bottomTabBar: {
       write: '發帖子',
+      all: '全部',
       popular: '熱門文章',
+      notice: '公告',
       myPost: '我發的貼子',
     },
     boardLang: {
@@ -321,5 +344,6 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       check: '確認',
     },
     langSelectorToolTip: '請選擇語言',
+    notice: '公告',
   },
 };

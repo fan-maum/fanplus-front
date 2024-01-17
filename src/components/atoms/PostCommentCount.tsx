@@ -1,5 +1,6 @@
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { commentTotalCountState } from '@/store/voteLangState';
+import { colors } from '@/styles/CommunityColors';
 import { useRecoilState } from 'recoil';
 
 type PostCommentCountProps = {
@@ -13,9 +14,10 @@ export default function PostCommentCount({ count }: PostCommentCountProps) {
   return (
     <span
       css={{
-        color: '#000',
-        fontSize: 24,
+        color: `${colors.gray[1000]}`,
+        fontSize: 16,
         fontWeight: 600,
+        marginLeft: 10,
       }}
     >
       {totalCount}

@@ -1,22 +1,24 @@
 import IconArrowDown from '@/components/atoms/IconArrowDown';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
-import { useServerLang } from '@/hooks/useLanguage';
+import { useServerLang, useUrlLanguage } from '@/hooks/useLanguage';
 import { useGetPopularBoardsQuery } from '@/server/useGetPopularBoardsQuery';
 import type { CommunityLayoutTextType } from '@/types/textTypes';
 import { useEffect, useState } from 'react';
 import PopularBoardItem from './PopularBoardItem';
 import { getPopularBoardRightItem } from './PopularBoards';
 import PopularBoardsRolling from './PopularBoardsRolling';
+import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 
 const PopularBoardsMobile = ({
-  texts,
   initialOpen,
+  isEditMode,
 }: {
-  texts: CommunityLayoutTextType;
   initialOpen: boolean;
+  isEditMode: boolean;
 }) => {
   const serverLang = useServerLang();
-
+  const urlLang = useUrlLanguage();
+  const texts = communityLayoutTexts[urlLang];
   const [page, setPage] = useState(0);
   const [isOpened, setIsOpened] = useState(false);
 
@@ -25,7 +27,8 @@ const PopularBoardsMobile = ({
   }, [initialOpen]);
 
   const { data } = useGetPopularBoardsQuery(serverLang);
-  const popularBoards = data?.RESULTS.DATAS.TOP_BOARDS;
+
+  const popularBoards = data;
   const partialPopularBoards = popularBoards?.slice(page * 5, page * 5 + 5);
 
   const onClickLeft = () => {
@@ -48,10 +51,12 @@ const PopularBoardsMobile = ({
   return (
     <div
       css={{
-        '@media (min-width: 768px)': { display: 'none' },
+        '@media (max-width: 768px)': { display: !isEditMode ? 'block' : 'none' },
         width: 'calc(100% - 32px)',
         border: '1px solid #d9d9d9',
-        margin: '0 16px',
+        margin: '0 auto',
+        marginTop: 20,
+        display: 'none',
       }}
     >
       <div
@@ -69,7 +74,7 @@ const PopularBoardsMobile = ({
           fontWeight: '600',
         }}
       >
-        {texts.popularBoards + ' TOP 30'}
+        {texts.popularBoards + ' TOP 50'}
         <IconArrowDown width="12px" onClick={onClickIcon} isReverse={isOpened} />
       </div>
       <div
@@ -142,7 +147,7 @@ const Navigator = ({
     >
       <div css={{ display: 'flex', alignItems: 'center' }}>
         <LeftButton onClick={onClickLeft} inActive={page === 0} />
-        <RightButton onClick={onClickRight} inActive={page === 5} />
+        <RightButton onClick={onClickRight} inActive={page === 9} />
       </div>
       <CloseButton text={texts.close} onClick={onClickClose} />
     </div>

@@ -257,18 +257,21 @@ export type VoteModalButtonTextType = {
 export type CommunityPageTextType = {
   community: string;
   boards: string;
+  boardMain: string;
   bestPopular: string;
   recentlyBoards: string;
   recommendedBoards: string;
   noRecentBoardTexts: string[];
   buttonSearch: string;
   allCategory: string;
-  searchPlaceholder: string;
   postCount: string;
   link: {
     board: string;
   };
   noResult: string[];
+};
+export type CommmunityBookmarkType = {
+  NoBookmarkMessage: string;
 };
 export type CommunityBoardTextType = {
   all: string;
@@ -281,7 +284,9 @@ export type CommunityBoardTextType = {
   minsAgo: string;
   bottomTabBar: {
     write: string;
+    all: string;
     popular: string;
+    notice: string;
     myPost: string;
   };
   boardLang: {
@@ -309,6 +314,7 @@ export type CommunityBoardTextType = {
     check: string;
   };
   langSelectorToolTip: string;
+  notice: string;
 };
 
 export type CommunityPostTextType = {
@@ -360,6 +366,11 @@ export type CommunityPostTextType = {
   minsAgo: string;
   copyUrlButton: string;
   copyUrlMessage: string;
+  postList: string;
+  headerTitle: {
+    all: string;
+    best: string;
+  };
 };
 
 export type CommunityPostEditorTextType = {
@@ -388,7 +399,12 @@ export type CommunityPostEditorTextType = {
 
 export type CommunityLayoutTextType = {
   popularBoards: string;
+  userCard: string[];
+  searchPlaceholder: string;
   close: string;
+  fanplusCommunity: string;
+  bookmark: string;
+  asideMenus: string[];
 };
 
 export type CommunityBestNoticesTextType = {

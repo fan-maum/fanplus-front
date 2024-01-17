@@ -22,12 +22,11 @@ const BestNotices = () => {
   return (
     <div
       css={{
-        '@media (max-width: 768px)': { display: 'none' },
-        width: '291px',
+        width: '328px',
+        height: '100%',
         border: '1px solid #d9d9d9',
         borderBottom: 'none',
-        position: 'absolute',
-        right: 'calc((100% - 768px)/2 - 350px)',
+        '@media (max-width: 960px)': { display: 'none' },
       }}
     >
       <div
@@ -37,7 +36,7 @@ const BestNotices = () => {
           width: '100%',
           backgroundColor: '#f8f8f9',
           color: '#101010',
-          font: 'normal 16px/18px Pretendard',
+          fontSize: '16px',
           fontWeight: '600',
           padding: '14px 15px 15px 20px',
         }}
@@ -58,6 +57,7 @@ const BestNotices = () => {
           <BestNoticeItem
             key={'BestNotice' + idx}
             rank={idx + 1}
+            boardIndex={Number(post.BOARD_IDX)}
             postIndex={Number(post.POST_IDX)}
             postTitle={post.POST_TITLE}
             comments={Number(post.COMMENT_CNT)}

@@ -3,8 +3,8 @@ import { Interpolation, Theme } from '@emotion/react';
 export default function IconVerticalMore({ iconCss }: { iconCss?: Interpolation<Theme> }) {
   return (
     <svg
-      width="28"
-      height="28"
+      width="24"
+      height="24"
       viewBox="0 0 40 40"
       fill="none"
       style={{ cursor: 'pointer' }}

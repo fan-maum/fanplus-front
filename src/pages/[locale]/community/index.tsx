@@ -1,35 +1,32 @@
-import {
-  getCommunityBoardCategoryData,
-  getCommunityBoardData,
-  getCommunityBoardResultData,
-} from '@/api/Community';
-import Layout from '@/components/organisms/Layout';
+import { getCommunityBoardData, getCommunityTypeBoardData, getUser } from '@/api/Community';
+import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
-  CommunityBoardCategoryResponseType,
   CommunityBoardResponseType,
-  CommunityBoardResultResponseType,
+  CommunityMainPageResponseType,
+  PartialUserType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
-type InitialBoardResultProps = {
-  category_type: number;
-  searchValue: string;
-  serverLang: ServerLangType;
-  page: number;
-};
-
 export type CommunityPropTypes = {
   urlLang: UrlLangType;
-  boardCategoryData: CommunityBoardCategoryResponseType;
-  boardResultData: CommunityBoardResultResponseType;
-  initialProps: InitialBoardResultProps;
   userId: string;
-  boardIndex: number;
+  isAdminAccount: boolean;
   boardLangCookie: BoardLangType;
+  communityMainBoardData: CommunityMainPageResponseType;
+  initialProps: {
+    page: number;
+    serverLang: ServerLangType;
+    boardLangCookie: BoardLangType;
+    maxPage: number;
+    view_type: string;
+  };
+};
+
+export interface CommunityBestBoardPropTypes {
   communityBoardData: CommunityBoardResponseType;
   initialBestBoardProps: {
     page: number;
@@ -38,59 +35,61 @@ export type CommunityPropTypes = {
     topic: number;
     view_type: string;
   };
-};
+}
 
 const CommunityHomePage = ({
   urlLang,
-  boardCategoryData,
-  boardResultData,
-  initialProps,
   userId,
-  boardIndex,
+  isAdminAccount,
   boardLangCookie,
+  communityMainBoardData,
+  initialProps,
+  user,
   communityBoardData,
   initialBestBoardProps,
-}: CommunityPropTypes) => {
+}: CommunityPropTypes & { user: PartialUserType } & CommunityBestBoardPropTypes) => {
   return (
-    <Layout urlLang={urlLang}>
+    <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
       <CommunityPageTemplate
         urlLang={urlLang}
-        boardCategoryData={boardCategoryData}
-        boardResultData={boardResultData}
-        initialProps={initialProps}
         userId={userId}
-        boardIndex={boardIndex}
+        isAdminAccount={isAdminAccount}
         boardLangCookie={boardLangCookie}
+        communityMainBoardData={communityMainBoardData}
+        initialProps={initialProps}
         communityBoardData={communityBoardData}
         initialBestBoardProps={initialBestBoardProps}
       />
-    </Layout>
+    </CommunityMainLayout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = nookies.get(context);
+  const userId = context.req.cookies.user_id || '';
+  const user_idx = context.req.cookies.user_idx;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
-  const category_type = parseInt(context.query.category_type as string) || 0;
-  const searchValue = context.query.searchValue || '';
-  const page = parseInt(context.query.page as string) - 1 || 0;
-  const per_page = 20;
-
-  const cookies = nookies.get(context);
-  const userId = cookies['user_id'] || '';
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
-  const topic = parseInt(context.query.topic as string) || 0;
   const view_type = (context.query.view as string) || 'all';
+  const page = parseInt(context.query.page as string) - 1 || 1;
+  const maxPage = 10;
+  const topic = parseInt(context.query.topic as string) || 0;
+  const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
   const boardIndex = 2291;
 
-  const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
-  const boardResultData = await getCommunityBoardResultData(
-    category_type,
-    searchValue,
-    serverLang,
+  const communityMainBoardData: CommunityMainPageResponseType = await getCommunityTypeBoardData(
+    userId,
+    'community',
     page,
-    per_page
+    maxPage,
+    serverLang,
+    boardLangCookie,
+    view_type
   );
+
+  const initialProps = { page, serverLang, boardLangCookie, maxPage, view_type };
+
   const communityBoardData = await getCommunityBoardData(
     userId,
     boardIndex,
@@ -100,22 +99,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     topic,
     view_type
   );
-  const initialProps = { category_type, searchValue, serverLang, page };
+
   const initialBestBoardProps = { page, serverLang, boardLangCookie, topic, view_type };
 
-  return {
-    props: {
-      urlLang,
-      boardCategoryData,
-      boardResultData,
-      initialProps,
-      userId,
-      boardIndex,
-      boardLangCookie,
-      communityBoardData,
-      initialBestBoardProps,
-    },
+  const props = {
+    urlLang,
+    userId,
+    isAdminAccount,
+    boardLangCookie,
+    communityMainBoardData,
+    initialProps,
+    communityBoardData,
+    initialBestBoardProps,
   };
+
+  if (!!userId && !!user_idx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
+    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+    return { props: { ...props, user } };
+  }
+
+  return { props };
 };
 
 export default CommunityHomePage;

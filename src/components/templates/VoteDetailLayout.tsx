@@ -212,8 +212,6 @@ const VoteDetailLayout = ({
   useEffect(() => {
     let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
 
-    // eslint-disable-next-line no-console
-    console.log('VotePopupCount', VotePopupCount);
     if (VotePopupCount === undefined) {
       setVoteCookie('VotePopupCount', 0, { path: '/', expires: expire });
       VotePopupCount = 0;
