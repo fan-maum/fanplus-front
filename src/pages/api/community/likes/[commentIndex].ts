@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
     try {
       const result = await axios({
         method: 'post',
-        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/likes/comment/${commentIndex}`,
+        url: `https://napi.appphotocard.com/v1/likes/comment/${commentIndex}`,
         data: {
           identity: identity,
         },
@@ -28,7 +28,7 @@ const handler: NextApiHandler = async (req, res) => {
     try {
       const result = await axios({
         method: 'delete',
-        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/likes/comment/${commentIndex}`,
+        url: `https://napi.appphotocard.com/v1/likes/comment/${commentIndex}`,
         data: {
           identity: user_id,
         },

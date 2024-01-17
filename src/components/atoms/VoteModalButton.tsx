@@ -39,5 +39,8 @@ const TYPE_VARIANTS = {
     color: '#666',
     background: '#fff',
     border: '1px solid #D9D9D9',
+    // '&:hover': {
+    //   background: colors.grey300,
+    // },
   },
 };

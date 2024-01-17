@@ -51,11 +51,6 @@ export const communityPostTexts: LangStringType<CommunityPostTextType> = {
     minsAgo: '분 전',
     copyUrlButton: '주소복사',
     copyUrlMessage: '게시글 주소를 복사하였습니다.',
-    postList: '목록',
-    headerTitle: {
-      all: '전체글',
-      best: 'Best 인기글 (실시간)',
-    },
   },
   en: {
     popular: 'Popular',
@@ -109,11 +104,6 @@ export const communityPostTexts: LangStringType<CommunityPostTextType> = {
     minsAgo: 'mins ago',
     copyUrlButton: 'Copy URL',
     copyUrlMessage: 'The URL of the post is copied.',
-    postList: 'See List',
-    headerTitle: {
-      all: 'All',
-      best: 'Most popular(live)',
-    },
   },
   es: {
     popular: 'Popular',
@@ -168,11 +158,6 @@ export const communityPostTexts: LangStringType<CommunityPostTextType> = {
     minsAgo: 'Minuto(s) antes',
     copyUrlButton: 'Copiar URL',
     copyUrlMessage: 'Se copia la URL de la publicación.',
-    postList: 'Lista',
-    headerTitle: {
-      all: 'TODO',
-      best: 'Más popular (actual)',
-    },
   },
   in: {
     popular: 'Popular',
@@ -227,11 +212,6 @@ export const communityPostTexts: LangStringType<CommunityPostTextType> = {
     minsAgo: 'menit sebelumnya',
     copyUrlButton: 'Salin URL',
     copyUrlMessage: 'URL postingan disalin.',
-    postList: 'Daftar',
-    headerTitle: {
-      all: 'SEMUA',
-      best: 'Paling populer(saat ini)',
-    },
   },
   ja: {
     popular: '人気',
@@ -285,11 +265,6 @@ export const communityPostTexts: LangStringType<CommunityPostTextType> = {
     minsAgo: '分 前',
     copyUrlButton: 'URLコピー',
     copyUrlMessage: '投稿のURLがコピーされます。',
-    postList: 'リスト',
-    headerTitle: {
-      all: '全て',
-      best: '最も人気（ライブ）',
-    },
   },
   vi: {
     popular: 'Nổi tiếng',
@@ -343,11 +318,6 @@ export const communityPostTexts: LangStringType<CommunityPostTextType> = {
     minsAgo: 'Phút trước',
     copyUrlButton: 'Sao chép URL',
     copyUrlMessage: 'URL của bài viết được sao chép.',
-    postList: 'Danh sách',
-    headerTitle: {
-      all: 'TẤT CẢ',
-      best: 'Phổ biến nhất (hiện tại)',
-    },
   },
   'zh-CN': {
     popular: '人气',
@@ -401,11 +371,6 @@ export const communityPostTexts: LangStringType<CommunityPostTextType> = {
     minsAgo: '分钟 前',
     copyUrlButton: '复制URL',
     copyUrlMessage: '帖子的 URL 已复制。',
-    postList: '列表',
-    headerTitle: {
-      all: '全部',
-      best: '热门（实时）',
-    },
   },
   'zh-TW': {
     popular: '人氣',
@@ -459,10 +424,5 @@ export const communityPostTexts: LangStringType<CommunityPostTextType> = {
     minsAgo: '分鐘 前',
     copyUrlButton: '複製URL',
     copyUrlMessage: '貼文的 URL 已複製。',
-    postList: '清單',
-    headerTitle: {
-      all: '全部',
-      best: '熱門（即時）',
-    },
   },
 };

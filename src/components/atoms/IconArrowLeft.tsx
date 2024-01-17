@@ -17,7 +17,7 @@ function IconArrowLeft({
       height="24"
       fill="none"
       viewBox="0 0 24 24"
-      css={[{ minWidth: '20px' }, iconCss]}
+      css={iconCss}
       onClick={onClickBack}
     >
       <path

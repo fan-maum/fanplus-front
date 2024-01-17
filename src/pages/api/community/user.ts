@@ -1,14 +1,14 @@
-import type { UserResponseType } from '@/types/community';
+import { NextApiHandler } from 'next';
 import axios, { AxiosResponse } from 'axios';
-import type { NextApiHandler } from 'next';
+import type { CommunityBoardResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
   const { user_idx, identity } = req.query;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
-    const response: AxiosResponse<UserResponseType> = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/users/${user_idx}?identity=${identity}`,
+    const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
+      `https://napi.appphotocard.com/v1/users/${user_idx}?identity=${identity}`,
       {
         headers: {
           Origin: origin,
@@ -18,7 +18,7 @@ const handler: NextApiHandler = async (req, res) => {
     );
     res.status(200).json(response.data);
   } catch (error) {
-    res.status(500).json('Failed to load User Data at getUser() of /api/community/user.ts');
+    res.status(500).json('Failed to load Community-Board data');
   }
 };
 

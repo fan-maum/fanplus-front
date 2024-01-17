@@ -10,7 +10,7 @@ const PopularBoardsRolling = ({
   popularBoards: PopularBoardItemType[] | undefined;
 }) => {
   const [rollingIndex, setRollingIndex] = useState(0);
-  const interval = useInterval(() => setRollingIndex((prev) => (prev + 1) % 50), 3000);
+  const interval = useInterval(() => setRollingIndex((prev) => (prev + 1) % 30), 3000);
 
   useEffect(() => {
     if (!!popularBoards) interval.start();

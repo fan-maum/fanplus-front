@@ -1,15 +1,13 @@
 import { Stack } from '@/components/atoms';
 import PostToBoardButton from '@/components/atoms/PostToBoardButton';
+import TopicBubble from '@/components/atoms/TopicBubble';
 import CommunityPostInfoState from '@/components/molecules/community/CommunityPostInfoState';
-import CommunityPostTopPopover from '@/components/molecules/community/CommunityPostTopPopover';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { BoardInfoType, PostInfoItemType } from '@/types/community';
 import type { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 
 type CommunityPostInfoProps = {
-  identity: string;
-  user_idx: string;
   postInfo: PostInfoItemType;
   boardInfo: BoardInfoType;
   texts: CommunityPostTextType;
@@ -17,8 +15,6 @@ type CommunityPostInfoProps = {
 };
 
 const CommunityPostInfo = ({
-  identity,
-  user_idx,
   postInfo,
   boardInfo,
   texts,
@@ -27,6 +23,7 @@ const CommunityPostInfo = ({
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const boardIndex = postInfo.BOARD_IDX;
+
   const { boardIndex: urlBoardIndex } = router.query;
   const isBestBoard = urlBoardIndex === '2291';
 
@@ -41,27 +38,36 @@ const CommunityPostInfo = ({
     });
   };
 
+  const onClickToBestBoard = () => {
+    router.push({ pathname: `/${urlLang}/community/board/2291/` });
+  };
+
   return (
-    <Stack spacing={12} p={'18px 20px 30px'} css={{ borderBottom: '2px solid #f1f1f1' }}>
-      <PostToBoardButton boardName={boardInfo.BOARD_TITLE} onClick={onClickToBoard} />
+    <Stack spacing={12} p={20} css={{ borderBottom: '2px solid #f1f1f1' }}>
+      <PostToBoardButton
+        boardName={boardInfo.BOARD_TITLE}
+        onClick={isBestBoard ? onClickToBestBoard : onClickToBoard}
+      />
+      {!isBestBoard && (
+        <div css={{ display: 'flex' }}>
+          <TopicBubble height={32} p={8} radius={20} name={postInfo.TOPIC_NAME} />
+          {postInfo.HAS_POPULAR_BADGE === '1' && (
+            <TopicBubble height={32} p={8} radius={20} hightlight={true} name={texts.popular} />
+          )}
+        </div>
+      )}
       <div
         css={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
+          paddingTop: 10,
+          color: '#000',
+          fontSize: 24,
+          fontWeight: 600,
+          '@media(max-width: 768px)': {
+            fontSize: 22,
+          },
         }}
       >
-        <h1 css={{ color: '#000', fontSize: 20, fontWeight: 600 }}>
-          {!isBestBoard && <span>[{postInfo.TOPIC_NAME}] </span>}
-          {postInfo.POST_TITLE}
-        </h1>
-        <CommunityPostTopPopover
-          identity={identity}
-          user_idx={user_idx}
-          writer_idx={postInfo.WRITER_IDX}
-          texts={texts}
-          postIndex={postInfo.POST_IDX}
-        />
+        {postInfo.POST_TITLE}
       </div>
       <CommunityPostInfoState postInfo={postInfo} texts={texts} postLikeState={postLikeState} />
     </Stack>

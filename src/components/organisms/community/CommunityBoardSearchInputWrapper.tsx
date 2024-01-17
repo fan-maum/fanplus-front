@@ -1,69 +1,66 @@
-import { Group, UnstyledButton } from '@/components/atoms';
-import IconSearch from '@/components/atoms/IconSeaarch';
-import { useUrlLanguage } from '@/hooks/useLanguage';
-import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
-import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { Group, UnstyledButton } from '@/components/atoms';
+import styled from '@emotion/styled';
+import { CommunityPageTextType } from '@/types/textTypes';
+import { useQueryClient } from 'react-query';
+import IconSearch from '@/components/atoms/IconSeaarch';
 
-type FormValue = {
-  searchValue: string;
-};
+export interface FormValue {
+  searchValue: string | number;
+}
 
-type SearchInputWrapProps = {
-  withSearchInput?: boolean;
-  isEditMode?: boolean;
+export type CommunityBoardSearchInputProps = {
+  searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
+  setTabBar: React.Dispatch<React.SetStateAction<any>>;
+  texts: CommunityPageTextType;
 };
 
 const CommunityBoardSearchInputWrapper = ({
-  withSearchInput,
-  isEditMode,
-}: SearchInputWrapProps) => {
+  searchTabState: [activeTab, setActiveTab],
+  setTabBar,
+  texts,
+}: CommunityBoardSearchInputProps) => {
   const router = useRouter();
-  const urlLang = useUrlLanguage();
-  const texts = communityLayoutTexts[urlLang];
-  const smallPlaceholder = urlLang === 'es' || urlLang === 'in';
+  const smallPlaceholder = router.query.locale === 'es' || router.query.locale === 'in';
 
   const { category_type = 0, searchValue, page = 0 } = router?.query;
-  const { handleSubmit, register } = useForm<FormValue>({
-    defaultValues: {
-      searchValue: searchValue as string,
-    },
-  });
+  const queryClient = useQueryClient();
+  const { handleSubmit, register, reset } = useForm<FormValue>();
 
   const handleSearchSubmit: SubmitHandler<FormValue> = async (data) => {
-    router.push(
+    await queryClient.removeQueries('boardResults');
+    await setTabBar('boards');
+    await setActiveTab(texts.allCategory);
+    await router.push(
       {
-        pathname: `/${urlLang}/community/search/`,
+        pathname: router.pathname,
         query: {
           category_type: 0,
           searchValue: data.searchValue,
+          tab: 'boards',
           locale: router.query.locale,
         },
       },
       undefined,
       { shallow: true }
     );
+    reset({ searchValue: data.searchValue });
   };
 
   return (
     <form
       onSubmit={handleSubmit(handleSearchSubmit)}
       css={{
-        width: '40%',
-        minWidth: 320,
+        width: '50%',
         height: 40,
+        display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 18,
         border: '2px solid #FF5656',
-        display: withSearchInput ? 'flex' : 'none',
         '@media (max-width: 768px)': {
-          width: 'calc(100% - 32px)',
-          minWidth: 0,
-          margin: '0 auto',
-          marginTop: 10,
-          display: !isEditMode ? 'flex' : 'none',
+          width: '100%',
         },
       }}
     >

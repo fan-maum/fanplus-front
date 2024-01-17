@@ -1,29 +1,26 @@
 import TopicBubble from '@/components/atoms/TopicBubble';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
-import type { NoticeListItemType, PostListItemType } from '@/types/community';
+import type { PostListItemType } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 
 type OwnPropType = {
   postItem: PostListItemType;
+  firstHeader?: 'topic' | 'board';
   link: string;
   texts: CommunityBoardTextType;
-  isNotice?: boolean;
-  showTopic?: boolean;
 };
 
 const CommunityBoardArticleMobile = ({
   postItem,
+  firstHeader = 'topic',
   link,
   texts,
-  isNotice,
-  showTopic,
 }: OwnPropType) => {
-  const timeExpression =
-    postItem.PUBLISH_DATE !== null ? formatWrittenTimeLite(postItem.PUBLISH_DATE) : 0;
+  const timeExpression = formatWrittenTimeLite(postItem.PUBLISH_DATE);
 
   return (
     <Link
@@ -31,38 +28,31 @@ const CommunityBoardArticleMobile = ({
       css={{
         '@media (min-width: 768px)': { display: 'none' },
         display: 'block',
-        height: 100,
-        padding: '16px',
-        backgroundColor: isNotice ? '#fff6f6' : 'transparent',
+        padding: '5px 5px 0',
       }}
     >
+      {firstHeader === 'topic' && (
+        <div css={{ display: 'flex' }}>
+          <TopicBubble name={postItem.TOPIC_NAME as string} />
+          {postItem.HAS_POPULAR_BADGE === '1' && <TopicBubble name={texts.popular} hightlight />}
+        </div>
+      )}
       <div css={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div
-          css={{
-            margin: '3px 3px 6px',
-            lineHeight: '1.5',
-            width: postItem.POST_IMG_YN === 'Y' ? '60%' : '70%',
-          }}
-        >
+        <div css={{ margin: '3px 3px 6px', lineHeight: '1.5' }}>
           <h4
             css={{
               wordBreak: 'break-word',
               fontWeight: '400',
-              maxWidth: '100%',
+              maxWidth: '230px',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
             }}
           >
-            {showTopic ? (
-              <span>[{postItem.TOPIC_NAME}]</span>
-            ) : (
-              <span>[{postItem.BOARD_TITLE}]</span>
-            )}{' '}
             {postItem.POST_TITLE}
           </h4>
           <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>
-            <p css={{ marginBottom: '4px' }}>
+            <p>
               <span css={{ color: '#000' }}>{postItem.WRITER_NAME}</span>
               {' | ' + timeExpression}
             </p>
@@ -72,7 +62,7 @@ const CommunityBoardArticleMobile = ({
             </p>
           </div>
         </div>
-        <div css={{ display: 'flex', gap: 10 }}>
+        <div css={{ display: 'flex' }}>
           {postItem.POST_IMG_YN === 'Y' && <ThumbnailImage src={postItem.SUMNAIL_IMG} />}
           <CommentBox commentCount={postItem.COMMENT_CNT} text={texts.commentCount} />
         </div>
@@ -106,14 +96,14 @@ const ThumbnailImage = ({ src }: { src: string }) => {
 const CommentBox = ({ commentCount, text }: { commentCount: string; text: string }) => {
   const urlLang = useUrlLanguage();
   const fontStyle: Record<UrlLangType, CSSProperties['font']> = {
-    ko: '14px',
-    'zh-CN': '12px',
-    'zh-TW': '12px',
-    en: '6px',
-    ja: '6px',
-    vi: '6px',
-    es: '6px',
-    in: '6px',
+    ko: 'normal 12px/14px Pretendard',
+    'zh-CN': 'normal 12px/14px Pretendard',
+    'zh-TW': 'normal 12px/14px Pretendard',
+    en: 'normal 6px/8px Pretendard',
+    ja: 'normal 6px/8px Pretendard',
+    vi: 'normal 6px/8px Pretendard',
+    es: 'normal 6px/8px Pretendard',
+    in: 'normal 6px/8px Pretendard',
   };
   return (
     <div
@@ -127,11 +117,10 @@ const CommentBox = ({ commentCount, text }: { commentCount: string; text: string
         justifyContent: 'center',
         margin: '0 16px 0 6px',
         backgroundColor: '#f1f1f1',
-        '@media (max-width: 768px)': { margin: '0' },
       }}
     >
       <p>{commentCount}</p>
-      <p css={{ fontSize: fontStyle[urlLang] }}>{text}</p>
+      <p css={{ font: fontStyle[urlLang] }}>{text}</p>
     </div>
   );
 };

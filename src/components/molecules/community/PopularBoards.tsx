@@ -1,13 +1,10 @@
-import { useServerLang, useUrlLanguage } from '@/hooks/useLanguage';
+import { useServerLang } from '@/hooks/useLanguage';
 import { useGetPopularBoardsQuery } from '@/server/useGetPopularBoardsQuery';
 import { PopularBoardsSkeleton } from './CommunitySkeleton';
 import PopularBoardItem from './PopularBoardItem';
 import { Decreased, Increased, New, NoChange } from './PopularBoardRightItems';
-import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 
-const PopularBoards = () => {
-  const urlLang = useUrlLanguage();
-  const texts = communityLayoutTexts[urlLang];
+const PopularBoards = ({ title }: { title: string }) => {
   const serverLang = useServerLang();
   const { data, isFetching } = useGetPopularBoardsQuery(serverLang);
 
@@ -16,7 +13,10 @@ const PopularBoards = () => {
       css={{
         '@media (max-width: 768px)': { display: 'none' },
         width: '230px',
-        borderTop: '1px solid #d9d9d9',
+        border: '1px solid #d9d9d9',
+        borderBottom: 'none',
+        position: 'absolute',
+        left: 'calc((100% - 768px)/2 - 250px)',
       }}
     >
       <div
@@ -24,17 +24,17 @@ const PopularBoards = () => {
           width: '100%',
           height: '40px',
           lineHeight: '40px',
-          backgroundColor: '#FBFBFB',
+          backgroundColor: '#f8f8f9',
           textAlign: 'center',
           color: '#101010',
           fontSize: '16px',
           fontWeight: '600',
         }}
       >
-        {texts.popularBoards + ' TOP 50'}
+        {title}
       </div>
       {isFetching && <PopularBoardsSkeleton />}
-      {data?.map((boardItem, index) => {
+      {data?.RESULTS.DATAS.TOP_BOARDS.map((boardItem, index) => {
         return (
           <PopularBoardItem
             key={'popularBoard' + index}

@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req, res) => {
     try {
       const result = await axios({
         method: 'post',
-        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/recommends/posts`,
+        url: `https://napi.appphotocard.com/v1/recommends/posts`,
         data: {
           identity: identity,
           post_idx: post_idx,
@@ -24,7 +24,7 @@ const handler: NextApiHandler = async (req, res) => {
   if (req.method === 'DELETE') {
     const { user_id } = req.cookies;
     const { post_idx } = req.query;
-    const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/v1/recommends/posts`;
+    const url = `https://napi.appphotocard.com/v1/recommends/posts`;
     try {
       const result = await axios.delete(url, {
         headers: {

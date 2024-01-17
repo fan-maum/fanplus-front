@@ -39,7 +39,7 @@ export const useGetUserQuery = (props: useGetUserQueryProps) => {
   const { user_idx, identity } = props;
   const res = useQuery({
     queryKey: ['user'],
-    queryFn: () => getUser(identity, user_idx),
+    queryFn: () => getUser(user_idx, identity),
   });
   return res;
 };
@@ -60,6 +60,6 @@ export interface useGetReplyQueryProps extends useCommonCommentQueryType {
 }
 
 export interface useGetUserQueryProps {
-  user_idx?: string;
-  identity?: string;
+  user_idx: string;
+  identity: string;
 }

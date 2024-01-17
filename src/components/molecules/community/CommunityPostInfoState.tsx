@@ -1,8 +1,7 @@
 import { Avatar, Group, Stack } from '@/components/atoms';
-import { colors } from '@/styles/CommunityColors';
 import { PostInfoItemType } from '@/types/community';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { formatWrittenTime } from '@/utils/util';
+import { getStandardTimeDate } from '@/utils/communityUtil';
 
 export interface CommunityPostInfoStateProps {
   postInfo: PostInfoItemType;
@@ -15,8 +14,7 @@ const CommunityPostInfoState = ({
   texts,
   postLikeState,
 }: CommunityPostInfoStateProps) => {
-  const getTimeDate = formatWrittenTime(postInfo.PUBLISH_DATE);
-
+  const getTimeDate = getStandardTimeDate(postInfo.PUBLISH_DATE, texts);
   return (
     <Group spacing={10} align={'flex-start'}>
       <div css={{ position: 'relative' }}>
@@ -25,7 +23,9 @@ const CommunityPostInfoState = ({
           w={60}
           h={60}
           radius={'50%'}
-          css={{ border: `1px solid ${colors.gray[200]}` }}
+          css={{
+            border: '1px solid #F8F8F9',
+          }}
           src={postInfo.WRITER_PROFILE_IMG}
           alt="Avatar"
         />
@@ -34,15 +34,15 @@ const CommunityPostInfoState = ({
         <h4 css={{ color: '#000', fontSize: 16, fontWeight: 600 }}>{postInfo.WRITER_NAME}</h4>
         <div
           css={{
-            fontSize: 12,
-            color: colors.gray[500],
+            fontSize: 14,
+            color: '#999',
             fontWeight: 400,
             paddingTop: 4,
           }}
         >
           {getTimeDate}
         </div>
-        <Group spacing={10} fw={500} fz={12} mt={4} css={{ color: '#999' }}>
+        <Group spacing={10} fw={500} fz={14} mt={4} css={{ color: '#999' }}>
           <div>
             {texts.viewCount} {postInfo.VIEW_CNT}
           </div>

@@ -24,7 +24,6 @@ const CommunityBoardNoticeBanner = ({ bannerList }: OwnPropType) => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          marginBottom: '16px',
         },
         '.swiper-pagination-bullet': {
           margin: '0px 4px',
