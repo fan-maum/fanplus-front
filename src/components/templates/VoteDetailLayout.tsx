@@ -40,6 +40,7 @@ export interface VotesLayoutProps {
   headers: [];
   authCookie: string | null;
   isWebView?: boolean;
+  mobileWebView?: boolean;
 }
 
 export const findStarById: (id: string, voteDetails: VoteDetailResponse) => any = (
@@ -61,6 +62,7 @@ const VoteDetailLayout = ({
   headers,
   authCookie,
   isWebView,
+  mobileWebView,
 }: VotesLayoutProps) => {
   const endDay = new Date(propsVoteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
@@ -212,8 +214,7 @@ const VoteDetailLayout = ({
   useEffect(() => {
     let VotePopupCount: number | undefined = getVoteCookie('VotePopupCount');
 
-    // eslint-disable-next-line no-console
-    console.log('VotePopupCount', VotePopupCount);
+    if (mobileWebView) return setImagePopup(false);
     if (VotePopupCount === undefined) {
       setVoteCookie('VotePopupCount', 0, { path: '/', expires: expire });
       VotePopupCount = 0;

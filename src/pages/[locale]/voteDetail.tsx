@@ -4,14 +4,23 @@ import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
 import { DailyVoteTicketResponse } from '@/types/vote';
+import { isMobile } from '@/utils/userAgent';
 import { AxiosError } from 'axios';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import nookies from 'nookies';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const VoteDetail = ({ urlLang, voteDetails,  dailyTicketCount, headers, authCookie, url }: EventProps) => {
+const VoteDetail = ({
+  urlLang,
+  voteDetails,
+  dailyTicketCount,
+  headers,
+  authCookie,
+  url,
+}: EventProps) => {
   const isWebView = false;
+  const mobileWebView = isMobile(headers['user-agent']);
 
   return (
     <Layout urlLang={urlLang}>
@@ -38,6 +47,7 @@ const VoteDetail = ({ urlLang, voteDetails,  dailyTicketCount, headers, authCook
         headers={headers}
         authCookie={authCookie}
         isWebView={isWebView}
+        mobileWebView={mobileWebView}
       />
     </Layout>
   );
