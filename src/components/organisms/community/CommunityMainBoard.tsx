@@ -52,6 +52,8 @@ const CommunityMainBoard = ({
           boardTitle={texts.bottomTabBar.all}
           boardLang={boardLang}
           boardType={boardType}
+          menuId={communityMainBoardData.BOARD_INFO.menuId}
+          isBookmarked={communityMainBoardData.BOARD_INFO.isBookmarked}
           setLangModal={setLangModal}
           onClickWrite={() => false}
         />

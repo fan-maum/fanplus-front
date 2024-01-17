@@ -38,7 +38,6 @@ const CommunityBoardTemplate = ({
   const [permissionModal, setPermissionModal] = useState(false);
 
   const topicList = communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST;
-  const boardInfo = communityBoardData.BOARD_INFO;
   const boardInfoDetail: Array<CommunityBoardPhotocardResponseType> =
     communityBoardData.BOARD_INFO.photocard_board_lang;
   const noticeBannerList = communityNoticeBannerData?.RESULTS.DATAS.LIST;
@@ -90,6 +89,8 @@ const CommunityBoardTemplate = ({
         <CommunityBoardTopNavi
           boardTitle={boardInfoDetail[0].TITLE as string}
           boardLang={boardLang}
+          menuId={communityBoardData.BOARD_INFO.menuId}
+          isBookmarked={communityBoardData.BOARD_INFO.isBookmarked}
           setLangModal={setLangModal}
           onClickWrite={onClickWrite}
         />

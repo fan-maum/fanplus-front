@@ -73,17 +73,12 @@ export type PostListItemType = {
 };
 export type CommunityBoardResponseType = {
   BOARD_INFO: {
-    BOARD_IDX: string;
-    BOARD_TITLE: string;
-    IS_GROUP: 'Y' | 'N';
-    IS_TREND: 'Y' | 'N';
-
     IDX: string;
     BASE_LANG: string;
-    LEVEL: null;
-    LEVEL_EXP: null;
+    LEVEL: string | null;
+    LEVEL_EXP: string | null;
     BOARD_ICON: string;
-    HEAD_IMG: null;
+    HEAD_IMG: string | null;
     SUBSCRIPTION_CNT: string;
     BOOKMARK_CNT: string;
     RECOMMEND_CNT: string;
@@ -93,12 +88,14 @@ export type CommunityBoardResponseType = {
     IS_REMOVE: 'Y' | 'N';
     IS_BLIND: 'Y' | 'N';
     INS_DATE: string;
-    UPD_DATE: null;
-    REMOVE_DATE: null;
+    UPD_DATE: string | null;
+    REMOVE_DATE: string | null;
     POST_CNT: 'Y' | 'N';
     DEFAULT_TOPIC: number;
-    NEW_POST_DATE: null;
+    NEW_POST_DATE: string | null;
     photocard_board_lang: Array<CommunityBoardPhotocardResponseType>;
+    menuId: number;
+    isBookmarked: boolean;
   };
   NOTICE: Array<NoticeListItemType>;
   POST_LIST: Array<PostListItemType>;
@@ -124,6 +121,8 @@ export type CommunityMyPostResponseType = {
 export type CommunityMainPageResponseType = {
   BOARD_INFO: {
     VIEW_POSSIBLE_PAGE: number;
+    menuId: number;
+    isBookmarked: boolean;
   };
   NOTICE: Array<NoticeListItemType>;
   POST_LIST: Array<PostListItemType>;
