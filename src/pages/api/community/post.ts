@@ -16,8 +16,10 @@ const handler: NextApiHandler = async (req, res) => {
       params: identity !== undefined ? { identity, lang } : { lang },
     });
     res.status(200).json(response.data);
-  } catch (error) {
-    JSON.stringify(error);
+  } catch (error) {    
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(error));
+    throw error;
   }
 };
 
