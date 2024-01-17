@@ -1,68 +1,39 @@
-import { getCommunityBoardData } from '@/api/Community';
 import CommunityBoardArticle from '@/components/molecules/community/CommunityBoardArticle';
 import CommunityBoardArticleMobile from '@/components/molecules/community/CommunityBoardArticleMobile';
 import CommunityBoardArticleTableHeader from '@/components/molecules/community/CommunityBoardArticleTableHeader';
 import { CommunityBoardArticleTableSkeleton } from '@/components/molecules/community/CommunitySkeleton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import type { BoardLangType, ServerLangType } from '@/types/common';
-import type { CommunityBoardResponseType, PostListItemType } from '@/types/community';
+import type { CommunityBoardResponseType } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
 import CommunityBoardPagination from '../CommunityBoardPagination';
 import CommunityBoardNoPost from './CommunityBoardNoPost';
 import CommunityBoardNoticeArticleMobile from '@/components/molecules/community/CommunityBoardNoticeArticleMobile';
 
 type BoardArticleTableProps = {
+  communityBoardData: CommunityBoardResponseType;
   communityBoardDataSSR: CommunityBoardResponseType;
+  isFetching: boolean;
   texts: CommunityBoardTextType;
-  queries: {
-    userId: string;
-    boardIndex: number;
-    page: number;
-    requestLang: ServerLangType;
-    boardLang: BoardLangType;
-    topicIndex: number;
-    viewType: string;
-  };
-  isInitialData: boolean;
   isStarBoardTableHeader?: boolean;
   onClickWrite: () => void;
 };
 
 const CommunityBoardArticleTable = ({
+  communityBoardData,
   communityBoardDataSSR,
+  isFetching,
   texts,
-  queries,
-  isInitialData,
   isStarBoardTableHeader,
   onClickWrite,
 }: BoardArticleTableProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
-  const { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType } = queries;
   const { boardIndex: urlBoardIndex } = router.query;
   const isBestBoard = urlBoardIndex === '2291' || router.query.boardType === '2291';
   const currentBoardIndex = isBestBoard ? 2291 : Number(router.query.boardIndex);
 
   const tableHeader = isStarBoardTableHeader || isBestBoard ? 'board' : 'topic';
-  const { data: communityBoardData, isFetching } = useQuery(
-    [
-      'communityBoardData',
-      { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType },
-    ],
-    () =>
-      getCommunityBoardData(
-        userId,
-        currentBoardIndex,
-        page,
-        requestLang,
-        boardLang,
-        topicIndex,
-        viewType
-      ),
-    { initialData: isInitialData ? communityBoardDataSSR : undefined }
-  );
 
   const handlePageChange = async (selectedItem: { selected: number }) => {
     router.replace({ query: { ...router.query, page: selectedItem.selected + 1 } }, undefined, {

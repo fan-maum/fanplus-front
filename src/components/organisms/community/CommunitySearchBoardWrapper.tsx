@@ -3,14 +3,18 @@ import CommunityBoardItem from '@/components/molecules/community/CommunityBoardI
 import { updateStorageRecentBoardList } from '@/utils/localStorage';
 import { CommunityPageTextType } from '@/types/textTypes';
 
-type CommunityBoardWrapperType = {
+type CommunitySearchBoardWrapperProps = {
   title?: string;
   boardList: BoardResultItemType[];
   activeTabState: string;
   texts: CommunityPageTextType;
 };
 
-const CommunitySearchBoardWrapper = ({ title, boardList, texts }: CommunityBoardWrapperType) => {
+const CommunitySearchBoardWrapper = ({
+  title,
+  boardList,
+  texts,
+}: CommunitySearchBoardWrapperProps) => {
   return (
     <section css={{ margin: '12px 0 30px 0' }}>
       {title && <h4 css={{ margin: '15px 5px' }}>{title}</h4>}

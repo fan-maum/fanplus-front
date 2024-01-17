@@ -22,7 +22,7 @@ export type CommunityBoardPropType = {
   userId: string;
   isAdminAccount: boolean;
   boardLangCookie: BoardLangType;
-  communityBoardData: CommunityBoardResponseType;
+  communityBoardDataSSR: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   communityNoticeBannerData: CommunityNoticeBannerResponseType;
   initialProps: {
@@ -39,7 +39,7 @@ const Board = ({
   userId,
   isAdminAccount,
   boardLangCookie,
-  communityBoardData,
+  communityBoardDataSSR,
   communityBoardTopics,
   communityNoticeBannerData,
   initialProps,
@@ -53,7 +53,7 @@ const Board = ({
           userId={userId}
           isAdminAccount={isAdminAccount}
           boardLangCookie={boardLangCookie}
-          communityBoardData={communityBoardData}
+          communityBoardDataSSR={communityBoardDataSSR}
           communityBoardTopics={communityBoardTopics}
           communityNoticeBannerData={communityNoticeBannerData}
           initialProps={initialProps}
@@ -79,7 +79,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (!boardIndex) return { notFound: true };
 
-  const communityBoardData = await getCommunityBoardData(
+  const communityBoardDataSSR = await getCommunityBoardData(
     userId,
     boardIndex,
     page,
@@ -97,7 +97,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     userId,
     isAdminAccount,
     boardLangCookie,
-    communityBoardData,
+    communityBoardDataSSR,
     communityBoardTopics,
     communityNoticeBannerData,
     initialProps,

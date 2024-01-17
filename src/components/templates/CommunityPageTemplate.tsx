@@ -14,9 +14,9 @@ const CommunityPageTemplate = ({
   userId,
   isAdminAccount,
   boardLangCookie,
-  communityMainBoardData,
+  communityMainBoardDataSSR,
   initialProps,
-  communityBoardData,
+  communityBoardDataSSR,
   initialBestBoardProps,
 }: CommunityPropTypes & CommunityBestBoardPropTypes) => {
   const router = useRouter();
@@ -58,7 +58,7 @@ const CommunityPageTemplate = ({
           userId={userId}
           isAdminAccount={isAdminAccount}
           boardLangCookie={boardLangCookie}
-          communityMainBoardData={communityMainBoardData}
+          communityMainBoardDataSSR={communityMainBoardDataSSR}
           boardType={boardType}
           initialProps={initialProps}
         />
@@ -78,7 +78,7 @@ const CommunityPageTemplate = ({
               userId={userId}
               isAdminAccount={isAdminAccount}
               boardLangCookie={boardLangCookie}
-              communityMainBoardData={communityMainBoardData}
+              communityMainBoardDataSSR={communityMainBoardDataSSR}
               boardType={boardType}
               initialProps={initialProps}
             />
@@ -90,7 +90,7 @@ const CommunityPageTemplate = ({
               boardType={'mainBestPopular'}
               isAdminAccount={isAdminAccount}
               boardLangCookie={boardLangCookie}
-              communityBoardData={communityBoardData}
+              communityBoardDataSSR={communityBoardDataSSR}
               initialProps={initialBestBoardProps}
             />
           )}

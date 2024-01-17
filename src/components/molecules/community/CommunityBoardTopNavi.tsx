@@ -14,7 +14,7 @@ export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
   boardLang: BoardLangType;
   boardType?: string | string[];
-  menuId: number;
+  menuId: number | undefined;
   isBookmarked: boolean;
   setLangModal: Dispatch<SetStateAction<boolean>>;
   onClickWrite: () => void;

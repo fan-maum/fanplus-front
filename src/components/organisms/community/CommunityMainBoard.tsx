@@ -9,12 +9,14 @@ import CommunityLanguageModal from '@/components/modals/CommunityLanguageModal';
 import CommunityCommonModal from '@/components/modals/CommunityCommonModal';
 import { CommunityPropTypes } from '@/pages/[locale]/community';
 import CommunityTypeBoardArticleTable from './CommunityTypeBoardArticleTable';
+import { useQuery } from 'react-query';
+import { getCommunityTypeBoardData } from '@/api/Community';
 
 const CommunityMainBoard = ({
   urlLang,
   userId,
   boardLangCookie,
-  communityMainBoardData,
+  communityMainBoardDataSSR,
   boardType,
   initialProps,
 }: CommunityPropTypes & { boardType: string | string[] | undefined }) => {
@@ -38,6 +40,26 @@ const CommunityMainBoard = ({
     initialProps.view_type === viewType &&
     initialProps.maxPage === topicIndex;
 
+  const { data: communityBoardDataCSR, isFetching } = useQuery(
+    [
+      'communityTypeBoardData',
+      { userId, boardType, page, requestLang, boardLang, maxPage, viewType },
+    ],
+    () =>
+      getCommunityTypeBoardData(
+        userId,
+        String(boardType),
+        page,
+        maxPage,
+        requestLang,
+        boardLang,
+        viewType
+      ),
+    { initialData: isInitialData ? communityMainBoardDataSSR : undefined }
+  );
+
+  const communityBoardData = communityBoardDataCSR ?? communityMainBoardDataSSR;
+
   const onClickLanguageBox = async (language: BoardLangType) => {
     setBoardLang(language);
     setBoardLangCookie(language);
@@ -52,16 +74,17 @@ const CommunityMainBoard = ({
           boardTitle={texts.bottomTabBar.all}
           boardLang={boardLang}
           boardType={boardType}
-          menuId={communityMainBoardData.BOARD_INFO.menuId}
-          isBookmarked={communityMainBoardData.BOARD_INFO.isBookmarked}
+          menuId={communityBoardData.BOARD_INFO.menuId}
+          isBookmarked={communityBoardData.BOARD_INFO.isBookmarked}
           setLangModal={setLangModal}
           onClickWrite={() => false}
         />
         <CommunityTypeBoardArticleTable
-          communityBoardDataSSR={communityMainBoardData}
+          communityBoardData={communityBoardData}
+          communityBoardDataSSR={communityMainBoardDataSSR}
+          isFetching={isFetching}
           texts={texts}
-          queries={{ userId, boardType, page, requestLang, boardLang, maxPage, viewType }}
-          isInitialData={isInitialData}
+          boardType={String(boardType)}
           isStarBoardTableHeader
         />
         <CommunityLanguageModal

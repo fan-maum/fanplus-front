@@ -10,8 +10,6 @@ interface MainMenuListProps {
 
 const MainMenuList = ({ menus, freeBoardText }: MainMenuListProps) => {
   const urlLang = useUrlLanguage();
-  // eslint-disable-next-line no-console
-  console.log('sideMenuList', menus);
 
   return (
     <div>
