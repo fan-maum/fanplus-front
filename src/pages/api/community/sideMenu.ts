@@ -3,9 +3,9 @@ import axios, { AxiosResponse } from 'axios';
 import type { sideMenuResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { lang, parentId } = req.query;
+  const { lang, identity } = req.query;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
-  const params = !!parentId ? { parentId, lang } : { lang };
+  const params = !identity ? { lang } : { lang, identity };
 
   try {
     const response: AxiosResponse<sideMenuResponseType> = await axios.get(
