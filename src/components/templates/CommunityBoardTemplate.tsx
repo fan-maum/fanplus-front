@@ -13,14 +13,16 @@ import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNot
 import CommunityBoardTopicTabBar from '../organisms/community/CommunityBoardTopicTabBar';
 import { colors } from '@/styles/CommunityColors';
 import BoardDomains from '../organisms/community/BoardDomains';
-import { CommunityBoardPhotocardResponseType } from '@/types/community';
+import { useQuery } from 'react-query';
+import { getCommunityBoardData } from '@/api/Community';
+import { CommunityBoardResponseType } from '@/types/community';
 
 const CommunityBoardTemplate = ({
   urlLang,
   userId,
   isAdminAccount,
   boardLangCookie,
-  communityBoardData,
+  communityBoardDataSSR,
   communityBoardTopics,
   communityNoticeBannerData,
   initialProps,
@@ -38,11 +40,7 @@ const CommunityBoardTemplate = ({
   const [permissionModal, setPermissionModal] = useState(false);
 
   const topicList = communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST;
-  const boardInfo = communityBoardData.BOARD_INFO;
-  const boardInfoDetail: Array<CommunityBoardPhotocardResponseType> =
-    communityBoardData.BOARD_INFO.photocard_board_lang;
   const noticeBannerList = communityNoticeBannerData?.RESULTS.DATAS.LIST;
-
   const isNoticeBannerExist = communityNoticeBannerData?.RESULTS.DATAS.COUNT !== 0;
   const isInitialData =
     initialProps.boardLangCookie === boardLang &&
@@ -50,11 +48,37 @@ const CommunityBoardTemplate = ({
     initialProps.serverLang === requestLang &&
     initialProps.view_type === viewType &&
     initialProps.topic === topicIndex;
+
   const isBestBoard = boardIndex === 2291;
+
+  const currentBoardIndex = isBestBoard ? 2291 : Number(router.query.boardIndex);
+
+  const { data: communityBoardDataCSR, isFetching } = useQuery(
+    [
+      'communityBoardData',
+      { userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType },
+    ],
+    () =>
+      getCommunityBoardData(
+        userId,
+        currentBoardIndex,
+        page,
+        requestLang,
+        boardLang,
+        topicIndex,
+        viewType
+      ),
+    { initialData: isInitialData ? communityBoardDataSSR : undefined }
+  );
+
+  const communityBoardData: CommunityBoardResponseType =
+    communityBoardDataCSR ?? communityBoardDataSSR;
 
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];
-    const writeBanned = writeBanBoard.includes(boardInfoDetail[0].BOARD_IDX as string);
+    const writeBanned = writeBanBoard.includes(
+      communityBoardData?.BOARD_INFO.photocard_board_lang[0].BOARD_IDX as string
+    );
     if (writeBanned && !isAdminAccount) {
       setPermissionModal(true);
       return;
@@ -65,7 +89,7 @@ const CommunityBoardTemplate = ({
       return;
     }
     router.push({
-      pathname: `/${urlLang}/community/board/${boardInfoDetail[0].BOARD_IDX}/write`,
+      pathname: `/${urlLang}/community/board/${communityBoardData?.BOARD_INFO.photocard_board_lang[0].BOARD_IDX}/write`,
       query: { topic: router.query.topic },
     });
   };
@@ -88,8 +112,10 @@ const CommunityBoardTemplate = ({
     <>
       <div>
         <CommunityBoardTopNavi
-          boardTitle={boardInfoDetail[0].TITLE as string}
+          boardTitle={communityBoardData?.BOARD_INFO.photocard_board_lang[0].TITLE as string}
           boardLang={boardLang}
+          menuId={communityBoardData?.BOARD_INFO.menuId}
+          isBookmarked={communityBoardData.BOARD_INFO.isBookmarked}
           setLangModal={setLangModal}
           onClickWrite={onClickWrite}
         />
@@ -148,10 +174,10 @@ const CommunityBoardTemplate = ({
         )}
         {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
         <CommunityBoardArticleTable
-          communityBoardDataSSR={communityBoardData}
+          communityBoardData={communityBoardData}
+          communityBoardDataSSR={communityBoardDataSSR}
+          isFetching={isFetching}
           texts={texts}
-          queries={{ userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType }}
-          isInitialData={isInitialData}
           onClickWrite={onClickWrite}
         />
         <CommunityLanguageModal

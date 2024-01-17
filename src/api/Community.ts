@@ -15,6 +15,7 @@ import type {
   RecommendListResponseType,
   Top50PopularBoardsResponseType,
   UserResponseType,
+  sideMenuResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
 import type { BoardLangType, OrderType, ServerLangType, UrlLangType } from '@/types/common';
@@ -410,24 +411,24 @@ export const getMainPageNotices = async (collectionId: number) => {
   return response.data;
 };
 
-export const postBookmark = async (identity: string, boardIdx: string) => {
+export const postBookmark = async (identity: string, menuId: number) => {
   const response: AxiosResponse = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark`,
     {
-      identity: identity,
-      boardIdx: boardIdx,
+      identity,
+      menuId,
     }
   );
   return response;
 };
 
-export const deleteBookmark = async (identity: string, boardIdx: string) => {
+export const deleteBookmark = async (identity: string, menuId: number) => {
   const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark?board_idx=${boardIdx}`,
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark?menuId=${menuId}`,
     {
       data: {
-        identity: identity,
-        board_idx: boardIdx,
+        identity,
+        menuId,
       },
     }
   );
@@ -442,6 +443,15 @@ export const getMultiBoardsInquiry = async (lang: ServerLangType, boardIds?: num
   const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardsInquiry`,
     { params: { lang, boardIds }, paramsSerializer: { indexes: null } }
+  );
+  return response.data;
+};
+
+/* sideMenus + Menus */
+export const getSideMenu = async (lang: ServerLangType, parentId?: string) => {
+  const response: AxiosResponse<sideMenuResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/sideMenu`,
+    { params: { lang, parentId } }
   );
   return response.data;
 };

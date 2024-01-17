@@ -37,7 +37,6 @@ const MenuListToggleWrapper = styled.div`
     height: 40px;
     padding: 0 12px 0 16px;
     cursor: pointer;
-    border-top: 1px solid ${colors.gray[200]};
   }
 
   .bookmark-title {

@@ -3,14 +3,14 @@ import axios from 'axios';
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === 'POST') {
-    const { identity, boardIdx } = req.body;
+    const { identity, menuId } = req.body;
     try {
       const result = await axios({
         method: 'post',
         url: `${process.env.NEXT_PUBLIC_SERVER_URL}/boards/bookmark`,
         data: {
-          identity: identity,
-          boardIdx: boardIdx,
+          identity,
+          menuId,
         },
         headers: {
           'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === 'DELETE') {
-    const { board_idx } = req.query;
+    const { menuId } = req.query;
     const { user_id } = req.cookies;
 
     try {
@@ -32,7 +32,7 @@ const handler: NextApiHandler = async (req, res) => {
         url: `${process.env.NEXT_PUBLIC_SERVER_URL}/boards/bookmark`,
         data: {
           identity: user_id,
-          boardIdx: board_idx,
+          menuId,
         },
         headers: {
           'Content-Type': 'application/json',

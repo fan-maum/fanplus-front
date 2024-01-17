@@ -9,6 +9,8 @@ import CommunityLanguageModal from '@/components/modals/CommunityLanguageModal';
 import CommunityCommonModal from '@/components/modals/CommunityCommonModal';
 import { CommunityBoardResponseType } from '@/types/community';
 import CommunityBoardArticleTable from './CommunityBoardArticleTable';
+import { useQuery } from 'react-query';
+import { getCommunityBoardData } from '@/api/Community';
 
 type CommunityBoardWrapperProps = {
   urlLang: UrlLangType;
@@ -17,7 +19,7 @@ type CommunityBoardWrapperProps = {
   boardType: string;
   isAdminAccount: boolean;
   boardLangCookie: BoardLangType;
-  communityBoardData: CommunityBoardResponseType;
+  communityBoardDataSSR: CommunityBoardResponseType;
   initialProps: {
     page: number;
     serverLang: ServerLangType;
@@ -34,7 +36,7 @@ const CommunityBoardWrapper = ({
   boardType,
   isAdminAccount,
   boardLangCookie,
-  communityBoardData,
+  communityBoardDataSSR,
   initialProps,
 }: CommunityBoardWrapperProps) => {
   const router = useRouter();
@@ -63,6 +65,21 @@ const CommunityBoardWrapper = ({
     setLangModal(false);
   };
 
+  const isBestBoard = boardIndex === 2291 || String(router.query.boardType) === '2291';
+  const currentBoardIndex = isBestBoard ? 2291 : Number(router.query.boardIndex);
+
+  const { data: communityBoardDataCSR, isFetching } = useQuery(
+    [
+      'communityBoardData',
+      { userId, boardIndex: currentBoardIndex, page, requestLang, boardLang, topicIndex, viewType },
+    ],
+    () => getCommunityBoardData(userId, 2291, page, requestLang, boardLang, topicIndex, viewType),
+    { initialData: isInitialData ? communityBoardDataSSR : undefined }
+  );
+
+  const communityBoardData: CommunityBoardResponseType =
+    communityBoardDataCSR ?? communityBoardDataSSR;
+
   return (
     <>
       <div>
@@ -70,14 +87,16 @@ const CommunityBoardWrapper = ({
           boardTitle={boardTitle}
           boardLang={boardLang}
           boardType={boardType}
+          menuId={communityBoardDataSSR.BOARD_INFO.menuId}
+          isBookmarked={communityBoardDataSSR.BOARD_INFO.isBookmarked}
           setLangModal={setLangModal}
           onClickWrite={() => false}
         />
         <CommunityBoardArticleTable
-          communityBoardDataSSR={communityBoardData}
+          communityBoardData={communityBoardData}
+          communityBoardDataSSR={communityBoardDataSSR}
+          isFetching={isFetching}
           texts={texts}
-          queries={{ userId, boardIndex, page, requestLang, boardLang, topicIndex, viewType }}
-          isInitialData={isInitialData}
           isStarBoardTableHeader
           onClickWrite={() => false}
         />

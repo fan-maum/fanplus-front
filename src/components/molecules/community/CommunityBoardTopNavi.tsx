@@ -1,13 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { colors } from '@/styles/CommunityColors';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
 import { BoardLangType } from '@/types/common';
-import { getBookmarks } from '@/api/Community';
 import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
-import { BookmarksItemType } from '@/types/community';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { getCookie } from '@/utils/Cookie';
 import CommunityBoardLangSelector from './CommunityBoardLangSelector';
@@ -16,8 +13,10 @@ import { communityBoardTexts } from '@/texts/communityBoardTexts';
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
   boardLang: BoardLangType;
-  setLangModal: Dispatch<SetStateAction<boolean>>;
   boardType?: string | string[];
+  menuId: number | undefined;
+  isBookmarked: boolean;
+  setLangModal: Dispatch<SetStateAction<boolean>>;
   onClickWrite: () => void;
 };
 
@@ -25,30 +24,24 @@ const CommunityBoardTopNavi = ({
   boardTitle,
   boardLang,
   boardType,
+  menuId,
+  isBookmarked,
   setLangModal,
   onClickWrite,
 }: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
   const userId = getCookie('user_id');
   const urlLang = useUrlLanguage();
-  const boardIndex = router.query.boardIndex;
   const texts = communityBoardTexts[urlLang];
-  const { data } = useQuery(['bookmarks', { userId, urlLang }], () =>
-    getBookmarks(userId, urlLang)
-  );
-  const bookmarks = data ?? [];
   const isBestBoard = Number(router.query.boardIndex) === 2291;
-  const isBookmarked = Boolean(
-    bookmarks.find((bookmark: BookmarksItemType) => bookmark.BOARD_IDX === boardIndex)
-  );
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
-  const handleBookmarkOnClick = async (boardIndex: string) => {
+  const handleBookmarkOnClick = async (menuId: number) => {
     if (isBookmarked) {
-      useRemoveBookmark.mutate({ identity: userId, boardIndex });
+      useRemoveBookmark.mutate({ identity: userId, menuId });
     } else {
-      useAddBookmark.mutate({ identity: userId, boardIndex });
+      useAddBookmark.mutate({ identity: userId, menuId });
     }
   };
 
@@ -91,7 +84,7 @@ const CommunityBoardTopNavi = ({
             isBookmarked={isBookmarked}
             width="24"
             height="24"
-            onClick={() => handleBookmarkOnClick(String(boardIndex))}
+            onClick={() => handleBookmarkOnClick(Number(menuId))}
           />
         </div>
         <div

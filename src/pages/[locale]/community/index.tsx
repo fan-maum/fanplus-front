@@ -16,7 +16,7 @@ export type CommunityPropTypes = {
   userId: string;
   isAdminAccount: boolean;
   boardLangCookie: BoardLangType;
-  communityMainBoardData: CommunityMainPageResponseType;
+  communityMainBoardDataSSR: CommunityMainPageResponseType;
   initialProps: {
     page: number;
     serverLang: ServerLangType;
@@ -27,7 +27,7 @@ export type CommunityPropTypes = {
 };
 
 export interface CommunityBestBoardPropTypes {
-  communityBoardData: CommunityBoardResponseType;
+  communityBoardDataSSR: CommunityBoardResponseType;
   initialBestBoardProps: {
     page: number;
     serverLang: ServerLangType;
@@ -42,10 +42,10 @@ const CommunityHomePage = ({
   userId,
   isAdminAccount,
   boardLangCookie,
-  communityMainBoardData,
+  communityMainBoardDataSSR,
   initialProps,
   user,
-  communityBoardData,
+  communityBoardDataSSR,
   initialBestBoardProps,
 }: CommunityPropTypes & { user: PartialUserType } & CommunityBestBoardPropTypes) => {
   return (
@@ -55,9 +55,9 @@ const CommunityHomePage = ({
         userId={userId}
         isAdminAccount={isAdminAccount}
         boardLangCookie={boardLangCookie}
-        communityMainBoardData={communityMainBoardData}
+        communityMainBoardDataSSR={communityMainBoardDataSSR}
         initialProps={initialProps}
-        communityBoardData={communityBoardData}
+        communityBoardDataSSR={communityBoardDataSSR}
         initialBestBoardProps={initialBestBoardProps}
       />
     </CommunityMainLayout>
@@ -78,7 +78,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
   const boardIndex = 2291;
 
-  const communityMainBoardData: CommunityMainPageResponseType = await getCommunityTypeBoardData(
+  const communityMainBoardDataSSR: CommunityMainPageResponseType = await getCommunityTypeBoardData(
     userId,
     'community',
     page,
@@ -90,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const initialProps = { page, serverLang, boardLangCookie, maxPage, view_type };
 
-  const communityBoardData = await getCommunityBoardData(
+  const communityBoardDataSSR = await getCommunityBoardData(
     userId,
     boardIndex,
     page,
@@ -107,9 +107,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     userId,
     isAdminAccount,
     boardLangCookie,
-    communityMainBoardData,
+    communityMainBoardDataSSR,
     initialProps,
-    communityBoardData,
+    communityBoardDataSSR,
     initialBestBoardProps,
   };
 

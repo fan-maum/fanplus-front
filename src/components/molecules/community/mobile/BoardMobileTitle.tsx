@@ -22,9 +22,9 @@ const BoardMobileTitle = ({ boardInfo }: BoardMobileTitleProps) => {
     getBookmarks(userId, urlLang)
   );
   const bookmarks = data ?? [];
-  const isBookmarked = Boolean(
-    bookmarks.find((bookmark: BookmarksItemType) => bookmark.BOARD_IDX === boardInfo.IDX)
-  );
+  // const isBookmarked = Boolean(
+  //   bookmarks.find((bookmark: BookmarksItemType) => bookmark.BOARD_IDX === boardInfo.IDX)
+  // );
 
   return (
     <BoardMobileTitleWrapper>
