@@ -17,8 +17,8 @@ const ProfileBox = ({ user, texts }: ProfileBoxProps) => {
   const [, , removeCookie] = useCookies(['user_id', 'user_idx']);
 
   const handleLogout = () => {
-    removeCookie('user_id', { path: '/', secure: true });
-    removeCookie('user_idx', { path: '/', secure: true });
+    removeCookie('user_id', { path: '/', secure: true, domain: '.fanplus.co.kr' });
+    removeCookie('user_idx', { path: '/', secure: true, domain: '.fanplus.co.kr' });
 
     router.reload();
   };
