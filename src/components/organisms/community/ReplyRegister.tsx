@@ -84,15 +84,19 @@ const ReplyRegister = ({
       >
 <<<<<<< HEAD
         <RegisterInputWrapper
-          css={{ padding: profile.profileNick ? '30px 10px 10px 10px' : '20px' }}
+          css={{ padding: profile.profileNick ? '20px 10px 10px 10px' : '10px' }}
         >
           <label>{profile && profile.profileNick}</label>
+<<<<<<< HEAD
           <RegisterTextarea
 =======
         <RegisterInputWrapper>
           <label>{profile.profileNick}</label>
           <RegisterInput
 >>>>>>> master
+=======
+          <RegisterInput
+>>>>>>> parent of a6dab92 (style: comment, reply input to textarea)
             placeholder={texts.replyRegisterPlaceholder}
             {...register('registerValue', { maxLength: 200 })}
           />
@@ -140,14 +144,18 @@ const RegisterInputWrapper = styled.div`
   }
 `;
 
-const RegisterTextarea = styled.textarea`
+const RegisterInput = styled.input`
   width: 100%;
   height: 100%;
   flex: 1;
   border: none;
   outline: none;
 <<<<<<< HEAD
+<<<<<<< HEAD
   overflow: auto;
+=======
+  overflow: hidden;
+>>>>>>> parent of a6dab92 (style: comment, reply input to textarea)
   text-overflow: ellipsis;
   font-size: 13px;
 =======

@@ -63,6 +63,7 @@ const CommentRegister = ({
     >
 <<<<<<< HEAD
       <Stack fw={600} fz={17} h="100%" spacing={5} css={{ flexDirection: 'row', flex: 1 }}>
+<<<<<<< HEAD
         <RegisterTextarea
 =======
       <Avatar
@@ -86,6 +87,9 @@ const CommentRegister = ({
       >
         <RegisterInput
 >>>>>>> master
+=======
+        <RegisterInput
+>>>>>>> parent of a6dab92 (style: comment, reply input to textarea)
           placeholder={texts.commentRegisterPlaceholder}
           {...register('registerValue', { maxLength: 200 })}
         />
@@ -114,7 +118,7 @@ const CommentRegister = ({
 
 export default CommentRegister;
 
-const RegisterTextarea = styled.textarea`
+const RegisterInput = styled.input`
   width: 100%;
   height: 100%;
   flex: 1;
@@ -126,7 +130,7 @@ const RegisterTextarea = styled.textarea`
   border: 1px solid ${colors.gray[200]};
   border-radius: 6px;
   padding: 10px;
-  overflow: auto;
+  overflow: hidden;
   text-overflow: ellipsis;
 =======
 >>>>>>> master
