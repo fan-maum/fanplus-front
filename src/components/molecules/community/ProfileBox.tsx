@@ -3,7 +3,6 @@ import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/Colors';
 import type { PartialUserType } from '@/types/community';
-import { deleteCookie } from '@/utils/Cookie';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useCookies } from 'react-cookie';
@@ -15,11 +14,11 @@ interface ProfileBoxProps {
 const ProfileBox = ({ user, texts }: ProfileBoxProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
-  const [cookies, removeCookie] = useCookies(['user_id', 'user_idx']);
+  const [, , removeCookie] = useCookies(['user_id', 'user_idx']);
 
   const handleLogout = () => {
-    removeCookie('user_id', { path: '/' });
-    removeCookie('user_idx', { path: '/' });
+    removeCookie('user_id', { path: '/', secure: true });
+    removeCookie('user_idx', { path: '/', secure: true });
 
     router.reload();
   };
