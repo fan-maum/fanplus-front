@@ -95,7 +95,7 @@ const LayoutWrapper = styled.div`
     margin-bottom: 14px;
   }
   .mainContent {
-    max-width: calc(100% - 230px);
+    max-width: calc(100% - 250px);
     .contentLayout {
       display: flex;
       gap: 20px;

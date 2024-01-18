@@ -124,23 +124,24 @@ const CommunityBoardTemplate = ({
             css={{
               display: 'flex',
               alignItems: 'center',
-              gap: 20,
-              height: 52,
-              '@media(max-width:768px)': { height: '80px', flexDirection: 'column', gap: 0 },
+              flexDirection: 'column',
+              gap: 0,
+              height: 80,
             }}
           >
             <div
               css={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '100%',
+                height: '40px',
+                padding: '6px 0',
+                borderTop: `1px solid ${colors.gray[100]}`,
+                borderBottom: `1px solid ${colors.gray[100]}`,
                 '@media(max-width:768px)': {
-                  display: 'flex',
-                  width: '100%',
-                  height: '40px',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
                   padding: '0 16px',
-                  borderTop: `1px solid ${colors.gray[100]}`,
-                  borderBottom: `1px solid ${colors.gray[100]}`,
                 },
               }}
             >
