@@ -15,11 +15,16 @@ const MainMenuList = ({ menus, freeBoardText }: MainMenuListProps) => {
     <div>
       <ul>
         {menus.map((menu) => {
+          const menuUrl =
+            menu.slug === 'all'
+              ? `/${urlLang}/community`
+              : `/${urlLang}/community/board/${menu.boardId}`;
+
           return !menu.children ? (
             <MenuItem
               key={`mainMenu/${menu.id}`}
               menuTitle={menu.title}
-              href={menu.boardId !== null ? `/${urlLang}/community/board/${menu.boardId}` : ''}
+              href={menuUrl}
               menuData={menu}
             />
           ) : (

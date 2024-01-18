@@ -574,6 +574,7 @@ export type sideMenuItemType = {
   categoryId: string | null;
   parentId: string | null;
   boardId: string | null;
+  slug: string;
   children?: Array<subMenuItemType> | undefined;
 };
 
@@ -585,6 +586,7 @@ export type subMenuItemType = {
   categoryId: string | null;
   parentId: string;
   boardId: string;
+  slug: string;
 };
 
 export type sideMenuPhotoCardBoardInfo = {
