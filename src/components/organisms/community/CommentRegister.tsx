@@ -55,7 +55,7 @@ const CommentRegister = ({
       }}
     >
       <Stack fw={600} fz={17} h="100%" spacing={5} css={{ flexDirection: 'row', flex: 1 }}>
-        <RegisterInput
+        <RegisterTextarea
           placeholder={texts.commentRegisterPlaceholder}
           {...register('registerValue', { maxLength: 200 })}
         />
@@ -83,7 +83,7 @@ const CommentRegister = ({
 
 export default CommentRegister;
 
-const RegisterInput = styled.input`
+const RegisterTextarea = styled.textarea`
   width: 100%;
   height: 100%;
   flex: 1;
@@ -93,7 +93,7 @@ const RegisterInput = styled.input`
   border: 1px solid ${colors.gray[200]};
   border-radius: 6px;
   padding: 10px;
-  overflow: hidden;
+  overflow: auto;
   text-overflow: ellipsis;
   &::placeholder {
     color: ${colors.gray[500]};
