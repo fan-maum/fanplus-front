@@ -82,6 +82,12 @@ const TabContainer = styled.div`
   .swiper {
     width: 100%;
     height: 100%;
+    white-space: nowrap;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-scrollbar: {
+      display: none;
+    }
   }
   .swiper-wrapper {
     width: 100%;
@@ -96,6 +102,9 @@ const TabContainer = styled.div`
     white-space: none;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    -webkit-scrollbar: {
+      display: none;
+    }
     & > span {
       flex-shrink: 0;
       width: auto;
