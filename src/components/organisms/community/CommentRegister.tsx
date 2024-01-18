@@ -1,10 +1,12 @@
-import { Stack, UnstyledButton } from '@/components/atoms';
+import { Avatar, Stack, UnstyledButton } from '@/components/atoms';
 import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { colors } from '@/styles/CommunityColors';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/community';
+import { getProfileData } from '@/utils/communityUtil';
 
 interface FormValue {
   registerValue: string | number;
@@ -12,9 +14,9 @@ interface FormValue {
 
 type CommentRegisterProps = {
   identity: string;
+  texts: CommunityPostTextType;
   POST_IDX: string;
   createMode: TargetType;
-  texts: CommunityPostTextType;
   onCreateComment: (
     identity: string,
     target_type: TargetType,
@@ -25,13 +27,15 @@ type CommentRegisterProps = {
 
 const CommentRegister = ({
   identity,
+  texts,
   POST_IDX,
   createMode,
-  texts,
   onCreateComment,
 }: CommentRegisterProps) => {
   const { handleSubmit, register, reset } = useForm<FormValue>();
   const router = useRouter();
+  const user = useRecoilValue(userState);
+  const profile = getProfileData(user);
   const handleRegisterSubmit: SubmitHandler<FormValue> = async (data) => {
     const contents = data.registerValue;
     if (identity !== null) {
@@ -48,24 +52,51 @@ const CommentRegister = ({
       onSubmit={handleSubmit(handleRegisterSubmit)}
       css={{
         display: 'flex',
-        gap: 12,
+        alignItems: 'center',
+        gap: 10,
         width: '100%',
-        height: '70px',
-        marginTop: 20,
+        margin: '0 auto',
+        maxWidth: '768px',
+        height: '60px',
+        padding: '14px 20px 14px 20px',
       }}
     >
+<<<<<<< HEAD
       <Stack fw={600} fz={17} h="100%" spacing={5} css={{ flexDirection: 'row', flex: 1 }}>
         <RegisterTextarea
+=======
+      <Avatar
+        imageProps={{ style: { borderRadius: '50%' } }}
+        w={40}
+        h={40}
+        radius={'50%'}
+        css={{
+          border: '1px solid #F8F8F9',
+        }}
+        src={profile.profileImg}
+        alt="Avatar"
+      />
+      <Stack
+        fw={600}
+        fz={17}
+        align="center"
+        h="100%"
+        spacing={5}
+        css={{ flexDirection: 'row', flex: 1 }}
+      >
+        <RegisterInput
+>>>>>>> master
           placeholder={texts.commentRegisterPlaceholder}
           {...register('registerValue', { maxLength: 200 })}
         />
         <UnstyledButton
           type="submit"
-          bg={colors.primary[500]}
-          h={'100%'}
+          bg="#FF5656"
+          h={32}
           px={16}
           css={{
-            width: 'fit-content',
+            width: 'auto',
+            height: 38,
             margin: 0,
             padding: '4px 14px',
             borderRadius: '6px',
@@ -87,15 +118,19 @@ const RegisterTextarea = styled.textarea`
   width: 100%;
   height: 100%;
   flex: 1;
+  border: none;
   outline: none;
   font-size: 14px;
   font-weight: 500;
+<<<<<<< HEAD
   border: 1px solid ${colors.gray[200]};
   border-radius: 6px;
   padding: 10px;
   overflow: auto;
   text-overflow: ellipsis;
+=======
+>>>>>>> master
   &::placeholder {
-    color: ${colors.gray[500]};
+    color: '#ABAFB7';
   }
 `;

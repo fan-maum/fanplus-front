@@ -3,6 +3,9 @@ import CommunityBlockModal from '@/components/modals/CommunityBlockModal';
 import PostCommentWrapper, {
   PostCommentWrapperProps,
 } from '@/components/organisms/community/PostCommentWrapper';
+import PostFixedBottomWrapper, {
+  PostFixedBottomWrapperProps,
+} from '@/components/organisms/community/PostFixedBottomWrapper';
 import type { CommunityPostPropType } from '@/pages/[locale]/community/board/[boardIndex]/[postIndex]';
 import {
   useGetCommentQuery,
@@ -22,6 +25,7 @@ import {
 } from '@/store/community';
 import { communityPostTexts } from '@/texts/communityPostTexts';
 import type { TargetType } from '@/types/common';
+import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import CommunityDoneModal from '../modals/CommunityDoneModal';
@@ -29,6 +33,7 @@ import CommunityReportModal from '../modals/CommunityReportModal';
 import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
+import CommunityLayout from './CommunityLayout';
 
 const CommunityPostTemplate = ({
   urlLang,
@@ -101,13 +106,11 @@ const CommunityPostTemplate = ({
   const { data: userInfo, isFetched } = useGetUserQuery(useGetUserQueryProps);
 
   useEffect(() => {
-    if (isFetched && userInfo?.RESULTS.DATAS) {
-      setUser(userInfo);
-    }
+    isFetched && setUser(userInfo);
     if (isSuccess) {
       setPostParam(postParamObject);
     }
-  }, [isSuccess, isFetched, postParamObject, userInfo]);
+  }, [isSuccess, isFetched, postParamObject]);
 
   if (isLoading) return '';
   // if (error) return 'An error has occurred: ' + error;
@@ -126,20 +129,16 @@ const CommunityPostTemplate = ({
    * LayoutProps
    */
   const layoutProps: PostDetailLayoutProps = {
-    urlLang,
     identity,
     user_idx,
     postInfo,
     boardInfo,
     texts,
-    shareOnClick: () => setShareModalIsOpened(true),
   };
 
   const commentProps: PostCommentWrapperProps = {
-    identity,
-    POST_IDX: postInfo.POST_IDX,
-    commentTotalCount,
     texts,
+    commentTotalCount,
     commentData,
     replyData,
     onCreateComment,
@@ -147,6 +146,15 @@ const CommunityPostTemplate = ({
     replyRefetch,
     fetchNextPage,
     refetchReplyOnToggle,
+  };
+
+  const fixedBottomProps: PostFixedBottomWrapperProps = {
+    identity,
+    texts,
+    postInfo,
+    commentTotalCount,
+    onCreateComment,
+    shareOnClick: () => setShareModalIsOpened(true),
   };
 
   const shareModalProps: CommunityShareModalProps = {
@@ -162,11 +170,14 @@ const CommunityPostTemplate = ({
   };
 
   return (
-    <div>
-      <div>
-        <PostDetailLayout {...layoutProps} />
-        <PostCommentWrapper {...commentProps} />
-      </div>
+    <>
+      <CommunityLayout>
+        <LayoutInner>
+          <PostDetailLayout {...layoutProps} />
+          <PostCommentWrapper {...commentProps} />
+        </LayoutInner>
+        <PostFixedBottomWrapper {...fixedBottomProps} />
+      </CommunityLayout>
       <CommunityReportModal
         opened={reportModalBlock}
         texts={texts}
@@ -203,8 +214,16 @@ const CommunityPostTemplate = ({
       />
       <CommunityShareModal {...shareModalProps} />
       <CompletedShareModal {...completedShareModalProps} />
-    </div>
+    </>
   );
 };
 
 export default CommunityPostTemplate;
+
+const LayoutInner = styled.div`
+  width: 100%;
+  max-width: 768px;
+  position: relative;
+  margin: 0 auto;
+  padding-bottom: 120px;
+`;

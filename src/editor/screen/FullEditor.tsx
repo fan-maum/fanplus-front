@@ -1,6 +1,6 @@
 import type { UrlLangType } from '@/types/common';
 import Script from 'next/script';
-import { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import type { Editor } from '../../../public/tinymce/tinymce';
 import {
   useCustomImageButton,
@@ -14,20 +14,22 @@ import { useTinyMCEConfig } from '../module/useTinyMCEConfig';
 type TProps = {
   editorRef: any;
   editorId: string;
+  setContent: Dispatch<SetStateAction<any>>;
   defaultValue?: string;
   language: UrlLangType;
   uppyFileUploadHandler: (file: any) => Promise<void>;
   imagesUploadHandler: (blobInfo: any) => Promise<string | undefined>;
 };
 
-const FullEditor = ({
+const FullEditor: React.FC<TProps> = ({
   editorRef,
   editorId,
+  setContent,
   defaultValue,
   language,
   uppyFileUploadHandler,
   imagesUploadHandler,
-}: TProps) => {
+}) => {
   const [isJsLoading, setIsJsLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -47,10 +49,12 @@ const FullEditor = ({
     editorRef.current.init({
       ...useTinyMCEConfig(language),
       selector: `#${editorId}`,
-      init_instance_callback: editorLoadedComplete,
+      init_instance_callback: () => editorLoadedComplete(),
       images_upload_handler: imagesUploadHandler,
 
       setup: (editor: Editor) => {
+        editor.on('change', () => setContent(editor.getContent()));
+        editor.on('keyup', () => setContent(editor.getContent()));
         useIOSIMESetting(editor);
 
         const onCustomAction = () => setModalOpen(true);

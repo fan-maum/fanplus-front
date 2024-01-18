@@ -1,6 +1,6 @@
 import { atom, RecoilEnv } from 'recoil';
-import type { BoardLangType, OrderType, TargetType, selectInfoType } from '@/types/common';
-import type { UserResponseType } from '@/types/community';
+import { BoardLangType, OrderType, TargetType, selectInfoType } from '@/types/common';
+import { userResponseType } from '@/types/community';
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 export const orderTypeState = atom<OrderType>({
@@ -37,7 +37,7 @@ export const reportModalBlockState = atom<boolean>({
   default: false,
 });
 
-export const userState = atom<UserResponseType | null>({
+export const userState = atom<userResponseType | null>({
   key: 'userState',
   default: null,
 });

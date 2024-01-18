@@ -1,6 +1,7 @@
-import type { selectInfoType } from '@/types/common';
-import type { UserResponseType } from '@/types/community';
+import { selectInfoType } from '@/types/common';
+import { userResponseType } from '@/types/community';
 import { SetterOrUpdater } from 'recoil';
+import { formatWrittenTime, timeType } from './util';
 
 interface showModalOnClickProps extends selectInfoType {
   isComment?: boolean;
@@ -39,7 +40,7 @@ export const showReportModalBlockOnClick = async ({
   await setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
 };
 
-export const getProfileData = (user: UserResponseType | null) => {
+export const getProfileData = (user: userResponseType | null) => {
   const profile = {
     profileImg: user
       ? user?.RESULTS.DATAS.PROFILE_IMG_URL
@@ -47,4 +48,15 @@ export const getProfileData = (user: UserResponseType | null) => {
     profileNick: user ? user?.RESULTS.DATAS.NICK : '',
   };
   return profile;
+};
+
+export const getStandardTimeDate = (publishDate: string, texts: any) => {
+  const writtenTime = formatWrittenTime(publishDate);
+  const timeAppend: { [key in timeType]: string } = {
+    Full: ' (KST)',
+    Date: texts.daysAgo,
+    Hour: texts.hoursAgo,
+    Minute: texts.minsAgo,
+  };
+  return writtenTime.time + timeAppend[writtenTime.timeType];
 };

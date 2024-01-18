@@ -11,7 +11,7 @@ export default function Document() {
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{ __html: GTM_SCRIPT }}
         />
-        <link rel="icon" href="/fanplus-favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap"
           rel="stylesheet"

@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
+<<<<<<< HEAD
 import { colors } from '@/styles/CommunityColors';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
 import { BoardLangType } from '@/types/common';
@@ -44,6 +44,17 @@ const CommunityBoardTopNavi = ({
       useAddBookmark.mutate({ identity: userId, menuId });
     }
   };
+=======
+import { ReactNode } from 'react';
+
+export type CommunityBoardTopNaviPropType = {
+  boardTitle: string;
+  rightItem?: ReactNode;
+};
+
+const CommunityBoardTopNavi = ({ boardTitle, rightItem }: CommunityBoardTopNaviPropType) => {
+  const router = useRouter();
+>>>>>>> master
 
   return (
     <>
@@ -52,11 +63,10 @@ const CommunityBoardTopNavi = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: 40,
-          marginTop: 20,
-          '@media (max-width: 768px)': { padding: '0 16px', height: 'auto' },
+          paddingRight: '10px',
         }}
       >
+<<<<<<< HEAD
         <div
           css={{
             display: 'inline-flex',
@@ -85,41 +95,16 @@ const CommunityBoardTopNavi = ({
             width="24"
             height="24"
             onClick={() => handleBookmarkOnClick(Number(menuId))}
+=======
+        <div css={{ display: 'flex', alignItems: 'center' }}>
+          <IconArrowLeft
+            iconCss={{ margin: '3px', width: '30px', height: '30px', cursor: 'pointer' }}
+            onClickBack={() => router.back()}
+>>>>>>> master
           />
+          <h2>{boardTitle}</h2>
         </div>
-        <div
-          css={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            flex: 1,
-            justifyContent: 'flex-end',
-          }}
-        >
-          <CommunityBoardLangSelector
-            onClickOpenModal={() => setLangModal(true)}
-            boardLang={boardLang}
-          />
-          {!boardType && !isBestBoard && (
-            <button
-              css={{
-                padding: '5px 8px',
-                fontSize: 14,
-                fontWeight: 600,
-                outline: 'none',
-                border: 'none',
-                color: '#fff',
-                backgroundColor: colors.primary[500],
-                borderRadius: 6,
-                cursor: 'pointer',
-                '@media(max-width:768px)': { display: 'none' },
-              }}
-              onClick={onClickWrite}
-            >
-              {texts.bottomTabBar.write}
-            </button>
-          )}
-        </div>
+        {rightItem}
       </div>
     </>
   );

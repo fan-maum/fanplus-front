@@ -1,16 +1,21 @@
-import { getCommunityBoardData, getCommunityTypeBoardData, getUser } from '@/api/Community';
-import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
+import {
+  getCommunityBoardCategoryData,
+  getCommunityBoardData,
+  getCommunityBoardResultData,
+} from '@/api/Community';
+import Layout from '@/components/organisms/Layout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
+  CommunityBoardCategoryResponseType,
   CommunityBoardResponseType,
-  CommunityMainPageResponseType,
-  PartialUserType,
+  CommunityBoardResultResponseType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
+<<<<<<< HEAD
 export type CommunityPropTypes = {
   urlLang: UrlLangType;
   userId: string;
@@ -28,6 +33,24 @@ export type CommunityPropTypes = {
 
 export interface CommunityBestBoardPropTypes {
   communityBoardDataSSR: CommunityBoardResponseType;
+=======
+type InitialBoardResultProps = {
+  category_type: number;
+  searchValue: string;
+  serverLang: ServerLangType;
+  page: number;
+};
+
+export type CommunityPropTypes = {
+  urlLang: UrlLangType;
+  boardCategoryData: CommunityBoardCategoryResponseType;
+  boardResultData: CommunityBoardResultResponseType;
+  initialProps: InitialBoardResultProps;
+  userId: string;
+  boardIndex: number;
+  boardLangCookie: BoardLangType;
+  communityBoardData: CommunityBoardResponseType;
+>>>>>>> master
   initialBestBoardProps: {
     page: number;
     serverLang: ServerLangType;
@@ -35,10 +58,11 @@ export interface CommunityBestBoardPropTypes {
     topic: number;
     view_type: string;
   };
-}
+};
 
 const CommunityHomePage = ({
   urlLang,
+<<<<<<< HEAD
   userId,
   isAdminAccount,
   boardLangCookie,
@@ -46,51 +70,82 @@ const CommunityHomePage = ({
   initialProps,
   user,
   communityBoardDataSSR,
+=======
+  boardCategoryData,
+  boardResultData,
+  initialProps,
+  userId,
+  boardIndex,
+  boardLangCookie,
+  communityBoardData,
+>>>>>>> master
   initialBestBoardProps,
-}: CommunityPropTypes & { user: PartialUserType } & CommunityBestBoardPropTypes) => {
+}: CommunityPropTypes) => {
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
+    <Layout urlLang={urlLang}>
       <CommunityPageTemplate
         urlLang={urlLang}
+<<<<<<< HEAD
         userId={userId}
         isAdminAccount={isAdminAccount}
         boardLangCookie={boardLangCookie}
         communityMainBoardDataSSR={communityMainBoardDataSSR}
         initialProps={initialProps}
         communityBoardDataSSR={communityBoardDataSSR}
+=======
+        boardCategoryData={boardCategoryData}
+        boardResultData={boardResultData}
+        initialProps={initialProps}
+        userId={userId}
+        boardIndex={boardIndex}
+        boardLangCookie={boardLangCookie}
+        communityBoardData={communityBoardData}
+>>>>>>> master
         initialBestBoardProps={initialBestBoardProps}
       />
-    </CommunityMainLayout>
+    </Layout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = nookies.get(context);
-  const userId = context.req.cookies.user_id || '';
-  const user_idx = context.req.cookies.user_idx;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
+  const category_type = parseInt(context.query.category_type as string) || 0;
+  const searchValue = context.query.searchValue || '';
+  const page = parseInt(context.query.page as string) - 1 || 0;
+  const per_page = 20;
+
+  const cookies = nookies.get(context);
+  const userId = cookies['user_id'] || '';
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
-  const view_type = (context.query.view as string) || 'all';
-  const page = parseInt(context.query.page as string) - 1 || 1;
-  const maxPage = 10;
   const topic = parseInt(context.query.topic as string) || 0;
-  const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
+  const view_type = (context.query.view as string) || 'all';
   const boardIndex = 2291;
 
+<<<<<<< HEAD
   const communityMainBoardDataSSR: CommunityMainPageResponseType = await getCommunityTypeBoardData(
     userId,
     'community',
     page,
     maxPage,
+=======
+  const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
+  const boardResultData = await getCommunityBoardResultData(
+    category_type,
+    searchValue,
+>>>>>>> master
     serverLang,
-    boardLangCookie,
-    view_type
+    page,
+    per_page
   );
+<<<<<<< HEAD
 
   const initialProps = { page, serverLang, boardLangCookie, maxPage, view_type };
 
   const communityBoardDataSSR = await getCommunityBoardData(
+=======
+  const communityBoardData = await getCommunityBoardData(
+>>>>>>> master
     userId,
     boardIndex,
     page,
@@ -99,9 +154,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     topic,
     view_type
   );
-
+  const initialProps = { category_type, searchValue, serverLang, page };
   const initialBestBoardProps = { page, serverLang, boardLangCookie, topic, view_type };
 
+<<<<<<< HEAD
   const props = {
     urlLang,
     userId,
@@ -111,15 +167,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     initialProps,
     communityBoardDataSSR,
     initialBestBoardProps,
+=======
+  return {
+    props: {
+      urlLang,
+      boardCategoryData,
+      boardResultData,
+      initialProps,
+      userId,
+      boardIndex,
+      boardLangCookie,
+      communityBoardData,
+      initialBestBoardProps,
+    },
+>>>>>>> master
   };
-
-  if (!!userId && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { ...props, user } };
-  }
-
-  return { props };
 };
 
 export default CommunityHomePage;

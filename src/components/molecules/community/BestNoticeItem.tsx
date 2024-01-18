@@ -3,13 +3,11 @@ import Link from 'next/link';
 
 const BestNoticeItem = ({
   rank,
-  boardIndex,
   postIndex,
   postTitle,
   comments,
 }: {
   rank: number;
-  boardIndex: number;
   postIndex: number;
   postTitle: string;
   comments: number;
@@ -17,11 +15,11 @@ const BestNoticeItem = ({
   const urlLang = useUrlLanguage();
   const ranking = rank < 10 ? '0' + rank : rank;
   const commentCount = comments <= 999 ? comments : '+999';
-  const bestPopularBoardIndex = 2291;
+  const bestPostsBoardIndex = 2291;
 
   return (
     <Link
-      href={`/${urlLang}/community/board/${boardIndex}/${postIndex}?page=0&from=${bestPopularBoardIndex}`}
+      href={`/${urlLang}/community/board/${bestPostsBoardIndex}/${postIndex}/`}
       css={{
         display: 'flex',
         alignItems: 'center',
@@ -30,7 +28,7 @@ const BestNoticeItem = ({
         padding: '0 17px',
         width: '100%',
         height: '42px',
-        fontSize: '14px',
+        font: 'normal 14px/18px Pretendard',
         fontWeight: 600,
         borderBottom: '1px solid #d9d9d9',
       }}

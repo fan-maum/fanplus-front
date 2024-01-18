@@ -1,14 +1,11 @@
 import type {
   BestPostsResponseType,
-  BookmarksResponseType,
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
   EditBoardArticleResponseType,
   EditorImageUploadResponseType,
   EditorImageUrlResponseType,
-  MainPageNoticesResponseType,
-  MultiBoardsInquiryResponseType,
   PostBoardArticleResponseType,
   PostResponseType,
   RecentlyListResponseType,
@@ -18,7 +15,7 @@ import type {
   sideMenuResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
-import type { BoardLangType, OrderType, ServerLangType, UrlLangType } from '@/types/common';
+import type { BoardLangType, OrderType, ServerLangType } from '@/types/common';
 import type { BestPostsViewType } from '@/components/molecules/community/BestNotices';
 
 export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
@@ -37,34 +34,17 @@ export const getCommunityHomeData = async (userId: string, lang: ServerLangType)
 
 export const getCommunityBoardData = async (
   userId: string,
-  boardIndex: number | string,
+  boardIndex: number,
   page: number,
   lang: ServerLangType,
   boardLang: BoardLangType,
   topic: number | '',
-  viewType: string
+  view_type: string
 ) => {
   if (topic === 0) topic = '';
   const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang, viewType } }
-  );
-
-  return response.data;
-};
-
-export const getCommunityTypeBoardData = async (
-  userId: string,
-  boardType: string | string[],
-  page: number,
-  maxPage: number,
-  lang: ServerLangType,
-  filterLang: BoardLangType,
-  viewType: string
-) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/typeBoard`,
-    { params: { userId, boardType, page, maxPage, lang, filterLang, viewType } }
+    { params: { userId, boardIndex, page, topic, lang, boardLang, view_type } }
   );
   return response.data;
 };
@@ -358,8 +338,8 @@ export const reportComment = async (
  * User
  */
 /* 유저정보 */
-export const getUser = async (identity?: string, user_idx?: string) => {
-  const response: AxiosResponse<UserResponseType> = await axios.get(
+export const getUser = async (user_idx: string, identity: string | null) => {
+  const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/user`,
     { params: { user_idx, identity } }
   );
@@ -370,9 +350,9 @@ export const getUser = async (identity?: string, user_idx?: string) => {
 /**
  * TOP30 인기 게시판
  */
-export const getTop50PopularBoards = async (lang: ServerLangType) => {
-  const response: AxiosResponse<Top50PopularBoardsResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/PopularTop50`,
+export const getTop30PopularBoards = async (lang: ServerLangType) => {
+  const response: AxiosResponse<Top30PopularBoardsResponseType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/PopularTop30`,
     { params: { lang } }
   );
   return response.data;

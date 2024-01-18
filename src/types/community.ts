@@ -38,18 +38,6 @@ export type BoardInfoType = Omit<BoardListItemType, 'STAR_IDX' | 'STAR_GROUP_IDX
   IS_GROUP: 'Y' | 'N';
   IS_TREND: 'Y' | 'N';
 };
-export type NoticeListItemType = {
-  POST_IDX: string;
-  BOARD_IDX: string;
-  POST_TITLE: string;
-  POST_IMG_YN: 'Y' | 'N';
-  WRITER_IDX: string;
-  PUBLISH_DATE: string;
-  VIEW_CNT: string;
-  COMMENT_CNT: string;
-  RECOMMEND_CNT: string;
-  WRITER_NAME: string;
-};
 export type PostListItemType = {
   POST_IDX: string;
   BOARD_IDX: string;
@@ -72,6 +60,7 @@ export type PostListItemType = {
   NEW_POST_YN: 'Y' | 'N';
 };
 export type CommunityBoardResponseType = {
+<<<<<<< HEAD
   BOARD_INFO: {
     IDX: string;
     BASE_LANG: string;
@@ -126,6 +115,17 @@ export type CommunityMainPageResponseType = {
   };
   NOTICE: Array<NoticeListItemType>;
   POST_LIST: Array<PostListItemType>;
+=======
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      BOARD_INFO: BoardInfoType;
+      POST_LIST: Array<PostListItemType>;
+    };
+    TIMESTAMP: number;
+  };
+>>>>>>> master
 };
 
 export type TopicListItemType = {
@@ -389,29 +389,18 @@ export type EditorImageUploadResponseType = {
   };
 };
 
-export type PartialUserType = {
-  nickname: string;
-  profileImage: string;
-};
-export type UserResponseType = {
+export type userResponseType = {
   RESULTS: {
     DATAS: {
       USER_IDX: number;
       NICK: string;
       EMAIL: string;
-      SELF_INTRODCUTION: string | null;
+      SELF_INTRODCUTION: null;
       PROFILE_IMG_URL: string;
       USER_LANG: ServerLangType;
       SUBSCRIPTION_STARS: {
         COUNT: number;
-        LIST: Array<{
-          STAR_IDX: string;
-          STAR_GROUP_IDX: string;
-          SBUSCRIPTION_DATE: string;
-          STAR_NAME: string;
-          DEFAULT_PHOTO: string;
-          STAR_GROUP_NAME: string | null;
-        }>;
+        LIST: [];
       };
       HAVE_CASH: number;
       HAVE_VOTETICKET: number;
@@ -428,8 +417,8 @@ export type UserResponseType = {
       MY_FRIENDS_CNT: number;
       MAX_FRIENDS_COUNT: number;
       FRIENDS_STATUS: string;
-      PHONENUMBER_VERIFIED: boolean;
-      MY_PHONENUMBER_VERIFIED: boolean;
+      PHONENUMBER_VERIFIED: false;
+      MY_PHONENUMBER_VERIFIED: false;
       LIKE_ALERT_YN: string;
       COMMENT_ALERT_YN: string;
       CAN_GET_POST_CNT: {
@@ -437,31 +426,27 @@ export type UserResponseType = {
         SYSTEM: number;
         SUM: number;
       };
-      FRIEND_REQUEST_CNT: number;
+      FRIEND_REQUEST_CNT: string;
       BIAS_STAR: {
         STAR_IDX: number;
         STAR_NAME: string;
         INS_DATE: string;
       };
-      BIRTHDAY: string | null;
+      BIRTHDAY: null;
       GENDER: string;
       PROFILE_COMPLETION_RATE: {
         NOW: number;
         MAX: number;
       };
       COUNTRY: {
-        CODE: string | null;
-        NAME: string | null;
+        CODE: null;
+        NAME: null;
       };
       ONBOARDING_FINISHED_YN: string;
       DISPLAY_RECOMMEND_FRIENDS: string;
       RECEIVE_FRIENDS_REQUEST: string;
       REFERRAL_CODE: string;
       BLOCK_STATUS: boolean;
-      WELCOME_VOTE_RECEIVED_AT: string;
-      DAILY_VOTE_RECEIVED_AT: string;
-      WELCOME_TICKET_COUNT: number;
-      DAILY_TICKET_COUNT: number;
     };
     ERROR: number;
     MSG: string;
@@ -476,7 +461,16 @@ export type PopularBoardItemType = {
   WEEK: string;
   BOARD_TITLE: string;
 };
-export type Top50PopularBoardsResponseType = Array<PopularBoardItemType>;
+export type Top30PopularBoardsResponseType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      TOP_BOARDS: Array<PopularBoardItemType>;
+    };
+    TIMESTAMP: number;
+  };
+};
 
 export type BestPostItemType = {
   POST_IDX: string;
@@ -506,6 +500,7 @@ export type BestPostsResponseType = {
     TIMESTAMP: number;
   };
 };
+<<<<<<< HEAD
 
 export type BookmarksResponseType = Array<BookmarksItemType>;
 
@@ -637,3 +632,5 @@ export type sideMenuBoard = {
   POST_CNT: string;
   isExistNewPost: boolean;
 };
+=======
+>>>>>>> master

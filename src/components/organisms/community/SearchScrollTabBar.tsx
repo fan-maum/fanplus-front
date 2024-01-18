@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { colors } from '@/styles/CommunityColors';
 
 type SearchScrollTabBarProps = {
   tabs: BoardCategoryItemType[];
@@ -77,8 +76,6 @@ const TabContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  border-bottom: 1px solid ${colors.gray[200]};
-
   .swiper {
     width: 100%;
     height: 100%;
@@ -97,6 +94,7 @@ const TabContainer = styled.div`
   .swiper-slide {
     width: max-content;
     cursor: pointer;
+<<<<<<< HEAD
     padding: 12px 12px 0 12px;
     overflow-x: scroll;
     white-space: none;
@@ -105,6 +103,9 @@ const TabContainer = styled.div`
     -webkit-scrollbar: {
       display: none;
     }
+=======
+    padding: 14px;
+>>>>>>> master
     & > span {
       flex-shrink: 0;
       width: auto;

@@ -7,10 +7,10 @@ const handler: NextApiHandler = async (req, res) => {
   const per_page = 20;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
   const unAuthUrl =
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/posts/${postIndex}/comments?lang=${lang}` +
+    `https://napi.appphotocard.com/voteWeb/posts/${postIndex}/comments?lang=${lang}` +
     `&order_by=${order_by}&page=${page}&per_page=${per_page}`;
   const authUrl =
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/posts/${postIndex}/comments?identity=${identity}&lang=${lang}` +
+    `https://napi.appphotocard.com/voteWeb/posts/${postIndex}/comments?identity=${identity}&lang=${lang}` +
     `&order_by=${order_by}&page=${page}&per_page=${per_page}`;
   const isIdentityUrl = identity === undefined ? unAuthUrl : authUrl;
 

@@ -1,21 +1,22 @@
 import IconArrowDown from '@/components/atoms/IconArrowDown';
 import IconFilter from '@/components/atoms/IconFilter';
-import { useUrlLanguage } from '@/hooks/useLanguage';
-import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { BoardLangType } from '@/types/common';
 import { useEffect, useState } from 'react';
 
 type OwnPropType = {
   onClickOpenModal: () => void;
+  language: string;
+  tooltipText: string;
   boardLang: BoardLangType;
 };
 
-const CommunityBoardLangSelector = ({ onClickOpenModal, boardLang }: OwnPropType) => {
+const CommunityBoardLangSelector = ({
+  onClickOpenModal,
+  language,
+  tooltipText,
+  boardLang,
+}: OwnPropType) => {
   const [isTooltip, setIsTooltip] = useState(false);
-  const urlLang = useUrlLanguage();
-  const texts = communityBoardTexts[urlLang];
-  const language = texts.boardLang[boardLang];
-  const tooltipText = texts.langSelectorToolTip;
 
   useEffect(() => {
     if (sessionStorage.getItem('isTooltip') !== 'N' && boardLang === 'ALL') setIsTooltip(true);

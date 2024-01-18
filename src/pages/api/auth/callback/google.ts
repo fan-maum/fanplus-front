@@ -63,11 +63,11 @@ const getResultsByIdToken = async (req: NextApiRequest, idToken: string) => {
   const user_lang = negotiator.language(SUPPORT_LANGUAGE) || 'en';
 
   const backResponse = await axios.post(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/auth/google`,
+    'https://napi.appphotocard.com/voteWeb/auth/google',
     {
       platform: 'web',
       id_token: idToken,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       user_lang: user_lang,
     },
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }

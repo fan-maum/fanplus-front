@@ -43,8 +43,8 @@ const CommunityBoardArticleSkeleton = () => {
       <div css={{ width: 106, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Skeleton width={50} height={16} radius="sm" />
       </div>
-      <div css={{ flex: 1, display: 'flex', alignItems: 'center' }}>
-        <Skeleton width={'90%'} height={16} radius="sm" />
+      <div css={{ width: 310, display: 'flex', alignItems: 'center' }}>
+        <Skeleton width={200} height={16} radius="sm" />
       </div>
       <div css={{ width: 78, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Skeleton width={64} height={16} radius="sm" />
@@ -135,7 +135,7 @@ const PopularBoardItemSkeleton = () => {
 };
 
 export const PopularBoardsSkeleton = () => {
-  return Array.from({ length: 50 }, (_, idx) => (
+  return Array.from({ length: 30 }, (_, idx) => (
     <PopularBoardItemSkeleton key={'Popular Board Item Skeleton' + idx} />
   ));
 };
@@ -145,7 +145,7 @@ const BestPostItemSkeleton = () => {
     <div
       css={{
         width: '100%',
-        height: 38,
+        height: 42,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'start',
@@ -153,13 +153,13 @@ const BestPostItemSkeleton = () => {
       }}
     >
       <span css={{ margin: '0 17px' }}>
-        <Skeleton width={24} height={16} radius="sm" />
+        <Skeleton width={24} height={20} radius="sm" />
       </span>
-      <span css={{ width: 180, marginRight: 35 }}>
-        <Skeleton width={160} height={16} radius="sm" />
+      <span css={{ width: 180, marginRight: 5 }}>
+        <Skeleton width={150} height={20} radius="sm" />
       </span>
       <span>
-        <Skeleton width={36} height={16} radius="sm" />
+        <Skeleton width={30} height={20} radius="sm" />
       </span>
     </div>
   );
@@ -169,75 +169,4 @@ export const BestPostsSkeleton = () => {
   return Array.from({ length: 10 }, (_, idx) => (
     <BestPostItemSkeleton key={'Best Post Item Skeleton' + idx} />
   ));
-};
-
-const HorizontalBestNoticeSkeleton = () => {
-  return (
-    <div
-      css={{
-        width: '100%',
-        height: 30,
-        display: 'flex',
-        gap: 10,
-        alignItems: 'flex-start',
-        justifyContent: 'start',
-        borderBottom: '1px solid #d9d9d9',
-      }}
-    >
-      <span>
-        <Skeleton width={16} height={20} radius="sm" />
-      </span>
-      <span>
-        <Skeleton width={168} height={20} radius="sm" />
-      </span>
-      <span>
-        <Skeleton width={16} height={20} radius="sm" />
-      </span>
-    </div>
-  );
-};
-
-export const HorizontalBestNoticesSkeleton = () => {
-  return (
-    <div css={{ display: 'flex', flexDirection: 'column' }}>
-      {Array.from({ length: 5 }, (_, idx) => (
-        <HorizontalBestNoticeSkeleton key={'HorizontalBestNoticeSkeleton' + idx} />
-      ))}
-    </div>
-  );
-};
-
-const NotificationBoardSkeleton = () => {
-  return (
-    <div
-      css={{
-        width: '100%',
-        height: 30,
-        display: 'flex',
-        gap: 10,
-        alignItems: 'flex-start',
-        justifyContent: 'start',
-      }}
-    >
-      <span>
-        <Skeleton width={16} height={20} radius="sm" />
-      </span>
-      <span>
-        <Skeleton width={168} height={20} radius="sm" />
-      </span>
-      <span>
-        <Skeleton width={16} height={20} radius="sm" />
-      </span>
-    </div>
-  );
-};
-
-export const NotificationBoardsSkeleton = () => {
-  return (
-    <div css={{ display: 'flex', flexDirection: 'column' }}>
-      {Array.from({ length: 5 }, (_, idx) => (
-        <NotificationBoardSkeleton key={'HorizontalBestNoticeSkeleton' + idx} />
-      ))}
-    </div>
-  );
 };

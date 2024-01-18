@@ -2,20 +2,19 @@ import {
   getCommunityBoardData,
   getCommunityBoardTopics,
   getCommunityNoticeBannerData,
-  getUser,
 } from '@/api/Community';
+import Layout from '@/components/organisms/Layout';
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
-import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
-  PartialUserType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
+import { Suspense } from 'react';
 
 export type CommunityBoardPropType = {
   urlLang: UrlLangType;
@@ -43,9 +42,9 @@ const Board = ({
   communityBoardTopics,
   communityNoticeBannerData,
   initialProps,
-  user,
-}: CommunityBoardPropType & { user: PartialUserType }) => {
+}: CommunityBoardPropType) => {
   return (
+<<<<<<< HEAD
     <>
       <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput withBestNotices>
         <CommunityBoardTemplate
@@ -60,6 +59,20 @@ const Board = ({
         />
       </CommunityMainLayout>
     </>
+=======
+    <Layout urlLang={urlLang}>
+      <CommunityBoardTemplate
+        urlLang={urlLang}
+        userId={userId}
+        isAdminAccount={isAdminAccount}
+        boardLangCookie={boardLangCookie}
+        communityBoardData={communityBoardData}
+        communityBoardTopics={communityBoardTopics}
+        communityNoticeBannerData={communityNoticeBannerData}
+        initialProps={initialProps}
+      />
+    </Layout>
+>>>>>>> master
   );
 };
 
@@ -70,7 +83,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const isAdminAccount = userIdx === process.env.ADMIN_ACCOUNT_IDX;
 
   const boardIndex = parseInt(context.query.boardIndex as string);
-  const page = parseInt(context.query.page as string) || 1;
+  const page = parseInt(context.query.page as string) - 1 || 0;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
@@ -92,6 +105,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, serverLang);
   const initialProps = { page, serverLang, boardLangCookie, topic, view_type };
 
+<<<<<<< HEAD
   const props = {
     urlLang,
     userId,
@@ -101,15 +115,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     communityBoardTopics,
     communityNoticeBannerData,
     initialProps,
+=======
+  return {
+    props: {
+      urlLang,
+      userId,
+      isAdminAccount,
+      boardLangCookie,
+      communityBoardData,
+      communityBoardTopics,
+      communityNoticeBannerData,
+      initialProps,
+    },
+>>>>>>> master
   };
-
-  if (!!userId && !!userIdx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, userIdx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { ...props, user } };
-  }
-
-  return { props };
 };
 
 export default Board;

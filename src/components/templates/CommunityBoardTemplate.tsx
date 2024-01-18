@@ -5,17 +5,27 @@ import type { BoardLangType } from '@/types/common';
 import { setBoardLangCookie } from '@/utils/langCookie';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import IconMyPost from '../atoms/IconMyPost';
+import IconPopular from '../atoms/IconPopular';
+import IconPopularBlack from '../atoms/IconPopularBlack';
+import IconWrite from '../atoms/IconWrite';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
 import CommunityLanguageModal from '../modals/CommunityLanguageModal';
+import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import CommunityBoardTopNavi from '../molecules/community/CommunityBoardTopNavi';
 import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
+import CommunityBoardBottomTabBar from '../organisms/community/CommunityBoardBottomTabBar';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import CommunityBoardTopicTabBar from '../organisms/community/CommunityBoardTopicTabBar';
+<<<<<<< HEAD
 import { colors } from '@/styles/CommunityColors';
 import BoardDomains from '../organisms/community/BoardDomains';
 import { useQuery } from 'react-query';
 import { getCommunityBoardData } from '@/api/Community';
 import { CommunityBoardResponseType } from '@/types/community';
+=======
+import CommunityLayout from './CommunityLayout';
+>>>>>>> master
 
 const CommunityBoardTemplate = ({
   urlLang,
@@ -29,7 +39,8 @@ const CommunityBoardTemplate = ({
 }: CommunityBoardPropType) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
-  const page = Number(router.query.page) || 1;
+
+  const page = Number(router.query.page) - 1 || 0;
   const topicIndex = Number(router.query.topic) || 0;
   const viewType = (router.query.view as string) || 'all';
   const boardIndex = Number(router.query.boardIndex);
@@ -39,9 +50,17 @@ const CommunityBoardTemplate = ({
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
 
+<<<<<<< HEAD
   const topicList = communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST;
   const noticeBannerList = communityNoticeBannerData?.RESULTS.DATAS.LIST;
   const isNoticeBannerExist = communityNoticeBannerData?.RESULTS.DATAS.COUNT !== 0;
+=======
+  const topicList = communityBoardTopics.RESULTS.DATAS.TOPIC_LIST;
+  const boardInfo = communityBoardData.RESULTS.DATAS.BOARD_INFO;
+  const noticeBannerList = communityNoticeBannerData.RESULTS.DATAS.LIST;
+
+  const isNoticeBannerExist = communityNoticeBannerData.RESULTS.DATAS.COUNT !== 0;
+>>>>>>> master
   const isInitialData =
     initialProps.boardLangCookie === boardLang &&
     initialProps.page === page &&
@@ -76,9 +95,13 @@ const CommunityBoardTemplate = ({
 
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];
+<<<<<<< HEAD
     const writeBanned = writeBanBoard.includes(
       communityBoardData?.BOARD_INFO.photocard_board_lang[0].BOARD_IDX as string
     );
+=======
+    const writeBanned = writeBanBoard.includes(boardInfo.BOARD_IDX as string);
+>>>>>>> master
     if (writeBanned && !isAdminAccount) {
       setPermissionModal(true);
       return;
@@ -89,9 +112,34 @@ const CommunityBoardTemplate = ({
       return;
     }
     router.push({
+<<<<<<< HEAD
       pathname: `/${urlLang}/community/board/${communityBoardData?.BOARD_INFO.photocard_board_lang[0].BOARD_IDX}/write`,
+=======
+      pathname: `/${urlLang}/community/board/${boardInfo.BOARD_IDX}/write`,
+>>>>>>> master
       query: { topic: router.query.topic },
     });
+  };
+
+  const onClickPopular = async () => {
+    if (viewType !== 'best_post') {
+      router.replace({ query: { ...router.query, view: 'best_post', page: 1 } }, undefined, {
+        shallow: true,
+      });
+      return;
+    }
+    router.replace({ query: { ...router.query, view: 'all', page: 1 } }, undefined, {
+      shallow: true,
+    });
+  };
+
+  const onClickMyPost = () => {
+    if (!userId) {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+      return;
+    }
+    router.push(`/community/board/${boardInfo.BOARD_IDX}/mypost`);
   };
 
   const onClickTopic = async (topic: number) => {
@@ -108,10 +156,19 @@ const CommunityBoardTemplate = ({
     router.replace({ query: { ...router.query, page: 1 } }, undefined, { shallow: true });
     setLangModal(false);
   };
+
   return (
-    <>
-      <div>
+    <CommunityLayout>
+      <div
+        css={{
+          width: '100%',
+          maxWidth: '768px',
+          margin: '0px auto',
+          position: 'relative',
+        }}
+      >
         <CommunityBoardTopNavi
+<<<<<<< HEAD
           boardTitle={communityBoardData?.BOARD_INFO.photocard_board_lang[0].TITLE as string}
           boardLang={boardLang}
           menuId={communityBoardData?.BOARD_INFO.menuId}
@@ -172,6 +229,25 @@ const CommunityBoardTemplate = ({
               onClickTopic={onClickTopic}
             />
           </div>
+=======
+          boardTitle={boardInfo.BOARD_TITLE as string}
+          rightItem={
+            <CommunityBoardLangSelector
+              language={texts.boardLang[boardLang]}
+              onClickOpenModal={() => setLangModal(true)}
+              tooltipText={texts.langSelectorToolTip}
+              boardLang={boardLang}
+            />
+          }
+        />
+        {!isBestBoard && (
+          <CommunityBoardTopicTabBar
+            stringTopicAll={texts.all}
+            topicList={topicList}
+            topicIndex={topicIndex}
+            onClickTopic={onClickTopic}
+          />
+>>>>>>> master
         )}
         {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
         <CommunityBoardArticleTable
@@ -199,7 +275,20 @@ const CommunityBoardTemplate = ({
           {texts.permissionModal.noPermission}
         </CommunityCommonModal>
       </div>
-    </>
+      {!isBestBoard && (
+        <CommunityBoardBottomTabBar
+          items={[
+            { icon: <IconWrite />, title: texts.bottomTabBar.write, onClick: onClickWrite },
+            {
+              icon: viewType === 'best_post' ? <IconPopular /> : <IconPopularBlack />,
+              title: texts.bottomTabBar.popular,
+              onClick: onClickPopular,
+            },
+            { icon: <IconMyPost />, title: texts.bottomTabBar.myPost, onClick: onClickMyPost },
+          ]}
+        />
+      )}
+    </CommunityLayout>
   );
 };
 

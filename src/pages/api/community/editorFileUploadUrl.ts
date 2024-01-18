@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const response: AxiosResponse<EditorImageUrlResponseType> = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/voteWeb/imgs`,
+      'https://napi.appphotocard.com/voteWeb/imgs',
       {
         headers: {
           Origin: origin,

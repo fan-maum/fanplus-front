@@ -1,4 +1,3 @@
-import { colors } from '@/styles/CommunityColors';
 import type { TopicListItemType } from '@/types/community';
 
 type TopicTabBarPropType = {
@@ -17,18 +16,30 @@ const CommunityBoardTopicTabBar = ({
   return (
     <ul
       css={{
+        width: 'calc(100% - 40px)',
         display: 'flex',
+<<<<<<< HEAD
         width: '100%',
         height: '40px',
         flexDirection: 'row',
         alignItems: 'center',
+=======
+        margin: '8px 20px 10px',
+        borderBottom: '1px solid #d9d9d9',
+>>>>>>> master
         overflowX: 'scroll',
         whiteSpace: 'nowrap',
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
         '::-webkit-scrollbar': { display: 'none' },
+<<<<<<< HEAD
         '@media(max-width:768px)': {
           padding: '0 16px',
+=======
+        '@media (max-width: 768px)': {
+          width: '100%',
+          margin: '8px 0 10px',
+>>>>>>> master
         },
       }}
     >
@@ -62,11 +73,16 @@ const Topic = ({
   return (
     <li
       css={{
-        fontSize: '14px',
-        fontWeight: selected ? 600 : 400,
-        color: selected ? colors.primary[500] : colors.gray[1000],
+        height: '40px',
+        lineHeight: '37px',
+        fontSize: '15px',
+        fontWeight: '600',
+        color: selected ? '#ff5656' : '#000',
+        borderBottom: `${selected ? '2.5px solid #ff5656' : ''}`,
+        textAlign: 'center',
         cursor: 'pointer',
         padding: '5px 8px',
+        margin: '0px 2px',
       }}
       onClick={onClick}
     >

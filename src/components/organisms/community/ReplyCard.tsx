@@ -6,7 +6,6 @@ import { PurPoseType, TargetType } from '@/types/common';
 import { useRouter } from 'next/router';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useLikesButtonOnClick } from '@/hooks/useLikesButtonOnClick';
-import { colors } from '@/styles/CommunityColors';
 
 export type ReplyCardProps = {
   identity: string;
@@ -25,11 +24,8 @@ const ReplyCard = ({ identity, reply, texts, replyRefetch }: ReplyCardProps) => 
     });
 
   return (
-    <Stack p={'20px 20px 20px 40px'} spacing={18}>
-      <div css={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <img css={{ width: '22px' }} src="/icons/icon_replyArrow.svg" alt="replyArrow" />
-        <CommentInfoState identity={identity} reply={reply} texts={texts} />
-      </div>
+    <Stack p={'26px 20px 20px 20px'} spacing={18}>
+      <CommentInfoState identity={identity} reply={reply} texts={texts} />
       <Group position="apart" ml={68}>
         <div></div>
         <LikesButton

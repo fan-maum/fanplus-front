@@ -1,12 +1,13 @@
-import { getUser, getCommunityBoardTopics } from '@/api/Community';
-import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
+import { getCommunityBoardTopics } from '@/api/Community';
+import Layout from '@/components/organisms/Layout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
-import type { CommunityBoardTopicResponseType, PartialUserType } from '@/types/community';
+import type { CommunityBoardTopicResponseType } from '@/types/community';
 import { noUserIdHandler } from '@/utils/loginError';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+import nookies from 'nookies';
 
 type CommunityPostWritePropType = {
   urlLang: UrlLangType;
@@ -17,13 +18,12 @@ type CommunityPostWritePropType = {
     boardLang: ServerLangType;
     serverLang: ServerLangType;
   };
-  user: PartialUserType;
 };
 
-const Write = ({ urlLang, boardTopics, datas, user }: CommunityPostWritePropType) => {
+const Write = ({ urlLang, boardTopics, datas }: CommunityPostWritePropType) => {
   const router = useRouter();
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} >
+    <Layout urlLang={urlLang}>
       <PostEditorTemplate
         mode="CREATE"
         urlLang={urlLang}
@@ -31,15 +31,14 @@ const Write = ({ urlLang, boardTopics, datas, user }: CommunityPostWritePropType
         datas={datas}
         defaultValues={{ topicIndex: Number(router.query.topic) }}
       />
-    </CommunityMainLayout>
+    </Layout>
   );
 };
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const cookies = context.req.cookies;
-  const userId = cookies.user_id;
-  const userIdx = cookies.user_idx;
-  const boardLangCookie = cookies.boardLang as BoardLangType;
+  const cookies = nookies.get(context);
+  const userId = cookies['user_id'];
+  const boardLangCookie = cookies['boardLang'] as BoardLangType;
 
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
@@ -47,17 +46,12 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const boardLang: ServerLangType =
     boardLangCookie && boardLangCookie !== 'ALL' ? boardLangCookie : serverLang;
 
-  if (!userId || !userIdx) return noUserIdHandler(urlLang, `/community/board/${boardIndex}/write/`);
+  if (!userId) return noUserIdHandler('ko', `/community/board/${boardIndex}/write/`);
 
   const boardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
-
   const datas = { userId, boardIndex, boardLang, serverLang };
-
-  const { NICK, PROFILE_IMG_URL } = (await getUser(userId, userIdx)).RESULTS.DATAS;
-  const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-
   return {
-    props: { urlLang, boardTopics, datas, user },
+    props: { urlLang, boardTopics, datas },
   };
 };
 

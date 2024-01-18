@@ -2,7 +2,6 @@ import { replyResponseType } from '@/types/community';
 import ReplyCard from './ReplyCard';
 import { PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { colors } from '@/styles/CommunityColors';
 
 type PostCommentListItemProps = {
   identity: string;
@@ -27,10 +26,9 @@ const ReplyCommentListItem = ({
             key={index}
             className="comment"
             css={{
-              borderTop: `1px solid ${colors.gray[200]}`,
-              // ':last-child': {
-              //   borderTop: 'none',
-              // },
+              borderTop: '1px solid #f1f1f1',
+              width: 'calc(100% - 74px)',
+              margin: '0 0 0 auto',
             }}
           >
             <ReplyCard
