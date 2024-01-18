@@ -6,6 +6,7 @@ import type { PartialUserType } from '@/types/community';
 import { deleteCookie } from '@/utils/Cookie';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useCookies } from 'react-cookie';
 
 interface ProfileBoxProps {
   user: PartialUserType;
@@ -14,10 +15,12 @@ interface ProfileBoxProps {
 const ProfileBox = ({ user, texts }: ProfileBoxProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
+  const [cookies, removeCookie] = useCookies(['user_id', 'user_idx']);
 
   const handleLogout = () => {
-    deleteCookie('user_id');
-    deleteCookie('user_idx');
+    removeCookie('user_id', { path: '/' });
+    removeCookie('user_idx', { path: '/' });
+
     router.reload();
   };
 
