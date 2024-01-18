@@ -158,6 +158,8 @@ const Title = styled.span<{ active: boolean }>`
   justify-content: center;
   height: inherit;
   text-transform: uppercase;
+  max-width: 136px;
+  text-align: center;
   padding: 0 4px;
   font-size: 18px;
   line-height: 24px;
@@ -167,4 +169,7 @@ const Title = styled.span<{ active: boolean }>`
   border-bottom-width: 2px;
   border-bottom-style: solid;
   border-bottom-color: ${(props) => (props.active ? '#FF5656' : 'transparent')};
+  @media (max-width: 768px) {
+    max-width: none;
+  }
 `;

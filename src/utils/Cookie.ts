@@ -11,6 +11,6 @@ export const getCookie = (name: string) => {
   return cookies.get(name);
 };
 
-export const deleteCookie = (name: string, options?: CookieSetOptions) => {
-  return cookies.remove(name, { path: '/', ...options });
+export const deleteCookie = (name: string) => {
+  return cookies.remove(name, { path: '/' });
 };
