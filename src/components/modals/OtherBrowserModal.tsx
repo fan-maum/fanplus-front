@@ -2,8 +2,7 @@ import { Box, Divider, Modal, ModalProps } from '@mantine/core';
 import { isMobile } from 'react-device-detect';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import ShareButtonWithIcon from '../atoms/ShareButtonWithIcon';
-import CompletedShareModal, { CompletedShareModalProps } from './CompletedShareModal';
-import { Stack, Group, UnstyledButton } from '@/components/atoms';
+import { Stack, UnstyledButton } from '@/components/atoms';
 
 type textType = {
   googleLoginProhibited: string;
