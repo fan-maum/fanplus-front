@@ -11,8 +11,6 @@ import type {
   MultiBoardsInquiryResponseType,
   PostBoardArticleResponseType,
   PostResponseType,
-  RecentlyListResponseType,
-  RecommendListResponseType,
   Top50PopularBoardsResponseType,
   UserResponseType,
   sideMenuResponseType,
@@ -20,20 +18,6 @@ import type {
 import axios, { AxiosResponse } from 'axios';
 import type { BoardLangType, OrderType, ServerLangType, UrlLangType } from '@/types/common';
 import type { BestPostsViewType } from '@/components/molecules/community/BestNotices';
-
-export const getCommunityHomeData = async (userId: string, lang: ServerLangType) => {
-  const recommendListResponse: AxiosResponse<RecommendListResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId, lang, viewType: 'recommend' } }
-  );
-  const recentlyListResponse: AxiosResponse<RecentlyListResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/home`,
-    { params: { userId, lang, viewType: 'recently' } }
-  );
-  const recommendList = recommendListResponse.data.RESULTS.DATAS.RECOMMEND_LIST;
-  const recentlyList = recentlyListResponse.data.RESULTS.DATAS.RECENTLY_LIST;
-  return { recommendList, recentlyList };
-};
 
 export const getCommunityBoardData = async (
   userId: string,

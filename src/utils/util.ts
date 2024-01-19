@@ -22,19 +22,6 @@ export const FormatTime = (time: number | undefined) => {
   }${minutes}${minute}`;
 };
 
-export const FormatShareTime = (time: number | undefined) => {
-  if (time === undefined) return undefined;
-  if (time < 0) return '종료';
-
-  const days = Math.floor(time / (3600 * 24));
-  const hours = Math.floor((time % (3600 * 24)) / 3600);
-  const minutes = Math.floor((time % 3600) / 60);
-
-  return `${String(days).padStart(2, '0')}일 ${String(hours).padStart(2, '0')}시간 ${String(
-    minutes
-  ).padStart(2, '0')}분`;
-};
-
 export function formatNumberWithComma(num: number | undefined): string {
   if (num === undefined) return '';
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -80,9 +67,4 @@ export const formatWrittenTimeLite = (prevTimeExpression: string) => {
   return isToday
     ? `${writtenTime.getHours()}:${writtenTime.getMinutes()} (KST)`
     : prevTimeExpression.split('T')[0].replaceAll('-', '.');
-};
-
-export const formatCommentCount = (commentCount: string | number) => {
-  if (Number(commentCount) > 999) return '+999';
-  return Number(commentCount);
 };

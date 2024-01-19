@@ -1,5 +1,5 @@
-import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
-import { ButtonHTMLAttributes, HTMLAttributes } from 'react';
+import { getDefaultProps } from '@/styles/DefaultProps';
+import { HTMLAttributes } from 'react';
 import { Stack } from './Stack';
 
 export interface RankProfileProps extends HTMLAttributes<HTMLButtonElement> {

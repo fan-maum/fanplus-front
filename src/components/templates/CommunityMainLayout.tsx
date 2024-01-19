@@ -29,7 +29,6 @@ const CommunityMainLayout = ({
   children,
 }: CommunityMainLayoutProps) => {
   const router = useRouter();
-  const isCommunity = router.route === '/[locale]/community';
   const [openSidebar, setOpenSidebar] = useState(false);
   const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
 
