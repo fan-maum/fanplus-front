@@ -1,64 +1,53 @@
-import { getCommunityBoardData, getCommunityTypeBoardData, getUser } from '@/api/Community';
+import { getCommunityBoardData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
+  CommunityBoardAllResponseType,
   CommunityBoardResponseType,
-  CommunityMainPageResponseType,
   PartialUserType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
-export type CommunityPropTypes = {
-  urlLang: UrlLangType;
-  userId: string;
-  isAdminAccount: boolean;
-  boardLangCookie: BoardLangType;
-  communityMainBoardDataSSR: CommunityMainPageResponseType;
-  initialProps: {
-    page: number;
-    serverLang: ServerLangType;
+export type CommunityBoardPropTypes = {
+  queryParams: {
+    urlLang: UrlLangType;
+    userId: string;
+    isAdminAccount: boolean;
     boardLangCookie: BoardLangType;
     maxPage: number;
-    view_type: string;
   };
-};
-
-export interface CommunityBestBoardPropTypes {
-  communityBoardDataSSR: CommunityBoardResponseType;
-  initialBestBoardProps: {
+  initialProps: {
     page: number;
     serverLang: ServerLangType;
     boardLangCookie: BoardLangType;
     topic: number;
     view_type: string;
   };
+};
+
+export interface CommunityBoardAllPropTypes {
+  communityHomeSSRdata: CommunityBoardAllResponseType;
+  communityBestBoardSSRdata: CommunityBoardResponseType;
 }
 
 const CommunityHomePage = ({
-  urlLang,
-  userId,
-  isAdminAccount,
-  boardLangCookie,
-  communityMainBoardDataSSR,
-  initialProps,
   user,
-  communityBoardDataSSR,
-  initialBestBoardProps,
-}: CommunityPropTypes & { user: PartialUserType } & CommunityBestBoardPropTypes) => {
+  queryParams,
+  communityHomeSSRdata,
+  communityBestBoardSSRdata,
+  initialProps,
+}: CommunityBoardPropTypes & { user: PartialUserType } & CommunityBoardAllPropTypes) => {
+  const { urlLang } = queryParams;
   return (
     <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
       <CommunityPageTemplate
-        urlLang={urlLang}
-        userId={userId}
-        isAdminAccount={isAdminAccount}
-        boardLangCookie={boardLangCookie}
-        communityMainBoardDataSSR={communityMainBoardDataSSR}
+        queryParams={queryParams}
+        communityHomeSSRdata={communityHomeSSRdata}
+        communityBestBoardSSRdata={communityBestBoardSSRdata}
         initialProps={initialProps}
-        communityBoardDataSSR={communityBoardDataSSR}
-        initialBestBoardProps={initialBestBoardProps}
       />
     </CommunityMainLayout>
   );
@@ -76,41 +65,39 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const maxPage = 10;
   const topic = parseInt(context.query.topic as string) || 0;
   const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
-  const boardIndex = 2291;
+  const HomeBoardType = 'community';
+  const BestBoardType = 2291;
 
-  const communityMainBoardDataSSR: CommunityMainPageResponseType = await getCommunityTypeBoardData(
+  const communityHomeSSRdata: CommunityBoardAllResponseType = await getCommunityBoardData(
     userId,
-    'community',
-    page,
-    maxPage,
-    serverLang,
-    boardLangCookie,
-    view_type
-  );
-
-  const initialProps = { page, serverLang, boardLangCookie, maxPage, view_type };
-
-  const communityBoardDataSSR = await getCommunityBoardData(
-    userId,
-    boardIndex,
+    HomeBoardType,
     page,
     serverLang,
     boardLangCookie,
+    view_type,
     topic,
-    view_type
+    maxPage
   );
 
-  const initialBestBoardProps = { page, serverLang, boardLangCookie, topic, view_type };
+  const communityBestBoardSSRdata: CommunityBoardResponseType = await getCommunityBoardData(
+    userId,
+    BestBoardType,
+    page,
+    serverLang,
+    boardLangCookie,
+    view_type,
+    topic,
+    maxPage
+  );
+
+  const queryParams = { urlLang, userId, isAdminAccount, boardLangCookie, maxPage };
+  const initialProps = { page, serverLang, boardLangCookie, view_type, topic };
 
   const props = {
-    urlLang,
-    userId,
-    isAdminAccount,
-    boardLangCookie,
-    communityMainBoardDataSSR,
+    queryParams,
+    communityHomeSSRdata,
+    communityBestBoardSSRdata,
     initialProps,
-    communityBoardDataSSR,
-    initialBestBoardProps,
   };
 
   if (!!userId && !!user_idx) {

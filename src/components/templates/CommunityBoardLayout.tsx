@@ -1,64 +1,83 @@
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import CommunityBoardTopNavi from '@/components/molecules/community/CommunityBoardTopNavi';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import type { BoardLangType } from '@/types/common';
 import { setBoardLangCookie } from '@/utils/langCookie';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 import CommunityLanguageModal from '@/components/modals/CommunityLanguageModal';
 import CommunityCommonModal from '@/components/modals/CommunityCommonModal';
-import { CommunityPropTypes } from '@/pages/[locale]/community';
-import CommunityTypeBoardArticleTable from './CommunityTypeBoardArticleTable';
+import { CommunityBoardPropTypes } from '@/pages/[locale]/community';
 import { useQuery } from 'react-query';
-import { getCommunityTypeBoardData } from '@/api/Community';
+import { getCommunityBoardData } from '@/api/Community';
+import {
+  CommunityBoardAllResponseType,
+  CommunityBoardMyPostResponseType,
+  CommunityBoardResponseType,
+} from '@/types/community';
+import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
 
-const CommunityMainBoard = ({
-  urlLang,
-  userId,
-  boardLangCookie,
-  communityMainBoardDataSSR,
-  boardType,
+type CommunityBoardLayoutPropTypes = {
+  communityBoardSSRdata:
+    | CommunityBoardResponseType
+    | CommunityBoardAllResponseType
+    | CommunityBoardMyPostResponseType;
+  boardType: string | number;
+  boardTitle: string;
+};
+
+const CommunityBoardLayout = ({
+  queryParams,
+  communityBoardSSRdata,
   initialProps,
-}: CommunityPropTypes & { boardType: string | string[] | undefined }) => {
+  boardType,
+  boardTitle,
+}: CommunityBoardPropTypes & CommunityBoardLayoutPropTypes) => {
+  //eslint-disable-next-line no-console
+  console.log('communityBoardSSRdata', communityBoardSSRdata);
+
   const router = useRouter();
+  const { urlLang, userId, boardLangCookie, maxPage } = queryParams;
   const texts = communityBoardTexts[urlLang];
+  const serverLang = translateUrlLangToServerLang(urlLang);
   const page = Number(router.query.page) || 1;
   const topicIndex = Number(router.query.topic) || 0;
-  const viewType = (router.query.view as string) || 'all';
-  const boardIndex = Number(router.query.boardIndex);
-  const maxPage = initialProps.maxPage;
-  const requestLang = translateUrlLangToServerLang(urlLang);
+  const view_type = (router.query.view as string) || 'all';
 
   const [boardLang, setBoardLang] = useState(boardLangCookie);
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
 
+  //   const isBestBoard = boardIndex === 2291 || String(router.query.boardType) === '2291';
+  //   const currentBoardIndex = isBestBoard ? 2291 : Number(router.query.boardIndex);
+
   const isInitialData =
-    initialProps.boardLangCookie === boardLang &&
     initialProps.page === page &&
-    initialProps.serverLang === requestLang &&
-    initialProps.view_type === viewType &&
-    initialProps.maxPage === topicIndex;
+    initialProps.serverLang === serverLang &&
+    initialProps.boardLangCookie === boardLang &&
+    initialProps.view_type === view_type &&
+    initialProps.topic === topicIndex;
 
   const { data: communityBoardDataCSR, isFetching } = useQuery(
     [
-      'communityTypeBoardData',
-      { userId, boardType, page, requestLang, boardLang, maxPage, viewType },
+      'communityBoardData',
+      { userId, boardType, page, serverLang, boardLang, view_type, topicIndex, maxPage },
     ],
     () =>
-      getCommunityTypeBoardData(
+      getCommunityBoardData(
         userId,
-        String(boardType),
+        boardType,
         page,
-        maxPage,
-        requestLang,
+        serverLang,
         boardLang,
-        viewType
+        view_type,
+        topicIndex,
+        maxPage
       ),
-    { initialData: isInitialData ? communityMainBoardDataSSR : undefined }
+    { initialData: isInitialData ? communityBoardSSRdata : undefined }
   );
 
-  const communityBoardData = communityBoardDataCSR ?? communityMainBoardDataSSR;
+  const communityBoardData = communityBoardDataCSR ?? communityBoardSSRdata;
 
   const onClickLanguageBox = async (language: BoardLangType) => {
     setBoardLang(language);
@@ -71,7 +90,7 @@ const CommunityMainBoard = ({
     <>
       <div>
         <CommunityBoardTopNavi
-          boardTitle={texts.bottomTabBar.all}
+          boardTitle={boardTitle}
           boardLang={boardLang}
           boardType={boardType}
           menuId={communityBoardData.BOARD_INFO.menuId}
@@ -79,13 +98,13 @@ const CommunityMainBoard = ({
           setLangModal={setLangModal}
           onClickWrite={() => false}
         />
-        <CommunityTypeBoardArticleTable
+        <CommunityBoardArticleTable
           communityBoardData={communityBoardData}
-          communityBoardDataSSR={communityMainBoardDataSSR}
+          communityBoardSSRdata={communityBoardSSRdata}
           isFetching={isFetching}
           texts={texts}
           boardType={String(boardType)}
-          isStarBoardTableHeader
+          onClickWrite={() => {}}
         />
         <CommunityLanguageModal
           texts={texts.boardLang}
@@ -109,4 +128,4 @@ const CommunityMainBoard = ({
   );
 };
 
-export default CommunityMainBoard;
+export default CommunityBoardLayout;

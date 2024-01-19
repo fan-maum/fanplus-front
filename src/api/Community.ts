@@ -37,17 +37,18 @@ export const getCommunityHomeData = async (userId: string, lang: ServerLangType)
 
 export const getCommunityBoardData = async (
   userId: string,
-  boardIndex: number | string,
+  boardType: number | string,
   page: number,
   lang: ServerLangType,
-  boardLang: BoardLangType,
+  filterLang: BoardLangType,
+  viewType: string,
   topic: number | '',
-  viewType: string
+  maxPage: number
 ) => {
   if (topic === 0) topic = '';
-  const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
+  const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardIndex, page, topic, lang, boardLang, viewType } }
+    { params: { userId, boardType, page, lang, filterLang, viewType, topic, maxPage } }
   );
 
   return response.data;
@@ -368,7 +369,7 @@ export const getUser = async (identity?: string, user_idx?: string) => {
 };
 
 /**
- * TOP30 인기 게시판
+ * TOP50 인기 게시판
  */
 export const getTop50PopularBoards = async (lang: ServerLangType) => {
   const response: AxiosResponse<Top50PopularBoardsResponseType> = await axios.get(

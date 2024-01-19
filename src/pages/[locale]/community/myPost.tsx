@@ -5,11 +5,11 @@ import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import { BoardLangType, UrlLangType } from '@/types/common';
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
-import type { CommunityMyPostResponseType, PartialUserType } from '@/types/community';
+import type { CommunityBoardMyPostResponseType, PartialUserType } from '@/types/community';
 export interface MyPostPageProps {
   urlLang: UrlLangType;
   userId: string;
-  communityMyPostData: CommunityMyPostResponseType;
+  communityMyPostData: CommunityBoardMyPostResponseType;
 }
 
 const MyPostPage = ({

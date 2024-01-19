@@ -90,12 +90,13 @@ export type CommunityBoardResponseType = {
     INS_DATE: string;
     UPD_DATE: string | null;
     REMOVE_DATE: string | null;
-    POST_CNT: 'Y' | 'N';
+    POST_CNT: string;
     DEFAULT_TOPIC: number;
     NEW_POST_DATE: string | null;
     photocard_board_lang: Array<CommunityBoardPhotocardResponseType>;
     menuId: number;
     isBookmarked: boolean;
+    VIEW_POSSIBLE_PAGE: number;
   };
   NOTICE: Array<NoticeListItemType>;
   POST_LIST: Array<PostListItemType>;
@@ -111,20 +112,20 @@ export type CommunityBoardPhotocardResponseType = {
   UPD_DATE: string;
 };
 
-export type CommunityMyPostResponseType = {
+export type CommunityBoardAllResponseType = {
   BOARD_INFO: {
     VIEW_POSSIBLE_PAGE: number;
+    isBookmarked: boolean;
+    menuId: number;
   };
+  NOTICE: Array<NoticeListItemType>;
   POST_LIST: Array<PostListItemType>;
 };
 
-export type CommunityMainPageResponseType = {
+export type CommunityBoardMyPostResponseType = {
   BOARD_INFO: {
     VIEW_POSSIBLE_PAGE: number;
-    menuId: number;
-    isBookmarked: boolean;
   };
-  NOTICE: Array<NoticeListItemType>;
   POST_LIST: Array<PostListItemType>;
 };
 

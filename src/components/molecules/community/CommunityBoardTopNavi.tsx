@@ -13,7 +13,7 @@ import { communityBoardTexts } from '@/texts/communityBoardTexts';
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
   boardLang: BoardLangType;
-  boardType?: string | string[];
+  boardType: string | number;
   menuId: number | undefined;
   isBookmarked: boolean;
   setLangModal: Dispatch<SetStateAction<boolean>>;

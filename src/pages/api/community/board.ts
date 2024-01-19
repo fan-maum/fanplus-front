@@ -3,21 +3,22 @@ import axios, { AxiosResponse } from 'axios';
 import type { CommunityBoardResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { userId, boardIndex, page, lang, boardLang, viewType, topic } = req.query;
+  const { userId, boardType, page, lang, filterLang, viewType, topic, maxPage } = req.query;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
     const response: AxiosResponse<CommunityBoardResponseType> = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${boardIndex}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${boardType}`,
       {
         params: {
           identity: userId,
           lang,
-          filterLang: boardLang,
+          filterLang,
           viewType,
           page,
           perPage: 20,
           'topicIds[]': topic,
+          maxPage,
         },
         headers: {
           Origin: origin,
