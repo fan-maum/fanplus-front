@@ -32,6 +32,7 @@ const MainMenuList = ({ menus, freeBoardText }: MainMenuListProps) => {
               <ul>
                 {menu.children.map((subMenu) => (
                   <MenuItem
+                    className="subMenuItem"
                     key={`subMenu/${subMenu.id}`}
                     menuTitle={subMenu.title}
                     href={`/${urlLang}/community/board/${subMenu.boardId}`}

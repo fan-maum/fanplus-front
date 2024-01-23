@@ -42,7 +42,7 @@ const MenuListToggleWrapper = styled.div`
   .bookmark-title {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     color: ${colors.gray[1000]};
     font-weight: 500;
   }

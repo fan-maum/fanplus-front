@@ -44,7 +44,7 @@ const BookmarkListToggleWrapper = styled.div`
   .bookmark-title {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     color: ${colors.gray[1000]};
     font-weight: 500;
   }
@@ -61,8 +61,9 @@ const BookmarkListToggleWrapper = styled.div`
   }
 
   svg {
-    font-size: 16px;
-    vertical-align: bottom;
+    width: inherit;
+    height: inherit;
+    vertical-align: text-top;
     cursor: pointer;
     margin-left: 2px;
   }
