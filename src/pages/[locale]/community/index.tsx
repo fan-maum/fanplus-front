@@ -11,7 +11,7 @@ import type {
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 
-export type CommunityBoardPropTypes = {
+export interface CommunityBoardPropTypes {
   queryParams: {
     urlLang: UrlLangType;
     userId: string;
@@ -26,7 +26,7 @@ export type CommunityBoardPropTypes = {
     topic: number;
     view_type: string;
   };
-};
+}
 
 export interface CommunityBoardAllPropTypes {
   communityHomeSSRdata: CommunityBoardAllResponseType;

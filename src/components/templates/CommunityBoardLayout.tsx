@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import CommunityBoardTopNavi from '@/components/molecules/community/CommunityBoardTopNavi';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
@@ -16,6 +16,8 @@ import {
   CommunityBoardResponseType,
 } from '@/types/community';
 import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
+import DomainTopicContainer from '../organisms/community/DomainTopicContainer';
+import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 
 type CommunityBoardLayoutPropTypes = {
   communityBoardSSRdata:
@@ -24,6 +26,9 @@ type CommunityBoardLayoutPropTypes = {
     | CommunityBoardMyPostResponseType;
   boardType: string | number;
   boardTitle: string;
+  communityBoardTopics?: any;
+  communityNoticeBannerData?: any;
+  children?: ReactNode;
 };
 
 const CommunityBoardLayout = ({
@@ -32,24 +37,30 @@ const CommunityBoardLayout = ({
   initialProps,
   boardType,
   boardTitle,
+  communityBoardTopics,
+  communityNoticeBannerData,
+  children,
 }: CommunityBoardPropTypes & CommunityBoardLayoutPropTypes) => {
   //eslint-disable-next-line no-console
   console.log('communityBoardSSRdata', communityBoardSSRdata);
+  //eslint-disable-next-line no-console
+  console.log('communityBoardTopics', communityBoardTopics);
+  //eslint-disable-next-line no-console
+  console.log('communityNoticeBannerData', communityNoticeBannerData);
 
   const router = useRouter();
-  const { urlLang, userId, boardLangCookie, maxPage } = queryParams;
+  const { urlLang, userId, isAdminAccount, boardLangCookie, maxPage } = queryParams;
   const texts = communityBoardTexts[urlLang];
   const serverLang = translateUrlLangToServerLang(urlLang);
   const page = Number(router.query.page) || 1;
   const topicIndex = Number(router.query.topic) || 0;
   const view_type = (router.query.view as string) || 'all';
+  const noticeBannerList = communityNoticeBannerData?.RESULTS.DATAS.LIST;
+  const isNoticeBannerExist = communityNoticeBannerData?.RESULTS.DATAS.COUNT !== 0;
 
   const [boardLang, setBoardLang] = useState(boardLangCookie);
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
-
-  //   const isBestBoard = boardIndex === 2291 || String(router.query.boardType) === '2291';
-  //   const currentBoardIndex = isBestBoard ? 2291 : Number(router.query.boardIndex);
 
   const isInitialData =
     initialProps.page === page &&
@@ -79,6 +90,27 @@ const CommunityBoardLayout = ({
 
   const communityBoardData = communityBoardDataCSR ?? communityBoardSSRdata;
 
+  const onClickWrite = () => {
+    const writeBanBoard = ['139', '192', '220'];
+    const writeBanned = writeBanBoard.includes(
+      communityBoardData?.BOARD_INFO.photocard_board_lang[0].BOARD_IDX as string
+    );
+
+    if (writeBanned && !isAdminAccount) {
+      setPermissionModal(true);
+      return;
+    }
+    if (!userId) {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+      return;
+    }
+    router.push({
+      pathname: `/${urlLang}/community/board/${communityBoardData?.BOARD_INFO.photocard_board_lang[0].BOARD_IDX}/write`,
+      query: { topic: router.query.topic },
+    });
+  };
+
   const onClickLanguageBox = async (language: BoardLangType) => {
     setBoardLang(language);
     setBoardLangCookie(language);
@@ -96,15 +128,24 @@ const CommunityBoardLayout = ({
           menuId={communityBoardData.BOARD_INFO.menuId}
           isBookmarked={communityBoardData.BOARD_INFO.isBookmarked}
           setLangModal={setLangModal}
-          onClickWrite={() => false}
+          onClickWrite={onClickWrite}
         />
+        {children}
+        <DomainTopicContainer
+          boardType={boardType}
+          viewType={view_type}
+          communityBoardTopics={communityBoardTopics}
+          topicIndex={topicIndex}
+          onClickWrite={onClickWrite}
+        />
+        {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
         <CommunityBoardArticleTable
           communityBoardData={communityBoardData}
           communityBoardSSRdata={communityBoardSSRdata}
           isFetching={isFetching}
           texts={texts}
           boardType={String(boardType)}
-          onClickWrite={() => {}}
+          onClickWrite={onClickWrite}
         />
         <CommunityLanguageModal
           texts={texts.boardLang}
