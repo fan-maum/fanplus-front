@@ -9,7 +9,7 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: '닫기',
     fanplusCommunity: '팬플러스 커뮤니티',
     bookmark: '즐겨찾기',
-    asideMenus: ['전체글', '자유게시판'],
+    asideMenus: ['전체글', '일반게시판'],
   },
   en: {
     popularBoards: 'Popular board',
@@ -18,7 +18,7 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: 'Close',
     fanplusCommunity: 'Fanplus Community',
     bookmark: 'Bookmarks',
-    asideMenus: ['All', 'Free Board'],
+    asideMenus: ['All', 'General'],
   },
   es: {
     popularBoards: 'Popular tablero',
@@ -27,7 +27,7 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: 'Cerrar',
     fanplusCommunity: 'Fanplus Comunidad',
     bookmark: 'Marca de libro',
-    asideMenus: ['TODO', 'tablero libre'],
+    asideMenus: ['TODO', 'Otro'],
   },
   in: {
     popularBoards: 'Populer papan',
@@ -36,7 +36,7 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: 'Tutup',
     fanplusCommunity: 'Fanplus Komunitas',
     bookmark: 'Markah buku',
-    asideMenus: ['SEMUA', 'Papan Gratis'],
+    asideMenus: ['SEMUA', 'Lainnya'],
   },
   ja: {
     popularBoards: '人気掲示板',
@@ -45,7 +45,7 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: '閉じる',
     fanplusCommunity: 'Fanplus コミュニティ',
     bookmark: 'ブックマーク',
-    asideMenus: ['全て', 'フリーボード'],
+    asideMenus: ['全て', '総合'],
   },
   vi: {
     popularBoards: 'Nổi tiếng board',
@@ -54,7 +54,7 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: 'Đóng',
     fanplusCommunity: 'Fanplus Tìm kiếm',
     bookmark: 'Đánh dấu',
-    asideMenus: ['TẤT CẢ', 'Bảng miễn phí'],
+    asideMenus: ['TẤT CẢ', 'Tổng thể'],
   },
   'zh-CN': {
     popularBoards: '人气消息面板',
@@ -63,7 +63,7 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: '关闭',
     fanplusCommunity: 'Fanplus 社区',
     bookmark: '关注',
-    asideMenus: ['全部', '自由消息面'],
+    asideMenus: ['全部', '综合'],
   },
   'zh-TW': {
     popularBoards: '人氣訊息面板',
@@ -72,6 +72,6 @@ export const communityLayoutTexts: LangStringType<CommunityLayoutTextType> = {
     close: '關閉',
     fanplusCommunity: 'Fanplus 社區',
     bookmark: '關注',
-    asideMenus: ['全部', '自由消息面'],
+    asideMenus: ['全部', '綜合'],
   },
 };

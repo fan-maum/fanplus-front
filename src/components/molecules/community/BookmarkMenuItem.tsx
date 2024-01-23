@@ -1,5 +1,6 @@
 import BookmarkButton from '@/components/atoms/BookmarkButton';
 import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
+import { colors } from '@/styles/CommunityColors';
 import { BookmarksItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import Link from 'next/link';
@@ -54,10 +55,13 @@ const BookmarkMenuItemWrapper: any = styled.div`
   }
 
   .bookmark-link {
-    color: var(--color-light-80);
+    color: ${colors.gray[1000]};
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 6px;
 
     &[data-status='true'] {
-      color: var(--color-primary);
+      color: ${colors.primary[500]};
     }
   }
 `;
