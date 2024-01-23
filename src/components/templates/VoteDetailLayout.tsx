@@ -34,7 +34,7 @@ import VoteDetailImagePopup from '../modals/VoteDetailImagePopup';
 import { getVoteCookie, setVoteCookie } from '@/utils/voteCookie';
 import dayjs from 'dayjs';
 
-export interface VotesLayoutProps {
+export interface VotesDetailLayoutProps {
   voteDetails: VoteDetailResponse;
   dailyTicketCount: number;
   headers: [];
@@ -61,7 +61,7 @@ const VoteDetailLayout = ({
   headers,
   authCookie,
   isWebView,
-}: VotesLayoutProps) => {
+}: VotesDetailLayoutProps) => {
   const endDay = new Date(propsVoteDetails.RESULTS.DATAS.VOTE_INFO.END_DATE);
   const router = useRouter();
   const language = useUrlLanguage();

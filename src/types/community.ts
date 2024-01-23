@@ -25,14 +25,6 @@ export type RecentlyListResponseType = {
     TIMESTAMP: number;
   };
 };
-export type SubscriptionListResponseType = {
-  RESULTS: {
-    ERROR: number;
-    MSG: string;
-    DATAS: { SUBSCRIPTION_LIST: Array<BoardListItemType> };
-    TIMESTAMP: number;
-  };
-};
 
 export type BoardInfoType = Omit<BoardListItemType, 'STAR_IDX' | 'STAR_GROUP_IDX'> & {
   IS_GROUP: 'Y' | 'N';
@@ -306,19 +298,6 @@ export type CommentResponseType = {
   };
 };
 
-export type PostCommentResponseType = {
-  RESULTS: {
-    ERROR: number;
-    MSG: string;
-    DATAS: {
-      COMMENT_IDX: number;
-      FANFIC_EVENT_STATUS: string;
-      FANFIC_EVENT_DESC: string;
-    };
-    TIMESTAMP: number;
-  };
-};
-
 export type replyResponseType = {
   RESULTS: {
     ERROR: number;
@@ -343,15 +322,6 @@ export type PostBoardArticleResponseType = {
       POST_IDX: number;
       MESSAGE: string;
     };
-    TIMESTAMP: number;
-  };
-};
-
-export type reportCommentResponseType = {
-  RESULTS: {
-    ERROR: number;
-    MSG: string;
-    DATAS: {};
     TIMESTAMP: number;
   };
 };
@@ -587,53 +557,4 @@ export type subMenuItemType = {
   parentId: string;
   boardId: string;
   slug: string;
-};
-
-export type sideMenuPhotoCardBoardInfo = {
-  IDX: string;
-  BASE_LANG: string;
-  LEVEL: null;
-  LEVEL_EXP: null;
-  BOARD_ICON: string;
-  HEAD_IMG: string | null;
-  SUBSCRIPTION_CNT: string;
-  BOOKMARK_CNT: string;
-  RECOMMEND_CNT: string;
-  RANK_SCORE: number;
-  OWNER_IDX: string;
-  IS_DISPLAY: 'Y' | 'N';
-  IS_REMOVE: 'Y' | 'N';
-  IS_BLIND: 'Y' | 'N';
-  INS_DATE: string;
-  UPD_DATE: string | null;
-  REMOVE_DATE: string | null;
-  POST_CNT: string;
-  DEFAULT_TOPIC: number;
-  NEW_POST_DATE: string | null;
-  photocard_board_lang: Array<sideMenuPhotoCardBoardLang>;
-};
-
-export type sideMenuPhotoCardBoardLang = {
-  IDX: string;
-  BOARD_IDX: string;
-  LANG_TYPE: string;
-  TITLE: string;
-  DISCRIPTION: string;
-  INS_DATE: string;
-  UPD_DATE: string;
-};
-
-export type sideMenuLang = {
-  id: number;
-  menuId: string;
-  lang: UrlLangType;
-  title: string;
-};
-
-export type sideMenuBoard = {
-  TITLE: string;
-  BOARD_TITLE: string;
-  HEAD_IMG: string;
-  POST_CNT: string;
-  isExistNewPost: boolean;
 };

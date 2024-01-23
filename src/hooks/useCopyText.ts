@@ -2,12 +2,6 @@ import { VoteDetailStars } from '@/types/vote';
 import { getIndexByVotes } from '@/utils/util';
 import { useRouter } from 'next/router';
 
-export interface useCopiedTextProps {
-  star: VoteDetailStars | null;
-  titleText: Array<string>;
-  middleText: Array<string>;
-  endText: Array<string>;
-}
 export function useCopiedText(
   star: VoteDetailStars | null,
   titleText: Array<string>,

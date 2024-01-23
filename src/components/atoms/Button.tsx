@@ -1,5 +1,4 @@
-import { DefaultProps, getDefaultProps } from '@/styles/DefaultProps';
-import { ButtonHTMLAttributes, HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react';
 import { UnstyledButton } from './UnstyledButton';
 
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {}
