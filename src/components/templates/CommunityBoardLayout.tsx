@@ -41,13 +41,6 @@ const CommunityBoardLayout = ({
   communityNoticeBannerData,
   children,
 }: CommunityBoardPropTypes & CommunityBoardLayoutPropTypes) => {
-  //eslint-disable-next-line no-console
-  console.log('communityBoardSSRdata', communityBoardSSRdata);
-  //eslint-disable-next-line no-console
-  console.log('communityBoardTopics', communityBoardTopics);
-  //eslint-disable-next-line no-console
-  console.log('communityNoticeBannerData', communityNoticeBannerData);
-
   const router = useRouter();
   const { urlLang, userId, isAdminAccount, boardLangCookie, maxPage } = queryParams;
   const texts = communityBoardTexts[urlLang];

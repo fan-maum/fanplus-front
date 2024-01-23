@@ -18,9 +18,6 @@ const MyPostPage = ({
   communityMyPostData,
   user,
 }: MyPostPageProps & { user: PartialUserType }) => {
-  // eslint-disable-next-line no-console
-  console.log('communityMyPostData', communityMyPostData);
-
   return (
     <CommunityMainLayout urlLang={urlLang} user={user} withBestNotices>
       <CommunityMyPostTemplate
