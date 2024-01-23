@@ -36,7 +36,7 @@ const CommunityBoardArticleTable = ({
 }: BoardArticleTableProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
-  const isBoardNameTableHeader = boardType === 'community' || boardType === 2291;
+  const isBoardNameTableHeader = boardType === 'community' || boardType === '2291';
   const tableHeader = isBoardNameTableHeader ? 'board' : 'topic';
 
   const handlePageChange = async (selectedItem: { selected: number }) => {

@@ -21,7 +21,7 @@ const BestNoticeItem = ({
 
   return (
     <Link
-      href={`/${urlLang}/community/board/${boardIndex}/${postIndex}?page=0&from=${bestPopularBoardIndex}`}
+      href={`/${urlLang}/community/board/${boardIndex}/${postIndex}?page=1&from=${bestPopularBoardIndex}`}
       css={{
         display: 'flex',
         alignItems: 'center',
