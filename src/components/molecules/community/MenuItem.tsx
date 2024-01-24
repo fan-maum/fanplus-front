@@ -85,7 +85,7 @@ const MenuItemWrapper = styled.div`
   .menuTitle.subMenuItem {
     font-size: 14px;
     font-weight: 400;
-    padding-left: 6px;
+    padding-left: 8px;
   }
 
   &[data-active='true'] {

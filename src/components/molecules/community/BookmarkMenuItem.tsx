@@ -58,7 +58,7 @@ const BookmarkMenuItemWrapper: any = styled.div`
     color: ${colors.gray[1000]};
     font-size: 14px;
     font-weight: 400;
-    padding-left: 6px;
+    padding-left: 8px;
 
     &[data-status='true'] {
       color: ${colors.primary[500]};
