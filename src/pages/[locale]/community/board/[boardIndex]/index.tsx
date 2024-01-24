@@ -16,44 +16,29 @@ import type {
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
+import { CommunityBoardPropTypes } from '../..';
 
-export type CommunityBoardPropType = {
-  urlLang: UrlLangType;
-  userId: string;
-  isAdminAccount: boolean;
-  boardLangCookie: BoardLangType;
-  communityBoardDataSSR: CommunityBoardResponseType;
+export interface BoardPropType extends CommunityBoardPropTypes {
+  communityBoardSSRdata: CommunityBoardResponseType;
   communityBoardTopics: CommunityBoardTopicResponseType;
   communityNoticeBannerData: CommunityNoticeBannerResponseType;
-  initialProps: {
-    page: number;
-    serverLang: ServerLangType;
-    boardLangCookie: BoardLangType;
-    topic: number;
-    view_type: string;
-  };
-};
+}
 
 const Board = ({
-  urlLang,
-  userId,
-  isAdminAccount,
-  boardLangCookie,
-  communityBoardDataSSR,
+  queryParams,
+  communityBoardSSRdata,
   communityBoardTopics,
   communityNoticeBannerData,
   initialProps,
   user,
-}: CommunityBoardPropType & { user: PartialUserType }) => {
+}: BoardPropType & { user: PartialUserType }) => {
+  const { urlLang } = queryParams;
   return (
     <>
       <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput withBestNotices>
         <CommunityBoardTemplate
-          urlLang={urlLang}
-          userId={userId}
-          isAdminAccount={isAdminAccount}
-          boardLangCookie={boardLangCookie}
-          communityBoardDataSSR={communityBoardDataSSR}
+          queryParams={queryParams}
+          communityBoardSSRdata={communityBoardSSRdata}
           communityBoardTopics={communityBoardTopics}
           communityNoticeBannerData={communityNoticeBannerData}
           initialProps={initialProps}
@@ -65,46 +50,45 @@ const Board = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
-  const userId = cookies['user_id'] || '';
-  const userIdx = cookies['user_idx'] || '';
-  const isAdminAccount = userIdx === process.env.ADMIN_ACCOUNT_IDX;
-
-  const boardIndex = parseInt(context.query.boardIndex as string);
-  const page = parseInt(context.query.page as string) || 1;
+  const userId = context.req.cookies.user_id || '';
+  const user_idx = context.req.cookies.user_idx;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
-  const topic = parseInt(context.query.topic as string) || 0;
   const view_type = (context.query.view as string) || 'all';
+  const page = parseInt(context.query.page as string) - 1 || 1;
+  const maxPage = 10;
+  const topic = parseInt(context.query.topic as string) || 0;
+  const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
+  const boardType = parseInt(context.query.boardIndex as string);
 
-  if (!boardIndex) return { notFound: true };
+  if (!boardType) return { notFound: true };
 
-  const communityBoardDataSSR = await getCommunityBoardData(
+  const communityBoardSSRdata: CommunityBoardResponseType = await getCommunityBoardData(
     userId,
-    boardIndex,
+    boardType,
     page,
     serverLang,
     boardLangCookie,
+    view_type,
     topic,
-    view_type
+    maxPage
   );
-  const communityBoardTopics = await getCommunityBoardTopics(boardIndex, serverLang);
-  const communityNoticeBannerData = await getCommunityNoticeBannerData(boardIndex, serverLang);
-  const initialProps = { page, serverLang, boardLangCookie, topic, view_type };
 
+  const communityBoardTopics = await getCommunityBoardTopics(boardType, serverLang);
+  const communityNoticeBannerData = await getCommunityNoticeBannerData(boardType, serverLang);
+  const queryParams = { urlLang, userId, isAdminAccount, boardLangCookie, maxPage };
+  const initialProps = { page, serverLang, boardLangCookie, view_type, topic };
   const props = {
-    urlLang,
-    userId,
-    isAdminAccount,
-    boardLangCookie,
-    communityBoardDataSSR,
+    queryParams,
+    communityBoardSSRdata,
     communityBoardTopics,
     communityNoticeBannerData,
     initialProps,
   };
 
-  if (!!userId && !!userIdx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, userIdx)).RESULTS.DATAS;
+  if (!!userId && !!user_idx) {
+    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
     const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
     return { props: { ...props, user } };
   }

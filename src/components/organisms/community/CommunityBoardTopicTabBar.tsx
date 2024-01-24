@@ -3,7 +3,7 @@ import type { TopicListItemType } from '@/types/community';
 
 type TopicTabBarPropType = {
   stringTopicAll: string;
-  topicList: TopicListItemType[];
+  topicList: TopicListItemType[] | undefined;
   topicIndex: number;
   onClickTopic: (topic: number) => void;
 };
@@ -33,8 +33,9 @@ const CommunityBoardTopicTabBar = ({
       }}
     >
       <Topic title={stringTopicAll} selected={topicIndex === 0} onClick={() => onClickTopic(0)} />
-      {topicList.length > 1 &&
-        topicList.map((topic, idx) => {
+      {topicList &&
+        topicList.length > 1 &&
+        topicList?.map((topic, idx) => {
           return (
             <Topic
               title={topic.NAME}

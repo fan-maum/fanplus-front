@@ -37,7 +37,7 @@ const CommunityBoardNoticeBanner = ({ bannerList }: OwnPropType) => {
         '.swiper-pagination-bullet-active': { backgroundColor: '#ff5656' },
       }}
     >
-      {bannerList.map((banner, idx) => {
+      {bannerList?.map((banner, idx) => {
         return (
           <SwiperSlide key={idx}>
             <NoticeBanner bannerData={banner} />

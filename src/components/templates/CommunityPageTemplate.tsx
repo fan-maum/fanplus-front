@@ -1,32 +1,30 @@
 import NotificationBoard from '../molecules/community/NotificationBoard';
 import HorizontalBestNotices from '../molecules/community/HorizontalBestNotices';
-import { CommunityBestBoardPropTypes, CommunityPropTypes } from '@/pages/[locale]/community';
-import CommunityMainBoard from '../organisms/community/CommunityMainBoard';
+import { CommunityBoardAllPropTypes, CommunityBoardPropTypes } from '@/pages/[locale]/community';
 import { useRouter } from 'next/router';
 import { useMediaQuery } from 'react-responsive';
 import { TabBar } from '../molecules/community/TabBar';
 import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import { useState } from 'react';
-import CommunityBoardWrapper from '../organisms/community/CommunityBoardWrapper';
+import CommunityBoardLayout from './CommunityBoardLayout';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
 
 const CommunityPageTemplate = ({
-  urlLang,
-  userId,
-  isAdminAccount,
-  boardLangCookie,
-  communityMainBoardDataSSR,
+  queryParams,
+  communityHomeSSRdata,
+  communityBestBoardSSRdata,
   initialProps,
-  communityBoardDataSSR,
-  initialBestBoardProps,
-}: CommunityPropTypes & CommunityBestBoardPropTypes) => {
+}: CommunityBoardPropTypes & CommunityBoardAllPropTypes) => {
   const router = useRouter();
-  const { boardType = 'community' } = router.query;
+  const { urlLang } = queryParams;
   const isMobile = useMediaQuery({ query: '(max-width:768px)' });
   const texts = communityMainPageTexts[urlLang];
+  const boardTexts = communityBoardTexts[urlLang];
+  const HomeBoardType = 'community';
+  const BestBoardType = 2291;
 
   const [tabBar, setTabBar] = useState((router.query.tab as string) || 'community');
   const searchTabState = useState(texts.boardMain);
-  const [activeTabState] = searchTabState;
 
   return (
     <div
@@ -53,14 +51,12 @@ const CommunityPageTemplate = ({
         <NotificationBoard />
       </div>
       {!isMobile ? (
-        <CommunityMainBoard
-          urlLang={urlLang}
-          userId={userId}
-          isAdminAccount={isAdminAccount}
-          boardLangCookie={boardLangCookie}
-          communityMainBoardDataSSR={communityMainBoardDataSSR}
-          boardType={boardType}
+        <CommunityBoardLayout
+          queryParams={queryParams}
+          communityBoardSSRdata={communityHomeSSRdata}
           initialProps={initialProps}
+          boardType={HomeBoardType}
+          boardTitle={boardTexts.bottomTabBar.all}
         />
       ) : (
         <div>
@@ -73,25 +69,20 @@ const CommunityPageTemplate = ({
             searchTabState={searchTabState}
           />
           {tabBar === 'community' ? (
-            <CommunityMainBoard
-              urlLang={urlLang}
-              userId={userId}
-              isAdminAccount={isAdminAccount}
-              boardLangCookie={boardLangCookie}
-              communityMainBoardDataSSR={communityMainBoardDataSSR}
-              boardType={boardType}
+            <CommunityBoardLayout
+              queryParams={queryParams}
+              communityBoardSSRdata={communityHomeSSRdata}
               initialProps={initialProps}
+              boardType={HomeBoardType}
+              boardTitle={boardTexts.bottomTabBar.all}
             />
           ) : (
-            <CommunityBoardWrapper
-              urlLang={urlLang}
-              userId={userId}
+            <CommunityBoardLayout
+              queryParams={queryParams}
+              communityBoardSSRdata={communityBestBoardSSRdata}
+              initialProps={initialProps}
+              boardType={BestBoardType}
               boardTitle={texts.bestPopular}
-              boardType={'mainBestPopular'}
-              isAdminAccount={isAdminAccount}
-              boardLangCookie={boardLangCookie}
-              communityBoardDataSSR={communityBoardDataSSR}
-              initialProps={initialBestBoardProps}
             />
           )}
         </div>

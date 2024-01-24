@@ -13,7 +13,7 @@ import { communityBoardTexts } from '@/texts/communityBoardTexts';
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
   boardLang: BoardLangType;
-  boardType?: string | string[];
+  boardType: string | number;
   menuId: number | undefined;
   isBookmarked: boolean;
   setLangModal: Dispatch<SetStateAction<boolean>>;
@@ -33,7 +33,7 @@ const CommunityBoardTopNavi = ({
   const userId = getCookie('user_id');
   const urlLang = useUrlLanguage();
   const texts = communityBoardTexts[urlLang];
-  const isBestBoard = Number(router.query.boardIndex) === 2291;
+  const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
@@ -100,7 +100,7 @@ const CommunityBoardTopNavi = ({
             onClickOpenModal={() => setLangModal(true)}
             boardLang={boardLang}
           />
-          {!boardType && !isBestBoard && (
+          {!isCommunityOrBestBoard && (
             <button
               css={{
                 padding: '5px 8px',

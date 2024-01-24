@@ -3,7 +3,11 @@ import CommunityBoardArticleMobile from '@/components/molecules/community/Commun
 import CommunityBoardArticleTableHeader from '@/components/molecules/community/CommunityBoardArticleTableHeader';
 import { CommunityBoardArticleTableSkeleton } from '@/components/molecules/community/CommunitySkeleton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import type { CommunityBoardResponseType } from '@/types/community';
+import type {
+  CommunityBoardAllResponseType,
+  CommunityBoardMyPostResponseType,
+  CommunityBoardResponseType,
+} from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 import CommunityBoardPagination from '../CommunityBoardPagination';
@@ -12,28 +16,28 @@ import CommunityBoardNoticeArticleMobile from '@/components/molecules/community/
 
 type BoardArticleTableProps = {
   communityBoardData: CommunityBoardResponseType;
-  communityBoardDataSSR: CommunityBoardResponseType;
+  communityBoardSSRdata:
+    | CommunityBoardResponseType
+    | CommunityBoardAllResponseType
+    | CommunityBoardMyPostResponseType;
   isFetching: boolean;
   texts: CommunityBoardTextType;
-  isStarBoardTableHeader?: boolean;
+  boardType: string | number;
   onClickWrite: () => void;
 };
 
 const CommunityBoardArticleTable = ({
   communityBoardData,
-  communityBoardDataSSR,
+  communityBoardSSRdata,
   isFetching,
   texts,
-  isStarBoardTableHeader,
+  boardType,
   onClickWrite,
 }: BoardArticleTableProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
-  const { boardIndex: urlBoardIndex } = router.query;
-  const isBestBoard = urlBoardIndex === '2291' || router.query.boardType === '2291';
-  const currentBoardIndex = isBestBoard ? 2291 : Number(router.query.boardIndex);
-
-  const tableHeader = isStarBoardTableHeader || isBestBoard ? 'board' : 'topic';
+  const isBoardNameTableHeader = boardType === 'community' || boardType === '2291';
+  const tableHeader = isBoardNameTableHeader ? 'board' : 'topic';
 
   const handlePageChange = async (selectedItem: { selected: number }) => {
     router.replace({ query: { ...router.query, page: selectedItem.selected + 1 } }, undefined, {
@@ -42,9 +46,9 @@ const CommunityBoardArticleTable = ({
     });
   };
 
-  const noticeList = (communityBoardData || communityBoardDataSSR).NOTICE;
-  const postList = (communityBoardData || communityBoardDataSSR).POST_LIST;
-  const boardInfo = (communityBoardData || communityBoardDataSSR).BOARD_INFO;
+  const noticeList = (communityBoardData || communityBoardSSRdata).NOTICE;
+  const postList = (communityBoardData || communityBoardSSRdata).POST_LIST;
+  const boardInfo = (communityBoardData || communityBoardSSRdata).BOARD_INFO;
 
   const isPostExist = !(
     postList?.length === 0 &&
@@ -62,7 +66,7 @@ const CommunityBoardArticleTable = ({
     );
   }
   const urlPage = router.query.page || 1;
-  const urlPath = currentBoardIndex;
+  const urlPath = boardType;
 
   const noticeHeader = (
     <div
@@ -111,24 +115,21 @@ const CommunityBoardArticleTable = ({
             <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle
                 postItem={post}
-                firstHeader={
-                  isStarBoardTableHeader || isBestBoard ? post.BOARD_TITLE : post.TOPIC_NAME
-                }
+                firstHeader={isBoardNameTableHeader ? post.BOARD_TITLE : post.TOPIC_NAME}
                 link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
               />
               <CommunityBoardArticleMobile
                 postItem={post}
                 link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
                 texts={texts}
-                showTopic={isStarBoardTableHeader || isBestBoard ? false : true}
+                showTopic={isBoardNameTableHeader ? false : true}
               />
             </li>
           );
         })}
       </ul>
       <CommunityBoardPagination
-        totalCount={Number(boardInfo?.POST_CNT)}
-        viewPossiblePage={0}
+        viewPossiblePage={Number(boardInfo.VIEW_POSSIBLE_PAGE)}
         handlePageChange={handlePageChange}
       />
     </div>

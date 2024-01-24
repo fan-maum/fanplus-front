@@ -16,6 +16,7 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap"
           rel="stylesheet"
         />
+        <meta charSet="utf-8" />
         <meta name="naver-site-verification" content="4d5dbdbe2508c448e840647635819a72e499c28e" />
       </Head>
       <body>

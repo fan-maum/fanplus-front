@@ -37,6 +37,7 @@ export const TabBar = ({
               ...router.query,
               boardType: tabItems[0],
               locale: router.query.locale,
+              page: 1,
             },
           });
         }}
@@ -52,6 +53,7 @@ export const TabBar = ({
               ...router.query,
               boardType: tabItems[1],
               locale: router.query.locale,
+              page: 1,
             },
           });
         }}
