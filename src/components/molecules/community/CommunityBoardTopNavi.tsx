@@ -54,7 +54,7 @@ const CommunityBoardTopNavi = ({
           justifyContent: 'space-between',
           height: 40,
           marginTop: 20,
-          '@media (max-width: 768px)': { padding: '0 16px', height: 'auto' },
+          '@media (max-width: 768px)': { padding: '0 16px' },
         }}
       >
         <div
