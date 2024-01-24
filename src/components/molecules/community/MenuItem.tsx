@@ -4,7 +4,6 @@ import { sideMenuItemType } from '@/types/community';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { BookmarksItemType } from '@/types/community';
 import { getCookie } from '@/utils/Cookie';
 import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
 
@@ -31,8 +30,12 @@ const MenuItem = ({ menuTitle, href, menuData, className }: MenuItemProps) => {
     }
   };
 
+  const isActiveMainCommunity = menuData.slug === 'all' && router.route === '/[locale]/community';
+  const isDataActive =
+    isActiveMainCommunity || [Number(boardIndex)].includes(Number(menuData.boardId));
+
   return (
-    <MenuItemWrapper data-active={[Number(boardIndex)].includes(Number(menuData.boardId))}>
+    <MenuItemWrapper data-active={isDataActive}>
       <Link href={href} className="board-link">
         <span className={`menuTitle ${className}`}>{menuTitle}</span>
         {menuData.isExistNewPost && (
