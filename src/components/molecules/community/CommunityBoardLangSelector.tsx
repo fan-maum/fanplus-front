@@ -37,28 +37,29 @@ const CommunityBoardLangSelector = ({ onClickOpenModal, boardLang }: OwnPropType
         }}
       >
         <IconFilter />
-        <span css={{ margin: '0px 5px' }}>{language}</span>
+        <span css={{ margin: '0px 5px', fontSize: '12px', fontWeight: 400 }}>{language}</span>
         <IconArrowDown width="11" height="6" strokeWidth="3" />
       </div>
       <span
         className="tooltip"
         css={{
           position: 'absolute',
-          top: '27px',
-          right: '21px',
+          top: '20px',
+          right: '16px',
           whiteSpace: 'nowrap',
           visibility: isTooltip ? 'visible' : 'hidden',
-          padding: '6px 9px',
+          padding: '4px 14px',
           borderRadius: '12px',
           backgroundColor: '#000',
           color: '#fff',
-          fontSize: '12px',
+          fontSize: '10px',
+          fontWeight: 500,
           '::after': {
             content: "' '",
             position: 'absolute',
-            right: '20%',
-            top: '-12px',
-            border: '6px solid',
+            right: '12%',
+            top: '-10px',
+            border: '5px solid',
             borderColor: 'transparent transparent #000 transparent',
           },
         }}
