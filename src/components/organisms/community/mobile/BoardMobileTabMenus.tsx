@@ -19,6 +19,7 @@ const BoardMobileTabMenusButton = styled.div`
   display: flex;
   width: 24px;
   height: 24px;
+  margin-bottom: 10px;
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
@@ -33,6 +34,6 @@ const BoardMobileTabMenusButton = styled.div`
   }
 
   > img {
-    width: 24px;
+    width: 100%;
   }
 `;

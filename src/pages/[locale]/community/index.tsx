@@ -2,6 +2,7 @@ import { getCommunityBoardData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
+import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
   CommunityBoardAllResponseType,
@@ -9,7 +10,9 @@ import type {
   PartialUserType,
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import nookies from 'nookies';
+import { useState } from 'react';
 
 export interface CommunityBoardPropTypes {
   queryParams: {
@@ -41,13 +44,26 @@ const CommunityHomePage = ({
   initialProps,
 }: CommunityBoardPropTypes & { user: PartialUserType } & CommunityBoardAllPropTypes) => {
   const { urlLang } = queryParams;
+  const router = useRouter();
+  const texts = communityMainPageTexts[urlLang];
+  const tabBarState = useState((router.query.tab as string) || 'community');
+  const searchTabState = useState(texts.boardMain);
+
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
+    <CommunityMainLayout
+      urlLang={urlLang}
+      user={user}
+      withSearchInput
+      tabBarState={tabBarState}
+      searchTabState={searchTabState}
+    >
       <CommunityPageTemplate
         queryParams={queryParams}
         communityHomeSSRdata={communityHomeSSRdata}
         communityBestBoardSSRdata={communityBestBoardSSRdata}
         initialProps={initialProps}
+        tabBarState={tabBarState}
+        searchTabState={searchTabState}
       />
     </CommunityMainLayout>
   );

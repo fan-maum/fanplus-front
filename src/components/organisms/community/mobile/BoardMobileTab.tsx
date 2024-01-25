@@ -6,13 +6,26 @@ import { useRouter } from 'next/router';
 import { MultiBoardsInquiryItemType, MultiBoardsInquiryResponseType } from '@/types/community';
 import BoardMobileTitle from '@/components/molecules/community/mobile/BoardMobileTitle';
 import BoardDomains from '../BoardDomains';
+import { TabBar } from '@/components/molecules/community/mobile/TabBar';
+import { CommunityPageTextType } from '@/types/textTypes';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { Dispatch, SetStateAction } from 'react';
 
 type BoardMobileTabProps = {
   setOpenSidebar: Dispatch<SetStateAction<boolean>>;
+  tabBar: string;
+  texts: CommunityPageTextType;
+  setTabBar: Dispatch<SetStateAction<string>>;
+  searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
 };
-const BoardMobileTab = ({ setOpenSidebar }: BoardMobileTabProps) => {
+
+const BoardMobileTab = ({
+  setOpenSidebar,
+  tabBar,
+  texts,
+  setTabBar,
+  searchTabState,
+}: BoardMobileTabProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const serverLang = useServerLang();
@@ -20,7 +33,7 @@ const BoardMobileTab = ({ setOpenSidebar }: BoardMobileTabProps) => {
   const mainMenuBoardList = [Number(boardIndex)];
   const boardList = [Number(boardIndex), ...mainMenuBoardList];
   const viewType = (router.query.view as string) || 'all';
-  const texts = communityBoardTexts[urlLang];
+  const boardTexts = communityBoardTexts[urlLang];
 
   const { data } = useGetMultiBoardsInquiryQuery(serverLang, boardList);
   const boardBySlugs: MultiBoardsInquiryResponseType = data ?? [];
@@ -31,7 +44,15 @@ const BoardMobileTab = ({ setOpenSidebar }: BoardMobileTabProps) => {
       <BoardMobileTitle boardInfo={boardInfo} />
       <div className="boardMobileTabAllMenu-wrapper">
         <BoardMobileTabMenus setOpenSidebar={setOpenSidebar} />
-        <BoardDomains viewType={viewType} boardDomainTexts={texts.bottomTabBar} />
+        <TabBar
+          tabTitles={{ firstTab: texts.boardMain, secondTab: texts.bestPopular }}
+          tabItems={['community', '2291']}
+          tabBar={tabBar}
+          texts={texts}
+          setTabBar={setTabBar}
+          searchTabState={searchTabState}
+        />
+        {/* <BoardDomains viewType={viewType} boardDomainTexts={boardTexts.bottomTabBar} /> */}
       </div>
     </BoardMobileTabWrapper>
   );
@@ -53,7 +74,8 @@ const BoardMobileTabWrapper: any = styled.div`
       align-items: center;
       display: none;
       @media (max-width: 768px) {
-        display: block;
+        display: flex;
+        align-items: end;
       }
     }
   }

@@ -2,13 +2,13 @@ import { CommunityPageTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 
-type TabBarPropTypes = {
+export type TabBarPropTypes = {
   tabTitles: {
     firstTab: string;
     secondTab: string;
   };
-  tabItems: [string, string];
   tabBar: string;
+  tabItems: [string, string];
   texts: CommunityPageTextType;
   setTabBar: Dispatch<SetStateAction<string>>;
   searchTabState: [string, React.Dispatch<React.SetStateAction<any>>];
@@ -24,7 +24,7 @@ export const TabBar = ({
 }: TabBarPropTypes) => {
   const router = useRouter();
   return (
-    <ul css={{ width: '100%', display: 'flex', margin: '20px 0px' }}>
+    <ul css={{ width: '100%', display: 'flex', marginTop: '20px' }}>
       <TabBarItem
         title={tabTitles.firstTab}
         selected={tabBar === tabItems[0]}
@@ -46,6 +46,7 @@ export const TabBar = ({
         title={tabTitles.secondTab}
         selected={tabBar === tabItems[1]}
         onClick={() => {
+          setActiveTab(texts.bestPopular);
           setTabBar(tabItems[1]);
           router.push({
             pathname: router.pathname,
@@ -77,12 +78,14 @@ export const TabBarItem = ({
         width: '50%',
         height: '40px',
         lineHeight: '37px',
-        fontSize: '16px',
+        fontSize: '14px',
         fontWeight: '600',
         color: selected ? '#ff5656' : '#999999',
         borderBottom: `2.5px solid ${selected ? '#ff5656' : '#d9d9d9'}`,
         textAlign: 'center',
         cursor: 'pointer',
+        wordBreak: 'break-word',
+        whiteSpace: 'nowrap',
       }}
       onClick={onClick}
     >
