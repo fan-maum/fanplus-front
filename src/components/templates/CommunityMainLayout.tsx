@@ -12,8 +12,9 @@ import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
 import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
-import { communityMainPageTexts } from '@/texts/communityMainPageTexts';
-import { TabPropTypes } from './CommunityPageTemplate';
+import { getCookie } from '@/utils/Cookie';
+import { useRecoilState } from 'recoil';
+import { openSideBarState } from '@/store/community';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -28,14 +29,11 @@ const CommunityMainLayout = ({
   user,
   withSearchInput,
   withBestNotices,
-  tabBarState: [tabBar, setTabBar],
-  searchTabState,
   children,
-}: CommunityMainLayoutProps & TabPropTypes) => {
+}: CommunityMainLayoutProps) => {
   const router = useRouter();
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useRecoilState(openSideBarState);
   const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
-  const texts = communityMainPageTexts[urlLang];
 
   return (
     <Layout urlLang={urlLang}>
@@ -60,13 +58,7 @@ const CommunityMainLayout = ({
                   '@media(max-width:960px)': { width: '100%', minWidth: 320, flex: 1 },
                 }}
               >
-                <BoardMobileTab
-                  setOpenSidebar={setOpenSidebar}
-                  tabBar={tabBar}
-                  texts={texts}
-                  setTabBar={setTabBar}
-                  searchTabState={searchTabState}
-                />
+                <BoardMobileTab setOpenSidebar={setOpenSidebar} />
                 {children}
               </div>
               {withBestNotices && <BestNotices />}

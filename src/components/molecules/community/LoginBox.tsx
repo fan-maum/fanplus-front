@@ -1,7 +1,9 @@
+import { openSideBarState } from '@/store/community';
 import { colors } from '@/styles/CommunityColors';
 import { CommunityPageTextType } from '@/types/textTypes';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 
 interface LoginBoxProps {
   loginTitle: string;
@@ -10,9 +12,15 @@ interface LoginBoxProps {
 const LoginBox = ({ loginTitle }: LoginBoxProps) => {
   const router = useRouter();
   const path = router.asPath;
+  const setOpenSidebar = useSetRecoilState(openSideBarState);
 
   return (
-    <LoginBoxWrapper onClick={() => router.push({ pathname: '/login', query: { nextUrl: path } })}>
+    <LoginBoxWrapper
+      onClick={() => {
+        setOpenSidebar(false);
+        router.push({ pathname: '/login', query: { nextUrl: path } });
+      }}
+    >
       <img src="/fanplusLogo.svg" alt="fanplus logo" />
       <button>{loginTitle}</button>
     </LoginBoxWrapper>

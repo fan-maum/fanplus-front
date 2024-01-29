@@ -9,6 +9,9 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 import { getCookie } from '@/utils/Cookie';
 import CommunityBoardLangSelector from './CommunityBoardLangSelector';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import BoardMobileTabMenus from '@/components/organisms/community/mobile/BoardMobileTabMenus';
+import { useSetRecoilState } from 'recoil';
+import { openSideBarState } from '@/store/community';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
@@ -34,6 +37,9 @@ const CommunityBoardTopNavi = ({
   const urlLang = useUrlLanguage();
   const texts = communityBoardTexts[urlLang];
   const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
+  const isMainCommunity = router.route === '/[locale]/community';
+
+  const setOpenSidebar = useSetRecoilState(openSideBarState);
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
@@ -64,6 +70,7 @@ const CommunityBoardTopNavi = ({
             '@media (max-width: 768px)': { maxWidth: '48%' },
           }}
         >
+          {!isMainCommunity && <BoardMobileTabMenus setOpenSidebar={setOpenSidebar} />}
           {!boardType && (
             <IconArrowLeft
               iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
