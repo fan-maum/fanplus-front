@@ -25,6 +25,7 @@ const HorizontalBestNoticeItem = ({
       css={{
         display: 'flex',
         gap: 14,
+        height: 18,
         width: '100%',
         alignItems: 'center',
       }}
