@@ -18,6 +18,7 @@ export default BoardMobileTabMenus;
 const BoardMobileTabMenusButton = styled.div`
   display: flex;
   width: 24px;
+  min-width: 24px;
   height: 24px;
   align-items: center;
   justify-content: space-around;
