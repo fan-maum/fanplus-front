@@ -16,6 +16,7 @@ type MenuItemProps = {
 
 const MenuItem = ({ menuTitle, href, menuData, className }: MenuItemProps) => {
   const router = useRouter();
+  const path = router.asPath;
   const { boardIndex } = router.query;
   const user_id = getCookie('user_id');
   const isBookmarked = menuData.isBookmarked;
@@ -23,6 +24,10 @@ const MenuItem = ({ menuTitle, href, menuData, className }: MenuItemProps) => {
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
   const handleBookmarkOnClick = (menuId: number) => {
+    if (!user_id) {
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+      return;
+    }
     if (isBookmarked) {
       useRemoveBookmark.mutate({ identity: user_id, menuId });
     } else {

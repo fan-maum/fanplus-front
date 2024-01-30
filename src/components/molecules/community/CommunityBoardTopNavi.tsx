@@ -33,7 +33,8 @@ const CommunityBoardTopNavi = ({
   onClickWrite,
 }: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
-  const userId = getCookie('user_id');
+  const path = router.asPath;
+  const user_id = getCookie('user_id');
   const urlLang = useUrlLanguage();
   const texts = communityBoardTexts[urlLang];
   const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
@@ -44,10 +45,14 @@ const CommunityBoardTopNavi = ({
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
   const handleBookmarkOnClick = async (menuId: number) => {
+    if (!user_id) {
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+      return;
+    }
     if (isBookmarked) {
-      useRemoveBookmark.mutate({ identity: userId, menuId });
+      useRemoveBookmark.mutate({ identity: user_id, menuId });
     } else {
-      useAddBookmark.mutate({ identity: userId, menuId });
+      useAddBookmark.mutate({ identity: user_id, menuId });
     }
   };
 
