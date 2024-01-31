@@ -4,18 +4,20 @@ import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import PopularBoards from '../molecules/community/PopularBoards';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import styled from '@emotion/styled';
-import { PartialUserType } from '@/types/community';
+import { BookmarksResponseType, PartialUserType } from '@/types/community';
 
 type mobileSidebarProps = {
   user: PartialUserType | undefined;
   openSidebar: boolean;
   setOpenSidebar: Dispatch<SetStateAction<boolean>>;
+  bookmarks: BookmarksResponseType;
 };
 
 const CommunityMobileSidebar = ({
   user,
   openSidebar,
   setOpenSidebar,
+  bookmarks,
   ...props
 }: mobileSidebarProps) => {
   const sidebarProps: DrawerProps = {
@@ -49,7 +51,7 @@ const CommunityMobileSidebar = ({
     <Drawer {...sidebarProps} withCloseButton={false}>
       <MainAside>
         <MainAsideUserCard user={user} />
-        <MainAsideMenus />
+        <MainAsideMenus bookmarks={bookmarks} />
         <PopularBoards />
       </MainAside>
     </Drawer>

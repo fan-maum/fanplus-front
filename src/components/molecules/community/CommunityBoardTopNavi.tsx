@@ -10,7 +10,7 @@ import { getCookie } from '@/utils/Cookie';
 import CommunityBoardLangSelector from './CommunityBoardLangSelector';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useQueryClient } from 'react-query';
-import { BookmarksResponseType } from '@/types/community';
+import { BookmarksItemType } from '@/types/community';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
@@ -35,17 +35,13 @@ const CommunityBoardTopNavi = ({
   const texts = communityBoardTexts[urlLang];
   const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
   const queryClient = useQueryClient();
-  const bookmarks: BookmarksResponseType = queryClient.getQueryData([
-    'bookmarks',
-    { user_id: userId, urlLang },
-  ]);
-
-  const bookmarkDatas: Array<object> = queryClient.getQueriesData('bookmarks')[0][1];
+  const bookmarkQueryData: any = queryClient.getQueriesData('bookmarks')[0][1];
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
-  const bookmarkData =
-    bookmarkDatas && bookmarkDatas.find((bookmark) => Number(bookmark.id) === menuId);
+  const bookmarkData = bookmarkQueryData.find(
+    (bookmark: BookmarksItemType) => Number(bookmark.id) === menuId
+  );
   const bookmarked = bookmarkData ? bookmarkData.isBookmarked : false;
 
   const handleBookmarkOnClick = async (menuId: number) => {

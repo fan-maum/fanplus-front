@@ -67,6 +67,7 @@ const CommunityMainLayout = ({
         user={user}
         openSidebar={openSidebar}
         setOpenSidebar={setOpenSidebar}
+        bookmarks={bookmarks}
       />
     </Layout>
   );
