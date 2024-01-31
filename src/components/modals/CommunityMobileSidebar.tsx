@@ -1,4 +1,4 @@
-import { Drawer, DrawerProps, Modal, ModalProps } from '@mantine/core';
+import { Drawer, DrawerProps } from '@mantine/core';
 import { Dispatch, SetStateAction } from 'react';
 import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import PopularBoards from '../molecules/community/PopularBoards';
@@ -22,7 +22,7 @@ const CommunityMobileSidebar = ({
     styles: () => ({
       inner: {
         padding: '0 !important',
-        width: 230,
+        width: 262,
         height: '100%',
       },
       content: {
@@ -38,7 +38,7 @@ const CommunityMobileSidebar = ({
           height: '20px !important',
         },
       },
-      body: { padding: '0px' },
+      body: { padding: '16px' },
     }),
     zIndex: 200000,
     opened: openSidebar,

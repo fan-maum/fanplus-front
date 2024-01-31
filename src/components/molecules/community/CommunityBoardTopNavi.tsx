@@ -11,6 +11,9 @@ import CommunityBoardLangSelector from './CommunityBoardLangSelector';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useQueryClient } from 'react-query';
 import { BookmarksResponseType } from '@/types/community';
+import BoardMobileTabMenus from '@/components/organisms/community/mobile/BoardMobileTabMenus';
+import { useSetRecoilState } from 'recoil';
+import { openSideBarState } from '@/store/community';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
@@ -30,7 +33,8 @@ const CommunityBoardTopNavi = ({
   onClickWrite,
 }: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
-  const userId = getCookie('user_id');
+  const path = router.asPath;
+  const user_id = getCookie('user_id');
   const urlLang = useUrlLanguage();
   const texts = communityBoardTexts[urlLang];
   const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
@@ -41,6 +45,9 @@ const CommunityBoardTopNavi = ({
   ]);
 
   const bookmarkDatas: Array<object> = queryClient.getQueriesData('bookmarks')[0][1];
+  const isMainCommunity = router.route === '/[locale]/community';
+
+  const setOpenSidebar = useSetRecoilState(openSideBarState);
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
@@ -49,10 +56,14 @@ const CommunityBoardTopNavi = ({
   const bookmarked = bookmarkData ? bookmarkData.isBookmarked : false;
 
   const handleBookmarkOnClick = async (menuId: number) => {
-    if (bookmarked) {
-      useRemoveBookmark.mutate({ identity: userId, menuId });
+    if (!user_id) {
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+      return;
+    }
+    if (isBookmarked) {
+      useRemoveBookmark.mutate({ identity: user_id, menuId });
     } else {
-      useAddBookmark.mutate({ identity: userId, menuId });
+      useAddBookmark.mutate({ identity: user_id, menuId });
     }
   };
 
@@ -75,6 +86,7 @@ const CommunityBoardTopNavi = ({
             '@media (max-width: 768px)': { maxWidth: '48%' },
           }}
         >
+          {!isMainCommunity && <BoardMobileTabMenus setOpenSidebar={setOpenSidebar} />}
           {!boardType && (
             <IconArrowLeft
               iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
