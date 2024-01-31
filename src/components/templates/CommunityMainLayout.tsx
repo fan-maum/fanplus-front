@@ -2,7 +2,7 @@ import type { UrlLangType } from '@/types/common';
 import type { BookmarksResponseType, PartialUserType } from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { useState, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import BestNotices from '../molecules/community/BestNotices';
 import PopularBoards from '../molecules/community/PopularBoards';
 import Layout from '../organisms/Layout';
@@ -11,9 +11,9 @@ import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
-import { getCookie } from '@/utils/Cookie';
 import { useRecoilState } from 'recoil';
 import { openSideBarState } from '@/store/community';
+import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
