@@ -1,4 +1,4 @@
-import { getCommunityBoardData, getCommunityTypeBoardData, getUser } from '@/api/Community';
+import { getBookmarks, getCommunityBoardData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityMyPostTemplate from '@/components/templates/CommunityMyPostTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
@@ -6,6 +6,7 @@ import { BoardLangType, UrlLangType } from '@/types/common';
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 import type { CommunityBoardMyPostResponseType, PartialUserType } from '@/types/community';
+import { useQuery } from 'react-query';
 export interface MyPostPageProps {
   urlLang: UrlLangType;
   userId: string;
@@ -18,8 +19,13 @@ const MyPostPage = ({
   communityMyPostData,
   user,
 }: MyPostPageProps & { user: PartialUserType }) => {
+  const { data } = useQuery(['bookmarks', { userId, urlLang }], () =>
+    getBookmarks(userId, urlLang)
+  );
+  const bookmarks = data ?? [];
+
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} withBestNotices>
+    <CommunityMainLayout urlLang={urlLang} bookmarks={bookmarks} user={user} withBestNotices>
       <CommunityMyPostTemplate
         urlLang={urlLang}
         userId={userId}

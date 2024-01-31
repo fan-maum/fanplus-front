@@ -1,5 +1,5 @@
 import type { UrlLangType } from '@/types/common';
-import type { PartialUserType } from '@/types/community';
+import type { BookmarksResponseType, PartialUserType } from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState, type ReactNode } from 'react';
@@ -10,12 +10,12 @@ import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBo
 import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
-import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
 import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
   user?: PartialUserType;
+  bookmarks: BookmarksResponseType;
   withSearchInput?: boolean;
   withBestNotices?: boolean;
   children: ReactNode;
@@ -24,6 +24,7 @@ interface CommunityMainLayoutProps {
 const CommunityMainLayout = ({
   urlLang,
   user,
+  bookmarks,
   withSearchInput,
   withBestNotices,
   children,
@@ -38,7 +39,7 @@ const CommunityMainLayout = ({
         <div className="contents">
           <div className="mainAside">
             <MainAsideUserCard user={user} />
-            <MainAsideMenus />
+            <MainAsideMenus bookmarks={bookmarks} />
             <PopularBoards />
           </div>
           <div className="mainContent">
@@ -55,7 +56,6 @@ const CommunityMainLayout = ({
                   '@media(max-width:960px)': { width: '100%', minWidth: 320, flex: 1 },
                 }}
               >
-                {/* <BoardMobileTab setOpenSidebar={setOpenSidebar} /> */}
                 {children}
               </div>
               {withBestNotices && <BestNotices />}

@@ -1,4 +1,4 @@
-import { getCommunityPostData, getUser } from '@/api/Community';
+import { getBookmarks, getCommunityPostData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
@@ -8,6 +8,7 @@ import type { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
+import { useQuery } from 'react-query';
 
 export type CommunityPostPropType = {
   urlLang: UrlLangType;
@@ -29,6 +30,10 @@ const Post = ({
 }: CommunityPostPropType & { user: PartialUserType }) => {
   const router = useRouter();
   const url = process.env.NEXT_PUBLIC_CLIENT_URL + router.asPath;
+  const { data } = useQuery(['bookmarks', { userId: identity, urlLang }], () =>
+    getBookmarks(identity, urlLang)
+  );
+  const bookmarks = data ?? [];
 
   return (
     <>
@@ -45,7 +50,7 @@ const Post = ({
           images: [{ url: communityPostData.RESULTS.DATAS.POST_INFO.SUMNAIL_IMG }],
         }}
       />
-      <CommunityMainLayout urlLang={urlLang} user={user} withBestNotices>
+      <CommunityMainLayout urlLang={urlLang} user={user} bookmarks={bookmarks} withBestNotices>
         <CommunityPostTemplate
           urlLang={urlLang}
           identity={identity}

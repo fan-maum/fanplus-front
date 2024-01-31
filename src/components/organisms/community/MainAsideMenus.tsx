@@ -5,18 +5,15 @@ import MainBookmarkMenu from './MainBookmarkMenu';
 import MainMenuList from './MainMenuList';
 import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import { useQuery } from 'react-query';
-import { getBookmarks, getSideMenu } from '@/api/Community';
+import { getSideMenu } from '@/api/Community';
 import { getCookie } from '@/utils/Cookie';
+import { BookmarksResponseType } from '@/types/community';
 
-const MainAsideMenus = () => {
+const MainAsideMenus = ({ bookmarks }: { bookmarks: BookmarksResponseType }) => {
   const urlLang = useUrlLanguage();
   const serverLang = useServerLang();
   const texts = communityLayoutTexts[urlLang];
   const user_id = getCookie('user_id');
-
-  const { data } = useQuery(['bookmarks', { user_id, urlLang }], () =>
-    getBookmarks(user_id, urlLang)
-  );
 
   const { data: sideMenuData } = useQuery(['sideMenu', { serverLang }], async () => {
     let response = await getSideMenu(serverLang, user_id);
@@ -24,7 +21,6 @@ const MainAsideMenus = () => {
     return responseData;
   });
 
-  const bookmarks = data ?? [];
   const sideMenus = sideMenuData ?? [];
 
   return (

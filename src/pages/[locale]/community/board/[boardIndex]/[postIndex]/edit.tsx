@@ -1,4 +1,9 @@
-import { getCommunityBoardTopics, getCommunityPostData, getUser } from '@/api/Community';
+import {
+  getBookmarks,
+  getCommunityBoardTopics,
+  getCommunityPostData,
+  getUser,
+} from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
@@ -10,6 +15,7 @@ import type {
 } from '@/types/community';
 import { loginErrorHandler, noUserIdHandler } from '@/utils/loginError';
 import type { GetServerSidePropsContext } from 'next';
+import { useQuery } from 'react-query';
 
 type CommunityPostWritePropType = {
   urlLang: UrlLangType;
@@ -32,8 +38,12 @@ const Edit = ({
   datas,
   user,
 }: CommunityPostWritePropType) => {
+  const { data } = useQuery(['bookmarks', { userId: datas.userId, urlLang }], () =>
+    getBookmarks(datas.userId, urlLang)
+  );
+  const bookmarks = data ?? [];
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user}>
+    <CommunityMainLayout urlLang={urlLang} bookmarks={bookmarks} user={user}>
       <PostEditorTemplate
         mode="EDIT"
         urlLang={urlLang}

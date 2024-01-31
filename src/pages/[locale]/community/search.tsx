@@ -1,4 +1,5 @@
 import {
+  getBookmarks,
   getCommunityBoardCategoryData,
   getCommunityBoardResultData,
   getUser,
@@ -13,7 +14,7 @@ import type {
   PartialUserType,
 } from '@/types/community';
 import { GetServerSideProps } from 'next';
-import nookies from 'nookies';
+import { useQuery } from 'react-query';
 
 type InitialBoardResultProps = {
   category_type: number;
@@ -31,13 +32,25 @@ export interface SearchPageProps {
 
 export default function SearchPage({
   urlLang,
+  user_id,
   boardCategoryData,
   boardResultData,
   initialProps,
   user,
-}: SearchPageProps & { user: PartialUserType }) {
+}: SearchPageProps & { user: PartialUserType } & { user_id: string }) {
+  const { data } = useQuery(['bookmarks', { userId: user_id, urlLang }], () =>
+    getBookmarks(user_id, urlLang)
+  );
+  const bookmarks = data ?? [];
+
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput withBestNotices>
+    <CommunityMainLayout
+      urlLang={urlLang}
+      bookmarks={bookmarks}
+      user={user}
+      withSearchInput
+      withBestNotices
+    >
       <CommunitySearchTemplate
         urlLang={urlLang}
         boardCategoryData={boardCategoryData}
@@ -72,12 +85,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!!user_id && !!user_idx) {
     const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
     const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { urlLang, boardCategoryData, boardResultData, initialProps, user } };
+    return { props: { urlLang, user_id, boardCategoryData, boardResultData, initialProps, user } };
   }
 
   return {
     props: {
       urlLang,
+      user_id,
       boardCategoryData,
       boardResultData,
       initialProps,

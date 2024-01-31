@@ -9,13 +9,14 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 import { getCookie } from '@/utils/Cookie';
 import CommunityBoardLangSelector from './CommunityBoardLangSelector';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import { useQueryClient } from 'react-query';
+import { BookmarksResponseType } from '@/types/community';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
   boardLang: BoardLangType;
   boardType: string | number;
   menuId: number | undefined;
-  isBookmarked: boolean;
   setLangModal: Dispatch<SetStateAction<boolean>>;
   onClickWrite: () => void;
 };
@@ -25,7 +26,6 @@ const CommunityBoardTopNavi = ({
   boardLang,
   boardType,
   menuId,
-  isBookmarked,
   setLangModal,
   onClickWrite,
 }: CommunityBoardTopNaviPropType) => {
@@ -34,11 +34,22 @@ const CommunityBoardTopNavi = ({
   const urlLang = useUrlLanguage();
   const texts = communityBoardTexts[urlLang];
   const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
+  const queryClient = useQueryClient();
+  const bookmarks: BookmarksResponseType = queryClient.getQueryData([
+    'bookmarks',
+    { user_id: userId, urlLang },
+  ]);
+
+  const bookmarkDatas: Array<object> = queryClient.getQueriesData('bookmarks')[0][1];
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
+  const bookmarkData =
+    bookmarkDatas && bookmarkDatas.find((bookmark) => Number(bookmark.id) === menuId);
+  const bookmarked = bookmarkData ? bookmarkData.isBookmarked : false;
+
   const handleBookmarkOnClick = async (menuId: number) => {
-    if (isBookmarked) {
+    if (bookmarked) {
       useRemoveBookmark.mutate({ identity: userId, menuId });
     } else {
       useAddBookmark.mutate({ identity: userId, menuId });
@@ -81,7 +92,7 @@ const CommunityBoardTopNavi = ({
             {boardTitle}
           </h1>
           <BookmarkButton
-            isBookmarked={isBookmarked}
+            isBookmarked={bookmarked}
             width="24"
             height="24"
             onClick={() => handleBookmarkOnClick(Number(menuId))}

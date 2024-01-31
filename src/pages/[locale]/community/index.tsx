@@ -1,4 +1,4 @@
-import { getCommunityBoardData, getUser } from '@/api/Community';
+import { getBookmarks, getCommunityBoardData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
@@ -10,6 +10,7 @@ import type {
 } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
+import { useQuery } from 'react-query';
 
 export interface CommunityBoardPropTypes {
   queryParams: {
@@ -41,8 +42,12 @@ const CommunityHomePage = ({
   initialProps,
 }: CommunityBoardPropTypes & { user: PartialUserType } & CommunityBoardAllPropTypes) => {
   const { urlLang } = queryParams;
+  const { data } = useQuery(['bookmarks', { userId: queryParams.userId, urlLang }], () =>
+    getBookmarks(queryParams.userId, urlLang)
+  );
+  const bookmarks = data ?? [];
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
+    <CommunityMainLayout urlLang={urlLang} bookmarks={bookmarks} user={user} withSearchInput>
       <CommunityPageTemplate
         queryParams={queryParams}
         communityHomeSSRdata={communityHomeSSRdata}

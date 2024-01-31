@@ -1,4 +1,5 @@
 import {
+  getBookmarks,
   getCommunityBoardData,
   getCommunityBoardTopics,
   getCommunityNoticeBannerData,
@@ -7,7 +8,7 @@ import {
 import CommunityBoardTemplate from '@/components/templates/CommunityBoardTemplate';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
+import type { BoardLangType, UrlLangType } from '@/types/common';
 import type {
   CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
@@ -17,6 +18,7 @@ import type {
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 import { CommunityBoardPropTypes } from '../..';
+import { useQuery } from 'react-query';
 
 export interface BoardPropType extends CommunityBoardPropTypes {
   communityBoardSSRdata: CommunityBoardResponseType;
@@ -33,9 +35,20 @@ const Board = ({
   user,
 }: BoardPropType & { user: PartialUserType }) => {
   const { urlLang } = queryParams;
+  const { data } = useQuery(['bookmarks', { userId: queryParams.userId, urlLang }], () =>
+    getBookmarks(queryParams.userId, urlLang)
+  );
+  const bookmarks = data ?? [];
+
   return (
     <>
-      <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput withBestNotices>
+      <CommunityMainLayout
+        urlLang={urlLang}
+        bookmarks={bookmarks}
+        user={user}
+        withSearchInput
+        withBestNotices
+      >
         <CommunityBoardTemplate
           queryParams={queryParams}
           communityBoardSSRdata={communityBoardSSRdata}
