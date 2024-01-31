@@ -1,11 +1,13 @@
 import { Avatar } from '@/components/atoms';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { useUrlLanguage } from '@/hooks/useLanguage';
+import { openSideBarState } from '@/store/community';
 import { colors } from '@/styles/Colors';
 import type { PartialUserType } from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useCookies } from 'react-cookie';
+import { useSetRecoilState } from 'recoil';
 
 interface ProfileBoxProps {
   user: PartialUserType;
@@ -14,16 +16,19 @@ interface ProfileBoxProps {
 const ProfileBox = ({ user, texts }: ProfileBoxProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
+  const setOpenSidebar = useSetRecoilState(openSideBarState);
   const [, , removeCookie] = useCookies(['user_id', 'user_idx']);
 
   const handleLogout = () => {
     removeCookie('user_id', { path: '/', secure: true, domain: '.fanplus.co.kr' });
     removeCookie('user_idx', { path: '/', secure: true, domain: '.fanplus.co.kr' });
+    setOpenSidebar(false);
 
     router.reload();
   };
 
   const routeToMyPost = () => {
+    setOpenSidebar(false);
     router.push(`/${urlLang}/community/myPost/`);
   };
 
