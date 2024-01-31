@@ -46,9 +46,9 @@ const CommunityBoardTopNavi = ({
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
-  const bookmarkData = bookmarkQueryData.find(
-    (bookmark: BookmarksItemType) => Number(bookmark.id) === menuId
-  );
+  const bookmarkData =
+    bookmarkQueryData &&
+    bookmarkQueryData.find((bookmark: BookmarksItemType) => Number(bookmark.id) === menuId);
   const bookmarked = bookmarkData ? bookmarkData.isBookmarked : false;
 
   const handleBookmarkOnClick = async (menuId: number) => {
