@@ -3,6 +3,7 @@ import ProfileBox from '@/components/molecules/community/ProfileBox';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 import type { PartialUserType } from '@/types/community';
+import { Dispatch, SetStateAction } from 'react';
 
 interface MainAsideUserCardProps {
   user?: PartialUserType;

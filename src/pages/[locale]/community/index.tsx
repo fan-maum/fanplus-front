@@ -41,6 +41,7 @@ const CommunityHomePage = ({
   initialProps,
 }: CommunityBoardPropTypes & { user: PartialUserType } & CommunityBoardAllPropTypes) => {
   const { urlLang } = queryParams;
+
   return (
     <CommunityMainLayout urlLang={urlLang} user={user} withSearchInput>
       <CommunityPageTemplate

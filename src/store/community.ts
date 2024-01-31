@@ -58,3 +58,8 @@ export const postParamState = atom<postParamStateType>({
     identity: '0',
   },
 });
+
+export const openSideBarState = atom<boolean>({
+  key: 'openSideBarState',
+  default: false,
+});
