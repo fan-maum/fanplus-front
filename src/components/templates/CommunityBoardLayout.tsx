@@ -119,7 +119,6 @@ const CommunityBoardLayout = ({
           boardLang={boardLang}
           boardType={boardType}
           menuId={communityBoardData.BOARD_INFO.menuId}
-          isBookmarked={communityBoardData.BOARD_INFO.isBookmarked}
           setLangModal={setLangModal}
           onClickWrite={onClickWrite}
         />

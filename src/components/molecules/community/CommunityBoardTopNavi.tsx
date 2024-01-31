@@ -9,6 +9,8 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 import { getCookie } from '@/utils/Cookie';
 import CommunityBoardLangSelector from './CommunityBoardLangSelector';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import { useQueryClient } from 'react-query';
+import { BookmarksItemType } from '@/types/community';
 import BoardMobileTabMenus from '@/components/organisms/community/mobile/BoardMobileTabMenus';
 import { useSetRecoilState } from 'recoil';
 import { openSideBarState } from '@/store/community';
@@ -18,7 +20,6 @@ export type CommunityBoardTopNaviPropType = {
   boardLang: BoardLangType;
   boardType: string | number;
   menuId: number | undefined;
-  isBookmarked: boolean;
   setLangModal: Dispatch<SetStateAction<boolean>>;
   onClickWrite: () => void;
 };
@@ -28,7 +29,6 @@ const CommunityBoardTopNavi = ({
   boardLang,
   boardType,
   menuId,
-  isBookmarked,
   setLangModal,
   onClickWrite,
 }: CommunityBoardTopNaviPropType) => {
@@ -38,18 +38,25 @@ const CommunityBoardTopNavi = ({
   const urlLang = useUrlLanguage();
   const texts = communityBoardTexts[urlLang];
   const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
+  const queryClient = useQueryClient();
+  const bookmarkQueryData: any = queryClient.getQueriesData('bookmarks')[0][1];
   const isMainCommunity = router.route === '/[locale]/community';
 
   const setOpenSidebar = useSetRecoilState(openSideBarState);
 
   const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
 
+  const bookmarkData =
+    bookmarkQueryData &&
+    bookmarkQueryData.find((bookmark: BookmarksItemType) => Number(bookmark.id) === menuId);
+  const bookmarked = bookmarkData ? bookmarkData.isBookmarked : false;
+
   const handleBookmarkOnClick = async (menuId: number) => {
     if (!user_id) {
       router.push({ pathname: '/login', query: { nextUrl: path } });
       return;
     }
-    if (isBookmarked) {
+    if (bookmarked) {
       useRemoveBookmark.mutate({ identity: user_id, menuId });
     } else {
       useAddBookmark.mutate({ identity: user_id, menuId });
@@ -93,7 +100,7 @@ const CommunityBoardTopNavi = ({
             {boardTitle}
           </h1>
           <BookmarkButton
-            isBookmarked={isBookmarked}
+            isBookmarked={bookmarked}
             width="24"
             height="24"
             onClick={() => handleBookmarkOnClick(Number(menuId))}

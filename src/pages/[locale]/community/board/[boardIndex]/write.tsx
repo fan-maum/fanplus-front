@@ -1,4 +1,4 @@
-import { getUser, getCommunityBoardTopics } from '@/api/Community';
+import { getUser, getCommunityBoardTopics, getBookmarks } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import PostEditorTemplate from '@/components/templates/PostEditorTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
@@ -7,6 +7,7 @@ import type { CommunityBoardTopicResponseType, PartialUserType } from '@/types/c
 import { noUserIdHandler } from '@/utils/loginError';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 
 type CommunityPostWritePropType = {
   urlLang: UrlLangType;
@@ -22,8 +23,12 @@ type CommunityPostWritePropType = {
 
 const Write = ({ urlLang, boardTopics, datas, user }: CommunityPostWritePropType) => {
   const router = useRouter();
+  const { data } = useQuery(['bookmarks', { userId: datas.userId, urlLang }], () =>
+    getBookmarks(datas.userId, urlLang)
+  );
+  const bookmarks = data ?? [];
   return (
-    <CommunityMainLayout urlLang={urlLang} user={user} >
+    <CommunityMainLayout urlLang={urlLang} bookmarks={bookmarks} user={user}>
       <PostEditorTemplate
         mode="CREATE"
         urlLang={urlLang}

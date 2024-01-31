@@ -1,8 +1,8 @@
 import type { UrlLangType } from '@/types/common';
-import type { PartialUserType } from '@/types/community';
+import type { BookmarksResponseType, PartialUserType } from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { useState, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import BestNotices from '../molecules/community/BestNotices';
 import PopularBoards from '../molecules/community/PopularBoards';
 import Layout from '../organisms/Layout';
@@ -10,15 +10,15 @@ import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBo
 import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
-import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
 import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
-import { getCookie } from '@/utils/Cookie';
 import { useRecoilState } from 'recoil';
 import { openSideBarState } from '@/store/community';
+import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
   user?: PartialUserType;
+  bookmarks: BookmarksResponseType;
   withSearchInput?: boolean;
   withBestNotices?: boolean;
   children: ReactNode;
@@ -27,6 +27,7 @@ interface CommunityMainLayoutProps {
 const CommunityMainLayout = ({
   urlLang,
   user,
+  bookmarks,
   withSearchInput,
   withBestNotices,
   children,
@@ -41,7 +42,7 @@ const CommunityMainLayout = ({
         <div className="contents">
           <div className="mainAside">
             <MainAsideUserCard user={user} />
-            <MainAsideMenus />
+            <MainAsideMenus bookmarks={bookmarks} />
             <PopularBoards />
           </div>
           <div className="mainContent">
@@ -70,6 +71,7 @@ const CommunityMainLayout = ({
         user={user}
         openSidebar={openSidebar}
         setOpenSidebar={setOpenSidebar}
+        bookmarks={bookmarks}
       />
     </Layout>
   );
