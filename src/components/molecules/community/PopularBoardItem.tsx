@@ -7,9 +7,10 @@ type BoardItemProps = {
   boardName: string;
   boardIndex: number;
   rightItem?: ReactNode;
+  isOpened?: boolean;
 };
 
-const PopularBoardItem = ({ rank, boardName, boardIndex, rightItem }: BoardItemProps) => {
+const PopularBoardItem = ({ rank, boardName, boardIndex, rightItem, isOpened }: BoardItemProps) => {
   const urlLang = useUrlLanguage();
   const ranking = rank < 10 ? '0' + rank : rank;
   const router = useRouter();
@@ -25,8 +26,8 @@ const PopularBoardItem = ({ rank, boardName, boardIndex, rightItem }: BoardItemP
         justifyContent: 'flex-start',
         position: 'relative',
         width: '100%',
-        height: '33px',
-        borderBottom: '1px solid #d9d9d9',
+        height: '40px',
+        borderBottom: isOpened ? '1px solid #d9d9d9' : 'none',
         fontSize: '16px',
         fontWeight: 500,
         color: '#101010',

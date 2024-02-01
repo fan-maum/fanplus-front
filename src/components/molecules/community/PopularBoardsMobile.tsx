@@ -62,6 +62,24 @@ const PopularBoardsMobile = ({
       <div
         css={{
           display: 'flex',
+          position: 'relative',
+          height: '40px',
+          overflow: 'hidden',
+          transition: '0.3s ease-in-out',
+        }}
+      >
+        <PopularBoardsRolling popularBoards={popularBoards} />
+        <IconArrowDown
+          width="12px"
+          height="40px"
+          margin="0 11px"
+          onClick={onClickIcon}
+          isReverse={isOpened}
+        />
+      </div>
+      <div
+        css={{
+          display: isOpened ? 'flex' : 'none',
           justifyContent: 'space-between',
           width: '100%',
           height: '40px',
@@ -75,17 +93,15 @@ const PopularBoardsMobile = ({
         }}
       >
         {texts.popularBoards + ' TOP 50'}
-        <IconArrowDown width="12px" onClick={onClickIcon} isReverse={isOpened} />
       </div>
       <div
         css={{
           position: 'relative',
-          height: isOpened ? '205px' : '32px',
+          height: isOpened ? '240px' : 0,
           overflow: 'hidden',
           transition: '0.3s ease-in-out',
         }}
       >
-        {!isOpened && <PopularBoardsRolling popularBoards={popularBoards} />}
         {isOpened &&
           partialPopularBoards?.map((boardItem, index) => {
             return (
@@ -95,6 +111,7 @@ const PopularBoardsMobile = ({
                 boardName={boardItem.BOARD_TITLE}
                 boardIndex={Number(boardItem.BOARD_IDX)}
                 rightItem={getPopularBoardRightItem(boardItem.UP_DOWN)}
+                isOpened={isOpened}
               />
             );
           })}
