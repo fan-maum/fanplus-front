@@ -1,35 +1,29 @@
-import { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { colors } from '@/styles/CommunityColors';
 import BookmarkButton from '@/components/atoms/BookmarkButton';
-import { BoardLangType } from '@/types/common';
 import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { getCookie } from '@/utils/Cookie';
-import CommunityBoardLangSelector from './CommunityBoardLangSelector';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useQueryClient } from 'react-query';
 import { BookmarksItemType } from '@/types/community';
 import BoardMobileTabMenus from '@/components/organisms/community/mobile/BoardMobileTabMenus';
 import { useSetRecoilState } from 'recoil';
 import { openSideBarState } from '@/store/community';
+import { css } from '@emotion/react';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
-  boardLang: BoardLangType;
   boardType: string | number;
   menuId: number | undefined;
-  setLangModal: Dispatch<SetStateAction<boolean>>;
   onClickWrite: () => void;
 };
 
 const CommunityBoardTopNavi = ({
   boardTitle,
-  boardLang,
   boardType,
   menuId,
-  setLangModal,
   onClickWrite,
 }: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
@@ -115,14 +109,13 @@ const CommunityBoardTopNavi = ({
             justifyContent: 'flex-end',
           }}
         >
-          <CommunityBoardLangSelector
-            onClickOpenModal={() => setLangModal(true)}
-            boardLang={boardLang}
-          />
           {!isCommunityOrBestBoard && (
             <button
               css={{
-                padding: '5px 8px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+                padding: '6px 8px',
                 fontSize: 14,
                 fontWeight: 600,
                 outline: 'none',
@@ -131,10 +124,17 @@ const CommunityBoardTopNavi = ({
                 backgroundColor: colors.primary[500],
                 borderRadius: 6,
                 cursor: 'pointer',
-                '@media(max-width:768px)': { display: 'none' },
               }}
               onClick={onClickWrite}
             >
+              <img
+                src="/icons/icon_pen.svg"
+                alt="write-button"
+                css={css`
+                  width: 16px;
+                  height: 16px;
+                `}
+              />
               {texts.bottomTabBar.write}
             </button>
           )}

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { ReactNode, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CommunityBoardTopNavi from '@/components/molecules/community/CommunityBoardTopNavi';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
@@ -18,6 +18,7 @@ import {
 import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArticleTable';
 import DomainTopicContainer from '../organisms/community/DomainTopicContainer';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
+import { useMediaQuery } from 'react-responsive';
 
 type CommunityBoardLayoutPropTypes = {
   communityBoardSSRdata:
@@ -28,7 +29,6 @@ type CommunityBoardLayoutPropTypes = {
   boardTitle: string;
   communityBoardTopics?: any;
   communityNoticeBannerData?: any;
-  children?: ReactNode;
 };
 
 const CommunityBoardLayout = ({
@@ -39,7 +39,6 @@ const CommunityBoardLayout = ({
   boardTitle,
   communityBoardTopics,
   communityNoticeBannerData,
-  children,
 }: CommunityBoardPropTypes & CommunityBoardLayoutPropTypes) => {
   const router = useRouter();
   const { urlLang, userId, isAdminAccount, boardLangCookie, maxPage } = queryParams;
@@ -54,6 +53,15 @@ const CommunityBoardLayout = ({
   const [boardLang, setBoardLang] = useState(boardLangCookie);
   const [langModal, setLangModal] = useState(false);
   const [permissionModal, setPermissionModal] = useState(false);
+
+  /* mediaQuery 설정 */
+  const [isMobile, setIsMobile] = useState(false);
+  const mobile = useMediaQuery({ query: '(max-width:768px)' });
+
+  useEffect(() => {
+    if (mobile) setIsMobile(true);
+    if (!mobile) setIsMobile(false);
+  }, [mobile]);
 
   const isInitialData =
     initialProps.page === page &&
@@ -116,19 +124,18 @@ const CommunityBoardLayout = ({
       <div>
         <CommunityBoardTopNavi
           boardTitle={boardTitle}
-          boardLang={boardLang}
           boardType={boardType}
           menuId={communityBoardData.BOARD_INFO.menuId}
-          setLangModal={setLangModal}
           onClickWrite={onClickWrite}
         />
-        {children}
         <DomainTopicContainer
+          isMobile={isMobile}
           boardType={boardType}
           viewType={view_type}
+          boardLang={boardLang}
           communityBoardTopics={communityBoardTopics}
           topicIndex={topicIndex}
-          onClickWrite={onClickWrite}
+          setLangModal={setLangModal}
         />
         {isNoticeBannerExist && <CommunityBoardNoticeBanner bannerList={noticeBannerList} />}
         <CommunityBoardArticleTable
@@ -137,7 +144,6 @@ const CommunityBoardLayout = ({
           isFetching={isFetching}
           texts={texts}
           boardType={String(boardType)}
-          onClickWrite={onClickWrite}
         />
         <CommunityLanguageModal
           texts={texts.boardLang}
