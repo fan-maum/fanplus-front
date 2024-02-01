@@ -77,7 +77,10 @@ const DomainTopicContainer = ({
           display: 'none',
           height: '40px',
           borderTop: `1px solid ${colors.gray[100]}`,
-          '@media(max-width: 768px)': { display: 'flex', alignItems: 'center' },
+          '@media(max-width: 768px)': {
+            display: communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST ? 'flex' : 'none',
+            alignItems: 'center',
+          },
         }}
       >
         <CommunityBoardTopicTabBar
