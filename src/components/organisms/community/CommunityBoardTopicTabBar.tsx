@@ -28,7 +28,12 @@ const CommunityBoardTopicTabBar = ({
       {!isAdPhotoPc ? (
         <>
           {topicLists?.map((topic, index) => (
-            <Topic title={topic.NAME} key={index} selected={topicIndex === topic.IDX} />
+            <Topic
+              title={topic.NAME}
+              key={index}
+              selected={topicIndex === topic.IDX}
+              onClick={() => onClickTopic(topic.IDX)}
+            />
           ))}
         </>
       ) : (
@@ -46,8 +51,12 @@ const CommunityBoardTopicTabBar = ({
             }}
           >
             {topicLists?.map((topic, index) => (
-              <SwiperSlide key={index} onClick={() => onClickTopic(topic.IDX)}>
-                <Topic title={topic.NAME} selected={topicIndex === topic.IDX} />
+              <SwiperSlide key={index}>
+                <Topic
+                  title={topic.NAME}
+                  selected={topicIndex === topic.IDX}
+                  onClick={() => onClickTopic(topic.IDX)}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -60,7 +69,15 @@ const CommunityBoardTopicTabBar = ({
 
 export default CommunityBoardTopicTabBar;
 
-const Topic = ({ title, selected }: { title: string; selected: boolean }) => {
+const Topic = ({
+  title,
+  selected,
+  onClick,
+}: {
+  title: string;
+  selected: boolean;
+  onClick: () => void;
+}) => {
   return (
     <li
       css={{
@@ -70,6 +87,7 @@ const Topic = ({ title, selected }: { title: string; selected: boolean }) => {
         cursor: 'pointer',
         padding: '5px 8px',
       }}
+      onClick={onClick}
     >
       {title}
     </li>

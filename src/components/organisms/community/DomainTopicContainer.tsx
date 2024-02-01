@@ -48,7 +48,13 @@ const DomainTopicContainer = ({
         {!isCommunityOrBestBoard ? (
           <div className="domainTopicWrap">
             <BoardDomains viewType={viewType} boardDomainTexts={texts.bottomTabBar} />
-            {!isMobile && (
+            <div
+              css={{
+                display: 'flex',
+                overflow: 'hidden',
+                '@media(max-width: 768px)': { display: 'none' },
+              }}
+            >
               <CommunityBoardTopicTabBar
                 stringTopicAll={texts.all}
                 topicList={communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST}
@@ -56,7 +62,7 @@ const DomainTopicContainer = ({
                 isMobile={isMobile}
                 onClickTopic={onClickTopic}
               />
-            )}
+            </div>
           </div>
         ) : (
           <div></div>
@@ -66,24 +72,22 @@ const DomainTopicContainer = ({
           boardLang={boardLang}
         />
       </DomainAndLanguageFilterWrap>
-      {isMobile && (
-        <div
-          css={{
-            display: 'none',
-            height: '40px',
-            borderTop: `1px solid ${colors.gray[100]}`,
-            '@media(max-width: 768px)': { display: 'flex', alignItems: 'center' },
-          }}
-        >
-          <CommunityBoardTopicTabBar
-            stringTopicAll={texts.all}
-            topicList={communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST}
-            topicIndex={topicIndex}
-            isMobile={isMobile}
-            onClickTopic={onClickTopic}
-          />
-        </div>
-      )}
+      <div
+        css={{
+          display: 'none',
+          height: '40px',
+          borderTop: `1px solid ${colors.gray[100]}`,
+          '@media(max-width: 768px)': { display: 'flex', alignItems: 'center' },
+        }}
+      >
+        <CommunityBoardTopicTabBar
+          stringTopicAll={texts.all}
+          topicList={communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST}
+          topicIndex={topicIndex}
+          isMobile={isMobile}
+          onClickTopic={onClickTopic}
+        />
+      </div>
     </div>
   );
 };
