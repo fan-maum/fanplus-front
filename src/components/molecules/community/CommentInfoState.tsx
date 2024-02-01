@@ -38,7 +38,14 @@ function CommentInfoState({ identity, comment, reply, texts }: CommentInfoStateP
         </div>
         <Stack fw={600} fz={17} spacing={5}>
           <Group spacing={10}>
-            <h4 css={{ color: colors.gray[1000], fontSize: 16, fontWeight: 600 }}>
+            <h4
+              css={{
+                color: colors.gray[1000],
+                fontSize: 16,
+                fontWeight: 600,
+                wordBreak: 'break-word',
+              }}
+            >
               {comment ? comment.NICK : reply?.NICK}
             </h4>
             <div
