@@ -45,6 +45,9 @@ const CommunityBoardTopicTabBar = ({
             loop={false}
             modules={[Pagination, Navigation]}
             onSwiper={(swiper) => swiper}
+            scrollbar={{
+              hide: true,
+            }}
             navigation={{
               prevEl: '.prev',
               nextEl: '.next',

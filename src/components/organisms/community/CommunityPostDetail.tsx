@@ -96,6 +96,10 @@ const PostContents = styled.div`
     height: auto;
     aspect-ratio: 16/9;
   }
+  pre,
+  span {
+    white-space: break-spaces;
+  }
   word-break: break-word;
 `;
 const ListButtonWrapper = styled.div`
