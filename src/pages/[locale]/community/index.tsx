@@ -3,11 +3,7 @@ import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPageTemplate from '@/components/templates/CommunityPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
-import type {
-  CommunityBoardAllResponseType,
-  CommunityBoardResponseType,
-  PartialUserType,
-} from '@/types/community';
+import type { CommunityBoardAllResponseType, PartialUserType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 import { useQuery } from 'react-query';
@@ -31,14 +27,12 @@ export interface CommunityBoardPropTypes {
 
 export interface CommunityBoardAllPropTypes {
   communityHomeSSRdata: CommunityBoardAllResponseType;
-  communityBestBoardSSRdata: CommunityBoardResponseType;
 }
 
 const CommunityHomePage = ({
   user,
   queryParams,
   communityHomeSSRdata,
-  communityBestBoardSSRdata,
   initialProps,
 }: CommunityBoardPropTypes & { user: PartialUserType } & CommunityBoardAllPropTypes) => {
   const { urlLang } = queryParams;
@@ -51,7 +45,6 @@ const CommunityHomePage = ({
       <CommunityPageTemplate
         queryParams={queryParams}
         communityHomeSSRdata={communityHomeSSRdata}
-        communityBestBoardSSRdata={communityBestBoardSSRdata}
         initialProps={initialProps}
       />
     </CommunityMainLayout>
@@ -71,22 +64,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const topic = parseInt(context.query.topic as string) || 0;
   const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
   const HomeBoardType = 'community';
-  const BestBoardType = 2291;
 
   const communityHomeSSRdata: CommunityBoardAllResponseType = await getCommunityBoardData(
     userId,
     HomeBoardType,
-    page,
-    serverLang,
-    boardLangCookie,
-    view_type,
-    topic,
-    maxPage
-  );
-
-  const communityBestBoardSSRdata: CommunityBoardResponseType = await getCommunityBoardData(
-    userId,
-    BestBoardType,
     page,
     serverLang,
     boardLangCookie,
@@ -101,7 +82,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const props = {
     queryParams,
     communityHomeSSRdata,
-    communityBestBoardSSRdata,
     initialProps,
   };
 

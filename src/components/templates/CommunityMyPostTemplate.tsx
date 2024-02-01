@@ -5,6 +5,7 @@ import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle'
 import CommunityBoardArticleMobile from '../molecules/community/CommunityBoardArticleMobile';
 import CommunityBoardArticleTableHeader from '../molecules/community/CommunityBoardArticleTableHeader';
 import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
+import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
 
 const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPostPageProps) => {
   const router = useRouter();
@@ -19,29 +20,8 @@ const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPos
   };
 
   return (
-    <div
-      css={{
-        minWidth: 810,
-        '@media(max-width:960px)': {
-          width: '100%',
-          minWidth: 320,
-        },
-      }}
-    >
-      <div
-        css={{
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 20px',
-          height: 40,
-          fontSize: 18,
-          fontWeight: 600,
-          color: '#000',
-          marginBottom: '10px',
-        }}
-      >
-        {texts.bottomTabBar.myPost}
-      </div>
+    <div css={{ minWidth: 810, '@media(max-width:960px)': { width: '100%', minWidth: 320 } }}>
+      <BoardMobileTitle boardTitle={texts.bottomTabBar.myPost} onClickBack={() => router.back()} />
       {isPostExist ? (
         <div>
           <CommunityBoardArticleTableHeader firstHeader={'board'} isMyPost />

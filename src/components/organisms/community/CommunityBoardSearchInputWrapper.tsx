@@ -12,17 +12,20 @@ type FormValue = {
 
 type SearchInputWrapProps = {
   withSearchInput?: boolean;
-  isEditMode?: boolean;
+  isEditMode: boolean;
+  isMyPost: boolean;
 };
 
 const CommunityBoardSearchInputWrapper = ({
   withSearchInput,
   isEditMode,
+  isMyPost,
 }: SearchInputWrapProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const texts = communityLayoutTexts[urlLang];
   const smallPlaceholder = urlLang === 'es' || urlLang === 'in';
+  const isExposed = isEditMode || isMyPost;
 
   const { category_type = 0, searchValue, page = 0 } = router?.query;
   const { handleSubmit, register } = useForm<FormValue>({
@@ -63,7 +66,7 @@ const CommunityBoardSearchInputWrapper = ({
           minWidth: 0,
           margin: '0 auto',
           marginTop: 10,
-          display: !isEditMode ? 'flex' : 'none',
+          display: !isExposed ? 'flex' : 'none',
         },
       }}
     >
