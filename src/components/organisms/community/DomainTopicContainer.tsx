@@ -5,21 +5,29 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 import CommunityBoardTopicTabBar from './CommunityBoardTopicTabBar';
 import { useRouter } from 'next/router';
 import { CommunityBoardTopicResponseType } from '@/types/community';
+import CommunityBoardLangSelector from '@/components/molecules/community/CommunityBoardLangSelector';
+import { Dispatch, SetStateAction } from 'react';
+import { BoardLangType } from '@/types/common';
+import styled from '@emotion/styled';
 
 type DomainTopicContainerProps = {
+  isMobile: boolean;
   viewType: string;
   boardType: string | number;
+  boardLang: BoardLangType;
   communityBoardTopics?: CommunityBoardTopicResponseType;
   topicIndex: number;
-  onClickWrite: () => void;
+  setLangModal: Dispatch<SetStateAction<boolean>>;
 };
 
 const DomainTopicContainer = ({
-  boardType,
+  isMobile,
   viewType,
+  boardType,
+  boardLang,
   communityBoardTopics,
   topicIndex,
-  onClickWrite,
+  setLangModal,
 }: DomainTopicContainerProps) => {
   const router = useRouter();
   const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
@@ -35,63 +43,71 @@ const DomainTopicContainer = ({
   };
 
   return (
-    <>
-      {!isCommunityOrBestBoard && (
+    <div>
+      <DomainAndLanguageFilterWrap>
+        {!isCommunityOrBestBoard ? (
+          <div className="domainTopicWrap">
+            <BoardDomains viewType={viewType} boardDomainTexts={texts.bottomTabBar} />
+            {!isMobile && (
+              <CommunityBoardTopicTabBar
+                stringTopicAll={texts.all}
+                topicList={communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST}
+                topicIndex={topicIndex}
+                isMobile={isMobile}
+                onClickTopic={onClickTopic}
+              />
+            )}
+          </div>
+        ) : (
+          <div></div>
+        )}
+        <CommunityBoardLangSelector
+          onClickOpenModal={() => setLangModal(true)}
+          boardLang={boardLang}
+        />
+      </DomainAndLanguageFilterWrap>
+      {isMobile && (
         <div
           css={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: 'column',
-            gap: 0,
-            height: 80,
+            display: 'none',
+            height: '40px',
+            borderTop: `1px solid ${colors.gray[100]}`,
+            '@media(max-width: 768px)': { display: 'flex', alignItems: 'center' },
           }}
         >
-          <div
-            css={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '100%',
-              height: '40px',
-              padding: '6px 0',
-              borderTop: `1px solid ${colors.gray[100]}`,
-              borderBottom: `1px solid ${colors.gray[100]}`,
-              '@media(max-width:768px)': {
-                padding: '0 16px',
-              },
-            }}
-          >
-            <BoardDomains viewType={viewType} boardDomainTexts={texts.bottomTabBar} />
-            <button
-              css={{
-                padding: '5px 8px',
-                fontSize: 14,
-                fontWeight: 600,
-                outline: 'none',
-                border: 'none',
-                color: '#fff',
-                backgroundColor: colors.primary[500],
-                borderRadius: 6,
-                cursor: 'pointer',
-                display: 'none',
-                '@media(max-width:768px)': { display: 'flex' },
-              }}
-              onClick={onClickWrite}
-            >
-              {texts.bottomTabBar.write}
-            </button>
-          </div>
           <CommunityBoardTopicTabBar
             stringTopicAll={texts.all}
             topicList={communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST}
             topicIndex={topicIndex}
+            isMobile={isMobile}
             onClickTopic={onClickTopic}
           />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
 export default DomainTopicContainer;
+
+const DomainAndLanguageFilterWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  padding: 6px 0;
+  border-top: 1px solid ${colors.gray[100]};
+  gap: 20px;
+  .domainTopicWrap {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 80%;
+    flex: 1;
+  }
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
+`;

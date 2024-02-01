@@ -54,6 +54,7 @@ const CommunityBoardLangSelector = ({ onClickOpenModal, boardLang }: OwnPropType
           color: '#fff',
           fontSize: '10px',
           fontWeight: 500,
+          zIndex: 100,
           '::after': {
             content: "' '",
             position: 'absolute',

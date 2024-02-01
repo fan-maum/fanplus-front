@@ -23,7 +23,6 @@ type BoardArticleTableProps = {
   isFetching: boolean;
   texts: CommunityBoardTextType;
   boardType: string | number;
-  onClickWrite: () => void;
 };
 
 const CommunityBoardArticleTable = ({
@@ -32,7 +31,6 @@ const CommunityBoardArticleTable = ({
   isFetching,
   texts,
   boardType,
-  onClickWrite,
 }: BoardArticleTableProps) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
@@ -57,13 +55,7 @@ const CommunityBoardArticleTable = ({
 
   if (isFetching) return <CommunityBoardArticleTableSkeleton firstHeader={tableHeader} />;
   if (!isPostExist) {
-    return (
-      <CommunityBoardNoPost
-        // onClickWrite={onClickWrite}
-        buttonText={texts.buttonWrite}
-        texts={texts.noPostTexts}
-      />
-    );
+    return <CommunityBoardNoPost buttonText={texts.buttonWrite} texts={texts.noPostTexts} />;
   }
   const urlPage = router.query.page || 1;
   const urlPath = boardType;
