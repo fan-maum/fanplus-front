@@ -13,7 +13,6 @@ import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
 import { useRecoilState } from 'recoil';
 import { openSideBarState } from '@/store/community';
-import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -59,7 +58,6 @@ const CommunityMainLayout = ({
                   '@media(max-width:960px)': { width: '100%', minWidth: 320, flex: 1 },
                 }}
               >
-                <BoardMobileTab setOpenSidebar={setOpenSidebar} />
                 {children}
               </div>
               {withBestNotices && <BestNotices />}
