@@ -119,7 +119,6 @@ const TopicContainer = styled.div`
   .swiper-slide {
     width: max-content;
     cursor: pointer;
-    overflow-x: scroll;
     white-space: none;
     -ms-overflow-style: none;
     scrollbar-width: none;
