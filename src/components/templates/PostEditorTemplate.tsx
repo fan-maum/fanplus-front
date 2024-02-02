@@ -20,6 +20,7 @@ import IconArrowLeft from '../atoms/IconArrowLeft';
 import CommunityCommonModal from '../modals/CommunityCommonModal';
 import CommunityEditorCommonModal from '../modals/CommunityEditorModal';
 import EditorTopicSet from '../molecules/community/EditorTopicSet';
+import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
 
 type OwnPropType = {
   mode: 'CREATE' | 'EDIT';
@@ -133,12 +134,8 @@ const PostEditorTemplate = ({ mode, urlLang, topics, datas, defaultValues }: Own
   return (
     <main>
       <form css={{ padding: '0px 10px' }}>
-        <div css={{ display: 'flex', marginBottom: '30px', alignItems: 'center' }}>
-          <IconArrowLeft
-            iconCss={{ marginRight: '5px', width: '30px', height: '30px', cursor: 'pointer' }}
-            onClickBack={() => setCancelModal(true)}
-          />
-          <h2 css={{ lineHeight: '30px', fontSize: '22px' }}>{texts.pageTitle}</h2>
+        <div css={{ marginBottom: '30px' }}>
+          <BoardMobileTitle boardTitle={texts.pageTitle} onClickBack={() => setCancelModal(true)} />
         </div>
         <StyledBar>
           <h2>{texts.topic}</h2>

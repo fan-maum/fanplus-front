@@ -9,18 +9,19 @@ import { getPopularBoardRightItem } from './PopularBoards';
 import PopularBoardsRolling from './PopularBoardsRolling';
 import { communityLayoutTexts } from '@/texts/communityLayoutTexts';
 
-const PopularBoardsMobile = ({
-  initialOpen,
-  isEditMode,
-}: {
+type PopularBoardsMobileProps = {
   initialOpen: boolean;
   isEditMode: boolean;
-}) => {
+  isMyPost: boolean;
+};
+
+const PopularBoardsMobile = ({ initialOpen, isEditMode, isMyPost }: PopularBoardsMobileProps) => {
   const serverLang = useServerLang();
   const urlLang = useUrlLanguage();
   const texts = communityLayoutTexts[urlLang];
   const [page, setPage] = useState(0);
   const [isOpened, setIsOpened] = useState(false);
+  const isExposed = isEditMode || isMyPost;
 
   useEffect(() => {
     setIsOpened(initialOpen);
@@ -51,7 +52,7 @@ const PopularBoardsMobile = ({
   return (
     <div
       css={{
-        '@media (max-width: 768px)': { display: !isEditMode ? 'block' : 'none' },
+        '@media (max-width: 768px)': { display: !isExposed ? 'block' : 'none' },
         width: 'calc(100% - 32px)',
         border: '1px solid #d9d9d9',
         margin: '0 auto',
@@ -62,6 +63,24 @@ const PopularBoardsMobile = ({
       <div
         css={{
           display: 'flex',
+          position: 'relative',
+          height: '40px',
+          overflow: 'hidden',
+          transition: '0.3s ease-in-out',
+        }}
+      >
+        <PopularBoardsRolling popularBoards={popularBoards} />
+        <IconArrowDown
+          width="12px"
+          height="40px"
+          margin="0 11px"
+          onClick={onClickIcon}
+          isReverse={isOpened}
+        />
+      </div>
+      <div
+        css={{
+          display: isOpened ? 'flex' : 'none',
           justifyContent: 'space-between',
           width: '100%',
           height: '40px',
@@ -75,17 +94,15 @@ const PopularBoardsMobile = ({
         }}
       >
         {texts.popularBoards + ' TOP 50'}
-        <IconArrowDown width="12px" onClick={onClickIcon} isReverse={isOpened} />
       </div>
       <div
         css={{
           position: 'relative',
-          height: isOpened ? '205px' : '32px',
+          height: isOpened ? '240px' : 0,
           overflow: 'hidden',
           transition: '0.3s ease-in-out',
         }}
       >
-        {!isOpened && <PopularBoardsRolling popularBoards={popularBoards} />}
         {isOpened &&
           partialPopularBoards?.map((boardItem, index) => {
             return (
@@ -95,6 +112,7 @@ const PopularBoardsMobile = ({
                 boardName={boardItem.BOARD_TITLE}
                 boardIndex={Number(boardItem.BOARD_IDX)}
                 rightItem={getPopularBoardRightItem(boardItem.UP_DOWN)}
+                isOpened={isOpened}
               />
             );
           })}

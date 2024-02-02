@@ -12,6 +12,7 @@ import BoardMobileTabMenus from '@/components/organisms/community/mobile/BoardMo
 import { useSetRecoilState } from 'recoil';
 import { openSideBarState } from '@/store/community';
 import { css } from '@emotion/react';
+import BoardMobileTitle from './mobile/BoardMobileTitle';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
@@ -34,7 +35,6 @@ const CommunityBoardTopNavi = ({
   const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
   const queryClient = useQueryClient();
   const bookmarkQueryData: any = queryClient.getQueriesData('bookmarks')[0][1];
-  const isMainCommunity = router.route === '/[locale]/community';
 
   const setOpenSidebar = useSetRecoilState(openSideBarState);
 
@@ -76,28 +76,12 @@ const CommunityBoardTopNavi = ({
             '@media (max-width: 768px)': { maxWidth: '48%' },
           }}
         >
-          {!isMainCommunity && <BoardMobileTabMenus setOpenSidebar={setOpenSidebar} />}
-          {!boardType && (
-            <IconArrowLeft
-              iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
-              onClickBack={() => router.back()}
-            />
-          )}
-          <h1
-            css={{
-              fontSize: '18px',
-              fontWeight: 600,
-              color: colors.gray[1000],
-              wordBreak: 'keep-all',
-            }}
-          >
-            {boardTitle}
-          </h1>
-          <BookmarkButton
-            isBookmarked={bookmarked}
-            width="24"
-            height="24"
-            onClick={() => handleBookmarkOnClick(Number(menuId))}
+          <BoardMobileTabMenus setOpenSidebar={setOpenSidebar} />
+          <BoardMobileTitle
+            boardTitle={boardTitle}
+            bookmarked={bookmarked}
+            menuId={menuId}
+            onClickBack={() => router.back()}
           />
         </div>
         <div
