@@ -44,34 +44,32 @@ const DomainTopicContainer = ({
 
   return (
     <div>
-      <DomainAndLanguageFilterWrap>
-        {!isCommunityOrBestBoard ? (
-          <div className="domainTopicWrap">
-            <BoardDomains viewType={viewType} boardDomainTexts={texts.bottomTabBar} />
-            <div
-              css={{
-                display: 'flex',
-                overflow: 'hidden',
-                '@media(max-width: 768px)': { display: 'none' },
-              }}
-            >
-              <CommunityBoardTopicTabBar
-                stringTopicAll={texts.all}
-                topicList={communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST}
-                topicIndex={topicIndex}
-                isMobile={isMobile}
-                onClickTopic={onClickTopic}
-              />
+      {!isMobile && (
+        <DomainAndLanguageFilterWrap>
+          {!isCommunityOrBestBoard ? (
+            <div className="domainTopicWrap">
+              <BoardDomains viewType={viewType} boardDomainTexts={texts.bottomTabBar} />
+              <div
+                css={{
+                  display: 'flex',
+                  overflow: 'hidden',
+                  '@media(max-width: 768px)': { display: 'none' },
+                }}
+              >
+                <CommunityBoardTopicTabBar
+                  stringTopicAll={texts.all}
+                  topicList={communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST}
+                  topicIndex={topicIndex}
+                  isMobile={isMobile}
+                  onClickTopic={onClickTopic}
+                />
+              </div>
             </div>
-          </div>
-        ) : (
-          <div></div>
-        )}
-        <CommunityBoardLangSelector
-          onClickOpenModal={() => setLangModal(true)}
-          boardLang={boardLang}
-        />
-      </DomainAndLanguageFilterWrap>
+          ) : (
+            <div></div>
+          )}
+        </DomainAndLanguageFilterWrap>
+      )}
       <div
         css={{
           display: 'none',
@@ -115,6 +113,6 @@ const DomainAndLanguageFilterWrap = styled.div`
     flex: 1;
   }
   @media (max-width: 768px) {
-    padding: 0 16px;
+    padding-left: 16px;
   }
 `;

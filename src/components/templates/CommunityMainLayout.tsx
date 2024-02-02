@@ -1,5 +1,9 @@
-import type { UrlLangType } from '@/types/common';
-import type { BookmarksResponseType, PartialUserType } from '@/types/community';
+import type { ServerLangType, UrlLangType } from '@/types/common';
+import type {
+  BookmarksResponseType,
+  MultiBoardsInquiryItemType,
+  PartialUserType,
+} from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { type ReactNode } from 'react';
@@ -11,9 +15,21 @@ import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
-import { useRecoilState } from 'recoil';
-import { openSideBarState } from '@/store/community';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  boardLangState,
+  isMobileState,
+  openLanguageFitlerState,
+  openSideBarState,
+} from '@/store/community';
 import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
+import { useGetMultiBoardsInquiryQuery } from '@/server/query';
+import { useServerLang, useUrlLanguage } from '@/hooks/useLanguage';
+import BoardMobileDomains from '../organisms/community/mobile/BoardMobileDomains';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import BoardMobileTabMenus from '../organisms/community/mobile/BoardMobileTabMenus';
+import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
+import { getCookie } from '@/utils/Cookie';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -33,10 +49,26 @@ const CommunityMainLayout = ({
   children,
 }: CommunityMainLayoutProps) => {
   const router = useRouter();
+  const serverLang = useServerLang();
+
   const [openSidebar, setOpenSidebar] = useRecoilState(openSideBarState);
+  const isMobile = useRecoilValue(isMobileState);
+  const boardLangCookie = getCookie('boardLang');
+  console.log(getCookie('boardLang'));
+
+  const [boardLang, setBoardLang] = useRecoilState(boardLangState(boardLangCookie));
+  const setLangModal = useSetRecoilState(openLanguageFitlerState);
   const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
   const isMyPost = router.pathname.includes('myPost');
   const isSearch = router.pathname.includes('search');
+  const boardType = router.query.boardIndex as string;
+  const view_type = (router.query.view as string) || 'all';
+
+  /* boardSlug */
+  const { data } = useGetMultiBoardsInquiryQuery(serverLang, boardType);
+  const boardSlugData = data ?? [];
+  const boardSlug: MultiBoardsInquiryItemType = boardSlugData[0];
+  const boardTexts = communityBoardTexts[urlLang];
 
   return (
     <Layout urlLang={urlLang}>
@@ -63,6 +95,32 @@ const CommunityMainLayout = ({
                   '@media(max-width:960px)': { width: '100%', minWidth: 320, flex: 1 },
                 }}
               >
+                <div
+                  css={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
+                  <BoardMobileTitle
+                    boardTitle={boardSlug && boardSlug.BOARD_TITLE}
+                    bookmarked={(boardSlug && boardSlug.isBookmarked) || false}
+                    menuId={Number(boardSlug && boardSlug.menu.id)}
+                    onClickBack={() => router.back()}
+                  />
+                  <CommunityBoardLangSelector
+                    onClickOpenModal={() => setLangModal(true)}
+                    boardLang={boardLang}
+                  />
+                </div>
+                <div
+                  css={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '40px',
+                    gap: 14,
+                    padding: '0 16px',
+                  }}
+                >
+                  <BoardMobileTabMenus setOpenSidebar={setOpenSidebar} />
+                  <BoardMobileDomains boardDomainTexts={boardTexts.bottomTabBar} />
+                </div>
                 {children}
               </div>
               {withBestNotices && <BestNotices />}

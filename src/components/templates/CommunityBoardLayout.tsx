@@ -19,6 +19,8 @@ import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArt
 import DomainTopicContainer from '../organisms/community/DomainTopicContainer';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import { useMediaQuery } from 'react-responsive';
+import { useRecoilState } from 'recoil';
+import { boardLangState, isMobileState, openLanguageFitlerState } from '@/store/community';
 
 type CommunityBoardLayoutPropTypes = {
   communityBoardSSRdata:
@@ -50,12 +52,12 @@ const CommunityBoardLayout = ({
   const noticeBannerList = communityNoticeBannerData?.RESULTS.DATAS.LIST;
   const isNoticeBannerExist = communityNoticeBannerData?.RESULTS.DATAS.COUNT !== 0;
 
-  const [boardLang, setBoardLang] = useState(boardLangCookie);
-  const [langModal, setLangModal] = useState(false);
+  const [boardLang, setBoardLang] = useRecoilState(boardLangState(boardLangCookie));
+  const [langModal, setLangModal] = useRecoilState(openLanguageFitlerState);
   const [permissionModal, setPermissionModal] = useState(false);
 
   /* mediaQuery 설정 */
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useRecoilState(isMobileState);
   const mobile = useMediaQuery({ query: '(max-width:768px)' });
 
   useEffect(() => {
