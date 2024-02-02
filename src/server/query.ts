@@ -28,7 +28,7 @@ export const getCommentsQuery = async ({
 };
 
 /* community */
-export const useGetMultiBoardsInquiryQuery = (lang: ServerLangType, boardIds?: number[]) => {
+export const useGetMultiBoardsInquiryQuery = (lang: ServerLangType, boardIds: string) => {
   return useQuery({
     queryKey: 'multiBoardsInquiry' + lang + boardIds?.toString(),
     queryFn: () => getMultiBoardsInquiry(lang, boardIds),
