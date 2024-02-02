@@ -110,6 +110,7 @@ const DomainAndLanguageFilterWrap = styled.div`
   .domainTopicWrap {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 14px;
     width: 80%;
     flex: 1;
