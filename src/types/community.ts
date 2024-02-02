@@ -524,11 +524,26 @@ export type MainPageNoticesResponseType = Array<{
 
 export type MultiBoardsInquiryItemType = {
   IDX: string;
+  BOARD_IDX: string;
   TITLE: string;
+  BOARD_TITLE: string;
   BOARD_ICON: string;
   HEAD_IMG: string;
   POST_CNT: string;
   isExistNewPost: boolean;
+  isBookmarked: boolean;
+  menu: multiBoardsInquiryItemMenuType;
+};
+
+export type multiBoardsInquiryItemMenuType = {
+  id: string;
+  boardId: string;
+  slug: string;
+  categoryId: string | null;
+  isDisplay: number;
+  parentId: string;
+  title: string;
+  lastPostedAt: string;
 };
 export type MultiBoardsInquiryResponseType = Array<MultiBoardsInquiryItemType>;
 

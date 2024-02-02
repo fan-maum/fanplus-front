@@ -288,6 +288,7 @@ export type CommunityBoardTextType = {
     popular: string;
     notice: string;
     myPost: string;
+    bookmark: string;
   };
   boardLang: {
     modalHeader: string;

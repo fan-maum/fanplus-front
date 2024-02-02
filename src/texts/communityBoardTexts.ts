@@ -17,6 +17,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: '인기글',
       notice: '공지',
       myPost: '내가 쓴 글',
+      bookmark: '즐겨찾기',
     },
     boardLang: {
       modalHeader: '게시글 언어 선택',
@@ -60,6 +61,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Trending',
       notice: 'Notice',
       myPost: 'My Posts',
+      bookmark: 'Bookmarks',
     },
     boardLang: {
       modalHeader: 'Posts Language Settings',
@@ -103,6 +105,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Popular',
       notice: 'Aviso',
       myPost: 'El texto que escribí',
+      bookmark: 'Marca de libro',
     },
     boardLang: {
       modalHeader: 'Publicación Idioma configurado',
@@ -146,6 +149,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Populer',
       notice: 'Pengumuman',
       myPost: 'Cerita Saya',
+      bookmark: 'Markah buku',
     },
     boardLang: {
       modalHeader: 'Posts Pengaturan Bahasa',
@@ -189,6 +193,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: '人気',
       notice: '通知',
       myPost: '私が書いた記事',
+      bookmark: 'ブックマーク',
     },
     boardLang: {
       modalHeader: '話 設定言語',
@@ -232,6 +237,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Nổi tiếng',
       notice: 'Thông báo',
       myPost: 'Câu chuyện của tôi',
+      bookmark: 'Đánh dấu',
     },
     boardLang: {
       modalHeader: 'Câu chuyện Thiết lập ngôn ngữ',
@@ -275,6 +281,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: '热门文章',
       notice: '公告',
       myPost: '我发的贴子',
+      bookmark: '关注',
     },
     boardLang: {
       modalHeader: '帖子 语言设定',
@@ -318,6 +325,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: '熱門文章',
       notice: '公告',
       myPost: '我發的貼子',
+      bookmark: '關注',
     },
     boardLang: {
       modalHeader: '帖子 語言設定',
