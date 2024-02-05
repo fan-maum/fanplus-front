@@ -33,7 +33,7 @@ const BoardDomainButton = styled.button`
     &::after {
       content: '';
       position: absolute;
-      bottom: -6px;
+      bottom: -9px;
       left: 50%;
       right: 50%;
       transform: translate(-50%, -50%);

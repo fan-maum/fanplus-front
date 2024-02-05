@@ -1,4 +1,4 @@
-import type { ServerLangType, UrlLangType } from '@/types/common';
+import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type {
   BookmarksResponseType,
   MultiBoardsInquiryItemType,
@@ -23,38 +23,41 @@ import {
   openSideBarState,
 } from '@/store/community';
 import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
-import { useGetMultiBoardsInquiryQuery } from '@/server/query';
-import { useServerLang, useUrlLanguage } from '@/hooks/useLanguage';
+import { useServerLang } from '@/hooks/useLanguage';
 import BoardMobileDomains from '../organisms/community/mobile/BoardMobileDomains';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import BoardMobileTabMenus from '../organisms/community/mobile/BoardMobileTabMenus';
 import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import { getCookie } from '@/utils/Cookie';
+import { useQuery } from 'react-query';
+import { getMultiBoardsInquiry } from '@/api/Community';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
+  boardLangCookie: BoardLangType;
   user?: PartialUserType;
   bookmarks: BookmarksResponseType;
   withSearchInput?: boolean;
   withBestNotices?: boolean;
+  withBoardTab?: boolean;
   children: ReactNode;
 }
 
 const CommunityMainLayout = ({
   urlLang,
+  boardLangCookie,
   user,
   bookmarks,
   withSearchInput,
   withBestNotices,
+  withBoardTab,
   children,
 }: CommunityMainLayoutProps) => {
   const router = useRouter();
   const serverLang = useServerLang();
-
   const [openSidebar, setOpenSidebar] = useRecoilState(openSideBarState);
   const isMobile = useRecoilValue(isMobileState);
-  const boardLangCookie = getCookie('boardLang');
-  console.log(getCookie('boardLang'));
+  const user_id = getCookie('user_id');
 
   const [boardLang, setBoardLang] = useRecoilState(boardLangState(boardLangCookie));
   const setLangModal = useSetRecoilState(openLanguageFitlerState);
@@ -65,7 +68,9 @@ const CommunityMainLayout = ({
   const view_type = (router.query.view as string) || 'all';
 
   /* boardSlug */
-  const { data } = useGetMultiBoardsInquiryQuery(serverLang, boardType);
+  const { data } = useQuery(['multiBoardsInquiry', { user_id, serverLang, boardType }], () =>
+    getMultiBoardsInquiry(user_id, serverLang, boardType)
+  );
   const boardSlugData = data ?? [];
   const boardSlug: MultiBoardsInquiryItemType = boardSlugData[0];
   const boardTexts = communityBoardTexts[urlLang];
@@ -96,11 +101,17 @@ const CommunityMainLayout = ({
                 }}
               >
                 <div
-                  css={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  css={{
+                    display: 'none',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginTop: '20px',
+                    '@media(max-width:768px)': { display: withBoardTab ? 'flex' : 'none' },
+                  }}
                 >
                   <BoardMobileTitle
                     boardTitle={boardSlug && boardSlug.BOARD_TITLE}
-                    bookmarked={(boardSlug && boardSlug.isBookmarked) || false}
+                    bookmarked={(boardSlug && boardSlug.menu.isBookmarked) || false}
                     menuId={Number(boardSlug && boardSlug.menu.id)}
                     onClickBack={() => router.back()}
                   />
@@ -111,11 +122,12 @@ const CommunityMainLayout = ({
                 </div>
                 <div
                   css={{
-                    display: 'flex',
+                    display: 'none',
                     alignItems: 'center',
                     height: '40px',
                     gap: 14,
                     padding: '0 16px',
+                    '@media(max-width:768px)': { display: withBoardTab ? 'flex' : 'none' },
                   }}
                 >
                   <BoardMobileTabMenus setOpenSidebar={setOpenSidebar} />

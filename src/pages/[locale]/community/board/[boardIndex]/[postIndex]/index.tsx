@@ -2,7 +2,7 @@ import { getBookmarks, getCommunityPostData, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import type { ServerLangType, UrlLangType } from '@/types/common';
+import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type { PartialUserType, PostResponseType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
@@ -25,9 +25,10 @@ const Post = ({
   user_idx,
   postIndex,
   serverLang,
+  boardLangCookie,
   communityPostData,
   user,
-}: CommunityPostPropType & { user: PartialUserType }) => {
+}: CommunityPostPropType & { user: PartialUserType } & { boardLangCookie: BoardLangType }) => {
   const router = useRouter();
   const url = process.env.NEXT_PUBLIC_CLIENT_URL + router.asPath;
   const { data } = useQuery(['bookmarks', { userId: identity, urlLang }], () =>
@@ -50,7 +51,14 @@ const Post = ({
           images: [{ url: communityPostData.RESULTS.DATAS.POST_INFO.SUMNAIL_IMG }],
         }}
       />
-      <CommunityMainLayout urlLang={urlLang} user={user} bookmarks={bookmarks} withBestNotices>
+      <CommunityMainLayout
+        urlLang={urlLang}
+        boardLangCookie={boardLangCookie}
+        user={user}
+        bookmarks={bookmarks}
+        withBestNotices
+        withBoardTab
+      >
         <CommunityPostTemplate
           urlLang={urlLang}
           identity={identity}
@@ -73,6 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
   const identity: any = cookies.user_id || null;
   const user_idx = context.req.cookies.user_idx || null;
+  const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
 
   if (!boardIndex || !postIndex) return { notFound: true };
 
@@ -85,6 +94,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     user_idx,
     postIndex,
     serverLang,
+    boardLangCookie,
     communityPostData,
   };
 

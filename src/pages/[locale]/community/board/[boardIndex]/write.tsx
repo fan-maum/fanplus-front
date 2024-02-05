@@ -23,12 +23,18 @@ type CommunityPostWritePropType = {
 
 const Write = ({ urlLang, boardTopics, datas, user }: CommunityPostWritePropType) => {
   const router = useRouter();
+  const { boardLang } = datas;
   const { data } = useQuery(['bookmarks', { userId: datas.userId, urlLang }], () =>
     getBookmarks(datas.userId, urlLang)
   );
   const bookmarks = data ?? [];
   return (
-    <CommunityMainLayout urlLang={urlLang} bookmarks={bookmarks} user={user}>
+    <CommunityMainLayout
+      urlLang={urlLang}
+      boardLangCookie={boardLang}
+      bookmarks={bookmarks}
+      user={user}
+    >
       <PostEditorTemplate
         mode="CREATE"
         urlLang={urlLang}

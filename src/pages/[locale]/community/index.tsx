@@ -41,7 +41,14 @@ const CommunityHomePage = ({
   );
   const bookmarks = data ?? [];
   return (
-    <CommunityMainLayout urlLang={urlLang} bookmarks={bookmarks} user={user} withSearchInput>
+    <CommunityMainLayout
+      urlLang={urlLang}
+      boardLangCookie={queryParams.boardLangCookie}
+      bookmarks={bookmarks}
+      user={user}
+      withSearchInput
+      withBoardTab
+    >
       <CommunityPageTemplate
         queryParams={queryParams}
         communityHomeSSRdata={communityHomeSSRdata}

@@ -1,10 +1,6 @@
 import { useRouter } from 'next/router';
-import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { colors } from '@/styles/CommunityColors';
-import BookmarkButton from '@/components/atoms/BookmarkButton';
-import { useBookmarkOnClick } from '@/hooks/useBookmarkOnClick';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import { getCookie } from '@/utils/Cookie';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useQueryClient } from 'react-query';
 import { BookmarksItemType } from '@/types/community';
@@ -28,8 +24,6 @@ const CommunityBoardTopNavi = ({
   onClickWrite,
 }: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
-  const path = router.asPath;
-  const user_id = getCookie('user_id');
   const urlLang = useUrlLanguage();
   const texts = communityBoardTexts[urlLang];
   const isCommunityOrBestBoard = boardType === 'community' || boardType === 2291;
@@ -38,24 +32,10 @@ const CommunityBoardTopNavi = ({
 
   const setOpenSidebar = useSetRecoilState(openSideBarState);
 
-  const { useAddBookmark, useRemoveBookmark } = useBookmarkOnClick();
-
   const bookmarkData =
     bookmarkQueryData &&
     bookmarkQueryData.find((bookmark: BookmarksItemType) => Number(bookmark.id) === menuId);
   const bookmarked = bookmarkData ? bookmarkData.isBookmarked : false;
-
-  const handleBookmarkOnClick = async (menuId: number) => {
-    if (!user_id) {
-      router.push({ pathname: '/login', query: { nextUrl: path } });
-      return;
-    }
-    if (bookmarked) {
-      useRemoveBookmark.mutate({ identity: user_id, menuId });
-    } else {
-      useAddBookmark.mutate({ identity: user_id, menuId });
-    }
-  };
 
   return (
     <>
@@ -66,7 +46,7 @@ const CommunityBoardTopNavi = ({
           justifyContent: 'space-between',
           height: 40,
           marginTop: 20,
-          '@media (max-width: 768px)': { padding: '0 16px' },
+          '@media (max-width: 768px)': { display: 'none' },
         }}
       >
         <div

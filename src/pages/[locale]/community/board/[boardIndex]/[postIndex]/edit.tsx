@@ -38,12 +38,18 @@ const Edit = ({
   datas,
   user,
 }: CommunityPostWritePropType) => {
+  const { boardLang } = datas;
   const { data } = useQuery(['bookmarks', { userId: datas.userId, urlLang }], () =>
     getBookmarks(datas.userId, urlLang)
   );
   const bookmarks = data ?? [];
   return (
-    <CommunityMainLayout urlLang={urlLang} bookmarks={bookmarks} user={user}>
+    <CommunityMainLayout
+      urlLang={urlLang}
+      boardLangCookie={boardLang}
+      bookmarks={bookmarks}
+      user={user}
+    >
       <PostEditorTemplate
         mode="EDIT"
         urlLang={urlLang}

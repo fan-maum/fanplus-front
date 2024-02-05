@@ -5,15 +5,17 @@ import type { PartialUserType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
-import nookie from 'nookies';
+import nookies from 'nookies';
 
 const Bookmark = ({
   userId,
   urlLang,
+  boardLangCookie,
   user,
 }: {
   userId: string;
   urlLang: UrlLangType;
+  boardLangCookie: BoardLangType;
   user: PartialUserType;
 }) => {
   const { data } = useQuery(['bookmarks', { userId: userId, urlLang }], () =>
@@ -27,6 +29,7 @@ const Bookmark = ({
     <>
       <CommunityMainLayout
         urlLang={urlLang}
+        boardLangCookie={boardLangCookie}
         bookmarks={bookmarks}
         user={user}
         withSearchInput
@@ -39,12 +42,15 @@ const Bookmark = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = nookies.get(context);
   const userId = context.req.cookies.user_id || '';
   const user_idx = context.req.cookies.user_idx;
   const urlLang = context.query.locale as UrlLangType;
+  const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const props = {
     userId,
     urlLang,
+    boardLangCookie,
   };
 
   if (!!userId && !!user_idx) {
