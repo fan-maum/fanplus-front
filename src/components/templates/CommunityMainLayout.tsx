@@ -1,4 +1,4 @@
-import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
+import type { BoardLangType, UrlLangType } from '@/types/common';
 import type {
   BookmarksResponseType,
   MultiBoardsInquiryItemType,
@@ -15,22 +15,14 @@ import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import {
-  boardLangState,
-  isMobileState,
-  openLanguageFitlerState,
-  openSideBarState,
-} from '@/store/community';
+import { useRecoilState } from 'recoil';
+import { boardLangState, openSideBarState } from '@/store/community';
 import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
 import { useServerLang } from '@/hooks/useLanguage';
-import BoardMobileDomains from '../organisms/community/mobile/BoardMobileDomains';
-import { communityBoardTexts } from '@/texts/communityBoardTexts';
-import BoardMobileTabMenus from '../organisms/community/mobile/BoardMobileTabMenus';
-import CommunityBoardLangSelector from '../molecules/community/CommunityBoardLangSelector';
 import { getCookie } from '@/utils/Cookie';
 import { useQuery } from 'react-query';
 import { getMultiBoardsInquiry } from '@/api/Community';
+import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -56,16 +48,13 @@ const CommunityMainLayout = ({
   const router = useRouter();
   const serverLang = useServerLang();
   const [openSidebar, setOpenSidebar] = useRecoilState(openSideBarState);
-  const isMobile = useRecoilValue(isMobileState);
   const user_id = getCookie('user_id');
 
   const [boardLang, setBoardLang] = useRecoilState(boardLangState(boardLangCookie));
-  const setLangModal = useSetRecoilState(openLanguageFitlerState);
   const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
   const isMyPost = router.pathname.includes('myPost');
   const isSearch = router.pathname.includes('search');
   const boardType = router.query.boardIndex as string;
-  const view_type = (router.query.view as string) || 'all';
 
   /* boardSlug */
   const { data } = useQuery(['multiBoardsInquiry', { user_id, serverLang, boardType }], () =>
@@ -73,7 +62,6 @@ const CommunityMainLayout = ({
   );
   const boardSlugData = data ?? [];
   const boardSlug: MultiBoardsInquiryItemType = boardSlugData[0];
-  const boardTexts = communityBoardTexts[urlLang];
 
   return (
     <Layout urlLang={urlLang}>
@@ -100,39 +88,12 @@ const CommunityMainLayout = ({
                   '@media(max-width:960px)': { width: '100%', minWidth: 320, flex: 1 },
                 }}
               >
-                <div
-                  css={{
-                    display: 'none',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginTop: '20px',
-                    '@media(max-width:768px)': { display: withBoardTab ? 'flex' : 'none' },
-                  }}
-                >
-                  <BoardMobileTitle
-                    boardTitle={boardSlug && boardSlug.BOARD_TITLE}
-                    bookmarked={(boardSlug && boardSlug.menu.isBookmarked) || false}
-                    menuId={Number(boardSlug && boardSlug.menu.id)}
-                    onClickBack={() => router.back()}
-                  />
-                  <CommunityBoardLangSelector
-                    onClickOpenModal={() => setLangModal(true)}
-                    boardLang={boardLang}
-                  />
-                </div>
-                <div
-                  css={{
-                    display: 'none',
-                    alignItems: 'center',
-                    height: '40px',
-                    gap: 14,
-                    padding: '0 16px',
-                    '@media(max-width:768px)': { display: withBoardTab ? 'flex' : 'none' },
-                  }}
-                >
-                  <BoardMobileTabMenus setOpenSidebar={setOpenSidebar} />
-                  <BoardMobileDomains boardDomainTexts={boardTexts.bottomTabBar} />
-                </div>
+                <BoardMobileTab
+                  urlLang={urlLang}
+                  boardLang={boardLang}
+                  withBoardTab={withBoardTab}
+                  boardSlug={boardSlug}
+                />
                 {children}
               </div>
               {withBestNotices && <BestNotices />}
