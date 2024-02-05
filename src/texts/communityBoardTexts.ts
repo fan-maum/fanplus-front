@@ -18,6 +18,14 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       notice: '공지',
       myPost: '내가 쓴 글',
     },
+    myPostTab: {
+      myPost: '내가 쓴 글',
+      blockUser: '차단한 유저',
+    },
+    blockUserTitle: {
+      firstMessage: '총',
+      secondMessage: '명의 유저',
+    },
     boardLang: {
       modalHeader: '게시글 언어 선택',
       modalExplain: '선택한 언어로 작성된 게시글만 보입니다!',
@@ -60,6 +68,14 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Trending',
       notice: 'Notice',
       myPost: 'My Posts',
+    },
+    myPostTab: {
+      myPost: 'My Posts',
+      blockUser: 'Blocked Users',
+    },
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'Blocked Users',
     },
     boardLang: {
       modalHeader: 'Posts Language Settings',
@@ -104,6 +120,14 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       notice: 'Aviso',
       myPost: 'El texto que escribí',
     },
+    myPostTab: {
+      myPost: 'El texto que escribí',
+      blockUser: 'Usuarios bloqueados',
+    },
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'Usuarios bloqueados',
+    },
     boardLang: {
       modalHeader: 'Publicación Idioma configurado',
       modalExplain: 'Pueden ver texto escrito en la lengua seleccionada!',
@@ -146,6 +170,14 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Populer',
       notice: 'Pengumuman',
       myPost: 'Cerita Saya',
+    },
+    myPostTab: {
+      myPost: 'Cerita Saya',
+      blockUser: 'Pengguna Diblokir',
+    },
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'Pengguna Diblokir',
     },
     boardLang: {
       modalHeader: 'Posts Pengaturan Bahasa',
@@ -190,6 +222,14 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       notice: '通知',
       myPost: '私が書いた記事',
     },
+    myPostTab: {
+      myPost: '私が書いた記事',
+      blockUser: 'ブロックされたユーザー',
+    },
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'ブロックされたユーザー',
+    },
     boardLang: {
       modalHeader: '話 設定言語',
       modalExplain: '選択した言語で書かれたテキストを見ることができます!',
@@ -232,6 +272,14 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Nổi tiếng',
       notice: 'Thông báo',
       myPost: 'Câu chuyện của tôi',
+    },
+    myPostTab: {
+      myPost: 'Câu chuyện của tôi',
+      blockUser: 'Người dùng bị chặn',
+    },
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'Người dùng bị chặn',
     },
     boardLang: {
       modalHeader: 'Câu chuyện Thiết lập ngôn ngữ',
@@ -276,6 +324,14 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       notice: '公告',
       myPost: '我发的贴子',
     },
+    myPostTab: {
+      myPost: '我发的贴子',
+      blockUser: '被屏蔽的用户',
+    },
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: '被屏蔽的用户',
+    },
     boardLang: {
       modalHeader: '帖子 语言设定',
       modalExplain: '您只能看到以所选语言撰写的帖子',
@@ -318,6 +374,14 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: '熱門文章',
       notice: '公告',
       myPost: '我發的貼子',
+    },
+    myPostTab: {
+      myPost: '我發的貼子',
+      blockUser: '被屏蔽的用戶',
+    },
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: '被屏蔽的用戶',
     },
     boardLang: {
       modalHeader: '帖子 語言設定',

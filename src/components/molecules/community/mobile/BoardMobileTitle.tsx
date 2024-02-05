@@ -39,10 +39,10 @@ const BoardMobileTitle = ({
 
   return (
     <BoardMobileTitleWrapper>
-      {/* <IconArrowLeft
+      <IconArrowLeft
         iconCss={{ margin: '3px', width: '24px', height: '24px', cursor: 'pointer' }}
         onClickBack={onClickBack}
-      /> */}
+      />
       <h1
         css={{
           fontSize: '18px',

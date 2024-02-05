@@ -289,6 +289,14 @@ export type CommunityBoardTextType = {
     notice: string;
     myPost: string;
   };
+  myPostTab: {
+    myPost: string;
+    blockUser: string;
+  };
+  blockUserTitle: {
+    firstMessage: string;
+    secondMessage: string;
+  };
   boardLang: {
     modalHeader: string;
     modalExplain: string;
