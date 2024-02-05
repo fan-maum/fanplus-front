@@ -1,27 +1,25 @@
 import { useRouter } from 'next/router';
-import { colors } from '@/styles/CommunityColors';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useQueryClient } from 'react-query';
 import { BookmarksItemType } from '@/types/community';
 import BoardMobileTabMenus from '@/components/organisms/community/mobile/BoardMobileTabMenus';
-import { useSetRecoilState } from 'recoil';
-import { openSideBarState } from '@/store/community';
-import { css } from '@emotion/react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { openSideBarState, permissionModalState } from '@/store/community';
 import BoardMobileTitle from './mobile/BoardMobileTitle';
+import WriteButton from '@/components/atoms/WriteButton';
+import { onClickWrite } from '@/utils/communityUtil';
 
 export type CommunityBoardTopNaviPropType = {
   boardTitle: string;
   boardType: string | number;
   menuId: number | undefined;
-  onClickWrite: () => void;
 };
 
 const CommunityBoardTopNavi = ({
   boardTitle,
   boardType,
   menuId,
-  onClickWrite,
 }: CommunityBoardTopNaviPropType) => {
   const router = useRouter();
   const urlLang = useUrlLanguage();
@@ -31,6 +29,7 @@ const CommunityBoardTopNavi = ({
   const bookmarkQueryData: any = queryClient.getQueriesData('bookmarks')[0][1];
 
   const setOpenSidebar = useSetRecoilState(openSideBarState);
+  const [permissionModal, setPermissionModal] = useRecoilState(permissionModalState);
 
   const bookmarkData =
     bookmarkQueryData &&
@@ -74,33 +73,10 @@ const CommunityBoardTopNavi = ({
           }}
         >
           {!isCommunityOrBestBoard && (
-            <button
-              css={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 4,
-                padding: '6px 8px',
-                fontSize: 14,
-                fontWeight: 600,
-                outline: 'none',
-                border: 'none',
-                color: '#fff',
-                backgroundColor: colors.primary[500],
-                borderRadius: 6,
-                cursor: 'pointer',
-              }}
-              onClick={onClickWrite}
-            >
-              <img
-                src="/icons/icon_pen.svg"
-                alt="write-button"
-                css={css`
-                  width: 16px;
-                  height: 16px;
-                `}
-              />
-              {texts.bottomTabBar.write}
-            </button>
+            <WriteButton
+              writeButtonText={texts.bottomTabBar.write}
+              onClick={() => onClickWrite({ router, urlLang, setPermissionModal })}
+            />
           )}
         </div>
       </div>

@@ -78,3 +78,8 @@ export const isMobileState = atom<boolean>({
   key: 'isMobileState',
   default: false,
 });
+
+export const permissionModalState = atom<boolean>({
+  key: 'permissionModalState',
+  default: false,
+});

@@ -35,7 +35,7 @@ const CommunityHomePage = ({
   communityHomeSSRdata,
   initialProps,
 }: CommunityBoardPropTypes & { user: PartialUserType } & CommunityBoardAllPropTypes) => {
-  const { urlLang } = queryParams;
+  const { urlLang, boardLangCookie } = queryParams;
   const { data } = useQuery(['bookmarks', { userId: queryParams.userId, urlLang }], () =>
     getBookmarks(queryParams.userId, urlLang)
   );
@@ -43,7 +43,7 @@ const CommunityHomePage = ({
   return (
     <CommunityMainLayout
       urlLang={urlLang}
-      boardLangCookie={queryParams.boardLangCookie}
+      boardLangCookie={boardLangCookie}
       bookmarks={bookmarks}
       user={user}
       withSearchInput

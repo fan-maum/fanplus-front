@@ -16,13 +16,16 @@ import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
 import { useRecoilState } from 'recoil';
-import { boardLangState, openSideBarState } from '@/store/community';
+import { boardLangState, openSideBarState, permissionModalState } from '@/store/community';
 import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
 import { useServerLang } from '@/hooks/useLanguage';
 import { getCookie } from '@/utils/Cookie';
 import { useQuery } from 'react-query';
 import { getMultiBoardsInquiry } from '@/api/Community';
 import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
+import { css } from '@emotion/react';
+import MobileWriteButton from '../atoms/MobileWriteButton';
+import { onClickWrite } from '@/utils/communityUtil';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -49,8 +52,11 @@ const CommunityMainLayout = ({
   const serverLang = useServerLang();
   const [openSidebar, setOpenSidebar] = useRecoilState(openSideBarState);
   const user_id = getCookie('user_id');
+  const isBoardPage = router.route === '/[locale]/community/board/[boardIndex]';
 
   const [boardLang, setBoardLang] = useRecoilState(boardLangState(boardLangCookie));
+  const [permissionModal, setPermissionModal] = useRecoilState(permissionModalState);
+
   const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
   const isMyPost = router.pathname.includes('myPost');
   const isSearch = router.pathname.includes('search');
@@ -66,7 +72,12 @@ const CommunityMainLayout = ({
   return (
     <Layout urlLang={urlLang}>
       <LayoutWrapper>
-        <div className="contents">
+        <div
+          className="contents"
+          css={css`
+            position: relative;
+          `}
+        >
           <div className="mainAside">
             <MainAsideUserCard user={user} />
             <MainAsideMenus bookmarks={bookmarks} />
@@ -107,6 +118,9 @@ const CommunityMainLayout = ({
         setOpenSidebar={setOpenSidebar}
         bookmarks={bookmarks}
       />
+      {isBoardPage && (
+        <MobileWriteButton onClick={() => onClickWrite({ router, urlLang, setPermissionModal })} />
+      )}
     </Layout>
   );
 };
