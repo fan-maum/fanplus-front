@@ -20,7 +20,7 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
   const boardType =
     router.route === '/[locale]/community'
       ? 'community'
-      : router.route === '/[locale]/bookmark'
+      : router.route === '/[locale]/community/bookmark'
       ? 'bookmark'
       : router.query.boardIndex;
   const domain = router.query.domain;

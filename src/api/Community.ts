@@ -23,6 +23,7 @@ export const getCommunityBoardData = async (
   userId: string,
   boardType: number | string,
   page: number,
+  perPage: number,
   lang: ServerLangType,
   filterLang: BoardLangType,
   viewType: string,
@@ -32,7 +33,7 @@ export const getCommunityBoardData = async (
   if (topic === 0) topic = '';
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardType, page, lang, filterLang, viewType, topic, maxPage } }
+    { params: { userId, boardType, page, perPage, lang, filterLang, viewType, topic, maxPage } }
   );
 
   return response.data;

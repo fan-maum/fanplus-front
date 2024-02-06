@@ -67,6 +67,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const view_type = (context.query.view as string) || 'all';
   const page = parseInt(context.query.page as string) - 1 || 1;
+  const perPage = 20;
   const maxPage = 10;
   const topic = parseInt(context.query.topic as string) || 0;
   const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
@@ -76,6 +77,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     userId,
     HomeBoardType,
     page,
+    perPage,
     serverLang,
     boardLangCookie,
     view_type,

@@ -1,6 +1,5 @@
 import CommunityBoardArticle from '@/components/molecules/community/CommunityBoardArticle';
 import CommunityBoardArticleMobile from '@/components/molecules/community/CommunityBoardArticleMobile';
-import CommunityBoardArticleTableHeader from '@/components/molecules/community/CommunityBoardArticleTableHeader';
 import { CommunityBoardArticleTableSkeleton } from '@/components/molecules/community/CommunitySkeleton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type {
@@ -10,9 +9,11 @@ import type {
 } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
-import CommunityBoardPagination from '../CommunityBoardPagination';
-import CommunityBoardNoPost from './CommunityBoardNoPost';
-import CommunityBoardNoticeArticleMobile from '@/components/molecules/community/CommunityBoardNoticeArticleMobile';
+import CommunityBoardNoPost from '../CommunityBoardNoPost';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import { colors } from '@/styles/CommunityColors';
+import IconArrowLeft from '@/components/atoms/IconArrowLeft';
+import { UnstyledButton } from '@/components/atoms';
 
 type BoardArticleTableProps = {
   communityBoardData: CommunityBoardResponseType;
@@ -25,30 +26,19 @@ type BoardArticleTableProps = {
   boardType: string | number;
 };
 
-const CommunityBoardArticleTable = ({
+const BookmarkArticleTable = ({
   communityBoardData,
   communityBoardSSRdata,
   isFetching,
   texts,
   boardType,
 }: BoardArticleTableProps) => {
-  console.log(communityBoardData);
-
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const isBoardNameTableHeader = boardType === 'community' || boardType === '2291';
   const tableHeader = isBoardNameTableHeader ? 'board' : 'topic';
-
-  const handlePageChange = async (selectedItem: { selected: number }) => {
-    router.replace({ query: { ...router.query, page: selectedItem.selected + 1 } }, undefined, {
-      shallow: true,
-      scroll: true,
-    });
-  };
-
-  const noticeList = (communityBoardData || communityBoardSSRdata).NOTICE;
-  const postList = (communityBoardData || communityBoardSSRdata).POST_LIST;
   const boardInfo = (communityBoardData || communityBoardSSRdata).BOARD_INFO;
+  const postList = (communityBoardData || communityBoardSSRdata).POST_LIST;
 
   const isPostExist = !(
     postList?.length === 0 &&
@@ -62,48 +52,34 @@ const CommunityBoardArticleTable = ({
   const urlPage = router.query.page || 1;
   const urlPath = boardType;
 
-  const noticeHeader = (
-    <div
-      css={{
-        flex: 1,
-        width: 'max-content',
-        border: '1px solid #ff5656',
-        borderRadius: '4px',
-        margin: 'auto',
-        padding: '5px 10px',
-        fontWeight: '500',
-        fontSize: '12px',
-        lineHeight: '14px',
-        color: '#ff5656',
-      }}
-    >
-      {texts.notice}
-    </div>
-  );
+  const boardTitle = boardInfo?.photocard_board_lang
+    ? boardInfo?.photocard_board_lang[0].TITLE
+    : boardInfo?.menuId === 1
+    ? '전체글'
+    : '';
 
   return (
-    <div>
-      <CommunityBoardArticleTableHeader firstHeader={tableHeader} />
+    <div css={{ marginTop: '16px' }}>
+      <div
+        css={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '0 16px',
+          height: '40px',
+        }}
+      >
+        <h3 css={{ fontSize: 16, fontWeight: 600, color: `${colors.gray[1000]}` }}>{boardTitle}</h3>
+        <UnstyledButton
+          css={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 12, fontWeight: 600 }}
+        >
+          더보기
+          <IconArrowLeft
+            iconCss={{ width: '14px', height: '14px', transform: 'rotateZ(180deg)' }}
+          />
+        </UnstyledButton>
+      </div>
       <ul>
-        {noticeList?.map((notice, idx) => {
-          return (
-            <li key={'CommunityBoardNotice' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
-              <CommunityBoardArticle
-                postItem={notice}
-                firstHeader={noticeHeader}
-                link={`/${urlLang}/community/board/${notice.BOARD_IDX}/${notice.POST_IDX}?page=${urlPage}&from=${urlPath}`}
-                isNotice
-              />
-              <CommunityBoardNoticeArticleMobile
-                postItem={notice}
-                firstHeader={noticeHeader}
-                link={`/${urlLang}/community/board/${notice.BOARD_IDX}/${notice.POST_IDX}?page=${urlPage}&from=${urlPath}`}
-                texts={texts}
-                isNotice
-              />
-            </li>
-          );
-        })}
         {postList?.map((post, idx) => {
           return (
             <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
@@ -122,12 +98,8 @@ const CommunityBoardArticleTable = ({
           );
         })}
       </ul>
-      <CommunityBoardPagination
-        viewPossiblePage={Number(boardInfo.VIEW_POSSIBLE_PAGE)}
-        handlePageChange={handlePageChange}
-      />
     </div>
   );
 };
 
-export default CommunityBoardArticleTable;
+export default BookmarkArticleTable;

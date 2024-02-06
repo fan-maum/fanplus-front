@@ -64,6 +64,7 @@ const CommunityMainLayout = ({
 
   /* boardSlug */
   const boardsType = [boardType];
+
   const { data } = useQuery(['multiBoardsInquiry', { user_id, serverLang, boardsType }], () =>
     getMultiBoardsInquiry(user_id, serverLang, boardsType)
   );
