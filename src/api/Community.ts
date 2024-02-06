@@ -427,7 +427,7 @@ export const deleteBookmark = async (identity: string, menuId: number) => {
 export const getMultiBoardsInquiry = async (
   identity: string,
   lang: ServerLangType,
-  boardIds: string
+  boardIds: Array<string | number>
 ) => {
   const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardsInquiry`,

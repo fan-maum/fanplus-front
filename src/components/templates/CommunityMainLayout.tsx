@@ -63,8 +63,9 @@ const CommunityMainLayout = ({
   const boardType = router.query.boardIndex as string;
 
   /* boardSlug */
-  const { data } = useQuery(['multiBoardsInquiry', { user_id, serverLang, boardType }], () =>
-    getMultiBoardsInquiry(user_id, serverLang, boardType)
+  const boardsType = [boardType];
+  const { data } = useQuery(['multiBoardsInquiry', { user_id, serverLang, boardsType }], () =>
+    getMultiBoardsInquiry(user_id, serverLang, boardsType)
   );
   const boardSlugData = data ?? [];
   const boardSlug: MultiBoardsInquiryItemType = boardSlugData[0];
