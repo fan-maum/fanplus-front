@@ -33,6 +33,8 @@ import { pathOnly } from '@/utils/util';
 import VoteDetailImagePopup from '../modals/VoteDetailImagePopup';
 import { getVoteCookie, setVoteCookie } from '@/utils/voteCookie';
 import dayjs from 'dayjs';
+import BestNotices from '../molecules/community/BestNotices';
+import styled from '@emotion/styled';
 
 export interface VotesDetailLayoutProps {
   voteDetails: VoteDetailResponse;
@@ -316,13 +318,16 @@ const VoteDetailLayout = ({
   };
 
   return (
-    <div css={{ background: '#FAFBFE' }}>
+    <div>
       <VoteDetailTemplate
         voteDetailHeader={<VoteDetailHeader {...voteDetailHeaderProps} />}
         voteDetailInfo={<VoteDetailInfo {...voteDetailInfoProps} />}
         voteDetailPrizeList={<VoteDetailPrizeList {...voteDetailPrizeListProps} />}
         voteDetailList={<VoteDetailList {...voteDetailListProps} />}
       />
+      <BestNoticeWrapper>
+        <BestNotices />
+      </BestNoticeWrapper>
       <VoteDetailImagePopup
         opened={imagePopup}
         setOpened={setImagePopup}
@@ -373,3 +378,10 @@ const VoteDetailLayout = ({
 };
 
 export default VoteDetailLayout;
+
+const BestNoticeWrapper = styled.div`
+  position: fixed;
+  top: 100px;
+  z-index: 1;
+  left: calc(50% + 400px);
+`;
