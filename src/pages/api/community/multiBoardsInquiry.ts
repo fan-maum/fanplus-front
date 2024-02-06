@@ -3,11 +3,9 @@ import axios, { AxiosError, type AxiosResponse } from 'axios';
 import type { NextApiHandler } from 'next';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { boardIds, lang } = req.query;
+  const { identity, boardIds, lang } = req.query;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
-
-  const isBoardIds = !!boardIds && boardIds.length !== 0;
-  const params = isBoardIds ? { boardIds, lang } : { lang };
+  const params = { identity, 'boardIds[]': boardIds, lang };
 
   try {
     const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(

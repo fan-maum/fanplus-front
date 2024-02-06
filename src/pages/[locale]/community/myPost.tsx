@@ -15,17 +15,24 @@ export interface MyPostPageProps {
 
 const MyPostPage = ({
   urlLang,
+  boardLangCookie,
   userId,
   communityMyPostData,
   user,
-}: MyPostPageProps & { user: PartialUserType }) => {
+}: MyPostPageProps & { user: PartialUserType } & { boardLangCookie: BoardLangType }) => {
   const { data } = useQuery(['bookmarks', { userId, urlLang }], () =>
     getBookmarks(userId, urlLang)
   );
   const bookmarks = data ?? [];
 
   return (
-    <CommunityMainLayout urlLang={urlLang} bookmarks={bookmarks} user={user} withBestNotices>
+    <CommunityMainLayout
+      urlLang={urlLang}
+      boardLangCookie={boardLangCookie}
+      bookmarks={bookmarks}
+      user={user}
+      withBestNotices
+    >
       <CommunityMyPostTemplate
         urlLang={urlLang}
         userId={userId}
@@ -62,11 +69,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!!userId && !!user_idx) {
     const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
     const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { urlLang, userId: userId, communityMyPostData, user } };
+    return { props: { urlLang, boardLangCookie, userId: userId, communityMyPostData, user } };
   }
   return {
     props: {
       urlLang,
+      boardLangCookie,
       userId: userId,
       communityMyPostData,
     },

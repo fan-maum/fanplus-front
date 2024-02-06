@@ -14,6 +14,7 @@ export function useBookmarkOnClick() {
     onSuccess: () => {
       queryClient.invalidateQueries('bookmarks');
       queryClient.invalidateQueries('sideMenu');
+      queryClient.invalidateQueries('multiBoardsInquiry');
     },
     onError: (error) => {
       // eslint-disable-next-line no-console
@@ -27,6 +28,7 @@ export function useBookmarkOnClick() {
     onSuccess: () => {
       queryClient.invalidateQueries('bookmarks');
       queryClient.invalidateQueries('sideMenu');
+      queryClient.invalidateQueries('multiBoardsInquiry');
     },
     onError: (error) => {
       // eslint-disable-next-line no-console

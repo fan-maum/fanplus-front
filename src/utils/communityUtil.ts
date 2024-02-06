@@ -1,6 +1,8 @@
-import type { selectInfoType } from '@/types/common';
+import type { UrlLangType, selectInfoType } from '@/types/common';
 import type { UserResponseType } from '@/types/community';
+import { NextRouter } from 'next/router';
 import { SetterOrUpdater } from 'recoil';
+import { getCookie } from './Cookie';
 
 interface showModalOnClickProps extends selectInfoType {
   isComment?: boolean;
@@ -47,4 +49,33 @@ export const getProfileData = (user: UserResponseType | null) => {
     profileNick: user ? user?.RESULTS.DATAS.NICK : '',
   };
   return profile;
+};
+
+type onClickWriteProps = {
+  router: NextRouter;
+  urlLang: UrlLangType;
+  setPermissionModal: SetterOrUpdater<boolean>;
+};
+
+export const onClickWrite = ({ router, urlLang, setPermissionModal }: onClickWriteProps) => {
+  const writeBanBoard = ['139', '192', '220'];
+  const userId = getCookie('user_id');
+  const user_idx = getCookie('user_idx');
+  const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
+  const boardType = Number(router.query.boardIndex);
+  const writeBanned = writeBanBoard.includes(String(boardType));
+
+  if (writeBanned && !isAdminAccount) {
+    setPermissionModal(true);
+    return;
+  }
+  if (!userId) {
+    const path = router.asPath;
+    router.push({ pathname: '/login', query: { nextUrl: path } });
+    return;
+  }
+  router.push({
+    pathname: `/${urlLang}/community/board/${boardType}/write`,
+    query: { topic: router.query.topic },
+  });
 };

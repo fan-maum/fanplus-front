@@ -1,4 +1,4 @@
-import { atom, RecoilEnv } from 'recoil';
+import { atom, atomFamily, RecoilEnv } from 'recoil';
 import type { BoardLangType, OrderType, TargetType, selectInfoType } from '@/types/common';
 import type { UserResponseType } from '@/types/community';
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
@@ -61,5 +61,25 @@ export const postParamState = atom<postParamStateType>({
 
 export const openSideBarState = atom<boolean>({
   key: 'openSideBarState',
+  default: false,
+});
+
+export const openLanguageFitlerState = atom<boolean>({
+  key: 'openLanguageFitlerState',
+  default: false,
+});
+
+export const boardLangState = atomFamily<BoardLangType, any>({
+  key: 'boardLangState',
+  default: (boardLangCookie) => boardLangCookie,
+});
+
+export const isMobileState = atom<boolean>({
+  key: 'isMobileState',
+  default: false,
+});
+
+export const permissionModalState = atom<boolean>({
+  key: 'permissionModalState',
   default: false,
 });
