@@ -14,6 +14,7 @@ import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
 import { useRecoilState } from 'recoil';
 import { openSideBarState } from '@/store/community';
 import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
@@ -37,6 +38,7 @@ const CommunityMainLayout = ({
   const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
   const isMyPost = router.pathname.includes('myPost');
   const isSearch = router.pathname.includes('search');
+  const boardTexts = communityBoardTexts[urlLang];
 
   return (
     <Layout urlLang={urlLang}>
@@ -48,7 +50,12 @@ const CommunityMainLayout = ({
             <PopularBoards />
           </div>
           <div className="mainContent">
-            {isSearch && <BoardMobileTitle boardTitle={'검색'} onClickBack={() => router.back()} />}
+            {isSearch && (
+              <BoardMobileTitle
+                boardTitle={boardTexts.searchTitle}
+                onClickBack={() => router.back()}
+              />
+            )}
             <CommunityBoardSearchInputWrapper
               withSearchInput={withSearchInput}
               isEditMode={isEditMode}

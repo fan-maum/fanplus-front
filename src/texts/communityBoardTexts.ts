@@ -22,9 +22,13 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: '내가 쓴 글',
       blockUser: '차단한 유저',
     },
+    searchTitle: '검색',
     blockUserTitle: {
       firstMessage: '총',
       secondMessage: '명의 유저',
+    },
+    blockUser: {
+      unBlock: '차단해제',
     },
     boardLang: {
       modalHeader: '게시글 언어 선택',
@@ -73,9 +77,13 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: 'My Posts',
       blockUser: 'Blocked Users',
     },
+    searchTitle: 'Search',
     blockUserTitle: {
       firstMessage: '',
       secondMessage: 'Blocked Users',
+    },
+    blockUser: {
+      unBlock: 'Unblock',
     },
     boardLang: {
       modalHeader: 'Posts Language Settings',
@@ -124,9 +132,13 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: 'El texto que escribí',
       blockUser: 'Usuarios bloqueados',
     },
+    searchTitle: 'Buscar',
     blockUserTitle: {
       firstMessage: '',
       secondMessage: 'Usuarios bloqueados',
+    },
+    blockUser: {
+      unBlock: 'Desbloquear',
     },
     boardLang: {
       modalHeader: 'Publicación Idioma configurado',
@@ -175,9 +187,13 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: 'Cerita Saya',
       blockUser: 'Pengguna Diblokir',
     },
+    searchTitle: 'Cari',
     blockUserTitle: {
       firstMessage: '',
       secondMessage: 'Pengguna Diblokir',
+    },
+    blockUser: {
+      unBlock: 'Buka blokir',
     },
     boardLang: {
       modalHeader: 'Posts Pengaturan Bahasa',
@@ -226,9 +242,13 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: '私が書いた記事',
       blockUser: 'ブロックされたユーザー',
     },
+    searchTitle: '検索',
     blockUserTitle: {
       firstMessage: '',
       secondMessage: 'ブロックされたユーザー',
+    },
+    blockUser: {
+      unBlock: 'ブロックを解除',
     },
     boardLang: {
       modalHeader: '話 設定言語',
@@ -277,9 +297,13 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: 'Câu chuyện của tôi',
       blockUser: 'Người dùng bị chặn',
     },
+    searchTitle: 'Tìm kiếm',
     blockUserTitle: {
       firstMessage: '',
       secondMessage: 'Người dùng bị chặn',
+    },
+    blockUser: {
+      unBlock: 'Mở khóa',
     },
     boardLang: {
       modalHeader: 'Câu chuyện Thiết lập ngôn ngữ',
@@ -328,9 +352,13 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: '我发的贴子',
       blockUser: '被屏蔽的用户',
     },
+    searchTitle: '搜索',
     blockUserTitle: {
       firstMessage: '',
       secondMessage: '被屏蔽的用户',
+    },
+    blockUser: {
+      unBlock: '解除屏蔽',
     },
     boardLang: {
       modalHeader: '帖子 语言设定',
@@ -379,9 +407,13 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: '我發的貼子',
       blockUser: '被屏蔽的用戶',
     },
+    searchTitle: '搜索',
     blockUserTitle: {
       firstMessage: '',
       secondMessage: '被屏蔽的用戶',
+    },
+    blockUser: {
+      unBlock: '解除屏蔽',
     },
     boardLang: {
       modalHeader: '帖子 語言設定',

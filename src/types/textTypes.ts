@@ -293,9 +293,13 @@ export type CommunityBoardTextType = {
     myPost: string;
     blockUser: string;
   };
+  searchTitle: string;
   blockUserTitle: {
     firstMessage: string;
     secondMessage: string;
+  };
+  blockUser: {
+    unBlock: string;
   };
   boardLang: {
     modalHeader: string;

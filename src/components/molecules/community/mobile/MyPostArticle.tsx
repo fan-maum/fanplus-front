@@ -1,4 +1,5 @@
 import { UnstyledButton } from '@/components/atoms';
+import ToastModal from '@/components/toast/ToastModal';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/CommunityColors';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
@@ -14,6 +15,9 @@ const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
   const timeExpression = '2024.01.01';
   const urlLang = useUrlLanguage();
   const boardTexts = communityBoardTexts[urlLang];
+  const handleUnBlock = () => {
+    ToastModal.alert('차단이 해제되었습니다.');
+  };
   return (
     <li
       css={css`
@@ -50,8 +54,9 @@ const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
           border: 1px solid ${colors.gray[200]};
           margin-top: 13px;
         `}
+        onClick={handleUnBlock}
       >
-        차단해제
+        {boardTexts.blockUser.unBlock}
       </UnstyledButton>
     </li>
   );

@@ -1,10 +1,6 @@
 import type { MyPostPageProps } from '@/pages/[locale]/community/myPost';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useRouter } from 'next/router';
-import CommunityBoardArticle from '../molecules/community/CommunityBoardArticle';
-import CommunityBoardArticleMobile from '../molecules/community/CommunityBoardArticleMobile';
-import CommunityBoardArticleTableHeader from '../molecules/community/CommunityBoardArticleTableHeader';
-import CommunityBoardPagination from '../organisms/CommunityBoardPagination';
 import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
 import { MyPostTabBar } from '../molecules/community/mobile/MyPostTabBar';
 import { useState } from 'react';
