@@ -32,8 +32,6 @@ const CommunityBoardArticleTable = ({
   texts,
   boardType,
 }: BoardArticleTableProps) => {
-  console.log(communityBoardData);
-
   const router = useRouter();
   const urlLang = useUrlLanguage();
   const isBoardNameTableHeader = boardType === 'community' || boardType === '2291';
