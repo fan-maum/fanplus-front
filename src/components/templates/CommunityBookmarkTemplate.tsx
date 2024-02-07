@@ -53,7 +53,7 @@ const CommunityBookmarkTemplate = ({
   );
 
   // eslint-disable-next-line no-console
-  console.log('bookmarkBoards', bookmarkBoards);
+  console.log('bookmarkBoards =>', bookmarkBoards);
 
   return (
     <div>
