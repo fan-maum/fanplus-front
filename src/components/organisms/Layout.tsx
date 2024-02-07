@@ -25,7 +25,7 @@ const Layout = ({
   return (
     <SideBarContext.Provider value={{ isSideBarOpen, setIsSideBarOpen }}>
       {isSideBarOpen && <SideBar texts={navBarTexts[urlLang]} />}
-      {(isWebView === undefined || !isWebView) && <NavBar texts={navBarTexts[urlLang]} />}
+      {!isWebView && <NavBar texts={navBarTexts[urlLang]} />}
       {children}
       {!noFooterPages && <Footer texts={footerTexts[urlLang]} />}
     </SideBarContext.Provider>
