@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { type ReactNode } from 'react';
 import BestNotices from '../molecules/community/BestNotices';
 import PopularBoards from '../molecules/community/PopularBoards';
-import Layout from '../organisms/Layout';
 import CommunityBoardSearchInputWrapper from '../organisms/community/CommunityBoardSearchInputWrapper';
 import MainAsideMenus from '../organisms/community/MainAsideMenus';
 import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
@@ -36,7 +35,7 @@ const CommunityMainLayout = ({
   const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
 
   return (
-    <Layout urlLang={urlLang}>
+    <div>
       <LayoutWrapper>
         <div className="contents">
           <div className="mainAside">
@@ -71,7 +70,7 @@ const CommunityMainLayout = ({
         setOpenSidebar={setOpenSidebar}
         bookmarks={bookmarks}
       />
-    </Layout>
+    </div>
   );
 };
 
