@@ -17,7 +17,7 @@ const Layout = ({
 }: {
   children: ReactNode;
   urlLang: UrlLangType;
-  isWebView?: boolean;
+  isWebView?: string;
 }) => {
   const page = useRouter().pathname.split('/')[2];
   const noFooterPages = page === 'login' || page === 'signUp' || page === 'community';
@@ -25,7 +25,7 @@ const Layout = ({
   return (
     <SideBarContext.Provider value={{ isSideBarOpen, setIsSideBarOpen }}>
       {isSideBarOpen && <SideBar texts={navBarTexts[urlLang]} />}
-      {!isWebView && <NavBar texts={navBarTexts[urlLang]} />}
+      {String(isWebView) !== 'true' && <NavBar texts={navBarTexts[urlLang]} />}
       {children}
       {!noFooterPages && <Footer texts={footerTexts[urlLang]} />}
     </SideBarContext.Provider>
