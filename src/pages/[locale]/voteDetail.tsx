@@ -1,5 +1,4 @@
 import { getDailyVoteTicket, getVoteDetail } from '@/api/Vote';
-import Layout from '@/components/organisms/Layout';
 import VoteDetailLayout from '@/components/templates/VoteDetailLayout';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
@@ -10,11 +9,18 @@ import { NextSeo } from 'next-seo';
 import nookies from 'nookies';
 export interface EventProps extends InferGetServerSidePropsType<typeof getServerSideProps> {}
 
-const VoteDetail = ({ urlLang, voteDetails,  dailyTicketCount, headers, authCookie, url }: EventProps) => {
+const VoteDetail = ({
+  urlLang,
+  voteDetails,
+  dailyTicketCount,
+  headers,
+  authCookie,
+  url,
+}: EventProps) => {
   const isWebView = false;
 
   return (
-    <Layout urlLang={urlLang}>
+    <>
       <NextSeo
         title={voteDetails.RESULTS.DATAS.VOTE_INFO.TITLE}
         description={voteDetails.RESULTS.DATAS.VOTE_INFO.DESCRIPTION}
@@ -39,7 +45,7 @@ const VoteDetail = ({ urlLang, voteDetails,  dailyTicketCount, headers, authCook
         authCookie={authCookie}
         isWebView={isWebView}
       />
-    </Layout>
+    </>
   );
 };
 

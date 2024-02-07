@@ -1,6 +1,9 @@
+import Layout from '@/components/organisms/Layout';
 import '@/styles/globals.css';
+import { UrlLangType } from '@/types/common';
 import { DefaultSeo } from 'next-seo';
-import type { AppProps } from 'next/app';
+import type { AppContext, AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
@@ -17,9 +20,12 @@ const queryClient = new QueryClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
   function kakaoInit() {
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
   }
+  const page = router.pathname.split('/')[2];
+  const isNotLayout = page === 'votes' || page === 'thirdParty' || page === 'privacy';
 
   return (
     <RecoilRoot>
@@ -47,8 +53,33 @@ export default function App({ Component, pageProps }: AppProps) {
           crossOrigin="anonymous"
           onLoad={kakaoInit}
         />
-        <Component {...pageProps} />
+        {isNotLayout ? (
+          <Component {...pageProps} />
+        ) : (
+          <Layout urlLang={pageProps.urlLang} isWebView={pageProps.isWebView}>
+            <Component {...pageProps} />
+          </Layout>
+        )}
       </QueryClientProvider>
     </RecoilRoot>
   );
 }
+App.getInitialProps = async ({ Component, ctx }: AppContext) => {
+  let pageGetInitialProps = {};
+  const isWebView = !!ctx?.req?.headers?.isWebView || false;
+  const cookie = !!ctx?.req?.headers?.cookie;
+  const urlLang = ctx?.query?.locale as UrlLangType;
+
+  if (Component.getInitialProps) {
+    pageGetInitialProps = await Component.getInitialProps(ctx);
+  }
+
+  return {
+    pageProps: {
+      isWebView,
+      cookie,
+      urlLang,
+      ...pageGetInitialProps,
+    },
+  };
+};
