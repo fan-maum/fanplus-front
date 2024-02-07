@@ -272,6 +272,7 @@ export type CommunityPageTextType = {
 };
 export type CommmunityBookmarkType = {
   NoBookmarkMessage: string;
+  seeMore: string;
 };
 export type CommunityBoardTextType = {
   all: string;

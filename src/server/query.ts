@@ -1,7 +1,4 @@
-import { getMultiBoardsInquiry } from './../api/Community';
 import { getComments, getReplies } from '@/api/Community';
-import { ServerLangType } from '@/types/common';
-import { useQuery } from 'react-query';
 
 export const getRepliesQuery = async ({
   commentIndex,

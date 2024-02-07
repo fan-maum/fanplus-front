@@ -10,10 +10,10 @@ import type {
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 import CommunityBoardNoPost from '../CommunityBoardNoPost';
-import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { colors } from '@/styles/CommunityColors';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { UnstyledButton } from '@/components/atoms';
+import { bookmarkTexts } from '@/texts/bookmarkTexts';
 
 type BoardArticleTableProps = {
   communityBoardData: CommunityBoardResponseType;
@@ -39,6 +39,7 @@ const BookmarkArticleTable = ({
   const tableHeader = isBoardNameTableHeader ? 'board' : 'topic';
   const boardInfo = (communityBoardData || communityBoardSSRdata).BOARD_INFO;
   const postList = (communityBoardData || communityBoardSSRdata).POST_LIST;
+  const bookmarksTexts = bookmarkTexts[urlLang];
 
   const isPostExist = !(
     postList?.length === 0 &&
@@ -73,7 +74,7 @@ const BookmarkArticleTable = ({
         <UnstyledButton
           css={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 12, fontWeight: 600 }}
         >
-          더보기
+          {bookmarksTexts.seeMore}
           <IconArrowLeft
             iconCss={{ width: '14px', height: '14px', transform: 'rotateZ(180deg)' }}
           />

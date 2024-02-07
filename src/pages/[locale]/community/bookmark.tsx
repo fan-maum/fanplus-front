@@ -1,16 +1,14 @@
-import { getBookmarks, getCommunityBoardData, getUser } from '@/api/Community';
+import { getBookmarks, getUser } from '@/api/Community';
 import CommunityMainLayout from '@/components/templates/CommunityMainLayout';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type { PartialUserType } from '@/types/community';
 import type { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import nookies from 'nookies';
 import CommunityBookmarkTemplate from '@/components/templates/CommunityBookmarkTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
-import { useEffect, useState } from 'react';
 
-type BookmarkPropTypes = {
+export type BookmarkPropTypes = {
   queryParams: {
     urlLang: UrlLangType;
     userId: string;
@@ -31,49 +29,11 @@ const Bookmark = ({
   initialProps,
   user,
 }: BookmarkPropTypes & { user: PartialUserType }) => {
-  const router = useRouter();
-  const [bookmarkBoards, setBookmarkBoards] = useState([]);
   const { urlLang, userId, boardLangCookie, maxPage } = queryParams;
-  const { page, serverLang, topic, view_type } = initialProps;
   const { data } = useQuery(['bookmarks', { userId: userId, urlLang }], () =>
     getBookmarks(userId, urlLang)
   );
   const bookmarks = data ?? [];
-  const { boardIndex = 'bookmark' } = router.query;
-  console.log(bookmarks);
-
-  var arr = [
-    { name: 'Java', age: 25 },
-    { name: 'React', age: 5 },
-    { name: 'JS', age: 17 },
-  ];
-
-  const perPage = 3;
-
-  async function testData(bookmark: any) {
-    const boardType = bookmark.slug === 'all' ? 'community' : bookmark.slug;
-    return await getCommunityBoardData(
-      userId,
-      boardType,
-      page,
-      perPage,
-      serverLang,
-      boardLangCookie,
-      view_type,
-      topic,
-      maxPage
-    );
-  }
-
-  useEffect(() => {
-    if (bookmarks && bookmarks.length) {
-      bookmarks.map(async (bookmark) => {
-        testData(bookmark).then((result) => {
-          setBookmarkBoards((bookmarkBoards) => [...bookmarkBoards, result]);
-        });
-      });
-    }
-  }, [bookmarks]);
 
   return (
     <>
@@ -86,7 +46,11 @@ const Bookmark = ({
         withBestNotices
         withBoardTab
       >
-        <CommunityBookmarkTemplate queryParams={queryParams} bookmarkBoards={bookmarkBoards} />
+        <CommunityBookmarkTemplate
+          queryParams={queryParams}
+          initialProps={initialProps}
+          bookmarks={bookmarks}
+        />
       </CommunityMainLayout>
     </>
   );
