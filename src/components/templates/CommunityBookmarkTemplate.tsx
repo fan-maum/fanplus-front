@@ -45,8 +45,8 @@ const CommunityBookmarkTemplate = ({
   const { data: bookmarkBoards, isFetching } = useQuery(
     ['bookmarkBoards', bookmarks],
     async () => {
-      const dataList = await bookmarks?.map(async (bookmark) => {
-        return await getBookmarkedBoardsData(bookmark);
+      const dataList = bookmarks?.map((bookmark) => {
+        return getBookmarkedBoardsData(bookmark);
       });
       return await Promise.all(dataList);
     },
