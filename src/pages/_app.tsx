@@ -66,7 +66,7 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 App.getInitialProps = async ({ Component, ctx }: AppContext) => {
   let pageGetInitialProps = {};
-  const isWebView = !!ctx?.req?.headers?.Iswebview || 'false';
+  const isWebView = ctx?.req?.headers?.Iswebview || 'false';
   const cookie = !!ctx?.req?.headers?.cookie;
   const urlLang = ctx?.query?.locale as UrlLangType;
 
