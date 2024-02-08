@@ -8,6 +8,8 @@ import { BookmarkPropTypes } from '@/pages/[locale]/community/bookmark';
 import { useQuery } from 'react-query';
 import { useSetRecoilState } from 'recoil';
 import { openSideBarState } from '@/store/community';
+import { BookmarkBoardsSkeleton } from '../molecules/community/CommunitySkeleton';
+import { bookmarkTexts } from '@/texts/bookmarkTexts';
 
 interface CommunityBookmarkTemplateProps extends BookmarkPropTypes {
   bookmarks: BookmarksResponseType;
@@ -21,6 +23,7 @@ const CommunityBookmarkTemplate = ({
   const { urlLang, userId, boardLangCookie, maxPage } = queryParams;
   const { page, serverLang, topic, view_type } = initialProps;
   const boardTexts = communityBoardTexts[urlLang];
+  const bookmarksText = bookmarkTexts[urlLang];
   const setOpenSidebar = useSetRecoilState(openSideBarState);
   const perPage = 3;
 
@@ -52,13 +55,10 @@ const CommunityBookmarkTemplate = ({
     }
   );
 
-  // eslint-disable-next-line no-console
-  console.log('bookmarkBoards =>', bookmarkBoards);
-
   return (
-    <div>
+    <div css={{ display: 'none', '@media(max-width: 768px)': { display: 'block' } }}>
       {isFetching ? (
-        <>loading</>
+        <BookmarkBoardsSkeleton />
       ) : (
         <>
           {bookmarkBoards?.length !== 0 && (
@@ -91,7 +91,7 @@ const CommunityBookmarkTemplate = ({
                   }}
                   onClick={() => setOpenSidebar(true)}
                 >
-                  게시판 메뉴보기
+                  {bookmarksText.seeSideBar}
                 </UnstyledButton>
               </div>
             </div>

@@ -1,4 +1,3 @@
-import CommunityBoardArticle from '@/components/molecules/community/CommunityBoardArticle';
 import CommunityBoardArticleMobile from '@/components/molecules/community/CommunityBoardArticleMobile';
 import { CommunityBoardArticleTableSkeleton } from '@/components/molecules/community/CommunitySkeleton';
 import { useUrlLanguage } from '@/hooks/useLanguage';
@@ -59,6 +58,18 @@ const BookmarkArticleTable = ({
     ? '전체글'
     : '';
 
+  const boardIndex = boardInfo?.photocard_board_lang
+    ? boardInfo?.photocard_board_lang[0].BOARD_IDX
+    : boardInfo?.menuId === 1
+    ? 'all'
+    : undefined;
+
+  const handleMoveToBoard = () => {
+    boardIndex !== 'all'
+      ? router.push(`/${urlLang}/community/board/${boardIndex}`)
+      : router.push(`/${urlLang}/community`);
+  };
+
   return (
     <div css={{ marginTop: '16px' }}>
       <div
@@ -73,6 +84,7 @@ const BookmarkArticleTable = ({
         <h3 css={{ fontSize: 16, fontWeight: 600, color: `${colors.gray[1000]}` }}>{boardTitle}</h3>
         <UnstyledButton
           css={{ display: 'flex', alignItems: 'center', gap: 2, fontSize: 12, fontWeight: 600 }}
+          onClick={handleMoveToBoard}
         >
           {bookmarksTexts.seeMore}
           <IconArrowLeft
@@ -84,11 +96,6 @@ const BookmarkArticleTable = ({
         {postList?.map((post, idx) => {
           return (
             <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
-              <CommunityBoardArticle
-                postItem={post}
-                firstHeader={isBoardNameTableHeader ? post.BOARD_TITLE : post.TOPIC_NAME}
-                link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
-              />
               <CommunityBoardArticleMobile
                 postItem={post}
                 link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
