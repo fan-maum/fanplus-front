@@ -20,6 +20,7 @@ const BoardMobileTabMenusButton = styled.div`
   width: 24px;
   min-width: 24px;
   height: 24px;
+  margin-right: 8px;
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
