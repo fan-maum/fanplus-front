@@ -77,16 +77,19 @@ const CommunityBoardLayout = ({
     initialProps.view_type === view_type &&
     initialProps.topic === topicIndex;
 
+  const perPage = 20;
+
   const { data: communityBoardDataCSR, isFetching } = useQuery(
     [
       'communityBoardData',
-      { userId, boardType, page, serverLang, boardLang, view_type, topicIndex, maxPage },
+      { userId, boardType, page, perPage, serverLang, boardLang, view_type, topicIndex, maxPage },
     ],
     () =>
       getCommunityBoardData(
         userId,
         boardType,
         page,
+        perPage,
         serverLang,
         boardLang,
         view_type,

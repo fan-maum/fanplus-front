@@ -488,6 +488,7 @@ export type BookmarksItemType = {
   categoryId: string | null;
   parentId: string;
   boardId: string;
+  slug: string;
 };
 export type MainPageNoticesResponseType = Array<{
   IDX: string;

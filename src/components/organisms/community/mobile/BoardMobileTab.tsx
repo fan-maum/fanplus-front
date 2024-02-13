@@ -8,6 +8,7 @@ import { MultiBoardsInquiryItemType } from '@/types/community';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { openLanguageFitlerState, openSideBarState } from '@/store/community';
+import { colors } from '@/styles/CommunityColors';
 
 type BoardMobileTabProps = {
   urlLang: UrlLangType;
@@ -21,6 +22,7 @@ const BoardMobileTab = ({ urlLang, boardLang, withBoardTab, boardSlug }: BoardMo
   const boardTexts = communityBoardTexts[urlLang];
   const setOpenSidebar = useSetRecoilState(openSideBarState);
   const setLangModal = useSetRecoilState(openLanguageFitlerState);
+  const isNotBookmarkPage = router.route !== '/[locale]/community/bookmark';
 
   return (
     <div
@@ -29,25 +31,28 @@ const BoardMobileTab = ({ urlLang, boardLang, withBoardTab, boardSlug }: BoardMo
         '@media(max-width:768px)': { display: withBoardTab ? 'block' : 'none' },
       }}
     >
-      <div
-        css={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: '20px',
-        }}
-      >
-        <BoardMobileTitle
-          boardTitle={boardSlug && boardSlug.BOARD_TITLE}
-          bookmarked={(boardSlug && boardSlug.menu.isBookmarked) || false}
-          menuId={Number(boardSlug && boardSlug.menu.id)}
-          onClickBack={() => router.back()}
-        />
-        <CommunityBoardLangSelector
-          onClickOpenModal={() => setLangModal(true)}
-          boardLang={boardLang}
-        />
-      </div>
+      {isNotBookmarkPage && (
+        <div
+          css={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: '20px',
+          }}
+        >
+          <BoardMobileTitle
+            boardTitle={boardSlug && boardSlug.BOARD_TITLE}
+            bookmarked={(boardSlug && boardSlug.menu.isBookmarked) || false}
+            menuId={Number(boardSlug && boardSlug.menu.id)}
+            onClickBack={() => router.back()}
+          />
+          <CommunityBoardLangSelector
+            onClickOpenModal={() => setLangModal(true)}
+            boardLang={boardLang}
+          />
+        </div>
+      )}
+
       <div
         css={{
           display: 'flex',
@@ -55,6 +60,7 @@ const BoardMobileTab = ({ urlLang, boardLang, withBoardTab, boardSlug }: BoardMo
           height: '40px',
           gap: 14,
           padding: '0 16px',
+          borderBottom: `1px solid ${colors.gray[200]}`,
         }}
       >
         <BoardMobileTabMenus setOpenSidebar={setOpenSidebar} />
