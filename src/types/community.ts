@@ -531,19 +531,18 @@ export type MultiBoardsInquiryItemType = {
   HEAD_IMG: string;
   POST_CNT: string;
   isExistNewPost: boolean;
-  isBookmarked: boolean;
   menu: multiBoardsInquiryItemMenuType;
 };
 
 export type multiBoardsInquiryItemMenuType = {
   id: string;
-  boardId: string;
-  slug: string;
-  categoryId: string | null;
-  isDisplay: number;
-  parentId: string;
   title: string;
-  lastPostedAt: string;
+  slug: string;
+  isBookmarked: boolean;
+  isExistNewPost: boolean;
+  categoryId: string | null;
+  parentId: string;
+  boardId: string;
 };
 export type MultiBoardsInquiryResponseType = Array<MultiBoardsInquiryItemType>;
 
