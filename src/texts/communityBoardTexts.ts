@@ -46,6 +46,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['게시글이 없습니다.', '제일 먼저 게시글을 남겨주세요.'],
     noMyPostTexts: ['작성된 글이 없습니다.'],
+    noBlockUserTexts: ['등록된 차단 회원이 없습니다.'],
     buttonWrite: '글쓰기',
     link: {
       board: '/ko/community/board',
@@ -101,6 +102,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['There is no post.', 'Write a first post.'],
     noMyPostTexts: ['There is no post.'],
+    noBlockUserTexts: ['No blocked users.'],
     buttonWrite: 'Write',
     link: {
       board: '/en/community/board',
@@ -156,6 +158,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['No hay ninguna publicación.', 'Sé el primero en dejar una publicación.'],
     noMyPostTexts: ['No hay publicaciones escritas.'],
+    noBlockUserTexts: ['No hay usuarios bloqueados.'],
     buttonWrite: 'Escribir',
     link: {
       board: '/es/community/board',
@@ -211,6 +214,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['Tidak ada postingan', 'Jadilah orang pertama', 'yang meninggalkan postingan'],
     noMyPostTexts: ['Tidak ada postingan yang ditulis'],
+    noBlockUserTexts: ['Tidak ada pengguna yang diblokir.'],
     buttonWrite: 'Tulis',
     link: {
       board: '/in/community/board',
@@ -266,6 +270,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['投稿はありません', '最初に投稿を残してください'],
     noMyPostTexts: ['書かれた投稿はありません'],
+    noBlockUserTexts: ['ブロックされたユーザーはいません。'],
     buttonWrite: '書き込み',
     link: {
       board: '/ja/community/board',
@@ -321,6 +326,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['Không có bài viết nào', 'Hãy là người đầu tiên để lại bài viết'],
     noMyPostTexts: ['Không có bài viết nào được viết'],
+    noBlockUserTexts: ['Không có người dùng bị chặn.'],
     buttonWrite: 'Viết',
     link: {
       board: '/vi/community/board',
@@ -376,6 +382,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['没有帖子。', '成为第一个发表帖子的人'],
     noMyPostTexts: ['没有帖子。'],
+    noBlockUserTexts: ['没有被屏蔽的用户'],
     buttonWrite: '发帖子',
     link: {
       board: '/zh-CN/community/board',
@@ -431,6 +438,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['沒有帖子。', '成為第一個發表帖子的人'],
     noMyPostTexts: ['沒有帖子。'],
+    noBlockUserTexts: ['沒有被屏蔽的用戶'],
     buttonWrite: '發帖子',
     link: {
       board: '/zh-TW/community/board',

@@ -58,6 +58,11 @@ export default function CommentPopover({
     }
   };
 
+  const BlockUserOnClick = async () => {
+    // eslint-disable-next-line no-console
+    console.log('blockUser');
+  };
+
   return (
     <Popover
       width="auto"
@@ -101,7 +106,10 @@ export default function CommentPopover({
           {isWriter === 'Y' ? (
             <li onClick={showModalBlockOnClick}>{texts.delete}</li>
           ) : (
-            <li onClick={ReportOnClick}>{texts.report}</li>
+            <>
+              <li onClick={ReportOnClick}>{texts.report}</li>
+              <li onClick={BlockUserOnClick}>{texts.block}</li>
+            </>
           )}
         </ul>
       </Popover.Dropdown>

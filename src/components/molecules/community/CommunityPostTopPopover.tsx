@@ -49,6 +49,11 @@ const CommunityPostTopPopover = ({
     }
   };
 
+  const BlockUserOnClick = async () => {
+    // eslint-disable-next-line no-console
+    console.log('blockUser');
+  };
+
   return (
     <Popover
       width={60}
@@ -102,7 +107,12 @@ const CommunityPostTopPopover = ({
               <li onClick={showModalBlockOnClick}>{texts.delete}</li>
             </>
           ) : (
-            <li onClick={ReportOnClick}>{texts.report}</li>
+            <>
+              <li onClick={ReportOnClick} css={{ borderBottom: '1px solid #d9d9d9' }}>
+                {texts.report}
+              </li>
+              <li onClick={BlockUserOnClick}>{texts.block}</li>
+            </>
           )}
         </ul>
       </Popover.Dropdown>

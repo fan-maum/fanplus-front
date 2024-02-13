@@ -317,6 +317,7 @@ export type CommunityBoardTextType = {
   };
   noPostTexts: string[];
   noMyPostTexts: string[];
+  noBlockUserTexts: string[];
   buttonWrite: string;
   link: {
     board: string;
@@ -338,6 +339,7 @@ export type CommunityPostTextType = {
   edit: string;
   delete: string;
   report: string;
+  block: string;
   cancelButton: string;
   confirmButton: string;
   reportButton: string;

@@ -1,5 +1,8 @@
 import MyPostArticle from '@/components/molecules/community/mobile/MyPostArticle';
 import BlockUsersPagination from './BlockUsersPagination';
+import CommunityMyPostNoPost from '../CommunityMyPostNoPost';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 
 type BlockUsersTableProps = {
   blockUsersCount: number;
@@ -17,6 +20,11 @@ export const TestArray = () => {
 };
 
 const BlockUsersTable = ({ blockUsersCount, handlePageChange }: BlockUsersTableProps) => {
+  const urlLang = useUrlLanguage();
+  const boardTexts = communityBoardTexts[urlLang];
+  if (blockUsersCount === 0) {
+    return <CommunityMyPostNoPost texts={boardTexts.noBlockUserTexts} />;
+  }
   return (
     <div>
       <ul>
