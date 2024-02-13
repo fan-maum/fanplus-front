@@ -8,13 +8,26 @@ import BlockUsersTable from '../organisms/community/mobile/BlockUsersTable';
 import { colors } from '@/styles/CommunityColors';
 import styled from '@emotion/styled';
 import MyPostArticleTable from '../organisms/community/MyPostArticleTable';
+import { useQuery } from 'react-query';
+import { getBlockUsers } from '@/api/Community';
 
-const CommunityMyPostTemplate = ({ urlLang, userId, communityMyPostData }: MyPostPageProps) => {
+const CommunityMyPostTemplate = ({
+  urlLang,
+  userId,
+  user_idx,
+  communityMyPostData,
+}: MyPostPageProps) => {
   const router = useRouter();
   const texts = communityBoardTexts[urlLang];
   const boardInfo = communityMyPostData.BOARD_INFO;
   const postList = communityMyPostData.POST_LIST;
-  const blockUsersCount = 30;
+  let position = 0;
+  const count = 20;
+
+  const { data } = useQuery(['blockUsers', { userId, user_idx, position, count }], () =>
+    getBlockUsers(userId, user_idx, position, count)
+  );
+  const blockUsersCount = Number(data?.RESULTS.DATAS.list.length);
 
   const [myPostTabBar, setMyPostTabBar] = useState((router.query.tab as string) || 'myPost');
 

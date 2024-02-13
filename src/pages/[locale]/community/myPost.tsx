@@ -10,12 +10,14 @@ import { useQuery } from 'react-query';
 export interface MyPostPageProps {
   urlLang: UrlLangType;
   userId: string;
+  user_idx: number;
   communityMyPostData: CommunityBoardMyPostResponseType;
 }
 
 const MyPostPage = ({
   urlLang,
   userId,
+  user_idx,
   communityMyPostData,
   user,
 }: MyPostPageProps & { user: PartialUserType }) => {
@@ -30,6 +32,7 @@ const MyPostPage = ({
         urlLang={urlLang}
         userId={userId}
         communityMyPostData={communityMyPostData}
+        user_idx={user_idx}
       />
     </CommunityMainLayout>
   );
@@ -62,12 +65,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!!userId && !!user_idx) {
     const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
     const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { urlLang, userId: userId, communityMyPostData, user } };
+    return { props: { urlLang, userId: userId, user_idx, communityMyPostData, user } };
   }
   return {
     props: {
       urlLang,
       userId: userId,
+      user_idx,
       communityMyPostData,
     },
   };
