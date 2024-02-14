@@ -89,6 +89,7 @@ export type CommunityBoardResponseType = {
     menu: {
       title: string;
       boardId: string;
+      board_IDX: string;
     };
     menuId: number;
     isBookmarked: boolean;
