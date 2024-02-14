@@ -86,6 +86,10 @@ export type CommunityBoardResponseType = {
     DEFAULT_TOPIC: number;
     NEW_POST_DATE: string | null;
     photocard_board_lang: Array<CommunityBoardPhotocardResponseType>;
+    menu: {
+      title: string;
+      boardId: string;
+    };
     menuId: number;
     isBookmarked: boolean;
     VIEW_POSSIBLE_PAGE: number;
