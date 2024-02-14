@@ -5,6 +5,7 @@ import { DefaultSeo } from 'next-seo';
 import type { AppContext, AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 
@@ -26,6 +27,11 @@ export default function App({ Component, pageProps }: AppProps) {
   }
   const page = router.pathname.split('/')[2];
   const isNotLayout = page === 'votes' || page === 'thirdParty' || page === 'privacy';
+  const [webView, setWebView] = useState(pageProps.isWebView);
+
+  useEffect(() => {
+    setWebView(webView);
+  }, []);
 
   return (
     <RecoilRoot>
@@ -56,7 +62,7 @@ export default function App({ Component, pageProps }: AppProps) {
         {isNotLayout ? (
           <Component {...pageProps} />
         ) : (
-          <Layout urlLang={pageProps.urlLang} isWebView={pageProps.isWebView}>
+          <Layout urlLang={pageProps.urlLang} isWebView={webView}>
             <Component {...pageProps} />
           </Layout>
         )}
