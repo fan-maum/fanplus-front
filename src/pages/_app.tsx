@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
     if (router.isReady) {
       setWebView(webView);
     }
-  }, [router]);
+  }, [webView, router]);
 
   return (
     <RecoilRoot>
