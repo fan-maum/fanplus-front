@@ -30,8 +30,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const [webView, setWebView] = useState(pageProps.isWebView);
 
   useEffect(() => {
-    setWebView(webView);
-  }, []);
+    if (router.isReady) {
+      setWebView(webView);
+    }
+  }, [router]);
 
   return (
     <RecoilRoot>
