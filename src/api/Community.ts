@@ -465,7 +465,7 @@ export const postBlockUser = async (user_id: string, user_idx: string, targetUse
       targetUserIdx: targetUserIdx,
     }
   );
-  return response.data;
+  return response;
 };
 
 export const deleteBlockUser = async (user_id: string, user_idx: string, targetUserIdx: number) => {

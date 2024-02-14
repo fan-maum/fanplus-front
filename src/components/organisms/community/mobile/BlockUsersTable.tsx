@@ -3,23 +3,19 @@ import BlockUsersPagination from './BlockUsersPagination';
 import CommunityMyPostNoPost from '../CommunityMyPostNoPost';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useUrlLanguage } from '@/hooks/useLanguage';
+import { blockUserListItemType } from '@/types/community';
 
 type BlockUsersTableProps = {
+  blockUsers: Array<blockUserListItemType>;
   blockUsersCount: number;
   handlePageChange: (selectedItem: { selected: number }) => void;
 };
 
-const blockUser = {
-  USER: 'test1',
-};
-
-export const TestArray = () => {
-  return Array.from({ length: 30 }, (_, idx) => (
-    <MyPostArticle key={idx} blockUserItem={blockUser} />
-  ));
-};
-
-const BlockUsersTable = ({ blockUsersCount, handlePageChange }: BlockUsersTableProps) => {
+const BlockUsersTable = ({
+  blockUsers,
+  blockUsersCount,
+  handlePageChange,
+}: BlockUsersTableProps) => {
   const urlLang = useUrlLanguage();
   const boardTexts = communityBoardTexts[urlLang];
   if (blockUsersCount === 0) {
@@ -28,7 +24,9 @@ const BlockUsersTable = ({ blockUsersCount, handlePageChange }: BlockUsersTableP
   return (
     <div>
       <ul>
-        <TestArray />
+        {blockUsers.map((blockUser) => (
+          <MyPostArticle key={blockUser.IDX} blockUserItem={blockUser} />
+        ))}
       </ul>
       <BlockUsersPagination totalCount={blockUsersCount} handlePageChange={handlePageChange} />
     </div>

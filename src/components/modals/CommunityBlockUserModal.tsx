@@ -1,9 +1,9 @@
 import { useRecoilValue } from 'recoil';
-import { checkCommentState, selectInfoState } from '@/store/community';
+import { checkCommentState } from '@/store/community';
 import { Group } from '../atoms';
 import { CommunityPostTextType } from '@/types/textTypes';
 import CommunityModalText from '../molecules/CommunityModalText';
-import { deleteComment, deletePost } from '@/api/Community';
+import { postBlockUser } from '@/api/Community';
 import CommunityBlockUserCommonModal, {
   CommunityBlockUserCommonModalProps,
 } from './CommunityBlockUserCommonModal';
@@ -13,7 +13,9 @@ export interface BlockUserModalProps {
   opened: boolean;
   onClose: () => void;
   texts: CommunityPostTextType;
-  identity: string;
+  user_id: string;
+  user_idx: string;
+  targetUserIdx: string;
   setBlockUserModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   setDoneModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   setDoneModalMessage: React.Dispatch<React.SetStateAction<any>>;
@@ -25,7 +27,9 @@ function CommunityBlockUserModal({
   onClose,
   opened,
   texts,
-  identity,
+  user_id,
+  user_idx,
+  targetUserIdx,
   setBlockUserModalBlock,
   setDoneModalBlock,
   setDoneModalMessage,
@@ -33,8 +37,6 @@ function CommunityBlockUserModal({
   replyRefetch,
   ...props
 }: BlockUserModalProps) {
-  const selectInfo = useRecoilValue(selectInfoState);
-  const { purpose, target_type, idx } = selectInfo;
   const modalText1 = texts.askBlockUser[0];
   const modalText2 = texts.askBlockUser[1];
 
@@ -48,24 +50,11 @@ function CommunityBlockUserModal({
     confirmButton: {
       onClick: async () => {
         setBlockUserModalBlock(false);
-        if (target_type === 'post') {
-          // let response = await deletePost(identity, idx, 'remove');
-          // let modalMessage =
-          //   response?.data?.RESULTS?.MSG === 'success' ? texts.postDeleted : texts.alreadyDeleted;
-          // toast open
-          ToastModal.alert('회원을 차단하였습니다.');
-        }
-        if (target_type === 'comment') {
-          // let response = await deleteComment(identity, idx);
-          // let modalMessage =
-          //   response?.data?.RESULTS?.MSG === '삭제 성공'
-          //     ? texts.commentDeleted
-          //     : texts.alreadyDeleted;
-          // checkComment ? refetch() : replyRefetch();
-          // toast open
-          ToastModal.alert('회원을 차단하였습니다.');
-        }
-        ToastModal.alert('회원을 차단하였습니다.');
+        let response = await postBlockUser(user_id, user_idx, Number(targetUserIdx));
+        let modalMessage =
+          response?.data?.RESULTS?.MSG === 'success' ? texts.blockedUser : texts.alreadyBlockUser;
+        // checkComment ? refetch() : replyRefetch();
+        ToastModal.alert(modalMessage);
       },
       text: texts.confirmButton,
     },

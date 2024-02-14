@@ -1,22 +1,28 @@
+import { deleteBlockUser } from '@/api/Community';
 import { UnstyledButton } from '@/components/atoms';
 import ToastModal from '@/components/toast/ToastModal';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import { colors } from '@/styles/CommunityColors';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
-import { formatWrittenTimeLite } from '@/utils/util';
+import { blockUserListItemType } from '@/types/community';
+import { getCookie } from '@/utils/Cookie';
+import { formatOnlyDate } from '@/utils/util';
 import { css } from '@emotion/react';
 
 type MyPostArticleProps = {
-  blockUserItem: any;
+  blockUserItem: blockUserListItemType;
 };
 const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
-  // const timeExpression =
-  //   blockUserItem.PUBLISH_DATE !== null ? formatWrittenTimeLite(blockUserItem.PUBLISH_DATE) : 0;
-  const timeExpression = '2024.01.01';
+  const timeExpression =
+    blockUserItem.INS_DATE !== null ? formatOnlyDate(blockUserItem.INS_DATE) : 0;
   const urlLang = useUrlLanguage();
+  const user_id = getCookie('user_id');
+  const user_idx = getCookie('user_idx');
+
   const boardTexts = communityBoardTexts[urlLang];
-  const handleUnBlock = () => {
-    ToastModal.alert('차단이 해제되었습니다.');
+  const handleUnBlock = async () => {
+    let response = await deleteBlockUser(user_id, user_idx, Number(blockUserItem.IDX));
+    response.status === 200 && ToastModal.alert(boardTexts.blockUser.unBlocked);
   };
   return (
     <li
@@ -39,7 +45,7 @@ const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
             textOverflow: 'ellipsis',
           }}
         >
-          {blockUserItem.USER}
+          {blockUserItem.NICK}
         </h4>
         <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>{timeExpression}</div>
       </div>

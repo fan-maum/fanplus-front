@@ -58,16 +58,17 @@ function CommunityBlockUserCommonModal({
           textAlign: 'center',
           letterSpacing: -0.3,
           paddingLeft: '0 !important',
-          padding: '44px 0 0 0 !important',
+          padding: '30px 0 20px 0 !important',
           color: colors.gray[props?.title ? 700 : 750],
         },
       })}
     >
       {children}
-      <Flex w="100%" mt={44}>
+      <Flex w="86%" mt={20} gap={20} m={'0 auto'}>
         {(cancelButton || withCancelButton) && (
           <CommunityModalButton
-            css={{ flex: 1 }}
+            css={{ flex: 1, height: '40px', padding: '6px 38px' }}
+            variant="blockUserCancel"
             onClick={
               (typeof cancelButton === 'object' &&
                 (() => {
@@ -82,8 +83,8 @@ function CommunityBlockUserCommonModal({
         )}
         <CommunityModalButton
           buttonId={buttonId}
-          variant="primary"
-          css={{ flex: 1 }}
+          variant="blockUserConfirm"
+          css={{ flex: 1, height: '40px', padding: '6px 38px' }}
           onClick={confirmButton?.onClick}
         >
           {confirmButton?.text || '확인'}

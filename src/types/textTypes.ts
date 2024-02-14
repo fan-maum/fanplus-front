@@ -300,6 +300,7 @@ export type CommunityBoardTextType = {
   };
   blockUser: {
     unBlock: string;
+    unBlocked: string;
   };
   boardLang: {
     modalHeader: string;
@@ -363,6 +364,7 @@ export type CommunityPostTextType = {
   alreadyDeleted: string;
   alreadyReportedPost: string;
   alreadyReportedComment: string;
+  alreadyBlockUser: string;
   reportReason: string;
   reportPostOptions: {
     option1: string;

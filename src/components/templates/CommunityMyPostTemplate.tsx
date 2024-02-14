@@ -28,6 +28,7 @@ const CommunityMyPostTemplate = ({
     getBlockUsers(userId, user_idx, position, count)
   );
   const blockUsersCount = Number(data?.RESULTS.DATAS.list.length);
+  const blockUsers = data?.RESULTS.DATAS.list ?? [];
 
   const [myPostTabBar, setMyPostTabBar] = useState((router.query.tab as string) || 'myPost');
 
@@ -70,6 +71,7 @@ const CommunityMyPostTemplate = ({
               <span>{texts.blockUserTitle.secondMessage}</span>
             </BlockUserTitle>
             <BlockUsersTable
+              blockUsers={blockUsers}
               blockUsersCount={blockUsersCount}
               handlePageChange={handlePageChange}
             />
