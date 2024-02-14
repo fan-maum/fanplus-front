@@ -18,7 +18,7 @@ const CommunityBoardTemplate = ({
       communityBoardSSRdata={communityBoardSSRdata}
       initialProps={initialProps}
       boardType={boardType}
-      boardTitle={communityBoardSSRdata.BOARD_INFO.menu.title}
+      boardTitle={communityBoardSSRdata.BOARD_INFO.photocard_board_lang[0].TITLE}
       communityBoardTopics={communityBoardTopics}
       communityNoticeBannerData={communityNoticeBannerData}
     />

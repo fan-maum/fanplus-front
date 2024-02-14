@@ -94,7 +94,7 @@ const CommunityBoardLayout = ({
   const onClickWrite = () => {
     const writeBanBoard = ['139', '192', '220'];
     const writeBanned = writeBanBoard.includes(
-      communityBoardData?.BOARD_INFO.menu.boardId as string
+      communityBoardData?.BOARD_INFO.photocard_board_lang[0].BOARD_IDX as string
     );
 
     if (writeBanned && !isAdminAccount) {
@@ -107,7 +107,7 @@ const CommunityBoardLayout = ({
       return;
     }
     router.push({
-      pathname: `/${urlLang}/community/board/${communityBoardData?.BOARD_INFO.menu.boardId}/write`,
+      pathname: `/${urlLang}/community/board/${communityBoardData?.BOARD_INFO.photocard_board_lang[0].BOARD_IDX}/write`,
       query: { topic: router.query.topic },
     });
   };
