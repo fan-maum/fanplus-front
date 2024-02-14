@@ -27,12 +27,13 @@ export default function App({ Component, pageProps }: AppProps) {
   }
   const page = router.pathname.split('/')[2];
   const isNotLayout = page === 'votes' || page === 'thirdParty' || page === 'privacy';
-  const [webView, setWebView] = useState(!pageProps.isWebView);
+  const [webView, setWebView] = useState(pageProps.isWebView);
 
   useEffect(() => {
     if (router.isReady) {
-      setWebView(pageProps.isWebView);
+      setWebView(webView);
     }
+    setWebView(webView);
   }, [router]);
 
   return (
