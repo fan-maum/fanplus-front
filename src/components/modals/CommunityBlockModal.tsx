@@ -57,7 +57,7 @@ function CommunityBlockModal({
             response?.data?.RESULTS?.MSG === 'success' ? texts.postDeleted : texts.alreadyDeleted;
           setDoneModalMessage(modalMessage);
           setDoneModalBlock(true);
-          router.push(`/community/board/${router.query.boardIndex}`);
+          router.replace(`/community/board/${router.query.boardIndex}`);
         }
         if (target_type === 'comment') {
           let response = await deleteComment(identity, idx);
