@@ -13,6 +13,7 @@ import {
   useGetUserQueryProps,
 } from '@/server/useGetCommentsQuery';
 import {
+  blockUserModalBlockState,
   modalBlockState,
   orderTypeState,
   postParamState,
@@ -29,6 +30,7 @@ import CommunityReportModal from '../modals/CommunityReportModal';
 import CommunityShareModal, { CommunityShareModalProps } from '../modals/CommunityShareModal';
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
+import CommunityBlockUserModal from '../modals/CommunityBlockUserModal';
 
 const CommunityPostTemplate = ({
   urlLang,
@@ -50,6 +52,7 @@ const CommunityPostTemplate = ({
   const [doneModalMessage, setDoneModalMessage] = useState<any>();
   const [modalBlock, setModalBlock] = useRecoilState(modalBlockState);
   const [reportModalBlock, setReportModalBlock] = useRecoilState(reportModalBlockState);
+  const [blockUserModalBlock, setBlockUserModalBlock] = useRecoilState(blockUserModalBlockState);
   const [doneModalBlock, setDoneModalBlock] = useState(false);
   const [shareModalIsOpened, setShareModalIsOpened] = useState(false);
   const [completedShareModalIsOpen, setCompletedShareModalIsOpen] = useState(false);
@@ -178,6 +181,19 @@ const CommunityPostTemplate = ({
         setReportModalBlock={setReportModalBlock}
         setDoneModalBlock={setDoneModalBlock}
         refetch={refetch}
+      />
+      <CommunityBlockUserModal
+        opened={blockUserModalBlock}
+        texts={texts}
+        setDoneModalMessage={setDoneModalMessage}
+        onClose={() => {
+          setBlockUserModalBlock(false);
+        }}
+        identity={identity}
+        setBlockUserModalBlock={setBlockUserModalBlock}
+        setDoneModalBlock={setDoneModalBlock}
+        refetch={refetch}
+        replyRefetch={replyRefetch}
       />
       <CommunityBlockModal
         opened={modalBlock}

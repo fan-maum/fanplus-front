@@ -37,6 +37,11 @@ export const reportModalBlockState = atom<boolean>({
   default: false,
 });
 
+export const blockUserModalBlockState = atom<boolean>({
+  key: 'blockUserModalBlockState',
+  default: false,
+});
+
 export const userState = atom<UserResponseType | null>({
   key: 'userState',
   default: null,

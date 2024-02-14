@@ -348,9 +348,11 @@ export type CommunityPostTextType = {
   askPostDelete: string;
   askPostDeleteMsg: string;
   askCommentDelete: string;
+  askBlockUser: string[];
   postDeleted: string;
   commentDeleted: string;
   reported: string;
+  blockedUser: string;
   reply: string;
   writeReply: string;
   register: string;

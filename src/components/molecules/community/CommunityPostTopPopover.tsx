@@ -1,7 +1,16 @@
 import IconVerticalMore from '@/components/atoms/IconVerticalMore';
-import { modalBlockState, reportModalBlockState, selectInfoState } from '@/store/community';
+import {
+  blockUserModalBlockState,
+  modalBlockState,
+  reportModalBlockState,
+  selectInfoState,
+} from '@/store/community';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
+import {
+  showBlockUserModalBlockOnClick,
+  showModalOnClick,
+  showReportModalBlockOnClick,
+} from '@/utils/communityUtil';
 import { pathOnly } from '@/utils/util';
 import { Popover } from '@mantine/core';
 import { useRouter } from 'next/router';
@@ -24,6 +33,7 @@ const CommunityPostTopPopover = ({
   const router = useRouter();
   const setModalBlock = useSetRecoilState(modalBlockState);
   const setReportModalBlock = useSetRecoilState(reportModalBlockState);
+  const setBlockUserModalBlock = useSetRecoilState(blockUserModalBlockState);
   const setSelectInfo = useSetRecoilState(selectInfoState);
   const showModalBlockOnClick = async () =>
     await showModalOnClick({
@@ -50,8 +60,14 @@ const CommunityPostTopPopover = ({
   };
 
   const BlockUserOnClick = async () => {
-    // eslint-disable-next-line no-console
-    console.log('blockUser');
+    if (identity !== null) {
+      await showBlockUserModalBlockOnClick({
+        setBlockUserModalBlock,
+      });
+    } else {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+    }
   };
 
   return (
