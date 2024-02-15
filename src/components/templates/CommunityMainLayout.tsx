@@ -128,7 +128,7 @@ const CommunityMainLayout = ({
       {isBoardPage && (
         <MobileWriteButton onClick={() => onClickWrite({ router, urlLang, setPermissionModal })} />
       )}
-    </Layout>
+    </div>
   );
 };
 
