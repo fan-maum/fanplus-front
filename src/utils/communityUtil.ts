@@ -14,8 +14,9 @@ interface showReportModalBlockOnClickProps extends selectInfoType {
   setSelectInfo: SetterOrUpdater<selectInfoType>;
 }
 
-interface showBlockUserModalBlockOnClickProps {
+interface showBlockUserModalBlockOnClickProps extends selectInfoType {
   setBlockUserModalBlock: SetterOrUpdater<boolean>;
+  setSelectInfo: SetterOrUpdater<selectInfoType>;
 }
 
 export const showModalOnClick = async ({
@@ -44,9 +45,15 @@ export const showReportModalBlockOnClick = async ({
 };
 
 export const showBlockUserModalBlockOnClick = async ({
+  purpose,
+  target_type,
+  idx,
   setBlockUserModalBlock,
+  setSelectInfo,
+  ...props
 }: showBlockUserModalBlockOnClickProps) => {
   await setBlockUserModalBlock(true);
+  await setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
 };
 
 export const getProfileData = (user: UserResponseType | null) => {

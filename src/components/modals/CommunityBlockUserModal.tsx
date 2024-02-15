@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { checkCommentState } from '@/store/community';
+import { checkCommentState, selectInfoState } from '@/store/community';
 import { Group } from '../atoms';
 import { CommunityPostTextType } from '@/types/textTypes';
 import CommunityModalText from '../molecules/CommunityModalText';
@@ -15,7 +15,6 @@ export interface BlockUserModalProps {
   texts: CommunityPostTextType;
   user_id: string;
   user_idx: string;
-  targetUserIdx: string;
   setBlockUserModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   setDoneModalBlock: React.Dispatch<React.SetStateAction<boolean>>;
   setDoneModalMessage: React.Dispatch<React.SetStateAction<any>>;
@@ -29,7 +28,6 @@ function CommunityBlockUserModal({
   texts,
   user_id,
   user_idx,
-  targetUserIdx,
   setBlockUserModalBlock,
   setDoneModalBlock,
   setDoneModalMessage,
@@ -37,8 +35,10 @@ function CommunityBlockUserModal({
   replyRefetch,
   ...props
 }: BlockUserModalProps) {
+  const selectInfo = useRecoilValue(selectInfoState);
   const modalText1 = texts.askBlockUser[0];
   const modalText2 = texts.askBlockUser[1];
+  const { purpose, target_type, idx } = selectInfo;
 
   const checkComment = useRecoilValue(checkCommentState);
 
@@ -50,10 +50,10 @@ function CommunityBlockUserModal({
     confirmButton: {
       onClick: async () => {
         setBlockUserModalBlock(false);
-        let response = await postBlockUser(user_id, user_idx, Number(targetUserIdx));
+        let response = await postBlockUser(user_id, user_idx, Number(idx));
         let modalMessage =
           response?.data?.RESULTS?.MSG === 'success' ? texts.blockedUser : texts.alreadyBlockUser;
-        // checkComment ? refetch() : replyRefetch();
+        checkComment ? refetch() : replyRefetch();
         ToastModal.alert(modalMessage);
       },
       text: texts.confirmButton,

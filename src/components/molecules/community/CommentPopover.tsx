@@ -1,6 +1,7 @@
 import { Popover } from '@mantine/core';
 import { useSetRecoilState } from 'recoil';
 import {
+  blockUserModalBlockState,
   checkCommentState,
   modalBlockState,
   reportModalBlockState,
@@ -9,12 +10,18 @@ import {
 import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
-import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
+import {
+  showBlockUserModalBlockOnClick,
+  showModalOnClick,
+  showReportModalBlockOnClick,
+} from '@/utils/communityUtil';
 import IconVerticalMore from '@/components/atoms/IconVerticalMore';
+import { colors } from '@/styles/CommunityColors';
 
 type CommentPopoverProps = {
   identity: string;
   comment_idx: any;
+  writer_idx: string;
   isWriter: string | undefined;
   texts: CommunityPostTextType;
   isComment: boolean;
@@ -22,12 +29,14 @@ type CommentPopoverProps = {
 export default function CommentPopover({
   identity,
   comment_idx,
+  writer_idx,
   isWriter,
   texts,
   isComment,
 }: CommentPopoverProps) {
   const setModalBlock = useSetRecoilState(modalBlockState);
   const setReportModalBlock = useSetRecoilState(reportModalBlockState);
+  const setBlockUserModalBlock = useSetRecoilState(blockUserModalBlockState);
   const setSelectInfo = useSetRecoilState(selectInfoState);
   const setCheckComment = useSetRecoilState(checkCommentState);
   const showModalBlockOnClick = async () => {
@@ -59,8 +68,18 @@ export default function CommentPopover({
   };
 
   const BlockUserOnClick = async () => {
-    // eslint-disable-next-line no-console
-    console.log('blockUser');
+    if (identity !== null) {
+      await showBlockUserModalBlockOnClick({
+        purpose: 'block',
+        target_type: 'comment',
+        idx: writer_idx,
+        setBlockUserModalBlock,
+        setSelectInfo,
+      });
+    } else {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+    }
   };
 
   return (
@@ -107,7 +126,9 @@ export default function CommentPopover({
             <li onClick={showModalBlockOnClick}>{texts.delete}</li>
           ) : (
             <>
-              <li onClick={ReportOnClick}>{texts.report}</li>
+              <li onClick={ReportOnClick} css={{ borderBottom: `1px solid ${colors.gray[200]}` }}>
+                {texts.report}
+              </li>
               <li onClick={BlockUserOnClick}>{texts.block}</li>
             </>
           )}

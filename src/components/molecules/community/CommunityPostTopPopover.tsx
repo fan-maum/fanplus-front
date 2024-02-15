@@ -62,7 +62,11 @@ const CommunityPostTopPopover = ({
   const BlockUserOnClick = async () => {
     if (identity !== null) {
       await showBlockUserModalBlockOnClick({
+        purpose: 'block',
+        target_type: 'post',
+        idx: writer_idx,
         setBlockUserModalBlock,
+        setSelectInfo,
       });
     } else {
       const path = router.asPath;

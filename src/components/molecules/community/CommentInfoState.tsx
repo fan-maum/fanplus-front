@@ -73,6 +73,7 @@ function CommentInfoState({ identity, comment, reply, texts }: CommentInfoStateP
         identity={identity}
         isWriter={comment ? comment?.IS_WRITER : reply?.IS_WRITER}
         comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX}
+        writer_idx={comment ? comment.WRITER_IDX : reply?.WRITER_IDX}
         texts={texts}
         isComment={isComment}
       />

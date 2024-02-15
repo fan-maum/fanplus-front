@@ -2,17 +2,27 @@ import { deleteBlockUser } from '@/api/Community';
 import { UnstyledButton } from '@/components/atoms';
 import ToastModal from '@/components/toast/ToastModal';
 import { useUrlLanguage } from '@/hooks/useLanguage';
+import { useUnblockUserOnClick } from '@/hooks/useUnBlockUserOnClick';
 import { colors } from '@/styles/CommunityColors';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { blockUserListItemType } from '@/types/community';
 import { getCookie } from '@/utils/Cookie';
 import { formatOnlyDate } from '@/utils/util';
 import { css } from '@emotion/react';
+import { useMutation, useQueryClient } from 'react-query';
 
 type MyPostArticleProps = {
   blockUserItem: blockUserListItemType;
 };
+
+type UnblockUserProps = {
+  user_id: string;
+  user_idx: string;
+  targetUserIdx: number;
+};
+
 const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
+  const queryClient = useQueryClient();
   const timeExpression =
     blockUserItem.INS_DATE !== null ? formatOnlyDate(blockUserItem.INS_DATE) : 0;
   const urlLang = useUrlLanguage();
@@ -20,9 +30,11 @@ const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
   const user_idx = getCookie('user_idx');
 
   const boardTexts = communityBoardTexts[urlLang];
-  const handleUnBlock = async () => {
-    let response = await deleteBlockUser(user_id, user_idx, Number(blockUserItem.IDX));
-    response.status === 200 && ToastModal.alert(boardTexts.blockUser.unBlocked);
+
+  const { useUnblockUser } = useUnblockUserOnClick();
+  const handleUnBlock = (targetUserIdx: number) => {
+    useUnblockUser.mutate({ user_id, user_idx, targetUserIdx });
+    queryClient.invalidateQueries('blockUsers');
   };
   return (
     <li
@@ -60,7 +72,7 @@ const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
           border: 1px solid ${colors.gray[200]};
           margin-top: 13px;
         `}
-        onClick={handleUnBlock}
+        onClick={() => handleUnBlock(Number(blockUserItem.IDX))}
       >
         {boardTexts.blockUser.unBlock}
       </UnstyledButton>

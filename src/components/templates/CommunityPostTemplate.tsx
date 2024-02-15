@@ -191,7 +191,6 @@ const CommunityPostTemplate = ({
         }}
         user_id={identity}
         user_idx={user_idx}
-        targetUserIdx={postInfo.WRITER_IDX}
         setBlockUserModalBlock={setBlockUserModalBlock}
         setDoneModalBlock={setDoneModalBlock}
         refetch={refetch}
