@@ -6,6 +6,7 @@ export default function MobileWriteButton({ onClick }: { onClick: () => void }) 
     <button
       onClick={onClick}
       css={css`
+        display: none;
         position: absolute;
         width: 60px;
         height: 60px;
@@ -17,6 +18,9 @@ export default function MobileWriteButton({ onClick }: { onClick: () => void }) 
         outline: none;
         border: none;
         cursor: pointer;
+        @media (max-width: 768px) {
+          display: block;
+        }
       `}
     >
       <img
