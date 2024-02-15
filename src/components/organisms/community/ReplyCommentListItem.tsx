@@ -45,7 +45,7 @@ const ReplyCommentListItem = ({
                     color: colors.gray[1000],
                   }}
                 >
-                  차단된 회원의 댓글입니다.
+                  {texts.alreadyBlockUserComment}
                 </p>
               </Stack>
             ) : (

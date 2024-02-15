@@ -365,6 +365,7 @@ export type CommunityPostTextType = {
   alreadyReportedPost: string;
   alreadyReportedComment: string;
   alreadyBlockUser: string;
+  alreadyBlockUserComment: string;
   reportReason: string;
   reportPostOptions: {
     option1: string;

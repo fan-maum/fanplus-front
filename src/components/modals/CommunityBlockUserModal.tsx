@@ -71,7 +71,7 @@ function CommunityBlockUserModal({
                   <p>{modalText1}</p>
                   <p>{modalText2}</p>
                 </div>
-                <div css={{ fontSize: 14, fontWeight: 500, color: '#999' }}>
+                <div css={{ width: '80%', fontSize: 14, fontWeight: 500, color: '#999' }}>
                   {texts.askBlockUser[2]}
                 </div>
               </Group>
