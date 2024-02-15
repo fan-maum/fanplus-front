@@ -1,7 +1,11 @@
+import Layout from '@/components/organisms/Layout';
 import '@/styles/globals.css';
+import { UrlLangType } from '@/types/common';
 import { DefaultSeo } from 'next-seo';
-import type { AppProps } from 'next/app';
+import type { AppContext, AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 
@@ -17,9 +21,19 @@ const queryClient = new QueryClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
   function kakaoInit() {
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
   }
+  const page = router.pathname.split('/')[2];
+  const isNotLayout = page === 'votes' || page === 'thirdParty' || page === 'privacy';
+  const [webView, setWebView] = useState(pageProps.isWebView);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setWebView(webView);
+    }
+  }, [router]);
 
   return (
     <RecoilRoot>
@@ -47,8 +61,33 @@ export default function App({ Component, pageProps }: AppProps) {
           crossOrigin="anonymous"
           onLoad={kakaoInit}
         />
-        <Component {...pageProps} />
+        {isNotLayout ? (
+          <Component {...pageProps} />
+        ) : (
+          <Layout urlLang={pageProps.urlLang} isWebView={webView}>
+            <Component {...pageProps} />
+          </Layout>
+        )}
       </QueryClientProvider>
     </RecoilRoot>
   );
 }
+App.getInitialProps = async ({ Component, ctx }: AppContext) => {
+  let pageGetInitialProps = {};
+  const isWebView = !!ctx?.req?.headers?.iswebview;
+  const cookie = !!ctx?.req?.headers?.cookie;
+  const urlLang = ctx?.query?.locale as UrlLangType;
+
+  if (Component.getInitialProps) {
+    pageGetInitialProps = await Component.getInitialProps(ctx);
+  }
+
+  return {
+    pageProps: {
+      isWebView,
+      cookie,
+      urlLang,
+      ...pageGetInitialProps,
+    },
+  };
+};

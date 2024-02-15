@@ -8,7 +8,7 @@ const BoardMobileTabMenus = ({
 }) => {
   return (
     <BoardMobileTabMenusButton onClick={() => setOpenSidebar(true)}>
-      <img src="/icons/icon_Menu.svg" alt="메뉴버튼" />
+      <img src="/icons/icon_hamburger.svg" alt="메뉴버튼" />
     </BoardMobileTabMenusButton>
   );
 };
@@ -20,6 +20,7 @@ const BoardMobileTabMenusButton = styled.div`
   width: 24px;
   min-width: 24px;
   height: 24px;
+  margin-right: 8px;
   align-items: center;
   justify-content: space-around;
   cursor: pointer;

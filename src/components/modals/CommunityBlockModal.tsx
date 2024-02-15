@@ -6,6 +6,7 @@ import { CommunityPostTextType } from '@/types/textTypes';
 import CommunityCommonModal, { CommunityCommonModalProps } from './CommunityCommonModal';
 import CommunityModalText from '../molecules/CommunityModalText';
 import { deleteComment, deletePost } from '@/api/Community';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 
 export interface VoteBlockModalProps {
   opened: boolean;
@@ -41,6 +42,7 @@ function CommunityBlockModal({
       : '';
 
   const router = useRouter();
+  const urlLang = useUrlLanguage();
   const checkComment = useRecoilValue(checkCommentState);
 
   const communityDeleteModalProps: CommunityCommonModalProps = {
@@ -57,7 +59,7 @@ function CommunityBlockModal({
             response?.data?.RESULTS?.MSG === 'success' ? texts.postDeleted : texts.alreadyDeleted;
           setDoneModalMessage(modalMessage);
           setDoneModalBlock(true);
-          router.push(`/community/board/${router.query.boardIndex}`);
+          router.push(`/${urlLang}/community/board/${router.query.boardIndex}`);
         }
         if (target_type === 'comment') {
           let response = await deleteComment(identity, idx);

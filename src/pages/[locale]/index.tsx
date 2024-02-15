@@ -1,4 +1,3 @@
-import Layout from '@/components/organisms/Layout';
 import MainPageTemplate from '@/components/templates/MainPageTemplate';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
@@ -32,9 +31,7 @@ export default function Home({ urlLang, voteLists }: EventProps) {
             '팬플러스는 최애가 같은 팬들을 대상으로 다양한 콘텐츠와 소통 기능을 제공하는 종합 덕질 앱이에요. 유일하게 유료 결제 없는 아이돌 생일/기념일 투표를 진행하고 있답니다.',
         }}
       />
-      <Layout urlLang={urlLang}>
-        <MainPageTemplate voteLists={voteLists} urlLang={urlLang} />
-      </Layout>
+      <MainPageTemplate voteLists={voteLists} urlLang={urlLang} />
     </>
   );
 }

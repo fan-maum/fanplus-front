@@ -10,14 +10,22 @@ import { footerTexts } from '@/texts/footerTexts';
 
 export const SideBarContext = createContext<SideBarContextType | null>(null);
 
-const Layout = ({ children, urlLang }: { children: ReactNode; urlLang: UrlLangType }) => {
+const Layout = ({
+  children,
+  urlLang,
+  isWebView,
+}: {
+  children: ReactNode;
+  urlLang: UrlLangType;
+  isWebView: boolean;
+}) => {
   const page = useRouter().pathname.split('/')[2];
   const noFooterPages = page === 'login' || page === 'signUp' || page === 'community';
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   return (
     <SideBarContext.Provider value={{ isSideBarOpen, setIsSideBarOpen }}>
       {isSideBarOpen && <SideBar texts={navBarTexts[urlLang]} />}
-      <NavBar texts={navBarTexts[urlLang]} />
+      {!isWebView && <NavBar texts={navBarTexts[urlLang]} />}
       {children}
       {!noFooterPages && <Footer texts={footerTexts[urlLang]} />}
     </SideBarContext.Provider>
