@@ -15,6 +15,8 @@ interface showReportModalBlockOnClickProps extends selectInfoType {
 }
 
 interface showBlockUserModalBlockOnClickProps extends selectInfoType {
+  isComment?: boolean;
+  setCheckComment?: SetterOrUpdater<boolean>;
   setBlockUserModalBlock: SetterOrUpdater<boolean>;
   setSelectInfo: SetterOrUpdater<selectInfoType>;
 }
@@ -30,7 +32,7 @@ export const showModalOnClick = async ({
   const { isComment, setCheckComment } = props;
   await setModalBlock(true);
   await setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
-  await (isComment && setCheckComment && setCheckComment(isComment));
+  await (isComment !== undefined && setCheckComment !== undefined && setCheckComment(isComment));
 };
 
 export const showReportModalBlockOnClick = async ({
@@ -52,8 +54,10 @@ export const showBlockUserModalBlockOnClick = async ({
   setSelectInfo,
   ...props
 }: showBlockUserModalBlockOnClickProps) => {
+  const { isComment, setCheckComment } = props;
   await setBlockUserModalBlock(true);
   await setSelectInfo({ purpose: purpose, target_type: target_type, idx: idx });
+  await (isComment !== undefined && setCheckComment !== undefined && setCheckComment(isComment));
 };
 
 export const getProfileData = (user: UserResponseType | null) => {

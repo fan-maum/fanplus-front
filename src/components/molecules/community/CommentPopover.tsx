@@ -73,6 +73,8 @@ export default function CommentPopover({
         purpose: 'block',
         target_type: 'comment',
         idx: writer_idx,
+        isComment,
+        setCheckComment,
         setBlockUserModalBlock,
         setSelectInfo,
       });

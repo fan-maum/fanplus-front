@@ -13,8 +13,12 @@ type CommentInfoStateProps = {
 };
 
 function CommentInfoState({ identity, comment, reply, texts }: CommentInfoStateProps) {
-  const commentContent = comment?.COMMENT === false ? texts.deleted : comment?.COMMENT;
-  const replyContent = reply?.COMMENT === false ? texts.deleted : reply?.COMMENT;
+  const commentContent =
+    comment?.COMMENT === false && comment.IS_BLOCKED_USER === 'N'
+      ? texts.deleted
+      : comment?.COMMENT;
+  const replyContent =
+    reply?.COMMENT === false && reply?.IS_BLOCKED_USER === 'N' ? texts.deleted : reply?.COMMENT;
   const isComment = comment ? true : false;
   const getCommentTimeDate = !!comment && formatWrittenTime(comment.INS_DATE);
   const getReplyTimeDate = !!reply && formatWrittenTime(reply.INS_DATE);
