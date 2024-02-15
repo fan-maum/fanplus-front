@@ -35,10 +35,16 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
   }
 
   const isSpecialPage = ['bookmark', 'community', '2291', '139'].includes(boardType as string);
+  const isFromSpecialPage = ['community', '2291', '139'].includes(router.query.from as string);
   const bookmarkTabActive = boardType === 'bookmark';
-  const allTabActive = boardType === 'community' || domain === 'all' || (!isSpecialPage && !domain);
-  const bestTabActive = boardType === '2291' || domain === 'best_post';
-  const noticeTabActive = boardType === '139' || domain === 'notice';
+  const allTabActive =
+    boardType === 'community' ||
+    domain === 'all' ||
+    (!isSpecialPage && !domain && !isFromSpecialPage) ||
+    router.query.from === 'community';
+  const bestTabActive =
+    boardType === '2291' || domain === 'best_post' || router.query.from === '2291';
+  const noticeTabActive = boardType === '139' || domain === 'notice' || router.query.from === '139';
 
   const onClickBookmark = () => {
     router.replace(`/${urlLang}/community/bookmark`, undefined, {
@@ -47,12 +53,15 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
   };
 
   const onClickAll = async () => {
-    isSpecialPage
+    isSpecialPage || isFromSpecialPage
       ? router.replace(`/${urlLang}/community`, undefined, {
           shallow: true,
         })
       : router.replace(
-          { query: { ...router.query, view: 'all', page: 1, domain: 'all' } },
+          {
+            pathname: `/${urlLang}/community/board/${router.query.boardIndex}`,
+            query: { view: 'all', page: 1, domain: 'all', topic: 0 },
+          },
           undefined,
           {
             shallow: true,
@@ -61,10 +70,13 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
     return;
   };
   const onClickPopular = async () => {
-    isSpecialPage
+    isSpecialPage || isFromSpecialPage
       ? router.replace(`/${urlLang}/community/board/2291`)
       : router.replace(
-          { query: { ...router.query, view: 'best_post', page: 1, domain: 'best_post' } },
+          {
+            pathname: `/${urlLang}/community/board/${router.query.boardIndex}`,
+            query: { view: 'best_post', page: 1, domain: 'best_post' },
+          },
           undefined,
           {
             shallow: true,
@@ -73,10 +85,13 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
   };
 
   const onClickNotice = async () => {
-    isSpecialPage
+    isSpecialPage || isFromSpecialPage
       ? router.replace(`/${urlLang}/community/board/139`)
       : router.replace(
-          { query: { ...router.query, view: 'notice', page: 1, domain: 'notice' } },
+          {
+            pathname: `/${urlLang}/community/board/${router.query.boardIndex}`,
+            query: { view: 'notice', page: 1, domain: 'notice' },
+          },
           undefined,
           {
             shallow: true,
