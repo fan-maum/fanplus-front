@@ -5,6 +5,7 @@ import {
   reportModalBlockState,
   selectInfoState,
 } from '@/store/community';
+import { colors } from '@/styles/Colors';
 import { CommunityPostTextType } from '@/types/textTypes';
 import {
   showBlockUserModalBlockOnClick,
@@ -128,10 +129,27 @@ const CommunityPostTopPopover = ({
             </>
           ) : (
             <>
-              <li onClick={ReportOnClick} css={{ borderBottom: '1px solid #d9d9d9' }}>
+              <li
+                onClick={ReportOnClick}
+                css={{
+                  '@media screen and (max-width: 768px)': {
+                    borderBottom: `1px solid ${colors.gray[200]}`,
+                  },
+                }}
+              >
                 {texts.report}
               </li>
-              <li onClick={BlockUserOnClick}>{texts.block}</li>
+              <li
+                onClick={BlockUserOnClick}
+                css={{
+                  display: 'none',
+                  '@media screen and (max-width: 768px)': {
+                    display: 'block',
+                  },
+                }}
+              >
+                {texts.block}
+              </li>
             </>
           )}
         </ul>

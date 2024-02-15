@@ -128,10 +128,27 @@ export default function CommentPopover({
             <li onClick={showModalBlockOnClick}>{texts.delete}</li>
           ) : (
             <>
-              <li onClick={ReportOnClick} css={{ borderBottom: `1px solid ${colors.gray[200]}` }}>
+              <li
+                onClick={ReportOnClick}
+                css={{
+                  '@media screen and (max-width: 768px)': {
+                    borderBottom: `1px solid ${colors.gray[200]}`,
+                  },
+                }}
+              >
                 {texts.report}
               </li>
-              <li onClick={BlockUserOnClick}>{texts.block}</li>
+              <li
+                onClick={BlockUserOnClick}
+                css={{
+                  display: 'none',
+                  '@media screen and (max-width: 768px)': {
+                    display: 'block',
+                  },
+                }}
+              >
+                {texts.block}
+              </li>
             </>
           )}
         </ul>
