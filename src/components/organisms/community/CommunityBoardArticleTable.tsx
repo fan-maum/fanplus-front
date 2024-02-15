@@ -103,16 +103,20 @@ const CommunityBoardArticleTable = ({
           );
         })}
         {postList?.map((post, idx) => {
+          const domain = router.query.domain;
+          const postArticleUrl = domain
+            ? `/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}&domain=${domain}`
+            : `/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`;
           return (
             <li key={'CommunityBoardArticle' + idx} css={{ borderBottom: '1px solid #d9d9d9' }}>
               <CommunityBoardArticle
                 postItem={post}
                 firstHeader={isBoardNameTableHeader ? post.BOARD_TITLE : post.TOPIC_NAME}
-                link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
+                link={postArticleUrl}
               />
               <CommunityBoardArticleMobile
                 postItem={post}
-                link={`/${urlLang}/community/board/${post.BOARD_IDX}/${post.POST_IDX}?page=${urlPage}&from=${urlPath}`}
+                link={postArticleUrl}
                 texts={texts}
                 showTopic={isBoardNameTableHeader ? false : true}
               />

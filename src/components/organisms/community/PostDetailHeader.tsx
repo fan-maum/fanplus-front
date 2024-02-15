@@ -55,7 +55,10 @@ const PostDetailHeader = ({
   return (
     <PostDetailHeaderWrapper>
       {isPostDetailConstant[boardFrom] && (
-        <div className="post-header">
+        <div
+          className="post-header"
+          css={{ '@media(max-width:768px)': { display: 'none !important' } }}
+        >
           <h2 className="header-title">{isPostDetailBoardTitle[boardFrom]}</h2>
         </div>
       )}
