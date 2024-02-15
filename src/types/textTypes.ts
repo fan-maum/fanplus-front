@@ -272,6 +272,8 @@ export type CommunityPageTextType = {
 };
 export type CommmunityBookmarkType = {
   NoBookmarkMessage: string;
+  seeMore: string;
+  seeSideBar: string;
 };
 export type CommunityBoardTextType = {
   all: string;
@@ -288,6 +290,7 @@ export type CommunityBoardTextType = {
     popular: string;
     notice: string;
     myPost: string;
+    bookmark: string;
   };
   myPostTab: {
     myPost: string;

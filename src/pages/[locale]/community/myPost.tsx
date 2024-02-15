@@ -16,18 +16,25 @@ export interface MyPostPageProps {
 
 const MyPostPage = ({
   urlLang,
+  boardLangCookie,
   userId,
   user_idx,
   communityMyPostData,
   user,
-}: MyPostPageProps & { user: PartialUserType }) => {
+}: MyPostPageProps & { user: PartialUserType } & { boardLangCookie: BoardLangType }) => {
   const { data } = useQuery(['bookmarks', { userId, urlLang }], () =>
     getBookmarks(userId, urlLang)
   );
   const bookmarks = data ?? [];
 
   return (
-    <CommunityMainLayout urlLang={urlLang} bookmarks={bookmarks} user={user} withBestNotices>
+    <CommunityMainLayout
+      urlLang={urlLang}
+      boardLangCookie={boardLangCookie}
+      bookmarks={bookmarks}
+      user={user}
+      withBestNotices
+    >
       <CommunityMyPostTemplate
         urlLang={urlLang}
         userId={userId}
@@ -47,6 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const view_type = (context.query.view as string) || 'all';
   const page = parseInt(context.query.page as string) - 1 || 1;
+  const perPage = 20;
   const maxPage = 10;
   const topic = parseInt(context.query.topic as string) || 0;
   const boardType = 'myPost';
@@ -55,6 +63,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     userId,
     boardType,
     page,
+    perPage,
     serverLang,
     boardLangCookie,
     view_type,
@@ -65,11 +74,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!!userId && !!user_idx) {
     const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
     const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { urlLang, userId: userId, user_idx, communityMyPostData, user } };
+    return { props: { urlLang, boardLangCookie, userId: userId, user_idx, communityMyPostData, user } };
   }
   return {
     props: {
       urlLang,
+      boardLangCookie,
       userId: userId,
       user_idx,
       communityMyPostData,

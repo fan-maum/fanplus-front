@@ -42,7 +42,9 @@ const BoardDomains = ({ viewType, boardDomainTexts }: BoardDomainsProps) => {
     }
   };
   return (
-    <div css={{ display: 'flex', minWidth: '170px' }}>
+    <div
+      css={{ display: 'flex', minWidth: '170px', '@media (max-width: 768px)': { display: 'none' } }}
+    >
       <BoardDomainItem domainParam={boardDomainTexts.all} domain="all" onClick={onClickAll} />
       <BoardDomainItem
         domainParam={boardDomainTexts.popular}

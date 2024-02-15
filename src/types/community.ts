@@ -477,6 +477,7 @@ export type BookmarksItemType = {
   categoryId: string | null;
   parentId: string;
   boardId: string;
+  slug: string;
 };
 export type MainPageNoticesResponseType = Array<{
   IDX: string;
@@ -513,7 +514,9 @@ export type MainPageNoticesResponseType = Array<{
 
 export type MultiBoardsInquiryItemType = {
   IDX: string;
+  BOARD_IDX: string;
   TITLE: string;
+  BOARD_TITLE: string;
   BOARD_ICON: string;
   HEAD_IMG: string;
   POST_CNT: string;

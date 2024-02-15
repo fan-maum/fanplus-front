@@ -24,6 +24,7 @@ export const getCommunityBoardData = async (
   userId: string,
   boardType: number | string,
   page: number,
+  perPage: number,
   lang: ServerLangType,
   filterLang: BoardLangType,
   viewType: string,
@@ -33,7 +34,7 @@ export const getCommunityBoardData = async (
   if (topic === 0) topic = '';
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardType, page, lang, filterLang, viewType, topic, maxPage } }
+    { params: { userId, boardType, page, perPage, lang, filterLang, viewType, topic, maxPage } }
   );
 
   return response.data;
@@ -425,10 +426,14 @@ export const deleteBookmark = async (identity: string, menuId: number) => {
  * @desc 다중 게시판 조회
  * @param boardIds 빈 배열 / undefined 모두 가능
  */
-export const getMultiBoardsInquiry = async (lang: ServerLangType, boardIds?: number[]) => {
+export const getMultiBoardsInquiry = async (
+  identity: string,
+  lang: ServerLangType,
+  boardIds: Array<string | number>
+) => {
   const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardsInquiry`,
-    { params: { lang, boardIds }, paramsSerializer: { indexes: null } }
+    { params: { identity, lang, boardIds }, paramsSerializer: { indexes: null } }
   );
   return response.data;
 };

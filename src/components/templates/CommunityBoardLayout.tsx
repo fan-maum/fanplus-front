@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import CommunityBoardTopNavi from '@/components/molecules/community/CommunityBoardTopNavi';
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
@@ -19,6 +19,13 @@ import CommunityBoardArticleTable from '../organisms/community/CommunityBoardArt
 import DomainTopicContainer from '../organisms/community/DomainTopicContainer';
 import CommunityBoardNoticeBanner from '../organisms/community/CommunityBoardNoticeBanner';
 import { useMediaQuery } from 'react-responsive';
+import { useRecoilState } from 'recoil';
+import {
+  boardLangState,
+  isMobileState,
+  openLanguageFitlerState,
+  permissionModalState,
+} from '@/store/community';
 
 type CommunityBoardLayoutPropTypes = {
   communityBoardSSRdata:
@@ -41,7 +48,7 @@ const CommunityBoardLayout = ({
   communityNoticeBannerData,
 }: CommunityBoardPropTypes & CommunityBoardLayoutPropTypes) => {
   const router = useRouter();
-  const { urlLang, userId, isAdminAccount, boardLangCookie, maxPage } = queryParams;
+  const { urlLang, userId, boardLangCookie, maxPage } = queryParams;
   const texts = communityBoardTexts[urlLang];
   const serverLang = translateUrlLangToServerLang(urlLang);
   const page = Number(router.query.page) || 1;
@@ -50,12 +57,12 @@ const CommunityBoardLayout = ({
   const noticeBannerList = communityNoticeBannerData?.RESULTS.DATAS.LIST;
   const isNoticeBannerExist = communityNoticeBannerData?.RESULTS.DATAS.COUNT !== 0;
 
-  const [boardLang, setBoardLang] = useState(boardLangCookie);
-  const [langModal, setLangModal] = useState(false);
-  const [permissionModal, setPermissionModal] = useState(false);
+  const [boardLang, setBoardLang] = useRecoilState(boardLangState(boardLangCookie));
+  const [langModal, setLangModal] = useRecoilState(openLanguageFitlerState);
+  const [permissionModal, setPermissionModal] = useRecoilState(permissionModalState);
 
   /* mediaQuery 설정 */
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useRecoilState(isMobileState);
   const mobile = useMediaQuery({ query: '(max-width:768px)' });
 
   useEffect(() => {
@@ -70,16 +77,19 @@ const CommunityBoardLayout = ({
     initialProps.view_type === view_type &&
     initialProps.topic === topicIndex;
 
+  const perPage = 20;
+
   const { data: communityBoardDataCSR, isFetching } = useQuery(
     [
       'communityBoardData',
-      { userId, boardType, page, serverLang, boardLang, view_type, topicIndex, maxPage },
+      { userId, boardType, page, perPage, serverLang, boardLang, view_type, topicIndex, maxPage },
     ],
     () =>
       getCommunityBoardData(
         userId,
         boardType,
         page,
+        perPage,
         serverLang,
         boardLang,
         view_type,
@@ -88,28 +98,8 @@ const CommunityBoardLayout = ({
       ),
     { initialData: isInitialData ? communityBoardSSRdata : undefined }
   );
-
   const communityBoardData = communityBoardDataCSR ?? communityBoardSSRdata;
-
-  const onClickWrite = () => {
-    const writeBanBoard = ['139', '192', '220'];
-    const writeBanned = writeBanBoard.includes(communityBoardData?.BOARD_INFO.menu.slug as string);
-
-    if (writeBanned && !isAdminAccount) {
-      setPermissionModal(true);
-      return;
-    }
-    if (!userId) {
-      const path = router.asPath;
-      router.push({ pathname: '/login', query: { nextUrl: path } });
-      return;
-    }
-    router.push({
-      pathname: `/${urlLang}/community/board/${communityBoardData?.BOARD_INFO.menu.slug}/write`,
-      query: { topic: router.query.topic },
-    });
-  };
-
+  
   const onClickLanguageBox = async (language: BoardLangType) => {
     setBoardLang(language);
     setBoardLangCookie(language);
@@ -124,7 +114,6 @@ const CommunityBoardLayout = ({
           boardTitle={boardTitle}
           boardType={boardType}
           menuId={communityBoardData.BOARD_INFO.menuId}
-          onClickWrite={onClickWrite}
         />
         <DomainTopicContainer
           isMobile={isMobile}

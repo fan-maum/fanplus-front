@@ -17,6 +17,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: '인기글',
       notice: '공지',
       myPost: '내가 쓴 글',
+      bookmark: '즐겨찾기',
     },
     myPostTab: {
       myPost: '내가 쓴 글',
@@ -74,6 +75,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Trending',
       notice: 'Notice',
       myPost: 'My Posts',
+      bookmark: 'Bookmarks',
     },
     myPostTab: {
       myPost: 'My Posts',
@@ -131,6 +133,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Popular',
       notice: 'Aviso',
       myPost: 'El texto que escribí',
+      bookmark: 'Marca de libro',
     },
     myPostTab: {
       myPost: 'El texto que escribí',
@@ -188,6 +191,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Populer',
       notice: 'Pengumuman',
       myPost: 'Cerita Saya',
+      bookmark: 'Markah buku',
     },
     myPostTab: {
       myPost: 'Cerita Saya',
@@ -245,6 +249,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: '人気',
       notice: '通知',
       myPost: '私が書いた記事',
+      bookmark: 'ブックマーク',
     },
     myPostTab: {
       myPost: '私が書いた記事',
@@ -302,6 +307,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: 'Nổi tiếng',
       notice: 'Thông báo',
       myPost: 'Câu chuyện của tôi',
+      bookmark: 'Đánh dấu',
     },
     myPostTab: {
       myPost: 'Câu chuyện của tôi',
@@ -359,6 +365,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: '热门文章',
       notice: '公告',
       myPost: '我发的贴子',
+      bookmark: '关注',
     },
     myPostTab: {
       myPost: '我发的贴子',
@@ -416,6 +423,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       popular: '熱門文章',
       notice: '公告',
       myPost: '我發的貼子',
+      bookmark: '關注',
     },
     myPostTab: {
       myPost: '我發的貼子',
