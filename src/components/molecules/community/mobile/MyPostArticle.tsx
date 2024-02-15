@@ -1,6 +1,6 @@
 import { UnstyledButton } from '@/components/atoms';
+import { useDeleteBlockUserOnClick } from '@/hooks/useDeleteBlockUserOnClick';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import { useUnBlockUserOnClick } from '@/hooks/useUnBlockUserOnClick';
 import { colors } from '@/styles/CommunityColors';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { blockUserListItemType } from '@/types/community';
@@ -29,7 +29,7 @@ const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
 
   const boardTexts = communityBoardTexts[urlLang];
 
-  const { useUnblockUser } = useUnBlockUserOnClick();
+  const { useUnblockUser } = useDeleteBlockUserOnClick();
   const handleUnBlock = (targetUserIdx: number) => {
     useUnblockUser.mutate({ user_id, user_idx, targetUserIdx });
     queryClient.invalidateQueries('blockUsers');
