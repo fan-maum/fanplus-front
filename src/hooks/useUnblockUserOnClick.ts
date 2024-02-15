@@ -10,7 +10,7 @@ type UnblockUserProps = {
   targetUserIdx: number;
 };
 
-export function useUnblockUserOnClick() {
+export function useUnBlockUserOnClick() {
   const queryClient = useQueryClient();
   const urlLang = useUrlLanguage();
   const boardTexts = communityBoardTexts[urlLang];

@@ -1,15 +1,13 @@
-import { deleteBlockUser } from '@/api/Community';
 import { UnstyledButton } from '@/components/atoms';
-import ToastModal from '@/components/toast/ToastModal';
 import { useUrlLanguage } from '@/hooks/useLanguage';
-import { useUnblockUserOnClick } from '@/hooks/useUnBlockUserOnClick';
+import { useUnBlockUserOnClick } from '@/hooks/useUnBlockUserOnClick';
 import { colors } from '@/styles/CommunityColors';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { blockUserListItemType } from '@/types/community';
 import { getCookie } from '@/utils/Cookie';
 import { formatOnlyDate } from '@/utils/util';
 import { css } from '@emotion/react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 
 type MyPostArticleProps = {
   blockUserItem: blockUserListItemType;
@@ -31,7 +29,7 @@ const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
 
   const boardTexts = communityBoardTexts[urlLang];
 
-  const { useUnblockUser } = useUnblockUserOnClick();
+  const { useUnblockUser } = useUnBlockUserOnClick();
   const handleUnBlock = (targetUserIdx: number) => {
     useUnblockUser.mutate({ user_id, user_idx, targetUserIdx });
     queryClient.invalidateQueries('blockUsers');
