@@ -52,14 +52,14 @@ const BookmarkArticleTable = ({
   const urlPage = router.query.page || 1;
   const urlPath = boardType;
 
-  const boardTitle = boardInfo?.photocard_board_lang
-    ? boardInfo?.photocard_board_lang[0].TITLE
+  const boardTitle = boardInfo?.menu
+    ? boardInfo?.menu.title
     : boardInfo?.menuId === 1
     ? '전체글'
     : '';
 
-  const boardIndex = boardInfo?.photocard_board_lang
-    ? boardInfo?.photocard_board_lang[0].BOARD_IDX
+  const boardIndex = boardInfo?.menu
+    ? boardInfo?.menu.boardId
     : boardInfo?.menuId === 1
     ? 'all'
     : undefined;
