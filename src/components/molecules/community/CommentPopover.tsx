@@ -21,7 +21,7 @@ import { colors } from '@/styles/CommunityColors';
 type CommentPopoverProps = {
   identity: string;
   comment_idx: any;
-  writer_idx: string;
+  writer_idx: any;
   isWriter: string | undefined;
   texts: CommunityPostTextType;
   isComment: boolean;
