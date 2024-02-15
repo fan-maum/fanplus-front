@@ -142,9 +142,7 @@ export default function CommentPopover({
                 onClick={BlockUserOnClick}
                 css={{
                   display: 'none',
-                  '@media screen and (max-width: 768px)': {
-                    display: 'block',
-                  },
+                  '@media screen and (max-width: 768px)': { display: 'block' },
                 }}
               >
                 {texts.block}
