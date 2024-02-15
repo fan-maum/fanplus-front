@@ -18,6 +18,7 @@ import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
 import { useRecoilState } from 'recoil';
 import { boardLangState, openSideBarState, permissionModalState } from '@/store/community';
 import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import { useServerLang } from '@/hooks/useLanguage';
 import { getCookie } from '@/utils/Cookie';
 import { useQuery } from 'react-query';
@@ -60,6 +61,7 @@ const CommunityMainLayout = ({
   const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
   const isMyPost = router.pathname.includes('myPost');
   const isSearch = router.pathname.includes('search');
+  const boardTexts = communityBoardTexts[urlLang];
   const boardType = router.query.boardIndex as string;
 
   /* boardSlug */
@@ -85,7 +87,12 @@ const CommunityMainLayout = ({
             <PopularBoards />
           </div>
           <div className="mainContent">
-            {isSearch && <BoardMobileTitle boardTitle={'검색'} onClickBack={() => router.back()} />}
+            {isSearch && (
+              <BoardMobileTitle
+                boardTitle={boardTexts.searchTitle}
+                onClickBack={() => router.back()}
+              />
+            )}
             <CommunityBoardSearchInputWrapper
               withSearchInput={withSearchInput}
               isEditMode={isEditMode}

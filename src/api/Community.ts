@@ -13,6 +13,7 @@ import type {
   PostResponseType,
   Top50PopularBoardsResponseType,
   UserResponseType,
+  blockUserListType,
   sideMenuResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
@@ -444,4 +445,44 @@ export const getSideMenu = async (lang: ServerLangType, identity: string) => {
     { params: { lang, identity } }
   );
   return response.data;
+};
+
+/* Block User */
+export const getBlockUsers = async (
+  userId: string,
+  user_idx: number,
+  position: number,
+  count: number
+) => {
+  const response: AxiosResponse<blockUserListType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/blockUsers`,
+    { params: { userId, user_idx, position, count } }
+  );
+  return response.data;
+};
+
+export const postBlockUser = async (user_id: string, user_idx: string, targetUserIdx: number) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/blockUser`,
+    {
+      identity: user_id,
+      user_idx: user_idx,
+      targetUserIdx: targetUserIdx,
+    }
+  );
+  return response;
+};
+
+export const deleteBlockUser = async (user_id: string, user_idx: string, targetUserIdx: number) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/blockUser?targetUserIdx=${targetUserIdx}`,
+    {
+      data: {
+        identity: user_id,
+        user_idx: user_idx,
+        targetUserIdx: targetUserIdx,
+      },
+    }
+  );
+  return response;
 };

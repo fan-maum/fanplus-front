@@ -1,8 +1,8 @@
 import { replyResponseType } from '@/types/community';
 import ReplyCard from './ReplyCard';
-import { PurPoseType, TargetType } from '@/types/common';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { colors } from '@/styles/CommunityColors';
+import { Stack } from '@/components/atoms';
 
 type PostCommentListItemProps = {
   identity: string;
@@ -28,17 +28,34 @@ const ReplyCommentListItem = ({
             className="comment"
             css={{
               borderTop: `1px solid ${colors.gray[200]}`,
-              // ':last-child': {
-              //   borderTop: 'none',
-              // },
             }}
           >
-            <ReplyCard
-              identity={identity}
-              reply={reply}
-              texts={texts}
-              replyRefetch={replyRefetch}
-            />
+            {reply.IS_BLOCKED_USER === 'Y' ? (
+              <Stack
+                align="cener"
+                justify="center"
+                w={'100%'}
+                h={120}
+                css={{ textAlign: 'center' }}
+              >
+                <p
+                  css={{
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    color: colors.gray[1000],
+                  }}
+                >
+                  {texts.alreadyBlockUserComment}
+                </p>
+              </Stack>
+            ) : (
+              <ReplyCard
+                identity={identity}
+                reply={reply}
+                texts={texts}
+                replyRefetch={replyRefetch}
+              />
+            )}
           </li>
         ))}
     </>

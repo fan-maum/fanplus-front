@@ -19,6 +19,19 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: '내가 쓴 글',
       bookmark: '즐겨찾기',
     },
+    myPostTab: {
+      myPost: '내가 쓴 글',
+      blockUser: '차단한 유저',
+    },
+    searchTitle: '검색',
+    blockUserTitle: {
+      firstMessage: '총',
+      secondMessage: '명의 유저',
+    },
+    blockUser: {
+      unBlock: '차단해제',
+      unBlocked: '차단이 해제되었습니다.',
+    },
     boardLang: {
       modalHeader: '게시글 언어 선택',
       modalExplain: '선택한 언어로 작성된 게시글만 보입니다!',
@@ -35,6 +48,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['게시글이 없습니다.', '제일 먼저 게시글을 남겨주세요.'],
     noMyPostTexts: ['작성된 글이 없습니다.'],
+    noBlockUserTexts: ['등록된 차단 회원이 없습니다.'],
     buttonWrite: '글쓰기',
     link: {
       board: '/ko/community/board',
@@ -63,6 +77,19 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: 'My Posts',
       bookmark: 'Bookmarks',
     },
+    myPostTab: {
+      myPost: 'My Posts',
+      blockUser: 'Blocked Users',
+    },
+    searchTitle: 'Search',
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'Blocked Users',
+    },
+    blockUser: {
+      unBlock: 'Unblock',
+      unBlocked: '차단이 해제되었습니다.',
+    },
     boardLang: {
       modalHeader: 'Posts Language Settings',
       modalExplain: 'You can only see the post written in the selected language.',
@@ -79,6 +106,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['There is no post.', 'Write a first post.'],
     noMyPostTexts: ['There is no post.'],
+    noBlockUserTexts: ['No blocked users.'],
     buttonWrite: 'Write',
     link: {
       board: '/en/community/board',
@@ -107,6 +135,19 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: 'El texto que escribí',
       bookmark: 'Marca de libro',
     },
+    myPostTab: {
+      myPost: 'El texto que escribí',
+      blockUser: 'Usuarios bloqueados',
+    },
+    searchTitle: 'Buscar',
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'Usuarios bloqueados',
+    },
+    blockUser: {
+      unBlock: 'Desbloquear',
+      unBlocked: '차단이 해제되었습니다.',
+    },
     boardLang: {
       modalHeader: 'Publicación Idioma configurado',
       modalExplain: 'Pueden ver texto escrito en la lengua seleccionada!',
@@ -123,6 +164,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['No hay ninguna publicación.', 'Sé el primero en dejar una publicación.'],
     noMyPostTexts: ['No hay publicaciones escritas.'],
+    noBlockUserTexts: ['No hay usuarios bloqueados.'],
     buttonWrite: 'Escribir',
     link: {
       board: '/es/community/board',
@@ -151,6 +193,19 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: 'Cerita Saya',
       bookmark: 'Markah buku',
     },
+    myPostTab: {
+      myPost: 'Cerita Saya',
+      blockUser: 'Pengguna Diblokir',
+    },
+    searchTitle: 'Cari',
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'Pengguna Diblokir',
+    },
+    blockUser: {
+      unBlock: 'Buka blokir',
+      unBlocked: '차단이 해제되었습니다.',
+    },
     boardLang: {
       modalHeader: 'Posts Pengaturan Bahasa',
       modalExplain: 'Anda dapat melihat teks yang ditulis dalam bahasa yang dipilih',
@@ -167,6 +222,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['Tidak ada postingan', 'Jadilah orang pertama', 'yang meninggalkan postingan'],
     noMyPostTexts: ['Tidak ada postingan yang ditulis'],
+    noBlockUserTexts: ['Tidak ada pengguna yang diblokir.'],
     buttonWrite: 'Tulis',
     link: {
       board: '/in/community/board',
@@ -195,6 +251,19 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: '私が書いた記事',
       bookmark: 'ブックマーク',
     },
+    myPostTab: {
+      myPost: '私が書いた記事',
+      blockUser: 'ブロックされたユーザー',
+    },
+    searchTitle: '検索',
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'ブロックされたユーザー',
+    },
+    blockUser: {
+      unBlock: 'ブロックを解除',
+      unBlocked: '차단이 해제되었습니다.',
+    },
     boardLang: {
       modalHeader: '話 設定言語',
       modalExplain: '選択した言語で書かれたテキストを見ることができます!',
@@ -211,6 +280,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['投稿はありません', '最初に投稿を残してください'],
     noMyPostTexts: ['書かれた投稿はありません'],
+    noBlockUserTexts: ['ブロックされたユーザーはいません。'],
     buttonWrite: '書き込み',
     link: {
       board: '/ja/community/board',
@@ -239,6 +309,19 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: 'Câu chuyện của tôi',
       bookmark: 'Đánh dấu',
     },
+    myPostTab: {
+      myPost: 'Câu chuyện của tôi',
+      blockUser: 'Người dùng bị chặn',
+    },
+    searchTitle: 'Tìm kiếm',
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: 'Người dùng bị chặn',
+    },
+    blockUser: {
+      unBlock: 'Mở khóa',
+      unBlocked: '차단이 해제되었습니다.',
+    },
     boardLang: {
       modalHeader: 'Câu chuyện Thiết lập ngôn ngữ',
       modalExplain: 'Bạn có thể thấy văn bản được viết bằng ngôn ngữ đã chọn!',
@@ -255,6 +338,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['Không có bài viết nào', 'Hãy là người đầu tiên để lại bài viết'],
     noMyPostTexts: ['Không có bài viết nào được viết'],
+    noBlockUserTexts: ['Không có người dùng bị chặn.'],
     buttonWrite: 'Viết',
     link: {
       board: '/vi/community/board',
@@ -283,6 +367,19 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: '我发的贴子',
       bookmark: '关注',
     },
+    myPostTab: {
+      myPost: '我发的贴子',
+      blockUser: '被屏蔽的用户',
+    },
+    searchTitle: '搜索',
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: '被屏蔽的用户',
+    },
+    blockUser: {
+      unBlock: '解除屏蔽',
+      unBlocked: '차단이 해제되었습니다.',
+    },
     boardLang: {
       modalHeader: '帖子 语言设定',
       modalExplain: '您只能看到以所选语言撰写的帖子',
@@ -299,6 +396,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['没有帖子。', '成为第一个发表帖子的人'],
     noMyPostTexts: ['没有帖子。'],
+    noBlockUserTexts: ['没有被屏蔽的用户'],
     buttonWrite: '发帖子',
     link: {
       board: '/zh-CN/community/board',
@@ -327,6 +425,19 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
       myPost: '我發的貼子',
       bookmark: '關注',
     },
+    myPostTab: {
+      myPost: '我發的貼子',
+      blockUser: '被屏蔽的用戶',
+    },
+    searchTitle: '搜索',
+    blockUserTitle: {
+      firstMessage: '',
+      secondMessage: '被屏蔽的用戶',
+    },
+    blockUser: {
+      unBlock: '解除屏蔽',
+      unBlocked: '차단이 해제되었습니다.',
+    },
     boardLang: {
       modalHeader: '帖子 語言設定',
       modalExplain: '您只能看到以所選語言撰寫的帖子',
@@ -343,6 +454,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     noPostTexts: ['沒有帖子。', '成為第一個發表帖子的人'],
     noMyPostTexts: ['沒有帖子。'],
+    noBlockUserTexts: ['沒有被屏蔽的用戶'],
     buttonWrite: '發帖子',
     link: {
       board: '/zh-TW/community/board',

@@ -99,7 +99,7 @@ const CommunityBoardLayout = ({
     { initialData: isInitialData ? communityBoardSSRdata : undefined }
   );
   const communityBoardData = communityBoardDataCSR ?? communityBoardSSRdata;
-
+  
   const onClickLanguageBox = async (language: BoardLangType) => {
     setBoardLang(language);
     setBoardLangCookie(language);

@@ -66,27 +66,15 @@ export type PostListItemType = {
 export type CommunityBoardResponseType = {
   BOARD_INFO: {
     IDX: string;
-    BASE_LANG: string;
-    LEVEL: string | null;
-    LEVEL_EXP: string | null;
+    BOARD_IDX: string;
+    TITLE: string;
+    BOARD_TITLE: string;
     BOARD_ICON: string;
     HEAD_IMG: string | null;
-    SUBSCRIPTION_CNT: string;
-    BOOKMARK_CNT: string;
-    RECOMMEND_CNT: string;
-    RANK_SCORE: number;
-    OWNER_IDX: string;
-    IS_DISPLAY: 'Y' | 'N';
-    IS_REMOVE: 'Y' | 'N';
-    IS_BLIND: 'Y' | 'N';
-    INS_DATE: string;
-    UPD_DATE: string | null;
-    REMOVE_DATE: string | null;
     POST_CNT: string;
-    DEFAULT_TOPIC: number;
-    NEW_POST_DATE: string | null;
-    photocard_board_lang: Array<CommunityBoardPhotocardResponseType>;
+    isExistNewPost: boolean;
     menuId: number;
+    menu: boardMenuInfoType;
     isBookmarked: boolean;
     VIEW_POSSIBLE_PAGE: number;
   };
@@ -109,6 +97,7 @@ export type CommunityBoardAllResponseType = {
     VIEW_POSSIBLE_PAGE: number;
     isBookmarked: boolean;
     menuId: number;
+    menu: boardAllMenuInfoType;
   };
   NOTICE: Array<NoticeListItemType>;
   POST_LIST: Array<PostListItemType>;
@@ -532,20 +521,39 @@ export type MultiBoardsInquiryItemType = {
   HEAD_IMG: string;
   POST_CNT: string;
   isExistNewPost: boolean;
-  menu: multiBoardsInquiryItemMenuType;
+  menu: boardMenuInfoType;
 };
+export type MultiBoardsInquiryResponseType = Array<MultiBoardsInquiryItemType>;
 
-export type multiBoardsInquiryItemMenuType = {
+export type boardMenuInfoType = {
   id: string;
   title: string;
   slug: string;
   isBookmarked: boolean;
   isExistNewPost: boolean;
   categoryId: string | null;
-  parentId: string;
+  parentId: string | null;
   boardId: string;
 };
-export type MultiBoardsInquiryResponseType = Array<MultiBoardsInquiryItemType>;
+
+export type boardAllMenuInfoType = {
+  id: string;
+  title: string;
+  slug: string;
+  isBookmarked: boolean;
+  isExistNewPost: boolean;
+  categoryId: string | null;
+  parentId: string | null;
+  boardId: string;
+  MenuLang: Array<boardMenuInfoMeuLangType>;
+};
+
+export type boardMenuInfoMeuLangType = {
+  id: number;
+  menuId: string;
+  lang: UrlLangType;
+  title: string;
+};
 
 /**
  * Side Menu
@@ -573,4 +581,35 @@ export type subMenuItemType = {
   parentId: string;
   boardId: string;
   slug: string;
+};
+
+/**
+ * Block User
+ */
+export type blockUserListType = {
+  RESULTS: {
+    ERROR: number;
+    MSG: string;
+    DATAS: {
+      list: Array<blockUserListItemType>;
+      position: number;
+      count: number;
+    };
+    TIMESTAMP: number;
+  };
+};
+
+export type blockUserListItemType = {
+  IDX: number;
+  NICK: string;
+  EMAIL: string;
+  SELF_INTRODCUTION: string | null;
+  USER_LANG: string;
+  USER_LANG_LONG: string;
+  PROFILE_IMG_URL: string;
+  FRIENDS_CNT: number;
+  ITEM_FRIENDS_CNT: number;
+  PHONE_AUTH_YN: 'Y' | 'N';
+  INS_DATE: string;
+  REFERRAL_CODE: string;
 };
