@@ -79,7 +79,7 @@ const VoteDetailLayout = ({
   const [voteModalEnd, setVoteModalEnd] = useState(false);
   const [imagePopup, setImagePopup] = useState(false);
 
-  const moreVoteCount = 1650;
+  const moreVoteCount = 1665;
   let expire = dayjs().startOf('day').add(1, 'day').toDate();
   const webViewLink = `https://p7m9w.app.goo.gl/?link=${encodeURIComponent(
     `https://vote.fanplus.co.kr/?vote=${router.query.vote_IDX}&photocard_type=share_vote&vote_idx=${router.query.vote_IDX}`
