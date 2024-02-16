@@ -8,6 +8,7 @@ import CommunityBlockUserCommonModal, {
   CommunityBlockUserCommonModalProps,
 } from './CommunityBlockUserCommonModal';
 import ToastModal from '../toast/ToastModal';
+import { useQueryClient } from 'react-query';
 
 export interface BlockUserModalProps {
   opened: boolean;
@@ -42,6 +43,7 @@ function CommunityBlockUserModal({
 
   const checkComment = useRecoilValue(checkCommentState);
 
+  const queryClient = useQueryClient();
   const communityBlockUserModalProps: CommunityBlockUserCommonModalProps = {
     buttonId: 'modalBlockUserButton',
     opened,
@@ -53,7 +55,12 @@ function CommunityBlockUserModal({
         let response = await postBlockUser(user_id, user_idx, Number(idx));
         let modalMessage =
           response?.data?.RESULTS?.MSG === 'success' ? texts.blockedUser : texts.alreadyBlockUser;
-        checkComment ? refetch() : replyRefetch();
+        if (target_type === 'post') {
+          queryClient.getQueriesData(['communityBoardData']);
+        }
+        if (target_type === 'comment') {
+          checkComment ? refetch() : replyRefetch();
+        }
         ToastModal.alert(modalMessage);
       },
       text: texts.confirmButton,
