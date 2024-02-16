@@ -65,7 +65,7 @@ export const voteModalTexts: LangStringType<VoteModalFuncType> = {
   },
   'zh-CN': ({ dailyTicketCount, starName, moreVoteCount }) => {
     return {
-      voteProcess: `致<span>${starName}</span>先生<br/>您要免费投票<b>${dailyTicketCount}</b>吗？`,
+      voteProcess: `给<span>${starName}</span><br/>免费投<b>${dailyTicketCount}</b>票吗？`,
       voteDoneFirst: `给<span>${starName}</span><br/>投<b>${dailyTicketCount}票。</b>`,
       voteDoneEnd: `请在 <b>FanPlus 应用免费投${moreVoteCount}票</b>`,
       voteBlockFirst: `您每天只能参与一次投票。<br/>(免费投票00:00 KST重新设置)`,
@@ -74,7 +74,7 @@ export const voteModalTexts: LangStringType<VoteModalFuncType> = {
   },
   'zh-TW': ({ dailyTicketCount, starName, moreVoteCount }) => {
     return {
-      voteProcess: `致<span>${starName}</span><br/>您確定要免費投票<b>${dailyTicketCount}</b>嗎？`,
+      voteProcess: `给<span>${starName}</span><br/>免费投<b>${dailyTicketCount}</b>票吗？`,
       voteDoneFirst: `給<span>${starName}</span><br/>投<b>${dailyTicketCount}票。</b>`,
       voteDoneEnd: `请在 <b>FanPlus 應用免費投${moreVoteCount}票</b>`,
       voteBlockFirst: `您每天只能參與一次投票。<br/>(免費投票00:00 KST重新設置)`,
