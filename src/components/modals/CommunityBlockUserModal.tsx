@@ -9,6 +9,8 @@ import CommunityBlockUserCommonModal, {
 } from './CommunityBlockUserCommonModal';
 import ToastModal from '../toast/ToastModal';
 import { useQueryClient } from 'react-query';
+import { useRouter } from 'next/router';
+import { useUrlLanguage } from '@/hooks/useLanguage';
 
 export interface BlockUserModalProps {
   opened: boolean;
@@ -36,6 +38,9 @@ function CommunityBlockUserModal({
   replyRefetch,
   ...props
 }: BlockUserModalProps) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const urlLang = useUrlLanguage();
   const selectInfo = useRecoilValue(selectInfoState);
   const modalText1 = texts.askBlockUser[0];
   const modalText2 = texts.askBlockUser[1];
@@ -43,7 +48,6 @@ function CommunityBlockUserModal({
 
   const checkComment = useRecoilValue(checkCommentState);
 
-  const queryClient = useQueryClient();
   const communityBlockUserModalProps: CommunityBlockUserCommonModalProps = {
     buttonId: 'modalBlockUserButton',
     opened,
@@ -56,12 +60,14 @@ function CommunityBlockUserModal({
         let modalMessage =
           response?.data?.RESULTS?.MSG === 'success' ? texts.blockedUser : texts.alreadyBlockUser;
         if (target_type === 'post') {
-          queryClient.getQueriesData(['communityBoardData']);
+          queryClient.invalidateQueries(['communityBoardData']);
+          ToastModal.alert(modalMessage);
+          router.push(`/${urlLang}/community/board/${router.query.boardIndex}`);
         }
         if (target_type === 'comment') {
           checkComment ? refetch() : replyRefetch();
+          ToastModal.alert(modalMessage);
         }
-        ToastModal.alert(modalMessage);
       },
       text: texts.confirmButton,
     },
