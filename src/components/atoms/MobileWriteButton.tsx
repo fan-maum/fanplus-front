@@ -7,7 +7,7 @@ export default function MobileWriteButton({ onClick }: { onClick: () => void }) 
       onClick={onClick}
       css={css`
         display: none;
-        position: absolute;
+        position: fixed;
         width: 60px;
         height: 60px;
         border-radius: 50%;
