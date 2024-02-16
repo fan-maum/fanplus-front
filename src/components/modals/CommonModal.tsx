@@ -71,7 +71,7 @@ function CommonModal({
         <VoteModalButton
           buttonId={buttonId}
           variant={confirmButton?.variant || 'primary'}
-          css={{ flex: 1 }}
+          css={{ flex: 1, wordBreak: 'keep-all' }}
           onClick={confirmButton?.onClick}
         >
           {confirmButton?.text || '확인'}
