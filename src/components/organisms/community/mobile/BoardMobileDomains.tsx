@@ -36,6 +36,7 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
 
   const isSpecialPage = ['bookmark', 'community', '2291', '139'].includes(boardType as string);
   const isFromSpecialPage = ['community', '2291', '139'].includes(router.query.from as string);
+  const isContainSpecialPage = isSpecialPage || isFromSpecialPage;
   const isNoticePage = boardType === '139';
   const bookmarkTabActive = boardType === 'bookmark';
 
@@ -46,12 +47,11 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
     return (
       (boardType === boardIndex && !isNoticePage) ||
       domain === domainName ||
-      (!isSpecialPage && !domain && !isFromSpecialPage) ||
       (router.query.from === boardIndex && !isNoticePage)
     );
   };
 
-  const allTabActive = bestOrAllTabActive('community', 'all');
+  const allTabActive = bestOrAllTabActive('community', 'all') || !(isContainSpecialPage || domain);
   const bestTabActive = bestOrAllTabActive('2291', 'best_post');
   const noticeTabActive = boardType === '139' || domain === 'notice' || router.query.from === '139';
 
@@ -62,7 +62,7 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
   };
 
   const onClickAll = async () => {
-    isSpecialPage || isFromSpecialPage
+    isContainSpecialPage
       ? router.replace(`/${urlLang}/community`, undefined, {
           shallow: true,
         })
@@ -79,7 +79,7 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
     return;
   };
   const onClickPopular = async () => {
-    isSpecialPage || isFromSpecialPage
+    isContainSpecialPage
       ? router.replace(`/${urlLang}/community/board/2291`)
       : router.replace(
           {
@@ -94,7 +94,7 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
   };
 
   const onClickNotice = async () => {
-    isSpecialPage || isFromSpecialPage
+    isContainSpecialPage
       ? router.replace(`/${urlLang}/community/board/139`)
       : router.replace(
           {
