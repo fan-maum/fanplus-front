@@ -88,7 +88,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     blockUser: {
       unBlock: 'Unblock',
-      unBlocked: '차단이 해제되었습니다.',
+      unBlocked: 'Successfully unblocked.',
     },
     boardLang: {
       modalHeader: 'Posts Language Settings',
@@ -146,7 +146,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     blockUser: {
       unBlock: 'Desbloquear',
-      unBlocked: '차단이 해제되었습니다.',
+      unBlocked: 'Desbloqueado con éxito.',
     },
     boardLang: {
       modalHeader: 'Publicación Idioma configurado',
@@ -204,7 +204,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     blockUser: {
       unBlock: 'Buka blokir',
-      unBlocked: '차단이 해제되었습니다.',
+      unBlocked: 'Berhasil membuka blokir.',
     },
     boardLang: {
       modalHeader: 'Posts Pengaturan Bahasa',
@@ -262,7 +262,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     blockUser: {
       unBlock: 'ブロックを解除',
-      unBlocked: '차단이 해제되었습니다.',
+      unBlocked: 'ブロック解除に成功しました。',
     },
     boardLang: {
       modalHeader: '話 設定言語',
@@ -320,7 +320,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     blockUser: {
       unBlock: 'Mở khóa',
-      unBlocked: '차단이 해제되었습니다.',
+      unBlocked: 'Đã gỡ chặn thành công.',
     },
     boardLang: {
       modalHeader: 'Câu chuyện Thiết lập ngôn ngữ',
@@ -378,7 +378,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     blockUser: {
       unBlock: '解除屏蔽',
-      unBlocked: '차단이 해제되었습니다.',
+      unBlocked: '已解除屏蔽',
     },
     boardLang: {
       modalHeader: '帖子 语言设定',
@@ -436,7 +436,7 @@ export const communityBoardTexts: LangStringType<CommunityBoardTextType> = {
     },
     blockUser: {
       unBlock: '解除屏蔽',
-      unBlocked: '차단이 해제되었습니다.',
+      unBlocked: '已解除屏蔽',
     },
     boardLang: {
       modalHeader: '帖子 語言設定',
