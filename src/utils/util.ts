@@ -61,10 +61,14 @@ export const formatWrittenTime = (prevTimeExpression: string) => {
 export const formatWrittenTimeLite = (prevTimeExpression: string) => {
   const today = new Date();
   const writtenTime = new Date(prevTimeExpression.split('.')[0]);
+  const hours = writtenTime.getHours();
+  const minutes = writtenTime.getMinutes();
+  const formatHours = hours < 10 ? `0${hours}` : hours;
+  const formatMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
   const isToday = writtenTime.toDateString() === today.toDateString();
 
   return isToday
-    ? `${writtenTime.getHours()}:${writtenTime.getMinutes()} (KST)`
+    ? `${formatHours}:${formatMinutes} (KST)`
     : prevTimeExpression.split('T')[0].replaceAll('-', '.');
 };
