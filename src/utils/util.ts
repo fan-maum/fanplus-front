@@ -60,13 +60,21 @@ export const formatWrittenTime = (prevTimeExpression: string) => {
  */
 export const formatWrittenTimeLite = (prevTimeExpression: string) => {
   const today = new Date();
+
+  // 2. UTC 시간 계산
+  const utc = today.getTime() + today.getTimezoneOffset() * 60 * 1000;
+
+  // 3. UTC to KST (UTC + 9시간)
+  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+  const KR_today = new Date(utc + KR_TIME_DIFF);
+
   const writtenTime = new Date(prevTimeExpression.split('.')[0]);
   const hours = writtenTime.getHours();
   const minutes = writtenTime.getMinutes();
   const formatHours = hours < 10 ? `0${hours}` : hours;
   const formatMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
-  const isToday = writtenTime.toDateString() === today.toDateString();
+  const isToday = writtenTime.toDateString() === KR_today.toDateString();
 
   return isToday
     ? `${formatHours}:${formatMinutes} (KST)`
