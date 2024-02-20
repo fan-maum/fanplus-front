@@ -13,6 +13,7 @@ import type {
   PostResponseType,
   Top50PopularBoardsResponseType,
   UserResponseType,
+  blockUserListType,
   sideMenuResponseType,
 } from '@/types/community';
 import axios, { AxiosResponse } from 'axios';
@@ -23,6 +24,7 @@ export const getCommunityBoardData = async (
   userId: string,
   boardType: number | string,
   page: number,
+  perPage: number,
   lang: ServerLangType,
   filterLang: BoardLangType,
   viewType: string,
@@ -32,7 +34,7 @@ export const getCommunityBoardData = async (
   if (topic === 0) topic = '';
   const response: AxiosResponse = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardType, page, lang, filterLang, viewType, topic, maxPage } }
+    { params: { userId, boardType, page, perPage, lang, filterLang, viewType, topic, maxPage } }
   );
 
   return response.data;
@@ -443,4 +445,44 @@ export const getSideMenu = async (lang: ServerLangType, identity: string) => {
     { params: { lang, identity } }
   );
   return response.data;
+};
+
+/* Block User */
+export const getBlockUsers = async (
+  userId: string,
+  user_idx: number,
+  position: number,
+  count: number
+) => {
+  const response: AxiosResponse<blockUserListType> = await axios.get(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/blockUsers`,
+    { params: { userId, user_idx, position, count } }
+  );
+  return response.data;
+};
+
+export const postBlockUser = async (user_id: string, user_idx: string, targetUserIdx: number) => {
+  const response: AxiosResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/blockUser`,
+    {
+      identity: user_id,
+      user_idx: user_idx,
+      targetUserIdx: targetUserIdx,
+    }
+  );
+  return response;
+};
+
+export const deleteBlockUser = async (user_id: string, user_idx: string, targetUserIdx: number) => {
+  const response: AxiosResponse = await axios.delete(
+    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/blockUser?targetUserIdx=${targetUserIdx}`,
+    {
+      data: {
+        identity: user_id,
+        user_idx: user_idx,
+        targetUserIdx: targetUserIdx,
+      },
+    }
+  );
+  return response;
 };

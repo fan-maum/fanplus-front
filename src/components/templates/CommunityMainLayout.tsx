@@ -1,5 +1,9 @@
-import type { UrlLangType } from '@/types/common';
-import type { BookmarksResponseType, PartialUserType } from '@/types/community';
+import type { BoardLangType, UrlLangType } from '@/types/common';
+import type {
+  BookmarksResponseType,
+  MultiBoardsInquiryItemType,
+  PartialUserType,
+} from '@/types/community';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { type ReactNode } from 'react';
@@ -11,44 +15,89 @@ import MainAsideUserCard from '../organisms/community/MainAsideUserCard';
 import PopularBoardsMobile from '../molecules/community/PopularBoardsMobile';
 import CommunityMobileSidebar from '../modals/CommunityMobileSidebar';
 import { useRecoilState } from 'recoil';
-import { openSideBarState } from '@/store/community';
+import { boardLangState, openSideBarState, permissionModalState } from '@/store/community';
+import BoardMobileTitle from '../molecules/community/mobile/BoardMobileTitle';
+import { communityBoardTexts } from '@/texts/communityBoardTexts';
+import { useServerLang } from '@/hooks/useLanguage';
+import { getCookie } from '@/utils/Cookie';
+import { useQuery } from 'react-query';
+import { getMultiBoardsInquiry } from '@/api/Community';
+import BoardMobileTab from '../organisms/community/mobile/BoardMobileTab';
+import { css } from '@emotion/react';
+import MobileWriteButton from '../atoms/MobileWriteButton';
+import { onClickWrite } from '@/utils/communityUtil';
 
 interface CommunityMainLayoutProps {
   urlLang: UrlLangType;
+  boardLangCookie: BoardLangType;
   user?: PartialUserType;
   bookmarks: BookmarksResponseType;
   withSearchInput?: boolean;
   withBestNotices?: boolean;
+  withBoardTab?: boolean;
   children: ReactNode;
 }
 
 const CommunityMainLayout = ({
   urlLang,
+  boardLangCookie,
   user,
   bookmarks,
   withSearchInput,
   withBestNotices,
+  withBoardTab,
   children,
 }: CommunityMainLayoutProps) => {
   const router = useRouter();
+  const serverLang = useServerLang();
   const [openSidebar, setOpenSidebar] = useRecoilState(openSideBarState);
+  const user_id = getCookie('user_id');
+  const isBoardPage = router.route === '/[locale]/community/board/[boardIndex]';
+
+  const [boardLang, setBoardLang] = useRecoilState(boardLangState(boardLangCookie));
+  const [permissionModal, setPermissionModal] = useRecoilState(permissionModalState);
+
   const isEditMode = router.pathname.includes('write') || router.pathname.includes('edit');
+  const isMyPost = router.pathname.includes('myPost');
+  const isSearch = router.pathname.includes('search');
+  const boardTexts = communityBoardTexts[urlLang];
+  const boardType = router.query.boardIndex as string;
+
+  /* boardSlug */
+  const boardsType = [boardType];
+  const { data } = useQuery(['multiBoardsInquiry', { user_id, serverLang, boardsType }], () =>
+    getMultiBoardsInquiry(user_id, serverLang, boardsType)
+  );
+  const boardSlugData = data ?? [];
+  const boardSlug: MultiBoardsInquiryItemType = boardSlugData[0];
 
   return (
     <div>
       <LayoutWrapper>
-        <div className="contents">
+        <div
+          className="contents"
+          css={css`
+            position: relative;
+          `}
+        >
           <div className="mainAside">
             <MainAsideUserCard user={user} />
             <MainAsideMenus bookmarks={bookmarks} />
             <PopularBoards />
           </div>
           <div className="mainContent">
+            {isSearch && (
+              <BoardMobileTitle
+                boardTitle={boardTexts.searchTitle}
+                onClickBack={() => router.back()}
+              />
+            )}
             <CommunityBoardSearchInputWrapper
               withSearchInput={withSearchInput}
               isEditMode={isEditMode}
+              isMyPost={isMyPost}
             />
-            <PopularBoardsMobile initialOpen={false} isEditMode={isEditMode} />
+            <PopularBoardsMobile initialOpen={false} isEditMode={isEditMode} isMyPost={isMyPost} />
             <div className="contentLayout">
               <div
                 css={{
@@ -57,6 +106,12 @@ const CommunityMainLayout = ({
                   '@media(max-width:960px)': { width: '100%', minWidth: 320, flex: 1 },
                 }}
               >
+                <BoardMobileTab
+                  urlLang={urlLang}
+                  boardLang={boardLang}
+                  withBoardTab={withBoardTab}
+                  boardSlug={boardSlug}
+                />
                 {children}
               </div>
               {withBestNotices && <BestNotices />}
@@ -70,6 +125,9 @@ const CommunityMainLayout = ({
         setOpenSidebar={setOpenSidebar}
         bookmarks={bookmarks}
       />
+      {isBoardPage && (
+        <MobileWriteButton onClick={() => onClickWrite({ router, urlLang, setPermissionModal })} />
+      )}
     </div>
   );
 };

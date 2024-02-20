@@ -34,7 +34,7 @@ const Board = ({
   initialProps,
   user,
 }: BoardPropType & { user: PartialUserType }) => {
-  const { urlLang } = queryParams;
+  const { urlLang, boardLangCookie } = queryParams;
   const { data } = useQuery(['bookmarks', { userId: queryParams.userId, urlLang }], () =>
     getBookmarks(queryParams.userId, urlLang)
   );
@@ -44,10 +44,12 @@ const Board = ({
     <>
       <CommunityMainLayout
         urlLang={urlLang}
+        boardLangCookie={boardLangCookie}
         bookmarks={bookmarks}
         user={user}
         withSearchInput
         withBestNotices
+        withBoardTab
       >
         <CommunityBoardTemplate
           queryParams={queryParams}
@@ -70,6 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
   const view_type = (context.query.view as string) || 'all';
   const page = parseInt(context.query.page as string) - 1 || 1;
+  const perPage = 20;
   const maxPage = 10;
   const topic = parseInt(context.query.topic as string) || 0;
   const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
@@ -81,6 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     userId,
     boardType,
     page,
+    perPage,
     serverLang,
     boardLangCookie,
     view_type,

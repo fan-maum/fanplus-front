@@ -3,7 +3,8 @@ import axios, { AxiosResponse } from 'axios';
 import type { CommunityBoardResponseType } from '@/types/community';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { userId, boardType, page, lang, filterLang, viewType, topic, maxPage } = req.query;
+  const { userId, boardType, page, perPage, lang, filterLang, viewType, topic, maxPage } =
+    req.query;
   const origin = process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr';
 
   try {
@@ -16,7 +17,7 @@ const handler: NextApiHandler = async (req, res) => {
           filterLang,
           viewType,
           page,
-          perPage: 20,
+          perPage,
           'topicIds[]': topic,
           maxPage,
         },

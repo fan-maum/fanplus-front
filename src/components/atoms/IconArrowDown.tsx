@@ -3,12 +3,14 @@ function IconArrowDown({
   height = '100%',
   strokeWidth = '2',
   isReverse = false,
+  margin,
   onClick,
 }: {
   width?: string;
   height?: string;
   strokeWidth?: string;
   isReverse?: boolean;
+  margin?: number | string;
   onClick?: () => void;
 }) {
   return (
@@ -22,6 +24,7 @@ function IconArrowDown({
         flexShrink: '0',
         transition: '0.4s ease-in-out',
         transform: isReverse ? 'scaleY(-1)' : '',
+        margin: margin,
       }}
       onClick={onClick}
     >

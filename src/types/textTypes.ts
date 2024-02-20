@@ -272,6 +272,8 @@ export type CommunityPageTextType = {
 };
 export type CommmunityBookmarkType = {
   NoBookmarkMessage: string;
+  seeMore: string;
+  seeSideBar: string;
 };
 export type CommunityBoardTextType = {
   all: string;
@@ -290,6 +292,19 @@ export type CommunityBoardTextType = {
     myPost: string;
     bookmark: string;
   };
+  myPostTab: {
+    myPost: string;
+    blockUser: string;
+  };
+  searchTitle: string;
+  blockUserTitle: {
+    firstMessage: string;
+    secondMessage: string;
+  };
+  blockUser: {
+    unBlock: string;
+    unBlocked: string;
+  };
   boardLang: {
     modalHeader: string;
     modalExplain: string;
@@ -306,6 +321,7 @@ export type CommunityBoardTextType = {
   };
   noPostTexts: string[];
   noMyPostTexts: string[];
+  noBlockUserTexts: string[];
   buttonWrite: string;
   link: {
     board: string;
@@ -327,6 +343,7 @@ export type CommunityPostTextType = {
   edit: string;
   delete: string;
   report: string;
+  block: string;
   cancelButton: string;
   confirmButton: string;
   reportButton: string;
@@ -335,9 +352,11 @@ export type CommunityPostTextType = {
   askPostDelete: string;
   askPostDeleteMsg: string;
   askCommentDelete: string;
+  askBlockUser: string[];
   postDeleted: string;
   commentDeleted: string;
   reported: string;
+  blockedUser: string;
   reply: string;
   writeReply: string;
   register: string;
@@ -348,6 +367,8 @@ export type CommunityPostTextType = {
   alreadyDeleted: string;
   alreadyReportedPost: string;
   alreadyReportedComment: string;
+  alreadyBlockUser: string;
+  alreadyBlockUserComment: string;
   reportReason: string;
   reportPostOptions: {
     option1: string;

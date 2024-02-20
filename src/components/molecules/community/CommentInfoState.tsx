@@ -13,8 +13,12 @@ type CommentInfoStateProps = {
 };
 
 function CommentInfoState({ identity, comment, reply, texts }: CommentInfoStateProps) {
-  const commentContent = comment?.COMMENT === false ? texts.deleted : comment?.COMMENT;
-  const replyContent = reply?.COMMENT === false ? texts.deleted : reply?.COMMENT;
+  const commentContent =
+    comment?.COMMENT === false && comment.IS_BLOCKED_USER === 'N'
+      ? texts.deleted
+      : comment?.COMMENT;
+  const replyContent =
+    reply?.COMMENT === false && reply?.IS_BLOCKED_USER === 'N' ? texts.deleted : reply?.COMMENT;
   const isComment = comment ? true : false;
   const getCommentTimeDate = !!comment && formatWrittenTime(comment.INS_DATE);
   const getReplyTimeDate = !!reply && formatWrittenTime(reply.INS_DATE);
@@ -63,6 +67,7 @@ function CommentInfoState({ identity, comment, reply, texts }: CommentInfoStateP
               color: '#101010',
               fontSize: 16,
               fontWeight: 400,
+              wordBreak: 'break-word',
             }}
           >
             {comment ? commentContent : replyContent}
@@ -73,6 +78,7 @@ function CommentInfoState({ identity, comment, reply, texts }: CommentInfoStateP
         identity={identity}
         isWriter={comment ? comment?.IS_WRITER : reply?.IS_WRITER}
         comment_idx={comment ? comment.COMMENT_IDX : reply?.COMMENT_IDX}
+        writer_idx={comment ? comment.WRITER_IDX : reply?.WRITER_IDX}
         texts={texts}
         isComment={isComment}
       />

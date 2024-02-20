@@ -1,9 +1,15 @@
-import { colors } from '@/styles/Colors';
-import { ButtonHTMLAttributes, useEffect } from 'react';
+import { colors } from '@/styles/CommunityColors';
+import { ButtonHTMLAttributes } from 'react';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonId?: string;
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'report';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'report'
+    | 'blockUserCancel'
+    | 'blockUserConfirm';
 }
 
 export function CommunityModalButton({ buttonId, variant = 'secondary', ...props }: Props) {
@@ -52,5 +58,21 @@ const TYPE_VARIANTS = {
     background: '#ff5656',
     borderRadius: '10px',
     fontWeight: 600,
+  },
+  blockUserCancel: {
+    color: colors.gray[600],
+    border: `1px solid ${colors.gray[100]}`,
+    background: colors.gray[100],
+    borderRadius: '10px',
+    fontWeight: 400,
+    fontSize: '14px !important',
+  },
+  blockUserConfirm: {
+    color: '#fff',
+    border: '1px solid #fff',
+    background: colors.primary[500],
+    borderRadius: '10px',
+    fontWeight: 400,
+    fontSize: '14px !important',
   },
 };

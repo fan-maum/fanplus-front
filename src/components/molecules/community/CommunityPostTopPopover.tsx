@@ -1,7 +1,17 @@
 import IconVerticalMore from '@/components/atoms/IconVerticalMore';
-import { modalBlockState, reportModalBlockState, selectInfoState } from '@/store/community';
+import {
+  blockUserModalBlockState,
+  modalBlockState,
+  reportModalBlockState,
+  selectInfoState,
+} from '@/store/community';
+import { colors } from '@/styles/Colors';
 import { CommunityPostTextType } from '@/types/textTypes';
-import { showModalOnClick, showReportModalBlockOnClick } from '@/utils/communityUtil';
+import {
+  showBlockUserModalBlockOnClick,
+  showModalOnClick,
+  showReportModalBlockOnClick,
+} from '@/utils/communityUtil';
 import { pathOnly } from '@/utils/util';
 import { Popover } from '@mantine/core';
 import { useRouter } from 'next/router';
@@ -24,6 +34,7 @@ const CommunityPostTopPopover = ({
   const router = useRouter();
   const setModalBlock = useSetRecoilState(modalBlockState);
   const setReportModalBlock = useSetRecoilState(reportModalBlockState);
+  const setBlockUserModalBlock = useSetRecoilState(blockUserModalBlockState);
   const setSelectInfo = useSetRecoilState(selectInfoState);
   const showModalBlockOnClick = async () =>
     await showModalOnClick({
@@ -41,6 +52,21 @@ const CommunityPostTopPopover = ({
         target_type: 'post',
         idx: postIndex,
         setReportModalBlock,
+        setSelectInfo,
+      });
+    } else {
+      const path = router.asPath;
+      router.push({ pathname: '/login', query: { nextUrl: path } });
+    }
+  };
+
+  const BlockUserOnClick = async () => {
+    if (identity !== null) {
+      await showBlockUserModalBlockOnClick({
+        purpose: 'block',
+        target_type: 'post',
+        idx: writer_idx,
+        setBlockUserModalBlock,
         setSelectInfo,
       });
     } else {
@@ -102,7 +128,27 @@ const CommunityPostTopPopover = ({
               <li onClick={showModalBlockOnClick}>{texts.delete}</li>
             </>
           ) : (
-            <li onClick={ReportOnClick}>{texts.report}</li>
+            <>
+              <li
+                onClick={ReportOnClick}
+                css={{
+                  '@media screen and (max-width: 768px)': {
+                    borderBottom: `1px solid ${colors.gray[200]}`,
+                  },
+                }}
+              >
+                {texts.report}
+              </li>
+              <li
+                onClick={BlockUserOnClick}
+                css={{
+                  display: 'none',
+                  '@media screen and (max-width: 768px)': { display: 'block' },
+                }}
+              >
+                {texts.block}
+              </li>
+            </>
           )}
         </ul>
       </Popover.Dropdown>

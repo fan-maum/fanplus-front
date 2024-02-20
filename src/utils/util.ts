@@ -72,3 +72,7 @@ export const formatWrittenTimeLite = (prevTimeExpression: string) => {
     ? `${formatHours}:${formatMinutes} (KST)`
     : prevTimeExpression.split('T')[0].replaceAll('-', '.');
 };
+
+export const formatOnlyDate = (prevTimeExpression: string) => {
+  return prevTimeExpression.split(' ')[0].replaceAll('-', '.');
+};

@@ -241,3 +241,58 @@ export const NotificationBoardsSkeleton = () => {
     </div>
   );
 };
+
+const BookmarkBoardsItemSkeleton = () => {
+  return (
+    <li
+      css={{
+        borderBottom: '1px solid #d9d9d9',
+        display: 'block',
+        padding: '13px 16px',
+        height: '108px',
+      }}
+    >
+      <div css={{ display: 'flex' }}>
+        <Skeleton width={100} height={21} radius="lg" />
+      </div>
+      <div css={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div css={{ margin: '3px 0px 6px' }}>
+          <Skeleton width={160} height={24} radius="sm" />
+          <div css={{ marginTop: '6px', div: { margin: '1px 0px' } }}>
+            <Skeleton width={200} height={16} radius="sm" />
+            <Skeleton width={100} height={16} radius="sm" />
+          </div>
+        </div>
+        <div>
+          <Skeleton width={50} height={54} radius="sm" />
+        </div>
+      </div>
+    </li>
+  );
+};
+
+export const BookmarkBoardsSkeleton = () => {
+  return (
+    <div css={{ display: 'flex', flexDirection: 'column' }}>
+      <div
+        css={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          height: '40px',
+          padding: '0 16px',
+          width: '100%',
+        }}
+      >
+        <Skeleton width={70} height={20} radius="sm" />
+        <Skeleton width={100} height={20} radius="sm" />
+      </div>
+      {Array.from({ length: 3 }, (_, idx) => (
+        <BookmarkBoardsItemSkeleton key={'BookmarkBoardsItemSkeleton' + idx} />
+      ))}
+      {Array.from({ length: 3 }, (_, idx) => (
+        <BookmarkBoardsItemSkeleton key={'BookmarkBoardsItemSkeleton' + idx} />
+      ))}
+    </div>
+  );
+};
