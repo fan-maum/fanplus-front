@@ -25,6 +25,7 @@ const BoardMobileTab = ({ urlLang, boardLang, withBoardTab, boardSlug }: BoardMo
   const router = useRouter();
   const queryClient = useQueryClient();
   const user_id = getCookie('user_id');
+  const isNoticePage = router.query.boardIndex === '139';
   const boardTexts = communityBoardTexts[urlLang];
   const setOpenSidebar = useSetRecoilState(openSideBarState);
   const setLangModal = useSetRecoilState(openLanguageFitlerState);
@@ -37,9 +38,10 @@ const BoardMobileTab = ({ urlLang, boardLang, withBoardTab, boardSlug }: BoardMo
   };
 
   const boardFrom: any = router.query.from;
-  const isBoardTitle = isPostDetailConstant[boardFrom]
-    ? isPostDetailBoardTitle[boardFrom]
-    : boardSlug && boardSlug.BOARD_TITLE;
+  const isBoardTitle =
+    isPostDetailConstant[boardFrom] && !isNoticePage
+      ? isPostDetailBoardTitle[boardFrom]
+      : boardSlug && boardSlug.BOARD_TITLE;
   const isSlugAll = router.route === '/[locale]/community';
   const boardTitle = isSlugAll ? text.headerTitle.all : isBoardTitle;
   const isSlugAllBookmarkId = isSlugAll ? 1 : Number(boardSlug && boardSlug.menu.id);

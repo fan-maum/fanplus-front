@@ -67,6 +67,7 @@ function CommentInfoState({ identity, comment, reply, texts }: CommentInfoStateP
               color: '#101010',
               fontSize: 16,
               fontWeight: 400,
+              wordBreak: 'break-word',
             }}
           >
             {comment ? commentContent : replyContent}

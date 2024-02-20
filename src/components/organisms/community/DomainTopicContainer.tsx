@@ -5,7 +5,6 @@ import { useUrlLanguage } from '@/hooks/useLanguage';
 import CommunityBoardTopicTabBar from './CommunityBoardTopicTabBar';
 import { useRouter } from 'next/router';
 import { CommunityBoardTopicResponseType } from '@/types/community';
-import CommunityBoardLangSelector from '@/components/molecules/community/CommunityBoardLangSelector';
 import { Dispatch, SetStateAction } from 'react';
 import { BoardLangType } from '@/types/common';
 import styled from '@emotion/styled';
@@ -76,7 +75,7 @@ const DomainTopicContainer = ({
           height: '40px',
           borderTop: `1px solid ${colors.gray[100]}`,
           '@media(max-width: 768px)': {
-            display: communityBoardTopics?.RESULTS.DATAS.TOPIC_LIST ? 'flex' : 'none',
+            display: !isCommunityOrBestBoard ? 'flex' : 'none',
             alignItems: 'center',
           },
         }}

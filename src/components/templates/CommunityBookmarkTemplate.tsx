@@ -71,7 +71,11 @@ const CommunityBookmarkTemplate = ({
                     communityBoardSSRdata={boardData}
                     isFetching={isFetching}
                     texts={boardTexts}
-                    boardType={String(13)}
+                    boardType={
+                      boardData.BOARD_INFO.menu.slug === 'all'
+                        ? 'community'
+                        : boardData.BOARD_INFO.menu.slug
+                    }
                   />
                 ))}
               </div>
