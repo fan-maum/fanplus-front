@@ -70,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const perPage = 20;
   const maxPage = 10;
   const topic = parseInt(context.query.topic as string) || 0;
-  const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
+  const isAdminAccount = user_idx === process.env.NEXT_PUBLIC_ADMIN_ACCOUNT_IDX;
   const HomeBoardType = 'community';
 
   const communityHomeSSRdata: CommunityBoardAllResponseType = await getCommunityBoardData(
