@@ -271,6 +271,7 @@ export type CommunityPageTextType = {
   noResult: string[];
 };
 export type CommmunityBookmarkType = {
+  canBookmarkMessage: string[];
   NoBookmarkMessage: string;
   seeMore: string;
   seeSideBar: string;

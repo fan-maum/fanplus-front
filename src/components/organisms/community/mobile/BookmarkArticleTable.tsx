@@ -13,6 +13,9 @@ import { colors } from '@/styles/CommunityColors';
 import IconArrowLeft from '@/components/atoms/IconArrowLeft';
 import { UnstyledButton } from '@/components/atoms';
 import { bookmarkTexts } from '@/texts/bookmarkTexts';
+import { onClickWrite } from '@/utils/communityUtil';
+import { useSetRecoilState } from 'recoil';
+import { permissionModalState } from '@/store/community';
 
 type BoardArticleTableProps = {
   communityBoardData: CommunityBoardResponseType;
@@ -39,6 +42,8 @@ const BookmarkArticleTable = ({
   const boardInfo = (communityBoardData || communityBoardSSRdata).BOARD_INFO;
   const postList = (communityBoardData || communityBoardSSRdata).POST_LIST;
   const bookmarksTexts = bookmarkTexts[urlLang];
+  const setPermissionModal = useSetRecoilState(permissionModalState);
+  const isBookmarkPage = router.pathname.includes('bookmark');
 
   const isPostExist = !(
     postList?.length === 0 &&
@@ -46,8 +51,14 @@ const BookmarkArticleTable = ({
   );
 
   if (isFetching) return <CommunityBoardArticleTableSkeleton firstHeader={tableHeader} />;
-  if (!isPostExist) {
-    return <CommunityBoardNoPost buttonText={texts.buttonWrite} texts={texts.noPostTexts} />;
+  if (!isPostExist && !isBookmarkPage) {
+    return (
+      <CommunityBoardNoPost
+        buttonText={texts.buttonWrite}
+        texts={texts.noPostTexts}
+        onClick={() => onClickWrite({ router, urlLang, setPermissionModal })}
+      />
+    );
   }
   const urlPage = router.query.page || 1;
   const urlPath = boardType;
