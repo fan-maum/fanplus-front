@@ -67,7 +67,7 @@ function CommunityBlockUserCommonModal({
       <Flex w="86%" mt={20} gap={20} m={'0 auto'}>
         {(cancelButton || withCancelButton) && (
           <CommunityModalButton
-            css={{ flex: 1, height: '40px', padding: '6px 38px' }}
+            css={{ flex: 1, padding: '6px 0' }}
             variant="blockUserCancel"
             onClick={
               (typeof cancelButton === 'object' &&
@@ -84,7 +84,7 @@ function CommunityBlockUserCommonModal({
         <CommunityModalButton
           buttonId={buttonId}
           variant="blockUserConfirm"
-          css={{ flex: 1, height: '40px', padding: '6px 38px' }}
+          css={{ flex: 1, padding: '6px 0' }}
           onClick={confirmButton?.onClick}
         >
           {confirmButton?.text || '확인'}
