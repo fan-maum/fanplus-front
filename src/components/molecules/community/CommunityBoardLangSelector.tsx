@@ -22,7 +22,7 @@ const CommunityBoardLangSelector = ({ onClickOpenModal, boardLang }: OwnPropType
   }, [isTooltip]);
 
   return (
-    <div css={{ position: 'relative', paddingRight: 16 }}>
+    <div css={{ position: 'relative', '@media(max-width:768px)': { paddingRight: 16 } }}>
       <div
         css={{
           cursor: 'pointer',
