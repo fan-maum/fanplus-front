@@ -82,7 +82,7 @@ export const onClickWrite = ({ router, urlLang, setPermissionModal }: onClickWri
   const writeBanBoard = ['139', '192', '220'];
   const userId = getCookie('user_id');
   const user_idx = getCookie('user_idx');
-  const isAdminAccount = user_idx === process.env.ADMIN_ACCOUNT_IDX;
+  const isAdminAccount = user_idx === process.env.NEXT_PUBLIC_ADMIN_ACCOUNT_IDX;
   const boardType = Number(router.query.boardIndex);
   const writeBanned = writeBanBoard.includes(String(boardType));
 
