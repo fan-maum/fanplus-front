@@ -1,8 +1,7 @@
 import { BookmarksResponseType } from '@/types/community';
 import { communityBoardTexts } from '@/texts/communityBoardTexts';
 import BookmarkArticleTable from '../organisms/community/mobile/BookmarkArticleTable';
-import { UnstyledButton } from '../atoms';
-import { colors } from '@/styles/CommunityColors';
+import { Stack } from '../atoms';
 import { getCommunityBoardData } from '@/api/Community';
 import { BookmarkPropTypes } from '@/pages/[locale]/community/bookmark';
 import { useQuery } from 'react-query';
@@ -10,6 +9,9 @@ import { useSetRecoilState } from 'recoil';
 import { openSideBarState } from '@/store/community';
 import { BookmarkBoardsSkeleton } from '../molecules/community/CommunitySkeleton';
 import { bookmarkTexts } from '@/texts/bookmarkTexts';
+import NoBookmarkMessage from '../molecules/community/NoBookMarkMessage';
+import styled from '@emotion/styled';
+import OpenSideBardButton from '../atoms/OpenSideBardButton';
 
 interface CommunityBookmarkTemplateProps extends BookmarkPropTypes {
   bookmarks: BookmarksResponseType;
@@ -61,7 +63,7 @@ const CommunityBookmarkTemplate = ({
         <BookmarkBoardsSkeleton />
       ) : (
         <>
-          {bookmarkBoards?.length !== 0 && (
+          {bookmarkBoards?.length !== 0 ? (
             <div>
               <div>
                 {bookmarkBoards?.map((boardData, index) => (
@@ -80,25 +82,24 @@ const CommunityBookmarkTemplate = ({
                 ))}
               </div>
               <div css={{ textAlign: 'center', marginTop: '8px' }}>
-                <UnstyledButton
-                  css={{
-                    dispaly: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '6px 8px',
-                    height: '28px',
-                    backgroundColor: colors.gray[100],
-                    color: colors.gray[1000],
-                    fontSize: '14px',
-                    borderRadius: '6px',
-                    fontWeight: 600,
-                  }}
-                  onClick={() => setOpenSidebar(true)}
-                >
-                  {bookmarksText.seeSideBar}
-                </UnstyledButton>
+                <OpenSideBardButton
+                  seeSideBarText={bookmarksText.seeSideBar}
+                  setOpenSidebar={setOpenSidebar}
+                />
               </div>
             </div>
+          ) : (
+            <NoBookmarkBoardWrapper>
+              <Stack color="#000" fz={18} fw={600} spacing={10}>
+                <span>자주 찾는 게시판을</span>
+                <span>즐겨찾기 할 수 있습니다.</span>
+              </Stack>
+              <NoBookmarkMessage urlLang={urlLang} variant="primary" />
+              <OpenSideBardButton
+                seeSideBarText={bookmarksText.seeSideBar}
+                setOpenSidebar={setOpenSidebar}
+              />
+            </NoBookmarkBoardWrapper>
           )}
         </>
       )}
@@ -107,3 +108,15 @@ const CommunityBookmarkTemplate = ({
 };
 
 export default CommunityBookmarkTemplate;
+
+const NoBookmarkBoardWrapper = styled.div`
+  width: 100%;
+  height: 60vh;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 30px;
+`;
