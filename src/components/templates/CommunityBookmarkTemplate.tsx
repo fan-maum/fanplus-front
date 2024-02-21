@@ -91,8 +91,8 @@ const CommunityBookmarkTemplate = ({
           ) : (
             <NoBookmarkBoardWrapper>
               <Stack color="#000" fz={18} fw={600} spacing={10}>
-                <span>자주 찾는 게시판을</span>
-                <span>즐겨찾기 할 수 있습니다.</span>
+                <span>{bookmarksText.canBookmarkMessage[0]}</span>
+                <span>{bookmarksText.canBookmarkMessage[1]}</span>
               </Stack>
               <NoBookmarkMessage urlLang={urlLang} variant="primary" />
               <OpenSideBardButton
