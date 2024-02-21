@@ -8,6 +8,7 @@ import { CommunityBoardTopicResponseType } from '@/types/community';
 import { Dispatch, SetStateAction } from 'react';
 import { BoardLangType } from '@/types/common';
 import styled from '@emotion/styled';
+import CommunityBoardLangSelector from '@/components/molecules/community/CommunityBoardLangSelector';
 
 type DomainTopicContainerProps = {
   isMobile: boolean;
@@ -67,6 +68,10 @@ const DomainTopicContainer = ({
           ) : (
             <div></div>
           )}
+          <CommunityBoardLangSelector
+            onClickOpenModal={() => setLangModal(true)}
+            boardLang={boardLang}
+          />
         </DomainAndLanguageFilterWrap>
       )}
       <div
