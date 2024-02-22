@@ -35,7 +35,7 @@ const CommunityMyPostTemplate = ({
   const isPostExist = !(postList.length === 0 && (!router.query.page || router.query.page === '1'));
 
   const handlePageChange = (selectedItem: { selected: number }) => {
-    router.replace({ query: { ...router.query, page: selectedItem.selected + 1 } });
+    router.push({ query: { ...router.query, page: selectedItem.selected + 1 } });
   };
 
   return (

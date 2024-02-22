@@ -18,7 +18,7 @@ const BoardDomains = ({ viewType, boardDomainTexts }: BoardDomainsProps) => {
   const isMobile = useMediaQuery({ query: '(max-width:768px)' });
   const onClickAll = async () => {
     if (viewType !== 'all') {
-      router.replace({ query: { ...router.query, view: 'all', page: 1 } }, undefined, {
+      router.push({ query: { ...router.query, view: 'all', page: 1 } }, undefined, {
         shallow: true,
       });
       return;
@@ -26,7 +26,7 @@ const BoardDomains = ({ viewType, boardDomainTexts }: BoardDomainsProps) => {
   };
   const onClickPopular = async () => {
     if (viewType !== 'best_post') {
-      router.replace({ query: { ...router.query, view: 'best_post', page: 1 } }, undefined, {
+      router.push({ query: { ...router.query, view: 'best_post', page: 1 } }, undefined, {
         shallow: true,
       });
       return;
@@ -35,7 +35,7 @@ const BoardDomains = ({ viewType, boardDomainTexts }: BoardDomainsProps) => {
 
   const onClickNotice = async () => {
     if (viewType !== 'notice') {
-      router.replace({ query: { ...router.query, view: 'notice', page: 1 } }, undefined, {
+      router.push({ query: { ...router.query, view: 'notice', page: 1 } }, undefined, {
         shallow: true,
       });
       return;
