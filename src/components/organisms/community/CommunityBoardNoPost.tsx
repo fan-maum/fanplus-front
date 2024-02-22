@@ -3,9 +3,10 @@ import GradientButton from '@/components/atoms/GradientButton';
 type OwnPropType = {
   texts?: string[];
   buttonText: string;
+  onClick: () => void;
 };
 
-const CommunityBoardNoPost = ({ texts, buttonText }: OwnPropType) => {
+const CommunityBoardNoPost = ({ texts, buttonText, onClick }: OwnPropType) => {
   return (
     <div
       css={{
@@ -25,7 +26,7 @@ const CommunityBoardNoPost = ({ texts, buttonText }: OwnPropType) => {
       {texts?.map((text, idx) => {
         return <p key={idx}>{text}</p>;
       })}
-      <GradientButton text={buttonText} />
+      <GradientButton text={buttonText} onClick={onClick} />
     </div>
   );
 };

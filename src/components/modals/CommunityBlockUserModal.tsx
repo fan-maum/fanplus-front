@@ -45,6 +45,7 @@ function CommunityBlockUserModal({
   const modalText1 = texts.askBlockUser[0];
   const modalText2 = texts.askBlockUser[1];
   const { purpose, target_type, idx } = selectInfo;
+  const reloadRouterUrl = router.query.from ? router.query.from : router.query.boardIndex;
 
   const checkComment = useRecoilValue(checkCommentState);
 
@@ -62,7 +63,9 @@ function CommunityBlockUserModal({
         if (target_type === 'post') {
           queryClient.invalidateQueries(['communityBoardData']);
           ToastModal.alert(modalMessage);
-          router.push(`/${urlLang}/community/board/${router.query.boardIndex}`);
+          reloadRouterUrl === 'community'
+            ? router.push(`/${urlLang}/community`)
+            : router.push(`/${urlLang}/community/board/${reloadRouterUrl}`);
         }
         if (target_type === 'comment') {
           checkComment ? refetch() : replyRefetch();

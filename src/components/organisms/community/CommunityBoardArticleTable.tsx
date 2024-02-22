@@ -13,6 +13,9 @@ import { useRouter } from 'next/router';
 import CommunityBoardPagination from '../CommunityBoardPagination';
 import CommunityBoardNoPost from './CommunityBoardNoPost';
 import CommunityBoardNoticeArticleMobile from '@/components/molecules/community/CommunityBoardNoticeArticleMobile';
+import { onClickWrite } from '@/utils/communityUtil';
+import { useSetRecoilState } from 'recoil';
+import { permissionModalState } from '@/store/community';
 
 type BoardArticleTableProps = {
   communityBoardData: CommunityBoardResponseType;
@@ -36,6 +39,7 @@ const CommunityBoardArticleTable = ({
   const urlLang = useUrlLanguage();
   const isBoardNameTableHeader = boardType === 'community' || boardType === '2291';
   const tableHeader = isBoardNameTableHeader ? 'board' : 'topic';
+  const setPermissionModal = useSetRecoilState(permissionModalState);
 
   const handlePageChange = async (selectedItem: { selected: number }) => {
     router.replace({ query: { ...router.query, page: selectedItem.selected + 1 } }, undefined, {
@@ -55,7 +59,13 @@ const CommunityBoardArticleTable = ({
 
   if (isFetching) return <CommunityBoardArticleTableSkeleton firstHeader={tableHeader} />;
   if (!isPostExist) {
-    return <CommunityBoardNoPost buttonText={texts.buttonWrite} texts={texts.noPostTexts} />;
+    return (
+      <CommunityBoardNoPost
+        buttonText={texts.buttonWrite}
+        texts={texts.noPostTexts}
+        onClick={() => onClickWrite({ router, urlLang, setPermissionModal })}
+      />
+    );
   }
   const urlPage = router.query.page || 1;
   const urlPath = boardType;

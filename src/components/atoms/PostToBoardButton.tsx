@@ -1,9 +1,18 @@
+import { useRouter } from 'next/router';
+
 type OwnPropType = {
   boardName: string;
   onClick: () => void;
 };
 
 const PostToBoardButton = ({ boardName, onClick }: OwnPropType) => {
+  const router = useRouter();
+  const routeFrom = router.query.from as string;
+  const routeBoardType = router.query.boardIndex as string;
+
+  const BestOrAllBoard = ['community', '2291'];
+  const isBestOrAll = BestOrAllBoard.includes(routeFrom) && routeBoardType !== '139';
+
   return (
     <button
       css={{
@@ -18,6 +27,7 @@ const PostToBoardButton = ({ boardName, onClick }: OwnPropType) => {
         letterSpacing: '0.14px',
         color: '#ff5656',
         cursor: 'pointer',
+        '@media(max-width: 768px)': { display: isBestOrAll ? 'block' : 'none' },
       }}
       onClick={onClick}
     >
