@@ -14,11 +14,14 @@ export type TabBarPropTypes = {
 
 export const MyPostTabBar = ({ tabTitles, tabBar, tabItems, setTabBar }: TabBarPropTypes) => {
   const router = useRouter();
+  const { boardType } = router?.query;
 
   useEffect(() => {
-    if (router.query.boardType === tabItems[0] || router.query.boardType === undefined)
+    if (boardType) {
+      router.query.boardType === tabItems[0] ? setTabBar(tabItems[0]) : setTabBar(tabItems[1]);
+    } else {
       setTabBar(tabItems[0]);
-    if (router.query.boardType === tabItems[1]) setTabBar(tabItems[1]);
+    }
   }, [router.query.boardType, setTabBar]);
 
   return (
