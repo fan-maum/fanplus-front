@@ -2,6 +2,7 @@ import { useRecoilState } from 'recoil';
 import { voteLangState } from '@/store/voteLangState';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { VoteDetailStars } from '@/types/vote';
+import { DateTime } from 'luxon';
 
 export const FormatTime = (time: number | undefined) => {
   const language = useUrlLanguage();
@@ -57,20 +58,19 @@ export const formatWrittenTime = (prevTimeExpression: string) => {
  * @param prevTimeExpression api 반환값 (ex: 2023-12-28T21:10:05.000Z)
  * @returns 오늘일 경우: 시간만 표시 (ex: 21:10 (KST))
  * @returns 오늘이 아닐 경우: 날짜만 표시 (ex: 2023.12.28)
+ * @returns KSTtoUTC: KST -> UTC 값으로 변경
+ * @returns UTCtoKST: UTC -> KST 값으로 재변경
  */
 export const formatWrittenTimeLite = (prevTimeExpression: string) => {
-  const today = new Date();
-  const writtenTime = new Date(prevTimeExpression.split('.')[0]);
-  const hours = writtenTime.getHours();
-  const minutes = writtenTime.getMinutes();
-  const formatHours = hours < 10 ? `0${hours}` : hours;
-  const formatMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const today = DateTime.now().setZone('Asia/Seoul').toFormat('yyyy.LL.dd');
+  const serverDate = DateTime.fromISO(prevTimeExpression).minus({ hours: 9 }).toISO() as string;
+  const UTC = DateTime.fromISO(serverDate).toUTC().toISO() as string;
+  const UTCtoKST_Time = DateTime.fromISO(UTC, { zone: 'Asia/Seoul' }).toFormat('HH:mm');
+  const UTCtoKST_Date = DateTime.fromISO(UTC, { zone: 'Asia/Seoul' }).toFormat('yyyy.LL.dd');
 
-  const isToday = writtenTime.toDateString() === today.toDateString();
+  const isToday = today === UTCtoKST_Date;
 
-  return isToday
-    ? `${formatHours}:${formatMinutes} (KST)`
-    : prevTimeExpression.split('T')[0].replaceAll('-', '.');
+  return isToday ? `${UTCtoKST_Time} (KST)` : UTCtoKST_Date;
 };
 
 export const formatOnlyDate = (prevTimeExpression: string) => {
