@@ -64,13 +64,13 @@ export const formatWrittenTime = (prevTimeExpression: string) => {
 export const formatWrittenTimeLite = (prevTimeExpression: string) => {
   const today = DateTime.now().setZone('Asia/Seoul').toFormat('yyyy.LL.dd');
   const serverDate = DateTime.fromISO(prevTimeExpression).minus({ hours: 9 }).toISO() as string;
-  const UTC = DateTime.fromISO(serverDate).toUTC().toISO() as string;
-  const UTCtoKST_Time = DateTime.fromISO(UTC, { zone: 'Asia/Seoul' }).toFormat('HH:mm');
-  const UTCtoKST_Date = DateTime.fromISO(UTC, { zone: 'Asia/Seoul' }).toFormat('yyyy.LL.dd');
+  const utc = DateTime.fromISO(serverDate).toUTC().toISO() as string;
+  const utcToKstTime = DateTime.fromISO(utc, { zone: 'Asia/Seoul' }).toFormat('HH:mm');
+  const utcToKstDate = DateTime.fromISO(utc, { zone: 'Asia/Seoul' }).toFormat('yyyy.LL.dd');
 
-  const isToday = today === UTCtoKST_Date;
+  const isToday = today === utcToKstDate;
 
-  return isToday ? `${UTCtoKST_Time} (KST)` : UTCtoKST_Date;
+  return isToday ? `${utcToKstTime} (KST)` : utcToKstDate;
 };
 
 export const formatOnlyDate = (prevTimeExpression: string) => {
