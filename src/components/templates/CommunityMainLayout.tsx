@@ -125,7 +125,7 @@ const CommunityMainLayout = ({
         setOpenSidebar={setOpenSidebar}
         bookmarks={bookmarks}
       />
-      {isBoardPage && (
+      {isBoardPage && boardType !== '2291' && (
         <MobileWriteButton onClick={() => onClickWrite({ router, urlLang, setPermissionModal })} />
       )}
     </div>
