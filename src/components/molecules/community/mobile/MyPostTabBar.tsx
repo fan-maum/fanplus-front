@@ -15,14 +15,15 @@ export type TabBarPropTypes = {
 export const MyPostTabBar = ({ tabTitles, tabBar, tabItems, setTabBar }: TabBarPropTypes) => {
   const router = useRouter();
   const { boardType } = router?.query;
+  const [myPost, blockUser] = tabItems;
 
   useEffect(() => {
-    if (boardType) {
-      router.query.boardType === tabItems[0] ? setTabBar(tabItems[0]) : setTabBar(tabItems[1]);
+    if (boardType && boardType === blockUser) {
+      setTabBar(blockUser);
     } else {
-      setTabBar(tabItems[0]);
+      setTabBar(myPost);
     }
-  }, [router.query.boardType, setTabBar]);
+  }, [boardType, setTabBar]);
 
   return (
     <ul css={{ width: '100%', display: 'none', '@media(max-width:768px)': { display: 'flex' } }}>
