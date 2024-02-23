@@ -35,7 +35,7 @@ const DomainTopicContainer = ({
   const texts = communityBoardTexts[urlLang];
 
   const onClickTopic = async (topic: number) => {
-    router.replace(
+    router.push(
       { pathname: router.pathname, query: { ...router.query, topic, page: 1 } },
       undefined,
       { shallow: true }
