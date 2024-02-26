@@ -4,6 +4,7 @@ import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate'
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type { PartialUserType, PostResponseType } from '@/types/community';
+import { AxiosError } from 'axios';
 import type { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -83,28 +84,42 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const user_idx = context.req.cookies.user_idx || null;
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
 
-  if (!boardIndex || !postIndex) return { notFound: true };
+  try {
+    const communityPostData = await getCommunityPostData(
+      boardIndex,
+      postIndex,
+      identity,
+      serverLang
+    );
 
-  const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, serverLang);
-  if (communityPostData.RESULTS.DATAS.POST_INFO.IS_PUBLISH === 'N') return { notFound: true };
+    const props = {
+      urlLang,
+      identity,
+      user_idx,
+      postIndex,
+      serverLang,
+      boardLangCookie,
+      communityPostData,
+    };
 
-  const props = {
-    urlLang,
-    identity,
-    user_idx,
-    postIndex,
-    serverLang,
-    boardLangCookie,
-    communityPostData,
-  };
+    if (!!identity && !!user_idx) {
+      const { NICK, PROFILE_IMG_URL } = (await getUser(identity, user_idx)).RESULTS.DATAS;
+      const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+      return { props: { ...props, user } };
+    }
 
-  if (!!identity && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(identity, user_idx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { ...props, user } };
+    return { props };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return {
+        // redirect: {
+        //   destination: '/',
+        // },
+        notFound: true,
+      };
+    }
   }
-
-  return { props };
+  return { props: {} };
 };
 
 export default Post;
