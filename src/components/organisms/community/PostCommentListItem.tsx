@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CommentListItemType } from '@/types/community';
+import { CommentListItemType, replyResponseType } from '@/types/community';
 import CommentCard from './CommentCard';
 import ReplyCommentList from './ReplyCommentList';
 import { TargetType } from '@/types/common';
@@ -61,6 +61,11 @@ const PostCommentListItem = ({
     }
   };
 
+  const replyList = replyData?.find(
+    (replies: replyResponseType) =>
+      item.COMMENT_IDX === replies.RESULTS.DATAS.ORIGINAL_COMMENTS.COMMENT_IDX
+  );
+
   return (
     <li
       className="comment"
@@ -84,7 +89,7 @@ const PostCommentListItem = ({
         {item.RE_COMMENT_CNT !== '0' && (
           <ReplyCommentList
             identity={identity}
-            replyList={replyData?.pages}
+            replyList={replyList && replyList}
             texts={texts}
             replyRefetch={replyRefetch}
           />
