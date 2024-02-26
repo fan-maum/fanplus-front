@@ -8,7 +8,6 @@ import ReplyRegister from './ReplyRegister';
 import { useRecoilValue } from 'recoil';
 import { postParamState } from '@/store/community';
 import { colors } from '@/styles/CommunityColors';
-import { Stack } from '@/components/atoms';
 
 type PostCommentListItemProps = {
   item: CommentListItemType;
@@ -72,50 +71,34 @@ const PostCommentListItem = ({
         },
       }}
     >
-      {item?.IS_BLOCKED_USER === 'Y' ? (
-        <Stack align="cener" justify="center" w={'100%'} h={120} css={{ textAlign: 'center' }}>
-          <p
-            css={{
-              fontSize: '16px',
-              fontWeight: 600,
-              color: colors.gray[1000],
-            }}
-          >
-            {texts.alreadyBlockUserComment}
-          </p>
-        </Stack>
-      ) : (
-        <>
-          <CommentCard
+      <CommentCard
+        identity={identity}
+        comment={item}
+        texts={texts}
+        closeReply={closeReply}
+        refetch={refetch}
+        ReplyOnToggle={() => ReplyOnToggle(Number(item.COMMENT_IDX))}
+        ReplyWriteOnToggle={ReplyWriteOnToggle}
+      />
+      <div css={{ display: openToggle ? 'block' : 'none' }}>
+        {item.RE_COMMENT_CNT !== '0' && (
+          <ReplyCommentList
             identity={identity}
-            comment={item}
+            replyList={replyData?.pages}
             texts={texts}
-            closeReply={closeReply}
-            refetch={refetch}
-            ReplyOnToggle={() => ReplyOnToggle(Number(item.COMMENT_IDX))}
-            ReplyWriteOnToggle={ReplyWriteOnToggle}
+            replyRefetch={replyRefetch}
           />
-          <div css={{ display: openToggle ? 'block' : 'none' }}>
-            {item.RE_COMMENT_CNT !== '0' && (
-              <ReplyCommentList
-                identity={identity}
-                replyList={replyData?.pages}
-                texts={texts}
-                replyRefetch={replyRefetch}
-              />
-            )}
-          </div>
-          <div css={{ display: openWriteToggle ? 'block' : 'none' }}>
-            <ReplyRegister
-              identity={identity}
-              texts={texts}
-              POST_IDX={item.COMMENT_IDX}
-              createMode={'comment'}
-              onCreateComment={onCreateComment}
-            />
-          </div>
-        </>
-      )}
+        )}
+      </div>
+      <div css={{ display: openWriteToggle ? 'block' : 'none' }}>
+        <ReplyRegister
+          identity={identity}
+          texts={texts}
+          POST_IDX={item.COMMENT_IDX}
+          createMode={'comment'}
+          onCreateComment={onCreateComment}
+        />
+      </div>
     </li>
   );
 };

@@ -20,9 +20,11 @@ export default BoardMobileDomainItem;
 const BoardDomainButton = styled.button`
   position: relative;
   border: none;
+  display: inline-block;
+  white-space: nowrap;
+  height: 39px;
   background-color: #fff;
   color: ${colors.gray[600]};
-  padding: 6px 0;
   margin: 0 8px;
   font-size: 14px;
   font-weight: 600;
@@ -33,7 +35,7 @@ const BoardDomainButton = styled.button`
     &::after {
       content: '';
       position: absolute;
-      bottom: -9px;
+      bottom: -3px;
       left: 50%;
       right: 50%;
       transform: translate(-50%, -50%);
