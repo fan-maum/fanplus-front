@@ -7,7 +7,6 @@ import type { CommunityPostPropType } from '@/pages/[locale]/community/board/[bo
 import {
   useGetCommentQuery,
   useGetCommentQueryProps,
-  useGetReplyQuery,
   useGetReplyQueryProps,
   useGetUserQuery,
   useGetUserQueryProps,
@@ -31,6 +30,9 @@ import CommunityShareModal, { CommunityShareModalProps } from '../modals/Communi
 import CompletedShareModal, { CompletedShareModalProps } from '../modals/CompletedShareModal';
 import PostDetailLayout, { PostDetailLayoutProps } from './PostDetailLayout';
 import CommunityBlockUserModal from '../modals/CommunityBlockUserModal';
+import { getRepliesQuery } from '@/server/query';
+import { useQuery } from 'react-query';
+import { CommentListItemType } from '@/types/community';
 
 const CommunityPostTemplate = ({
   urlLang,
@@ -72,8 +74,6 @@ const CommunityPostTemplate = ({
     orderType,
     per_page,
   };
-
-  const { data: replyData, refetch: replyRefetch } = useGetReplyQuery(useGetReplyQueryProps);
   const useGetCommentQueryProps: useGetCommentQueryProps = {
     postIndex,
     identity,
@@ -91,6 +91,25 @@ const CommunityPostTemplate = ({
   } = useGetCommentQuery(useGetCommentQueryProps);
 
   const commentTotalCount = commentData?.pages[0].RESULTS.DATAS.TOTAL_CNT;
+  const comments = commentData?.pages[0].RESULTS.DATAS.COMMENTS;
+
+  const { data: replyData, refetch: replyRefetch } = useQuery(
+    ['replies', useGetReplyQueryProps],
+    async () => {
+      const dataList = comments?.map((comment: CommentListItemType) => {
+        return getRepliesQuery({
+          commentIndex: comment.COMMENT_IDX,
+          identity,
+          board_lang,
+          orderType,
+          pageParams: 0,
+          per_page,
+        });
+      });
+      return await Promise.all(dataList);
+    },
+    { enabled: !!commentData }
+  );
 
   const refetchReplyOnToggle = async (commentIndex: number | null) => {
     await setCommentIndex(commentIndex);

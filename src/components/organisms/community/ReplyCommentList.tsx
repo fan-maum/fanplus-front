@@ -4,7 +4,7 @@ import { CommunityPostTextType } from '@/types/textTypes';
 
 type ReplyCommentListProps = {
   identity: string;
-  replyList: Array<replyResponseType>;
+  replyList: replyResponseType;
   texts: CommunityPostTextType;
   replyRefetch: () => void;
 };
@@ -12,17 +12,14 @@ type ReplyCommentListProps = {
 const ReplyCommentList = ({ identity, replyList, texts, replyRefetch }: ReplyCommentListProps) => {
   return (
     <ul data-role="comments">
-      {replyList?.map((replies, index) => {
-        return (
-          <ReplyCommentListItem
-            key={`${index}`}
-            identity={identity}
-            replies={replies}
-            texts={texts}
-            replyRefetch={replyRefetch}
-          />
-        );
-      })}
+      {replyList && (
+        <ReplyCommentListItem
+          identity={identity}
+          replies={replyList}
+          texts={texts}
+          replyRefetch={replyRefetch}
+        />
+      )}
     </ul>
   );
 };
