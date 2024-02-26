@@ -36,36 +36,52 @@ const CommentCard = ({
     });
 
   return (
-    <Stack p={'20px'} spacing={6}>
-      <CommentInfoState identity={identity} comment={comment} texts={texts} />
-      <Group position="apart" ml={68}>
-        <div>
-          {comment.RE_COMMENT_CNT !== '0' && (
-            <>
-              <UnstyledButton
-                fz={16}
-                fw={400}
-                css={{ color: '#999', marginRight: 22 }}
-                onClick={ReplyOnToggle}
-              >
-                {texts.reply} {comment.RE_COMMENT_CNT}
-                <IconReply closeReply={closeReply} />
+    <>
+      {comment?.IS_BLOCKED_USER === 'Y' ? (
+        <Stack align="cener" justify="center" w={'100%'} h={120} css={{ textAlign: 'center' }}>
+          <p
+            css={{
+              fontSize: '16px',
+              fontWeight: 600,
+              color: colors.gray[1000],
+            }}
+          >
+            {texts.alreadyBlockUserComment}
+          </p>
+        </Stack>
+      ) : (
+        <Stack p={'20px'} spacing={6}>
+          <CommentInfoState identity={identity} comment={comment} texts={texts} />
+          <Group position="apart" ml={68}>
+            <div>
+              {comment.RE_COMMENT_CNT !== '0' && (
+                <>
+                  <UnstyledButton
+                    fz={16}
+                    fw={400}
+                    css={{ color: '#999', marginRight: 22 }}
+                    onClick={ReplyOnToggle}
+                  >
+                    {texts.reply} {comment.RE_COMMENT_CNT}
+                    <IconReply closeReply={closeReply} />
+                  </UnstyledButton>
+                </>
+              )}
+              <UnstyledButton fz={14} fw={400} css={{ color: '#999' }} onClick={ReplyWriteOnToggle}>
+                {texts.writeReply}
               </UnstyledButton>
-            </>
-          )}
-          <UnstyledButton fz={14} fw={400} css={{ color: '#999' }} onClick={ReplyWriteOnToggle}>
-            {texts.writeReply}
-          </UnstyledButton>
-        </div>
-        <LikesButton
-          buttonSize="medium"
-          padding="0"
-          alreadyLike={comment.ALREADY_LIKE}
-          likesCount={Number(comment.LIKE_CNT)}
-          onClick={LikesOnClick}
-        />
-      </Group>
-    </Stack>
+            </div>
+            <LikesButton
+              buttonSize="medium"
+              padding="0"
+              alreadyLike={comment.ALREADY_LIKE}
+              likesCount={Number(comment.LIKE_CNT)}
+              onClick={LikesOnClick}
+            />
+          </Group>
+        </Stack>
+      )}
+    </>
   );
 };
 

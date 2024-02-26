@@ -47,8 +47,6 @@ function CommunityBlockUserModal({
   const { purpose, target_type, idx } = selectInfo;
   const reloadRouterUrl = router.query.from ? router.query.from : router.query.boardIndex;
 
-  const checkComment = useRecoilValue(checkCommentState);
-
   const communityBlockUserModalProps: CommunityBlockUserCommonModalProps = {
     buttonId: 'modalBlockUserButton',
     opened,
@@ -68,7 +66,8 @@ function CommunityBlockUserModal({
             : router.push(`/${urlLang}/community/board/${reloadRouterUrl}`);
         }
         if (target_type === 'comment') {
-          checkComment ? refetch() : replyRefetch();
+          refetch();
+          replyRefetch();
           ToastModal.alert(modalMessage);
         }
       },

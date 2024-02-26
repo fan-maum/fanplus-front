@@ -7,7 +7,6 @@ import {
   reportModalBlockState,
   selectInfoState,
 } from '@/store/community';
-import IconHorizontalMore from '@/components/atoms/IconHorizontalMore';
 import { CommunityPostTextType } from '@/types/textTypes';
 import { useRouter } from 'next/router';
 import {
