@@ -109,7 +109,19 @@ const BoardMobileDomains = ({ boardDomainTexts }: BoardMobileDomainsProps) => {
   };
 
   return (
-    <div css={{ display: 'flex', alignItems: 'center', height: '28px', minWidth: '185px' }}>
+    <div
+      css={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '40px',
+        minWidth: '185px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        '::-webkit-scrollbar': { display: 'none' },
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+      }}
+    >
       <BoardMobileDomainItem
         domainParam={boardDomainTexts.bookmark}
         active={bookmarkTabActive}
