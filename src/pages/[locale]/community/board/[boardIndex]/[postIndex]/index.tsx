@@ -84,27 +84,34 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
 
   if (!boardIndex || !postIndex) return { notFound: true };
+  try {
+    const communityPostData = await getCommunityPostData(
+      boardIndex,
+      postIndex,
+      identity,
+      serverLang
+    );
 
-  const communityPostData = await getCommunityPostData(boardIndex, postIndex, identity, serverLang);
-  if (communityPostData.RESULTS.DATAS.POST_INFO.IS_PUBLISH === 'N') return { notFound: true };
+    const props = {
+      urlLang,
+      identity,
+      user_idx,
+      postIndex,
+      serverLang,
+      boardLangCookie,
+      communityPostData,
+    };
 
-  const props = {
-    urlLang,
-    identity,
-    user_idx,
-    postIndex,
-    serverLang,
-    boardLangCookie,
-    communityPostData,
-  };
+    if (!!identity && !!user_idx) {
+      const { NICK, PROFILE_IMG_URL } = (await getUser(identity, user_idx)).RESULTS.DATAS;
+      const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+      return { props: { ...props, user } };
+    }
 
-  if (!!identity && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(identity, user_idx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { ...props, user } };
+    return { props };
+  } catch (error) {
+    return { redirect: { destination: `/${urlLang}/community` }, props: {} };
   }
-
-  return { props };
 };
 
 export default Post;

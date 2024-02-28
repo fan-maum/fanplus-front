@@ -19,6 +19,7 @@ import type {
 import axios, { AxiosResponse } from 'axios';
 import type { BoardLangType, OrderType, ServerLangType, UrlLangType } from '@/types/common';
 import type { BestPostsViewType } from '@/components/molecules/community/BestNotices';
+import { APIServer } from './Instance';
 
 export const getCommunityBoardData = async (
   userId: string,
@@ -106,12 +107,12 @@ export const getCommunityNoticeBannerData = async (boardIndex: number, lang: Ser
 export const getCommunityPostData = async (
   boardIndex: number,
   postIndex: number,
-  identity: string,
+  identity: string | null,
   lang: ServerLangType
 ) => {
-  const response: AxiosResponse<PostResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
-    { params: { boardIndex, postIndex, identity, lang } }
+  const response: AxiosResponse<PostResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/posts/${postIndex}/detail`,
+    { params: identity ? { identity, lang } : { lang } }
   );
   return response.data;
 };
