@@ -116,18 +116,6 @@ export const getCommunityPostData = async (
   );
   return response.data;
 };
-// export const getCommunityPostData = async (
-//   boardIndex: number,
-//   postIndex: number,
-//   identity: string,
-//   lang: ServerLangType
-// ) => {
-//   const response: AxiosResponse<PostResponseType> = await axios.get(
-//     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/post`,
-//     { params: { boardIndex, postIndex, identity, lang } }
-//   );
-//   return response.data;
-// };
 
 export const deletePost = async (identity: string, post_idx: string, mode: 'reset' | 'remove') => {
   const response: AxiosResponse = await axios.delete(

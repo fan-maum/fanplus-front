@@ -4,7 +4,6 @@ import CommunityPostTemplate from '@/components/templates/CommunityPostTemplate'
 import { translateUrlLangToServerLang } from '@/hooks/useLanguage';
 import type { BoardLangType, ServerLangType, UrlLangType } from '@/types/common';
 import type { PartialUserType, PostResponseType } from '@/types/community';
-import { AxiosError } from 'axios';
 import type { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -110,16 +109,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return { props };
   } catch (error) {
-    if (error instanceof AxiosError) {
-      return {
-        // redirect: {
-        //   destination: '/',
-        // },
-        notFound: true,
-      };
-    }
+    return { redirect: { destination: `/${urlLang}/community` }, props: {} };
   }
-  return { props: {} };
 };
 
 export default Post;
