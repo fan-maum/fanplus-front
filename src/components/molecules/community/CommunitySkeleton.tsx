@@ -296,3 +296,36 @@ export const BookmarkBoardsSkeleton = () => {
     </div>
   );
 };
+
+const SideMenuListItemSkeleton = () => {
+  return (
+    <div
+      css={{
+        width: '100%',
+        height: 40,
+        display: 'flex',
+        gap: 10,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 14px',
+      }}
+    >
+      <span>
+        <Skeleton width={120} height={24} radius="sm" />
+      </span>
+      <span>
+        <Skeleton width={16} height={24} radius="sm" />
+      </span>
+    </div>
+  );
+};
+
+export const SideMenuListSkeleton = () => {
+  return (
+    <div css={{ display: 'flex', flexDirection: 'column' }}>
+      {Array.from({ length: 5 }, (_, idx) => (
+        <SideMenuListItemSkeleton key={'HorizontalBestNoticeSkeleton' + idx} />
+      ))}
+    </div>
+  );
+};

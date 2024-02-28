@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 import { getSideMenu } from '@/api/Community';
 import { getCookie } from '@/utils/Cookie';
 import { BookmarksResponseType } from '@/types/community';
+import { SideMenuListSkeleton } from '@/components/molecules/community/CommunitySkeleton';
 
 const MainAsideMenus = ({ bookmarks }: { bookmarks: BookmarksResponseType }) => {
   const urlLang = useUrlLanguage();
@@ -15,7 +16,7 @@ const MainAsideMenus = ({ bookmarks }: { bookmarks: BookmarksResponseType }) => 
   const texts = communityLayoutTexts[urlLang];
   const user_id = getCookie('user_id');
 
-  const { data: sideMenuData } = useQuery(['sideMenu', { serverLang }], async () => {
+  const { data: sideMenuData, isFetching } = useQuery(['sideMenu', { serverLang }], async () => {
     let response = await getSideMenu(serverLang, user_id);
     const responseData = [response[0], response[2], response[4], response[3], response[1]];
     return responseData;
@@ -27,7 +28,11 @@ const MainAsideMenus = ({ bookmarks }: { bookmarks: BookmarksResponseType }) => 
     <MenuWrapper>
       <div className="title">{texts.fanplusCommunity}</div>
       <MainBookmarkMenu urlLang={urlLang} bookmarks={bookmarks} bookmarkTitle={texts.bookmark} />
-      <MainMenuList menus={sideMenus} freeBoardText={texts.asideMenus[1]} />
+      {isFetching ? (
+        <SideMenuListSkeleton />
+      ) : (
+        <MainMenuList menus={sideMenus} freeBoardText={texts.asideMenus[1]} />
+      )}
     </MenuWrapper>
   );
 };
