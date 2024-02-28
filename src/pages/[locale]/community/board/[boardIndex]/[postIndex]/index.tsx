@@ -83,6 +83,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const user_idx = context.req.cookies.user_idx || null;
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
 
+  if (!boardIndex || !postIndex) return { notFound: true };
   try {
     const communityPostData = await getCommunityPostData(
       boardIndex,
