@@ -1,7 +1,6 @@
-import TopicBubble from '@/components/atoms/TopicBubble';
 import { useUrlLanguage } from '@/hooks/useLanguage';
 import type { UrlLangType } from '@/types/common';
-import type { NoticeListItemType, PostListItemType } from '@/types/community';
+import type { PostListItemType } from '@/types/community';
 import type { CommunityBoardTextType } from '@/types/textTypes';
 import { formatWrittenTimeLite } from '@/utils/util';
 import Link from 'next/link';
