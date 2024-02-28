@@ -324,7 +324,7 @@ export const SideMenuListSkeleton = () => {
   return (
     <div css={{ display: 'flex', flexDirection: 'column' }}>
       {Array.from({ length: 5 }, (_, idx) => (
-        <SideMenuListItemSkeleton key={'HorizontalBestNoticeSkeleton' + idx} />
+        <SideMenuListItemSkeleton key={'SideMenuListItemSkeleton' + idx} />
       ))}
     </div>
   );
