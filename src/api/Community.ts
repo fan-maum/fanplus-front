@@ -1,7 +1,6 @@
 import type {
   BestPostsResponseType,
   BookmarksResponseType,
-  CommunityBoardResponseType,
   CommunityBoardTopicResponseType,
   CommunityNoticeBannerResponseType,
   EditBoardArticleResponseType,
@@ -21,8 +20,11 @@ import type { BoardLangType, OrderType, ServerLangType, UrlLangType } from '@/ty
 import type { BestPostsViewType } from '@/components/molecules/community/BestNotices';
 import { APIServer } from './Instance';
 
+/**
+ * 단일 게시판 게시글리스트 조회
+ */
 export const getCommunityBoardData = async (
-  userId: string,
+  userId: string | null,
   boardType: number | string,
   page: number,
   perPage: number,
@@ -33,51 +35,40 @@ export const getCommunityBoardData = async (
   maxPage: number
 ) => {
   if (topic === 0) topic = '';
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/board`,
-    { params: { userId, boardType, page, perPage, lang, filterLang, viewType, topic, maxPage } }
-  );
+  const queries = { page, perPage, lang, filterLang, viewType, 'topicIds[]': topic, maxPage };
+  const queriesWithUserId = { ...queries, identity: userId };
+  const response: AxiosResponse = await APIServer.get(`/posts/${boardType}`, {
+    params: userId ? queriesWithUserId : queries,
+  });
 
-  return response.data;
-};
-
-export const getCommunityTypeBoardData = async (
-  userId: string,
-  boardType: string | string[],
-  page: number,
-  maxPage: number,
-  lang: ServerLangType,
-  filterLang: BoardLangType,
-  viewType: string
-) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/typeBoard`,
-    { params: { userId, boardType, page, maxPage, lang, filterLang, viewType } }
-  );
-  return response.data;
-};
-
-export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerLangType) => {
-  const response: AxiosResponse<CommunityBoardTopicResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/boardTopic`,
-    { params: { boardIndex, lang } }
-  );
   return response.data;
 };
 
 /**
- * Search Board
+ * 단일 게시판 토픽리스트 조회
  */
-/* 검색 페이지 내 중간부분 Tab response */
-export const getCommunityBoardCategoryData = async (lang: ServerLangType) => {
-  const response: AxiosResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/searchBoardCategory`,
+export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerLangType) => {
+  const response: AxiosResponse<CommunityBoardTopicResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/topics`,
     { params: { lang } }
   );
   return response.data;
 };
 
-/* 검색 페이지 내 검색 결과 response */
+/**
+ * 검색페이지 - 카테고리 조회
+ */
+export const getCommunityBoardCategoryData = async (lang: ServerLangType) => {
+  const response: AxiosResponse = await APIServer.get(`/voteWeb/search/category`, {
+    params: { lang },
+  });
+  return response.data;
+};
+
+/**
+ * 검색페이지 - 단일 카테고리 리스트 조회
+ * @todo 여기서부터....
+ */
 export const getCommunityBoardResultData = async (
   category_type: number,
   searchValue: any,
@@ -92,6 +83,9 @@ export const getCommunityBoardResultData = async (
   return response.data;
 };
 
+/**
+ * 팬픽 페이지 - 슬라이드 배너 공지 리스트 조회
+ */
 export const getCommunityNoticeBannerData = async (boardIndex: number, lang: ServerLangType) => {
   const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/noticeBanner`,

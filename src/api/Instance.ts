@@ -1,10 +1,13 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 export const APIServer = axios.create({
-  baseURL: 'https://api-dev.fanplus.co.kr',
+  baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
   timeout: 5000,
   headers: {
+    'Access-Control-Allow-Origin': '*',
+    Accept: '*',
     Origin: process.env.NEXT_PUBLIC_CLIENT_URL || 'https://dev.fanplus.co.kr',
+    'Cache-Control': 'no-cache',
   },
 });
 

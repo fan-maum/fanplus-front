@@ -47,8 +47,8 @@ const MyPostPage = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
-  const userId = context.req.cookies.user_id || '';
-  const user_idx = context.req.cookies.user_idx;
+  const userId = context.req.cookies.user_id || null;
+  const user_idx = context.req.cookies.user_idx || null;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';
@@ -74,7 +74,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!!userId && !!user_idx) {
     const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
     const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { urlLang, boardLangCookie, userId: userId, user_idx, communityMyPostData, user } };
+    return {
+      props: { urlLang, boardLangCookie, userId: userId, user_idx, communityMyPostData, user },
+    };
   }
   return {
     props: {
