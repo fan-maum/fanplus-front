@@ -39,6 +39,7 @@ const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
       css={css`
         display: flex;
         justify-content: space-between;
+        align-items: center; /* 차단된 날짜 추가 시 삭제예정 */
         height: 88px;
         padding: 26px 16px 22px;
         border-bottom: 1px solid ${colors.gray[200]};
@@ -57,7 +58,7 @@ const MyPostArticle = ({ blockUserItem }: MyPostArticleProps) => {
         >
           {blockUserItem.NICK}
         </h4>
-        <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>{timeExpression}</div>
+        {/* <div css={{ color: '#999999', fontSize: '12px', marginTop: '6px' }}>{timeExpression}</div> */}
       </div>
       <UnstyledButton
         css={css`
