@@ -40,7 +40,6 @@ export const getCommunityBoardData = async (
   const response: AxiosResponse = await APIServer.get(`/posts/${boardType}`, {
     params: userId ? queriesWithUserId : queries,
   });
-
   return response.data;
 };
 
@@ -130,6 +129,7 @@ export const deletePost = async (identity: string, post_idx: string, mode: 'rese
 
 /**
  * 댓글 조회
+ * @description APIServer X
  */
 export const getComments = async (
   postIndex: number,
@@ -145,6 +145,10 @@ export const getComments = async (
   return response.data;
 };
 
+/**
+ * 댓글 추가
+ * @description APIServer X
+ */
 export const postComment = async (
   identity: string,
   target_type: string,
@@ -163,6 +167,10 @@ export const postComment = async (
   return response.data;
 };
 
+/**
+ * 댓글 삭제
+ * @description APIServer X
+ */
 export const deleteComment = async (identity: string, comment_idx: string) => {
   const response: AxiosResponse = await axios.delete(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/postComment?comment_idx=${comment_idx}`,
@@ -176,6 +184,10 @@ export const deleteComment = async (identity: string, comment_idx: string) => {
   return response;
 };
 
+/**
+ * 답글 조회
+ * @description APIServer X
+ */
 export const getReplies = async (
   commentIndex: number,
   identity: string | null,
@@ -191,9 +203,9 @@ export const getReplies = async (
 };
 
 /**
- * Likes
+ * 좋아요
+ * @description APIServer X
  */
-/* 좋아요 */
 export const postLikes = async (commentIndex: string, identity: string) => {
   const response: AxiosResponse = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
@@ -204,6 +216,10 @@ export const postLikes = async (commentIndex: string, identity: string) => {
   return response;
 };
 
+/**
+ * 좋아요 취소
+ * @description APIServer X
+ */
 export const deleteLikes = async (commentIndex: string, identity: string) => {
   const response: AxiosResponse = await axios.delete(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/likes/${commentIndex}`,
@@ -217,9 +233,9 @@ export const deleteLikes = async (commentIndex: string, identity: string) => {
 };
 
 /**
- * Recommend
+ * 추천
+ * @description APIServer X
  */
-/* 추천 */
 export const postRecommends = async (identity: string, post_idx: string) => {
   const response: AxiosResponse = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends`,
@@ -231,6 +247,10 @@ export const postRecommends = async (identity: string, post_idx: string) => {
   return response;
 };
 
+/**
+ * 추천 취소
+ * @description APIServer X
+ */
 export const deleteRecommends = async (identity: string, post_idx: string) => {
   const response: AxiosResponse = await axios.delete(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/recommends?post_idx=${post_idx}`,
@@ -245,9 +265,9 @@ export const deleteRecommends = async (identity: string, post_idx: string) => {
 };
 
 /**
- * Editor
+ * Editor - 게시글 작성
+ * @description APIServer X
  */
-/* board article posting 하기 */
 export const postBoardArticle = async (
   userId: string,
   boardIndex: number,
@@ -264,6 +284,10 @@ export const postBoardArticle = async (
   return resposne.data;
 };
 
+/**
+ * Editor - 게시글 수정
+ * @description APIServer X
+ */
 export const editBoardArticle = async (
   userId: string,
   postIndex: number,
@@ -279,6 +303,10 @@ export const editBoardArticle = async (
   return response.data;
 };
 
+/**
+ * Editor - 업로드된 이미지 url 조회
+ * @description APIServer X
+ */
 export const getFileUploadUrl = async () => {
   const response: AxiosResponse<EditorImageUrlResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/editorFileUploadUrl`
@@ -286,6 +314,10 @@ export const getFileUploadUrl = async () => {
   return response.data;
 };
 
+/**
+ * Editor - 이미지 업로드
+ * @description APIServer X
+ */
 export const uploadEditorFile = async (
   userId: string,
   fileName: string,
@@ -301,9 +333,9 @@ export const uploadEditorFile = async (
 };
 
 /**
- * Report
+ * 게시글 신고하기
+ * @description APIServer X
  */
-/* 신고 */
 export const reportPost = async (
   identity: string,
   page: number,
@@ -321,10 +353,13 @@ export const reportPost = async (
       report_type: report_type,
     }
   );
-
   return response;
 };
 
+/**
+ * 댓글 신고하기
+ * @description APIServer X
+ */
 export const reportComment = async (
   identity: string,
   comment_idx: string,
@@ -338,20 +373,18 @@ export const reportComment = async (
       report_type: report_type,
     }
   );
-
   return response;
 };
 
 /**
- * User
+ * 유저정보 조회
+ * @description APIServer X
  */
-/* 유저정보 */
 export const getUser = async (identity?: string, user_idx?: string) => {
   const response: AxiosResponse<UserResponseType> = await axios.get(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/user`,
     { params: { user_idx, identity } }
   );
-
   return response.data;
 };
 
@@ -359,15 +392,16 @@ export const getUser = async (identity?: string, user_idx?: string) => {
  * TOP50 인기 게시판
  */
 export const getTop50PopularBoards = async (lang: ServerLangType) => {
-  const response: AxiosResponse<Top50PopularBoardsResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/PopularTop50`,
-    { params: { lang } }
+  const response: AxiosResponse<Top50PopularBoardsResponseType> = await APIServer.get(
+    '/boards/top',
+    { params: { lang, takeCount: 50 } }
   );
   return response.data;
 };
 
 /**
  * Best 인기글 게시판
+ * @description APIServer X
  */
 export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsViewType) => {
   const response: AxiosResponse<BestPostsResponseType> = await axios.get(
@@ -378,48 +412,40 @@ export const getBestPosts = async (lang: ServerLangType, viewType: BestPostsView
 };
 
 /**
- * Bookmark
+ * 북마크 조회
  */
-export const getBookmarks = async (identity: string, lang: UrlLangType) => {
-  const response: AxiosResponse<BookmarksResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmarks`,
-    { params: { identity, lang } }
+export const getBookmarks = async (identity: string | null, lang: UrlLangType) => {
+  const response: AxiosResponse<BookmarksResponseType> = await APIServer.get('/boards/bookmark', {
+    params: identity ? { identity, lang } : { lang },
+  });
+  return response.data;
+};
+
+/**
+ * 커뮤니티 메인페이지 - 공지 리스트 조회
+ */
+export const getMainPageNotices = async (collectionId: number) => {
+  const response: AxiosResponse<MainPageNoticesResponseType> = await APIServer.get(
+    `/posts/collection/${collectionId}`
   );
   return response.data;
 };
 
 /**
- * 전체 공지
+ * 북마크 추가
  */
-export const getMainPageNotices = async (collectionId: number) => {
-  const response: AxiosResponse<MainPageNoticesResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/mainpageNotices`,
-    { params: { collectionId } }
-  );
-  return response.data;
-};
-
 export const postBookmark = async (identity: string, menuId: number) => {
-  const response: AxiosResponse = await axios.post(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark`,
-    {
-      identity,
-      menuId,
-    }
-  );
+  const response: AxiosResponse = await APIServer.post('/boards/bookmark', { identity, menuId });
   return response;
 };
 
+/**
+ * 북마크 해제
+ */
 export const deleteBookmark = async (identity: string, menuId: number) => {
-  const response: AxiosResponse = await axios.delete(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/bookmark?menuId=${menuId}`,
-    {
-      data: {
-        identity,
-        menuId,
-      },
-    }
-  );
+  const response: AxiosResponse = await APIServer.delete('/boards/bookmark', {
+    data: { identity, menuId },
+  });
   return response;
 };
 
@@ -428,27 +454,30 @@ export const deleteBookmark = async (identity: string, menuId: number) => {
  * @param boardIds 빈 배열 / undefined 모두 가능
  */
 export const getMultiBoardsInquiry = async (
-  identity: string,
+  identity: string | null,
   lang: ServerLangType,
   boardIds: Array<string | number>
 ) => {
-  const response: AxiosResponse<MultiBoardsInquiryResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/multiBoardsInquiry`,
-    { params: { identity, lang, boardIds }, paramsSerializer: { indexes: null } }
-  );
+  const response: AxiosResponse<MultiBoardsInquiryResponseType> = await APIServer.get('/boards', {
+    params: { identity, 'boardIds[]': boardIds, lang },
+  });
   return response.data;
 };
 
-/* sideMenus + Menus */
+/**
+ * 사이드 메뉴리스트 조회
+ */
 export const getSideMenu = async (lang: ServerLangType, identity: string) => {
-  const response: AxiosResponse<sideMenuResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/sideMenu`,
-    { params: { lang, identity } }
-  );
+  const response: AxiosResponse<sideMenuResponseType> = await APIServer.get('/menus/side', {
+    params: identity ? { lang, identity } : { lang },
+  });
   return response.data;
 };
 
-/* Block User */
+/**
+ * 차단 유저 조회
+ * @description APIServer X
+ */
 export const getBlockUsers = async (
   userId: string,
   user_idx: number,
@@ -462,6 +491,10 @@ export const getBlockUsers = async (
   return response.data;
 };
 
+/**
+ * 유저 차단
+ * @description APIServer X
+ */
 export const postBlockUser = async (user_id: string, user_idx: string, targetUserIdx: number) => {
   const response: AxiosResponse = await axios.post(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/blockUser`,
@@ -474,6 +507,10 @@ export const postBlockUser = async (user_id: string, user_idx: string, targetUse
   return response;
 };
 
+/**
+ * 유저 차단 해제
+ * @description APIServer X
+ */
 export const deleteBlockUser = async (user_id: string, user_idx: string, targetUserIdx: number) => {
   const response: AxiosResponse = await axios.delete(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/blockUser?targetUserIdx=${targetUserIdx}`,

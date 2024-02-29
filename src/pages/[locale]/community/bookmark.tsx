@@ -58,8 +58,8 @@ const Bookmark = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = nookies.get(context);
-  const userId = context.req.cookies.user_id || '';
-  const user_idx = context.req.cookies.user_idx;
+  const userId = context.req.cookies.user_id || null;
+  const user_idx = context.req.cookies.user_idx || null;
   const urlLang = context.query.locale as UrlLangType;
   const serverLang = translateUrlLangToServerLang(urlLang);
   const boardLangCookie = (cookies['boardLang'] as BoardLangType) || 'ALL';

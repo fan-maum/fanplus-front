@@ -2,10 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 
 export const APIServer = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  headers: {
-    'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_CLIENT_URL,
-    'Cache-Control': 'no-cache',
-  },
+  headers: { 'Cache-Control': 'no-cache' },
 });
 
 // TODO: 통합 에러 핸들링.. 추후
