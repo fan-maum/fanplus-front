@@ -2,10 +2,8 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 
 export const APIServer = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  timeout: 5000,
   headers: {
     'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_CLIENT_URL,
-    'Access-Control-Allow-Credentials': 'true',
     'Cache-Control': 'no-cache',
   },
 });

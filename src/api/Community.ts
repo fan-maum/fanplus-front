@@ -59,7 +59,7 @@ export const getCommunityBoardTopics = async (boardIndex: number, lang: ServerLa
  * 검색페이지 - 카테고리 조회
  */
 export const getCommunityBoardCategoryData = async (lang: ServerLangType) => {
-  const response: AxiosResponse = await APIServer.get(`/voteWeb/search/category`, {
+  const response: AxiosResponse = await APIServer.get('/voteWeb/search/category', {
     params: { lang },
   });
   return response.data;
@@ -67,7 +67,7 @@ export const getCommunityBoardCategoryData = async (lang: ServerLangType) => {
 
 /**
  * 검색페이지 - 단일 카테고리 리스트 조회
- * @todo 여기서부터....
+ * @description APIServer X
  */
 export const getCommunityBoardResultData = async (
   category_type: number,
@@ -87,17 +87,16 @@ export const getCommunityBoardResultData = async (
  * 팬픽 페이지 - 슬라이드 배너 공지 리스트 조회
  */
 export const getCommunityNoticeBannerData = async (boardIndex: number, lang: ServerLangType) => {
-  const response: AxiosResponse<CommunityNoticeBannerResponseType> = await axios.get(
-    `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/noticeBanner`,
-    { params: { boardIndex, lang } }
+  const response: AxiosResponse<CommunityNoticeBannerResponseType> = await APIServer.get(
+    `/voteWeb/boards/${boardIndex}/banners`,
+    { params: { lang } }
   );
   return response.data;
 };
 
 /**
- * Post
+ * 상세게시글 조회
  */
-/* 게시글 불러오기 */
 export const getCommunityPostData = async (
   boardIndex: number,
   postIndex: number,
@@ -111,6 +110,10 @@ export const getCommunityPostData = async (
   return response.data;
 };
 
+/**
+ * 상세게시글 삭제
+ * @description APIServer X
+ */
 export const deletePost = async (identity: string, post_idx: string, mode: 'reset' | 'remove') => {
   const response: AxiosResponse = await axios.delete(
     `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/community/deletePost?identity=${identity}&post_idx=${post_idx}&mode=${mode}`,
@@ -125,6 +128,9 @@ export const deletePost = async (identity: string, post_idx: string, mode: 'rese
   return response;
 };
 
+/**
+ * 댓글 조회
+ */
 export const getComments = async (
   postIndex: number,
   identity: string | null,
