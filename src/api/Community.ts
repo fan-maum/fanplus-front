@@ -148,6 +148,8 @@ export const getComments = async (
   const response: AxiosResponse = await APIServer.get(`/voteWeb/posts/${postIndex}/comments`, {
     params: identity ? queriesWithUserId : queries,
   });
+
+  //eslint-disable-next-line no-console
   console.log(response);
   return response.data;
 };
