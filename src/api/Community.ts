@@ -139,9 +139,16 @@ export const getComments = async (
   page: number,
   per_page: number
 ) => {
-  const response: AxiosResponse = await axios.get(`/api/community/comment`, {
-    params: { postIndex, identity, lang, order_by, page, per_page },
+  // const response: AxiosResponse = await axios.get(`/api/community/comment`, {
+  //   params: { postIndex, identity, lang, order_by, page, per_page },
+  // });
+  const queries = { lang, order_by, page, per_page };
+  const queriesWithUserId = { ...queries, identity };
+
+  const response: AxiosResponse = await APIServer.get(`/voteWeb/posts/${postIndex}/comments`, {
+    params: identity ? queriesWithUserId : queries,
   });
+  console.log(response);
   return response.data;
 };
 
