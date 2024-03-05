@@ -1,8 +1,13 @@
-import { NextRouter } from "next/router";
-import { deleteLikes, postLikes } from "@/api/Community";
-import { CommentListItemType } from "@/types/community";
+import { NextRouter } from 'next/router';
+import { deleteLikes, postLikes } from '@/api/Community';
+import { CommentListItemType } from '@/types/community';
 
-export async function useLikesButtonOnClick({identity, comment, refetchFunc, router}: LikesOnClickProps) {
+export async function useLikesButtonOnClick({
+  identity,
+  comment,
+  refetchFunc,
+  router,
+}: LikesOnClickProps) {
   if (identity !== null) {
     if (comment.ALREADY_LIKE === 'Y') {
       await deleteLikes(comment.COMMENT_IDX, identity);
@@ -17,8 +22,8 @@ export async function useLikesButtonOnClick({identity, comment, refetchFunc, rou
 }
 
 export type LikesOnClickProps = {
-    identity: string;
-    comment: CommentListItemType;
-    refetchFunc: () => void;
-    router: NextRouter;
-}
+  identity: string;
+  comment: CommentListItemType;
+  refetchFunc: () => void;
+  router: NextRouter;
+};

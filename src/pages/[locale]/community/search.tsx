@@ -75,8 +75,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const searchValue = context.query.searchValue || '';
   const page = parseInt(context.query.page as string) - 1 || 0;
   const per_page = 20;
-  const user_id = context.req.cookies.user_id;
-  const user_idx = context.req.cookies.user_idx;
+  const user_id = context.req.cookies.user_id || null;
+  const user_idx = context.req.cookies.user_idx || null;
 
   const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
   const boardResultData = await getCommunityBoardResultData(
