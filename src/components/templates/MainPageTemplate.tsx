@@ -74,9 +74,11 @@ const MainPageTemplate = ({ voteLists, urlLang }: MainPageTemplateProps) => {
             }}
           >
             <div css={{ alignSelf: 'center', justifySelf: 'center', margin: '0px 10px 40px' }}>
-              <h1>{area1.line1}</h1>
-              <h1>{area1.line2}</h1>
-              {area1.line3 && <h1>{area1.line3}</h1>}
+              <h1>
+                <div>{area1.line1}</div>
+                <div>{area1.line2}</div>
+                {area1.line3 && <div>{area1.line3}</div>}
+              </h1>
             </div>
             <div css={{ display: 'flex' }}>
               <AppLink
