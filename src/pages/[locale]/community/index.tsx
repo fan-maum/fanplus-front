@@ -73,34 +73,42 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const isAdminAccount = user_idx === process.env.NEXT_PUBLIC_ADMIN_ACCOUNT_IDX;
   const HomeBoardType = 'community';
 
-  const communityHomeSSRdata: CommunityBoardAllResponseType = await getCommunityBoardData(
-    userId,
-    HomeBoardType,
-    page,
-    perPage,
-    serverLang,
-    boardLangCookie,
-    view_type,
-    topic,
-    maxPage
-  );
+  try {
+    const communityHomeSSRdata: CommunityBoardAllResponseType = await getCommunityBoardData(
+      userId,
+      HomeBoardType,
+      page,
+      perPage,
+      serverLang,
+      boardLangCookie,
+      view_type,
+      topic,
+      maxPage
+    );
 
-  const queryParams = { urlLang, userId, isAdminAccount, boardLangCookie, maxPage };
-  const initialProps = { page, serverLang, boardLangCookie, view_type, topic };
+    const queryParams = { urlLang, userId, isAdminAccount, boardLangCookie, maxPage };
+    const initialProps = { page, serverLang, boardLangCookie, view_type, topic };
 
-  const props = {
-    queryParams,
-    communityHomeSSRdata,
-    initialProps,
-  };
+    const props = {
+      queryParams,
+      communityHomeSSRdata,
+      initialProps,
+    };
 
-  if (!!userId && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { ...props, user } };
+    if (!!userId && !!user_idx) {
+      const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
+      const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+      return { props: { ...props, user } };
+    }
+
+    return { props };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+      props: {},
+    };
   }
-
-  return { props };
 };
 
 export default CommunityHomePage;

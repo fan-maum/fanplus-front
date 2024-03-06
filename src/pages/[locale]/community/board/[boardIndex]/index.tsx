@@ -80,37 +80,44 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (!boardType) return { notFound: true };
 
-  const communityBoardSSRdata: CommunityBoardResponseType = await getCommunityBoardData(
-    userId,
-    boardType,
-    page,
-    perPage,
-    serverLang,
-    boardLangCookie,
-    view_type,
-    topic,
-    maxPage
-  );
+  try {
+    const communityBoardSSRdata: CommunityBoardResponseType = await getCommunityBoardData(
+      userId,
+      boardType,
+      page,
+      perPage,
+      serverLang,
+      boardLangCookie,
+      view_type,
+      topic,
+      maxPage
+    );
 
-  const communityBoardTopics = await getCommunityBoardTopics(boardType, serverLang);
-  const communityNoticeBannerData = await getCommunityNoticeBannerData(boardType, serverLang);
-  const queryParams = { urlLang, userId, isAdminAccount, boardLangCookie, maxPage };
-  const initialProps = { page, serverLang, boardLangCookie, view_type, topic };
-  const props = {
-    queryParams,
-    communityBoardSSRdata,
-    communityBoardTopics,
-    communityNoticeBannerData,
-    initialProps,
-  };
+    const communityBoardTopics = await getCommunityBoardTopics(boardType, serverLang);
+    const communityNoticeBannerData = await getCommunityNoticeBannerData(boardType, serverLang);
+    const queryParams = { urlLang, userId, isAdminAccount, boardLangCookie, maxPage };
+    const initialProps = { page, serverLang, boardLangCookie, view_type, topic };
+    const props = {
+      queryParams,
+      communityBoardSSRdata,
+      communityBoardTopics,
+      communityNoticeBannerData,
+      initialProps,
+    };
 
-  if (!!userId && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { ...props, user } };
+    if (!!userId && !!user_idx) {
+      const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
+      const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+      return { props: { ...props, user } };
+    }
+
+    return { props };
+  } catch (error) {
+    return {
+      notFound: true,
+      props: {},
+    };
   }
-
-  return { props };
 };
 
 export default Board;

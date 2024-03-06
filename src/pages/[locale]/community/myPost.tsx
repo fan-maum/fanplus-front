@@ -59,32 +59,42 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const topic = parseInt(context.query.topic as string) || 0;
   const boardType = 'myPost';
 
-  const communityMyPostData = await getCommunityBoardData(
-    userId,
-    boardType,
-    page,
-    perPage,
-    serverLang,
-    boardLangCookie,
-    view_type,
-    topic,
-    maxPage
-  );
-
-  if (!!userId && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { urlLang, boardLangCookie, userId: userId, user_idx, communityMyPostData, user } };
-  }
-  return {
-    props: {
-      urlLang,
+  try {
+    const communityMyPostData = await getCommunityBoardData(
+      userId,
+      boardType,
+      page,
+      perPage,
+      serverLang,
       boardLangCookie,
-      userId: userId,
-      user_idx,
-      communityMyPostData,
-    },
-  };
+      view_type,
+      topic,
+      maxPage
+    );
+
+    if (!!userId && !!user_idx) {
+      const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
+      const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+      return {
+        props: { urlLang, boardLangCookie, userId: userId, user_idx, communityMyPostData, user },
+      };
+    }
+    return {
+      props: {
+        urlLang,
+        boardLangCookie,
+        userId: userId,
+        user_idx,
+        communityMyPostData,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+      props: {},
+    };
+  }
 };
 
 export default MyPostPage;
