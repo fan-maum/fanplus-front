@@ -78,20 +78,34 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const user_id = context.req.cookies.user_id;
   const user_idx = context.req.cookies.user_idx;
 
-  const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
-  const boardResultData = await getCommunityBoardResultData(
-    category_type,
-    searchValue,
-    serverLang,
-    page,
-    per_page
-  );
+  try {
+    const boardCategoryData = await getCommunityBoardCategoryData(serverLang);
+    const boardResultData = await getCommunityBoardResultData(
+      category_type,
+      searchValue,
+      serverLang,
+      page,
+      per_page
+    );
 
-  const initialProps = { category_type, searchValue, serverLang, page };
+    const initialProps = { category_type, searchValue, serverLang, page };
 
-  if (!!user_id && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+    if (!!user_id && !!user_idx) {
+      const { NICK, PROFILE_IMG_URL } = (await getUser(user_id, user_idx)).RESULTS.DATAS;
+      const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+      return {
+        props: {
+          urlLang,
+          boardLangCookie,
+          user_id,
+          boardCategoryData,
+          boardResultData,
+          initialProps,
+          user,
+        },
+      };
+    }
+
     return {
       props: {
         urlLang,
@@ -100,19 +114,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         boardCategoryData,
         boardResultData,
         initialProps,
-        user,
       },
     };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+      props: {},
+    };
   }
-
-  return {
-    props: {
-      urlLang,
-      boardLangCookie,
-      user_id,
-      boardCategoryData,
-      boardResultData,
-      initialProps,
-    },
-  };
 };

@@ -75,13 +75,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     initialProps,
   };
 
-  if (!!userId && !!user_idx) {
-    const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
-    const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
-    return { props: { ...props, user } };
-  }
+  try {
+    if (!!userId && !!user_idx) {
+      const { NICK, PROFILE_IMG_URL } = (await getUser(userId, user_idx)).RESULTS.DATAS;
+      const user = { nickname: NICK, profileImage: PROFILE_IMG_URL };
+      return { props: { ...props, user } };
+    }
 
-  return { props };
+    return { props };
+  } catch (error) {
+    console.error(error);
+    return {
+      notFound: true,
+      props: {},
+    };
+  }
 };
 
 export default Bookmark;
