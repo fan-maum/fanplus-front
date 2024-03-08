@@ -29,7 +29,7 @@ const VoteDetailPrizeList = ({
   ...props
 }: VoteDetailPrizeListProps) => {
   const items = prizeTabContents.prizeTabContentsItem;
-  const isShowThirdPrize = items.find(
+  const isShowThirdOrFourthPrize = items.find(
     (item) => item.isRequired === false && item.contents.PRIZE_IMG !== null
   );
   return (
@@ -38,7 +38,7 @@ const VoteDetailPrizeList = ({
       <div>
         {items.map(
           (item, index) =>
-            (item.isRequired || isShowThirdPrize) && (
+            (item.isRequired || isShowThirdOrFourthPrize) && (
               <div key={item.id}>
                 {index !== 0 && <Divider size={2} css={{ margin: '0 16px' }} />}
                 <VoteDetailPrizeBox

@@ -113,7 +113,7 @@ const VoteDetailLayout = ({
         id: 'prizeTab_03',
         titleImage: '/icons/icon_medal2.png',
         title: voteDetailLanguage?.prizeTitle.second,
-        isRequired: true,
+        isRequired: false,
         contents: {
           PRIZE_IMG: voteDetails.RESULTS.DATAS.VOTE_INFO.SECOND_PRIZE_IMG,
           PRIZE_TITLE: voteDetails.RESULTS.DATAS.VOTE_INFO.SECOND_PRIZE_TITLE,
