@@ -154,7 +154,6 @@ const VoteDetailLayout = ({
     return nextQuery.slice(0, nextQuery.length - 1);
   };
 
-  // setting 하는 Data가 다를 것..
   async function handleRefresh() {
     // const voteIndex = router.query['vote_IDX'] as string;
     const id = router.query['id'] as string;
